@@ -1,6 +1,6 @@
-Title: Profiling django requests
+Title: Reindenting JSON and XML with vim
 Date: 2016-03-04 15:38
-Category: Python
+Category: vim
 
 I like how vim can integrate with external utilities. Here are commands that I use:
 
