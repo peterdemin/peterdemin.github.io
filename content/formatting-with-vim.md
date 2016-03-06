@@ -2,7 +2,8 @@ Title: Reindenting JSON and XML with vim
 Date: 2016-03-04 15:38
 Category: vim
 
-I like how vim can integrate with external utilities. Here are commands that I use:
+One of vim's great feature is how it can integrate with external utilities.
+Here are commands that I use most:
 
 	:% !python -mjson.tool
 
@@ -17,6 +18,6 @@ This one is longer, but still envocation is obvious.
 
 Also I want to mention [janko-m/vim-test] which starts testing framework.
 
-I believe it is the simpliest extension interface for among all editors I ever used.
+I believe it is the simpliest extension interface among all editors I ever used.
 
 [janko-m/vim-test]: https://github.com/janko-m/vim-test
