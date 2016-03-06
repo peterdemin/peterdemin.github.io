@@ -3,8 +3,8 @@
 from __future__ import unicode_literals
 
 AUTHOR = 'Peter Demin'
-SITENAME = 'Yet Another Developer Blog'
-SITEURL = ''
+SITENAME = 'Peter Demin'
+SITEURL = 'https://peterdemin.github.io/'
 
 PATH = 'content'
 STATIC_PATHS = ['images']
@@ -22,7 +22,6 @@ AUTHOR_FEED_RSS = None
 
 # Blogroll
 LINKS = (
-    ('Pelican', 'http://getpelican.com/'),
 )
 
 # Social widget
@@ -37,3 +36,10 @@ DEFAULT_PAGINATION = False
 RELATIVE_URLS = True
 
 TYPOGRIFY = True
+
+THEME = 'notmyidea'
+
+PLUGIN_PATHS = ['plugins']
+PLUGINS = [
+    'gravatar',
+]
