@@ -37,7 +37,7 @@ RELATIVE_URLS = True
 
 TYPOGRIFY = True
 
-THEME = 'notmyidea'
+THEME = 'aboutwilson'
 
 PLUGIN_PATHS = ['plugins']
 PLUGINS = [
