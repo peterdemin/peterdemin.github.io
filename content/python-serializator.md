@@ -26,7 +26,7 @@ Nothing special so far. Here is entity definition.
 
 ```yaml
 Author:
-    username: {type: String, max_length: 30}
+    username: {type: String, max_length: 30, primary-key: true}
     email: Email
     password: {type: String, private: true}
 ```
@@ -34,10 +34,22 @@ Author:
 We define entity author, that has fields username, email and password.
 Username and password use full notation and have type string.
 Email uses short notation of type alone.
-Also, username length is limited to 30 symbols and password field is marked as private.
+Also, username length is limited to 30 symbols and it is marked as primary key for Author.
+Password field is marked as private.
 Entity and type names use CamelCase notation and field names are lowercase.
 
-For this definition, we can auto generate following Django model:
+Let's use built-in generator to create a python class from this definition:
+
+```py
+>>> definition = load_yaml("author.yaml")
+>>> Author = make_class(definition)
+>>> peter = Author(username="peter", email="peter@data-driven.com", password="secret")
+>>> peter
+<Author username="peter">
+```
+
+Not very useful, but it shows the idea. For people familiar with Django ORM,
+we can auto generate following Django model:
 
 ```py
 from django.db import models
@@ -48,7 +60,7 @@ class Author(models.Model):
     password = models.CharField(max_length=255)
 ```
 
-And solr schema:
+And for solr schema:
 
 ```xml
 <fields>
@@ -57,8 +69,8 @@ And solr schema:
 </fields>
 ```
 
-That easy! All generators are pluggable and customizable. But at this point we looked at simplistic
-example of one entity.
+That easy! All generators are pluggable and customizable.
+But at this point we looked at simplistic example of one entity.
 
 # More complex example
 
@@ -66,19 +78,19 @@ Let's define blog. Blog has posts, authors, tags and annotations.
 
 ```yaml
 Blog:
-    posts: {list-of: Post}
-    authors: {list-of: Author}
-    tags: {list-of: Tag}
+    posts: {list-of: Post, own: true}
+    authors: {list-of: Author, link-through: Post}
+    tags: {list-of: Tag, link-through: Post}
     annotation: String
 Post:
     author: Author
     tags: {list-of: Tag}
     title: String
-    body: String
-    created: Datetime
-    updated: Datetime
+    body: Text
+    created: {type: Datetime, auto-set-on: create}
+    updated: {type: Datetime, auto-set-on: update}
 Author:
-    username: {type: String, max_length: 30}
+    username: {type: String, max_length: 30, primary-key: true}
     email: Email
     password: {type: String, private: true}
 Tag:
@@ -86,3 +98,19 @@ Tag:
 ```
 
 We added more entity definitions with relations between them.
+Let's dig into relations.
+As you may see, Author and Tag entities are connected to both Post and Blog.
+But `link-through` key disambiguates relationship, so that Blog does not contain Tags directly.
+
+Schematically defined entity relations can be represented with this diagram:
+
+```
+Blog (1 -> *) Post
+Post (* -> 1) Author
+Post (* -> *) Tag
+```
+
+One Blog can have many Posts, but each Post belong to exactly on Blog (One-to-Many relationship),
+because Blog.posts are defined as list with `own` flag set to `true`.
+Each Post has one Author, but Author can have many Posts - that what happens when declaring simple field.
+And finally each Post can have many Tags and each Tag can be attached to many posts (Many-to-Many).
