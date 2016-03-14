@@ -1,3 +1,5 @@
+Title: Schema generators
+
 # Preface
 
 My team was developing simple storage service, that aggregates data from number of not so simple storages.
