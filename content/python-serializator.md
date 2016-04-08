@@ -1,4 +1,4 @@
-Title: Mutant - Data Schema Transformations
+Title: Mutant - Data Schema Generator
 Date: 2016-03-16
 
 # Preface
@@ -17,13 +17,13 @@ And now, when we want to add new field, we have to change code in 6 places:
 
 That's way too easy to forget about one place.
 
-# Serialization framework layout
+# Data Definition Language and Code Generator
 
 That's why I think about creating data-driven framework, that will allow us to define our data once
 and have everything else automatically derived.
 
 Let's imagine how data definition would look like using YAML format.
-Definition should be succinct for common cases and extensible for every possible special case. 
+Definition should be brief for common cases and extensible for every possible special case. 
 So, we will describe document, that contains linked entities, with each entity having it's own set of fields.
 Nothing special so far. Here is entity definition.
 
@@ -41,7 +41,7 @@ Also, username length is limited to 30 symbols and it is marked as primary key f
 Password field is marked as private.
 Entity and type names use CamelCase notation and field names are lowercase.
 
-Let's use built-in generator to create a python class from this definition:
+So there could be some simple generator, that makes Python classes for definitions:
 
 ```py
 >>> definition = load_yaml("author.yaml")
@@ -57,8 +57,9 @@ we can auto generate following Django model:
 ```py
 from django.db import models
 
+
 class Author(models.Model):
-    username = models.CharField(max_length=30)
+    username = models.CharField(primary_key=True, max_length=30)
     email = models.EmailField()
     password = models.CharField(max_length=255)
 ```
@@ -72,7 +73,7 @@ And for solr schema:
 </fields>
 ```
 
-That easy! All generators are pluggable and customizable.
+That easy! Well, I'll need to find a way to make generators extendable.
 But at this point we looked at simplistic example of one entity.
 
 # More complex example
@@ -117,3 +118,5 @@ One Blog can have many Posts, but each Post belong to exactly on Blog (One-to-Ma
 because Blog.posts are defined as list with `own` flag set to `true`.
 Each Post has one Author, but Author can have many Posts - that what happens when declaring simple field.
 And finally each Post can have many Tags and each Tag can be attached to many posts (Many-to-Many).
+
+Looks like used YAML structure is versatile enough for given task.
