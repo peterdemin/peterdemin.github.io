@@ -20,7 +20,7 @@ Here are requirements:
 	gprof2dot			# For rendering profile results in dot format
 	ipython				# For magic commands %prun and %%bash
 
-If ipython is not an option, cProfile.runctx_ can be used:
+If ipython is not an option, cProfile.runctx can be used:
 
 	>>> import cProfile
 	>>> cProfile.runctx("client.get('/')", globals(), locals(), sort=2, filename='profile.pstats')
