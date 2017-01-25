@@ -16,6 +16,12 @@ Same trick for XML documents is archived with command:
 
 This one is longer, but still envocation is obvious.
 
+And finally pretty printing Python structures:
+
+    % !python -c 'import pprint, sys; pprint.pprint(eval(sys.stdin.read()))'
+
+The last one is so long, it deserves it's own nnoremap.
+
 Also I want to mention [janko-m/vim-test] which starts testing framework.
 
 I believe it is the simpliest extension interface among all editors I ever used.
