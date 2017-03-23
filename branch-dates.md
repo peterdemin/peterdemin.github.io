@@ -1,6 +1,4 @@
-Title: List date of last commit on git branches
-Date: 2016-03-04 15:38
-Category: git
+# List date of last commit on git branches
 
 Print all local branch names with date of last commit:
 

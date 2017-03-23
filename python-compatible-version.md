@@ -1,6 +1,4 @@
-Title: Subtleties of Python compatible release version specifier
-Date: 2016-03-22 15:38
-Category: Python
+# Subtleties of Python compatible release version specifier
 
 Python's most popular package management system - [pip](https://pypi.python.org/pypi/pip) - comes
 to great help to developers and IMHO is significant part of Python's popularity.

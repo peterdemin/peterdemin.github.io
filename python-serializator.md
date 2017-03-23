@@ -1,5 +1,4 @@
-Title: Mutant - Data Schema Generator
-Date: 2016-03-16
+# Mutant - Data Schema Generator
 
 # Preface
 

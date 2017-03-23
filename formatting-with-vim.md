@@ -1,6 +1,4 @@
-Title: Reindenting JSON and XML with vim
-Date: 2016-03-04 15:38
-Category: vim
+# Reindenting JSON and XML with vim
 
 One of vim's great feature is how it can integrate with external utilities.
 Here are commands that I use most:

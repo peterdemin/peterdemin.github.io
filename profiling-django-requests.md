@@ -1,6 +1,4 @@
-Title: Profiling django requests
-Date: 2016-03-03 15:38
-Category: Python
+# Profiling django requests
 
 Here is my favorite way of profiling requests to Django site:
 

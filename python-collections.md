@@ -1,6 +1,4 @@
-Title: Beauty of Python's collections module
-Date: Sun Mar 6 15:16:19 EST 2016
-Category: Python
+# Beauty of Python's collections module
 
 Python is [famed](https://en.wikipedia.org/wiki/Duck_typing#In_Python) for embracing duck typing.
 It is nice idea in a number of ways, allowing functions to work equally well with
