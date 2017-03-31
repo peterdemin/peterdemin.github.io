@@ -10,7 +10,7 @@ And once this table grows to millions of records, deleting them (on replicated d
 One solution is to split records into small batches and delete each in it's own transaction.
 I wrapped it in django management command:
 
-```
+```python
 import time
 
 from django.core.management.base import BaseCommand
