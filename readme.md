@@ -7,3 +7,4 @@ I write about Python and vim.
 * [Beauty of Python’s collections module](python-collections.html)
 * [Intro to Mutant - Data Schema Transformations](python-serializator.html)
 * [Subtleties of Python compatible release version specifier](python-compatible-version.html)
+* [List date of last commit on git branches](branch-dates.html)
