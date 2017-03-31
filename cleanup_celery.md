@@ -62,7 +62,7 @@ class Command(BaseCommand):
                 self.stderr.write(str(exc))
                 time.sleep(60)
                 step = max(10, step / 2)
-                
+        return
 ```
 Here's the gist: https://gist.github.com/peterdemin/aa3abb3a96e564e54771cc792f9159fa
 
