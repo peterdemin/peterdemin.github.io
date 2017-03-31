@@ -61,7 +61,8 @@ class Command(BaseCommand):
             except ProgrammingError as exc:
                 self.stderr.write(str(exc))
                 time.sleep(60)
-                step = max(10, step / 2)
+                step = max(10, step / 2)
+                
 ```
 Here's the gist: https://gist.github.com/peterdemin/aa3abb3a96e564e54771cc792f9159fa
 
