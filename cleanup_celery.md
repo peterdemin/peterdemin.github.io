@@ -64,7 +64,7 @@ class Command(BaseCommand):
                 step = max(10, step / 2)
         return
 ```
-Here's the gist: https://gist.github.com/peterdemin/aa3abb3a96e564e54771cc792f9159fa
+Here's the [gist](https://gist.github.com/peterdemin/aa3abb3a96e564e54771cc792f9159fa)
 
 Here is the log for batch size adaptation:
 
