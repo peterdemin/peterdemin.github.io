@@ -1,5 +1,7 @@
 I work for National Institute of Health in United States developing web services in Python.
-Previously I lived in Russia and Belorussia working for EPAM and Yandex in the same position.
+
+Previously I lived in Russia and Belorussia working for Yandex and EPAM in the same position.
+
 I write about Python and vim.
 
 * [Clean up Celery tasks from database](cleanup_celery.html)
