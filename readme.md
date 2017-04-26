@@ -11,3 +11,4 @@ I write about Python and vim.
 * [Intro to Mutant - Data Schema Transformations](python-serializator.html)
 * [Subtleties of Python compatible release version specifier](python-compatible-version.html)
 * [List date of last commit on git branches](branch-dates.html)
+* [How to clean up stale git branches](git-branch-cleanup.html)
