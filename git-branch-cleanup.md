@@ -3,11 +3,12 @@
 I enjoy git branching and use it for every new feature or bugfix.
 Once feature is complete, I merge it back to `master` branch with `--no-ff` flag.
 Once set of features are ready for production, I merge `master` into `release` with `--no-ff`.
-$ git log --all --graph --decorate --onelineThen I merge `release` into `master` with `--ff-only` to keep history slim. 
+Then I merge `release` into `master` with `--ff-only` to keep history slim.
+
 With this approach I can see clean history of project evolution:
 
 ```shell
-
+$ git log --all --graph --decorate --oneline
 *   fef063b (HEAD -> master, origin/master, release, origin/release, origin/HEAD) Merge pull request #406 from master to release
 |\
 | * 698f76f Here I stressed out and committed hot-fix right in master branch
