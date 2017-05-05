@@ -60,4 +60,4 @@ $ kibitzr run
 Note how credentials file is individual while check definition is general.
 There are existing check snippets for Bank of America, Discover, American Express and adding new is a matter of minutes.
 
-If you like the idea and want to be a part of Kibitzr community, please drop a line at [Gitter Lobby](https://gitter.im/kibitzr/Lobby) or join [discussion on HackerNews](https://news.ycombinator.com/item?id=14275953)
+If you like the idea and want to be a part of Kibitzr community, please drop a line at [Gitter Lobby](https://gitter.im/kibitzr/Lobby) or join [discussion on Hacker News](https://news.ycombinator.com/item?id=14275953)
