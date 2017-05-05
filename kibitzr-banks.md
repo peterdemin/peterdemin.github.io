@@ -58,6 +58,6 @@ $ kibitzr run
 ```
 
 Note how credentials file is individual while check definition is general.
-There already are check snippets for Bank of America, Discover, American Express and adding you is a matter of minutes.
+There are existing check snippets for Bank of America, Discover, American Express and adding new is a matter of minutes.
 
 If you like the idea and want to be a part of Kibitzr community, please drop a line at [Gitter Lobby](https://gitter.im/kibitzr/Lobby)
