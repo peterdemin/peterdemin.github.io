@@ -4,6 +4,7 @@ Previously I lived in Russia and Belorussia working for Yandex and EPAM in the s
 
 I write about Python and vim.
 
+* [Kibitzr for banks](kibitzr-banks.html)
 * [Clean up Celery tasks from database](cleanup_celery.html)
 * [Profiling django requests](profiling-django-requests.html)
 * [Reindenting JSON and XML with vim](formatting-with-vim.html)
