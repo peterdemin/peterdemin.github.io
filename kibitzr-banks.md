@@ -10,7 +10,7 @@ It logs in to online bank accounts and extract balances.
 Kibitzr has a [curated snippets collection](https://github.com/kibitzr/recipes/tree/master/banks).
 So I picked the snippets for my banks and mashed them into one file:
 
-<script src="https://gist.github.com/nisrulz/11c0d63428b108f10c83.js"></script>
+<script src="https://gist.github.com/peterdemin/3015b72e4e54c45d559439227373ac6d.js"></script>
 
 Let me explain how it works.
 There are 3 scrapping checks defined in this file: BofA, Discover, AmEx.
