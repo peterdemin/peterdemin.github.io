@@ -6,7 +6,7 @@ So I automated this process.
 In a secure and reusable way.
 
 I built my solution on top of [Kibitzr](https://kibitzr.github.io/) - self-hosted web scrapper.
-It logs in to online bank accounts and extract balances.
+It logs into online bank accounts and extracts balances.
 Kibitzr has a [curated snippets collection](https://github.com/kibitzr/recipes/tree/master/banks).
 So I picked the snippets for my banks and mashed them into one file:
 
@@ -14,16 +14,16 @@ So I picked the snippets for my banks and mashed them into one file:
 
 Let me explain how it works.
 There are 3 scrapping checks defined in this file: BofA, Discover, AmEx.
-Each check open one bank account, scrapes balance value, and saves it to stash.
+Each check opens one bank account, scrapes balance value, and saves it to stash.
 Stash is a Kibitzr's persistent key-value storage.
 In other words, it's a place where you can put data for later use.
 
-Fourth check does aggregation of all balances into one template and sends it
-to my Telegram account. (Actually it sends it to me and my wife private group).
+The fourth check does the aggregation of all balances into one template and sends it
+to my Telegram account. (Actually, it sends it to me and my wife private group).
 
 All scrapping checks are alike, so I will break down the first one.
 
-1. Check declares it's name:
+1. Check declares its name:
    ```yaml
    - name: BofA
    ```
@@ -51,7 +51,7 @@ All scrapping checks are alike, so I will break down the first one.
        - css-all: .balanceValue
        - text
    ```
-6. I have 3 accounts in Bank of America: checking, savings and credit.
+6. I have 3 accounts in Bank of America: checking, savings, and credit.
    They always go in this order, so I stash their values under corresponding keys:
    ```yaml
      notify:
@@ -76,10 +76,10 @@ After their execution I have all the data I need to create a report:
    ```yaml
      script: echo dummy
    ```
-3. All the heavy lifting is done inside Jinja template.
-   It looks scary at first sight. But on closer look it's simple assigning and arithmetics.
+3. Jinja template does all the heavy lifting.
+   It looks scary at first sight. But on closer look, it's simple assigning and arithmetic.
    <script src="https://gist.github.com/peterdemin/c4c800e3eaceb3ffa6777e000f86b4ef.js"></script>
-4. Finally, Kibitzr sends shiny report through Telegram:
+4. Finally, Kibitzr sends a shiny report through Telegram:
    ```yaml
      notify:
        - telegram
@@ -93,8 +93,8 @@ telegram:
     chat: 926461341
 ```
 
-I can't say that I composed whole thing from the first attempt.
-But after some tweaking and poking I've got working configuration,
-that sends me norifications like this one:
+I can't say that I composed the whole thing from the first attempt.
+But after some tweaking and poking, I've got a working configuration,
+that sends me notifications like this one:
 
 ![Balance report](balance.png)
