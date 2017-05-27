@@ -10,91 +10,7 @@ It logs in to online bank accounts and extract balances.
 Kibitzr has a [curated snippets collection](https://github.com/kibitzr/recipes/tree/master/banks).
 So I picked the snippets for my banks and mashed them into one file:
 
-
-```yaml
-checks:
-
-  - name: BofA
-    url: https://www.bankofamerica.com/
-    form:
-      - id: onlineId1
-        creds: keyring.bofa.username
-      - id: passcode1
-        creds: keyring.bofa.password
-      - id: hp-sign-in-btn
-        click: true
-    delay: 5
-    transform:
-      - css-all: .balanceValue
-      - text
-    notify:
-      - stash:
-          bofa_checking: "{{ lines.0 }}"
-          bofa_savings: "{{ lines.1 }}"
-          bofa_credit: "{{ lines.2 }}"
-    period: 3 hours
-
-  - name: Discover
-    url: https://www.discover.com/
-    form:
-      - id: userid
-        creds: keyring.discover.username
-      - id: password
-        creds: keyring.discover.password
-    delay: 5
-    transform:
-        - css: .current-balance
-        - text
-    notify:
-      - stash:
-          discover: "${{ content }}"
-    period: 3h
-
-  - name: AmEx
-    url: https://global.americanexpress.com/dashboard
-    form:
-        - id: lilo_userName
-          creds: keyring.amex.username
-        - id: lilo_password
-          creds: keyring.amex.password
-        - id: lilo_formSubmit
-          click: true
-    delay: 10
-    transform:
-        - xpath: '//*[@id="root"]/div[1]//section//li[2]/div/div[2]/span'
-        - text
-    notify:
-      - stash:
-          amex: "{{ content }}"
-    period: 3h
-
-  - name: Summary
-    script: echo dummy
-    transform:
-      - jinja: |
-          {%- set bofa = stash.bofa_credit | float -%}
-          {%- set discover = stash.discover | float -%}
-          {%- set amex = stash.amex | float -%}
-          {%- set checking = stash.bofa_checking | float -%}
-          {%- set savings = stash.bofa_savings | float -%}
-          {%- set credits = bofa + discover + amex -%}
-          {%- set total = -bofa - discover - amex + checking + savings -%}
-          ```text
-          Checking     {{ '%10s' % stash.bofa_checking }}
-          Savings      {{ '%10s' % stash.bofa_savings }}
-          Credit cards:
-              BofA     {{ '%10s' % stash.bofa_credit }}
-              Discover {{ '%10s' % stash.discover }}
-              AmEx     {{ '%10s' % stash.amex }}
-              *Total*  {{ '%10s' % credits | dollars }}
-          -----------------------
-          Balance      {{ '%10s' % total | dollars }}
-          ```
-      - changes: new
-    notify:
-      - telegram
-    period: 3 hours
-```
+<script src="https://gist.github.com/nisrulz/11c0d63428b108f10c83.js"></script>
 
 Let me explain how it works.
 There are 3 scrapping checks defined in this file: BofA, Discover, AmEx.
@@ -162,29 +78,7 @@ After their execution I have all the data I need to create a report:
    ```
 3. All the heavy lifting is done inside Jinja template.
    It looks scary at first sight. But on closer look it's simple assigning and arithmetics.
-   ```yaml
-     transform:
-       - jinja: |
-           {%- set bofa = stash.bofa_credit | float -%}
-           {%- set discover = stash.discover | float -%}
-           {%- set amex = stash.amex | float -%}
-           {%- set checking = stash.bofa_checking | float -%}
-           {%- set savings = stash.bofa_savings | float -%}
-           {%- set credits = bofa + discover + amex -%}
-           {%- set total = -bofa - discover - amex + checking + savings -%}
-           ```text
-           Checking     {{ '%10s' % stash.bofa_checking }}
-           Savings      {{ '%10s' % stash.bofa_savings }}
-           Credit cards:
-               BofA     {{ '%10s' % stash.bofa_credit }}
-               Discover {{ '%10s' % stash.discover }}
-               AmEx     {{ '%10s' % stash.amex }}
-               *Total*  {{ '%10s' % credits | dollars }}
-           -----------------------
-           Balance      {{ '%10s' % total | dollars }}
-           ```
-       - changes: new
-   ```
+   <script src="https://gist.github.com/peterdemin/c4c800e3eaceb3ffa6777e000f86b4ef.js"></script>
 4. Finally, Kibitzr sends shiny report through Telegram:
    ```yaml
      notify:
