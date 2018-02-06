@@ -141,7 +141,7 @@ Merge pull request #415 in repo from feature to master
 
 ## Scripting the solution
 
-Add these lines to your git config file (user specific 0`~/.gitconfig` or repo specific `.git/config`):
+Add these lines to your git config file (user specific `~/.gitconfig` or repo specific `.git/config`):
 
 ```
 [alias]
