@@ -106,7 +106,7 @@ Here we can clearly see that duplication starts at `h`. Let's remove all unique 
 ```
 
 Example output is in order, so I can just grab the first line.
-But that's true for this simplistic example and not always true in real complex git graphs.
+But that's true for this simplistic example and not likely with real hashes.
 And it is exactly the reason behind adding line numbers.
 After numeric sort:
 
@@ -131,7 +131,7 @@ And strip the line number, leaving the commit hash:
 h
 ```
 
-Having this hash, I was able to (finely) read the commit message and see the pull request number:
+Having this hash, I was able to (finally) read the commit message and see the pull request number:
 
 ```
 git show h
