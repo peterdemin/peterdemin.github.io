@@ -4,6 +4,7 @@ Previously I lived in Russia and Belorussia working for Yandex and EPAM in the s
 
 I write about Python and vim.
 
+* [How to build portable PEX from Python script](script-to-pex.html)
 * [How to create new user in MS SQL](create-mssql-user.html)
 * [How to find merge commit](find-merge-commit.html)
 * [Two-faced JSONField](jsonfield.html)
