@@ -51,3 +51,63 @@ My solution is to run following commands once I see number of stale branches gro
    ```shell
    git branch --merged master | grep -v master | xargs git branch -d
    ```
+   
+   
+# Clean up old unmerged branches
+
+When using rebase-merge strategy, feature branches remain in the repo unmerged to master.
+One simple solution for cleaning up is to just force the deletion of old branches.
+
+To put a list of all local branches into vim, run:
+
+```shell
+git branch | vim -
+```
+
+Inside vim, add the date of the last commit after each branch name. First, record a macro, that reads the date:
+
+```
+qq:read ! git log -1 ^A | grep Date: | cut -d\  -f2-^MkJjq
+```
+
+then undo and apply the macro to all lines:
+
+```
+%g/^/ norm @q
+```
+
+Remove the week day:
+
+```
+%g/^/ norm WdW
+```
+
+Sort lines by date:
+
+```
+%sort /^[^ ]* */
+```
+
+Remove all the lines for the last month (for example, December):
+
+```
+%g/Dec/d
+```
+
+Remove the dates:
+
+```
+%g/^/ norm ED
+```
+
+Join all lines and prepend with `git branch -D`:
+
+```
+ggVGJIgit branch -D ^M
+```
+
+Execute:
+
+```
+w ! bash
+```
