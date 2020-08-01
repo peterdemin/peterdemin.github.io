@@ -1,8 +1,8 @@
-I work for National Institute of Health in United States developing web services in Python.
+I work for [Moveworks](https://moveworks.ai) in United States developing Python services.
 
-Previously I lived in Russia and Belorussia working for Yandex and EPAM in the same position.
+Previously I lived in Russia and Belarus working for Yandex and EPAM in the same position.
 
-I write about Python and vim.
+I write about Python, vim and git.
 
 * [How to build portable PEX from Python script](script-to-pex.html)
 * [How to create new user in MS SQL](create-mssql-user.html)
