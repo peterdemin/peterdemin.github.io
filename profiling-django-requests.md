@@ -28,6 +28,6 @@ Check out this [example profiler result](images/profile.png).
 
 ### References
 
- * [gprof2dot](https://github.com/jrfonseca/gprof2dot) - Converter from pstats format to dot
- * [ipython](http://ipython.org/) - Powerful interactive shell
- * [cProfile.runctx](https://docs.python.org/2/library/profile.html#profile.runctx) - Run profiler with inside current scope
+ * [gprof2dot](https://github.com/jrfonseca/gprof2dot) - converter from pstats format to dot
+ * [ipython](http://ipython.org/) - powerful interactive shell
+ * [cProfile.runctx](https://docs.python.org/2/library/profile.html#profile.runctx) - built-in profiler
