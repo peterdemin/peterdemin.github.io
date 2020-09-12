@@ -8,11 +8,12 @@ No Python knowledge is required, but service is going to use it.
 
 ## Prerequisites
 
-You'll need to host a Linux server somewhere.
-You'll need a domain to serve the API requests.
-It can be a tiny virtual machine, like Google's free tier f1-micro.
-It can be a Heroku node, which will save a few minutes configuring nginx.
-You'll need to be familiar with shell to install and configure service.
+* You'll need to host a Linux server somewhere.
+* You'll need a domain to serve the API requests.
+* It can be a tiny virtual machine, like Google's free tier f1-micro.
+* It can be a Heroku node, which will save a few minutes configuring nginx.
+* You'll need to be familiar with shell to install and configure service.
+* The page with the email signup form can be hosted anywhere, for example on GitHub pages.
 
 ## What you get
 
@@ -26,6 +27,7 @@ Private git repository, that stores all submitted emails into a plain text file.
 * Appends the received email to `emails.txt`.
 * Commits changes.
 * Pushes the commit to the upstream.
+* Redirects user to "thanks" page.
 
 ## How to install
 
