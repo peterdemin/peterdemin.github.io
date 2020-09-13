@@ -1,4 +1,4 @@
-I work for [Moveworks](https://moveworks.ai) in United States developing Python services.
+I develop Python services for [Moveworks](https://moveworks.ai) in United States.
 
 Previously I lived in Russia and Belarus working for Yandex and EPAM in the same position.
 
@@ -18,3 +18,10 @@ I write about Python, vim and git.
 * [Subtleties of Python compatible release version specifier](python-compatible-version.html)
 * [List date of last commit on git branches](branch-dates.html)
 * [How to clean up stale git branches](git-branch-cleanup.html)
+
+My open source projects:
+
+* [kibitzr](https://kibitzr.github.io/) - Lightweight personal web assistant.
+* [pip-compile-multi](https://github.com/peterdemin/pip-compile-multi) - Flexible Python dependency version locker.
+* [awsme](https://github.com/peterdemin/awsme) - Amazon Web Services Cloud Watch Metrics Library.
+* [reshell](https://pypi.org/project/reshell/) - Reverse shell for deployment debugging.
