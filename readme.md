@@ -4,6 +4,7 @@ Previously I lived in Russia and Belarus working for Yandex and EPAM in the same
 
 I write about Python, vim and git.
 
+* [FOSS Python projects to contribute to](foss-projects-to-work-and-learn.html)
 * [Python service to collect emails from static website](collector.html)
 * [How to build portable PEX from Python script](script-to-pex.html)
 * [How to create new user in MS SQL](create-mssql-user.html)
