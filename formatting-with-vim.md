@@ -1,4 +1,4 @@
-# Reindenting JSON and XML with vim
+# Reindent JSON
 
 One of vim's great feature is how it can integrate with external utilities.
 Here are commands that I use most:
@@ -8,20 +8,23 @@ Here are commands that I use most:
 Will take current buffer text, pass it to Python's json.tool module and
 replace buffer with results effectively reindenting JSON document.
 
-Same trick for XML documents is archived with command:
+Alternatively, if jq is available:
+
+	:% ! jq .
+
+To convert JSON to a compressed one-line form:
+
+	:% ! jq -c .
+
+# Reindent XML
 
 	:% !xmllint --format --recover -
 
-This one is longer, but still envocation is obvious.
 
-And finally pretty printing Python structures:
+# Pretty print Python data structures:
 
-    % !python -c 'import pprint, sys; pprint.pprint(eval(sys.stdin.read()))'
+    :% !python -c 'import pprint, sys; pprint.pprint(eval(sys.stdin.read()))'
 
-The last one is so long, it deserves it's own nnoremap.
+# Converting Python data structure to pretty JSON
 
-Also I want to mention [janko-m/vim-test] which starts testing framework.
-
-I believe it is the simpliest extension interface among all editors I ever used.
-
-[janko-m/vim-test]: https://github.com/janko-m/vim-test
+    :% !python -c 'import sys, json; from collections import OrderedDict; print(json.dumps(eval(sys.stdin.read()), indent=2))'
