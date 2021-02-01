@@ -33,3 +33,7 @@ Alternatively, if jq is available:
 # JSON to YAML
 
     :% !python -c 'import sys, json, yaml; print(yaml.dump(json.load(sys.stdin), indent=2))'
+
+# YAML to JSON
+
+    :% !python -c 'import sys, json, yaml; print(json.dumps(yaml.safe_load(sys.stdin), indent=2))'
