@@ -1,6 +1,6 @@
 # Filling the gap in open source supply chain
 
-![Flowers field](flower.jpg)
+![Flowers field](flowers.jpg)
 Photo by [Brian Garcia](https://unsplash.com/@brianverde?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
 
 Private companies, big or small, love open source software.
