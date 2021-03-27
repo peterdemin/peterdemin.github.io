@@ -1,31 +1,5 @@
 # Filling the gap in open source supply chain
 
-## Upsides
-
-* Open source is the best way to move faster as a whole.
-* Less reinventing the wheel.
-* Free contributions.
-
-## Downsides
-
-* Part of the product is owned and maintained by someone outside of the company.
-* Bug fixes are slower to get to the production, because of the release cycle.
-* Feature requests may get no attention, or be rejected.
-* Library may get completely abandoned.
-
-## Solution
-
-* Partner with open source library maintainers.
-* Provide bounties to maintainers for working on issues needed by the clients.
-* Maintain private artifactory for fork releases.
-* Private releases a faster to incorporate new patches.
-* Private releases with backported bug fixes.
-
-SaaS
-
-
-# Filling the gap in open source supply chain
-
 ![Flowers field](flower.jpg)
 Photo by [Brian Garcia](https://unsplash.com/@brianverde?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
 
@@ -85,3 +59,31 @@ Fossility makes this possible by covering 3 fronts:
 3. Client gets access to a private artifactory with forked third-party libraries.
 4. Fossility maintains private forks until the patches are merged and released in upstream packages.
 5. Fossility pays open source maintainers to work on client's issues.
+
+---
+
+# Outline
+
+## Upsides
+
+* Open source is the best way to move faster as a whole.
+* Less reinventing the wheel.
+* Free contributions.
+
+## Downsides
+
+* Part of the product is owned and maintained by someone outside of the company.
+* Bug fixes are slower to get to the production, because of the release cycle.
+* Feature requests may get no attention, or be rejected.
+* Library may get completely abandoned.
+
+## Solution
+
+* Partner with open source library maintainers.
+* Provide bounties to maintainers for working on issues needed by the clients.
+* Maintain private artifactory for fork releases.
+* Private releases a faster to incorporate new patches.
+* Private releases with backported bug fixes.
+
+SaaS
+
