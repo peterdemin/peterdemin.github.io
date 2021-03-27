@@ -26,6 +26,9 @@ SaaS
 
 # Filling the gap in open source supply chain
 
+![Flowers field](flower.jpg)
+Photo by [Brian Garcia](https://unsplash.com/@brianverde?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
+
 Private companies, big or small, love open source software.
 Primarily, because it allows them to move faster.
 If company makes a website, it doesn't need to start with developing a web framework.
@@ -42,7 +45,8 @@ and reused by everyone. Popular frameworks report adoption by thousands of compa
 One may say, that open source is the best thing that ever happened to software.
 But of course, nothing is perfect, and the reality brings in the complexity.
 
----
+![Rain](rain.jpg)
+Photo by [Rowan Heuvel](https://unsplash.com/@insolitus?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
 
 When company chooses to adopt an open source package, it takes a risk.
 Part of the product becomes owned and controlled by someone outside of the company.
@@ -57,7 +61,8 @@ But to fix it in third-party library, one has to go through code review with a s
 New features are hard to get in too, as many maintainers try to keep their projects simple and avoid feature bloat.
 Persuading the author, that their library needs additional functionality is a task of its own.
 
----
+![Sun](sun.jpg)
+Photo by [Photoholgic](https://unsplash.com/@photoholgic?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
 
 The solution to all of these problems exists and is a part core part of the open source philosophy.
 It's called fork.
