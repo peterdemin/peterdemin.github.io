@@ -26,3 +26,7 @@ My open source projects:
 * [pip-compile-multi](https://github.com/peterdemin/pip-compile-multi) - Flexible Python dependency version locker.
 * [awsme](https://github.com/peterdemin/awsme) - Amazon Web Services Cloud Watch Metrics Library.
 * [reshell](https://pypi.org/project/reshell/) - Reverse shell for deployment debugging.
+
+My side gig:
+
+Selling puppies at [French bulldogs DMV](https://www.frenchbulldogsdmv.com/)
