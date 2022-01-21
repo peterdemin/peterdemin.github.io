@@ -19,6 +19,7 @@ I write about Python, vim and git.
 * [Subtleties of Python compatible release version specifier](python-compatible-version.html)
 * [List date of last commit on git branches](branch-dates.html)
 * [How to clean up stale git branches](git-branch-cleanup.html)
+* [Weblate CLI (wlc) tips and tricks](wlc.html)
 
 My open source projects:
 
