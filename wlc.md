@@ -8,3 +8,6 @@
 
     wlc --format json list-components | jq -r .[].filemask | grep '\.po$'
 
+## Delete all auto-generated glossaries except one
+
+    wlc --format json list-components | jq -r '.[] | select(.slug == "glossary" and .project.slug != "<MAIN-PROJECT>") | .project.slug + "/" + .slug' | xargs wlc delete
