@@ -10,4 +10,4 @@
 
 ## Delete all auto-generated glossaries except one
 
-    wlc --format json list-components | jq -r '.[] | select(.slug == "glossary" and .project.slug != "<MAIN-PROJECT>") | .project.slug + "/" + .slug' | xargs wlc delete
+    wlc --format json list-components | jq -r '.[] | select(.slug == "glossary" and .project.slug != "<MAIN-PROJECT>") | .project.slug + "/" + .slug' | xargs -L1 wlc delete
