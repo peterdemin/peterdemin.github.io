@@ -1,0 +1,98 @@
+# Stay fast
+
+## What is slow
+
+Throughout my software engineering career, I noticed that the bigger the company, the slower is software development.
+Speed loss is visible in the following aspects:
+
+* Deploying a new service requires sign-offs from several people and a few manual steps.
+* Getting a change to production takes enough CI/CD time to break a [flow state](https://en.wikipedia.org/wiki/Flow_state).
+* Completed projects keep draining hours through maintenance.
+* Onboarding new team member takes weeks or months to learn all the internal tooling and processes.
+* Small decisions require synchronous collaboration between people who otherwise don't work side-by-side.
+
+Slowness wears many faces, but they all share the same details.
+Someone who was responsible for adding a new process, did not put enough weight on the ongoing speed side of scales.
+Maybe the task was considered too rare. Maybe team was in a crunch and didn't have enough bandwidth to automate it.
+Either way, time saved for one (or several) developer once taxes the whole team again and again.
+
+
+## Case-study: infrastructure provisioning with approval
+
+### How to go slow
+
+As the product grows, the engineering team discovers repeatable tasks and introduces standard ways to complete them.
+One option is to add an instruction: a set of manual steps to complete a task.
+For example:
+1. Search internal docs for FAQ on creating a new database.
+2. Fill out a particular form with database name/permissions/retention policy.
+3. Open a DBA ticket with a linked form.
+4. Wait for manager approval.
+5. Wait for DBA to exercise the database creation process.
+6. Receive credentials for the new database and commit them to the project's secrets storage.
+
+Compare the complexity of this process to running a local database container or clicking through database provisioning questionary in commercial PaaS.
+The task that is not essential to the company's busyness, doesn't provide any value of its own, and takes a few hours of cumulative effort while providing little but frustration and stress.
+
+The mere existence of database creation instructions is already a sign of slowness.
+
+### How to get faster
+
+Another option is to add a script/tool that automates this process in the local developer environment.
+Same task could be done as follows:
+
+1. Find which tool creates new database.
+2. Run it locally to create a new configuration file.
+3. Wait for the approval of a pull request with the new file.
+4. Merge the pull request.
+
+This scenario looks more friendly and reduces DBA and ticket system to a shell script.
+But still, developer has to wait and break the flow state for infrastructure provisioning.
+
+### How to go fast
+
+The best way to move fast is to have no friction points:
+
+* Keep all configuration and decisions in one place (inside of source code repository).
+* Trust developers to do the right thing in development environment.
+* Perform approvals and review asynchronously before deployment to production environment.
+
+Here's a fast way to solve the above task.
+
+1. Add new database configuration to the source code.
+2. Start using it in local environment.
+3. When the prototype is ready, try to push the code to the upstream and get blocked by a database existence check.
+4. Read through the check error message to understand which script to run.
+5. Run the script locally to create a new configuration file.
+6. Merge the pull request.
+7. Review and approval of the database parameters is performed after the merge, asynchronously.
+8. Until the review is done, production deployment is blocked.
+
+
+
+## Case-study: slow CI/CD
+
+### How to go slow
+
+As the product complexity grows, team starts adding integrational and end-to-end tests,
+that provide a safety net for critical features and a high-level proof that the product works.
+
+Both kinds of tests rely on huge parts of code and have to be run on almost any change to the codebase.
+At the same time, these tests are flaky and their failure doesn't indicate any particular failure on its own.
+Also, they take significant amount of processing time (setting up test databases, making network calls, starting web browser).
+
+### How to go fast
+
+The proper way to test software integrations is to have a clean interface and isolated tests for them.
+* Assert that API is called with expected arguments on consumer side.
+* Assert that all different kinds of inputs produce expected output on the library side.
+* Do not cover third-party libraries, only integration.
+
+
+## Conclusion
+
+* It's easy to accidentally introduce new processes that kills developer's experience.
+* To keep the speed at the same level, two aspects must be considered: automation and unblocking.
+* All non-decision-making steps must be automated.
+* For the low-risk actions, review step should be asynchronous.
+* Approval process for high-risk actions must be streamlined.

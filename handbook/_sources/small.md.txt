@@ -1,0 +1,30 @@
+# Stay small to stay fast
+
+## What is slow
+
+Throughout my software engineering career, I noticed that the bigger the company, the slower is software development.
+Speed loss is visible in the following aspects:
+
+* Deploying a new service requires sign-offs from several people and a few manual steps.
+* Getting a change to production takes enough CI/CD time to break a [flow state](https://en.wikipedia.org/wiki/Flow_state).
+* Completed projects keep draining hours through maintenance.
+* Onboarding new team member takes weeks or months to learn all the internal tooling and processes.
+* Small decisions require synchronous collaboration between people who otherwise don't work side-by-side.
+
+
+## Signs of slowing down
+
+As the product grows, the engineering team discovers repeatable tasks and introduces standard ways to complete them.
+One option is to add an instruction: a set of manual steps to complete a task.
+For example:
+1. Search internal docs for FAQ on creating a new database.
+2. Fill out a particular form with database name/permissions/retention policy.
+3. Open a DBA ticket with a linked form.
+4. Wait for manager approval.
+5. Wait for DBA to exercise the database creation process.
+6. Receive credentials for the new database and commit them to the project's secrets storage.
+
+Compare the complexity of this process to running a local database container or clicking through database provisioning questionary in commercial PaaS.
+The task that is not essential to the company's busyness, doesn't provide any value of its own, and takes a few hours of cumulative effort while providing little but frustration and stress.
+
+The mere existence of database creation instructions is already a sign of slowness.
