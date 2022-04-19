@@ -2,5 +2,12 @@ theme: jekyll-theme-cayman
 title: Peter Demin
 description: Stuff I like
 include:
+  - handbook
+  - handbook/
+  - handbook/_static
   - handbook/_static/
+  - handbook-s
+  - handbook-s/
   - handbook-s/_static/
+  - handbook/_static/*
+  - handbook-s/_static/*
