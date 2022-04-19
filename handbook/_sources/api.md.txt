@@ -1,9 +1,0 @@
-# Organize code
-
-## Split code into small independent libraries
-
-## Join libraries in components
-
-## Expose components through services
-
-## Configure services in environments

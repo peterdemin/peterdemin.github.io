@@ -1,3 +1,0 @@
-# Beware the framework beast
-
-## The tale of upgrading Django
