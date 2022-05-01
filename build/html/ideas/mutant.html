@@ -1,0 +1,296 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Mutant - Data Schema Generator &#8212; Peter Demin  documentation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="HTTP API for append-only Git repositories" href="http-api-git-storage.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../index.html">
+<p class="title">Peter Demin</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+    </div>
+
+    <div id="navbar-end">
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#preface">
+   Preface
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-definition-language-and-code-generator">
+   Data Definition Language and Code Generator
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#more-complex-example">
+   More complex example
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <section id="mutant-data-schema-generator">
+<h1>Mutant - Data Schema Generator<a class="headerlink" href="#mutant-data-schema-generator" title="Permalink to this headline">#</a></h1>
+<section id="preface">
+<h2>Preface<a class="headerlink" href="#preface" title="Permalink to this headline">#</a></h2>
+<p>My team was developing simple storage service, that aggregates data from number of not so simple storages.
+All service does is receiving and serving documents, that can be represented as dictionaries and lists (json serializable). It used SQL database for persistent storage and Solr for fast querying and caching.
+As this definition sounds simple, it took ridiculously long time to implement it.
+Even that we took Django with Rest Framework we had a lot of things to do.
+And now, when we want to add new field, we have to change code in 6 places:</p>
+<ul class="simple">
+<li><p>Database ORM models;</p></li>
+<li><p>RestFramework serializer models and fields;</p></li>
+<li><p>FilterBackend configuration;</p></li>
+<li><p>Solr schema;</p></li>
+<li><p>Cerberus validation rules;</p></li>
+</ul>
+<p>That’s way too easy to forget about one place.</p>
+</section>
+<section id="data-definition-language-and-code-generator">
+<h2>Data Definition Language and Code Generator<a class="headerlink" href="#data-definition-language-and-code-generator" title="Permalink to this headline">#</a></h2>
+<p>That’s why I think about creating data-driven framework, that will allow us to define our data once
+and have everything else automatically derived.</p>
+<p>Let’s imagine how data definition would look like using YAML format.
+Definition should be brief for common cases and extensible for every possible special case.
+So, we will describe document, that contains linked entities, with each entity having it’s own set of fields.
+Nothing special so far. Here is entity definition.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Author</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="nv">String</span><span class="p p-Indicator">,</span><span class="nt"> max_length</span><span class="p">:</span><span class="w"> </span><span class="nv">30</span><span class="p p-Indicator">,</span><span class="nt"> primary-key</span><span class="p">:</span><span class="w"> </span><span class="nv">true</span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="w">    </span><span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Email</span><span class="w"></span>
+<span class="w">    </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="nv">String</span><span class="p p-Indicator">,</span><span class="nt"> private</span><span class="p">:</span><span class="w"> </span><span class="nv">true</span><span class="p p-Indicator">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>We define entity author, that has fields username, email and password.
+Username and password use full notation and have type string.
+Email uses short notation of type alone.
+Also, username length is limited to 30 symbols and it is marked as primary key for Author.
+Password field is marked as private.
+Entity and type names use CamelCase notation and field names are lowercase.</p>
+<p>So there could be some simple generator, that makes Python classes for definitions:</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">definition</span> <span class="o">=</span> <span class="n">load_yaml</span><span class="p">(</span><span class="s2">&quot;author.yaml&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Author</span> <span class="o">=</span> <span class="n">make_class</span><span class="p">(</span><span class="n">definition</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">peter</span> <span class="o">=</span> <span class="n">Author</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s2">&quot;peter&quot;</span><span class="p">,</span> <span class="n">email</span><span class="o">=</span><span class="s2">&quot;peter@data-driven.com&quot;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">&quot;secret&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">peter</span>
+<span class="go">&lt;Author username=&quot;peter&quot;&gt;</span>
+</pre></div>
+</div>
+<p>Not very useful, but it shows the idea. For people familiar with Django ORM,
+we can auto generate following Django model:</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+
+<span class="k">class</span> <span class="nc">Author</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">EmailField</span><span class="p">()</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">255</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And for solr schema:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;fields&gt;</span>
+  <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&quot;author_username&quot;</span> <span class="na">type=</span><span class="s">&quot;string&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">required=</span><span class="s">&quot;true&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&quot;author_email&quot;</span> <span class="na">type=</span><span class="s">&quot;string&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">required=</span><span class="s">&quot;true&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/fields&gt;</span>
+</pre></div>
+</div>
+<p>That easy! Well, I’ll need to find a way to make generators extendable.
+But at this point we looked at simplistic example of one entity.</p>
+</section>
+<section id="more-complex-example">
+<h2>More complex example<a class="headerlink" href="#more-complex-example" title="Permalink to this headline">#</a></h2>
+<p>Let’s define blog. Blog has posts, authors, tags and annotations.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Blog</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">posts</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">list-of</span><span class="p">:</span><span class="w"> </span><span class="nv">Post</span><span class="p p-Indicator">,</span><span class="nt"> own</span><span class="p">:</span><span class="w"> </span><span class="nv">true</span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="w">    </span><span class="nt">authors</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">list-of</span><span class="p">:</span><span class="w"> </span><span class="nv">Author</span><span class="p p-Indicator">,</span><span class="nt"> link-through</span><span class="p">:</span><span class="w"> </span><span class="nv">Post</span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="w">    </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">list-of</span><span class="p">:</span><span class="w"> </span><span class="nv">Tag</span><span class="p p-Indicator">,</span><span class="nt"> link-through</span><span class="p">:</span><span class="w"> </span><span class="nv">Post</span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="w">    </span><span class="nt">annotation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">String</span><span class="w"></span>
+<span class="nt">Post</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">author</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Author</span><span class="w"></span>
+<span class="w">    </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">list-of</span><span class="p">:</span><span class="w"> </span><span class="nv">Tag</span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">String</span><span class="w"></span>
+<span class="w">    </span><span class="nt">body</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Text</span><span class="w"></span>
+<span class="w">    </span><span class="nt">created</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="nv">Datetime</span><span class="p p-Indicator">,</span><span class="nt"> auto-set-on</span><span class="p">:</span><span class="w"> </span><span class="nv">create</span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="w">    </span><span class="nt">updated</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="nv">Datetime</span><span class="p p-Indicator">,</span><span class="nt"> auto-set-on</span><span class="p">:</span><span class="w"> </span><span class="nv">update</span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="nt">Author</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="nv">String</span><span class="p p-Indicator">,</span><span class="nt"> max_length</span><span class="p">:</span><span class="w"> </span><span class="nv">30</span><span class="p p-Indicator">,</span><span class="nt"> primary-key</span><span class="p">:</span><span class="w"> </span><span class="nv">true</span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="w">    </span><span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Email</span><span class="w"></span>
+<span class="w">    </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="nv">String</span><span class="p p-Indicator">,</span><span class="nt"> private</span><span class="p">:</span><span class="w"> </span><span class="nv">true</span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="nt">Tag</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">String</span><span class="w"></span>
+</pre></div>
+</div>
+<p>We added more entity definitions with relations between them.
+Let’s dig into relations.
+As you may see, Author and Tag entities are connected to both Post and Blog.
+But <code class="docutils literal notranslate"><span class="pre">link-through</span></code> key disambiguates relationship, so that Blog does not contain Tags directly.</p>
+<p>Schematically defined entity relations can be represented with this diagram:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Blog</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-&gt;</span> <span class="o">*</span><span class="p">)</span> <span class="n">Post</span>
+<span class="n">Post</span> <span class="p">(</span><span class="o">*</span> <span class="o">-&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="n">Author</span>
+<span class="n">Post</span> <span class="p">(</span><span class="o">*</span> <span class="o">-&gt;</span> <span class="o">*</span><span class="p">)</span> <span class="n">Tag</span>
+</pre></div>
+</div>
+<p>One Blog can have many Posts, but each Post belong to exactly on Blog (One-to-Many relationship),
+because Blog.posts are defined as list with <code class="docutils literal notranslate"><span class="pre">own</span></code> flag set to <code class="docutils literal notranslate"><span class="pre">true</span></code>.
+Each Post has one Author, but Author can have many Posts - that what happens when declaring simple field.
+And finally each Post can have many Tags and each Tag can be attached to many posts (Many-to-Many).</p>
+<p>Looks like used YAML structure is versatile enough for given task.</p>
+</section>
+</section>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="http-api-git-storage.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">HTTP API for append-only Git repositories</p>
+        </div>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022, Peter Demin.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

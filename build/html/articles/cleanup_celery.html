@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Clean up old celery tasks from database &#8212; Peter Demin  documentation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="MSSQL cheatsheet" href="create-mssql-user.html" />
+    <link rel="prev" title="List date of last commit on git branches" href="branch-dates.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../index.html">
+<p class="title">Peter Demin</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+    </div>
+
+    <div id="navbar-end">
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <section id="clean-up-old-celery-tasks-from-database">
+<h1>Clean up old celery tasks from database<a class="headerlink" href="#clean-up-old-celery-tasks-from-database" title="Permalink to this headline">#</a></h1>
+<p>Celery prior to version 4 <a class="reference external" href="http://docs.celeryproject.org/en/3.1/getting-started/brokers/django.html">provided Database broker</a>
+which had poor perfomance but allowed to have background processing in Django without pains of operating RabbitMQ or Redis.</p>
+<p>One subtliety of using it is that if no of workers is serving <code class="docutils literal notranslate"><span class="pre">celery</span></code> queue, database is going to grow pretty quickly.
+<code class="docutils literal notranslate"><span class="pre">celery_taskmeta</span></code> table is storing all tasks ever scheduled through celery.
+And once this table grows to millions of records, deleting them (on replicated database) is no longer viable, since transaction log will overflow causing the transaction to rollback.</p>
+<p>One solution is to split records into small batches and delete each in it’s own transaction.
+Choosing batch size is a nice problem - too small will make script run longer than necessary, while too big will result in error like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Msg</span> <span class="mi">9002</span><span class="p">,</span> <span class="n">Level</span> <span class="mi">17</span><span class="p">,</span> <span class="n">State</span> <span class="mi">2</span><span class="p">,</span> <span class="n">Line</span> <span class="mi">3</span>
+<span class="n">The</span> <span class="n">transaction</span> <span class="n">log</span> <span class="k">for</span> <span class="n">database</span> <span class="s1">&#39;Database&#39;</span> <span class="ow">is</span> <span class="n">full</span> <span class="n">due</span> <span class="n">to</span> <span class="s1">&#39;LOG_BACKUP&#39;</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>I adapted <a class="reference external" href="https://en.wikipedia.org/wiki/Nagle%27s_algorithm">Nagle’s algorithm</a> to this task:</p>
+<ul class="simple">
+<li><p>On successfull deletion batch size is increased by 5%</p></li>
+<li><p>On failure it is decreased by 50%</p></li>
+</ul>
+<p>I wrapped it in django management command:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+
+<span class="kn">from</span> <span class="nn">django.core.management.base</span> <span class="kn">import</span> <span class="n">BaseCommand</span>
+<span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">Max</span><span class="p">,</span> <span class="n">Min</span>
+<span class="kn">from</span> <span class="nn">django.db.utils</span> <span class="kn">import</span> <span class="n">ProgrammingError</span>
+<span class="kn">from</span> <span class="nn">djcelery.models</span> <span class="kn">import</span> <span class="n">TaskMeta</span>
+
+
+<span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">BaseCommand</span><span class="p">):</span>
+    <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;Delete old celery tasks&#39;</span>
+
+    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">TaskMeta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">Max</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">),</span> <span class="n">Min</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">))</span>
+        <span class="n">id_min</span><span class="p">,</span> <span class="n">id_max</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;id__min&#39;</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;id__max&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s2">&quot;Total: </span><span class="si">%r</span><span class="s2">, ranging from </span><span class="si">%r</span><span class="s2"> to </span><span class="si">%r</span><span class="s2">&quot;</span>
+            <span class="o">%</span> <span class="p">(</span><span class="n">TaskMeta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="n">id_min</span><span class="p">,</span> <span class="n">id_max</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">id_min</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">id_max</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Nothing to do, exiting&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="n">id_max</span> <span class="o">-=</span> <span class="mi">100</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Decreased finish down to </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">id_max</span><span class="p">)</span>
+        <span class="n">step</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">id_min</span>
+        <span class="k">while</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="n">id_max</span><span class="p">:</span>
+            <span class="n">finish</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">step</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">deleted</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">TaskMeta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">id__gte</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">id__lt</span><span class="o">=</span><span class="n">finish</span><span class="p">)</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+                    <span class="s2">&quot;For range </span><span class="si">%d</span><span class="s2">-</span><span class="si">%d</span><span class="s2"> deleted </span><span class="si">%d</span><span class="s2"> objects&quot;</span>
+                    <span class="o">%</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">finish</span><span class="p">,</span> <span class="n">deleted</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="n">step</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">step</span> <span class="o">*</span> <span class="mf">1.05</span><span class="p">)</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="n">finish</span>
+            <span class="k">except</span> <span class="n">ProgrammingError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">exc</span><span class="p">))</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
+                <span class="n">step</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span>
+</pre></div>
+</div>
+<p>Here’s the <a class="reference external" href="https://gist.github.com/peterdemin/aa3abb3a96e564e54771cc792f9159fa">gist</a></p>
+<p>Here is the log for batch size adaptation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="n">For</span> <span class="nb">range</span> <span class="mi">771389</span><span class="o">-</span><span class="mi">809999</span> <span class="n">deleted</span> <span class="mi">38610</span> <span class="n">objects</span>
+<span class="n">For</span> <span class="nb">range</span> <span class="mi">809999</span><span class="o">-</span><span class="mi">850539</span> <span class="n">deleted</span> <span class="mi">40540</span> <span class="n">objects</span>
+<span class="n">For</span> <span class="nb">range</span> <span class="mi">850539</span><span class="o">-</span><span class="mi">893106</span> <span class="n">deleted</span> <span class="mi">42567</span> <span class="n">objects</span>
+<span class="p">(</span><span class="s1">&#39;42000&#39;</span><span class="p">,</span> <span class="s2">&quot;[42000] [FreeTDS][SQL Server]The transaction log for database &#39;Database&#39; is full due to &#39;LOG_BACKUP&#39;. (9002) (SQLExecDirectW)&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="s1">&#39;42000&#39;</span><span class="p">,</span> <span class="s2">&quot;[42000] [FreeTDS][SQL Server]The transaction log for database &#39;Database&#39; is full due to &#39;LOG_BACKUP&#39;. (9002) (SQLExecDirectW)&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="s1">&#39;42000&#39;</span><span class="p">,</span> <span class="s2">&quot;[42000] [FreeTDS][SQL Server]The transaction log for database &#39;Database&#39; is full due to &#39;LOG_BACKUP&#39;. (9002) (SQLExecDirectW)&quot;</span><span class="p">)</span>
+<span class="n">For</span> <span class="nb">range</span> <span class="mi">893106</span><span class="o">-</span><span class="mi">898692</span> <span class="n">deleted</span> <span class="mi">5586</span> <span class="n">objects</span>
+<span class="n">For</span> <span class="nb">range</span> <span class="mi">898692</span><span class="o">-</span><span class="mi">904557</span> <span class="n">deleted</span> <span class="mi">5865</span> <span class="n">objects</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>On the first error batch size decreased to 21283, on the second to 10641, on the third to 5586.
+Each time giving server a minute to recover.</p>
+</section>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="branch-dates.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">List date of last commit on git branches</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="create-mssql-user.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">MSSQL cheatsheet</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022, Peter Demin.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>
