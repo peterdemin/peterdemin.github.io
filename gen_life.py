@@ -3,11 +3,14 @@ import glob
 
 
 def gen_life():
-    for filename in sorted(glob.glob(os.path.join('source', 'life', '*.md')), reverse=True):
+    for idx, filename in enumerate(sorted(glob.glob(os.path.join('source', 'life', '*.md')), reverse=True)):
         relname = os.path.relpath(filename, 'source')
+        if idx:
+            print()
+            print('-----')
+            print()
         print('.. include:: {}'.format(relname))
         print('   :parser: myst_parser.sphinx_')
-        print()
 
 
 if __name__ == '__main__':
