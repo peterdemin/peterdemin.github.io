@@ -19,12 +19,20 @@ help:
 clean:
 	rm -rf build _docs docs
 
+.PHONY: autogen
+autogen:
+	mkdir -p source/g
+	python gen_life.py > source/life_gd.rst
+
+.PHONY: build
+build: autogen html
+
 .PHONY: browser
 browser:
 	open build/html/index.html
 
 .PHONY: watch
-watch: html browser  ## compile the docs watching for changes
+watch: build browser  ## compile the docs watching for changes
 	watch '$(MAKE) html'
 
 .PHONY: install
