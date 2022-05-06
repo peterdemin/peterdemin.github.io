@@ -39,3 +39,5 @@ Projects that did not
    :glob:
 
    ideas/*
+
+:ref:`life`
