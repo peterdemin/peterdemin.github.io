@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>DIY Bank balance aggregation &#8212; Peter Demin  documentation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Beauty of Python’s collections module" href="python-collections.html" />
+    <link rel="prev" title="Two-faced JSONField" href="jsonfield.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../index.html">
+<p class="title">Peter Demin</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+    </div>
+
+    <div id="navbar-end">
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <section id="diy-bank-balance-aggregation">
+<h1>DIY Bank balance aggregation<a class="headerlink" href="#diy-bank-balance-aggregation" title="Permalink to this headline">#</a></h1>
+<p>I like to know what my credit card balance is.
+And I don’t want to visit all online bank accounts every day.
+So I automated this process.
+In a secure and reusable way.</p>
+<p>I built my solution on top of <a class="reference external" href="https://kibitzr.github.io/">Kibitzr</a> - self-hosted web scrapper.
+It logs into online bank accounts and extracts balances.
+Kibitzr has a <a class="reference external" href="https://github.com/kibitzr/recipes/tree/master/banks">curated snippets collection</a>.
+So I picked the snippets for my banks and mashed them into one file:</p>
+<script src="https://gist.github.com/peterdemin/3015b72e4e54c45d559439227373ac6d.js"></script>
+<p>Let me explain how it works.
+There are 3 scrapping checks defined in this file: BofA, Discover, AmEx.
+Each check opens one bank account, scrapes balance value, and saves it to stash.
+Stash is a Kibitzr’s persistent key-value storage.
+In other words, it’s a place where you can put data for later use.</p>
+<p>The fourth check does the aggregation of all balances into one template and sends it
+to my Telegram account. (Actually, it sends it to me and my wife private group).</p>
+<p>All scrapping checks are alike, so I will break down the first one.</p>
+<ol class="arabic">
+<li><p>Check declares its name:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BofA</span><span class="w"></span>
+</pre></div>
+</div>
+</li>
+<li><p>Opens Firefox browser to open bank’s home page:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://www.bankofamerica.com/</span><span class="w"></span>
+</pre></div>
+</div>
+</li>
+<li><p>Fills the form picking values from secure Operating System’s keyring:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="nt">form</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">onlineId1</span><span class="w"></span>
+<span class="w">      </span><span class="nt">creds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keyring.bofa.username</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">passcode1</span><span class="w"></span>
+<span class="w">      </span><span class="nt">creds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keyring.bofa.password</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hp-sign-in-btn</span><span class="w"></span>
+<span class="w">      </span><span class="nt">click</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+</pre></div>
+</div>
+</li>
+<li><p>Waits for 5 seconds to let the dynamic dashboard load:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span><span class="w"></span>
+</pre></div>
+</div>
+</li>
+<li><p>Extracts text from all HTML elements having CSS class <code class="docutils literal notranslate"><span class="pre">.balanceValue</span></code> assigned.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="nt">transform</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">css-all</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.balanceValue</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span><span class="w"></span>
+</pre></div>
+</div>
+</li>
+<li><p>I have 3 accounts in Bank of America: checking, savings, and credit.
+They always go in this order, so I stash their values under corresponding keys:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="nt">notify</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">stash</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">bofa_checking</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">lines.0</span><span class="nv"> </span><span class="s">}}&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="nt">bofa_savings</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">lines.1</span><span class="nv"> </span><span class="s">}}&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="nt">bofa_credit</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">lines.2</span><span class="nv"> </span><span class="s">}}&quot;</span><span class="w"></span>
+</pre></div>
+</div>
+</li>
+<li><p>This task runs every 3 hours:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="nt">period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3 hours</span><span class="w"></span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Other 2 scrapping checks do the same thing for other banks.
+After their execution I have all the data I need to create a report:</p>
+<ol class="arabic">
+<li><p>I called aggregation check Summary:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Summary</span><span class="w"></span>
+</pre></div>
+</div>
+</li>
+<li><p>It uses dummy bash fetcher. Because Kibitzr requires something to act as a fetcher.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo dummy</span><span class="w"></span>
+</pre></div>
+</div>
+</li>
+<li><p>Jinja template does all the heavy lifting.
+It looks scary at first sight. But on closer look, it’s simple assigning and arithmetic.</p>
+<script src="https://gist.github.com/peterdemin/c4c800e3eaceb3ffa6777e000f86b4ef.js"></script>
+</li>
+<li><p>Finally, Kibitzr sends a shiny report through Telegram:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="nt">notify</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">telegram</span><span class="w"></span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Then I saved my telegram bot credentials in <code class="docutils literal notranslate"><span class="pre">kibitzr-creds.yml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">telegram</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">341530401:AABCRg_snz1554qkslIS8tMnNfWT3p5P80X</span><span class="w"></span>
+<span class="w">    </span><span class="nt">chat</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">926461341</span><span class="w"></span>
+</pre></div>
+</div>
+<p>I can’t say that I composed the whole thing from the first attempt.
+But after some tweaking and poking, I’ve got a working configuration,
+that sends me notifications like this one:</p>
+<p><img alt="Balance report" src="../_images/balance.png" /></p>
+</section>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="jsonfield.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Two-faced JSONField</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="python-collections.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Beauty of Python’s collections module</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022, Peter Demin.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

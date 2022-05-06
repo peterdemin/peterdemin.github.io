@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Subtleties of Python compatible release version specifier &#8212; Peter Demin  documentation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Make a PEX from Python script" href="script-to-pex.html" />
+    <link rel="prev" title="Beauty of Python’s collections module" href="python-collections.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../index.html">
+<p class="title">Peter Demin</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+    </div>
+
+    <div id="navbar-end">
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <section id="subtleties-of-python-compatible-release-version-specifier">
+<h1>Subtleties of Python compatible release version specifier<a class="headerlink" href="#subtleties-of-python-compatible-release-version-specifier" title="Permalink to this headline">#</a></h1>
+<p>Python’s most popular package management system - <a class="reference external" href="https://pypi.python.org/pypi/pip">pip</a> - comes
+to great help to developers and IMHO is significant part of Python’s popularity.</p>
+<p>Popular way of defining project’s dependencies is using <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> file.
+For example:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Jinja2
+PyYAML
+inflect
+six
+</pre></div>
+</div>
+<p>But given solution has a serious flow - it does not define which version of package to use.
+And there are <a class="reference external" href="http://nvie.com/posts/pin-your-packages/">strong arguments</a> against this approach.
+Briefly, in the long run each dependency is going to have backward incompatible release.</p>
+<p>Python has monstrous <a class="reference external" href="https://www.python.org/dev/peps/pep-0440/">PEP-0440</a> that describes
+how to compose package version.
+One thing that not widely known is that version scheme is
+much more complex than 3 integers divided by dots.
+Here is format definition:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    [N!]N(.N)*[{a|b|rc}N][.postN][.devN][+&lt;local version label&gt;]
+</pre></div>
+</div>
+<p>This allows crazy stuff like <code class="docutils literal notranslate"><span class="pre">3!0.10.1.3.112314rc100500.post7dev42+deadbeef</span></code></p>
+<p>For end products it the most reliable solution is to pinpoint exact version using <code class="docutils literal notranslate"><span class="pre">==</span></code> operator,
+so that requirements.txt becomes:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Jinja2==2.8
+PyYAML==3.11
+inflect==0.2.5
+six==1.10.0
+</pre></div>
+</div>
+<p>Here I want to advertise <a class="reference external" href="https://github.com/nvie/pip-tools">pip-tools</a> which helps
+to virtually hard-pin latest available versions.</p>
+<p>Of course you don’t want to do this for libraries.
+Pip supports nice version operator called “compatible release” and it is written as <code class="docutils literal notranslate"><span class="pre">~=</span></code>.
+It is tempting to think about as nearly equal. <strong>But it’s not</strong>.
+Imagine <a class="reference external" href="https://docs.djangoproject.com/">django</a> extension,
+which is known to work only with django version 1.7.
+The obvious thing would be to write <code class="docutils literal notranslate"><span class="pre">django</span> <span class="pre">~=</span> <span class="pre">1.7</span></code>.
+<strong>WRONG</strong>. This expression is <a class="reference external" href="https://www.python.org/dev/peps/pep-0440/#compatible-release">equivalent</a>
+to <code class="docutils literal notranslate"><span class="pre">django</span> <span class="pre">&gt;=</span> <span class="pre">1.7,</span> <span class="pre">==</span> <span class="pre">1.*</span></code>, that matches every version up to major release of <code class="docutils literal notranslate"><span class="pre">django</span> <span class="pre">2.0</span></code>.
+Instead one should write <code class="docutils literal notranslate"><span class="pre">django</span> <span class="pre">~=</span> <span class="pre">1.7.0</span></code> which converts to <code class="docutils literal notranslate"><span class="pre">django</span> <span class="pre">&gt;=</span> <span class="pre">1.7.0,</span> <span class="pre">==</span> <span class="pre">1.7.*</span></code>.</p>
+</section>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="python-collections.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Beauty of Python’s collections module</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="script-to-pex.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Make a PEX from Python script</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022, Peter Demin.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

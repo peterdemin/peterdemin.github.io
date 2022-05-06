@@ -1,0 +1,282 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Beauty of Python’s collections module &#8212; Peter Demin  documentation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Subtleties of Python compatible release version specifier" href="python-compatible-version.html" />
+    <link rel="prev" title="DIY Bank balance aggregation" href="kibitzr-banks.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../index.html">
+<p class="title">Peter Demin</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+    </div>
+
+    <div id="navbar-end">
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <section id="beauty-of-python-s-collections-module">
+<h1>Beauty of Python’s collections module<a class="headerlink" href="#beauty-of-python-s-collections-module" title="Permalink to this headline">#</a></h1>
+<p>Python is <a class="reference external" href="https://en.wikipedia.org/wiki/Duck_typing#In_Python">famed</a> for embracing duck typing.
+It is nice idea in a number of ways, allowing functions to work equally well with
+lists, sets, dictionary keys, or whatever user-defined object if it provides <code class="docutils literal notranslate"><span class="pre">__iter__</span></code> method.
+However sometimes we want to distinguish between types of arguments.
+Good example is recursive operations on nested structures.
+Consider function, that recursively deletes all dictionary items with <code class="docutils literal notranslate"><span class="pre">None</span></code> values.</p>
+<p>Here is how it could be written for reduced non-recursive case:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>def without_empty(data):
+    return {key: value
+            for key, value in data.items()
+            if value is not None}
+</pre></div>
+</div>
+<p>Now if we want to remove <code class="docutils literal notranslate"><span class="pre">None</span></code> values in nested dictionaries, we will add recursion:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>def without_empty(data):
+    return {key: without_empty(value)
+            for key, value in data.items()
+            if value is not None}
+</pre></div>
+</div>
+<p>Obviosly this new function will not work, because if value is not a dict,
+<code class="docutils literal notranslate"><span class="pre">AttributeError</span></code> will be raised in call to <code class="docutils literal notranslate"><span class="pre">items</span></code> method.</p>
+<p>So function need some way to distinguish between dictionaries and other values.
+Naive duck-typing solution could look like this:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>def without_empty(data):
+    if hasattr(data, &#39;items&#39;):
+        return {key: without_empty(value)
+                for key, value in data.items()
+                if value is not None}
+    else:
+        return data
+</pre></div>
+</div>
+<p>So far so good, checking with nested dictionary gives correct result:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; without_empty({1: {2: None, 4: 5}, 3: None})
+{1: {4: 5}}
+</pre></div>
+</div>
+<p>However, what if function has to support lists of dictionaries too?
+Current version will just ignore None values in lists:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; without_empty([{1: None}])
+[{1: None}]
+</pre></div>
+</div>
+<p>Let’s add check for lists:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>def without_empty(data):
+    if hasattr(data, &#39;items&#39;):
+        return {key: without_empty(value)
+                for key, value in data.items()
+                if value is not None}
+    elif hasattr(data, &#39;__iter__&#39;):
+        return [without_empty(item)
+                for item in data]
+    else:
+        return data
+</pre></div>
+</div>
+<p>Function works fine, giving expected result for complex case:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; without_empty({1: [6, {2: None, 7: 8}], 3: None})
+{1: [6, {7: 8}]}
+</pre></div>
+</div>
+<p>But code now is hard to follow and tricky to update.
+Because second condition is depending on the first one - both <code class="docutils literal notranslate"><span class="pre">dict</span></code> and <code class="docutils literal notranslate"><span class="pre">list</span></code> provide <code class="docutils literal notranslate"><span class="pre">__iter__</span></code> method.
+Also first check uses public method <code class="docutils literal notranslate"><span class="pre">items</span></code>, but second - internal helper <code class="docutils literal notranslate"><span class="pre">__iter__</span></code>,
+which looks like hacking.</p>
+<p>And here comes <a class="reference external" href="https://docs.python.org/3.6/library/collections.abc.html">collections.abc</a> (Just <a class="reference external" href="https://docs.python.org/2.7/library/collections.html">collections</a> in Python 2) providing number of
+abstract base classes that can be used to test whether a class provides a particular interface;
+for example, whether it is hashable or whether it is a sequence.</p>
+<p>Here is version of our function, that utilizes abstract classes:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>from collections import Mapping, Set, Sequence
+
+def without_empty(data):
+    if isinstance(data, Mapping):
+        return {key: without_empty(value)
+                for key, value in data.items()
+                if value is not None}
+    elif isinstance(data, (Sequence, Set)):
+        return [without_empty(item)
+                for item in data]
+    else:
+        return data
+</pre></div>
+</div>
+<p>At this point you may have question, how is it possible that built-in
+<code class="docutils literal notranslate"><span class="pre">dict</span></code> class is an instance of some deep burried <code class="docutils literal notranslate"><span class="pre">collections.abc.Mapping</span></code>?
+The answer is easy: it is not. And that’s why I decided to write about this module.</p>
+<p>In Python it is type’s responsiblity to decide if some object instantiates it.
+The mechanics are descrived in detail in documentation to <a class="reference external" href="https://docs.python.org/3.6/library/abc.html">abc</a> module.</p>
+<p>In short abstract base class defines must define method <code class="docutils literal notranslate"><span class="pre">__subclasshook__</span></code>,
+which may look something like this for Mapping class:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>@classmethod
+def __subclasshook__(cls, C):
+    if cls is Mapping:
+        if any(&#39;items&#39; in B.__dict__
+               for B in C.__mro__):
+            return True
+    return NotImplemented
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">isinstance</span></code> calls this method and magic happens - object becomes
+an instance of a class that it never heard of.</p>
+</section>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="kibitzr-banks.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">DIY Bank balance aggregation</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="python-compatible-version.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Subtleties of Python compatible release version specifier</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022, Peter Demin.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

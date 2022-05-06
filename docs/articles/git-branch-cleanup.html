@@ -1,0 +1,277 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>How to clean up stale git branches &#8212; Peter Demin  documentation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Two-faced JSONField" href="jsonfield.html" />
+    <link rel="prev" title="How to find merge commit which includes a specific commit" href="find-merge-commit.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../index.html">
+<p class="title">Peter Demin</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+    </div>
+
+    <div id="navbar-end">
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#clean-up-old-unmerged-branches">
+   Clean up old unmerged branches
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <section id="how-to-clean-up-stale-git-branches">
+<h1>How to clean up stale git branches<a class="headerlink" href="#how-to-clean-up-stale-git-branches" title="Permalink to this headline">#</a></h1>
+<p>I enjoy git branching and use it for every new feature or bugfix.
+Once feature is complete, I merge it back to <code class="docutils literal notranslate"><span class="pre">master</span></code> branch with <code class="docutils literal notranslate"><span class="pre">--no-ff</span></code> flag.
+Once set of features are ready for production, I merge <code class="docutils literal notranslate"><span class="pre">master</span></code> into <code class="docutils literal notranslate"><span class="pre">release</span></code> with <code class="docutils literal notranslate"><span class="pre">--no-ff</span></code>.
+Then I merge <code class="docutils literal notranslate"><span class="pre">release</span></code> into <code class="docutils literal notranslate"><span class="pre">master</span></code> with <code class="docutils literal notranslate"><span class="pre">--ff-only</span></code> to keep history slim.</p>
+<p>With this approach I can see clean history of project evolution:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ git log --all --graph --decorate --oneline
+*   fef063b (HEAD -&gt; master, origin/master, release, origin/release, origin/HEAD) Merge pull request #406 from master to release
+|\
+| * 698f76f Here I stressed out and committed hot-fix right in master branch
+| *   3896eaa Merge pull request #405 from good-job-414 to master
+| |\
+| | * c9a60d9 Sometimes it&#39;s much more than that :/
+| | * e6c9a4d I had to make 3 commmits!
+| | * 3127229 This one is bigger
+| |/
+| *   dca775f Merge pull request #404 from clean-old-tasks-413 to master
+| |\
+| | * 47dd5b4 Added management command to clean up old tasks
+| |/
+| *   f550392 Merge pull request #401 from nifty-changes-412 to master
+| |\
+|/ /
+| * 298638f Made some small nifty changes
+|/
+| * bc18cf0 (feature-408) Did some work that is not ready to be merged to master
+|/
+*   3cb96ef Merge pull request #400 from master to release
+</pre></div>
+</div>
+<p>And <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">bisect</span></code> finds regression points fast.</p>
+<p>The one downside is that old branches remain in the history and the list grows rapidly.
+Some tools allow automatically delete branches after they merged to master,
+however I prefer manual approach, that leaves more control in my hands.</p>
+<p>My solution is to run following commands once I see number of stale branches grown to big:</p>
+<ol class="arabic">
+<li><p>Delete branches merged to master from remote <code class="docutils literal notranslate"><span class="pre">origin</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git branch --merged master <span class="p">|</span> grep -v master <span class="p">|</span> xargs -L1 -I<span class="o">{}</span> git push origin :<span class="o">{}</span>
+</pre></div>
+</div>
+</li>
+<li><p>Delete them locally:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git branch --merged master <span class="p">|</span> grep -v master <span class="p">|</span> xargs git branch -d
+</pre></div>
+</div>
+</li>
+</ol>
+<section id="clean-up-old-unmerged-branches">
+<h2>Clean up old unmerged branches<a class="headerlink" href="#clean-up-old-unmerged-branches" title="Permalink to this headline">#</a></h2>
+<p>When using rebase-merge strategy, feature branches remain in the repo unmerged to master.
+One simple solution for cleaning up is to just force the deletion of old branches.</p>
+<p>To put a list of all local branches into vim, run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git branch <span class="p">|</span> vim -
+</pre></div>
+</div>
+<p>Inside vim, add the date of the last commit after each branch name. First, record a macro, that reads the date:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>qq:read ! git log -1 ^A | grep Date: | cut -d\  -f2-^MkJjq
+</pre></div>
+</div>
+<p>then undo and apply the macro to all lines:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">g</span><span class="o">/^/</span> <span class="n">norm</span> <span class="nd">@q</span>
+</pre></div>
+</div>
+<p>Remove the week day:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">g</span><span class="o">/^/</span> <span class="n">norm</span> <span class="n">WdW</span>
+</pre></div>
+</div>
+<p>Sort lines by date:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">sort</span> <span class="o">/^</span><span class="p">[</span><span class="o">^</span> <span class="p">]</span><span class="o">*</span> <span class="o">*/</span>
+</pre></div>
+</div>
+<p>Remove all the lines for the last month (for example, December):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">g</span><span class="o">/</span><span class="n">Dec</span><span class="o">/</span><span class="n">d</span>
+</pre></div>
+</div>
+<p>Remove the dates:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">g</span><span class="o">/^/</span> <span class="n">norm</span> <span class="n">ED</span>
+</pre></div>
+</div>
+<p>Join all lines and prepend with <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">branch</span> <span class="pre">-D</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ggVGJIgit</span> <span class="n">branch</span> <span class="o">-</span><span class="n">D</span> <span class="o">^</span><span class="n">M</span>
+</pre></div>
+</div>
+<p>Execute:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>w ! bash
+</pre></div>
+</div>
+</section>
+</section>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="find-merge-commit.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">How to find merge commit which includes a specific commit</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="jsonfield.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Two-faced JSONField</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022, Peter Demin.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>
