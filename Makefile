@@ -49,6 +49,7 @@ export:
 	mv build/html _docs
 	cp source/favicon.ico _docs/
 	cp CNAME _docs/
+	touch _docs/.nojekyll
 	git fetch origin gh-pages
 	git checkout gh-pages
 	rm -rf build docs
