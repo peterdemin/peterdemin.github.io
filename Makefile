@@ -27,6 +27,18 @@ browser:
 watch: html browser  ## compile the docs watching for changes
 	watch '$(MAKE) html'
 
+.PHONY: release
+release: clean html
+	mv build/html _docs
+	cp source/favicon.ico _docs/
+	cp CNAME _docs/
+	git checkout gh-pages
+	rm -rf docs
+	mv _docs docs
+	git add -A docs
+	git commit --amend
+	git push -u origin +gh-pages
+
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
 .PHONY: Makefile
