@@ -17,7 +17,7 @@ help:
 
 .PHONY: clean
 clean:
-	rm -rf build
+	rm -rf build _docs docs
 
 .PHONY: browser
 browser:
@@ -33,11 +33,12 @@ release: clean html
 	cp source/favicon.ico _docs/
 	cp CNAME _docs/
 	git checkout gh-pages
-	rm -rf docs
+	rm -rf build docs
 	mv _docs docs
 	git add -A docs
-	git commit --amend --no-edit
-	# git push -u origin +gh-pages
+	git commit -m "Update static html" --no-edit
+	git push -u origin +gh-pages
+	git checkout master
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
