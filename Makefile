@@ -61,7 +61,7 @@ export:
 push:
 	echo ${BOT_RELEASE_KEY} > key.pem
 	chmod 400 key.pem
-	GIT_SSH_COMMAND="/usr/bin/ssh -o StrictHostKeyChecking=no -i ${PWD}/key.pem" git push -u origin +gh-pages
+	GIT_SSH_COMMAND="/usr/bin/ssh -o StrictHostKeyChecking=no -i key.pem" git push -u origin +gh-pages
 	rm -f key.pem
 
 .PHONY: master
