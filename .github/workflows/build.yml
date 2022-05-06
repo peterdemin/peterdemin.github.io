@@ -16,4 +16,5 @@ jobs:
       - name: Release
         run: |
           python -m pip install --upgrade pip
-          make gitconfig install release
+          make clean html gitconfig export || exit 0
+          make push master

@@ -31,9 +31,6 @@ watch: html browser  ## compile the docs watching for changes
 install:
 	pip install -r requirements.txt
 
-.PHONY: release
-release: clean html gitconfig export push master
-
 .PHONY: gitconfig
 gitconfig:
 	git config user.name 'Peter Demin (bot)'
