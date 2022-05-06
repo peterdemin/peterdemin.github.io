@@ -3,7 +3,7 @@ import glob
 
 
 def gen_life():
-    for filename in sorted(glob.glob(os.path.join('source', 'life', '*.md'))):
+    for filename in sorted(glob.glob(os.path.join('source', 'life', '*.md')), reverse=True):
         relname = os.path.relpath(filename, 'source')
         print('.. include:: {}'.format(relname))
         print('   :parser: myst_parser.sphinx_')
