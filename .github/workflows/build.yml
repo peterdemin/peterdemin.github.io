@@ -13,21 +13,7 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.8'
-      - name: Install dependencies
+      - name: Release
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
-      - name: Build docs
-        run: |
-          make html
-      - name: Create commits
-        run: |
-          git checkout gh-pages
-          git config user.name 'Peter Demin (bot)'
-          git config user.email 'peterdemin@users.noreply.github.com'
-          git commit -am "Build docs"
-          cp -r build/html/* ./
-          rm -rf _build
-          git add -A .
-          git commit -m "Update documentation" -a || true
-          git push +gh-pages || true
+          make gitconfig install release

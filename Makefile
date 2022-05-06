@@ -27,8 +27,20 @@ browser:
 watch: html browser  ## compile the docs watching for changes
 	watch '$(MAKE) html'
 
+.PHONY: install
+install:
+	pip install -r requirements.txt
+
 .PHONY: release
-release: clean html
+release: clean html gitconfig export push master
+
+.PHONY: gitconfig
+gitconfig:
+	git config user.name 'Peter Demin (bot)'
+	git config user.email 'peterdemin@users.noreply.github.com'
+
+.PHONY: export
+export:
 	mv build/html _docs
 	cp source/favicon.ico _docs/
 	cp CNAME _docs/
@@ -37,7 +49,16 @@ release: clean html
 	mv _docs docs
 	git add -A docs
 	git commit -m "Update static html" --no-edit
-	git push -u origin +gh-pages
+
+.PHONY: push
+push:
+	echo ${BOT_RELEASE_KEY} > key.pem
+	chmod 400 key.pem
+	GIT_SSH_COMMAND="/usr/bin/ssh -o StrictHostKeyChecking=no -i ${PWD}/key.pem" git push -u origin +gh-pages
+	rm -f key.pem
+
+.PHONY: master
+master:
 	git checkout master
 
 # Catch-all target: route all unknown targets to Sphinx using the new
