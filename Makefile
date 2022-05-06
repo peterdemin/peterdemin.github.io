@@ -21,7 +21,6 @@ clean:
 
 .PHONY: autogen
 autogen:
-	mkdir -p source/g
 	python gen_life.py > source/life_gd.rst
 
 .PHONY: build
