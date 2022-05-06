@@ -35,6 +35,12 @@ browser:
 watch: build browser  ## compile the docs watching for changes
 	watch '$(MAKE) html'
 
+.PHONY: jot
+jot:
+	git add -A .
+	git commit -am "Jot down something"
+	git push
+
 .PHONY: install
 install:
 	pip install -r requirements.txt
