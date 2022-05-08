@@ -124,6 +124,11 @@
    Existing solutions
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#components">
+   Components
+  </a>
+ </li>
 </ul>
 
 </nav>
@@ -195,6 +200,19 @@
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://swimm.io/">swimm</a> is paid solution that puts special hooks into code and provides IDE integrations to display the docs while editing code.</p></li>
 <li><p><a class="reference external" href="https://typo3.org/">typo3</a> is an open source CMS that provides extension for Sphinx docs that syncs edits back to the code.</p></li>
+</ol>
+</section>
+<section id="components">
+<h2>Components<a class="headerlink" href="#components" title="Permalink to this headline">#</a></h2>
+<p>Here are the high level components that make this system work regardless of implementation.</p>
+<ol class="arabic simple">
+<li><p>Docs renderer. Extracts doc strings from source code, resolves cross references, applies markup, and generates HTML pages.</p></li>
+<li><p>Docs server. Serves generated docs to the readers. Links docs sections to the source doc strings in the source code.</p></li>
+<li><p>Online docs editor. Allows users to make edits while reading, publishes the new version in near real time.</p></li>
+<li><p>Synchronizer. Propagates online edits back to the source code. Updates only the doc strings, and keeps formatting consistent.</p></li>
+<li><p>VCS integration. Commits the changes and pushes them to a central repository. Records who and when made the changes.</p></li>
+<li><p>Code review integration. Creates pull request with the new edits.</p></li>
+<li><p>Code review streamliner. Detects pull requests that only change docs and automatically approved and merges the request.</p></li>
 </ol>
 </section>
 </section>

@@ -39,4 +39,16 @@ The perfect documentation system has to be a mix of both approaches:
 
 Few projects are trying to solve this:
 1. [swimm](https://swimm.io/) is paid solution that puts special hooks into code and provides IDE integrations to display the docs while editing code. 
-2. [typo3](https://typo3.org/) is an open source CMS that provides extension for Sphinx docs that syncs edits back to the code. 
+2. [typo3](https://typo3.org/) is an open source CMS that provides extension for Sphinx docs that syncs edits back to the code.
+
+## Components
+
+Here are the high level components that make this system work regardless of implementation. 
+
+1. Docs renderer. Extracts doc strings from source code, resolves cross references, applies markup, and generates HTML pages.
+2. Docs server. Serves generated docs to the readers. Links docs sections to the source doc strings in the source code. 
+3. Online docs editor. Allows users to make edits while reading, publishes the new version in near real time. 
+4. Synchronizer. Propagates online edits back to the source code. Updates only the doc strings, and keeps formatting consistent. 
+5. VCS integration. Commits the changes and pushes them to a central repository. Records who and when made the changes. 
+6. Code review integration. Creates pull request with the new edits.
+7. Code review streamliner. Detects pull requests that only change docs and automatically approved and merges the request. 
