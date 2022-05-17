@@ -19,6 +19,7 @@ Sources:
 * https://youtu.be/i-pazYyLSWQ
 
 ——-
+
 `May 12, 2022` · The first XKCD comic mentioned in [Software Engineering at Google](https://abseil.io/resources/swe-book):
 
 [![Workflow](/life/images/xkcd_workflow.png)](https://xkcd.com/1172/)
