@@ -13,7 +13,7 @@ And here I am, banging my head against the layers of walls, trying to get things
 
 If I were to make it right, I’d let rule enforcers solve the problem on their own. So that they can be in charge of their decisions. And so that they would know when to break the rules. You may say that it’s not scalable, but I’d say it’s a matter of where to cut the delegation. At the lowest level, horizontally, or at the problem level, vertically. 
 
-—--
+---
 
 `May 17, 2022` · Notes on stress management. 
 
@@ -35,7 +35,7 @@ Sources:
 * https://youtu.be/zDlz5N6DXuE
 * https://youtu.be/i-pazYyLSWQ
 
-—--
+---
 
 `May 12, 2022` · The first XKCD comic mentioned in [Software Engineering at Google](https://abseil.io/resources/swe-book):
 
