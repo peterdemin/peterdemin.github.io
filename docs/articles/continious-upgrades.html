@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>MSSQL cheatsheet &#8212; Peter Demin  documentation</title>
+    <title>Continuous upgrading &#8212; Peter Demin  documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -32,8 +32,8 @@
     <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="How to find merge commit which includes a specific commit" href="find-merge-commit.html" />
-    <link rel="prev" title="Continuous upgrading" href="continious-upgrades.html" />
+    <link rel="next" title="MSSQL cheatsheet" href="create-mssql-user.html" />
+    <link rel="prev" title="Clean up old celery tasks from database" href="cleanup_celery.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -125,24 +125,14 @@
               
               <div>
                 
-  <section id="mssql-cheatsheet">
-<h1>MSSQL cheatsheet<a class="headerlink" href="#mssql-cheatsheet" title="Permalink to this headline">#</a></h1>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">USE</span> <span class="n">DatabaseName</span>
-<span class="n">CREATE</span> <span class="n">USER</span> <span class="n">username</span> <span class="n">FOR</span> <span class="n">LOGIN</span> <span class="n">username</span>
-<span class="n">GO</span>
-<span class="n">EXEC</span> <span class="n">sp_addrolemember</span> <span class="n">db_owner</span><span class="p">,</span> <span class="n">username</span>
-<span class="n">GO</span>
-</pre></div>
-</div>
-<p>For read-only access you would want to use <code class="docutils literal notranslate"><span class="pre">db_datareader</span></code> role instead of <code class="docutils literal notranslate"><span class="pre">db_owner</span></code>.
-For read and write (but not changing schema, etc.) add it to both <code class="docutils literal notranslate"><span class="pre">db_datareader</span></code> and <code class="docutils literal notranslate"><span class="pre">db_datawriter</span></code></p>
-<p>Or, if you need more fine-grain control you may specifically
-<code class="docutils literal notranslate"><span class="pre">GRANT</span></code>/<code class="docutils literal notranslate"><span class="pre">REVOKE</span></code>/<code class="docutils literal notranslate"><span class="pre">DENY</span></code> <code class="docutils literal notranslate"><span class="pre">select</span></code>/<code class="docutils literal notranslate"><span class="pre">insert</span></code>/<code class="docutils literal notranslate"><span class="pre">update</span></code>/<code class="docutils literal notranslate"><span class="pre">delete</span></code> permissions
-on tables or views and/or exec permissions on functions and stored procs:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">USE</span> <span class="n">DatabaseName</span>
-<span class="n">GRANT</span> <span class="n">INSERT</span> <span class="n">ON</span> <span class="n">table_name</span> <span class="n">TO</span> <span class="n">username</span>
-</pre></div>
-</div>
+  <section id="continuous-upgrading">
+<h1>Continuous upgrading<a class="headerlink" href="#continuous-upgrading" title="Permalink to this headline">#</a></h1>
+<p>An important part of software engineering, as opposed to programming, is keeping up with supported versions of third-party dependency versions. The most modern open source libraries maintain just a single supported branch. It means that all bug fixes and security patches are applied only to the latest version.</p>
+<p>On the other side of scales are breaking changes. New versions of a library may remove required functionality, or change behavior in an unexpected way.</p>
+<p>The main question becomes, how often do we need to check for upgrades and how quick do we need to react. I found it helpful to split all packages into 3 groups:</p>
+<ol class="arabic simple">
+<li><p>Mature packages with small interface area.</p></li>
+</ol>
 </section>
 
 
@@ -151,17 +141,17 @@ on tables or views and/or exec permissions on functions and stored procs:</p>
               
               <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="continious-upgrades.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="cleanup_celery.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Continuous upgrading</p>
+            <p class="prev-next-title">Clean up old celery tasks from database</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="find-merge-commit.html" title="next page">
+    <a class='right-next' id="next-link" href="create-mssql-user.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">How to find merge commit which includes a specific commit</p>
+        <p class="prev-next-title">MSSQL cheatsheet</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
