@@ -1,7 +1,22 @@
+`May 23, 2022` · 
+I want to experiment with hosting .deb (.rpm?) packages on GitHub pages.
+
+So far, I found these two tutorials:
+* https://assafmo.github.io/2019/05/02/ppa-repo-hosted-on-github.html
+* https://pmateusz.github.io/linux/2017/06/30/linux-secure-apt-repository.html
+
+Would be nice to automate the index update and GPG signing through GitHub Actions.
+
+Packages, that I'm most interested in hosting:
+* Kibitzr
+* Arr family: Radarr, Sonarr, Lidarr.
+
+---
+
 `May 22, 2022` · 
 Both individuals and the larger society have agreed to a set of interlocking delicate systems that are simultaneously highly effective and spectacularly vulnerable to disruption.
 
-—— [Johnny Sanphillippo](https://www.granolashotgun.com/granolashotguncom/hp5pmb0n95ut9hyeatewotgd2n1ebr)
+— [Johnny Sanphillippo](https://www.granolashotgun.com/granolashotguncom/hp5pmb0n95ut9hyeatewotgd2n1ebr)
 
 ---
 
@@ -39,8 +54,8 @@ Stress management is management of body and mind. Stress is an integral part of 
 11. Hang out with friends to feel social connection.
 
 Sources:
-* https://youtu.be/zDlz5N6DXuE
-* https://youtu.be/i-pazYyLSWQ
+* [Beating Stress is Easier Than You Think | Annika Sörensen | TEDxSanJuanIsland](https://youtu.be/zDlz5N6DXuE)
+* [3 Stress-Management Techniques for Front Line Workers](https://youtu.be/i-pazYyLSWQ)
 
 ---
 
