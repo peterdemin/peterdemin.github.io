@@ -1,4 +1,4 @@
-# On delegation. 
+# On delegation 
 
 As a person who spent a lot of time in government facilities, I developed an acute case of red line allergy.
 Not all bureaucratic process are inherently bad though. A line to the cashier is arguably the best way to coordinate buyers in a shop to share a limited resource of cashier’s time.
