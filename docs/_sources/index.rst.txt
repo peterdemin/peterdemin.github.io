@@ -6,6 +6,7 @@ I develop Python services for `Moveworks <https://moveworks.ai>`_ in United Stat
 Previously I lived in Russia and Belarus working for Yandex and EPAM in the same position.
 
 I write about Python, vim and git.
+I’m trying to keep a :ref:`public journal <life>` about non-technical topics.
 
 Articles and notes
 ------------------
@@ -40,4 +41,3 @@ Projects that did not
 
    ideas/*
 
-:ref:`life`
