@@ -1,19 +1,26 @@
-`June 8, 2022` 
-
+`June 8, 2022` ·
 I enjoyed KK's article on [Truth vs Trust](https://kk.org/thetechnium/truth-vs-trust/).
 It talks about a utopian news outlets that track down origins of every statement.
-Not a fact check, but just a chain of who quoted who.
-Regardless of mention of blockchain, the idea just illustrates that we can't just infer truth from a statement itself.
-We also can't infer trust just from the source's identity and immutable history.
+Not a fact check (that journalists are "doing" now), just a chain of who quoted who.
+The article's start point is that we can't infer truth from a statement itself.
+But we can track who said what and an origin of every statement.
+
+The problem is though, that for polarizing topics (where truth can't be established,
+and we need to rely on trust) all modern news outlets would cover facts that are convenient for them,
+and omit everything else.
+
+Which means, that trustworthiness of a source is not a scalar, but more of a 3D matrix, that has topics, time, and past dishonesty as axes.
 
 ---
 
-`June 7, 2022` 
-
+`June 7, 2022` ·
 I picked up running a week ago. Today’s personal best is 4 km in 23 minutes.
 
 Fun fact: here's what happens when you burn a molecule of triglyceride, the predominant fat in a human body:
 
-C55H104O6+78O2 --> 55CO2+52H2O+energy.
+```
+C55H104O6 + 78O2 --> 55CO2 + 52H2O + energy
+```
 
-Oxidizing 10 kilos of human fat requires inhaling 29 kilos of oxygen to produce 28 kilos of carbon dioxide and 11 kilos of water. It means that you lose roughly the same amount of fat as you sweat. 
+Oxidizing 10 kilos of human fat requires inhaling 29 kilos of oxygen to produce 28 kilos of carbon dioxide and 11 kilos of water.
+It means that you lose roughly the same amount of fat as you sweat. 
