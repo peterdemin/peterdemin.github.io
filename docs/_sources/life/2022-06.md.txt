@@ -13,6 +13,24 @@ Which means, that trustworthiness of a source is not a scalar, but more of a 3D 
 
 ---
 
+A Tech Lead is a software engineer responsible for leading a team and alignment of the technical direction. Tech Lead has a focus on the technical aspects, or the "How."
+
+Tech Lead blends:
+- leadership skills
+- architecture skills
+- development skills
+
+Leadership skills include:
+- coaching
+- influencing
+- delegation
+
+They steer their team towards a common technical vision. They are accountable for the quality of the technical deliverables for the team.
+
+[source](https://www.patkua.com/blog/the-definition-of-a-tech-lead/)
+
+---
+
 `June 7, 2022` ·
 I picked up running a week ago. Today’s personal best is 4 km in 23 minutes.
 
