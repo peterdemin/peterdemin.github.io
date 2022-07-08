@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Profiling django requests &#8212; Peter Demin  documentation</title>
+    <title>&lt;no title&gt; &#8212; Peter Demin  documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -37,8 +37,6 @@
     <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Formatting data with vim" href="003-formatting-with-vim.html" />
-    <link rel="prev" title="List of FOSS Python projects that are fun to work on" href="001-foss-projects-to-work-and-learn.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="docsearch:language" content="en">
   </head>
@@ -122,12 +120,7 @@
 </div>
 
 <nav id="bd-toc-nav">
-    <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#references">
-   References
-  </a>
- </li>
+    <ul class="simple visible nav section-nav flex-column">
 </ul>
 
 </nav>
@@ -147,41 +140,15 @@
               
               <article class="bd-article" role="main">
                 
-  <section id="profiling-django-requests">
-<h1>Profiling django requests<a class="headerlink" href="#profiling-django-requests" title="Permalink to this heading">#</a></h1>
-<p>Here is my favorite way of profiling requests to Django site:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ python manage.py shell
-In [1]: from django.test.client import Client
-In [2]: client = Client()
-In [3]: # Run request under cProfile saving results to profile.pstats
-In [4]: %prun -s cumulative -D profile.pstats  client.get(&#39;/&#39;)
-*** Profile stats marshalled to file u&#39;profile.pstats&#39;.
-
-In [5]: # Now convert profile.pstats to png image using dot
-In [6]: %%bash
-gprof2dot -f pstats profile.pstats | dot -Tpng -o profile.png
-</pre></div>
-</div>
-<p>Here are requirements:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>gprof2dot			# For rendering profile results in dot format
-ipython				# For magic commands %prun and %%bash
-</pre></div>
-</div>
-<p>If ipython is not an option, cProfile.runctx can be used:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; import cProfile
-&gt;&gt;&gt; cProfile.runctx(&quot;client.get(&#39;/&#39;)&quot;, globals(), locals(), sort=2, filename=&#39;profile.pstats&#39;)
-</pre></div>
-</div>
-<p>Check out this <a class="reference download internal" download="" href="../_downloads/39e76723869f423345fd1eaeed36f8de/profile.png"><span class="xref download myst">example profiler result</span></a>.</p>
-<section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jrfonseca/gprof2dot">gprof2dot</a> - converter from pstats format to dot</p></li>
-<li><p><a class="reference external" href="http://ipython.org/">ipython</a> - powerful interactive shell</p></li>
-<li><p><a class="reference external" href="https://docs.python.org/2/library/profile.html#profile.runctx">cProfile.runctx</a> - built-in profiler</p></li>
-</ul>
-</section>
-</section>
+  <p><code class="docutils literal notranslate"><span class="pre">July</span> <span class="pre">8,</span> <span class="pre">2022</span></code> · Ran 2K in the morning, fast[er] pace.</p>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">July</span> <span class="pre">7,</span> <span class="pre">2022</span></code> · Ran 5K in the morning.</p>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">July</span> <span class="pre">6,</span> <span class="pre">2022</span></code> · Ran 2K in the morning. Again, pain in the middle of chest. Ran another 4K in the evening, without pain.</p>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">July</span> <span class="pre">5,</span> <span class="pre">2022</span></code> · Ran 2K in the evening. Pain in the middle of chest stopped from going on the second lap.</p>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">July</span> <span class="pre">4,</span> <span class="pre">2022</span></code> · Completely recovered from Covid, tested negatively.</p>
 
 
               </article>
@@ -191,20 +158,6 @@ ipython				# For magic commands %prun and %%bash
               <footer class="bd-footer-article">
                   <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-  <a class='left-prev' id="prev-link" href="001-foss-projects-to-work-and-learn.html" title="previous page">
-      <i class="fas fa-angle-left"></i>
-      <div class="prev-next-info">
-          <p class="prev-next-subtitle">previous</p>
-          <p class="prev-next-title">List of FOSS Python projects that are fun to work on</p>
-      </div>
-  </a>
-  <a class='right-next' id="next-link" href="003-formatting-with-vim.html" title="next page">
-  <div class="prev-next-info">
-      <p class="prev-next-subtitle">next</p>
-      <p class="prev-next-title">Formatting data with vim</p>
-  </div>
-  <i class="fas fa-angle-right"></i>
-  </a>
 </div>
               </footer>
               
