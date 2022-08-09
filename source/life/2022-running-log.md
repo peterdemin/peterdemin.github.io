@@ -1,4 +1,4 @@
-## Running log
+# Running log
 
 ```
 WEEK MO TU WE TH FR SA SU  TOTAL
