@@ -18,6 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'Peter Demin'
+html_title = 'Peter Demin'
 copyright = '2022, Peter Demin'
 author = 'Peter Demin'
 
