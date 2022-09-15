@@ -24,6 +24,7 @@ My open source projects
 * `kibitzr <https://kibitzr.github.io/>`_ - Lightweight personal web assistant.
 * `pip-compile-multi <https://github.com/peterdemin/pip-compile-multi>`_ - Flexible Python dependency version locker.
 * `awsme <https://github.com/peterdemin/awsme>`_ - Amazon Web Services Cloud Watch Metrics Library.
+* `gcpfwup <https://pypi.org/project/gcpfwup/>`_ - GCP Firewall update tool.
 * `reshell <https://pypi.org/project/reshell/>`_ - Reverse shell for deployment debugging.
 
 My side gig
@@ -40,4 +41,3 @@ Projects that did not
    :glob:
 
    ideas/*
-
