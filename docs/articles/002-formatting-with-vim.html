@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Developer docs done right &#8212; Peter Demin</title>
+    <title>Formatting data with vim &#8212; Peter Demin</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -41,8 +41,8 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Two-faced JSONField" href="jsonfield.html" />
-    <link rel="prev" title="How to clean up stale git branches" href="git-branch-cleanup.html" />
+    <link rel="next" title="Developer docs done right" href="003-interactive-docs.html" />
+    <link rel="prev" title="Profiling django requests" href="001-profiling-django-requests.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -115,23 +115,43 @@
 <nav id="bd-toc-nav">
     <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#problem">
-   Problem
+  <a class="reference internal nav-link" href="#reindent-json">
+   Reindent JSON
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#requirements">
-   Requirements
+  <a class="reference internal nav-link" href="#prettify-json">
+   Prettify JSON
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#existing-solutions">
-   Existing solutions
+  <a class="reference internal nav-link" href="#convert-pretty-json-to-a-compressed-one-line-form">
+   Convert pretty JSON to a compressed one-line form
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#components">
-   Components
+  <a class="reference internal nav-link" href="#reindent-xml">
+   Reindent XML
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pretty-print-python-data-structures">
+   Pretty print Python data structures:
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#python-data-structure-to-json">
+   Python data structure to JSON
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#json-to-yaml">
+   JSON to YAML
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#yaml-to-json">
+   YAML to JSON
   </a>
  </li>
 </ul>
@@ -155,70 +175,60 @@
               
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="developer-docs-done-right">
-<h1>Developer docs done right<a class="headerlink" href="#developer-docs-done-right" title="Permalink to this headline">¶</a></h1>
-<section id="problem">
-<h2>Problem<a class="headerlink" href="#problem" title="Permalink to this headline">¶</a></h2>
-<p>Existing developer documentation systems largely fall into two buckets:</p>
-<ol class="arabic simple">
-<li><p>Docs live separately from source code. Examples: Confluence, Notion.</p></li>
-<li><p>Docs are generated from source code. Examples: Sphinx, Rust spec.</p></li>
-</ol>
-<p>Both approaches have pros and cons. When docs are generated from source code:</p>
-<ol class="arabic simple">
-<li><p>Docs are more likely to be updated when the code changes.</p></li>
-<li><p>Have extensive support for cross reference to other parts of the codebase.</p></li>
-<li><p>Are immediately available to the developers who read and change the code.</p></li>
-</ol>
-<p>The downsides:</p>
-<ol class="arabic simple">
-<li><p>Developers need to learn the markup language.</p></li>
-<li><p>It’s hard to tell if the docs are going to render properly during the editing.</p></li>
-<li><p>There’s an extra friction between reading generated docs to editing them, which oftentimes leads to typos not being fixed and less readability improvements.</p></li>
-<li><p>Changes are likely bound to the same code review process as the actual code changes, that further increases friction for small edits.</p></li>
-</ol>
-<p>When docs are in a separate system, say Notion:</p>
-<ol class="arabic simple">
-<li><p>WYSIWYG editors are easy to use and have a low entrance cost.</p></li>
-<li><p>Editing can done during reading, which increases collaboration and improves text quality over time.</p></li>
-<li><p>Non-developers can update the docs too.</p></li>
-</ol>
-<p>The downsides:</p>
-<ol class="arabic simple">
-<li><p>It’s hard to reference and cross reference class and code snippets.</p></li>
-<li><p>Docs are harder to discover during editing code.</p></li>
-<li><p>Docs are always stale when code changes.</p></li>
-</ol>
+  <section class="tex2jax_ignore mathjax_ignore" id="formatting-data-with-vim">
+<h1>Formatting data with vim<a class="headerlink" href="#formatting-data-with-vim" title="Permalink to this headline">¶</a></h1>
+<section id="reindent-json">
+<h2>Reindent JSON<a class="headerlink" href="#reindent-json" title="Permalink to this headline">¶</a></h2>
+<p>One of vim’s great feature is how it can integrate with external utilities.
+Here are commands that I use most.</p>
 </section>
-<section id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
-<p>The perfect documentation system has to be a mix of both approaches:</p>
-<ol class="arabic simple">
-<li><p>Developers should immediately see the rendered docs (and rendering issues) while editing code.</p></li>
-<li><p>Readers should be able to edit the docs while reading without searching for the respective docs origin in code.</p></li>
-<li><p>Doc changes need to become immediately available for other readers.</p></li>
-</ol>
+<section id="prettify-json">
+<h2>Prettify JSON<a class="headerlink" href="#prettify-json" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:% !python -mjson.tool
+</pre></div>
+</div>
+<p>Will take current buffer text, pass it to Python’s json.tool module and
+replace buffer with results effectively reindenting JSON document.</p>
+<p>Alternatively, if jq is available:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:% ! jq .
+</pre></div>
+</div>
 </section>
-<section id="existing-solutions">
-<h2>Existing solutions<a class="headerlink" href="#existing-solutions" title="Permalink to this headline">¶</a></h2>
-<p>Few projects are trying to solve this:</p>
-<ol class="arabic simple">
-<li><p><a class="reference external" href="https://swimm.io/">swimm</a> is paid solution that puts special hooks into code and provides IDE integrations to display the docs while editing code.</p></li>
-<li><p><a class="reference external" href="https://typo3.org/">typo3</a> is an open source CMS that provides extension for Sphinx docs that syncs edits back to the code.</p></li>
-</ol>
+<section id="convert-pretty-json-to-a-compressed-one-line-form">
+<h2>Convert pretty JSON to a compressed one-line form<a class="headerlink" href="#convert-pretty-json-to-a-compressed-one-line-form" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:% ! jq -c .
+</pre></div>
+</div>
 </section>
-<section id="components">
-<h2>Components<a class="headerlink" href="#components" title="Permalink to this headline">¶</a></h2>
-<p>Here are the high level components that make this system work regardless of implementation.</p>
-<ol class="arabic simple">
-<li><p>Docs renderer. Extracts doc strings from source code, resolves cross references, applies markup, and generates HTML pages.</p></li>
-<li><p>Docs server. Serves generated docs to the readers. Links docs sections to the source doc strings in the source code.</p></li>
-<li><p>Online docs editor. Allows users to make edits while reading, publishes the new version in near real time.</p></li>
-<li><p>Synchronizer. Propagates online edits back to the source code. Updates only the doc strings, and keeps formatting consistent.</p></li>
-<li><p>VCS integration. Commits the changes and pushes them to a central repository. Records who and when made the changes.</p></li>
-<li><p>Code review integration. Creates pull request with the new edits.</p></li>
-<li><p>Code review streamliner. Detects pull requests that only change docs and automatically approved and merges the request.</p></li>
-</ol>
+<section id="reindent-xml">
+<h2>Reindent XML<a class="headerlink" href="#reindent-xml" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:% !xmllint --format --recover -
+</pre></div>
+</div>
+</section>
+<section id="pretty-print-python-data-structures">
+<h2>Pretty print Python data structures:<a class="headerlink" href="#pretty-print-python-data-structures" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:% !python -c &#39;import pprint, sys; pprint.pprint(eval(sys.stdin.read()))&#39;
+</pre></div>
+</div>
+</section>
+<section id="python-data-structure-to-json">
+<h2>Python data structure to JSON<a class="headerlink" href="#python-data-structure-to-json" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:% !python -c &#39;import sys, json; from collections import OrderedDict; print(json.dumps(eval(sys.stdin.read()), indent=2))&#39;
+</pre></div>
+</div>
+</section>
+<section id="json-to-yaml">
+<h2>JSON to YAML<a class="headerlink" href="#json-to-yaml" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:% !python -c &#39;import sys, json, yaml; print(yaml.dump(json.load(sys.stdin), indent=2))&#39;
+</pre></div>
+</div>
+</section>
+<section id="yaml-to-json">
+<h2>YAML to JSON<a class="headerlink" href="#yaml-to-json" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:% !python -c &#39;import sys, json, yaml; print(json.dumps(yaml.safe_load(sys.stdin), indent=2))&#39;
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -228,17 +238,17 @@
               
               <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="git-branch-cleanup.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="001-profiling-django-requests.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">How to clean up stale git branches</p>
+            <p class="prev-next-title">Profiling django requests</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="jsonfield.html" title="next page">
+    <a class='right-next' id="next-link" href="003-interactive-docs.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Two-faced JSONField</p>
+        <p class="prev-next-title">Developer docs done right</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

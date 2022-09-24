@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Profiling django requests &#8212; Peter Demin</title>
+    <title>MSSQL cheatsheet &#8212; Peter Demin</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -41,8 +41,8 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Formatting data with vim" href="003-formatting-with-vim.html" />
-    <link rel="prev" title="List of FOSS Python projects that are fun to work on" href="001-foss-projects-to-work-and-learn.html" />
+    <link rel="next" title="How to find merge commit which includes a specific commit" href="011-find-merge-commit.html" />
+    <link rel="prev" title="Continuous upgrading" href="007-continious-upgrades.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -108,19 +108,9 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
-    <i class="fas fa-list"></i> On this page
-</div>
 
 <nav id="bd-toc-nav">
-    <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#references">
-   References
-  </a>
- </li>
-</ul>
-
+    
 </nav>
               </div>
               
@@ -140,47 +130,24 @@
               
               <div>
                 
-  <section id="profiling-django-requests">
-<h1>Profiling django requests<a class="headerlink" href="#profiling-django-requests" title="Permalink to this headline">¶</a></h1>
-<p>My favorite way of profiling requests to Django site:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python manage.py shell
-In [1]: from django.test.client import Client
-In [2]: client = Client()
-In [3]: # Run request under cProfile saving results to profile.pstats
-In [4]: %prun -s cumulative -D profile.pstats  client.get(&#39;/&#39;)
-*** Profile stats marshalled to file u&#39;profile.pstats&#39;.
-
-In [5]: # Now convert profile.pstats to png image using dot
-In [6]: %%bash
-gprof2dot -f pstats profile.pstats | dot -Tpng -o profile.png
+  <section class="tex2jax_ignore mathjax_ignore" id="mssql-cheatsheet">
+<h1>MSSQL cheatsheet<a class="headerlink" href="#mssql-cheatsheet" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">USE</span> <span class="n">DatabaseName</span>
+<span class="n">CREATE</span> <span class="n">USER</span> <span class="n">username</span> <span class="n">FOR</span> <span class="n">LOGIN</span> <span class="n">username</span>
+<span class="n">GO</span>
+<span class="n">EXEC</span> <span class="n">sp_addrolemember</span> <span class="n">db_owner</span><span class="p">,</span> <span class="n">username</span>
+<span class="n">GO</span>
 </pre></div>
 </div>
-<p>Requirements:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gprof2dot</span>                       <span class="c1"># For rendering profile results in dot format</span>
-<span class="n">ipython</span>                         <span class="c1"># For magic commands %prun and %%bash</span>
+<p>For read-only access you would want to use <code class="docutils literal notranslate"><span class="pre">db_datareader</span></code> role instead of <code class="docutils literal notranslate"><span class="pre">db_owner</span></code>.
+For read and write (but not changing schema, etc.) add it to both <code class="docutils literal notranslate"><span class="pre">db_datareader</span></code> and <code class="docutils literal notranslate"><span class="pre">db_datawriter</span></code></p>
+<p>Or, if you need more fine-grain control you may specifically
+<code class="docutils literal notranslate"><span class="pre">GRANT</span></code>/<code class="docutils literal notranslate"><span class="pre">REVOKE</span></code>/<code class="docutils literal notranslate"><span class="pre">DENY</span></code> <code class="docutils literal notranslate"><span class="pre">select</span></code>/<code class="docutils literal notranslate"><span class="pre">insert</span></code>/<code class="docutils literal notranslate"><span class="pre">update</span></code>/<code class="docutils literal notranslate"><span class="pre">delete</span></code> permissions
+on tables or views and/or exec permissions on functions and stored procs:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">USE</span> <span class="n">DatabaseName</span>
+<span class="n">GRANT</span> <span class="n">INSERT</span> <span class="n">ON</span> <span class="n">table_name</span> <span class="n">TO</span> <span class="n">username</span>
 </pre></div>
 </div>
-<p>If ipython is not an option, cProfile.runctx can be used:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cProfile</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">cProfile</span><span class="o">.</span><span class="n">runctx</span><span class="p">(</span><span class="s2">&quot;client.get(&#39;/&#39;)&quot;</span><span class="p">,</span> <span class="nb">globals</span><span class="p">(),</span> <span class="nb">locals</span><span class="p">(),</span> <span class="n">sort</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;profile.pstats&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="dropdown admonition">
-<p class="admonition-title">Example profiler output</p>
-<blockquote>
-<div><a class="reference external image-reference" href="/_images/profile.png"><img alt="../_images/profile.png" src="../_images/profile.png" /></a>
-</div></blockquote>
-</div>
-<section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jrfonseca/gprof2dot">gprof2dot</a> - converter from pstats format to dot</p></li>
-<li><p><a class="reference external" href="http://ipython.org/">ipython</a> - powerful interactive shell</p></li>
-<li><p><a class="reference external" href="https://docs.python.org/2/library/profile.html#profile.runctx">cProfile.runctx</a> - built-in profiler</p></li>
-</ul>
-</div></blockquote>
-</section>
 </section>
 
 
@@ -189,17 +156,17 @@ gprof2dot -f pstats profile.pstats | dot -Tpng -o profile.png
               
               <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="001-foss-projects-to-work-and-learn.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="007-continious-upgrades.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">List of FOSS Python projects that are fun to work on</p>
+            <p class="prev-next-title">Continuous upgrading</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="003-formatting-with-vim.html" title="next page">
+    <a class='right-next' id="next-link" href="011-find-merge-commit.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Formatting data with vim</p>
+        <p class="prev-next-title">How to find merge commit which includes a specific commit</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

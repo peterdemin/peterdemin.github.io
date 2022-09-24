@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Formatting data with vim &#8212; Peter Demin</title>
+    <title>Profiling django requests &#8212; Peter Demin</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -41,8 +41,8 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="List date of last commit on git branches" href="branch-dates.html" />
-    <link rel="prev" title="Profiling django requests" href="002-profiling-django-requests.html" />
+    <link rel="next" title="Formatting data with vim" href="002-formatting-with-vim.html" />
+    <link rel="prev" title="👋 Hi, I’m Peter" href="../index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -115,43 +115,8 @@
 <nav id="bd-toc-nav">
     <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#reindent-json">
-   Reindent JSON
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#prettify-json">
-   Prettify JSON
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#convert-pretty-json-to-a-compressed-one-line-form">
-   Convert pretty JSON to a compressed one-line form
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#reindent-xml">
-   Reindent XML
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#pretty-print-python-data-structures">
-   Pretty print Python data structures:
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#python-data-structure-to-json">
-   Python data structure to JSON
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#json-to-yaml">
-   JSON to YAML
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#yaml-to-json">
-   YAML to JSON
+  <a class="reference internal nav-link" href="#references">
+   References
   </a>
  </li>
 </ul>
@@ -175,60 +140,46 @@
               
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="formatting-data-with-vim">
-<h1>Formatting data with vim<a class="headerlink" href="#formatting-data-with-vim" title="Permalink to this headline">¶</a></h1>
-<section id="reindent-json">
-<h2>Reindent JSON<a class="headerlink" href="#reindent-json" title="Permalink to this headline">¶</a></h2>
-<p>One of vim’s great feature is how it can integrate with external utilities.
-Here are commands that I use most.</p>
-</section>
-<section id="prettify-json">
-<h2>Prettify JSON<a class="headerlink" href="#prettify-json" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:% !python -mjson.tool
+  <section id="profiling-django-requests">
+<h1>Profiling django requests<a class="headerlink" href="#profiling-django-requests" title="Permalink to this headline">¶</a></h1>
+<p>My favorite way of profiling requests to Django site:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python manage.py shell
+In [1]: from django.test.client import Client
+In [2]: client = Client()
+In [3]: # Run request under cProfile saving results to profile.pstats
+In [4]: %prun -s cumulative -D profile.pstats  client.get(&#39;/&#39;)
+*** Profile stats marshalled to file u&#39;profile.pstats&#39;.
+
+In [5]: # Now convert profile.pstats to png image using dot
+In [6]: %%bash
+gprof2dot -f pstats profile.pstats | dot -Tpng -o profile.png
 </pre></div>
 </div>
-<p>Will take current buffer text, pass it to Python’s json.tool module and
-replace buffer with results effectively reindenting JSON document.</p>
-<p>Alternatively, if jq is available:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:% ! jq .
+<p>Requirements:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gprof2dot</span>                       <span class="c1"># For rendering profile results in dot format</span>
+<span class="n">ipython</span>                         <span class="c1"># For magic commands %prun and %%bash</span>
 </pre></div>
 </div>
-</section>
-<section id="convert-pretty-json-to-a-compressed-one-line-form">
-<h2>Convert pretty JSON to a compressed one-line form<a class="headerlink" href="#convert-pretty-json-to-a-compressed-one-line-form" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:% ! jq -c .
+<p>If ipython is not an option, cProfile.runctx can be used:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cProfile</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cProfile</span><span class="o">.</span><span class="n">runctx</span><span class="p">(</span><span class="s2">&quot;client.get(&#39;/&#39;)&quot;</span><span class="p">,</span> <span class="nb">globals</span><span class="p">(),</span> <span class="nb">locals</span><span class="p">(),</span> <span class="n">sort</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;profile.pstats&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="reindent-xml">
-<h2>Reindent XML<a class="headerlink" href="#reindent-xml" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:% !xmllint --format --recover -
-</pre></div>
+<div class="dropdown admonition">
+<p class="admonition-title">Example profiler output</p>
+<blockquote>
+<div><a class="reference external image-reference" href="/_images/profile.png"><img alt="../_images/profile.png" src="../_images/profile.png" /></a>
+</div></blockquote>
 </div>
-</section>
-<section id="pretty-print-python-data-structures">
-<h2>Pretty print Python data structures:<a class="headerlink" href="#pretty-print-python-data-structures" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:% !python -c &#39;import pprint, sys; pprint.pprint(eval(sys.stdin.read()))&#39;
-</pre></div>
-</div>
-</section>
-<section id="python-data-structure-to-json">
-<h2>Python data structure to JSON<a class="headerlink" href="#python-data-structure-to-json" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:% !python -c &#39;import sys, json; from collections import OrderedDict; print(json.dumps(eval(sys.stdin.read()), indent=2))&#39;
-</pre></div>
-</div>
-</section>
-<section id="json-to-yaml">
-<h2>JSON to YAML<a class="headerlink" href="#json-to-yaml" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:% !python -c &#39;import sys, json, yaml; print(yaml.dump(json.load(sys.stdin), indent=2))&#39;
-</pre></div>
-</div>
-</section>
-<section id="yaml-to-json">
-<h2>YAML to JSON<a class="headerlink" href="#yaml-to-json" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:% !python -c &#39;import sys, json, yaml; print(json.dumps(yaml.safe_load(sys.stdin), indent=2))&#39;
-</pre></div>
-</div>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/jrfonseca/gprof2dot">gprof2dot</a> - converter from pstats format to dot</p></li>
+<li><p><a class="reference external" href="http://ipython.org/">ipython</a> - powerful interactive shell</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/2/library/profile.html#profile.runctx">cProfile.runctx</a> - built-in profiler</p></li>
+</ul>
+</div></blockquote>
 </section>
 </section>
 
@@ -238,17 +189,17 @@ replace buffer with results effectively reindenting JSON document.</p>
               
               <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="002-profiling-django-requests.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="../index.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Profiling django requests</p>
+            <p class="prev-next-title">👋 Hi, I’m Peter</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="branch-dates.html" title="next page">
+    <a class='right-next' id="next-link" href="002-formatting-with-vim.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">List date of last commit on git branches</p>
+        <p class="prev-next-title">Formatting data with vim</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

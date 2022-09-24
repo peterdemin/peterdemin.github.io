@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>List of FOSS Python projects that are fun to work on &#8212; Peter Demin</title>
+    <title>List date of last commit on git branches &#8212; Peter Demin</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -41,8 +41,8 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Profiling django requests" href="002-profiling-django-requests.html" />
-    <link rel="prev" title="👋 Hi, I’m Peter" href="../index.html" />
+    <link rel="next" title="Clean up old celery tasks from database" href="006-cleanup_celery.html" />
+    <link rel="prev" title="Developer docs done right" href="003-interactive-docs.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -130,13 +130,12 @@
               
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="list-of-foss-python-projects-that-are-fun-to-work-on">
-<h1>List of FOSS Python projects that are fun to work on<a class="headerlink" href="#list-of-foss-python-projects-that-are-fun-to-work-on" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><p><a class="reference external" href="https://dev.funkwhale.audio/funkwhale/funkwhale">FunkyWhale</a> - Self-hosted federated music streaming service built with Django and Vue.</p></li>
-<li><p><a class="reference external" href="https://github.com/zulip/zulip">Zulip</a> - Group chat, like Slack or MS Teams built with Django.</p></li>
-<li><p><a class="reference external" href="https://github.com/apache/incubator-superset">Superset</a> - Data analytics dashboard built with Flask.</p></li>
-</ul>
+  <section class="tex2jax_ignore mathjax_ignore" id="list-date-of-last-commit-on-git-branches">
+<h1>List date of last commit on git branches<a class="headerlink" href="#list-date-of-last-commit-on-git-branches" title="Permalink to this headline">¶</a></h1>
+<p>Print all local branch names with date of last commit:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>git branch --list | cut -c3- | while read branch; do git log -1 $branch --format=&quot;%ai $branch&quot; -- | cat; done | sort
+</pre></div>
+</div>
 </section>
 
 
@@ -145,17 +144,17 @@
               
               <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="../index.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="003-interactive-docs.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">👋 Hi, I’m Peter</p>
+            <p class="prev-next-title">Developer docs done right</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="002-profiling-django-requests.html" title="next page">
+    <a class='right-next' id="next-link" href="006-cleanup_celery.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Profiling django requests</p>
+        <p class="prev-next-title">Clean up old celery tasks from database</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
