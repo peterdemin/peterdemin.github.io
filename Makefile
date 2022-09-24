@@ -44,6 +44,10 @@ jot:
 install:
 	pip install -r requirements.txt
 
+.PHONY: install_dev
+install_dev:
+	pip install -r requirements_dev.txt
+
 .PHONY: gitconfig
 gitconfig:
 	git config user.name 'Peter Demin (bot)'
@@ -69,6 +73,14 @@ push:
 .PHONY: master
 master:
 	git checkout master
+
+.PHONY: lock
+lock:
+	pip-compile-multi --directory . --allow-unsafe --no-upgrade
+
+.PHONY: upgrade
+upgrade:
+	pip-compile-multi --directory . --allow-unsafe
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
