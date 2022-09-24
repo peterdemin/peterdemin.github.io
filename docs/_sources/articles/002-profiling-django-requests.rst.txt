@@ -29,7 +29,7 @@ If ipython is not an option, cProfile.runctx can be used::
    :class: dropdown
 
     .. image:: images/profile.png
-       :target: images/profile.png
+       :target: /_images/profile.png
 
 
 References
