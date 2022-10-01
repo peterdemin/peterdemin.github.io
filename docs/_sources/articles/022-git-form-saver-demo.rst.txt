@@ -44,3 +44,6 @@ say: Hi
 name: test
 say: test
 
+name: Peter
+say: This is mind-blowing and stupid at the same time!
+
