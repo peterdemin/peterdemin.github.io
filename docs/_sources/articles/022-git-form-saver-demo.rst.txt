@@ -19,6 +19,7 @@ Git form saver demo
       </div>
       <input type=hidden name="repo" value="git@github.com:peterdemin/peterdemin.github.io" />
       <input type=hidden name="file" value="source/articles/022-git-form-saver-demo.rst" />
+      <input type=hidden name="redirect" value="https://peter.demin.dev/articles/022-git-form-saver-demo.html" />
       <div>
         <button>Submit</button>
       </div>
