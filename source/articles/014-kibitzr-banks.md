@@ -97,4 +97,4 @@ I can't say that I composed the whole thing from the first attempt.
 But after some tweaking and poking, I've got a working configuration,
 that sends me notifications like this one:
 
-![Balance report](balance.png)
+![Balance report](images/balance.png)
