@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Running log &#8212; Peter Demin</title>
+    <title>&lt;no title&gt; &#8212; Peter Demin</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -106,9 +106,14 @@
               
               <div class="toc-item">
                 
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
 
 <nav id="bd-toc-nav">
-    
+    <ul class="simple visible nav section-nav flex-column">
+</ul>
+
 </nav>
               </div>
               
@@ -128,29 +133,21 @@
               
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="running-log">
-<h1>Running log<a class="headerlink" href="#running-log" title="Permalink to this headline">¶</a></h1>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>WEEK MO TU WE TH FR SA SU  TOTAL
-0704  -  2  6  7  -  -  -     15
-0711  4  -  -  4  6  4  6     14
-0718  -  -  6  -  -  -  -      6
-0725  -  -  -  -  -  -  -      0
-
-0801 10  4  6  -  -  - 10     30
-0808  4  - 10  -  8  -  -     22
-0815  -  4  -  6  6  -  -     16
-0822  8  -  -  6  -  -  -     14
-0829 12  -  6  -  -  6  -     24
-
-0905  6  -  -  -  -  -  -      6?
-0912 12  6  -  -  -  -  -     18
-0919  -  -  -  -  -  -  -      0
-0926  -  4  6  6  -  -  -     16
-
-1003  
-</pre></div>
-</div>
-</section>
+  <p><code class="docutils literal notranslate"><span class="pre">October</span> <span class="pre">3,</span> <span class="pre">2022</span></code> · Scratched my self-hosting itch with two new additions to my home server:
+<a class="reference external" href="https://nextcloud.com/">Nextcloud</a> and <a class="reference external" href="https://www.storj.io/">Storj</a>.</p>
+<ul class="simple">
+<li><p>Nextcloud is a bit weird Snap installation with PHP, MariaDB, and Redis.
+I don’t feel comfortable exposing self-managing PHP applications (read Wordpress-level security),
+so I’ve put it behind my 2FA cloud proxy. And of course it doesn’t work well with the Nexcloud mobile client.
+Aside from security, performance on my old home server is not that great.
+Image previews are generated on-demand, so it takes awhile to see my 300 GB photo gallery.
+Apple live photos seem to have no support too. All in all, I don’t think it can replace Google Photos, as I hoped.</p></li>
+<li><p>Storj is an implementation that I had another day. Pretty good one.
+Set up could have been better streamlined, so it took few hours to hook up a Raspberry Pi 4 with 2 TB external HDD storage.
+As a side effect I know have an Etherium wallet, that should be used for pay outs. We’ll see.
+Overall, I like their implementation a lot. From ideation to performance and security aspects.
+I wish I could make it bare-metal, but I caved too early and went with the recommended Docker installation.</p></li>
+</ul>
 
 
               </div>
