@@ -16,3 +16,6 @@ say: test
 
 name: Peter
 say: This is mind-blowing and stupid at the same time!
+name: potato
+say: potato
+
