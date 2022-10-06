@@ -22,3 +22,6 @@ say: potato
 name: Anonymous
 say: Hi
 
+name: Anonymous
+say: How does it work?
+
