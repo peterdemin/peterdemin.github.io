@@ -26,6 +26,7 @@ My open source projects
 * `awsme <https://github.com/peterdemin/awsme>`_ - Amazon Web Services Cloud Watch Metrics Library.
 * `gcpfwup <https://pypi.org/project/gcpfwup/>`_ - GCP Firewall update tool.
 * `reshell <https://pypi.org/project/reshell/>`_ - Reverse shell for deployment debugging.
+* :ref:`git-form-saver` - HTTP API to submit HTML forms to git.
 
 My side gig
 -----------
