@@ -287,14 +287,35 @@ Only form submissions, that include this <code class="docutils literal notransla
 you need to add its SSH public key to the target git repository.</p>
 <p>If your repository is on GitHub, you can just
 add a special <cite>GitHub account &lt;https://github.com/git-form-saver&gt;</cite> as collaborator.</p>
-<p>Otherwise, please add this public key to your repo for read and write access:</p>
+<p>Otherwise, add this public key to your repo for read and write access:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDAgnNh5XUOJItYkNrO0bSl0tNrOmbBNpD0Nl7Wo5JdoHEBZ9ksQIqdCiLwsqp/jdr9YCUiDKfMv6i3NCrFoYcD2u1x4p7bepKJ2bMaQRiDbzBGgI102lPjNSmiv7HxPDFdrJYtagWZGn0CCvVyK5jW1QV2w9CzQDJXlRI78DmhQnSJkVsE0cGNDvHXcWRi17MBAbcfx1+UOejHQsfP3NEVhS3QnPImS6cYk5hg+OO/ABnRsvCJCqoKpjvtQNSqLiYCZDuiOW7xvkC9zUw4ixAOjcuZvvqWYzFRypJSVscqCTW0aYWk5wadWw6lIbJP44zwp3cCtZ0qz9XZ9IYtLDarYpGERLQPplYBW+F6A7tirLx8OpALKDsXE4q5evgBWJofuWpfBl1tmkp2qySGnrmGsJYY6jFhGruvqGnZZzawU+NN51UBEP23sgZF7dozslgBR8D8fJJqhe/NEt1wtmXYfUYDJJg4KaqIER9sgSJKYwHhB2v37oby1n/j0S6Ti2M= gitformsaver@instance-1
 </pre></div>
 </div>
 <section id="security-token-generation">
 <h3><a class="toc-backref" href="#id9">Security token generation</a><a class="headerlink" href="#security-token-generation" title="Permalink to this headline">¶</a></h3>
 <p>Use this form to generate a security token for your repo:</p>
-<form action="https://gitformsaver.demin.dev/token" method="POST">
+<script>
+function generateToken(event, form) {
+    event.preventDefault();
+    const formInputs = form.getElementsByTagName("input");
+    let formData = new FormData();
+    for (let input of formInputs) {
+        formData.append(input.name, input.value);
+    }
+    fetch(
+        form.action,
+        {
+            method: form.method,
+            body: formData
+        }
+    )
+    .then(response => response.text)
+    .then(text => console.log(data))
+    .catch(error => console.log(error.message));
+}
+</script>
+
+<form action="https://gitformsaver.demin.dev/token" method="POST" onsubmit="generateToken(event, this)">
   <div>
     <label for="repo">Enter repository URL:</label>
     <input name="repo" value="git@github.com:user/repo.git" />
@@ -310,7 +331,9 @@ add a special <cite>GitHub account &lt;https://github.com/git-form-saver&gt;</ci
   <div>
     <button>Generate token</button>
   </div>
-</form><p>The token must be manually saved to the target file
+</form>
+
+<div id="token" /><p>The token must be manually saved to the target file
 somewhere in the beginning (first 2 KiB).</p>
 </section>
 <section id="save-text-to-any-file">
