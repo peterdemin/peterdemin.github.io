@@ -96,7 +96,7 @@ you need to add its SSH public key to the target git repository.
 If your repository is on GitHub, you can just
 add a special `GitHub account <https://github.com/git-form-saver>` as collaborator.
 
-Otherwise, please add this public key to your repo for read and write access:
+Otherwise, add this public key to your repo for read and write access:
 
 .. code-block:: text
 
@@ -110,7 +110,28 @@ Use this form to generate a security token for your repo:
 
 .. raw:: html
 
-    <form action="https://gitformsaver.demin.dev/token" method="POST">
+    <script>
+    function generateToken(event, form) {
+        event.preventDefault();
+        const formInputs = form.getElementsByTagName("input");
+        let formData = new FormData();
+        for (let input of formInputs) {
+            formData.append(input.name, input.value);
+        }
+        fetch(
+            form.action,
+            {
+                method: form.method,
+                body: formData
+            }
+        )
+        .then(response => response.text)
+        .then(text => console.log(data))
+        .catch(error => console.log(error.message));
+    }
+    </script>
+
+    <form action="https://gitformsaver.demin.dev/token" method="POST" onsubmit="generateToken(event, this)">
       <div>
         <label for="repo">Enter repository URL:</label>
         <input name="repo" value="git@github.com:user/repo.git" />
@@ -127,6 +148,9 @@ Use this form to generate a security token for your repo:
         <button>Generate token</button>
       </div>
     </form>
+
+    <div id="token" />
+
 
 The token must be manually saved to the target file
 somewhere in the beginning (first 2 KiB).
