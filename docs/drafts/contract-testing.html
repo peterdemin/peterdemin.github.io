@@ -106,9 +106,34 @@
               
               <div class="toc-item">
                 
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
 
 <nav id="bd-toc-nav">
-    
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#preface">
+   Preface
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#simple-scenario">
+   Simple scenario
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#complex-scenario">
+   Complex scenario
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#challenges-of-scale">
+   Challenges of scale
+  </a>
+ </li>
+</ul>
+
 </nav>
               </div>
               
@@ -130,6 +155,38 @@
                 
   <section class="tex2jax_ignore mathjax_ignore" id="contract-testing">
 <h1>Contract testing<a class="headerlink" href="#contract-testing" title="Permalink to this headline">¶</a></h1>
+<section id="preface">
+<h2>Preface<a class="headerlink" href="#preface" title="Permalink to this headline">¶</a></h2>
+<p>End-to-end cross-service testing is known to be expensive in maintenance, slow in running, and not scaling well.
+An alternative approach is to keep tests limited to a single service, and use smart tooling provide the same level of test coverage.</p>
+<p>I want to explore this approach and distill the core properties of the required tooling.</p>
+</section>
+<section id="simple-scenario">
+<h2>Simple scenario<a class="headerlink" href="#simple-scenario" title="Permalink to this headline">¶</a></h2>
+<p>React frontend making calls to Django REST API backend.
+All API calls can be made stateless - response depends only on the request and not on the history of previous calls.</p>
+<p>Common approach is to run end-to-end tests using browser automation and a set of blessed database fixtures.
+Database might be an SQLite for a simple test setup.
+Or PostgreSQL (or whatever) to match production setup if running test in Docker containers.
+To some extent, tests can run in parallel, if each test owns an isolated set of resources.</p>
+<p>It doesn’t really sound that bad and many projects run this just fine.
+If the project grows beyond a few hundreds use cases, managing such system might become harder.
+Some of the symptoms:</p>
+<ul class="simple">
+<li><p>CI taking half an hour to run.</p></li>
+<li><p>Spaghetti of database fixtures that no one understands.</p></li>
+<li><p>Tribal knowledge of headless browser limitations and workarounds.</p></li>
+</ul>
+<p>Alternatively, the frontend-backend interaction can be covered using contract testing approach.</p>
+<p>For these [lack of] constraints, React frontend uses VCR-like JSON files for a backend test double.
+On the other side, Django backend uses the same JSON files to run regression tests (and update the baselines).</p>
+</section>
+<section id="complex-scenario">
+<h2>Complex scenario<a class="headerlink" href="#complex-scenario" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="challenges-of-scale">
+<h2>Challenges of scale<a class="headerlink" href="#challenges-of-scale" title="Permalink to this headline">¶</a></h2>
+</section>
 </section>
 
 
