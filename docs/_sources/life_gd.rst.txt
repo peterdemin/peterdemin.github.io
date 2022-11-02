@@ -13,6 +13,11 @@
 
 -----
 
+.. include:: life/2022-11.md
+   :parser: myst_parser.sphinx_
+
+-----
+
 .. include:: life/2022-10.md
    :parser: myst_parser.sphinx_
 
