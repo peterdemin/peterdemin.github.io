@@ -1,5 +1,17 @@
-# List of FOSS Python projects that are fun to work on
+# Weblate CLI (wlc) tips and tricks
 
-* [FunkyWhale](https://dev.funkwhale.audio/funkwhale/funkwhale) - Self-hosted federated music streaming service built with Django and Vue.
-* [Zulip](https://github.com/zulip/zulip) - Group chat, like Slack or MS Teams built with Django.
-* [Superset](https://github.com/apache/incubator-superset) - Data analytics dashboard built with Flask.
+## Sync with upstream git repo
+
+    COMP=<project/component>; wlc pull $COMP && wlc commit $COMP && wlc push $COMP
+
+## Unlock all components
+
+    wlc --format json list-components | jq -r '.[] | .project.slug + "/" + .slug' | xargs -L1 wlc unlock
+
+## List all .po glob patterns configured
+
+    wlc --format json list-components | jq -r .[].filemask | grep '\.po$'
+
+## Delete all auto-generated glossaries except one
+
+    wlc --format json list-components | jq -r '.[] | select(.slug == "glossary" and .project.slug != "<MAIN-PROJECT>") | .project.slug + "/" + .slug' | xargs -L1 wlc delete

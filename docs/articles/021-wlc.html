@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>List of FOSS Python projects that are fun to work on &#8212; Peter Demin</title>
+    <title>Weblate CLI (wlc) tips and tricks &#8212; Peter Demin</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -108,9 +108,34 @@
               
               <div class="toc-item">
                 
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
 
 <nav id="bd-toc-nav">
-    
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sync-with-upstream-git-repo">
+   Sync with upstream git repo
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#unlock-all-components">
+   Unlock all components
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#list-all-po-glob-patterns-configured">
+   List all .po glob patterns configured
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#delete-all-auto-generated-glossaries-except-one">
+   Delete all auto-generated glossaries except one
+  </a>
+ </li>
+</ul>
+
 </nav>
               </div>
               
@@ -130,13 +155,32 @@
               
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="list-of-foss-python-projects-that-are-fun-to-work-on">
-<h1>List of FOSS Python projects that are fun to work on<a class="headerlink" href="#list-of-foss-python-projects-that-are-fun-to-work-on" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><p><a class="reference external" href="https://dev.funkwhale.audio/funkwhale/funkwhale">FunkyWhale</a> - Self-hosted federated music streaming service built with Django and Vue.</p></li>
-<li><p><a class="reference external" href="https://github.com/zulip/zulip">Zulip</a> - Group chat, like Slack or MS Teams built with Django.</p></li>
-<li><p><a class="reference external" href="https://github.com/apache/incubator-superset">Superset</a> - Data analytics dashboard built with Flask.</p></li>
-</ul>
+  <section class="tex2jax_ignore mathjax_ignore" id="weblate-cli-wlc-tips-and-tricks">
+<h1>Weblate CLI (wlc) tips and tricks<a class="headerlink" href="#weblate-cli-wlc-tips-and-tricks" title="Permalink to this headline">¶</a></h1>
+<section id="sync-with-upstream-git-repo">
+<h2>Sync with upstream git repo<a class="headerlink" href="#sync-with-upstream-git-repo" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>COMP=&lt;project/component&gt;; wlc pull $COMP &amp;&amp; wlc commit $COMP &amp;&amp; wlc push $COMP
+</pre></div>
+</div>
+</section>
+<section id="unlock-all-components">
+<h2>Unlock all components<a class="headerlink" href="#unlock-all-components" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>wlc --format json list-components | jq -r &#39;.[] | .project.slug + &quot;/&quot; + .slug&#39; | xargs -L1 wlc unlock
+</pre></div>
+</div>
+</section>
+<section id="list-all-po-glob-patterns-configured">
+<h2>List all .po glob patterns configured<a class="headerlink" href="#list-all-po-glob-patterns-configured" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>wlc --format json list-components | jq -r .[].filemask | grep &#39;\.po$&#39;
+</pre></div>
+</div>
+</section>
+<section id="delete-all-auto-generated-glossaries-except-one">
+<h2>Delete all auto-generated glossaries except one<a class="headerlink" href="#delete-all-auto-generated-glossaries-except-one" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>wlc --format json list-components | jq -r &#39;.[] | select(.slug == &quot;glossary&quot; and .project.slug != &quot;&lt;MAIN-PROJECT&gt;&quot;) | .project.slug + &quot;/&quot; + .slug&#39; | xargs -L1 wlc delete
+</pre></div>
+</div>
+</section>
 </section>
 
 
