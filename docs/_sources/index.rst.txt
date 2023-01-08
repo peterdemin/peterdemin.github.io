@@ -27,6 +27,8 @@ My open source projects
 * `gcpfwup <https://pypi.org/project/gcpfwup/>`_ - GCP Firewall update tool.
 * `reshell <https://pypi.org/project/reshell/>`_ - Reverse shell for deployment debugging.
 * :ref:`git-form-saver` - HTTP API to submit HTML forms to git.
+* `OpenAI CLI <https://github.com/peterdemin/openai-cli>`_ - command-line interface for OpenAI GPT-3 model.
+* `Image checker <https://github.com/peterdemin/imgchkr>`_ - fictional JPEG validation microservice I use for experiments.
 
 My side gig
 -----------
