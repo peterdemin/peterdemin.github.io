@@ -59,6 +59,8 @@ pyyaml==6.0
     # via myst-parser
 requests==2.28.1
     # via sphinx
+setuptools==65.6.3
+    # via sphinx-togglebutton
 snowballstemmer==2.2.0
     # via sphinx
 soupsieve==2.3.2.post1
@@ -91,7 +93,3 @@ wheel==0.38.4
     # via sphinx-togglebutton
 zipp==3.11.0
     # via importlib-metadata
-
-# The following packages are considered to be unsafe in a requirements file:
-setuptools==65.6.3
-    # via sphinx-togglebutton
