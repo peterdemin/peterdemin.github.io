@@ -1,4 +1,4 @@
-# Personal VPN: tailscale with headscale
+# Personal VPN: a tale of Tailscale and Headscale
 
 ## Background
 
@@ -91,6 +91,8 @@ $ sha256sum result/bin/headscale
 
 SHA sum doesn't match the one from official release (`e8d3d74b040bd2e3e9f049d95e4f4b759160518a1cf682ec0bb76f2fed7d77cf`), but whatever.
 
+## Back to installing Headscale 
+
 Let's see what it does:
 
 ```
@@ -133,19 +135,87 @@ $ result/bin/headscale help
 2023-01-06T20:23:04-05:00 FTL github.com/juanfont/headscale/cmd/headscale/cli/root.go:43 > Error loading config error="fatal error reading config file: Config File \"config\" Not Found in \"[/etc/headscale ~/.headscale ~/headscale]\""
 ```
 
-Hmm... Okay, it needs to have a config file. In the middle of the README I found a link to [docs](https://github.com/juanfont/headscale/blob/main/docs/running-headscale-linux.md).
+Seems functioning. I uploaded the binary to a cloud VM to set as an external login server.
+I uploaded my binary to the server, and... bummer! Turns out it can't run on Ubuntu 20.04 VM!
 
 ```
-sudo mkdir -p /etc/headscale
-sudo useradd \
-    --create-home \
-    --home-dir /var/lib/headscale/ \
-    --system \
-    --user-group \
-    --shell /usr/bin/nologin \
-    headscale
-sudo touch /var/lib/headscale/db.sqlite
-sudo chown headscale:headscale /var/lib/headscale/db.sqlite
-sudo cp config-example.yaml /etc/headscale/config.yaml
-sudo chown headscale:headscale /etc/headscale/config.yaml
+$ ./headscale
+-bash: ./headscale: No such file or directory
 ```
+
+No idea what's wrong there. The file is present for sure, and it even starts with `ELF` magic bytes. But it's missing when I try to run it...
+Screw this, I downloaded the official binaries:
+
+```
+wget https://github.com/juanfont/headscale/releases/download/v0.17.1/headscale_0.17.1_linux_amd64
+sudo mv headscale_0.17.1_linux_amd64 /usr/local/bin/headscale
+sudo chmod 555 /usr/local/bin/headscale
+sudo chown headscale:headscale /usr/local/bin/headscale
+```
+
+That fixed the "No such file or directory" issue.
+
+In the middle of the headscale README I found a link to [docs](https://github.com/juanfont/headscale/blob/main/docs/running-headscale-linux.md).
+Following the docs, I added:
+
+1. Config.
+2. Separate user.
+3. Systemd unit.
+4. CNAME DNS record.
+4. Nginx pass through configuration.
+5. Expanded Lets encrypt's certificate.
+
+The service succesfully launched.
+
+```
+$ sudo systemctl status headscale
+● headscale.service - headscale controller
+     Loaded: loaded (/etc/systemd/system/headscale.service; enabled; vendor preset: enabled)
+     Active: active (running) since Sat 2023-01-07 03:29:51 UTC; 23h ago
+   Main PID: 727153 (headscale)
+      Tasks: 9 (limit: 1151)
+     Memory: 21.2M
+     CGroup: /system.slice/headscale.service
+             └─727153 /usr/local/bin/headscale serve
+```
+
+Nice! Where do I go from here? Let's connect my Tailscale to the new headscale.
+There's not much documentation on how it should look for the end user.
+I figured I need to create an authentication key on the server:
+
+```
+$ headscale --namespace net preauthkeys create --reusable --expiration 24h
+21c91befde206632883d0049cf3b81296dc1586a9b21e265
+```
+
+I copied the key and tried to use it to authenticate my laptop:
+
+```
+tailscale up --login-server https://headscale.demin.dev --authkey 21c91befde206632883d0049cf3b81296dc1586a9b21e265 --force-reauth
+```
+
+The command disabled the existing Tailscale connection, hanged for a few minutes until I stopped it.
+Hmm... Not really what I was looking for. Headscale log on the server didn't show anything useful.
+I tried `curl http://127.0.0.1:8080`, which returned an empty 200 response.
+
+At this point, I realized, that headscale is not at the stage where I want to entrust it with my private VPN.
+
+## Back to installing Tailscale
+
+Free Tailscale account experience is an absolute delight.
+I added my cloud VM to the same account using `tailscale up` in a minute (after adding Tailscale's repo following [this instructions](https://tailscale.com/kb/1039/install-ubuntu-2004/)):
+
+```
+sudo apt install tailscale
+sudo tailscale up
+```
+
+And it immediately got access to my home server using a nice ts.net domain name.
+I switched to this solution instead of a combination of Google Cloud Firewall Updater ([gcpfwup](https://github.com/peterdemin/gcpfwup)) and ssh tunnel.
+
+## Conclusion
+
+Tailscale revolutionized the virtual private network setup.
+At least for a personal self-hosted home server setup.
+
+On the other hand, headscale's user experience is too rough at the moment (as of January 2023, version 0.17.1).
