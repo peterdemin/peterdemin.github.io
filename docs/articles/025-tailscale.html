@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Personal VPN: tailscale with headscale &#8212; Peter Demin</title>
+    <title>Personal VPN: a tale of Tailscale and Headscale &#8212; Peter Demin</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -134,6 +134,21 @@
    Installing Nix
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#back-to-installing-headscale">
+   Back to installing Headscale
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#back-to-installing-tailscale">
+   Back to installing Tailscale
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
 </ul>
 
 </nav>
@@ -155,11 +170,11 @@
               
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="personal-vpn-tailscale-with-headscale">
-<h1>Personal VPN: tailscale with headscale<a class="headerlink" href="#personal-vpn-tailscale-with-headscale" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="personal-vpn-a-tale-of-tailscale-and-headscale">
+<h1>Personal VPN: a tale of Tailscale and Headscale<a class="headerlink" href="#personal-vpn-a-tale-of-tailscale-and-headscale" title="Permalink to this headline">¶</a></h1>
 <section id="background">
 <h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
-<p>I’ve been using different types of VPN for many years, for several reasons:</p>
+<p>I’ve been using different types of VPNs for many years for several reasons:</p>
 <ol class="arabic simple">
 <li><p>Public WiFi security.</p></li>
 <li><p>Geo-IP block sidestepping.</p></li>
@@ -170,22 +185,22 @@
 <li><p><a class="reference external" href="https://nordvpn.com/">NordVPN</a> - paid service with good reliability and UI.</p></li>
 <li><p><a class="reference external" href="https://github.com/trailofbits/algo">Algo</a> - set of scripts automating secure VPN server creation.</p></li>
 </ol>
-<p>Recently, I was scrolling my GitHub feed and discovered
-<a class="reference external" href="https://github.com/juanfont/headscale">headscale</a> - open-source alternative
-to the proprietary Tailscale control center for personal self-hosted use.</p>
-<p>Which made me curious enough to finally try <a class="reference external" href="https://tailscale.com/">Tailscale</a> itself.</p>
+<p>I was recently scrolling my GitHub feed and discovered
+<a class="reference external" href="https://github.com/juanfont/headscale">headscale</a> - an open-source alternative
+to the proprietary Tailscale control center for personal self-hosted use.
+Which made me curious enough to finally try <a class="reference external" href="https://tailscale.com/">Tailscale</a> itself.</p>
 </section>
 <section id="installing-tailscale">
 <h2>Installing Tailscale<a class="headerlink" href="#installing-tailscale" title="Permalink to this headline">¶</a></h2>
-<p>I quickly registered using Google account, and added two devices - all in about five minutes - impressive!</p>
+<p>I quickly registered using my Google account and added two devices - all in about five minutes - impressive!</p>
 <p>Tailscale tracks Google account and IP addresses to provide network connectivity,
 which is extremely user-friendly, but leaves a weird feeling of half-way private solution.
-So, naturally, the next step is to replace third-party proprietary control center with the self-hosted open-source alternative.</p>
+So, naturally, the next step is to replace the third-party proprietary control center with a self-hosted open-source alternative.</p>
 </section>
 <section id="installing-headscale">
 <h2>Installing Headscale<a class="headerlink" href="#installing-headscale" title="Permalink to this headline">¶</a></h2>
 <p>Headscale provides binary releases (current version is <a class="reference external" href="https://github.com/juanfont/headscale/releases/tag/v0.17.1">0.17.1</a>)
-but I don’t like the experience of downloading and upgrading of GitHub releases, so I thought I better build it from sources.</p>
+but I’m not too fond of the experience of downloading and upgrading from GitHub releases, so I thought I better build it from sources.</p>
 <p>I cloned the repo:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">juanfont</span><span class="o">/</span><span class="n">headscale</span><span class="o">.</span><span class="n">git</span>
 <span class="n">cd</span> <span class="n">headscale</span>
@@ -196,16 +211,16 @@ but I don’t like the experience of downloading and upgrading of GitHub release
 <section id="installing-nix">
 <h2>Installing Nix<a class="headerlink" href="#installing-nix" title="Permalink to this headline">¶</a></h2>
 <p>I’ve heard good things about Nix (mostly from <a class="reference external" href="https://xeiaso.net/blog">Xe’s blog</a>), so I thought it’s a good opportunity to poke it.</p>
-<p>I fruitlessly searched for a way to install Nix build system as an Ubuntu package, but it seems, that running shell scripts from the internet with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> is the only supported way of installing it right now.
-I hesitated a bit, but not for too long and gave it a try:</p>
+<p>I fruitlessly searched for a way to install the Nix build system as an Ubuntu package, but it seems that running shell scripts from the internet with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> is the only supported way to install it right now.
+I hesitated a bit, but not for too long, and gave it a try:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sh</span> <span class="o">&lt;</span><span class="p">(</span><span class="n">curl</span> <span class="o">-</span><span class="n">L</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">nixos</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">nix</span><span class="o">/</span><span class="n">install</span><span class="p">)</span> <span class="o">--</span><span class="n">daemon</span>
 </pre></div>
 </div>
-<p>The installation script is pretty friendly and does a good job establishing trust with the user.</p>
-<p>The next step was to set up development environment for the headscale.</p>
-<p>Headscale’s README mentiones running <code class="docutils literal notranslate"><span class="pre">nix</span> <span class="pre">develop</span></code> which seems sensible and harmless.
-But turns out, on the (default?) installation it won’t work.</p>
-<p>Instead I had to activate two experimental features:</p>
+<p>The installation script is friendly and does an excellent job establishing trust with the user.</p>
+<p>The next step was to set up a development environment for the headscale.</p>
+<p>Headscale’s README mentions running <code class="docutils literal notranslate"><span class="pre">nix</span> <span class="pre">develop</span></code>, which seems sensible and harmless.
+But, turns out, on the (default?) installation, it won’t work.</p>
+<p>Instead, I had to activate two experimental features:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nix</span> <span class="n">develop</span> <span class="o">--</span><span class="n">extra</span><span class="o">-</span><span class="n">experimental</span><span class="o">-</span><span class="n">features</span> <span class="n">nix</span><span class="o">-</span><span class="n">command</span> <span class="o">--</span><span class="n">extra</span><span class="o">-</span><span class="n">experimental</span><span class="o">-</span><span class="n">features</span> <span class="n">flakes</span>
 </pre></div>
 </div>
@@ -214,7 +229,7 @@ But turns out, on the (default?) installation it won’t work.</p>
 </pre></div>
 </div>
 <p>After a few minutes of running tests, it finished with no other output.
-I noticed a new <code class="docutils literal notranslate"><span class="pre">result</span></code> symlink in the repo directory. Inside of it I found the binaries:</p>
+I noticed a new <code class="docutils literal notranslate"><span class="pre">result</span></code> symlink in the repo directory. Inside I found the binaries:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tree result/
 result/
 └── bin
@@ -229,11 +244,14 @@ $ sha256sum result/bin/headscale
 273e4c4cd13c5903d8dd5611a8f6a43434b34e58c01a6682341370418b0fb837  result/bin/headscale
 </pre></div>
 </div>
-<p>SHA sum doesn’t match the one from official release (<code class="docutils literal notranslate"><span class="pre">e8d3d74b040bd2e3e9f049d95e4f4b759160518a1cf682ec0bb76f2fed7d77cf</span></code>), but whatever.</p>
+<p>SHA sum doesn’t match the one from the official release (<code class="docutils literal notranslate"><span class="pre">e8d3d74b040bd2e3e9f049d95e4f4b759160518a1cf682ec0bb76f2fed7d77cf</span></code>), but whatever.</p>
+</section>
+<section id="back-to-installing-headscale">
+<h2>Back to installing Headscale<a class="headerlink" href="#back-to-installing-headscale" title="Permalink to this headline">¶</a></h2>
 <p>Let’s see what it does:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ result/bin/headscale --help
 
-headscale is an open source implementation of the Tailscale control server
+headscale is an open-source implementation of the Tailscale control server
 
 https://github.com/juanfont/headscale
 
@@ -270,21 +288,75 @@ $ result/bin/headscale help
 2023-01-06T20:23:04-05:00 FTL github.com/juanfont/headscale/cmd/headscale/cli/root.go:43 &gt; Error loading config error=&quot;fatal error reading config file: Config File \&quot;config\&quot; Not Found in \&quot;[/etc/headscale ~/.headscale ~/headscale]\&quot;&quot;
 </pre></div>
 </div>
-<p>Hmm… Okay, it needs to have a config file. In the middle of the README I found a link to <a class="reference external" href="https://github.com/juanfont/headscale/blob/main/docs/running-headscale-linux.md">docs</a>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">headscale</span>
-<span class="n">sudo</span> <span class="n">useradd</span> \
-    <span class="o">--</span><span class="n">create</span><span class="o">-</span><span class="n">home</span> \
-    <span class="o">--</span><span class="n">home</span><span class="o">-</span><span class="nb">dir</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">headscale</span><span class="o">/</span> \
-    <span class="o">--</span><span class="n">system</span> \
-    <span class="o">--</span><span class="n">user</span><span class="o">-</span><span class="n">group</span> \
-    <span class="o">--</span><span class="n">shell</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">nologin</span> \
-    <span class="n">headscale</span>
-<span class="n">sudo</span> <span class="n">touch</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">headscale</span><span class="o">/</span><span class="n">db</span><span class="o">.</span><span class="n">sqlite</span>
-<span class="n">sudo</span> <span class="n">chown</span> <span class="n">headscale</span><span class="p">:</span><span class="n">headscale</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">headscale</span><span class="o">/</span><span class="n">db</span><span class="o">.</span><span class="n">sqlite</span>
-<span class="n">sudo</span> <span class="n">cp</span> <span class="n">config</span><span class="o">-</span><span class="n">example</span><span class="o">.</span><span class="n">yaml</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">headscale</span><span class="o">/</span><span class="n">config</span><span class="o">.</span><span class="n">yaml</span>
-<span class="n">sudo</span> <span class="n">chown</span> <span class="n">headscale</span><span class="p">:</span><span class="n">headscale</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">headscale</span><span class="o">/</span><span class="n">config</span><span class="o">.</span><span class="n">yaml</span>
+<p>Seems functional. I uploaded the binary to a cloud VM to set it as an external login server.
+I uploaded my binary to the server, and… bummer! It can’t run on Ubuntu 20.04 VM!</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./headscale
+-bash: ./headscale: No such file or directory
 </pre></div>
 </div>
+<p>I have no idea what’s wrong there. The file is undoubtedly present and even starts with <code class="docutils literal notranslate"><span class="pre">ELF</span></code> magic bytes. But it’s missing when I try to run it…
+Screw this. I downloaded the official binaries:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">juanfont</span><span class="o">/</span><span class="n">headscale</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="n">download</span><span class="o">/</span><span class="n">v0</span><span class="mf">.17.1</span><span class="o">/</span><span class="n">headscale_0</span><span class="mf">.17.1</span><span class="n">_linux_amd64</span>
+<span class="n">sudo</span> <span class="n">mv</span> <span class="n">headscale_0</span><span class="mf">.17.1</span><span class="n">_linux_amd64</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">headscale</span>
+<span class="n">sudo</span> <span class="n">chmod</span> <span class="mi">555</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">headscale</span>
+<span class="n">sudo</span> <span class="n">chown</span> <span class="n">headscale</span><span class="p">:</span><span class="n">headscale</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">headscale</span>
+</pre></div>
+</div>
+<p>That fixed the “No such file or directory” issue.</p>
+<p>In the middle of the headscale README, I found a link to <a class="reference external" href="https://github.com/juanfont/headscale/blob/main/docs/running-headscale-linux.md">docs</a>.
+Following the docs, I added:</p>
+<ol class="arabic simple">
+<li><p>Config.</p></li>
+<li><p>Separate user.</p></li>
+<li><p>Systemd unit.</p></li>
+<li><p>CNAME DNS record.</p></li>
+<li><p>Nginx pass-through configuration.</p></li>
+<li><p>Expanded Let’s encrypt’s certificate.</p></li>
+</ol>
+<p>The service successfully launched.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo systemctl status headscale
+● headscale.service - headscale controller
+     Loaded: loaded (/etc/systemd/system/headscale.service; enabled; vendor preset: enabled)
+     Active: active (running) since Sat 2023-01-07 03:29:51 UTC; 23h ago
+   Main PID: 727153 (headscale)
+      Tasks: 9 (limit: 1151)
+     Memory: 21.2M
+     CGroup: /system.slice/headscale.service
+             └─727153 /usr/local/bin/headscale serve
+</pre></div>
+</div>
+<p>Nice! Where do I go from here? Let’s connect my Tailscale to the new headscale.
+There’s not much documentation on how it should look for the end user.
+I figured I needed to create an authentication key on the server:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ headscale --namespace net preauthkeys create --reusable --expiration 24h
+21c91befde206632883d0049cf3b81296dc1586a9b21e265
+</pre></div>
+</div>
+<p>I copied the key and tried to use it to authenticate my laptop:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tailscale</span> <span class="n">up</span> <span class="o">--</span><span class="n">login</span><span class="o">-</span><span class="n">server</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">headscale</span><span class="o">.</span><span class="n">demin</span><span class="o">.</span><span class="n">dev</span> <span class="o">--</span><span class="n">authkey</span> <span class="mi">21</span><span class="n">c91befde206632883d0049cf3b81296dc1586a9b21e265</span> <span class="o">--</span><span class="n">force</span><span class="o">-</span><span class="n">reauth</span>
+</pre></div>
+</div>
+<p>The command disabled the existing Tailscale connection and hanged for a few minutes until I stopped it.
+Hmm… Not really what I was looking for. The headscale log on the server didn’t show anything useful.
+I tried <code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">http://127.0.0.1:8080</span></code>, which returned an empty 200 response.</p>
+<p>At this point, I realized that headscale is not at the stage where I want to entrust it with my private VPN.</p>
+</section>
+<section id="back-to-installing-tailscale">
+<h2>Back to installing Tailscale<a class="headerlink" href="#back-to-installing-tailscale" title="Permalink to this headline">¶</a></h2>
+<p>The free Tailscale account experience is an absolute delight.
+I added my cloud VM to the same account using <code class="docutils literal notranslate"><span class="pre">tailscale</span> <span class="pre">up</span></code> in a minute (after adding Tailscale’s repo following <a class="reference external" href="https://tailscale.com/kb/1039/install-ubuntu-2004/">these instructions</a>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">tailscale</span>
+<span class="n">sudo</span> <span class="n">tailscale</span> <span class="n">up</span>
+</pre></div>
+</div>
+<p>And it immediately got access to my home server using a nice ts.net domain name.
+I switched to this solution instead of a combination of Google Cloud Firewall Updater (<a class="reference external" href="https://github.com/peterdemin/gcpfwup">gcpfwup</a>) and ssh tunnel.</p>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+<p>Tailscale revolutionized the virtual private network setup.
+At least for a personal self-hosted home server setup.</p>
+<p>On the other hand, headscale’s user experience could be better at the moment (as of January 2023, version 0.17.1).</p>
 </section>
 </section>
 
