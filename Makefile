@@ -82,6 +82,10 @@ lock:
 upgrade:
 	pip-compile-multi --directory . --allow-unsafe
 
+.PHONY: sync
+sync:
+	pip-sync requirements_dev.txt
+
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
 .PHONY: Makefile

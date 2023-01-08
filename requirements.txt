@@ -7,17 +7,15 @@
 #
 alabaster==0.7.12
     # via sphinx
-attrs==21.4.0
-    # via markdown-it-py
-babel==2.10.3
+babel==2.11.0
     # via sphinx
 beautifulsoup4==4.11.1
     # via pydata-sphinx-theme
-certifi==2022.9.24
+certifi==2022.12.7
     # via requests
-charset-normalizer==2.0.12
+charset-normalizer==2.1.1
     # via requests
-docutils==0.17.1
+docutils==0.19
     # via
     #   myst-parser
     #   pydata-sphinx-theme
@@ -27,43 +25,45 @@ idna==3.4
     # via requests
 imagesize==1.4.1
     # via sphinx
-importlib-metadata==4.8.3
+importlib-metadata==6.0.0
     # via sphinx
-jinja2==3.0.3
+jinja2==3.1.2
     # via
     #   myst-parser
     #   sphinx
-markdown-it-py==2.0.1
+markdown-it-py==2.1.0
     # via
     #   mdit-py-plugins
     #   myst-parser
-markupsafe==2.0.1
+markupsafe==2.1.1
     # via jinja2
-mdit-py-plugins==0.3.0
+mdit-py-plugins==0.3.3
     # via myst-parser
-mdurl==0.1.0
+mdurl==0.1.2
     # via markdown-it-py
-myst-parser==0.16.1
+myst-parser==0.18.1
     # via -r requirements.in
-packaging==21.3
-    # via sphinx
-pydata-sphinx-theme==0.7.2
+packaging==22.0
+    # via
+    #   pydata-sphinx-theme
+    #   sphinx
+pydata-sphinx-theme==0.12.0
     # via -r requirements.in
-pygments==2.13.0
-    # via sphinx
-pyparsing==3.0.9
-    # via packaging
-pytz==2022.2.1
+pygments==2.14.0
+    # via
+    #   pydata-sphinx-theme
+    #   sphinx
+pytz==2022.7
     # via babel
 pyyaml==6.0
     # via myst-parser
-requests==2.27.1
+requests==2.28.1
     # via sphinx
 snowballstemmer==2.2.0
     # via sphinx
 soupsieve==2.3.2.post1
     # via beautifulsoup4
-sphinx==4.5.0
+sphinx==5.3.0
     # via
     #   -r requirements.in
     #   myst-parser
@@ -71,7 +71,7 @@ sphinx==4.5.0
     #   sphinx-togglebutton
 sphinx-togglebutton==0.3.2
     # via -r requirements.in
-sphinxcontrib-applehelp==1.0.2
+sphinxcontrib-applehelp==1.0.3
     # via sphinx
 sphinxcontrib-devhelp==1.0.2
     # via sphinx
@@ -83,17 +83,15 @@ sphinxcontrib-qthelp==1.0.3
     # via sphinx
 sphinxcontrib-serializinghtml==1.1.5
     # via sphinx
-typing-extensions==4.1.1
-    # via
-    #   importlib-metadata
-    #   markdown-it-py
-urllib3==1.26.12
+typing-extensions==4.4.0
+    # via myst-parser
+urllib3==1.26.13
     # via requests
-wheel==0.37.1
+wheel==0.38.4
     # via sphinx-togglebutton
-zipp==3.6.0
+zipp==3.11.0
     # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:
-setuptools==59.6.0
+setuptools==65.6.3
     # via sphinx-togglebutton
