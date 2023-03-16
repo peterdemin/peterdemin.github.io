@@ -31,6 +31,7 @@ author = 'Peter Demin'
 extensions = [
     'myst_parser',
     'sphinx_togglebutton',
+    'sphinx.ext.graphviz',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
