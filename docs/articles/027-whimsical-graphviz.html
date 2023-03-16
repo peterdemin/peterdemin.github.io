@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>MySeverance.com &#8212; Peter Demin</title>
+    <title>Making GraphViz look like Whimsical &#8212; Peter Demin</title>
   
   
   
@@ -28,6 +28,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -45,10 +46,10 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'articles/myseverance';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'articles/027-whimsical-graphviz';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Collecte - self-hosted open source email collector" href="../ideas/collector.html" />
+    <link rel="next" title="MySeverance.com" href="028-myseverance.html" />
     <link rel="prev" title="Climbr" href="026-climbing-website.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="docsearch:language" content="en">
@@ -189,29 +190,33 @@
             
             <article class="bd-article" role="main">
               
-  <section id="myseverance-com">
-<h1>MySeverance.com<a class="headerlink" href="#myseverance-com" title="Permalink to this heading">#</a></h1>
-<p>Build up your job severance with monthly payments.</p>
-<section id="how-it-works">
-<h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this heading">#</a></h2>
-<p>You pay $19 per month. If you get fired or laid off, we pay you $2,000.
-If you choose to pay $49 per month, the payout grows to $5,000. Pay $99, collect $10,000.</p>
-<p>The payout amount is progressive. It starts at zero and grows every month by ten times your monthly payment.
-For example, on day one you paid $19.  After the first month, the coverage becomes $190. Second month, you put $19 more, now the coverage becomes $380. And so on, until 11 month later, you achieve $2,000 coverage, at which point the amount is fixed.
-The same goes for the higher tiers, that allow you to grow the payout above $2,000 up to $10,000.</p>
-<p>Sign up today to receive $100 bonus on top of your total coverage when we launch.</p>
-</section>
-<section id="frequently-asked-questions">
-<h2>Frequently asked questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this heading">#</a></h2>
-<p>Q: What information do I need to provide to start using the service?</p>
-<p>A: We’ll need your ID and proof of employment.</p>
-<p>Q: When can I collect the payout?</p>
-<p>A: You can collect the payout if you get fired or paid off. You’ll need to provide a termination letter from the employer.</p>
-<p>Q: What if I quit myself?</p>
-<p>A: Then you won’t be covered. Your plan will be frozen until you start the next job.</p>
-<p>Q: Okay, what’s the catch?</p>
-<p>A: There’s no catch, it’s a numbers game. In a nutshell, 100 people’s monthly payments cover for 1 person layoff. According to the bureau of labor statistics, only 1% of people is getting laid off each month.</p>
-</section>
+  <section id="making-graphviz-look-like-whimsical">
+<h1>Making GraphViz look like Whimsical<a class="headerlink" href="#making-graphviz-look-like-whimsical" title="Permalink to this heading">#</a></h1>
+<p>I’m fond of Whimsical look and feel, and I like how GraphViz can render nice flow charts from simple textual description.</p>
+<p>So here’s my attempt to make a simple GraphViz digraph render as if it was built in Whimsical.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">digraph</span> <span class="p">{</span>
+    <span class="n">edge</span> <span class="p">[</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;#808080&quot;</span><span class="p">,</span> <span class="n">arrowsize</span><span class="o">=</span><span class="mf">.6</span><span class="p">,</span> <span class="n">penwidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">minlen</span><span class="o">=</span><span class="mi">3</span><span class="p">];</span>
+    <span class="n">node</span> <span class="p">[</span><span class="n">shape</span><span class="o">=</span><span class="n">box</span><span class="p">,</span> <span class="n">fontname</span><span class="o">=</span><span class="s2">&quot;DIN Next, sans-serif&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;rounded,filled&quot;</span><span class="p">,</span> <span class="n">penwidth</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#8010d0&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#f0f0f0&quot;</span><span class="p">,</span> <span class="n">fontcolor</span><span class="o">=</span><span class="n">white</span><span class="p">,</span>  <span class="n">margin</span><span class="o">=</span><span class="s2">&quot;0.35&quot;</span> <span class="n">fontweight</span><span class="o">=</span><span class="n">bold</span><span class="p">]</span>
+    <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#f0f0f0&quot;</span><span class="p">;</span>
+
+    <span class="p">{</span><span class="n">rank</span><span class="o">=</span><span class="n">same</span><span class="p">;</span> <span class="s2">&quot;External Webhook&quot;</span> <span class="o">-&gt;</span> <span class="s2">&quot;Adapter&quot;</span> <span class="o">-&gt;</span> <span class="n">Mux</span> <span class="o">-&gt;</span> <span class="n">Plug</span> <span class="o">-&gt;</span> <span class="s2">&quot;External API&quot;</span><span class="p">}</span>
+    <span class="n">Core</span> <span class="o">-&gt;</span> <span class="n">Mux</span> <span class="o">-&gt;</span> <span class="n">Core</span> <span class="p">[</span><span class="n">minlen</span><span class="o">=</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="s2">&quot;Slack API&quot;</span><span class="p">,</span> <span class="s2">&quot;External Webhook&quot;</span> <span class="p">[</span><span class="n">fillcolor</span><span class="o">=</span><span class="s2">&quot;#4040ff&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Output (auto-generated by <code class="docutils literal notranslate"><span class="pre">sphinx.ext.graphviz</span></code>):</p>
+digraph services {
+edge [color=&quot;#808080&quot;, arrowsize=.6, penwidth=3, minlen=3];
+node [shape=box, fontname=&quot;DIN Next, sans-serif&quot;, style=&quot;rounded,filled&quot;, penwidth=5, fillcolor=&quot;#8010d0&quot;, color=&quot;#f0f0f0&quot;, fontcolor=white,  margin=&quot;0.35&quot; fontweight=bold]
+bgcolor=&quot;#f0f0f0&quot;;
+{rank=same; &quot;External Webhook&quot; -&gt; &quot;Adapter&quot; -&gt; Mux -&gt; Plug -&gt; &quot;External API&quot;}
+Core -&gt; Mux -&gt; Core [minlen=1]
+&quot;External API&quot;, &quot;External Webhook&quot; [fillcolor=&quot;#4040ff&quot;]
+}
+<p>Same flowchart rendered in Whimsical for comparison:</p>
+<a class="reference external image-reference" href="/_images/flowchart.png"><img alt="../_images/flowchart.png" src="../_images/flowchart.png" /></a>
 </section>
 
 
@@ -229,10 +234,10 @@ The same goes for the higher tiers, that allow you to grow the payout above $2,0
           <p class="prev-next-title">Climbr</p>
       </div>
   </a>
-  <a class='right-next' id="next-link" href="../ideas/collector.html" title="next page">
+  <a class='right-next' id="next-link" href="028-myseverance.html" title="next page">
   <div class="prev-next-info">
       <p class="prev-next-subtitle">next</p>
-      <p class="prev-next-title">Collecte - self-hosted open source email collector</p>
+      <p class="prev-next-title">MySeverance.com</p>
   </div>
   <i class="fa-solid fa-angle-right"></i>
   </a>
@@ -247,28 +252,6 @@ The same goes for the higher tiers, that allow you to grow the payout above $2,0
               
 <div class="toc-item">
   
-<div class="tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-</div>
-<nav id="bd-toc-nav" class="page-toc">
-    <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#how-it-works">
-   How it works
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#frequently-asked-questions">
-   Frequently asked questions
-  </a>
- </li>
-</ul>
-
-</nav>
-</div>
-
-<div class="toc-item">
-  
 <div id="searchbox"></div>
 </div>
 
@@ -279,7 +262,7 @@ The same goes for the higher tiers, that allow you to grow the payout above $2,0
 <div class="toc-item">
   
 <div class="tocsection sourcelink">
-    <a href="../_sources/articles/myseverance.md.txt">
+    <a href="../_sources/articles/027-whimsical-graphviz.rst.txt">
         <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
 </div>
