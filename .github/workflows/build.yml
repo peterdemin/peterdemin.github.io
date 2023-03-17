@@ -16,6 +16,7 @@ jobs:
           cache: 'pip'
       - name: Install
         run: |
+          sudo apt-get install graphviz
           python -m pip install --upgrade pip~=21.3.1
           make install
       - name: Release
