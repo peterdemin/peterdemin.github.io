@@ -1,1 +1,19 @@
 The biggest mistake an engineering manager can make in weekly 1:1 is to talk more than to listen. Engineer without their voice is unhappy engineer and a sure fire attrition. 
+
+`March 20, 2023` · I have this magical shell script running, that configures split tunnel for a single user.
+I wrote it few years ago. But I can't read it now.
+
+```sh
+#!/bin/sh
+iptables -t mangle -I OUTPUT -m owner --uid-owner deluge -j MARK --set-mark 42
+iptables -t mangle -I OUTPUT -d 192.168.0.1/24 -m owner --uid-owner deluge -j RETURN
+iptables -t nat -I POSTROUTING -o tun0 -j MASQUERADE
+ip rule add fwmark 42 table 42
+
+for f in /proc/sys/net/ipv4/conf/*/rp_filter; do
+    echo 0 > $f
+    done;
+
+# ip route add default via $(ifconfig -a tun0 | grep -o 'P-t-P:[^ ]*' | cut -d : -f 2) table 42
+ip route add default via $(ifconfig -a tun0 | grep -o 'destination [^ ]*' | awk '{print $2}') table 42
+```
