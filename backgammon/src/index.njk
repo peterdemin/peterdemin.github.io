@@ -11,7 +11,7 @@ isFront: true
     <link rel="stylesheet" href="{{ 'assets/css/tailwind.css' | url }}">
     <title>Backgammon counter</title>
   </head>
-  <body>
+  <body style="touch-action: none">
     <div class="flex flex-col h-screen mt-2 gap-8">
 
       {%- for name in ["Peter", "Davit"] -%}
@@ -19,11 +19,11 @@ isFront: true
 
         <div class="flex flex-col gap-4">
             <div class="px-2 flex flex-row gap-2 items-stretch">
-                <input class="p-2 bg-white-300 rounded text-2xl font-bold w-5/12" type="text" name="name" id="name" value="{{ name }}" />
-                <input class="p-2 bg-green-300 rounded text-xl w-3/12" type="text" name="{{ target }}" id="{{ target }}" />
+                <input class="p-2 rounded text-2xl font-bold w-5/12" type="text" name="name" id="name" value="{{ name }}" />
+                <input class="p-2 rounded text-xl w-3/12" type="text" name="{{ target }}" id="{{ target }}" />
                 <button class="p-2 rounded bg-red-500 w-4/12" data-target="{{ target }}">Reset</button>
             </div>
-            <div class="px-2 grid gap-2 grid-cols-3 text-center [&>button]:text-xl [&>button]:px-4 [&>button]:py-6 [&>button]:rounded [&>button]:bg-fuchsia-500">
+            <div class="px-2 grid gap-2 grid-cols-3 text-center [&>button]:text-xl [&>button]:px-4 [&>button]:py-10 [&>button]:rounded [&>button]:bg-gray-300">
                 <button data-target="{{ target }}">1</button>
                 <button data-target="{{ target }}">2</button>
                 <button data-target="{{ target }}">3</button>
