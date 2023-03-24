@@ -596,11 +596,6 @@ h3 {
   border-radius: 0.25rem;
 }
 
-.bg-green-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(134 239 172 / var(--tw-bg-opacity));
-}
-
 .bg-red-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(239 68 68 / var(--tw-bg-opacity));
@@ -637,9 +632,9 @@ h3 {
   border-radius: 0.25rem;
 }
 
-.\[\&\>button\]\:bg-fuchsia-500>button {
+.\[\&\>button\]\:bg-gray-300>button {
   --tw-bg-opacity: 1;
-  background-color: rgb(217 70 239 / var(--tw-bg-opacity));
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
 
 .\[\&\>button\]\:px-4>button {
@@ -647,9 +642,9 @@ h3 {
   padding-right: 1rem;
 }
 
-.\[\&\>button\]\:py-6>button {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
+.\[\&\>button\]\:py-10>button {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 }
 
 .\[\&\>button\]\:text-xl>button {
