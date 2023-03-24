@@ -2,3 +2,5 @@
 bot.pem
 source/*_gd.rst
 *.swp
+node_modules
+/backgammon/_site

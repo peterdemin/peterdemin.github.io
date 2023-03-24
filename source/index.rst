@@ -29,6 +29,7 @@ My open source projects
 * :ref:`git-form-saver` - HTTP API to submit HTML forms to git.
 * `OpenAI CLI <https://github.com/peterdemin/openai-cli>`_ - command-line interface for OpenAI GPT-3 model.
 * `Image checker <https://github.com/peterdemin/imgchkr>`_ - fictional JPEG validation microservice I use for experiments.
+* `Backgammon counter <counter/>`_ - Small 11ty + tailwind web page, mostly built by GPT-4.
 
 My side gig
 -----------

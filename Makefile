@@ -1,12 +1,9 @@
-# Minimal makefile for Sphinx documentation
-#
-
 # You can set these variables from the command line, and also
 # from the environment for the first two.
-SPHINXOPTS    ?=
-SPHINXBUILD   ?= sphinx-build
-SOURCEDIR     = source
-BUILDDIR      = build
+SPHINXOPTS  ?=
+SPHINXBUILD ?= sphinx-build
+SOURCEDIR   = source
+BUILDDIR    = build
 
 .DEFAULT_GOAL := help
 
@@ -16,7 +13,7 @@ help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 .PHONY: clean
-clean:
+clean: counter_clean
 	rm -rf build _docs docs
 
 .PHONY: autogen
@@ -24,7 +21,7 @@ autogen:
 	python gen_life.py > source/life_gd.rst
 
 .PHONY: build
-build: autogen html
+build: autogen html counter_build
 
 .PHONY: browser
 browser:
@@ -41,7 +38,7 @@ jot:
 	git push
 
 .PHONY: install
-install:
+install: counter_install
 	pip install -r requirements.txt
 
 .PHONY: install_dev
@@ -85,6 +82,21 @@ upgrade:
 .PHONY: sync
 sync:
 	pip-sync requirements_dev.txt
+
+## COUNTER
+.PHONY: counter_clean
+counter_clean:
+	$(MAKE) -C backgammon clean
+
+.PHONY: counter_build
+counter_build:
+	$(MAKE) -C backgammon build
+	mv backgammon/_site build/html/counter
+
+.PHONY: counter_install
+counter_install:
+	$(MAKE) -C backgammon install
+
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
