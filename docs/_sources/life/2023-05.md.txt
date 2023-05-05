@@ -1,0 +1,3 @@
+`May 5, 2023` · Looks like I lived under the Python rock for some while. Here's my reading list for the weekend:
+- [Walrus operator](https://realpython.com/python-walrus-operator/)
+- [contextlib.ExitStack](https://docs.python.org/3/library/contextlib.html#contextlib.ExitStack)
