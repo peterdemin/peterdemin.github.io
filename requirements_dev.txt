@@ -12,9 +12,9 @@ click==8.1.3
     # via
     #   pip-compile-multi
     #   pip-tools
-pip-compile-multi==2.6.2
+pip-compile-multi==2.6.3
     # via -r requirements_dev.in
-pip-tools==6.12.3
+pip-tools==6.13.0
     # via pip-compile-multi
 pyproject-hooks==1.0.0
     # via build
@@ -24,5 +24,5 @@ toposort==1.10
     # via pip-compile-multi
 
 # The following packages are considered to be unsafe in a requirements file:
-pip==23.0.1
+pip==23.1.2
     # via pip-tools
