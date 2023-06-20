@@ -1,6 +1,4 @@
-Quotes from Ask HN thread:
-
-https://news.ycombinator.com/item?id=36056299
+`May 25, 2023` - Quotes from [Ask HN thread](https://news.ycombinator.com/item?id=36056299):
 
 A high criticism tolerance is learned by understanding that ones self worth is not attached to output or delivery. (This is hard in our industry) It comes from self-acceptance and compassion. And these values are learned early on. You’ll find that the people that break down at the slightest criticism the most are those that were criticised the most as children as well. Those that had no room for being anything other than perfect. Where value was obtained from performance.
 To take it even further...why see it as criticism at all? You are not your lines of code.
