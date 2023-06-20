@@ -1,16 +1,26 @@
-`May 25, 2023` - Quotes from [Ask HN thread](https://news.ycombinator.com/item?id=36056299):
+`May 25, 2023` - Quotes from [Ask HN: How do you not take criticism of your work personally?](https://news.ycombinator.com/item?id=36056299):
 
-A high criticism tolerance is learned by understanding that ones self worth is not attached to output or delivery. (This is hard in our industry) It comes from self-acceptance and compassion. And these values are learned early on. You’ll find that the people that break down at the slightest criticism the most are those that were criticised the most as children as well. Those that had no room for being anything other than perfect. Where value was obtained from performance.
+A high criticism tolerance is learned by understanding that ones self worth is not attached to output or delivery.
+(This is hard in our industry) It comes from self-acceptance and compassion.
+And these values are learned early on.
+You’ll find that the people that break down at the slightest criticism the most are those that were criticised the most as children as well.
+Those that had no room for being anything other than perfect.
+Where value was obtained from performance.
 To take it even further...why see it as criticism at all? You are not your lines of code.
 
 As much as i like the concept in general in life, in this case its just “you are not your lines of code”.
 Also people who criticize people make a mistake kind of.
 Always criticize the code, not the person
 
-
 > (Sometimes anger is healthy, it may also be a signal to us that our boundaries have been violated.)
-Exactly. And if that boundaries get violated repeatedly in the same situation (especially by the same people), it is fine to release that anger in a controlled way. I’ve come to the conclusion that some folks haven’t left the state where they sometimes need a (vocal) pat on their hand to realize they crossed boundaries they shouldn’t cross. If you can play that game, congrats.
-Also, do not swallow your anger. Find a non-destructive, non-harmful way to release it. As anger is a physical reaction, the easiest way is to go for a walk, ride your bike or whatever. Whatever floats your boat should be fine.
+Exactly.
+And if that boundaries get violated repeatedly in the same situation (especially by the same people), it is fine to release that anger in a controlled way.
+I’ve come to the conclusion that some folks haven’t left the state where they sometimes need a (vocal) pat on their hand to realize they crossed boundaries they shouldn’t cross.
+If you can play that game, congrats.
+Also, do not swallow your anger.
+Find a non-destructive, non-harmful way to release it.
+As anger is a physical reaction, the easiest way is to go for a walk, ride your bike or whatever.
+Whatever floats your boat should be fine.
 
 `May 20, 2023` · Such a great article!
 [DevEx: What Actually Drives Productivity](https://queue.acm.org/detail.cfm?id=3595878)
