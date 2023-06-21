@@ -1,3 +1,5 @@
+`Jun 21, 2023` - I'm gonna call it "Public employee handbook, built as a static website, using Johnny Decimal system."
+
 `Jun 20, 2023` - I'm brewing these 3 ideas together:
 
 1. [Johnny•Decimal](https://johnnydecimal.com/) system to organise projects.
