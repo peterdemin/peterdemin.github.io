@@ -31,3 +31,6 @@ Q: Okay, what’s the catch?
 
 A: There’s no catch, it’s a numbers game. In a nutshell, 100 people’s monthly payments cover for 1 person layoff. According to the bureau of labor statistics, only 1% of people is getting laid off each month.
  
+----
+
+The idea behind [PayDay protection](https://paydayprotection.com).
