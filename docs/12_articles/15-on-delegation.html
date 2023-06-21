@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>&lt;no title&gt; &#8212; Peter Demin</title>
+    <title>On delegation &#8212; Peter Demin</title>
   
   
   
@@ -18,36 +18,38 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'drafts';</script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
+    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/15-on-delegation';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Beauty of Python’s collections module" href="16-python-collections.html" />
+    <link rel="prev" title="DIY Bank balance aggregation" href="14-kibitzr-banks.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -75,7 +77,7 @@
     <div class="search-button__overlay"></div>
     <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
-      action="search.html"
+      action="../search.html"
       method="get">
   <i class="fa-solid fa-magnifying-glass"></i>
   <input type="search"
@@ -103,7 +105,7 @@
       <div class="navbar-item">
   
 
-<a class="navbar-brand logo" href="index.html">
+<a class="navbar-brand logo" href="../index.html">
   
   
   
@@ -186,11 +188,11 @@ document.write(`
   <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
     
     <li class="breadcrumb-item breadcrumb-home">
-      <a href="index.html" class="nav-link" aria-label="Home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">&lt;no title&gt;</li>
+    <li class="breadcrumb-item active" aria-current="page">On delegation</li>
   </ul>
 </nav>
 </div>
@@ -207,17 +209,16 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="toctree-wrapper compound">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Drafts:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="13_drafts/01-audiobooks-torrents.html">Audiobooks magnet links</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13_drafts/02-contract-testing.html">Contract testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13_drafts/03-Intro-to-programming.html">Introductory class to programming</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13_drafts/03-Intro-to-programming.html#introduction-to-web-application-development">Introduction to web application development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13_drafts/03-Intro-to-programming.html#personal-mentoring-above-basics">Personal mentoring above basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13_drafts/04-promotion-logs.html">Kibitzr promotion timeline</a></li>
-</ul>
-</div>
+  <section id="on-delegation">
+<h1>On delegation<a class="headerlink" href="#on-delegation" title="Permalink to this heading">#</a></h1>
+<p>As a person who spent a lot of time in government facilities, I developed an acute case of red line allergy.
+Not all bureaucratic process are inherently bad though. A line to the cashier is arguably the best way to coordinate buyers in a shop to share a limited resource of cashier’s time.</p>
+<p>I think the common pattern of harmful policies is separation of problem, goals, decision and rules. Everyone could be doing their best, and still the system as a whole is terrible.</p>
+<p>Here’s how it works. Once upon a time there was a <em>problem</em>. Some important smart guy created a <em>goal</em> to solve or mitigate the problem. Some less important folks made a set of <em>decisions</em> to achieve the <em>goal</em>. Those decisions were passed down to the least important crowd in the organization to make them <em>rules</em> and put mindless minions in charge of enforcing those rules.</p>
+<p>Decision makers working on the goal didn’t see the problem clearly. Policy makers working on the rules didn’t care about neither goal nor problem. Rule enforcers never asked about the decisions.</p>
+<p>And here I am, banging my head against the layers of walls, trying to get things done, but jumping hoops instead.</p>
+<p>If I were to make it right, I’d let rule enforcers solve the problem on their own. So that they can be in charge of their decisions. And so that they would know when to break the rules. You may say that it’s not scalable, but I’d say it’s a matter of where to cut the delegation. At the lowest level, horizontally, or at the problem level, vertically.</p>
+</section>
 
 
                 </article>
@@ -230,6 +231,24 @@ document.write(`
   
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="14-kibitzr-banks.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">DIY Bank balance aggregation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="16-python-collections.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Beauty of Python’s collections module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div></div>
   
 </div>
@@ -244,7 +263,7 @@ document.write(`
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="_sources/drafts.rst.txt">
+    <a href="../_sources/12_articles/15-on-delegation.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
@@ -263,8 +282,8 @@ document.write(`
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">

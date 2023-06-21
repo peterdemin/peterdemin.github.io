@@ -1,0 +1,519 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Personal VPN: a tale of Tailscale and Headscale &#8212; Peter Demin</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/25-tailscale';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Climbr" href="26-climbing-website.html" />
+    <link rel="prev" title="ChatGPT will replace recruiters" href="24-ChatGPT-recruiting.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Peter Demin</p>
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Personal VPN: a tale of Tailscale and Headscale</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="personal-vpn-a-tale-of-tailscale-and-headscale">
+<h1>Personal VPN: a tale of Tailscale and Headscale<a class="headerlink" href="#personal-vpn-a-tale-of-tailscale-and-headscale" title="Permalink to this heading">#</a></h1>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this heading">#</a></h2>
+<p>I’ve been using different types of VPNs for many years for several reasons:</p>
+<ol class="arabic simple">
+<li><p>Public WiFi security.</p></li>
+<li><p>Geo-IP block sidestepping.</p></li>
+<li><p>Secure access to remote devices.</p></li>
+</ol>
+<p>My current tools of choice:</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://nordvpn.com/">NordVPN</a> - paid service with good reliability and UI.</p></li>
+<li><p><a class="reference external" href="https://github.com/trailofbits/algo">Algo</a> - set of scripts automating secure VPN server creation.</p></li>
+</ol>
+<p>I was recently scrolling my GitHub feed and discovered
+<a class="reference external" href="https://github.com/juanfont/headscale">headscale</a> - an open-source alternative
+to the proprietary Tailscale control center for personal self-hosted use.
+Which made me curious enough to finally try <a class="reference external" href="https://tailscale.com/">Tailscale</a> itself.</p>
+</section>
+<section id="installing-tailscale">
+<h2>Installing Tailscale<a class="headerlink" href="#installing-tailscale" title="Permalink to this heading">#</a></h2>
+<p>I quickly registered using my Google account and added two devices - all in about five minutes - impressive!</p>
+<p>Tailscale tracks Google account and IP addresses to provide network connectivity,
+which is extremely user-friendly, but leaves a weird feeling of half-way private solution.
+So, naturally, the next step is to replace the third-party proprietary control center with a self-hosted open-source alternative.</p>
+</section>
+<section id="installing-headscale">
+<h2>Installing Headscale<a class="headerlink" href="#installing-headscale" title="Permalink to this heading">#</a></h2>
+<p>Headscale provides binary releases (current version is <a class="reference external" href="https://github.com/juanfont/headscale/releases/tag/v0.17.1">0.17.1</a>)
+but I’m not too fond of the experience of downloading and upgrading from GitHub releases, so I thought I better build it from sources.</p>
+<p>I cloned the repo:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">juanfont</span><span class="o">/</span><span class="n">headscale</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">headscale</span>
+</pre></div>
+</div>
+<p>And quickly realized that the build instructions assume I’m an experienced <a class="reference external" href="https://nixos.org/">Nix</a> user.</p>
+</section>
+<section id="installing-nix">
+<h2>Installing Nix<a class="headerlink" href="#installing-nix" title="Permalink to this heading">#</a></h2>
+<p>I’ve heard good things about Nix (mostly from <a class="reference external" href="https://xeiaso.net/blog">Xe’s blog</a>), so I thought it’s a good opportunity to poke it.</p>
+<p>I fruitlessly searched for a way to install the Nix build system as an Ubuntu package, but it seems that running shell scripts from the internet with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> is the only supported way to install it right now.
+I hesitated a bit, but not for too long, and gave it a try:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sh</span> <span class="o">&lt;</span><span class="p">(</span><span class="n">curl</span> <span class="o">-</span><span class="n">L</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">nixos</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">nix</span><span class="o">/</span><span class="n">install</span><span class="p">)</span> <span class="o">--</span><span class="n">daemon</span>
+</pre></div>
+</div>
+<p>The installation script is friendly and does an excellent job establishing trust with the user.</p>
+<p>The next step was to set up a development environment for the headscale.</p>
+<p>Headscale’s README mentions running <code class="docutils literal notranslate"><span class="pre">nix</span> <span class="pre">develop</span></code>, which seems sensible and harmless.
+But, turns out, on the (default?) installation, it won’t work.</p>
+<p>Instead, I had to activate two experimental features:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nix</span> <span class="n">develop</span> <span class="o">--</span><span class="n">extra</span><span class="o">-</span><span class="n">experimental</span><span class="o">-</span><span class="n">features</span> <span class="n">nix</span><span class="o">-</span><span class="n">command</span> <span class="o">--</span><span class="n">extra</span><span class="o">-</span><span class="n">experimental</span><span class="o">-</span><span class="n">features</span> <span class="n">flakes</span>
+</pre></div>
+</div>
+<p>Once it finished, I proceeded to <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">build</span></code> which expectedly failed with the same error, so here’s the build command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nix</span> <span class="n">build</span> <span class="o">--</span><span class="n">extra</span><span class="o">-</span><span class="n">experimental</span><span class="o">-</span><span class="n">features</span> <span class="n">nix</span><span class="o">-</span><span class="n">command</span> <span class="o">--</span><span class="n">extra</span><span class="o">-</span><span class="n">experimental</span><span class="o">-</span><span class="n">features</span> <span class="n">flakes</span>
+</pre></div>
+</div>
+<p>After a few minutes of running tests, it finished with no other output.
+I noticed a new <code class="docutils literal notranslate"><span class="pre">result</span></code> symlink in the repo directory. Inside I found the binaries:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tree result/
+result/
+└── bin
+    └── headscale
+
+1 directory, 1 file
+
+$ ll -h result/bin/*
+-r-xr-xr-x 1 root root 25M Dec 31  1969 result/bin/headscale*
+
+$ sha256sum result/bin/headscale
+273e4c4cd13c5903d8dd5611a8f6a43434b34e58c01a6682341370418b0fb837  result/bin/headscale
+</pre></div>
+</div>
+<p>SHA sum doesn’t match the one from the official release (<code class="docutils literal notranslate"><span class="pre">e8d3d74b040bd2e3e9f049d95e4f4b759160518a1cf682ec0bb76f2fed7d77cf</span></code>), but whatever.</p>
+</section>
+<section id="back-to-installing-headscale">
+<h2>Back to installing Headscale<a class="headerlink" href="#back-to-installing-headscale" title="Permalink to this heading">#</a></h2>
+<p>Let’s see what it does:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ result/bin/headscale --help
+
+headscale is an open-source implementation of the Tailscale control server
+
+https://github.com/juanfont/headscale
+
+Usage:
+  headscale [command]
+
+Available Commands:
+  apikeys     Handle the Api keys in Headscale
+  completion  Generate the autocompletion script for the specified shell
+  debug       debug and testing commands
+  generate    Generate commands
+  help        Help about any command
+  mockoidc    Runs a mock OIDC server for testing
+  namespaces  Manage the namespaces of Headscale
+  nodes       Manage the nodes of Headscale
+  preauthkeys Handle the preauthkeys in Headscale
+  routes      Manage the routes of Headscale
+  serve       Launches the headscale server
+  version     Print the version.
+
+Flags:
+  -c, --config string   config file (default is /etc/headscale/config.yaml)
+      --force           Disable prompts and forces the execution
+  -h, --help            help for headscale
+  -o, --output string   Output format. Empty for human-readable, &#39;json&#39;, &#39;json-line&#39; or &#39;yaml&#39;
+
+Use &quot;headscale [command] --help&quot; for more information about a command.
+
+$ result/bin/headscale version
+v422d124
+
+$ result/bin/headscale help
+2023-01-06T20:23:04-05:00 WRN Failed to read configuration from disk error=&quot;Config File \&quot;config\&quot; Not Found in \&quot;[/etc/headscale ~/.headscale ~/headscale]\&quot;&quot;
+2023-01-06T20:23:04-05:00 FTL github.com/juanfont/headscale/cmd/headscale/cli/root.go:43 &gt; Error loading config error=&quot;fatal error reading config file: Config File \&quot;config\&quot; Not Found in \&quot;[/etc/headscale ~/.headscale ~/headscale]\&quot;&quot;
+</pre></div>
+</div>
+<p>Seems functional. I uploaded the binary to a cloud VM to set it as an external login server.
+I uploaded my binary to the server, and… bummer! It can’t run on Ubuntu 20.04 VM!</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./headscale
+-bash: ./headscale: No such file or directory
+</pre></div>
+</div>
+<p>I have no idea what’s wrong there. The file is undoubtedly present and even starts with <code class="docutils literal notranslate"><span class="pre">ELF</span></code> magic bytes. But it’s missing when I try to run it…
+Screw this. I downloaded the official binaries:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">juanfont</span><span class="o">/</span><span class="n">headscale</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="n">download</span><span class="o">/</span><span class="n">v0</span><span class="mf">.17.1</span><span class="o">/</span><span class="n">headscale_0</span><span class="mf">.17.1</span><span class="n">_linux_amd64</span>
+<span class="n">sudo</span> <span class="n">mv</span> <span class="n">headscale_0</span><span class="mf">.17.1</span><span class="n">_linux_amd64</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">headscale</span>
+<span class="n">sudo</span> <span class="n">chmod</span> <span class="mi">555</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">headscale</span>
+<span class="n">sudo</span> <span class="n">chown</span> <span class="n">headscale</span><span class="p">:</span><span class="n">headscale</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">headscale</span>
+</pre></div>
+</div>
+<p>That fixed the “No such file or directory” issue.</p>
+<p>In the middle of the headscale README, I found a link to <a class="reference external" href="https://github.com/juanfont/headscale/blob/main/docs/running-headscale-linux.md">docs</a>.
+Following the docs, I added:</p>
+<ol class="arabic simple">
+<li><p>Config.</p></li>
+<li><p>Separate user.</p></li>
+<li><p>Systemd unit.</p></li>
+<li><p>CNAME DNS record.</p></li>
+<li><p>Nginx pass-through configuration.</p></li>
+<li><p>Expanded Let’s encrypt’s certificate.</p></li>
+</ol>
+<p>The service successfully launched.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo systemctl status headscale
+● headscale.service - headscale controller
+     Loaded: loaded (/etc/systemd/system/headscale.service; enabled; vendor preset: enabled)
+     Active: active (running) since Sat 2023-01-07 03:29:51 UTC; 23h ago
+   Main PID: 727153 (headscale)
+      Tasks: 9 (limit: 1151)
+     Memory: 21.2M
+     CGroup: /system.slice/headscale.service
+             └─727153 /usr/local/bin/headscale serve
+</pre></div>
+</div>
+<p>Nice! Where do I go from here? Let’s connect my Tailscale to the new headscale.
+There’s not much documentation on how it should look for the end user.
+I figured I needed to create an authentication key on the server:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ headscale --namespace net preauthkeys create --reusable --expiration 24h
+21c91befde206632883d0049cf3b81296dc1586a9b21e265
+</pre></div>
+</div>
+<p>I copied the key and tried to use it to authenticate my laptop:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tailscale</span> <span class="n">up</span> <span class="o">--</span><span class="n">login</span><span class="o">-</span><span class="n">server</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">headscale</span><span class="o">.</span><span class="n">demin</span><span class="o">.</span><span class="n">dev</span> <span class="o">--</span><span class="n">authkey</span> <span class="mi">21</span><span class="n">c91befde206632883d0049cf3b81296dc1586a9b21e265</span> <span class="o">--</span><span class="n">force</span><span class="o">-</span><span class="n">reauth</span>
+</pre></div>
+</div>
+<p>The command disabled the existing Tailscale connection and hanged for a few minutes until I stopped it.
+Hmm… Not really what I was looking for. The headscale log on the server didn’t show anything useful.
+I tried <code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">http://127.0.0.1:8080</span></code>, which returned an empty 200 response.</p>
+<p>At this point, I realized that headscale is not at the stage where I want to entrust it with my private VPN.</p>
+</section>
+<section id="back-to-installing-tailscale">
+<h2>Back to installing Tailscale<a class="headerlink" href="#back-to-installing-tailscale" title="Permalink to this heading">#</a></h2>
+<p>The free Tailscale account experience is an absolute delight.
+I added my cloud VM to the same account using <code class="docutils literal notranslate"><span class="pre">tailscale</span> <span class="pre">up</span></code> in a minute (after adding Tailscale’s repo following <a class="reference external" href="https://tailscale.com/kb/1039/install-ubuntu-2004/">these instructions</a>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">tailscale</span>
+<span class="n">sudo</span> <span class="n">tailscale</span> <span class="n">up</span>
+</pre></div>
+</div>
+<p>And it immediately got access to my home server using a nice ts.net domain name.
+I switched to this solution instead of a combination of Google Cloud Firewall Updater (<a class="reference external" href="https://github.com/peterdemin/gcpfwup">gcpfwup</a>) and ssh tunnel.</p>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<p>Tailscale revolutionized the virtual private network setup.
+At least for a personal self-hosted home server setup.</p>
+<p>On the other hand, headscale’s user experience could be better at the moment (as of January 2023, version 0.17.1).</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="24-ChatGPT-recruiting.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">ChatGPT will replace recruiters</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="26-climbing-website.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Climbr</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-tailscale">Installing Tailscale</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-headscale">Installing Headscale</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-nix">Installing Nix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#back-to-installing-headscale">Back to installing Headscale</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#back-to-installing-tailscale">Back to installing Tailscale</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="../_sources/12_articles/25-tailscale.md.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2022, Peter Demin.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

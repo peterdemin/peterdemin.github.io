@@ -1,0 +1,419 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Beauty of Python’s collections module &#8212; Peter Demin</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/16-python-collections';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Subtleties of Python compatible release version specifier" href="17-python-compatible-version.html" />
+    <link rel="prev" title="On delegation" href="15-on-delegation.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Peter Demin</p>
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Beauty of Python’s collections module</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="beauty-of-python-s-collections-module">
+<h1>Beauty of Python’s collections module<a class="headerlink" href="#beauty-of-python-s-collections-module" title="Permalink to this heading">#</a></h1>
+<p>Python is <a class="reference external" href="https://en.wikipedia.org/wiki/Duck_typing#In_Python">famed</a> for embracing duck typing.
+It is nice idea in a number of ways, allowing functions to work equally well with
+lists, sets, dictionary keys, or whatever user-defined object if it provides <code class="docutils literal notranslate"><span class="pre">__iter__</span></code> method.
+However sometimes we want to distinguish between types of arguments.
+Good example is recursive operations on nested structures.
+Consider function, that recursively deletes all dictionary items with <code class="docutils literal notranslate"><span class="pre">None</span></code> values.</p>
+<p>Here is how it could be written for reduced non-recursive case:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>def without_empty(data):
+    return {key: value
+            for key, value in data.items()
+            if value is not None}
+</pre></div>
+</div>
+<p>Now if we want to remove <code class="docutils literal notranslate"><span class="pre">None</span></code> values in nested dictionaries, we will add recursion:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>def without_empty(data):
+    return {key: without_empty(value)
+            for key, value in data.items()
+            if value is not None}
+</pre></div>
+</div>
+<p>Obviosly this new function will not work, because if value is not a dict,
+<code class="docutils literal notranslate"><span class="pre">AttributeError</span></code> will be raised in call to <code class="docutils literal notranslate"><span class="pre">items</span></code> method.</p>
+<p>So function need some way to distinguish between dictionaries and other values.
+Naive duck-typing solution could look like this:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>def without_empty(data):
+    if hasattr(data, &#39;items&#39;):
+        return {key: without_empty(value)
+                for key, value in data.items()
+                if value is not None}
+    else:
+        return data
+</pre></div>
+</div>
+<p>So far so good, checking with nested dictionary gives correct result:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; without_empty({1: {2: None, 4: 5}, 3: None})
+{1: {4: 5}}
+</pre></div>
+</div>
+<p>However, what if function has to support lists of dictionaries too?
+Current version will just ignore None values in lists:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; without_empty([{1: None}])
+[{1: None}]
+</pre></div>
+</div>
+<p>Let’s add check for lists:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>def without_empty(data):
+    if hasattr(data, &#39;items&#39;):
+        return {key: without_empty(value)
+                for key, value in data.items()
+                if value is not None}
+    elif hasattr(data, &#39;__iter__&#39;):
+        return [without_empty(item)
+                for item in data]
+    else:
+        return data
+</pre></div>
+</div>
+<p>Function works fine, giving expected result for complex case:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; without_empty({1: [6, {2: None, 7: 8}], 3: None})
+{1: [6, {7: 8}]}
+</pre></div>
+</div>
+<p>But code now is hard to follow and tricky to update.
+Because second condition is depending on the first one - both <code class="docutils literal notranslate"><span class="pre">dict</span></code> and <code class="docutils literal notranslate"><span class="pre">list</span></code> provide <code class="docutils literal notranslate"><span class="pre">__iter__</span></code> method.
+Also first check uses public method <code class="docutils literal notranslate"><span class="pre">items</span></code>, but second - internal helper <code class="docutils literal notranslate"><span class="pre">__iter__</span></code>,
+which looks like hacking.</p>
+<p>And here comes <a class="reference external" href="https://docs.python.org/3.6/library/collections.abc.html">collections.abc</a> (Just <a class="reference external" href="https://docs.python.org/2.7/library/collections.html">collections</a> in Python 2) providing number of
+abstract base classes that can be used to test whether a class provides a particular interface;
+for example, whether it is hashable or whether it is a sequence.</p>
+<p>Here is version of our function, that utilizes abstract classes:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>from collections import Mapping, Set, Sequence
+
+def without_empty(data):
+    if isinstance(data, Mapping):
+        return {key: without_empty(value)
+                for key, value in data.items()
+                if value is not None}
+    elif isinstance(data, (Sequence, Set)):
+        return [without_empty(item)
+                for item in data]
+    else:
+        return data
+</pre></div>
+</div>
+<p>At this point you may have question, how is it possible that built-in
+<code class="docutils literal notranslate"><span class="pre">dict</span></code> class is an instance of some deep burried <code class="docutils literal notranslate"><span class="pre">collections.abc.Mapping</span></code>?
+The answer is easy: it is not. And that’s why I decided to write about this module.</p>
+<p>In Python it is type’s responsiblity to decide if some object instantiates it.
+The mechanics are descrived in detail in documentation to <a class="reference external" href="https://docs.python.org/3.6/library/abc.html">abc</a> module.</p>
+<p>In short abstract base class defines must define method <code class="docutils literal notranslate"><span class="pre">__subclasshook__</span></code>,
+which may look something like this for Mapping class:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>@classmethod
+def __subclasshook__(cls, C):
+    if cls is Mapping:
+        if any(&#39;items&#39; in B.__dict__
+               for B in C.__mro__):
+            return True
+    return NotImplemented
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">isinstance</span></code> calls this method and magic happens - object becomes
+an instance of a class that it never heard of.</p>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="15-on-delegation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">On delegation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="17-python-compatible-version.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Subtleties of Python compatible release version specifier</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="../_sources/12_articles/16-python-collections.md.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2022, Peter Demin.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

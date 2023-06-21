@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>&lt;no title&gt; &#8212; Peter Demin</title>
+    <title>MSSQL cheatsheet &#8212; Peter Demin</title>
   
   
   
@@ -18,36 +18,38 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'drafts';</script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
+    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/10-create-mssql-user';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="How to find merge commit which includes a specific commit" href="11-find-merge-commit.html" />
+    <link rel="prev" title="Continuous upgrading" href="07-continious-upgrades.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -75,7 +77,7 @@
     <div class="search-button__overlay"></div>
     <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
-      action="search.html"
+      action="../search.html"
       method="get">
   <i class="fa-solid fa-magnifying-glass"></i>
   <input type="search"
@@ -103,7 +105,7 @@
       <div class="navbar-item">
   
 
-<a class="navbar-brand logo" href="index.html">
+<a class="navbar-brand logo" href="../index.html">
   
   
   
@@ -186,11 +188,11 @@ document.write(`
   <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
     
     <li class="breadcrumb-item breadcrumb-home">
-      <a href="index.html" class="nav-link" aria-label="Home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">&lt;no title&gt;</li>
+    <li class="breadcrumb-item active" aria-current="page">MSSQL cheatsheet</li>
   </ul>
 </nav>
 </div>
@@ -207,17 +209,25 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="toctree-wrapper compound">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Drafts:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="13_drafts/01-audiobooks-torrents.html">Audiobooks magnet links</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13_drafts/02-contract-testing.html">Contract testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13_drafts/03-Intro-to-programming.html">Introductory class to programming</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13_drafts/03-Intro-to-programming.html#introduction-to-web-application-development">Introduction to web application development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13_drafts/03-Intro-to-programming.html#personal-mentoring-above-basics">Personal mentoring above basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13_drafts/04-promotion-logs.html">Kibitzr promotion timeline</a></li>
-</ul>
+  <section id="mssql-cheatsheet">
+<h1>MSSQL cheatsheet<a class="headerlink" href="#mssql-cheatsheet" title="Permalink to this heading">#</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">USE</span> <span class="n">DatabaseName</span>
+<span class="n">CREATE</span> <span class="n">USER</span> <span class="n">username</span> <span class="n">FOR</span> <span class="n">LOGIN</span> <span class="n">username</span>
+<span class="n">GO</span>
+<span class="n">EXEC</span> <span class="n">sp_addrolemember</span> <span class="n">db_owner</span><span class="p">,</span> <span class="n">username</span>
+<span class="n">GO</span>
+</pre></div>
 </div>
+<p>For read-only access you would want to use <code class="docutils literal notranslate"><span class="pre">db_datareader</span></code> role instead of <code class="docutils literal notranslate"><span class="pre">db_owner</span></code>.
+For read and write (but not changing schema, etc.) add it to both <code class="docutils literal notranslate"><span class="pre">db_datareader</span></code> and <code class="docutils literal notranslate"><span class="pre">db_datawriter</span></code></p>
+<p>Or, if you need more fine-grain control you may specifically
+<code class="docutils literal notranslate"><span class="pre">GRANT</span></code>/<code class="docutils literal notranslate"><span class="pre">REVOKE</span></code>/<code class="docutils literal notranslate"><span class="pre">DENY</span></code> <code class="docutils literal notranslate"><span class="pre">select</span></code>/<code class="docutils literal notranslate"><span class="pre">insert</span></code>/<code class="docutils literal notranslate"><span class="pre">update</span></code>/<code class="docutils literal notranslate"><span class="pre">delete</span></code> permissions
+on tables or views and/or exec permissions on functions and stored procs:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">USE</span> <span class="n">DatabaseName</span>
+<span class="n">GRANT</span> <span class="n">INSERT</span> <span class="n">ON</span> <span class="n">table_name</span> <span class="n">TO</span> <span class="n">username</span>
+</pre></div>
+</div>
+</section>
 
 
                 </article>
@@ -230,6 +240,24 @@ document.write(`
   
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="07-continious-upgrades.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Continuous upgrading</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="11-find-merge-commit.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">How to find merge commit which includes a specific commit</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div></div>
   
 </div>
@@ -244,7 +272,7 @@ document.write(`
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="_sources/drafts.rst.txt">
+    <a href="../_sources/12_articles/10-create-mssql-user.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
@@ -263,8 +291,8 @@ document.write(`
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
