@@ -3,7 +3,7 @@ import glob
 
 
 def gen_life():
-    for idx, filename in enumerate(sorted(glob.glob(os.path.join('source', 'life', '*.md')), reverse=True)):
+    for idx, filename in enumerate(sorted(glob.glob(os.path.join('source', '16_life', '*.md')), reverse=True)):
         if idx:
             print()
             print('-----')

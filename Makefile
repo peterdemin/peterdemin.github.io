@@ -91,6 +91,7 @@ counter_clean:
 .PHONY: counter_build
 counter_build:
 	$(MAKE) -C backgammon build
+	rm -rf build/html/counter
 	mv backgammon/_site build/html/counter
 
 .PHONY: counter_install

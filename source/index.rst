@@ -16,7 +16,7 @@ Articles and notes
    :caption: Articles:
    :glob:
 
-   articles/*
+   12_articles/*
 
 My open source projects
 -----------------------
@@ -44,4 +44,4 @@ Projects that did not
    :caption: Project ideas:
    :glob:
 
-   ideas/*
+   14_ideas/*

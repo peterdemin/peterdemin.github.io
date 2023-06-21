@@ -13,7 +13,7 @@ Generate security token for demo server
       </div>
       <div>
         <label for="file">File path:</label>
-        <input name="file" value="source/articles/022-git-form-saver-demo.rst" />
+        <input name="file" value="source/12_articles/22-git-form-saver-demo.rst" />
       </div>
       <div>
         <label for="secret">Secret (optional):</label>
@@ -43,8 +43,8 @@ Add text to this page
         <input name="say" id="say" value="Hi" />
       </div>
       <input type=hidden name="repo" value="git@github.com:peterdemin/peterdemin.github.io" />
-      <input type=hidden name="file" value="source/articles/022-git-form-saver-demo-comments.txt" />
-      <input type=hidden name="redirect" value="https://peter.demin.dev/articles/022-git-form-saver-demo.html" />
+      <input type=hidden name="file" value="source/12_articles/22-git-form-saver-demo-comments.txt" />
+      <input type=hidden name="redirect" value="https://peter.demin.dev/12_articles/22-git-form-saver-demo.html" />
       <div>
         <button>Submit</button>
       </div>
@@ -53,5 +53,5 @@ Add text to this page
 Comments
 --------
 
-.. literalinclude:: 022-git-form-saver-demo-comments.txt
+.. literalinclude:: 22-git-form-saver-demo-comments.txt
    :start-after: GFS-JWT
