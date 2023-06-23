@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Popular Design Patterns &#8212; Peter Demin</title>
+    <title>Compute time deltas with Python &#8212; Peter Demin</title>
   
   
   
@@ -45,11 +45,11 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/29-design-parents';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/30-time-deltas';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Compute time deltas with Python" href="30-time-deltas.html" />
-    <link rel="prev" title="Making GraphViz look like Whimsical" href="27-whimsical-graphviz.html" />
+    <link rel="next" title="Collecte - self-hosted open source email collector" href="../14_ideas/01-collector.html" />
+    <link rel="prev" title="Popular Design Patterns" href="29-design-parents.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -192,7 +192,7 @@ document.write(`
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">Popular Design Patterns</li>
+    <li class="breadcrumb-item active" aria-current="page">Compute time deltas with Python</li>
   </ul>
 </nav>
 </div>
@@ -209,34 +209,30 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="popular-design-patterns">
-<h1>Popular Design Patterns<a class="headerlink" href="#popular-design-patterns" title="Permalink to this heading">#</a></h1>
-<p>This is an excerpt from Code Complete by Steve McConnell.</p>
-<p>Table 5-1 Popular Design Patterns</p>
-<p><em>Abstract Factory</em>
-Supports creation of sets of related objects by specifying the kind of set but not the kinds of each specific object.</p>
-<p><em>Adapter</em>
-Converts the interface of a class to a different interface.</p>
-<p><em>Bridge</em>
-Builds an interface and an implementation in such a way that either can vary without the other varying.</p>
-<p><em>Composite</em>
-Consists of an object that contains additional objects of its own type so that client code can interact with the top-level object and not concern itself with all the detailed objects.</p>
-<p><em>Decorator</em>
-Attaches responsibilities to an object dynamically, without creating specific subclasses for each possible configuration of responsibilities.</p>
-<p><em>Facade</em>
-Provides a consistent interface to code that wouldn’t otherwise offer a consistent interface.</p>
-<p><em>Factory Method</em>
-Instantiates classes derived from a specific base class without needing to keep track of the individual derived classes anywhere but the Factory Method.</p>
-<p><em>Iterator</em>
-A server object that provides access to each element in a set sequentially.</p>
-<p><em>Observer</em>
-Keeps multiple objects in synch with one another by making an object responsible for notifying the set of related objects about changes to any member of the set.</p>
-<p><em>Singleton</em>
-Provides global access to a class that has one and only one instance.</p>
-<p><em>Strategy</em>
-Defines a set of algorithms or behaviors that are dynamically interchangeable with each other.</p>
-<p><em>Template Method</em>
-Defines the structure of an algorithm but leaves some of the detailed implementation to subclasses.</p>
+  <section id="compute-time-deltas-with-python">
+<h1>Compute time deltas with Python<a class="headerlink" href="#compute-time-deltas-with-python" title="Permalink to this heading">#</a></h1>
+<p>Given a <code class="docutils literal notranslate"><span class="pre">times.txt</span></code> file in this format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">16</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mf">59.965</span> <span class="mi">16</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mf">59.546</span>
+<span class="mi">16</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mf">59.963</span> <span class="mi">16</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mf">59.546</span>
+<span class="mi">16</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mf">59.393</span> <span class="mi">16</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mf">59.381</span>
+<span class="o">...</span>
+
+</pre></div>
+</div>
+<p>This Python script will print out the deltas between the times in the first and the second column as integer milliseconds:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">TODAY</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">time_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">TODAY</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">time_str</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">delta</span><span class="p">(</span><span class="n">end</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">parse</span><span class="p">(</span><span class="n">end</span><span class="p">)</span> <span class="o">-</span> <span class="n">parse</span><span class="p">(</span><span class="n">start</span><span class="p">))</span><span class="o">.</span><span class="n">microseconds</span> <span class="o">//</span> <span class="mi">1000</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;times.txt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fobj</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fobj</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">delta</span><span class="p">(</span><span class="o">*</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
+</pre></div>
+</div>
 </section>
 
 
@@ -251,20 +247,20 @@ Defines the structure of an algorithm but leaves some of the detailed implementa
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="27-whimsical-graphviz.html"
+       href="29-design-parents.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Making GraphViz look like Whimsical</p>
+        <p class="prev-next-title">Popular Design Patterns</p>
       </div>
     </a>
     <a class="right-next"
-       href="30-time-deltas.html"
+       href="../14_ideas/01-collector.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Compute time deltas with Python</p>
+        <p class="prev-next-title">Collecte - self-hosted open source email collector</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -282,7 +278,7 @@ Defines the structure of an algorithm but leaves some of the detailed implementa
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="../_sources/12_articles/29-design-parents.md.txt">
+    <a href="../_sources/12_articles/30-time-deltas.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
