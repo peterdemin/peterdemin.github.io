@@ -1,3 +1,8 @@
+`Jun 22, 2023` - interesting quote from “A Philosophy of Software Design” book by John Ousterhout:
+
+> Although I am a strong advocate of unit testing, I am not a fan of test-driven development. The problem with test-driven development is that it focuses attention on getting specific features working, rather than finding the best design. This is tactical programming pure and simple, with all of its disadvantages. Test-driven development is too incremental: at any point in time, it’s tempting to just hack in the next feature to make the next test pass. There’s no obvious time to do design, so it’s easy to end up with a mess.
+
+
 `Jun 21, 2023` - I'm gonna call it "Public employee handbook, built as a static website, using Johnny Decimal system."
 
 `Jun 20, 2023` - I'm brewing these 3 ideas together:
