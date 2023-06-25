@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Compute time deltas with Python &#8212; Peter Demin</title>
+    <title>PMBOK quotes &#8212; Peter Demin</title>
   
   
   
@@ -45,11 +45,11 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/30-time-deltas';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/31-pmbok-quotes';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="PMBOK quotes" href="31-pmbok-quotes.html" />
-    <link rel="prev" title="Popular Design Patterns" href="29-design-parents.html" />
+    <link rel="next" title="Collecte - self-hosted open source email collector" href="../14_ideas/01-collector.html" />
+    <link rel="prev" title="Compute time deltas with Python" href="30-time-deltas.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -192,7 +192,7 @@ document.write(`
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">Compute time deltas with Python</li>
+    <li class="breadcrumb-item active" aria-current="page">PMBOK quotes</li>
   </ul>
 </nav>
 </div>
@@ -209,30 +209,32 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="compute-time-deltas-with-python">
-<h1>Compute time deltas with Python<a class="headerlink" href="#compute-time-deltas-with-python" title="Permalink to this heading">#</a></h1>
-<p>Given a <code class="docutils literal notranslate"><span class="pre">times.txt</span></code> file in this format:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">16</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mf">59.965</span> <span class="mi">16</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mf">59.546</span>
-<span class="mi">16</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mf">59.963</span> <span class="mi">16</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mf">59.546</span>
-<span class="mi">16</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mf">59.393</span> <span class="mi">16</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mf">59.381</span>
-<span class="o">...</span>
-
-</pre></div>
-</div>
-<p>This Python script will print out the deltas between the times in the first and the second column as integer milliseconds:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">TODAY</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
-
-<span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">time_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">TODAY</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">time_str</span><span class="p">))</span>
-
-<span class="k">def</span> <span class="nf">delta</span><span class="p">(</span><span class="n">end</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">parse</span><span class="p">(</span><span class="n">end</span><span class="p">)</span> <span class="o">-</span> <span class="n">parse</span><span class="p">(</span><span class="n">start</span><span class="p">))</span><span class="o">.</span><span class="n">microseconds</span> <span class="o">//</span> <span class="mi">1000</span>
-
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;times.txt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fobj</span><span class="p">:</span>
-    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fobj</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">delta</span><span class="p">(</span><span class="o">*</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
-</pre></div>
-</div>
+  <section id="pmbok-quotes">
+<h1>PMBOK quotes<a class="headerlink" href="#pmbok-quotes" title="Permalink to this heading">#</a></h1>
+<section id="stakeholders">
+<h2>Stakeholders<a class="headerlink" href="#stakeholders" title="Permalink to this heading">#</a></h2>
+<p>Stakeholders may influence, affect, or be affected by a project decision, activity, or outcome in either a <em>positive</em> or <em>negative</em> way.</p>
+<p>Stakeholders can affect many aspects of a project, including but not limited to:</p>
+<ul class="simple">
+<li><p><strong>Scope/requirements</strong>, by revealing the need to add, adjust, or remove elements of the scope;</p></li>
+<li><p><strong>Schedule</strong>, by offering ideas to accelerate delivery or by slowing down or stop delivery or key project activities;</p></li>
+<li><p><strong>Cost</strong>, by helping to reduce or eliminate planned expenditures or by adding steps, requirements, or restrictions that increase cost or require additional resources;</p></li>
+<li><p><strong>Project team</strong>, by restricting or enabling access to people with the skills, knowledge, and experience needed to deliver the intended outcomes, and promote a learning culture;</p></li>
+<li><p><strong>Plans</strong>, by providing information for plans or by advocating for changes to agreed activities and work;</p></li>
+<li><p><strong>Outcomes</strong>, by enabling or blocking work required for the desired outcomes;</p></li>
+<li><p><strong>Culture</strong>, by establishing or influencing-or even defining -the level and character of engagement of the project team and broader organization; delivers the intended identified value;</p></li>
+<li><p><strong>Benefits realization</strong>, by generating and identifying long-term goals so that the project</p></li>
+<li><p><strong>Risk</strong>, by defining the risk thresholds of the project, as well as participating in subsequent risk management activities;</p></li>
+<li><p><strong>Quality</strong>, by identifying and requiring quality requirements;</p></li>
+<li><p><strong>Success</strong>, by defining success factors and participating in the evaluation of success.</p></li>
+</ul>
+<p>Stakeholders may come and go throughout the life cycle of the project. Additionally, the degree
+of a stakeholder’s interest, influence, or impact may change over time. Stakeholders, especially those
+with a high degree of influence and who have an unfavorable or neutral view about a project, need to
+be effectively engaged so that their interests, concerns, and rights are understood. The project team
+can then address these concerns through effective engagement and support leading to the probability
+of a successful project outcome.</p>
+</section>
 </section>
 
 
@@ -247,20 +249,20 @@ document.write(`
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="29-design-parents.html"
+       href="30-time-deltas.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Popular Design Patterns</p>
+        <p class="prev-next-title">Compute time deltas with Python</p>
       </div>
     </a>
     <a class="right-next"
-       href="31-pmbok-quotes.html"
+       href="../14_ideas/01-collector.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">PMBOK quotes</p>
+        <p class="prev-next-title">Collecte - self-hosted open source email collector</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -277,8 +279,18 @@ document.write(`
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
   <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stakeholders">Stakeholders</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="../_sources/12_articles/30-time-deltas.md.txt">
+    <a href="../_sources/12_articles/31-pmbok-quotes.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
