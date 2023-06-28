@@ -1,3 +1,5 @@
+`Jun 28, 2023` - Nice collection of articles from AWS: [The Amazon Builders' Library](https://aws.amazon.com/builders-library/)
+
 `Jun 26, 2023` - "capturing the fast-growing demand" is all it is about these days.
 
 `Jun 22, 2023` - interesting quote from “A Philosophy of Software Design” book by John Ousterhout:
