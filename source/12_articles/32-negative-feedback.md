@@ -1,4 +1,4 @@
-# The Pitfalls of Negative Non-Actionable Feedback
+# Negative Non-Actionable Feedback
 
 ## The Impact of Negative Non-Actionable Feedback
 
