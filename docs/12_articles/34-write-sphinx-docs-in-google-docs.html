@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Hough Transform Algorithm &#8212; Peter Demin</title>
+    <title>Write sphinx docs in Google Docs &#8212; Peter Demin</title>
   
   
   
@@ -45,11 +45,11 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/33-hough-transform-algorithm';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/34-write-sphinx-docs-in-google-docs';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Write sphinx docs in Google Docs" href="34-write-sphinx-docs-in-google-docs.html" />
-    <link rel="prev" title="Negative Non-Actionable Feedback" href="32-negative-feedback.html" />
+    <link rel="next" title="Collecte - self-hosted open source email collector" href="../14_ideas/01-collector.html" />
+    <link rel="prev" title="Hough Transform Algorithm" href="33-hough-transform-algorithm.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -192,7 +192,7 @@ document.write(`
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">Hough Transform Algorithm</li>
+    <li class="breadcrumb-item active" aria-current="page">Write sphinx docs in Google Docs</li>
   </ul>
 </nav>
 </div>
@@ -209,88 +209,20 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="hough-transform-algorithm">
-<h1>Hough Transform Algorithm<a class="headerlink" href="#hough-transform-algorithm" title="Permalink to this heading">#</a></h1>
-<p>An In-depth Look at the Hough Transform Algorithm for Circle Detection
-in Grayscale Images</p>
-<p>Introduction: Computer vision plays a vital role in a wide range of
-applications, including object recognition, image segmentation, and
-feature extraction. Circle detection is a fundamental task in computer
-vision, with applications in areas such as robotics, medical imaging,
-and industrial quality control. The Hough Transform algorithm is a
-powerful technique for detecting circles in grayscale images. In this
-article, we will delve into the intricacies of the Hough Transform
-algorithm and explore its workings in circle detection.</p>
-<p>Understanding the Hough Transform: The Hough Transform is a feature
-extraction technique that enables the detection of shapes, such as
-lines, circles, and ellipses, in digital images. Initially developed for
-line detection, it has been extended to handle circles as well. The core
-idea behind the Hough Transform lies in transforming the image space
-into parameter space, facilitating the detection of specific shapes
-based on their characteristic patterns.</p>
-<p>Circle Detection using the Hough Transform: Detecting circles in a
-grayscale image using the Hough Transform involves the following steps:</p>
-<p>Step 1: Preprocessing Convert the input grayscale image into a binary
-image using appropriate thresholding techniques. This simplifies the
-circle detection process by reducing the complexity of the input image.</p>
-<p>Step 2: Edge Detection Apply an edge detection algorithm, such as the
-Canny edge detector, to identify edges in the binary image. Edges are
-crucial for circle detection as they represent transitions between
-different intensity levels, which often correspond to the boundaries of
-objects, including circles.</p>
-<p>Step 3: Hough Space Accumulation Create an accumulator array, often
-referred to as the Hough space, to store the voting information for
-potential circles. The dimensions of this accumulator array correspond
-to the radius and center coordinates of the circles being detected.</p>
-<p>Step 4: Voting For every edge pixel in the binary image, compute all
-possible circles that could pass through that pixel. Increment the
-corresponding accumulator cells in the Hough space to vote for the
-circles that have overlapping parameters.</p>
-<p>Step 5: Thresholding and Circle Extraction After the voting process,
-examine the accumulator array and identify the cells with the highest
-number of votes. These cells correspond to the potential circles present
-in the image. By setting a suitable threshold, we can filter out weaker
-circle candidates.</p>
-<p>Step 6: Circle Parameter Estimation Retrieve the center coordinates and
-radii of the circles based on the cells with the highest votes. These
-parameters represent the estimated circles in the original image.</p>
-<p>Step 7: Visualization Finally, overlay the detected circles on the
-original grayscale image to visualize the circle detection results.</p>
-<p>Benefits and Limitations of the Hough Transform Algorithm: The Hough
-Transform algorithm offers several advantages for circle detection:</p>
-<ol class="arabic simple">
-<li><p>Robustness: The Hough Transform is capable of detecting circles even
-in the presence of noise, occlusions, and partial circles.</p></li>
-<li><p>Parameterization: The algorithm provides a parameterized
-representation of the detected circles, making it easier to analyze
-and extract relevant information.</p></li>
-</ol>
-<p>However, the Hough Transform algorithm also has certain limitations:</p>
-<ol class="arabic simple">
-<li><p>Computational Complexity: The Hough Transform can be computationally
-expensive, particularly for large images or images with high
-resolution. Various optimization techniques, such as the use of an
-accumulator matrix, can help mitigate this issue.</p></li>
-<li><p>Limited to Defined Shape: The Hough Transform assumes a predefined
-shape model (e.g., a circle) and may not work effectively for
-detecting circles with varying radii or non-circular shapes.</p></li>
-</ol>
-<p>Conclusion: The Hough Transform algorithm has proven to be a valuable
-tool for circle detection in grayscale images. By leveraging the power
-of parameter space and voting, it enables the identification of circular
-patterns in images, opening up possibilities for numerous applications.
-While the algorithm has its limitations, ongoing research and
-advancements in computer vision continue to enhance its effectiveness
-and broaden its scope for shape detection tasks.</p>
-<p>References:</p>
-<ul class="simple">
-<li><p>Duda, R.O., Hart, P.E., &amp; Stork, D.G. (2001). Pattern Classification
-(2nd ed.). Wiley-Interscience.</p></li>
-<li><p>Ballard, D.H. (1981). Generalizing the Hough Transform to Detect
-Arbitrary Shapes. Pattern Recognition, 13(2), 111-122.</p></li>
-<li><p>Hough transform. (2021, June 4). In Wikipedia. Retrieved June 18,
-2023, from</p></li>
-</ul>
+  <section id="write-sphinx-docs-in-google-docs">
+<h1>Write sphinx docs in Google Docs<a class="headerlink" href="#write-sphinx-docs-in-google-docs" title="Permalink to this heading">#</a></h1>
+<p>Problem</p>
+<p>When a project is using Sphinx docs extensively, there’s additional
+friction for non-developers who need to contribute to documentation.</p>
+<p>Solution</p>
+<p>Write pages in Google Docs and automatically synchronize them to the
+Sphinx source tree.</p>
+<p>How to</p>
+<p>Install gdocsync Python package:</p>
+<p>pip install gdocsync</p>
+<p>Import Google Docs pages that follow Johnny Decimal notation to source
+directory:</p>
+<p>gdocsync source</p>
 </section>
 
 
@@ -305,20 +237,20 @@ Arbitrary Shapes. Pattern Recognition, 13(2), 111-122.</p></li>
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="32-negative-feedback.html"
+       href="33-hough-transform-algorithm.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Negative Non-Actionable Feedback</p>
+        <p class="prev-next-title">Hough Transform Algorithm</p>
       </div>
     </a>
     <a class="right-next"
-       href="34-write-sphinx-docs-in-google-docs.html"
+       href="../14_ideas/01-collector.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Write sphinx docs in Google Docs</p>
+        <p class="prev-next-title">Collecte - self-hosted open source email collector</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -336,7 +268,7 @@ Arbitrary Shapes. Pattern Recognition, 13(2), 111-122.</p></li>
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="../_sources/12_articles/33-hough-transform-algorithm.rst.txt">
+    <a href="../_sources/12_articles/34-write-sphinx-docs-in-google-docs.rst.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
