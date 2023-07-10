@@ -48,6 +48,8 @@ class DriveFile:
 
 @dataclass
 class JohnnyDecimal:
+    SLUG_DELIMITER = '-'
+
     category: str
     index: str
     name: str
@@ -71,7 +73,7 @@ class JohnnyDecimal:
         parent_dir_candidates = glob.glob(parent_dir_expr)
         if len(parent_dir_candidates) == 1:
             parent_dir = parent_dir_candidates[0]
-            return os.path.join(parent_dir, f'{self.index}_{self.slug}')
+            return os.path.join(parent_dir, f'{self.index}{self.SLUG_DELIMITER}{self.slug}')
         raise ValueError(
             f'Could not find unambiguous fit for {parent_dir_expr}. '
             f'Candidates: {parent_dir_candidates}'
@@ -79,7 +81,7 @@ class JohnnyDecimal:
 
     @property
     def slug(self) -> str:
-        return RE_PUNCT.sub('_', self.name).lower()
+        return RE_PUNCT.sub(self.SLUG_DELIMITER, self.name).lower()
 
 
 def authenticate():
