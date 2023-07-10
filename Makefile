@@ -73,11 +73,18 @@ master:
 
 .PHONY: lock
 lock:
-	pip-compile-multi --directory . --allow-unsafe --no-upgrade
+	pip-compile-multi \
+		--directory . \
+		--allow-unsafe \
+		--autoresolve \
+		--no-upgrade
 
 .PHONY: upgrade
 upgrade:
-	pip-compile-multi --directory . --allow-unsafe
+	pip-compile-multi \
+		--directory . \
+		--autoresolve \
+		--allow-unsafe
 
 .PHONY: sync
 sync:
