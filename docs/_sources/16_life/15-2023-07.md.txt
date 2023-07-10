@@ -1,0 +1,2 @@
+`Jul 9, 2023` - I converted my Sphinx source files to conform to Johnny Decimal, and implemented the idea to remove friction for adding new articles.
+I published this as [gdocsync](https://github.com/peterdemin/gdocsync). The project is a bit raw, but I'm already dog-fooding it here.
