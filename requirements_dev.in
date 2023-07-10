@@ -1,3 +1,5 @@
 -r requirements.in
 
 pip-compile-multi
+ipdb
+pylint
