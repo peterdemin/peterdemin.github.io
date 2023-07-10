@@ -1,6 +1,6 @@
-from __future__ import print_function
-
+import json
 import io
+import contextlib
 import os.path
 import glob
 import re
@@ -23,19 +23,32 @@ SCOPES = [
     'https://www.googleapis.com/auth/drive.metadata.readonly',
     'https://www.googleapis.com/auth/drive.readonly',
 ]
-CACHE_FILE_NAME = 'drive.cache'
+HERE = os.path.dirname(__file__)
+CACHE_FILE_NAME = os.path.expanduser('~/.docs_import_cache')
 RE_JOHNNY_DECIMAL = re.compile(r'\[(\d{2}).(\d{2})\][ -]*(.+)')
 RE_PUNCT = re.compile('[{} ]+'.format(re.escape(string.punctuation)))
 
 
-def shelve_it(func):
-    key = func.__name__
-    def new_func(*args, **kwargs):
+class ShelveCache:
+    def __init__(self, cache_file_name: str) -> None:
+        self._cache_file_name = cache_file_name
+
+    @contextlib.contextmanager
+    def session(self):
         with shelve.open(CACHE_FILE_NAME) as persistent_dictionary:
+            yield persistent_dictionary
+
+    def wrap_callable(self, key, source_callback):
+        with self.session() as persistent_dictionary:
             if key not in persistent_dictionary:
-                persistent_dictionary[key] = func(*args, **kwargs)
+                persistent_dictionary[key] = source_callback()
             return persistent_dictionary[key]
 
+
+def shelve_it(func):
+    cache = ShelveCache(CACHE_FILE_NAME)
+    def new_func(*args, **kwargs):
+        return cache.wrap_callable(func.__name__, lambda: func(*args, **kwargs))
     return new_func
 
 
@@ -84,42 +97,45 @@ class JohnnyDecimal:
         return RE_PUNCT.sub(self.SLUG_DELIMITER, self.name).lower()
 
 
-def authenticate():
-    # The file token.json stores the user's access and refresh tokens, and is
-    # created automatically when the authorization flow completes for the first
-    # time.
-    if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
-    else:
-        creds = None
-    # If there are no (valid) credentials available, let the user log in.
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
-            creds = flow.run_local_server(port=0)
-        # Save the credentials for the next run
-        with open('token.json', 'w') as token:
-            token.write(creds.to_json())
-    return creds
+class GoogleAuth:
+    _CREDENTIALS_PATH = os.path.expanduser('~/.gcp/credentials.json')
+
+    def __init__(self, cache: ShelveCache) -> None:
+        self._cache = cache
+
+    def get_credentials(self) -> Credentials:
+        # The file token.json stores the user's access and refresh tokens, and is
+        # created automatically when the authorization flow completes for the first
+        # time.
+        with self._cache.session() as cache:
+            if token := cache.get('token'):
+                creds = Credentials.from_authorized_user_info(token, SCOPES)
+            else:
+                creds = None
+            # If there are no (valid) credentials available, let the user log in.
+            if not creds or not creds.valid:
+                if creds and creds.expired and creds.refresh_token:
+                    creds.refresh(Request())
+                else:
+                    flow = InstalledAppFlow.from_client_secrets_file(self._CREDENTIALS_PATH, SCOPES)
+                    creds = flow.run_local_server(port=0)
+                # Save the credentials for the next run
+                cache['token'] = json.loads(creds.to_json())
+            return creds
 
 
 class DriveClient:
     def __init__(self, creds) -> None:
         self._service = build('drive', 'v3', credentials=creds)
 
-    @shelve_it
-    def iter_files(self) -> List[DriveFile]:
+    def list_files(self) -> List[DriveFile]:
         """Iterates names and ids of the first 100 files the user has access to."""
-        results = self._service.files().list(
-            pageSize=100,
-            fields="nextPageToken, files(id, name)"
-        ).execute()
-        items = results.get('files', [])
         return [
-            DriveFile(drive_id=item['id'], name=item['name'])  # , md5=item['md5Checksum'])
-            for item in items
+            DriveFile(drive_id=item['id'], name=item['name'])
+            for item in self._service.files().list(
+                pageSize=100,
+                fields="nextPageToken, files(id, name)"
+            ).execute().get('files', [])
         ]
 
     def download_doc(self, drive_file_id: str, mime_type='application/rtf') -> bytes:
@@ -129,19 +145,22 @@ class DriveClient:
 def iter_johnny_decimal_files(drive_client: DriveClient) -> List[DriveFile]:
     return [
         drive_file
-        for drive_file in drive_client.iter_files()
+        for drive_file in cache.wrap_callable('files', drive_client.list_files)
         if JohnnyDecimal.is_valid(drive_file.name)
     ]
 
 
 def sync_johnny_decimal_drive_files():
-    drive_client = DriveClient(authenticate())
-    for drive_file in iter_johnny_decimal_files(drive_client):
+    cache = ShelveCache(CACHE_FILE_NAME)
+    drive_client = DriveClient(GoogleAuth(cache).get_credentials())
+    for drive_file in cache.wrap_callable('files', drive_client.list_files):
+        if not JohnnyDecimal.is_valid(drive_file.name):
+            continue
         jd = JohnnyDecimal.parse(drive_file.name)
-        target_path = jd.fit_path('../source') + '.rst'
-        print(f'{drive_file.drive_id} {drive_file.name} {target_path}')  #  ({drive_file.md5})')
+        target_path = jd.fit_path('source') + '.rst'
+        print(f'Syncing {drive_file.name} to {target_path}')
         rst_content = convert_rtf_to_rst(drive_client.download_doc(drive_file.drive_id))
-        with open(target_path, 'wt') as f_target:
+        with open(target_path, 'wt', encoding='utf-8') as f_target:
             f_target.write(f'{jd.name}\n{"=" * len(jd.name)}\n\n')
             f_target.write(rst_content)
 
@@ -155,40 +174,6 @@ def convert_rtf_to_rst(rtf_bytes: bytes) -> str:
         os.system(f'pandoc -s {source_name} -o {target_name}')
         with open(target_name, 'rt') as f_out:
             return f_out.read()
-
-
-def download_file(real_file_id):
-    """Downloads a file
-    Args:
-        real_file_id: ID of the file to download
-    Returns : IO object with location.
-
-    Load pre-authorized user credentials from the environment.
-    TODO(developer) - See https://developers.google.com/identity
-    for guides on implementing OAuth2 for the application.
-    """
-    creds, _ = google.auth.default()
-
-    try:
-        # create drive api client
-        service = build('drive', 'v3', credentials=creds)
-
-        file_id = real_file_id
-
-        # pylint: disable=maybe-no-member
-        request = service.files().get_media(fileId=file_id)
-        file = io.BytesIO()
-        downloader = MediaIoBaseDownload(file, request)
-        done = False
-        while done is False:
-            status, done = downloader.next_chunk()
-            print(F'Download {int(status.progress() * 100)}.')
-
-    except HttpError as error:
-        print(F'An error occurred: {error}')
-        file = None
-
-    return file.getvalue()
 
 
 def test_johnny_decimal_regex():
@@ -209,4 +194,3 @@ if __name__ == '__main__':
     test_johnny_decimal_regex()
     test_punctuation_regex()
     sync_johnny_decimal_drive_files()
-    # download_file(real_file_id='1KuPmvGq8yoYgbfW74OENMCB5H0n_2Jm9')
