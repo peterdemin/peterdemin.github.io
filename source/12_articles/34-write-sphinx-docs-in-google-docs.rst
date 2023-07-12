@@ -17,7 +17,7 @@ Install gdocsync Python package:
 
 pip install gdocsync
 
-Import Google Docs pages that follow Johnny Decimal notation to source
-directory:
+Import Google Docs pages that follow Johnny Decimal notation to the
+source directory:
 
 gdocsync source
