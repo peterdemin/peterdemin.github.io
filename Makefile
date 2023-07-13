@@ -77,6 +77,7 @@ lock:
 		--directory . \
 		--allow-unsafe \
 		--autoresolve \
+		--skip-constraints \
 		--no-upgrade
 
 .PHONY: upgrade
@@ -84,6 +85,7 @@ upgrade:
 	pip-compile-multi \
 		--directory . \
 		--autoresolve \
+		--skip-constraints \
 		--allow-unsafe
 
 .PHONY: sync
