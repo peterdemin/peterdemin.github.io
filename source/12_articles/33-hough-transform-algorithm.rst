@@ -116,7 +116,7 @@ References:
    Arbitrary Shapes. Pattern Recognition, 13(2), 111-122.
 -  Hough transform. (2021, June 4). In Wikipedia. Retrieved June 18,
    2023, from `Hough transform -
-   Wikipedia <https://www.google.com/url?q=https://en.wikipedia.org/wiki/Hough_transform&sa=D&source=editors&ust=1689222769650428&usg=AOvVaw3w3GkRLfVPPutcfe26RPEe>`__
+   Wikipedia <https://www.google.com/url?q=https://en.wikipedia.org/wiki/Hough_transform&sa=D&source=editors&ust=1689222837180348&usg=AOvVaw3itRLmwDxLyh7oyDINqlp->`__
 
 --------------
 
