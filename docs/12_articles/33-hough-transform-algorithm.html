@@ -235,31 +235,32 @@ detection of specific shapes based on their characteristic patterns.</p>
 <span id="h-ob4qxlnwo8ej"></span><h2>Circle Detection using the Hough Transform<a class="headerlink" href="#circle-detection-using-the-hough-transform" title="Permalink to this heading">#</a></h2>
 <p>Detecting circles in a grayscale image using the Hough Transform
 involves the following steps:</p>
-<p>Step 1: Preprocessing Convert the input grayscale image into a binary
-image using appropriate thresholding techniques. This simplifies the
-circle detection process by reducing the complexity of the input image.</p>
-<p>Step 2: Edge Detection Apply an edge detection algorithm, such as the
-Canny edge detector, to identify edges in the binary image. Edges are
-crucial for circle detection as they represent transitions between
+<p><strong>Step 1</strong>: Preprocessing Convert the input grayscale image into a
+binary image using appropriate thresholding techniques. This simplifies
+the circle detection process by reducing the complexity of the input
+image.</p>
+<p><strong>Step 2</strong>: Edge Detection Apply an edge detection algorithm, such as
+the Canny edge detector, to identify edges in the binary image. Edges
+are crucial for circle detection as they represent transitions between
 different intensity levels, which often correspond to the boundaries of
 objects, including circles.</p>
-<p>Step 3: Hough Space Accumulation Create an accumulator array, often
+<p><strong>Step 3</strong>: Hough Space Accumulation Create an accumulator array, often
 referred to as the Hough space, to store the voting information for
 potential circles. The dimensions of this accumulator array correspond
 to the radius and center coordinates of the circles being detected.</p>
-<p>Step 4: Voting for every edge pixel in the binary image, compute all
+<p><strong>Step 4</strong>: Voting for every edge pixel in the binary image, compute all
 possible circles that could pass through that pixel. Increment the
 corresponding accumulator cells in the Hough space to vote for the
 circles that have overlapping parameters.</p>
-<p>Step 5: Thresholding and Circle Extraction After the voting process,
+<p><strong>Step 5</strong>: Thresholding and Circle Extraction After the voting process,
 examine the accumulator array and identify the cells with the highest
 number of votes. These cells correspond to the potential circles present
 in the image. By setting a suitable threshold, we can filter out weaker
 circle candidates.</p>
-<p>Step 6: Circle Parameter Estimation Retrieve the center coordinates and
-radii of the circles based on the cells with the highest votes. These
-parameters represent the estimated circles in the original image.</p>
-<p>Step 7: Visualization Finally, overlay the detected circles on the
+<p><strong>Step 6</strong>: Circle Parameter Estimation Retrieve the center coordinates
+and radii of the circles based on the cells with the highest votes.
+These parameters represent the estimated circles in the original image.</p>
+<p><strong>Step 7</strong>: Visualization Finally, overlay the detected circles on the
 original grayscale image to visualize the circle detection results.</p>
 </section>
 <section id="benefits-and-limitations-of-the-hough-transform-algorithm">
@@ -267,21 +268,21 @@ original grayscale image to visualize the circle detection results.</p>
 <p>The Hough Transform algorithm offers several advantages for circle
 detection:</p>
 <ol class="arabic simple">
-<li><p>Robustness: The Hough Transform is capable of detecting circles even
-in the presence of noise, occlusions, and partial circles.</p></li>
-<li><p>Parameterization: The algorithm provides a parameterized
+<li><p><strong>Robustness</strong>: The Hough Transform is capable of detecting circles
+even in the presence of noise, occlusions, and partial circles.</p></li>
+<li><p><strong>Parameterization</strong>: The algorithm provides a parameterized
 representation of the detected circles, making it easier to analyze
 and extract relevant information.</p></li>
 </ol>
 <p>However, the Hough Transform algorithm also has certain limitations:</p>
 <ol class="arabic simple">
-<li><p>Computational Complexity: The Hough Transform can be computationally
-expensive, particularly for large images or images with high
-resolution. Various optimization techniques, such as the use of an
-accumulator matrix, can help mitigate this issue.</p></li>
-<li><p>Limited to Defined Shape: The Hough Transform assumes a predefined
-shape model (e.g., a circle) and may not work effectively for
-detecting circles with varying radii or non-circular shapes.</p></li>
+<li><p><strong>Computational Complexity</strong>: The Hough Transform can be
+computationally expensive, particularly for large images or images
+with high resolution. Various optimization techniques, such as the
+use of an accumulator matrix, can help mitigate this issue.</p></li>
+<li><p><strong>Limited to Defined Shape</strong>: The Hough Transform assumes a
+predefined shape model (e.g., a circle) and may not work effectively
+for detecting circles with varying radii or non-circular shapes.</p></li>
 </ol>
 </section>
 <section id="conclusion">
@@ -301,8 +302,7 @@ scope for shape detection tasks.</p>
 (2nd ed.). Wiley-Interscience.</p></li>
 <li><p>Ballard, D.H. (1981). Generalizing the Hough Transform to Detect
 Arbitrary Shapes. Pattern Recognition, 13(2), 111-122.</p></li>
-<li><p>Hough transform. (2021, June 4). In Wikipedia. Retrieved June 18,
-2023, from <a class="reference external" href="https://en.wikipedia.org/wiki/Hough_transform">Hough transform -
+<li><p>Hough transform. Retrieved June 18, 2023, from <a class="reference external" href="https://en.wikipedia.org/wiki/Hough_transform">Hough transform -
 Wikipedia</a></p></li>
 </ul>
 <hr class="docutils" />
