@@ -60,21 +60,19 @@ original grayscale image to visualize the circle detection results.
 Benefits and Limitations of the Hough Transform Algorithm: The Hough
 Transform algorithm offers several advantages for circle detection:
 
-1. Robustness: The Hough Transform is capable of detecting circles even
+#. Robustness: The Hough Transform is capable of detecting circles even
    in the presence of noise, occlusions, and partial circles.
-
-2. Parameterization: The algorithm provides a parameterized
+#. Parameterization: The algorithm provides a parameterized
    representation of the detected circles, making it easier to analyze
    and extract relevant information.
 
 However, the Hough Transform algorithm also has certain limitations:
 
-1. Computational Complexity: The Hough Transform can be computationally
+#. Computational Complexity: The Hough Transform can be computationally
    expensive, particularly for large images or images with high
    resolution. Various optimization techniques, such as the use of an
    accumulator matrix, can help mitigate this issue.
-
-2. Limited to Defined Shape: The Hough Transform assumes a predefined
+#. Limited to Defined Shape: The Hough Transform assumes a predefined
    shape model (e.g., a circle) and may not work effectively for
    detecting circles with varying radii or non-circular shapes.
 
@@ -90,9 +88,8 @@ References:
 
 -  Duda, R.O., Hart, P.E., & Stork, D.G. (2001). Pattern Classification
    (2nd ed.). Wiley-Interscience.
-
 -  Ballard, D.H. (1981). Generalizing the Hough Transform to Detect
    Arbitrary Shapes. Pattern Recognition, 13(2), 111-122.
-
 -  Hough transform. (2021, June 4). In Wikipedia. Retrieved June 18,
-   2023, from
+   2023,
+   from\ `  <https://www.google.com/url?q=https://en.wikipedia.org/wiki/Hough_transform&sa=D&source=editors&ust=1689221880538380&usg=AOvVaw0IGd9wJzAridiLRSes5J-q>`__\ `https://en.wikipedia.org/wiki/Hough_transform <https://www.google.com/url?q=https://en.wikipedia.org/wiki/Hough_transform&sa=D&source=editors&ust=1689221880538913&usg=AOvVaw3OFne-FymjzGrlyf4pwKoH>`__
