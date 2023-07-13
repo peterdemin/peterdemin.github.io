@@ -29,7 +29,7 @@ docutils==0.20.1
     #   pydata-sphinx-theme
     #   sphinx
     #   sphinx-togglebutton
-gdocsync==0.0.5
+gdocsync==0.0.6
     # via -r requirements.in
 google-api-core==2.11.1
     # via google-api-python-client

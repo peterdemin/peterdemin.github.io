@@ -21,46 +21,46 @@ questions that touch on these five topics.
 
 .. _h.3xhii8j4l27z:
 
-Impact
-^^^^^^
+**Impact**
+^^^^^^^^^^
 
 Do you make things better not only for yourself but for those around
 you?
 
 .. _h.badx8dcs5x29:
 
-Trust
-^^^^^
+**Trust**
+^^^^^^^^^
 
 Are you able to communicate authentically, and do you have a history of
 building high trust with others?
 
 .. _h.ygo4mcgnui0m:
 
-Self-awareness
-^^^^^^^^^^^^^^
+**Self-awareness**
+^^^^^^^^^^^^^^^^^^
 
 Do you have an understanding of your strengths and also how you impact
 those around you?
 
 .. _h.suvrb7etby2a:
 
-Readiness
-^^^^^^^^^
+**Readiness**
+^^^^^^^^^^^^^
 
 Do you have the skills or potential to do the job you’re applying for?
 
 .. _h.64a07cfgwx08:
 
-Engagement
-^^^^^^^^^^
+**Engagement**
+^^^^^^^^^^^^^^
 
 Do you have a high degree of care for what you do at work and in life?
 
 .. _h.6kfi8ghr0uaj:
 
-The Life Story interview
-^^^^^^^^^^^^^^^^^^^^^^^^
+**The Life Story interview**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A one-hour, conversation-style interview with a recruiter. The best way
 to prep is to spend some time thinking about experiences that have been
