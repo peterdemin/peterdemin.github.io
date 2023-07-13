@@ -45,7 +45,7 @@ docutils==0.20.1
     #   pydata-sphinx-theme
     #   sphinx
     #   sphinx-togglebutton
-gdocsync==0.0.3
+gdocsync==0.0.4
     # via
     #   -c requirements_dev.txt
     #   -r requirements.in
@@ -99,6 +99,10 @@ jinja2==3.1.2
     #   -c requirements_dev.txt
     #   myst-parser
     #   sphinx
+lxml==4.9.3
+    # via
+    #   -c requirements_dev.txt
+    #   gdocsync
 markdown-it-py==3.0.0
     # via
     #   -c requirements_dev.txt
