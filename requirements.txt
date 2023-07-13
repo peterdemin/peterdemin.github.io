@@ -45,7 +45,7 @@ docutils==0.20.1
     #   pydata-sphinx-theme
     #   sphinx
     #   sphinx-togglebutton
-gdocsync==0.0.4
+gdocsync==0.0.5
     # via
     #   -c requirements_dev.txt
     #   -r requirements.in
