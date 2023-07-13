@@ -50,7 +50,7 @@ referred to as the Hough space, to store the voting information for
 potential circles. The dimensions of this accumulator array correspond
 to the radius and center coordinates of the circles being detected.
 
-Step 4: Voting For every edge pixel in the binary image, compute all
+Step 4: Voting for every edge pixel in the binary image, compute all
 possible circles that could pass through that pixel. Increment the
 corresponding accumulator cells in the Hough space to vote for the
 circles that have overlapping parameters.
@@ -107,8 +107,8 @@ scope for shape detection tasks.
 
 .. _h.lukngty984rz:
 
-References:
------------
+References
+----------
 
 -  Duda, R.O., Hart, P.E., & Stork, D.G. (2001). Pattern Classification
    (2nd ed.). Wiley-Interscience.
@@ -116,7 +116,7 @@ References:
    Arbitrary Shapes. Pattern Recognition, 13(2), 111-122.
 -  Hough transform. (2021, June 4). In Wikipedia. Retrieved June 18,
    2023, from `Hough transform -
-   Wikipedia <https://www.google.com/url?q=https://en.wikipedia.org/wiki/Hough_transform&sa=D&source=editors&ust=1689222837180348&usg=AOvVaw3itRLmwDxLyh7oyDINqlp->`__
+   Wikipedia <https://en.wikipedia.org/wiki/Hough_transform>`__
 
 --------------
 
