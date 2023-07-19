@@ -1,3 +1,11 @@
+`Jul 19, 2023` - the more I work on the project docs, the more I wonder:
+
+1. Why none of my previous jobs had this level of documentation?
+2. Does the work I'm doing add value to the project, or am I caught
+   in a perfectionist loop, polishing somethings that shouldn't even exist?
+
+More reading material: https://abseil.io/resources/swe-book/html/ch10.html
+
 `Jul 13, 2023` - finally, an opinion on downsides of multi repo:
 
 > They pay for it by having to invest a lot into release management, version synchronization across multiple teams, much more integration testing, worse understanding of the product by individual developers / teams, and, in general, lower quality of the product. But, off-the-shelf VCSs don’t allow for sharing large repositories easily, and, of course, the problem this merge queue is trying to address would grow more severe with the size.
