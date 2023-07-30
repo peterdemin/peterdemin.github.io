@@ -45,3 +45,13 @@ Projects that did not
    :glob:
 
    14_ideas/*
+
+Projects that might
+-------------------
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Project ideas:
+   :glob:
+
+   15_projects/*
