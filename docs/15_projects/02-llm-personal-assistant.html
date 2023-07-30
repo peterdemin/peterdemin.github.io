@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>MySeverance.com &#8212; Peter Demin</title>
+    <title>LLM-based personal assistant &#8212; Peter Demin</title>
   
   
   
@@ -45,11 +45,10 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '14_ideas/05-myseverance';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '15_projects/02-llm-personal-assistant';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Git form saver" href="06-git-form-saver.html" />
-    <link rel="prev" title="Mutant - Data Schema Generator" href="04-mutant.html" />
+    <link rel="prev" title="Git form saver" href="../14_ideas/06-git-form-saver.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -192,7 +191,7 @@ document.write(`
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">MySeverance.com</li>
+    <li class="breadcrumb-item active" aria-current="page">LLM-based personal assistant</li>
   </ul>
 </nav>
 </div>
@@ -209,30 +208,30 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="myseverance-com">
-<h1>MySeverance.com<a class="headerlink" href="#myseverance-com" title="Permalink to this heading">#</a></h1>
-<p>Build up your job severance with monthly payments.</p>
-<section id="how-it-works">
-<h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this heading">#</a></h2>
-<p>You pay $19 per month. If you get fired or laid off, we pay you $2,000.
-If you choose to pay $49 per month, the payout grows to $5,000. Pay $99, collect $10,000.</p>
-<p>The payout amount is progressive. It starts at zero and grows every month by ten times your monthly payment.
-For example, on day one you paid $19.  After the first month, the coverage becomes $190. Second month, you put $19 more, now the coverage becomes $380. And so on, until 11 month later, you achieve $2,000 coverage, at which point the amount is fixed.
-The same goes for the higher tiers, that allow you to grow the payout above $2,000 up to $10,000.</p>
-<p>Sign up today to receive $100 bonus on top of your total coverage when we launch.</p>
-</section>
-<section id="frequently-asked-questions">
-<h2>Frequently asked questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this heading">#</a></h2>
-<p>Q: What information do I need to provide to start using the service?</p>
-<p>A: We’ll need your ID and proof of employment.</p>
-<p>Q: When can I collect the payout?</p>
-<p>A: You can collect the payout if you get fired or paid off. You’ll need to provide a termination letter from the employer.</p>
-<p>Q: What if I quit myself?</p>
-<p>A: Then you won’t be covered. Your plan will be frozen until you start the next job.</p>
-<p>Q: Okay, what’s the catch?</p>
-<p>A: There’s no catch, it’s a numbers game. In a nutshell, 100 people’s monthly payments cover for 1 person layoff. According to the bureau of labor statistics, only 1% of people is getting laid off each month.</p>
-<hr class="docutils" />
-<p>The idea behind <a class="reference external" href="https://paydayprotection.com">PayDay protection</a>.</p>
+  <section id="llm-based-personal-assistant">
+<h1>LLM-based personal assistant<a class="headerlink" href="#llm-based-personal-assistant" title="Permalink to this heading">#</a></h1>
+<section id="classification-prompt">
+<h2>Classification prompt<a class="headerlink" href="#classification-prompt" title="Permalink to this heading">#</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Act as a smart personal assistant. Classify the User&#39;s message as either command or query.
+Respond with a Classification containing only one word: &quot;query&quot; or &quot;command&quot;.
+Don&#39;t put anything else into classification.
+
+&lt;user&gt;: shut down
+&lt;assistant&gt;: command
+
+&lt;user&gt;: what time is it?
+&lt;assistant&gt;: query
+
+&lt;user&gt;: set the alarm for 8 am
+&lt;assistant&gt;: command
+
+&lt;user&gt;: find new movies with high rating
+&lt;assistant&gt;: query
+
+&lt;user&gt;: send me a &quot;wake up&quot; message at 8 am
+&lt;assistant&gt;:
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -248,22 +247,13 @@ The same goes for the higher tiers, that allow you to grow the payout above $2,0
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="04-mutant.html"
+       href="../14_ideas/06-git-form-saver.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Mutant - Data Schema Generator</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="06-git-form-saver.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Git form saver</p>
       </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div></div>
   
@@ -283,14 +273,13 @@ The same goes for the higher tiers, that allow you to grow the payout above $2,0
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-it-works">How it works</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#frequently-asked-questions">Frequently asked questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-prompt">Classification prompt</a></li>
 </ul>
   </nav></div>
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="../_sources/14_ideas/05-myseverance.md.txt">
+    <a href="../_sources/15_projects/02-llm-personal-assistant.rst.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
