@@ -1,0 +1,381 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Understanding the Fast Fourier Transform (FFT) in Layman’s Terms &#8212; Peter Demin</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/36-understanding-the-fast-fourier-transform-fft-in-layman-s-terms';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Collecte - self-hosted open source email collector" href="../14_ideas/01-collector.html" />
+    <link rel="prev" title="FLASK evaluation questions" href="35-flask-prompts.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Peter Demin</p>
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Understanding the Fast Fourier Transform (FFT) in Layman’s Terms</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="understanding-the-fast-fourier-transform-fft-in-layman-s-terms">
+<h1>Understanding the Fast Fourier Transform (FFT) in Layman’s Terms<a class="headerlink" href="#understanding-the-fast-fourier-transform-fft-in-layman-s-terms" title="Permalink to this heading">#</a></h1>
+<p>The Fast Fourier Transform, or FFT, is a powerful mathematical tool used
+to analyze and understand signals and waves in various fields like
+music, communications, image processing, and more. Though its name might
+sound complex, we can break down how it works in simpler terms.</p>
+<p><strong>1. Waves and Frequencies:</strong></p>
+<p>Before diving into the FFT, let’s grasp the concept of waves and
+frequencies. Imagine throwing a pebble into a calm lake; it creates
+ripples that spread outward. These ripples are waves. Similarly, many
+signals we encounter daily, like sound and light, can be represented as
+waves.</p>
+<p>A wave has a property called frequency, which determines how many cycles
+or oscillations occur in a given time. Think of frequency as how fast
+the waves go up and down. High-pitched sounds, like a whistle, have a
+higher frequency than low-pitched sounds, like a deep voice.</p>
+<p><strong>2. Breaking Down Signals:</strong></p>
+<p>Now, consider we have a signal, like a musical tune or an image. Any
+signal can be thought of as a combination of different waves, each with
+its own frequency. The FFT helps us analyze the signal and identify
+these individual frequencies, like finding the musical notes that make
+up a song.</p>
+<p><strong>3. The Traditional Approach:</strong></p>
+<p>In the past, people would analyze signals using a method called the
+Discrete Fourier Transform (DFT). It works by comparing the signal with
+various sinusoidal waves at different frequencies. Essentially, it
+checks how much each wave contributes to the signal.</p>
+<p>While this method is accurate, it’s computationally demanding,
+especially for large signals. Imagine comparing the signal with all
+possible frequencies one by one; it becomes time-consuming!</p>
+<p><strong>4. Introducing the FFT:</strong></p>
+<p>Here’s where the “Fast” in FFT comes in. The FFT is an improved version
+of the DFT, designed to make things much quicker and more efficient.
+Instead of comparing the signal with all frequencies one by one, the FFT
+cleverly divides the problem into smaller, manageable parts.</p>
+<p>Imagine you have a puzzle with many pieces. Instead of putting them
+together randomly, you sort them into smaller piles based on their
+shape. Then, you solve each pile separately, which is faster than
+solving the entire puzzle at once.</p>
+<p><strong>5. The Butterfly Effect:</strong></p>
+<p>The key to the FFT’s speed lies in its “butterfly” operation. No, it
+doesn’t involve real butterflies! In this context, a butterfly is a
+mathematical operation that combines two smaller frequency components to
+produce a larger one.</p>
+<p>Imagine you have two small waves—one representing a low frequency and
+the other representing a high frequency. When you apply the butterfly
+operation, it combines these waves to create a new wave representing the
+sum of both frequencies. This process helps build up the final result
+step by step.</p>
+<p><strong>6. Divide and Conquer:</strong></p>
+<p>The FFT cleverly uses the butterfly operation in a “divide and conquer”
+strategy. It recursively breaks down the original signal into smaller
+parts, solving them individually using butterflies. These smaller parts
+are then combined to find the frequencies of the original signal.</p>
+<p>This approach significantly reduces the number of computations required
+compared to the traditional DFT method. It’s like solving the puzzle
+faster by organizing the pieces into smaller groups!</p>
+<p><strong>In Conclusion:</strong></p>
+<p>The Fast Fourier Transform is a fantastic mathematical tool that helps
+us understand the different frequencies present in a signal or wave. By
+employing a “divide and conquer” approach with butterfly operations, the
+FFT efficiently breaks down complex signals, making it invaluable in
+various applications across science and technology. So, the next time
+you enjoy music, communicate with your phone, or watch an image on your
+computer, you know that the Fast Fourier Transform might be working
+behind the scenes to make it all possible!</p>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="35-flask-prompts.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">FLASK evaluation questions</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../14_ideas/01-collector.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Collecte - self-hosted open source email collector</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="../_sources/12_articles/36-understanding-the-fast-fourier-transform-fft-in-layman-s-terms.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2022, Peter Demin.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
