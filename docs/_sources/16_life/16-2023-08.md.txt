@@ -1,3 +1,5 @@
+`Aug 11, 2023` - relative, related, relevant.
+
 `Aug 10, 2023` - Notes for ["Decentralizing the Practice of Architecture at Xapo Bank"](https://martinfowler.com/articles/xapo-architecture-experience.html):
 - Company had horizontal teams, separating architects from engineers.
 - This caused big number of handoffs and slow/broken feedback loops.
