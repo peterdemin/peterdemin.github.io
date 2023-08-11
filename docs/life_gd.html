@@ -211,8 +211,60 @@ document.write(`
 <h1>Journal<a class="headerlink" href="#journal" title="Permalink to this heading">#</a></h1>
 </section>
 <hr class="docutils" />
-<p><code class="docutils literal notranslate"><span class="pre">Aug</span> <span class="pre">11,</span> <span class="pre">2023</span></code> - relative, related, relevant.</p>
-<p><code class="docutils literal notranslate"><span class="pre">Aug</span> <span class="pre">10,</span> <span class="pre">2023</span></code> - Notes for <a class="reference external" href="https://martinfowler.com/articles/xapo-architecture-experience.html">“Decentralizing the Practice of Architecture at Xapo Bank”</a>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Aug</span> <span class="pre">10,</span> <span class="pre">2023</span></code> - Notes for <a class="reference external" href="https://martinfowler.com/articles/scaling-architecture-conversationally.html">Scaling the Practice of Architecture, Conversationally</a>:
+<strong>Problem:</strong></p>
+<ul class="simple">
+<li><p>Article starts at the situation where there exists a small group of architects, that are a bottleneck to decision process.</p></li>
+<li><p>Additionaly, the existing process involves a handoff between the architect drawing abstract diagrams, and an engineer implementing the design.</p></li>
+<li><p>The organization structure contradicts a simple truth:
+architecture in the heads of those writing the code, that is the most important.
+As Alberto Brandolini said: “It is the developer’s assumptions which get shipped to production”.</p></li>
+</ul>
+<p><strong>Solution:</strong></p>
+<ul class="simple">
+<li><p>Introduce the Advice Process: anyone can make an architectural decision, but they must follow the process. In essense they create a document of a particular structure, outlining the proposition, and seek an advice from affected parties.</p></li>
+<li><p>Affected parties for each aspect of the decision making are documented as a checklist: this person for security, this for UX, that for analytics, etc.</p></li>
+<li><p>The Process consists of four parts:</p>
+<ol class="arabic simple">
+<li><p>A thinking and recording tool;</p></li>
+<li><p>A time and place for conversations;</p></li>
+<li><p>A light to illuminate and guide towards a unified direction (Team-sourced Architectural Principles);</p></li>
+<li><p>A means to sense the current technical landscape and climate.</p></li>
+</ol>
+</li>
+<li><p>They must document the advices received, and explore the alternatives, documenting them meticulously in the same doc.</p></li>
+<li><p>They don’t need to actually follow each advice, and the chosen solution can contradict them.</p></li>
+<li><p>Org holds weekly, hour-long Architecture Advisory Forum (“AAF”) primarily to seek and give advice in public, so the <em>architectural principles</em> dissiminate through the company.</p></li>
+<li><p>AAF is not the only place to seek advice. In the early stage of ADR, 1-1s are more efficient and allow building up a solid ADR for a quicker AAF meeting. On the other hand, AAF meeting can result in follow-up 1-1s to explore the alternatives deeper.</p></li>
+<li><p>Teams explicitly flag in their ADRs is not just the principles which apply, but also when their decision conflicts with one or more principles.</p></li>
+<li><p>(Then article went on to explaining the mechanics and benefits of running an in-house tech radar.
+That didn’t resonate with me, maybe I’ll revisit it later.)</p></li>
+</ul>
+<p><strong>Pitfals:</strong></p>
+<ul class="simple">
+<li><p>Architectural failures are integral part of the decision making.
+The team feels safe to re-visit, and share the learnings.
+It embraces them, calling them out specifically and celebrating them in the AAF.
+This is a key aspect of building a learning culture.</p></li>
+<li><p>Some decisions never make it to ADR and AAF for many good reasons.
+When this happens, it’s important to treat is as a learning opportunity, instead of falling back to old ways and taking control.</p></li>
+<li><p>Team (?) makes sure influence is balanced and not based on reputation, tenure or place in the hierarchy.
+Making sure quieter contributors are heard.</p></li>
+</ul>
+<p><strong>Conclusion:</strong></p>
+<ul class="simple">
+<li><p>Advice Process is not looking for consensus, but for a broad range of inputs and voices.</p></li>
+</ul>
+<p>Links to follow:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.thoughtworks.com/radar/techniques/lightweight-architecture-decision-records">Architectural Decision Records</a></p></li>
+<li><p><a class="reference external" href="https://web.archive.org/web/20210506014629/https://upmo.com/dev/decisions/0010-som-synthetic-monitoring.html">Examples of ADRs</a></p></li>
+<li><p><a class="reference external" href="http://www.extremeprogramming.org/rules/spike.html">Spikes</a></p></li>
+<li><p>Book by John Lewis <a class="reference external" href="http://engineering-principles.onejl.uk/">“Software Engineering Principles”</a>.</p></li>
+<li><p><a class="reference external" href="https://www.thoughtworks.com/radar/techniques/architectural-fitness-function">Architectural Fitness Functions</a></p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">Aug</span> <span class="pre">10,</span> <span class="pre">2023</span></code> - relative, related, relevant.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Aug</span> <span class="pre">9,</span> <span class="pre">2023</span></code> - Notes for <a class="reference external" href="https://martinfowler.com/articles/xapo-architecture-experience.html">“Decentralizing the Practice of Architecture at Xapo Bank”</a>:</p>
 <ul class="simple">
 <li><p>Company had horizontal teams, separating architects from engineers.</p></li>
 <li><p>This caused big number of handoffs and slow/broken feedback loops.</p></li>
