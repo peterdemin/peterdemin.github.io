@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>&lt;no title&gt; &#8212; Peter Demin</title>
+    <title>Scaling the Practice of Architecture, Conversationally &#8212; Peter Demin</title>
   
   
   
@@ -45,9 +45,11 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '16_life/14-2023-06';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '17_notes/02_advice_process';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Why Remote Works" href="03_why_remote_works.html" />
+    <link rel="prev" title="Decentralizing the Practice of Architecture at Xapo Bank" href="01_xapo.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -190,7 +192,7 @@ document.write(`
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">&lt;no title&gt;</li>
+    <li class="breadcrumb-item active" aria-current="page">Scaling the Practice of Architecture, Conversationally</li>
   </ul>
 </nav>
 </div>
@@ -207,22 +209,71 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <p><code class="docutils literal notranslate"><span class="pre">Jun</span> <span class="pre">28,</span> <span class="pre">2023</span></code> - Nice collection of articles from AWS: <a class="reference external" href="https://aws.amazon.com/builders-library/">The Amazon Builders’ Library</a></p>
-<p><code class="docutils literal notranslate"><span class="pre">Jun</span> <span class="pre">26,</span> <span class="pre">2023</span></code> - “capturing the fast-growing demand” is all it is about these days.</p>
-<p><code class="docutils literal notranslate"><span class="pre">Jun</span> <span class="pre">22,</span> <span class="pre">2023</span></code> - interesting quote from “A Philosophy of Software Design” book by John Ousterhout:</p>
-<blockquote>
-<div><p>Although I am a strong advocate of unit testing, I am not a fan of test-driven development. The problem with test-driven development is that it focuses attention on getting specific features working, rather than finding the best design. This is tactical programming pure and simple, with all of its disadvantages. Test-driven development is too incremental: at any point in time, it’s tempting to just hack in the next feature to make the next test pass. There’s no obvious time to do design, so it’s easy to end up with a mess.</p>
-</div></blockquote>
-<p><code class="docutils literal notranslate"><span class="pre">Jun</span> <span class="pre">21,</span> <span class="pre">2023</span></code> - I’m gonna call it “Public employee handbook, built as a static website, using Johnny Decimal system.”</p>
-<p><code class="docutils literal notranslate"><span class="pre">Jun</span> <span class="pre">20,</span> <span class="pre">2023</span></code> - I’m brewing these 3 ideas together:</p>
+  <section id="scaling-the-practice-of-architecture-conversationally">
+<h1>Scaling the Practice of Architecture, Conversationally<a class="headerlink" href="#scaling-the-practice-of-architecture-conversationally" title="Permalink to this heading">#</a></h1>
+<p>Article: <a class="reference external" href="https://martinfowler.com/articles/scaling-architecture-conversationally.html">https://martinfowler.com/articles/scaling-architecture-conversationally.html</a></p>
+<section id="problem">
+<h2>Problem<a class="headerlink" href="#problem" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Article starts at the situation where there exists a small group of architects, that are a bottleneck to decision process.</p></li>
+<li><p>Additionaly, the existing process involves a handoff between the architect drawing abstract diagrams, and an engineer implementing the design.</p></li>
+<li><p>The organization structure contradicts a simple truth:
+architecture in the heads of those writing the code, that is the most important.
+As Alberto Brandolini said: “It is the developer’s assumptions which get shipped to production”.</p></li>
+</ul>
+</section>
+<section id="solution">
+<h2>Solution<a class="headerlink" href="#solution" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Introduce the Advice Process: anyone can make an architectural decision, but they must follow the process. In essense they create a document of a particular structure, outlining the proposition, and seek an advice from affected parties.</p></li>
+<li><p>Affected parties for each aspect of the decision making are documented as a checklist: this person for security, this for UX, that for analytics, etc.</p></li>
+<li><p>The Process consists of four parts:</p>
 <ol class="arabic simple">
-<li><p><a class="reference external" href="https://johnnydecimal.com/">Johnny•Decimal</a> system to organise projects.</p></li>
-<li><p>Internal ENG documentation, like <a class="reference external" href="https://posthog.com/docs/how-posthog-works">PostHog</a> and <a class="reference external" href="https://about.gitlab.com/company/culture/all-remote/all-remote-vs-hybrid-remote-comparison/">GitLab</a>.</p></li>
-<li><p>Async communications in distributed teams, promoted by <a class="reference external" href="https://zulip.com/">Zulip</a>.</p></li>
+<li><p>A thinking and recording tool;</p></li>
+<li><p>A time and place for conversations;</p></li>
+<li><p>A light to illuminate and guide towards a unified direction (Team-sourced Architectural Principles);</p></li>
+<li><p>A means to sense the current technical landscape and climate.</p></li>
 </ol>
-<p><code class="docutils literal notranslate"><span class="pre">Jun</span> <span class="pre">20,</span> <span class="pre">2023</span></code> - <a class="reference internal" href="../17_notes/03_why_remote_works.html"><span class="std std-doc">Why remote works</span></a></p>
-<p><code class="docutils literal notranslate"><span class="pre">Jun</span> <span class="pre">17,</span> <span class="pre">2023</span></code> - whenever you say something stupid Santa Claus kills one gnome. Which is also stupid to say. So it makes it two gnomes each time.</p>
-<p><code class="docutils literal notranslate"><span class="pre">Jun</span> <span class="pre">15,</span> <span class="pre">2023</span></code> - Quick non-senstive abbreviation to mark especially sensitive critical code sections: TTCLYMOIWTYMLYTTC - Treat This Code Like Your Mamma Or I Will Treat Your Mamma Like You Treated This Code</p>
+</li>
+<li><p>They must document the advices received, and explore the alternatives, documenting them meticulously in the same doc.</p></li>
+<li><p>They don’t need to actually follow each advice, and the chosen solution can contradict them.</p></li>
+<li><p>Org holds weekly, hour-long Architecture Advisory Forum (“AAF”) primarily to seek and give advice in public, so the <em>architectural principles</em> dissiminate through the company.</p></li>
+<li><p>AAF is not the only place to seek advice. In the early stage of ADR, 1-1s are more efficient and allow building up a solid ADR for a quicker AAF meeting. On the other hand, AAF meeting can result in follow-up 1-1s to explore the alternatives deeper.</p></li>
+<li><p>Teams explicitly flag in their ADRs is not just the principles which apply, but also when their decision conflicts with one or more principles.</p></li>
+<li><p>(Then article went on to explaining the mechanics and benefits of running an in-house tech radar.
+That didn’t resonate with me, maybe I’ll revisit it later.)</p></li>
+</ul>
+</section>
+<section id="pitfals">
+<h2>Pitfals<a class="headerlink" href="#pitfals" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Architectural failures are integral part of the decision making.
+The team feels safe to re-visit, and share the learnings.
+It embraces them, calling them out specifically and celebrating them in the AAF.
+This is a key aspect of building a learning culture.</p></li>
+<li><p>Some decisions never make it to ADR and AAF for many good reasons.
+When this happens, it’s important to treat is as a learning opportunity, instead of falling back to old ways and taking control.</p></li>
+<li><p>Team (?) makes sure influence is balanced and not based on reputation, tenure or place in the hierarchy.
+Making sure quieter contributors are heard.</p></li>
+</ul>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Advice Process is not looking for consensus, but for a broad range of inputs and voices.</p></li>
+</ul>
+</section>
+<section id="links-to-follow">
+<h2>Links to follow<a class="headerlink" href="#links-to-follow" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.thoughtworks.com/radar/techniques/lightweight-architecture-decision-records">Architectural Decision Records</a></p></li>
+<li><p><a class="reference external" href="https://web.archive.org/web/20210506014629/https://upmo.com/dev/decisions/0010-som-synthetic-monitoring.html">Examples of ADRs</a></p></li>
+<li><p><a class="reference external" href="http://www.extremeprogramming.org/rules/spike.html">Spikes</a></p></li>
+<li><p>Book by John Lewis <a class="reference external" href="http://engineering-principles.onejl.uk/">“Software Engineering Principles”</a>.</p></li>
+<li><p><a class="reference external" href="https://www.thoughtworks.com/radar/techniques/architectural-fitness-function">Architectural Fitness Functions</a></p></li>
+</ul>
+</section>
+</section>
 
 
                 </article>
@@ -235,6 +286,24 @@ document.write(`
   
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="01_xapo.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Decentralizing the Practice of Architecture at Xapo Bank</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03_why_remote_works.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Why Remote Works</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div></div>
   
 </div>
@@ -252,14 +321,18 @@ document.write(`
     <i class="fa-solid fa-list"></i> On this page
   </div>
   <nav class="bd-toc-nav page-toc">
-    <ul class="simple visible nav section-nav flex-column">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem">Problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solution">Solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pitfals">Pitfals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#links-to-follow">Links to follow</a></li>
 </ul>
-
   </nav></div>
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="../_sources/16_life/14-2023-06.md.txt">
+    <a href="../_sources/17_notes/02_advice_process.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
