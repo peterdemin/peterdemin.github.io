@@ -20,7 +20,7 @@ decorator==5.1.1
     # via
     #   ipdb
     #   ipython
-dill==0.3.6
+dill==0.3.7
     # via pylint
 executing==1.2.0
     # via stack-data
@@ -30,9 +30,9 @@ ipython==8.14.0
     # via ipdb
 isort==5.12.0
     # via pylint
-jc==1.23.3
+jc==1.23.4
     # via -r requirements_dev.in
-jedi==0.18.2
+jedi==0.19.0
     # via ipython
 lazy-object-proxy==1.9.0
     # via astroid
@@ -48,9 +48,9 @@ pickleshare==0.7.5
     # via ipython
 pip-compile-multi==2.6.3
     # via -r requirements_dev.in
-pip-tools==6.14.0
+pip-tools==7.3.0
     # via pip-compile-multi
-platformdirs==3.8.1
+platformdirs==3.10.0
     # via pylint
 prompt-toolkit==3.0.39
     # via ipython
@@ -58,7 +58,7 @@ ptyprocess==0.7.0
     # via pexpect
 pure-eval==0.2.2
     # via stack-data
-pylint==2.17.4
+pylint==2.17.5
     # via -r requirements_dev.in
 pyproject-hooks==1.0.0
     # via build
@@ -75,7 +75,7 @@ tomli==2.0.1
     #   pip-tools
     #   pylint
     #   pyproject-hooks
-tomlkit==0.11.8
+tomlkit==0.12.1
     # via pylint
 toposort==1.10
     # via pip-compile-multi
@@ -91,5 +91,5 @@ xmltodict==0.13.0
     # via jc
 
 # The following packages are considered to be unsafe in a requirements file:
-pip==23.1.2
+pip==23.2.1
     # via pip-tools
