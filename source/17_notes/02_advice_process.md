@@ -46,6 +46,6 @@ Article: <https://martinfowler.com/articles/scaling-architecture-conversationall
 
 - [Architectural Decision Records](https://www.thoughtworks.com/radar/techniques/lightweight-architecture-decision-records)
 - [Examples of ADRs](https://web.archive.org/web/20210506014629/https://upmo.com/dev/decisions/0010-som-synthetic-monitoring.html)
-- [Spikes](http://www.extremeprogramming.org/rules/spike.html)
+- [Spikes](http://www.extremeprogramming.org/rules/spike.html) ([My notes](04_spikes.md))
 - Book by John Lewis ["Software Engineering Principles"](http://engineering-principles.onejl.uk/).
 - [Architectural Fitness Functions](https://www.thoughtworks.com/radar/techniques/architectural-fitness-function)
