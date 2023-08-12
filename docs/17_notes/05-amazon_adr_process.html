@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>How to use spikes as a foundation for ADRs &#8212; Peter Demin</title>
+    <title>Amazon ADR process &#8212; Peter Demin</title>
   
   
   
@@ -45,11 +45,11 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '17_notes/04_spikes';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '17_notes/05-amazon_adr_process';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Amazon ADR process" href="05-amazon_adr_process.html" />
-    <link rel="prev" title="Why Remote Works" href="03_why_remote_works.html" />
+    <link rel="next" title="Collecte - self-hosted open source email collector" href="../14_ideas/01-collector.html" />
+    <link rel="prev" title="How to use spikes as a foundation for ADRs" href="04_spikes.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -192,7 +192,7 @@ document.write(`
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">How to use spikes as a foundation for ADRs</li>
+    <li class="breadcrumb-item active" aria-current="page">Amazon ADR process</li>
   </ul>
 </nav>
 </div>
@@ -209,27 +209,26 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="how-to-use-spikes-as-a-foundation-for-adrs">
-<h1>How to use spikes as a foundation for ADRs<a class="headerlink" href="#how-to-use-spikes-as-a-foundation-for-adrs" title="Permalink to this heading">#</a></h1>
-<p>Article: <a class="reference external" href="https://medium.com/&#64;cat-mo/how-to-use-spikes-as-a-foundation-for-adrs-92bc1617617b">https://medium.com/&#64;cat-mo/how-to-use-spikes-as-a-foundation-for-adrs-92bc1617617b</a></p>
+  <section id="amazon-adr-process">
+<h1>Amazon ADR process<a class="headerlink" href="#amazon-adr-process" title="Permalink to this heading">#</a></h1>
+<p>Article: <a class="reference external" href="https://docs.aws.amazon.com/prescriptive-guidance/latest/architectural-decision-records/adr-process.html">https://docs.aws.amazon.com/prescriptive-guidance/latest/architectural-decision-records/adr-process.html</a></p>
 <section id="notes">
 <h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Spike is the name for a timeboxed user story or Task that is created in order to research a question or resolve a problem.
-Spikes focus on gathering information and finding answers to a questions, rather than producing a shippable product.</p></li>
-<li><p>The primary use of spikes it to help with estimating a Task.</p></li>
-<li><p>Article explains how spikes can be used with ADR.</p></li>
-<li><p>Spikes address “options considered” section of an ADR.</p></li>
-<li><p>Usually spike is a quick-n-dirty way to explore the problem space.</p></li>
-<li><p>The code for a spike is a throw-away.</p></li>
+<li><p>Amazon implements ADRs without AAF in a strictier setup.</p></li>
+<li><p>Anyone can start an ADR.</p></li>
+<li><p>ADR can have several authors, who maintain and communicate the ADR content. They are called “owners”.</p></li>
+<li><p>Everyone can contribute to the ADR. All changes must be approved by the owner.</p></li>
+<li><p>ADR goes through a review with a team. During review, the ADR can be accepted, rejected, or get new work assigned.</p></li>
+<li><p>ADR requires at least one approval to get accepted.</p></li>
+<li><p>Once accepted or rejected, ADR is immutable. All changes require a new ADR.</p></li>
+<li><p>Project owner seems to have a deciding voice in the process.</p></li>
 </ul>
 </section>
 <section id="conclusion">
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>When there’s a no clear way to choose between the options in an ADR.</p></li>
-<li><p>Team runs a time-boxed spike to answer which option provides the best outcome in a measured way.</p></li>
-</ul>
+<p>Amazon implements ADR in a more bureaucratic way. Instead of seeking advice, the author seeks an approval.
+The ADR is reviewed by the team, instead of a cross-functional group of stakeholders.</p>
 </section>
 </section>
 
@@ -245,20 +244,20 @@ Spikes focus on gathering information and finding answers to a questions, rather
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="03_why_remote_works.html"
+       href="04_spikes.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Why Remote Works</p>
+        <p class="prev-next-title">How to use spikes as a foundation for ADRs</p>
       </div>
     </a>
     <a class="right-next"
-       href="05-amazon_adr_process.html"
+       href="../14_ideas/01-collector.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Amazon ADR process</p>
+        <p class="prev-next-title">Collecte - self-hosted open source email collector</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -287,7 +286,7 @@ Spikes focus on gathering information and finding answers to a questions, rather
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="../_sources/17_notes/04_spikes.md.txt">
+    <a href="../_sources/17_notes/05-amazon_adr_process.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
