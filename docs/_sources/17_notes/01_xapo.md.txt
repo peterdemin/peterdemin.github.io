@@ -18,4 +18,4 @@ Article: <https://martinfowler.com/articles/xapo-architecture-experience.html>
 
 ## Links to follow:
 - [Scaling the Practice of Architecture, Conversationally](https://martinfowler.com/articles/scaling-architecture-conversationally.html) ([My notes](02_advice_process.md))
-- [How to use spikes as a foundation for ADRs](https://medium.com/@cat-mo/how-to-use-spikes-as-a-foundation-for-adrs-92bc1617617b)
+- [How to use spikes as a foundation for ADRs](https://medium.com/@cat-mo/how-to-use-spikes-as-a-foundation-for-adrs-92bc1617617b) ([My notes](04_spikes.md))
