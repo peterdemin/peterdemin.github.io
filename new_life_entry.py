@@ -15,7 +15,7 @@ else:
     existing_files = glob.glob(os.path.join(LIFE_DIR, "??-*.md"))
     indexes = {os.path.basename(filename)[:2] for filename in existing_files}
     indexes.discard("99")
-    next_index = "{:2}".format(int(max(indexes), 10) + 1)
+    next_index = "{:02}".format(int(max(indexes), 10) + 1)
     result = os.path.join(LIFE_DIR, f"{next_index}-{suffix}")
 with open(result, "rt", encoding="utf-8") as fp:
     content = fp.read()
