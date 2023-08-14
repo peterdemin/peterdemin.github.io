@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Amazon ADR process &#8212; Peter Demin</title>
+    <title>Team Topologies &#8212; Peter Demin</title>
   
   
   
@@ -45,11 +45,11 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '17_notes/05-amazon_adr_process';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '17_notes/06-team_topologies';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Team Topologies" href="06-team_topologies.html" />
-    <link rel="prev" title="How to use spikes as a foundation for ADRs" href="04_spikes.html" />
+    <link rel="next" title="Collecte - self-hosted open source email collector" href="../14_ideas/01-collector.html" />
+    <link rel="prev" title="Amazon ADR process" href="05-amazon_adr_process.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -192,7 +192,7 @@ document.write(`
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">Amazon ADR process</li>
+    <li class="breadcrumb-item active" aria-current="page">Team Topologies</li>
   </ul>
 </nav>
 </div>
@@ -209,26 +209,41 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="amazon-adr-process">
-<h1>Amazon ADR process<a class="headerlink" href="#amazon-adr-process" title="Permalink to this heading">#</a></h1>
-<p>Article: <a class="reference external" href="https://docs.aws.amazon.com/prescriptive-guidance/latest/architectural-decision-records/adr-process.html">https://docs.aws.amazon.com/prescriptive-guidance/latest/architectural-decision-records/adr-process.html</a></p>
+  <section id="team-topologies">
+<h1>Team Topologies<a class="headerlink" href="#team-topologies" title="Permalink to this heading">#</a></h1>
+<p>Article: <a class="reference external" href="https://martinfowler.com/bliki/TeamTopologies.html">https://martinfowler.com/bliki/TeamTopologies.html</a></p>
 <section id="notes">
 <h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h2>
+<p>Team Topologies model defines four forms of teams and three modes of team interactions.</p>
 <ul class="simple">
-<li><p>Amazon implements ADRs without AAF in a strictier setup.</p></li>
-<li><p>Anyone can start an ADR.</p></li>
-<li><p>ADR can have several authors, who maintain and communicate the ADR content. They are called “owners”.</p></li>
-<li><p>Everyone can contribute to the ADR. All changes must be approved by the owner.</p></li>
-<li><p>ADR goes through a review with a team. During review, the ADR can be accepted, rejected, or get new work assigned.</p></li>
-<li><p>ADR requires at least one approval to get accepted.</p></li>
-<li><p>Once accepted or rejected, ADR is immutable. All changes require a new ADR.</p></li>
-<li><p>Project owner seems to have a deciding voice in the process.</p></li>
+<li><p>Stream-aligned team is a primary form.</p>
+<ul>
+<li><p>It’s full-stack and full-lifecycle: responsible for front-end, back-end, database, business analysis, feature prioritization, UX, testing, deployment, monitoring</p></li>
+<li><p>It’s small: 5-8 people.</p></li>
 </ul>
+</li>
+<li><p>Platform team supports stream-aligned teams.</p>
+<ul>
+<li><p>It builds a shared self-service platform.</p></li>
+<li><p>The interaction with stream-aligned teams is X-as-a-service.</p></li>
+<li><p>Except when it builds new capabilities. In this case the mode is collaboration.</p></li>
+<li><p>The key benefit of a platform is that it reduces this cognitive load.</p></li>
+</ul>
+</li>
+<li><p>Enabling teams works in facilitating mode.</p>
+<ul>
+<li><p>They are mastering a topic important to many stream-aligned teams, such as security.</p></li>
+<li><p>They provide coaching and education to stream-aligned teams.</p></li>
+</ul>
+</li>
+<li><p>Complicated-subsystem teams serve stream-aligned teams similarly to platform team, but their product is higher level and server one or few teams.</p></li>
+</ul>
+<p>Complex organizations cannot be broken down into just four kinds of teams and three kinds of interactions.
+Team Topologies is a tool that impels people to evolve their organization to stream-aligned teams to maximize their flow by lightening their cognitive load.</p>
 </section>
 <section id="conclusion">
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
-<p>Amazon implements ADR in a more bureaucratic way. Instead of seeking advice, the author seeks an approval.
-The ADR is reviewed by the team, instead of a cross-functional group of stakeholders.</p>
+<p>Team topologies mostly documents the traditional enterprise structure documenting the efficient state following the Conway law.</p>
 </section>
 </section>
 
@@ -244,20 +259,20 @@ The ADR is reviewed by the team, instead of a cross-functional group of stakehol
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="04_spikes.html"
+       href="05-amazon_adr_process.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">How to use spikes as a foundation for ADRs</p>
+        <p class="prev-next-title">Amazon ADR process</p>
       </div>
     </a>
     <a class="right-next"
-       href="06-team_topologies.html"
+       href="../14_ideas/01-collector.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Team Topologies</p>
+        <p class="prev-next-title">Collecte - self-hosted open source email collector</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -286,7 +301,7 @@ The ADR is reviewed by the team, instead of a cross-functional group of stakehol
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="../_sources/17_notes/05-amazon_adr_process.md.txt">
+    <a href="../_sources/17_notes/06-team_topologies.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
