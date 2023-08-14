@@ -25,3 +25,7 @@ Team Topologies is a tool that impels people to evolve their organization to str
 ## Conclusion
 
 Team topologies mostly documents the traditional enterprise structure documenting the efficient state following the Conway law.
+
+## Links to follow
+
+- [Cognitive load is what matters](https://techbeacon.com/app-dev-testing/forget-monoliths-vs-microservices-cognitive-load-what-matters)
