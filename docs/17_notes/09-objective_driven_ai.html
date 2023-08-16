@@ -211,10 +211,28 @@ document.write(`
                   
   <section id="objective-driven-ai">
 <h1>Objective-Driven AI<a class="headerlink" href="#objective-driven-ai" title="Permalink to this heading">#</a></h1>
-<p>Article: <a class="reference download internal" download="" href="../_downloads/89818274b4a302333f4d7b4618679f52/09-lecun-20230721-mit.pdf"><span class="xref download myst">PDF slides</span></a></p>
+<p>Video: <a class="reference external" href="https://www.youtube.com/watch?v=vyqXLJsmsrk">The Impact of chatGPT talks (2023) - Keynote address by Prof. Yann LeCun (NYU/Meta)</a>
+Slides: <a class="reference download internal" download="" href="../_downloads/89818274b4a302333f4d7b4618679f52/09-lecun-20230721-mit.pdf"><span class="xref download myst">09-lecun-20230721-mit.pdf</span></a></p>
 <section id="notes">
 <h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h2>
-<p>TBD</p>
+<ul class="simple">
+<li><p>Autoregressive LLMs can not be fixed to become factual.
+If probability of the next token being wrong is e, the probability of
+the answer of n tokens being correct is <code class="docutils literal notranslate"><span class="pre">P(n)</span> <span class="pre">=</span> <span class="pre">(1</span> <span class="pre">-</span> <span class="pre">e)</span> <span class="pre">**</span> <span class="pre">n</span></code>.
+In other words, the answer diverges from the correct one exponentially to the length.</p></li>
+<li><p>LLMs can not plan or reason the way humans do.</p></li>
+<li><p>Objective-driven AI has a model of the world that predicts its future state, and produce actions as an optimization of cost to achieve the desired state. Optimization is performed during inference, not training.</p></li>
+<li><p>Yann argues we need to abandon generative models.
+Because they can only predict an average of all possible outcomes (blurry).</p></li>
+<li><p>In image generation Joint Embedding model are the most successfull. Instead of predicting the value of <em>y</em>, the predict the abstract representation of <em>y</em>. For example, instead of predicting the shape of every ripple on the water, they just predict the ripples concept.</p></li>
+<li><p>You take an image and distort it with noise, and then train the encoder to learn that representation of original image and the distorted on should be the same. Instead of learning to reconstruct the original image.</p></li>
+<li><p>But if you’re not careful, the system will learn to predict every representation to be the same constant.</p></li>
+<li><p>The solution is using energy-based models that encode the difference between <em>x</em> and <em>y</em> assigning higher value to bigger difference.</p></li>
+<li><p>Hierarchical planning through energy minimazation is Turing complete.</p></li>
+<li><p>Most of the human knowledge is not linguistic.
+It’s more intuitive manipulation of mental models.
+We then express it in language and formal facts and laws to make it discreet and communicable.</p></li>
+</ul>
 </section>
 <section id="conclusion">
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
@@ -222,9 +240,6 @@ document.write(`
 </section>
 <section id="links-to-follow">
 <h2>Links to follow<a class="headerlink" href="#links-to-follow" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://www.youtube.com/watch?v=vyqXLJsmsrk">The Impact of chatGPT talks (2023) - Keynote address by Prof. Yann LeCun (NYU/Meta)</a></p></li>
-</ul>
 </section>
 </section>
 
