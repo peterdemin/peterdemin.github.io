@@ -4,3 +4,4 @@ source/*_gd.rst
 *.swp
 node_modules
 /backgammon/_site
+.DS_Store
