@@ -18,6 +18,16 @@ Articles and notes
 
    12_articles/*
 
+Notes from my reading list
+--------------------------
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Articles:
+   :glob:
+
+   17_notes/*
+
 My open source projects
 -----------------------
 
@@ -45,3 +55,13 @@ Projects that did not
    :glob:
 
    14_ideas/*
+
+Projects that might
+-------------------
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Project ideas:
+   :glob:
+
+   15_projects/*
