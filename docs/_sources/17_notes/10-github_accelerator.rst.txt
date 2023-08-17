@@ -42,6 +42,7 @@ Conclusion
 
 Github is getting into the business of paid open source.
 Competing with Tidelift and Protocol.
+They are tasking the maintainers themselves with promoting the new platform, using their audience.
 
 Links to follow
 ---------------
