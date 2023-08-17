@@ -18,13 +18,17 @@ Slides: [09-lecun-20230721-mit.pdf](downloads/09-lecun-20230721-mit.pdf)
 - But if you're not careful, the system will learn to predict every representation to be the same constant.
 - The solution is using energy-based models that encode the difference between *x* and *y* assigning higher value to bigger difference.
 - Hierarchical planning through energy minimazation is Turing complete.
+- At the high level, Yann proposes to:
+  - Abandon generative models in favor joint-embedding architectures.
+  - Abandon probabilistic model in favor of energy-based models.
+  - Abandon contrastive methods in favor of regularized methods.
+  - Abandon Reinforcement Learning in favor of model-predictive control.
+  - Use RL only when planning doesn’t yield the predicted outcome, to adjust the world model or the critic.
 - Most of the human knowledge is not linguistic.
   It's more intuitive manipulation of mental models.
   We then express it in language and formal facts and laws to make it discreet and communicable.
 
 ## Conclusion
 
-TBD
-
-## Links to follow
-
+Yann considers LLM as a final output layer of AI, which fluently communicates the result of the thinking layer.
+Energy-based model is fit for reasoning and planning and he thinks this is the best approach at the moment.
