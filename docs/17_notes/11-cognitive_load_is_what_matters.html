@@ -45,11 +45,11 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '17_notes/10-cognitive_load_is_what_matters';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '17_notes/11-cognitive_load_is_what_matters';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="GitHub Accelerator" href="10-github_accelerator.html" />
-    <link rel="prev" title="Objective-Driven AI" href="09-objective_driven_ai.html" />
+    <link rel="next" title="Collecte - self-hosted open source email collector" href="../14_ideas/01-collector.html" />
+    <link rel="prev" title="GitHub Accelerator" href="10-github_accelerator.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -214,12 +214,54 @@ document.write(`
 <p>Article: <a class="reference external" href="https://techbeacon.com/app-dev-testing/forget-monoliths-vs-microservices-cognitive-load-what-matters">https://techbeacon.com/app-dev-testing/forget-monoliths-vs-microservices-cognitive-load-what-matters</a></p>
 <section id="notes">
 <h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Article splits cognitive load into three categories:</p>
+<ol class="arabic simple">
+<li><p>Intrinsic - fundamental aspect of the problem space. Example: How is a class defined in Java?</p></li>
+<li><p>Extraneous - superfluous tasks unrelated directly to the problem. Example: How do I deploy this component, again?</p></li>
+<li><p>Germane - the high-value core aspects of the task. Example: How should this service interact with that service?</p></li>
+</ol>
+</li>
+<li><p>Intrinsic cognitive load can be minimized by improving pattern matching through experience.</p></li>
+<li><p>Extraneous cognitive load should be eliminated through better tooling.</p></li>
+<li><p>Germane cognitive load is what provides most value, team should optimize to spend most effort there.</p></li>
+<li><p>Limiting the team to own only subsysten within its cognitive capacity creates a “team-shaped” architecture that is supportable and operatable.</p></li>
+<li><p>Ways to minimize extraneous cognitive:</p>
+<ul>
+<li><p>Explicitly define used platforms and components.</p></li>
+<li><p>Eliminate obscure commands or arcane configuration options.</p></li>
+<li><p>Avoid waiting for another team to provision infrastructure or to update configurations through tickets.</p></li>
+</ul>
+</li>
+<li><p>Organize teams to minimize cognitive load:</p>
+<ul>
+<li><p>Well-defined team interaction patterns: collaboration, x-as-a-service, and facilitating.</p></li>
+<li><p>Independent stream-aligned teams.</p></li>
+<li><p>Thinnest viable platform. Could be a single wiki page that defines which cloud provider services to use.</p></li>
+</ul>
+</li>
+<li><p>Internal platform virtues:</p>
+<ul>
+<li><p>API-first: Empower dev teams to innovate on platform features via automation.</p></li>
+<li><p>Self-service over gatekeepers: Help dev teams determine their own workflow.</p></li>
+<li><p>Declarative over imperative: Prefer “what” over “how.”</p></li>
+<li><p>Build with empathy: Understand the needs and frustrations of people using the platform.</p></li>
+</ul>
+</li>
+</ul>
 </section>
 <section id="conclusion">
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<p>The article expands on the notion of stream-aligned teams defining the most important aspects through a lense of cognitive load.
+Target autonomous independent teams, and easy to use tooling.
+All the same points could be made without mentioning cognitive load, as they are common sense.
+But probably, identifying the common underlying issue helps to think about it in a holistic way.</p>
 </section>
 <section id="links-to-follow">
 <h2>Links to follow<a class="headerlink" href="#links-to-follow" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://12devsofxmas.co.uk/2015/12/day-3-managing-cognitive-load-for-team-learning/">Managing Cognitive Load for Team Learning</a></p></li>
+</ul>
 </section>
 </section>
 
@@ -235,20 +277,20 @@ document.write(`
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="09-objective_driven_ai.html"
+       href="10-github_accelerator.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Objective-Driven AI</p>
+        <p class="prev-next-title">GitHub Accelerator</p>
       </div>
     </a>
     <a class="right-next"
-       href="10-github_accelerator.html"
+       href="../14_ideas/01-collector.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">GitHub Accelerator</p>
+        <p class="prev-next-title">Collecte - self-hosted open source email collector</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -278,7 +320,7 @@ document.write(`
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="../_sources/17_notes/10-cognitive_load_is_what_matters.md.txt">
+    <a href="../_sources/17_notes/11-cognitive_load_is_what_matters.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
