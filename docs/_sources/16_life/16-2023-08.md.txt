@@ -1,4 +1,14 @@
+`Aug 18, 2023` - Notes for [](/17_notes/12-what_is_a_directly_responsible_individual.md)
+
 `Aug 17, 2023` - Notes for [](/17_notes/11-cognitive_load_is_what_matters.md)
+
+`Aug 16, 2023` - Notes for [](/17_notes/10-github_accelerator.rst)
+
+`Aug 15, 2023` - Notes for [](/17_notes/09-objective_driven_ai.md)
+
+`Aug 14, 2023` - Notes for [](/17_notes/07-how_a_startup_loses_its_spark.md), [](/17_notes/08-how_netflix_reinvented_hr.md)
+
+`Aug 13, 2023` - Notes for [](/17_notes/06-team_topologies.md)
 
 `Aug 11, 2023` - Notes for [](/17_notes/04_spikes.md)
 
