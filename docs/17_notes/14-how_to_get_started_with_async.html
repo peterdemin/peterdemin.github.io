@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Why you should check your secrets into Git &#8212; Peter Demin</title>
+    <title>How to get started with async &#8212; Peter Demin</title>
   
   
   
@@ -45,11 +45,11 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '17_notes/13-why_you_should_check_your_secrets_into_git';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '17_notes/14-how_to_get_started_with_async';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="How to get started with async" href="14-how_to_get_started_with_async.html" />
-    <link rel="prev" title="What is a directly responsible individual?" href="12-what_is_a_directly_responsible_individual.html" />
+    <link rel="next" title="Collecte - self-hosted open source email collector" href="../14_ideas/01-collector.html" />
+    <link rel="prev" title="Why you should check your secrets into Git" href="13-why_you_should_check_your_secrets_into_git.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -192,7 +192,7 @@ document.write(`
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">Why you should check your secrets into Git</li>
+    <li class="breadcrumb-item active" aria-current="page">How to get started with async</li>
   </ul>
 </nav>
 </div>
@@ -209,43 +209,51 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="why-you-should-check-your-secrets-into-git">
-<h1>Why you should check your secrets into Git<a class="headerlink" href="#why-you-should-check-your-secrets-into-git" title="Permalink to this heading">#</a></h1>
-<p>Talk: <a class="reference external" href="https://youtu.be/bwpoo2bJWaQ">https://youtu.be/bwpoo2bJWaQ</a></p>
+  <section id="how-to-get-started-with-async">
+<h1>How to get started with async<a class="headerlink" href="#how-to-get-started-with-async" title="Permalink to this heading">#</a></h1>
+<p>Article: <a class="reference external" href="https://learn.gitlab.com/coursera-remote-work/asynchronous-comms">https://learn.gitlab.com/coursera-remote-work/asynchronous-comms</a></p>
 <section id="notes">
 <h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Common setup recommended by 12 factor app does not improve security posture over just storing secrets in Git.</p></li>
-<li><p>Using Key Management System (AWS KMS) does though. The secret is decrypted in production, and doesn’t enter CI/CD pipeline.</p></li>
-<li><p>There’s still many attach points. The next improvement is using assymetric cryptography instead of secret tokens.</p></li>
-<li><p>The good way to apply it (from security standpoint) is bring your own key (BYOK):</p>
-<ul>
-<li><p>API Client generates private key.</p></li>
-<li><p>Uploads public key to API service provider.</p></li>
-<li><p>Client signs requests with JWT using private key.</p></li>
-<li><p>Service verifies the signature using public key.</p></li>
-<li><p>API service can not leak the secret because they don’t have it.</p></li>
-<li><p>Secret key never sent over public network.</p></li>
-<li><p>Client has complete control over the whole life cycle of the secret.</p></li>
+<li><p>GitLab measures results, not hours.</p></li>
+<li><p>Engineers have less sense of urgency to get something out as quick as possible.</p></li>
+<li><p>Engineers need to document their though process well, so someone else can pick it up.</p></li>
+<li><p>Not every business can work asynchronously, for example in manufacturing that must be done in a tight set of sequences.</p></li>
+<li><p>People love to work synchronously if they are online at the same time.</p></li>
+<li><p>Asynchronous work is less stressfull, because there’s less sense of urgency.</p></li>
+<li><p>It’s also more inclusive, as it removes the dependency on time zones.</p></li>
+<li><p>An asynchronous mindset means that whatever we’re doing is done with no one else online.
+It allows to do deep work in long uninterrupted periods of time.</p></li>
+<li><p>Important part of being asynchronous is low-context culture.
+It means that communications take longer to craft.
+Team members forecast what questions may be asked, and include as much context as possible.
+The recepient may not be even working at the company yet.
+This allows for new hires to learn about past decisions faster.</p></li>
+<li><p>The situational awareness of who’s doing what is important for leadership.
+Trying to maintain it through status update meetings, Slack messaging, or hallway catch-ups is a drag on team’s productivity.
+The alternative is to have teams post updates at a regular cadence of their work.</p></li>
+<li><p>Synchronous meetings should be reserved for collaboration on complex issues.
+And vice-versa collaboration should be reserved for synchronous meetings.</p></li>
+<li><p>Team members come and go, and asynchronous communication enables retaining the knowledge.</p></li>
+<li><p>People seeking information should be able to find it without bothering anyone, or waiting for someone to come online.</p></li>
+<li><p>This ultimately leads to the need of a strong documentation.
+No matter how intentional you are in communication, there’s always something left out or misunderstood.
+Follow-up questions may hang for hours or days unanswered.
+People need to be able to answer those questions by looking up existing documentation (Gitlab calls it the handbook).</p></li>
 </ul>
-</li>
-<li><p>The next improvement is to generate the private key right in the production runtime.</p>
-<ul>
-<li><p>Client generates private key and exposes public key.</p></li>
-<li><p>Client signs JWT requests with the private key.</p></li>
-<li><p>Server fetches the public key for the client and verifies the signature.</p></li>
-</ul>
-</li>
-<li><p>The final improvement is hardware security module (HSM) that generate public keys and sign challenges.</p></li>
-</ul>
+</section>
+<section id="stopped-at">
+<h2>Stopped at<a class="headerlink" href="#stopped-at" title="Permalink to this heading">#</a></h2>
+<p>https://about.gitlab.com/company/culture/all-remote/asynchronous/#when-to-use-asynchronous-instead-of-synchronous-communication</p>
 </section>
 <section id="conclusion">
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="links-to-follow">
+<h2>Links to follow<a class="headerlink" href="#links-to-follow" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Author is using the approach of minimizing the attack vector by eliminating the components that have access to credentials.</p></li>
-<li><p>The first thing to eliminate runtime intermediaries: environment variables and associated control plane.</p></li>
-<li><p>The next is to use cloud service provided Key Management Service directly from production runtime.</p></li>
-<li><p>The significant complexity leap, providing the best security, is BYOK with private key generated right inside of the production runtime.</p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=cy6WGuzArgY">Reinforcing culture, work-life harmony, remote work processes, and asynchronous communication</a></p></li>
+<li><p><a class="reference external" href="https://about.gitlab.com/company/culture/all-remote/effective-communication/#understanding-low-context-communication">Low-context culture</a></p></li>
 </ul>
 </section>
 </section>
@@ -262,20 +270,20 @@ document.write(`
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="12-what_is_a_directly_responsible_individual.html"
+       href="13-why_you_should_check_your_secrets_into_git.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">What is a directly responsible individual?</p>
+        <p class="prev-next-title">Why you should check your secrets into Git</p>
       </div>
     </a>
     <a class="right-next"
-       href="14-how_to_get_started_with_async.html"
+       href="../14_ideas/01-collector.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">How to get started with async</p>
+        <p class="prev-next-title">Collecte - self-hosted open source email collector</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -298,13 +306,15 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stopped-at">Stopped at</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#links-to-follow">Links to follow</a></li>
 </ul>
   </nav></div>
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="../_sources/17_notes/13-why_you_should_check_your_secrets_into_git.md.txt">
+    <a href="../_sources/17_notes/14-how_to_get_started_with_async.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
