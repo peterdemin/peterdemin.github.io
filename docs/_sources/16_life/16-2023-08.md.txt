@@ -1,3 +1,5 @@
+`Aug 19, 2023` - Notes for [](/17_notes/13-why_you_should_check_your_secrets_into_git.md)
+
 `Aug 18, 2023` - Notes for [](/17_notes/12-what_is_a_directly_responsible_individual.md)
 
 `Aug 17, 2023` - Notes for [](/17_notes/11-cognitive_load_is_what_matters.md)
