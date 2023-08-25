@@ -6,8 +6,8 @@ Article: <https://learn.gitlab.com/coursera-remote-work/asynchronous-comms>
 
 - GitLab measures results, not hours.
 - Engineers have less sense of urgency to get something out as quick as possible.
-- Engineers need to document their though process well, so someone else can pick it up.
-- Not every business can work asynchronously, for example in manufacturing that must be done in a tight set of sequences.
+- Engineers need to document their thought process well, so someone else can pick it up.
+- Not every business can work asynchronously, for example, manufacturing must be done in a tight set of sequences.
 - People love to work synchronously if they are online at the same time.
 - Asynchronous work is less stressfull, because there's less sense of urgency.
 - It's also more inclusive, as it removes the dependency on time zones.
@@ -29,6 +29,17 @@ Article: <https://learn.gitlab.com/coursera-remote-work/asynchronous-comms>
   No matter how intentional you are in communication, there's always something left out or misunderstood.
   Follow-up questions may hang for hours or days unanswered.
   People need to be able to answer those questions by looking up existing documentation (Gitlab calls it the handbook).
+- Bias towards async discussions creates more space for synchronous meetings.
+- In Gitlab, every meeting must have an agenda.
+  And the response must be documented as meeting notes.
+  But if both questions and answers are written, then maybe meeting wasn't needed, and the discussion can be done async.
+- Practicing iteration is the most difficult value to embrace.
+  Asynchronous workflow feels taxing for an engineer who's tasked to focus on a single feature and ship it as quick as possible.
+  Every handoff is a downtime.
+  The solution is to assign the work and set expectations differently.
+  Let every engineer have several (5?) projects they run in parallel.
+  After making a handoff on one task, they switch to another, avoiding downtime to wait for the response.
+
 
 ## Stopped at
 
