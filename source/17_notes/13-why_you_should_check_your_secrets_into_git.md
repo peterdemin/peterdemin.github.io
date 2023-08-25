@@ -16,9 +16,11 @@ Talk: <https://youtu.be/bwpoo2bJWaQ>
     - Secret key never sent over public network.
     - Client has complete control over the whole life cycle of the secret.
 - The next improvement is to generate the private key right in the production runtime.
-    - Client generates private key and exposes public key.
+    - Client generates private key and *exports* public key.
     - Client signs JWT requests with the private key.
-    - Server fetches the public key for the client and verifies the signature.
+    - Server *uses* the public key for the client and verifies the signature.
+    - One option is to have an engineer enter the public key in Server's UI manually.
+    - Another is to have server fetch it through an API exposed by the Client.
 - The final improvement is hardware security module (HSM) that generate public keys and sign challenges.
 
 ## Conclusion
