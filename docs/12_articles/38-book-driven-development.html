@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Decentralizing the Practice of Architecture at Xapo Bank &#8212; Peter Demin</title>
+    <title>Book Driven Development &#8212; Peter Demin</title>
   
   
   
@@ -45,11 +45,11 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '17_notes/01_xapo';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/38-book-driven-development';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Scaling the Practice of Architecture, Conversationally" href="02_advice_process.html" />
-    <link rel="prev" title="Book Driven Development" href="../12_articles/38-book-driven-development.html" />
+    <link rel="next" title="Decentralizing the Practice of Architecture at Xapo Bank" href="../17_notes/01_xapo.html" />
+    <link rel="prev" title="The president program" href="37-the-president-program.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -192,7 +192,7 @@ document.write(`
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">Decentralizing the Practice of Architecture at Xapo Bank</li>
+    <li class="breadcrumb-item active" aria-current="page">Book Driven Development</li>
   </ul>
 </nav>
 </div>
@@ -209,34 +209,107 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="decentralizing-the-practice-of-architecture-at-xapo-bank">
-<h1>Decentralizing the Practice of Architecture at Xapo Bank<a class="headerlink" href="#decentralizing-the-practice-of-architecture-at-xapo-bank" title="Permalink to this heading">#</a></h1>
-<p>Article: <a class="reference external" href="https://martinfowler.com/articles/xapo-architecture-experience.html">https://martinfowler.com/articles/xapo-architecture-experience.html</a></p>
-<section id="notes">
-<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h2>
+  <section id="book-driven-development">
+<h1>Book Driven Development<a class="headerlink" href="#book-driven-development" title="Permalink to this heading">#</a></h1>
+<section id="definition">
+<h2>Definition<a class="headerlink" href="#definition" title="Permalink to this heading">#</a></h2>
+<p>Book Driven Development is a software engineering approach for organizing development process around a Book.
+The Book means a single location that includes all documentation related to running a company.
+The same approach can be applied to other fields as well, but author focuses on their area of expertise.</p>
+<p>The Book is structured in way to include all business aspects and provide a place (chapter) for every topic.
+As the company starts their journey, leadership fills in the table of contents, leaving the chapter contents empty.
+As decisions are made, and progress is done, new paragraphs are added to the Book.</p>
+<p>The Book is never complete, but it’s always the best source of knowledge for any aspect of running the business.
+Ideally, the Book alone should provide enough information to re-build the company and product from scratch.</p>
+</section>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading">#</a></h2>
+<p>This is how the table of contents looks for an imaginary Company.
+We will use this as an example in later section for illustration purposes.</p>
 <ul class="simple">
-<li><p>Company had horizontal teams, separating architects from engineers.</p></li>
-<li><p>This caused big number of handoffs and slow/broken feedback loops.</p></li>
-<li><p>They changed the org structure to vertical teams aligned with the core products.</p></li>
-<li><p>They implemented few processes targeting faster decision making and broader knowledge sharing.  Namely:</p>
+<li><p>00-09 Book organization</p>
 <ul>
-<li><p>Architecture Decision Records (ADR).</p></li>
-<li><p>Domain-Driven Design (DDD).</p></li>
-<li><p>Architecture Advisory Forum (AAF) and Architectural Advice Process (AAP).</p></li>
+<li><p>00 Book Driven Development</p>
+<ul>
+<li><p>[00.01] this article</p></li>
 </ul>
 </li>
-<li><p>They used ticket tracker (Jira) to host ADRs and measure their progress through statuses: drafted, proposed, accepted, and adopted.</p></li>
-<li><p>ADRs linked to development stories and tasks.</p></li>
-<li><p>They allowed decisions to be taken without consensus.</p></li>
-<li><p>They provided a safe environment to make mistakes and re-evaluate past decisions.</p></li>
+</ul>
+</li>
+<li><p>10-19 People and Teams</p>
+<ul>
+<li><p>10 People intros</p>
+<ul>
+<li><p>[10.01] Peter Demin</p></li>
+<li><p>[10.02] Johnny Decimal</p></li>
+</ul>
+</li>
+<li><p>11 Teams</p>
+<ul>
+<li><p>[11.01] Backend team</p></li>
+<li><p>[11.02] Frontend team</p></li>
+<li><p>[11.03] Sales team</p></li>
+<li><p>[11.04] Marketing team</p></li>
+<li><p>[11.05] Hiring team</p></li>
+<li><p>[11.06] Finance team</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>20-29 Processes</p>
+<ul>
+<li><p>20 Engineering processes</p>
+<ul>
+<li><p>[20.01] Project maturity levels</p></li>
+<li><p>[20.02] Local setup</p></li>
+<li><p>[20.03] Onboarding</p></li>
+</ul>
+</li>
+<li><p>21 HR processes</p>
+<ul>
+<li><p>[21.01] New hire checklists</p></li>
+<li><p>[21.02] Available insurance options</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>30-29 Product Management</p>
+<ul>
+<li><p>30 Lines of Business</p>
+<ul>
+<li><p>[30.01] The Product</p></li>
+<li><p>[30.02] Public company website</p></li>
+</ul>
+</li>
+<li><p>31 Major Product Areas</p>
+<ul>
+<li><p>[31.01] Deployment infrastructure</p></li>
+<li><p>[31.02] Product feature 1</p></li>
+<li><p>[31.03] Product feature 2</p></li>
+</ul>
+</li>
+<li><p>32 Product feature 1 ADRs</p>
+<ul>
+<li><p>[32.01] Using React for web frontend</p></li>
+<li><p>[32.02] Using Kafka for background processing</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>40-49 Projects</p>
+<ul>
+<li><p>40 Product Feature 1 Projects</p>
+<ul>
+<li><p>[40.01] New project</p></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </section>
-<section id="links-to-follow">
-<h2>Links to follow:<a class="headerlink" href="#links-to-follow" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://martinfowler.com/articles/scaling-architecture-conversationally.html">Scaling the Practice of Architecture, Conversationally</a> (<a class="reference internal" href="02_advice_process.html"><span class="std std-doc">My notes</span></a>)</p></li>
-<li><p><a class="reference external" href="https://medium.com/&#64;cat-mo/how-to-use-spikes-as-a-foundation-for-adrs-92bc1617617b">How to use spikes as a foundation for ADRs</a> (<a class="reference internal" href="04_spikes.html"><span class="std std-doc">My notes</span></a>)</p></li>
-</ul>
+<section id="book-centered-work-flow">
+<h2>Book-centered Work Flow<a class="headerlink" href="#book-centered-work-flow" title="Permalink to this heading">#</a></h2>
+<p>As an engineer starts working on a new project, they create a new page under category “40 Product Feature 1 Projects”.</p>
 </section>
 </section>
 
@@ -252,20 +325,20 @@ document.write(`
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../12_articles/38-book-driven-development.html"
+       href="37-the-president-program.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Book Driven Development</p>
+        <p class="prev-next-title">The president program</p>
       </div>
     </a>
     <a class="right-next"
-       href="02_advice_process.html"
+       href="../17_notes/01_xapo.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Scaling the Practice of Architecture, Conversationally</p>
+        <p class="prev-next-title">Decentralizing the Practice of Architecture at Xapo Bank</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -287,14 +360,15 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#links-to-follow">Links to follow:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition">Definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#book-centered-work-flow">Book-centered Work Flow</a></li>
 </ul>
   </nav></div>
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="../_sources/17_notes/01_xapo.md.txt">
+    <a href="../_sources/12_articles/38-book-driven-development.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
