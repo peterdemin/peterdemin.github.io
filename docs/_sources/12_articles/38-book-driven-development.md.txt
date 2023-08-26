@@ -17,10 +17,13 @@ Ideally, the Book alone should provide enough information to re-build the compan
 
 This is how the table of contents looks for an imaginary Company.
 We will use this as an example in later section for illustration purposes.
+Chapters are using [Johnny.Decimal system](https://johnnydecimal.com/).
 
 - 00-09 Book organization
   - 00 Book Driven Development
-    - [00.01] this article
+    - [00.01] This article
+    - [00.03] Documentation generation
+    - [00.02] Auto-generated content
 - 10-19 People and Teams
   - 10 People intros
     - [10.01] Peter Demin
@@ -48,13 +51,46 @@ We will use this as an example in later section for illustration purposes.
     - [31.01] Deployment infrastructure
     - [31.02] Product feature 1
     - [31.03] Product feature 2
-  - 32 Product feature 1 ADRs
-    - [32.01] Using React for web frontend
-    - [32.02] Using Kafka for background processing
+  - 32 Infrastructure ADRs
+    - [32.01] Using Sphinx to generate documentation
+  - 33 Product feature 1 ADRs
+    - [33.00] Common template for ADRs
+    - [33.01] Using React for web frontend
+    - [33.02] Using Kafka for background processing
+    - [33.03] Using common template for project pages
 - 40-49 Projects
   - 40 Product Feature 1 Projects
     - [40.01] New project
+- 50-59 Changelog
+  - 50 Weekly Product Deliverables
+    - [50.01] Deliverables for week of Aug 27, 2023
+- 60-69 Policies
+  - 60 Security
+    - [60.01] Best practices for PII handling
+  - 61 Infrastructure
+    - [61.01] Deployment self-serve guidelines
 
 ## Book-centered Work Flow
 
-As an engineer starts working on a new project, they create a new page under category "40 Product Feature 1 Projects".
+As an engineer starts working on a new project, they:
+1. Create a new page under category "40 Product Feature 1 Projects".
+2. Pick the next available number: [40.01].
+3. Start with a template defined in [33.03].
+4. Fill in Context and Goal sections.
+5. While working on the task, create new Architectural Decision Record pages under chapter 33 using [33.00] as a template.
+
+## Book Building
+
+The company is using Sphinx docs for the Book generation. This provides many benefits:
+1. Support for Markdown for simple formatting, and RestructuredText for more complex ones.
+2. Easy verified cross-references between pages.
+3. Simple content auto-generation through scripting.
+
+## Auto-Generation Examples
+
+1. Project updates are generated from git history.
+2. People and Team pages auto-updated with the links to projects the person worked on.
+3. In-depth code walkthroughs pick docstrings from source code.
+4. Topic deep-dives documented through Jupyter Notebooks.
+5. High-level behavioral test included in project pages.
+

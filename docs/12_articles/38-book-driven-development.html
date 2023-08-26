@@ -225,13 +225,16 @@ Ideally, the Book alone should provide enough information to re-build the compan
 <section id="table-of-contents">
 <h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading">#</a></h2>
 <p>This is how the table of contents looks for an imaginary Company.
-We will use this as an example in later section for illustration purposes.</p>
+We will use this as an example in later section for illustration purposes.
+Chapters are using <a class="reference external" href="https://johnnydecimal.com/">Johnny.Decimal system</a>.</p>
 <ul class="simple">
 <li><p>00-09 Book organization</p>
 <ul>
 <li><p>00 Book Driven Development</p>
 <ul>
-<li><p>[00.01] this article</p></li>
+<li><p>[00.01] This article</p></li>
+<li><p>[00.03] Documentation generation</p></li>
+<li><p>[00.02] Auto-generated content</p></li>
 </ul>
 </li>
 </ul>
@@ -288,10 +291,17 @@ We will use this as an example in later section for illustration purposes.</p>
 <li><p>[31.03] Product feature 2</p></li>
 </ul>
 </li>
-<li><p>32 Product feature 1 ADRs</p>
+<li><p>32 Infrastructure ADRs</p>
 <ul>
-<li><p>[32.01] Using React for web frontend</p></li>
-<li><p>[32.02] Using Kafka for background processing</p></li>
+<li><p>[32.01] Using Sphinx to generate documentation</p></li>
+</ul>
+</li>
+<li><p>33 Product feature 1 ADRs</p>
+<ul>
+<li><p>[33.00] Common template for ADRs</p></li>
+<li><p>[33.01] Using React for web frontend</p></li>
+<li><p>[33.02] Using Kafka for background processing</p></li>
+<li><p>[33.03] Using common template for project pages</p></li>
 </ul>
 </li>
 </ul>
@@ -305,11 +315,60 @@ We will use this as an example in later section for illustration purposes.</p>
 </li>
 </ul>
 </li>
+<li><p>50-59 Changelog</p>
+<ul>
+<li><p>50 Weekly Product Deliverables</p>
+<ul>
+<li><p>[50.01] Deliverables for week of Aug 27, 2023</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>60-69 Policies</p>
+<ul>
+<li><p>60 Security</p>
+<ul>
+<li><p>[60.01] Best practices for PII handling</p></li>
+</ul>
+</li>
+<li><p>61 Infrastructure</p>
+<ul>
+<li><p>[61.01] Deployment self-serve guidelines</p></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </section>
 <section id="book-centered-work-flow">
 <h2>Book-centered Work Flow<a class="headerlink" href="#book-centered-work-flow" title="Permalink to this heading">#</a></h2>
-<p>As an engineer starts working on a new project, they create a new page under category “40 Product Feature 1 Projects”.</p>
+<p>As an engineer starts working on a new project, they:</p>
+<ol class="arabic simple">
+<li><p>Create a new page under category “40 Product Feature 1 Projects”.</p></li>
+<li><p>Pick the next available number: [40.01].</p></li>
+<li><p>Start with a template defined in [33.03].</p></li>
+<li><p>Fill in Context and Goal sections.</p></li>
+<li><p>While working on the task, create new Architectural Decision Record pages under chapter 33 using [33.00] as a template.</p></li>
+</ol>
+</section>
+<section id="book-building">
+<h2>Book Building<a class="headerlink" href="#book-building" title="Permalink to this heading">#</a></h2>
+<p>The company is using Sphinx docs for the Book generation. This provides many benefits:</p>
+<ol class="arabic simple">
+<li><p>Support for Markdown for simple formatting, and RestructuredText for more complex ones.</p></li>
+<li><p>Easy verified cross-references between pages.</p></li>
+<li><p>Simple content auto-generation through scripting.</p></li>
+</ol>
+</section>
+<section id="auto-generation-examples">
+<h2>Auto-Generation Examples<a class="headerlink" href="#auto-generation-examples" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Project updates are generated from git history.</p></li>
+<li><p>People and Team pages auto-updated with the links to projects the person worked on.</p></li>
+<li><p>In-depth code walkthroughs pick docstrings from source code.</p></li>
+<li><p>Topic deep-dives documented through Jupyter Notebooks.</p></li>
+<li><p>High-level behavioral test included in project pages.</p></li>
+</ol>
 </section>
 </section>
 
@@ -363,6 +422,8 @@ We will use this as an example in later section for illustration purposes.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition">Definition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#book-centered-work-flow">Book-centered Work Flow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#book-building">Book Building</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#auto-generation-examples">Auto-Generation Examples</a></li>
 </ul>
   </nav></div>
 
