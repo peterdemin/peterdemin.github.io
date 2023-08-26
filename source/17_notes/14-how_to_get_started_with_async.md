@@ -39,13 +39,38 @@ Article: <https://learn.gitlab.com/coursera-remote-work/asynchronous-comms>
   The solution is to assign the work and set expectations differently.
   Let every engineer have several (5?) projects they run in parallel.
   After making a handoff on one task, they switch to another, avoiding downtime to wait for the response.
-
-
-## Stopped at
-
-https://about.gitlab.com/company/culture/all-remote/asynchronous/#when-to-use-asynchronous-instead-of-synchronous-communication
+- Examples of async activities in Gitlab:
+  - Weekly announcements
+  - New team member introduction
+  - Backlog refinement / planning poker
+  - Capacity planning
+  - Team members who are unable to attend sync meetings
+  - Quarterly team results recaps and celebrations
+  - Monthly finance accruals
+  - Project sprints and milestones
+  - Broadening coverage during PTO
+  - Preparing for meetings or interviews
+  - Editing communiques and content
+  - Weekly team kickoff/standup sessions
+  - Missed deliverable retrospective
+  - Blocked calendars and non-linear workdays
+  - Alternate times for recurring scheduled meetings
+  - Async communication with those who are not GitLab team members
+  - Asynchronous engineering standup meetings
 
 ## Conclusion
+
+- Article explains benefits and best practices of working asynchronously.
+- The focus is no mental health, inclusivity, neural diversity, and work-life balance.
+- Working asynchronously demands continuous effort.
+  Otherwise, people tend to slip into synchronous ways.
+- Delivery speed on individual projects is likely to suffer.
+  The overall throughput is going to suffer in short-term (as written documentation takes more time to craft).
+  But in the long-term, throughput and quality of decision-making should improve.
+  Given that everyone reads the f manual.
+- Which brings me to two problems with async culture:
+    1. No one reads docs.
+    2. Engineers like to write code, not docs.
 
 ## Links to follow
 
