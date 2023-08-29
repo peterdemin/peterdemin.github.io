@@ -1,3 +1,5 @@
+`Aug 29, 2023` - Notes for [](/17_notes/15-gitlab_values_on_iteration.md), [](/17_notes/16-gitlab_s_directly_responsible_individuals.md)
+
 `Aug 29, 2023` - Questions for a hiring manager:
 1. What is your vision for this position?
 2. How are we going to work together? *(The rest if from ChatGPT)*
