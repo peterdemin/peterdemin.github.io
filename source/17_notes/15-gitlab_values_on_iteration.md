@@ -43,7 +43,6 @@ The article is lenghty, here are the headings with my comments:
   - Imposing long hours
   - Expecting others to fix your work
 
-
 ## Conclusion
 
 Gitlab's iteration culture runs contrary to traditional software engineering workflows and to ADR process.
@@ -55,3 +54,4 @@ This allows async autonomous work but requires bigger amount of documentation an
 
 ## Links to follow
 
+- [Directly Responsible Individuals](https://about.gitlab.com/handbook/people-group/directly-responsible-individuals/)
