@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Gitlab’s Directly Responsible Individuals &#8212; Peter Demin</title>
+    <title>Why we always end up with waterfall &#8212; Peter Demin</title>
   
   
   
@@ -45,11 +45,11 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '17_notes/16-gitlab_s_directly_responsible_individuals';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '17_notes/17-why_we_always_end_up_with_waterfall';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Why we always end up with waterfall" href="17-why_we_always_end_up_with_waterfall.html" />
-    <link rel="prev" title="Gitlab values on iteration" href="15-gitlab_values_on_iteration.html" />
+    <link rel="next" title="Collecte - self-hosted open source email collector" href="../14_ideas/01-collector.html" />
+    <link rel="prev" title="Gitlab’s Directly Responsible Individuals" href="16-gitlab_s_directly_responsible_individuals.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -192,7 +192,7 @@ document.write(`
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">Gitlab’s Directly Responsible Individuals</li>
+    <li class="breadcrumb-item active" aria-current="page">Why we always end up with waterfall</li>
   </ul>
 </nav>
 </div>
@@ -209,29 +209,34 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="gitlab-s-directly-responsible-individuals">
-<h1>Gitlab’s Directly Responsible Individuals<a class="headerlink" href="#gitlab-s-directly-responsible-individuals" title="Permalink to this heading">#</a></h1>
-<p>Article: <a class="reference external" href="https://about.gitlab.com/handbook/people-group/directly-responsible-individuals/">https://about.gitlab.com/handbook/people-group/directly-responsible-individuals/</a></p>
+  <section id="why-we-always-end-up-with-waterfall">
+<h1>Why we always end up with waterfall<a class="headerlink" href="#why-we-always-end-up-with-waterfall" title="Permalink to this heading">#</a></h1>
+<p>Article: <a class="reference external" href="https://www.amazingcto.com/why-we-always-endup-with-waterfall-even-scrum/">https://www.amazingcto.com/why-we-always-endup-with-waterfall-even-scrum/</a></p>
 <section id="notes">
 <h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h2>
+<p>Light read.</p>
 <ul class="simple">
-<li><p>DRI is accountable for the success or failure of that project.</p></li>
-<li><p>Everyone can give input.</p></li>
-<li><p>DRI makes a decision.</p></li>
-<li><p>DRI does not have to explain why they’re making a decision, and they absolutely do not have to convince other people.</p></li>
-<li><p>DRI consults with all teams that have action items to ensure they have context and that actions are assigned.</p></li>
+<li><p>The main waterfall driver is a lack of Product Owner - the central figure in Scrum.</p></li>
+<li><p>Instead, teams have Product Manager who serves the needs of external stakeholders.</p></li>
+<li><p>External stakeholders are not interested in product vision, they need predictable delivery for features.</p></li>
+<li><p>Creating good estimates and adhering to plans forces the team to waterfall.</p></li>
+<li><p>Efficient waterfall reduces communication, and favors horizontal teams.</p></li>
+<li><p>Lazy Remote implementation fits this model even better then in-person.</p></li>
 </ul>
 </section>
 <section id="conclusion">
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
-<p>Gitlab process reminded me of <a class="reference internal" href="02_advice_process.html"><span class="std std-doc">Architecture Advice Process</span></a>, but they never refer to it.
-They might have something like ADR, but it’s not called that way.
-Overall, I think, it’s a sensible adaption for an async work style.</p>
+<p>Can’t have Scrum with multiple external stakeholders, demanding urgent changes.
+If we think about software team as a system, we need to consider feedback loops: their sign and length.
+Without focusing on short negative feedback loops, the system quickly grows out of control.
+In the case of waterfall, the feedback loops from engineers to architects, and from architects to stake holders, is effectively cut.
+This allows for a streamlined production of a wrong thing.</p>
+<p>Which brings me to an idea of trying to diagram ADR, AAF, DRI as a system in the Donella Meadows style.</p>
 </section>
 <section id="links-to-follow">
 <h2>Links to follow<a class="headerlink" href="#links-to-follow" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://about.gitlab.com/company/culture/all-remote/effective-communication/">Effective communication</a></p></li>
+<li><p><a class="reference external" href="https://www.amazon.com/Thinking-Systems-Donella-H-Meadows/dp/1603580557?&amp;amp;_encoding=UTF8&amp;amp;tag=peterdemin-20&amp;amp;linkCode=ur2&amp;amp;linkId=64cb5331199bfc113ae750f07baf5d69&amp;amp;camp=1789&amp;amp;creative=9325">“Thinking in Systems” by Donella H. Meadows</a></p></li>
 </ul>
 </section>
 </section>
@@ -248,20 +253,20 @@ Overall, I think, it’s a sensible adaption for an async work style.</p>
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="15-gitlab_values_on_iteration.html"
+       href="16-gitlab_s_directly_responsible_individuals.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Gitlab values on iteration</p>
+        <p class="prev-next-title">Gitlab’s Directly Responsible Individuals</p>
       </div>
     </a>
     <a class="right-next"
-       href="17-why_we_always_end_up_with_waterfall.html"
+       href="../14_ideas/01-collector.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Why we always end up with waterfall</p>
+        <p class="prev-next-title">Collecte - self-hosted open source email collector</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -291,7 +296,7 @@ Overall, I think, it’s a sensible adaption for an async work style.</p>
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="../_sources/17_notes/16-gitlab_s_directly_responsible_individuals.md.txt">
+    <a href="../_sources/17_notes/17-why_we_always_end_up_with_waterfall.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
