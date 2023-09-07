@@ -1,29 +1,7 @@
 Here's a Coding Challenge below, you will write a program to pass the given tests and the hidden tests.
 Problem:
 
-Most Unique Elements
-
-Your goal is to find unlikely characters in a group of strings.
-
-Given a list of strings, select the strings where the most common character has the smallest proportion in its string.
-
-If multiple strings have the same proportion, select all the strings with the smallest proportion.
-
-Return a new string composed of the characters that are only present in the selected strings.
-
-    def solution(A, Y)
-
-(ignore the 2nd parameter for this part)
-
-Example: ["aba", "ab", "abbcdd"]
-
-  - "aba": most common character is 'a', with proportion of 2/3
-
-  - "ab": most common characters are 'a' and 'b' with proportion 1/2
-
-  - "abbcdd": most common character are 'b' and 'd', with proportion of 2/6
-
-The smallest proportion is 2/6, so we select the last string "abbcdd" and return the characters that are only present in this string: "cdd".
+<Problem>
 
 Your goal is to analyze the problem carefully and come up with a correct and efficient solution.
 At the end of your response, write a complete python solution to the problem.
