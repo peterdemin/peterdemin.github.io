@@ -17,8 +17,11 @@ else:
     indexes.discard("99")
     next_index = "{:02}".format(int(max(indexes), 10) + 1)
     result = os.path.join(LIFE_DIR, f"{next_index}-{suffix}")
-with open(result, "rt", encoding="utf-8") as fp:
-    content = fp.read()
+try:
+    with open(result, "rt", encoding="utf-8") as fp:
+        content = fp.read()
+except FileNotFoundError:
+    content = ''
 with open(result, "wt", encoding="utf-8") as fp:
     header = today.strftime("%b %d, %Y")
     fp.write(f"`{header}` - \n\n")
