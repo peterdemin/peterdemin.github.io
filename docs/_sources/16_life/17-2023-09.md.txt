@@ -1,0 +1,2 @@
+`Sep 07, 2023` - Libraries to review: Fastapi, pydantic
+
