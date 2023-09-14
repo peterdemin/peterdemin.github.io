@@ -61,7 +61,16 @@ html_theme_options = {
     "navbar_start": ["navbar-logo"],
     "navbar_center": [],
     "navbar_end": [],
+    "use_edit_page_button": True,
 }
+html_context = {
+    "display_github": True, # Integrate GitHub
+    "github_user": "peterdemin", # Username
+    "github_repo": "peterdemin.github.io", # Repo name
+    "github_version": "master", # Version
+    "doc_path": "source", # Path in the checkout to the docs root
+}
+
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
