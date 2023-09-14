@@ -1,16 +1,16 @@
-# Formatting data with vim
+# Formatting data with Vim
 
 ## Reindent JSON
 
-One of vim's great feature is how it can integrate with external utilities.
-Here are commands that I use most.
+One of Vim's great features is how it can integrate with external utilities.
+Here are the commands that I use most.
 
 ## Prettify JSON
 
 	:% !python -mjson.tool
 
-Will take current buffer text, pass it to Python's json.tool module and
-replace buffer with results effectively reindenting JSON document.
+Will take the current buffer text and pass it to Python's `json.tool` module and
+replace buffer with results, effectively reindenting JSON document.
 
 Alternatively, if jq is available:
 

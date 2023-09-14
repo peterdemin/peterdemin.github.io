@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Formatting data with vim &#8212; Peter Demin</title>
+    <title>Formatting data with Vim &#8212; Peter Demin</title>
   
   
   
@@ -192,7 +192,7 @@ document.write(`
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">Formatting data with vim</li>
+    <li class="breadcrumb-item active" aria-current="page">Formatting data with Vim</li>
   </ul>
 </nav>
 </div>
@@ -210,19 +210,19 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section id="formatting-data-with-vim">
-<h1>Formatting data with vim<a class="headerlink" href="#formatting-data-with-vim" title="Permalink to this heading">#</a></h1>
+<h1>Formatting data with Vim<a class="headerlink" href="#formatting-data-with-vim" title="Permalink to this heading">#</a></h1>
 <section id="reindent-json">
 <h2>Reindent JSON<a class="headerlink" href="#reindent-json" title="Permalink to this heading">#</a></h2>
-<p>One of vim’s great feature is how it can integrate with external utilities.
-Here are commands that I use most.</p>
+<p>One of Vim’s great features is how it can integrate with external utilities.
+Here are the commands that I use most.</p>
 </section>
 <section id="prettify-json">
 <h2>Prettify JSON<a class="headerlink" href="#prettify-json" title="Permalink to this heading">#</a></h2>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:% !python -mjson.tool
 </pre></div>
 </div>
-<p>Will take current buffer text, pass it to Python’s json.tool module and
-replace buffer with results effectively reindenting JSON document.</p>
+<p>Will take the current buffer text and pass it to Python’s <code class="docutils literal notranslate"><span class="pre">json.tool</span></code> module and
+replace buffer with results, effectively reindenting JSON document.</p>
 <p>Alternatively, if jq is available:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:% ! jq .
 </pre></div>
