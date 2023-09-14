@@ -2,21 +2,21 @@
 
 ## Definition
 
-Book Driven Development is a software engineering approach for organizing development process around a Book.
+Book Driven Development is a software engineering approach for organizing the development process around a Book.
 The Book means a single location that includes all documentation related to running a company.
-The same approach can be applied to other fields as well, but author focuses on their area of expertise.
+The same approach can be applied to other fields as well, but the author focuses on their area of expertise.
 
-The Book is structured in way to include all business aspects and provide a place (chapter) for every topic.
-As the company starts their journey, leadership fills in the table of contents, leaving the chapter contents empty.
-As decisions are made, and progress is done, new paragraphs are added to the Book.
+The Book is structured in a way to include all business aspects and provides a place (chapter) for every topic.
+As the company starts its journey, leadership fills in the table of contents, leaving the chapter contents empty.
+As decisions are made and progress is done, new paragraphs are added to the Book.
 
 The Book is never complete, but it's always the best source of knowledge for any aspect of running the business.
-Ideally, the Book alone should provide enough information to re-build the company and product from scratch.
+Ideally, the Book alone should provide enough information to rebuild the company and product from scratch.
 
 ## Table of Contents
 
 This is how the table of contents looks for an imaginary Company.
-We will use this as an example in later section for illustration purposes.
+We will use this as an example in a later section for illustration purposes.
 Chapters are using [Johnny.Decimal system](https://johnnydecimal.com/).
 
 - 00-09 Book organization
@@ -57,13 +57,13 @@ Chapters are using [Johnny.Decimal system](https://johnnydecimal.com/).
     - [33.00] Common template for ADRs
     - [33.01] Using React for web frontend
     - [33.02] Using Kafka for background processing
-    - [33.03] Using common template for project pages
+    - [33.03] Using a common template for project pages
 - 40-49 Projects
   - 40 Product Feature 1 Projects
     - [40.01] New project
 - 50-59 Changelog
   - 50 Weekly Product Deliverables
-    - [50.01] Deliverables for week of Aug 27, 2023
+    - [50.01] Deliverables for the week of Aug 27, 2023
 - 60-69 Policies
   - 60 Security
     - [60.01] Best practices for PII handling
@@ -73,16 +73,16 @@ Chapters are using [Johnny.Decimal system](https://johnnydecimal.com/).
 ## Book-centered Work Flow
 
 As an engineer starts working on a new project, they:
-1. Create a new page under category "40 Product Feature 1 Projects".
+1. Create a new page under the "40 Product Feature 1 Projects" category.
 2. Pick the next available number: [40.01].
 3. Start with a template defined in [33.03].
-4. Fill in Context and Goal sections.
+4. Fill in the Context and Goal sections.
 5. While working on the task, create new Architectural Decision Record pages under chapter 33 using [33.00] as a template.
 
 ## Book Building
 
 The company is using Sphinx docs for the Book generation. This provides many benefits:
-1. Support for Markdown for simple formatting, and RestructuredText for more complex ones.
+1. Support for Markdown for simple formatting and RestructuredText for more complex ones.
 2. Easy verified cross-references between pages.
 3. Simple content auto-generation through scripting.
 
