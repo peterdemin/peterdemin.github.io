@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Using GPIO on a industrial mini PC &#8212; Peter Demin</title>
+    <title>Using GPIO on an industrial mini PC &#8212; Peter Demin</title>
   
   
   
@@ -192,7 +192,7 @@ document.write(`
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">Using GPIO on a industrial mini PC</li>
+    <li class="breadcrumb-item active" aria-current="page">Using GPIO on an industrial mini PC</li>
   </ul>
 </nav>
 </div>
@@ -209,10 +209,10 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="using-gpio-on-a-industrial-mini-pc">
-<h1>Using GPIO on a industrial mini PC<a class="headerlink" href="#using-gpio-on-a-industrial-mini-pc" title="Permalink to this heading">#</a></h1>
-<section id="what-s-industrial-mini-pc">
-<h2>What’s industrial mini PC<a class="headerlink" href="#what-s-industrial-mini-pc" title="Permalink to this heading">#</a></h2>
+  <section id="using-gpio-on-an-industrial-mini-pc">
+<h1>Using GPIO on an industrial mini PC<a class="headerlink" href="#using-gpio-on-an-industrial-mini-pc" title="Permalink to this heading">#</a></h1>
+<section id="what-s-an-industrial-mini-pc">
+<h2>What’s an industrial mini PC<a class="headerlink" href="#what-s-an-industrial-mini-pc" title="Permalink to this heading">#</a></h2>
 <p><img alt="Mini PCs" src="../_images/39-mini-pcs.png" /></p>
 <p>There are many industrial mini PCs on the market.
 Their common features are:</p>
@@ -242,27 +242,27 @@ Their common features are:</p>
 </li>
 <li><p>Built-in WiFi</p></li>
 </ul>
-<p>Fanless design makes them a good candidate for dusty environments.
-The common problem with them is lack of documentation and support forums.</p>
+<p>The fanless design makes them a good candidate for dusty environments.
+The common problem with them is the lack of documentation and support forums.</p>
 <p>I had a chance to work with this model: <a class="reference external" href="https://a.co/d/aC6lhQ5?tag=peterdemin-20">Kingdel mini PC</a>.
 It has an Intel CPU, Samsung SSD, and an array of GPIO ports.</p>
 <p>My OS of choice is Ubuntu 22.04, but the experience is similar for most Linux distributions.</p>
-<p>At first it wasn’t clear, how to use the GPIO ports, as most of the online GPIO documentation targets System-on-Chips (SoC) such as Arduino and Raspberry Pi.</p>
+<p>At first, it wasn’t clear how to use the GPIO ports, as most of the online GPIO documentation targets System-on-Chips (SoC) such as Arduino and Raspberry Pi.</p>
 <p>Modern Linux exposes GPIO through a Kernel driver that mounts <code class="docutils literal notranslate"><span class="pre">/dev/gpiochip[n]</span></code> character devices.
 The recommended utility to interact with it is <code class="docutils literal notranslate"><span class="pre">gpiod</span></code>.
 It provides a set of CLI to enumerate, read, and write GPIO values.</p>
-<p>In my case, there was no files starting with <code class="docutils literal notranslate"><span class="pre">/dev/gpio*</span></code> directory.
-Which meant, that the Linux Kernel hasn’t loaded the driver for my hardware.</p>
+<p>In my case, there were no files starting with <code class="docutils literal notranslate"><span class="pre">/dev/gpio*</span></code> directory.
+Which meant that the Linux Kernel hadn’t loaded the driver for my hardware.</p>
 <p>Unlike SoC, mini PCs don’t integrate GPIO pins directly to the CPU.
 Instead, they’re using Super I/O chips.</p>
 <p>BIOS must provide access to GPIO. Mine is “American Megatrends Version 2.18.1263.
-The Advanced tab has menu called “SIO MISC Configuration” with description “WDT, CASE OPEN, GPIO, DEBUG…”
-Inside it I had access to Watch Dog Timer, 2 COM port modes (RS232, RS485, and RS422) and 8 GPIO settings.
-Each pin is named GPIO[n] where n is between 0 and 7.
+The Advanced tab has a menu called “SIO MISC Configuration” with the description “WDT, CASE OPEN, GPIO, DEBUG…”
+Inside it, I had access to the Watch Dog Timer, 2 COM port modes (RS232, RS485, and RS422), and 8 GPIO settings.
+Each pin is named GPIO[n], where n is between 0 and 7.
 The Mode can be set in Input or Output.
 When set to Output, you can set Output value to either Low or High.
-Note, that changes to GPIO pin states are not real-time and you need to Save&amp;Exit for the changes to reflect.
-Through several reboot cycles I managed to map all GPIO pins to their function.</p>
+Note that changes to GPIO pin states are not real-time, and you need to Save and Exit for the changes to reflect.
+Through several reboot cycles, I mapped all GPIO pins to their function.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="mi">1</span>   <span class="mi">2</span>   <span class="mi">3</span>   <span class="mi">4</span>   <span class="mi">5</span>   <span class="mi">6</span>   <span class="mi">7</span>
 <span class="mi">3</span><span class="n">V3</span>  <span class="mi">7</span>   <span class="mi">6</span>   <span class="mi">5</span>   <span class="mi">4</span>  <span class="n">GND</span> <span class="n">GND</span>
 <span class="o">---------------------------</span>
@@ -270,12 +270,12 @@ Through several reboot cycles I managed to map all GPIO pins to their function.<
  <span class="mi">1</span>   <span class="mi">2</span>   <span class="mi">3</span>   <span class="mi">4</span>   <span class="mi">5</span>   <span class="mi">6</span>   <span class="mi">7</span>
 </pre></div>
 </div>
-<p>In the diagram below, pins are numbered left-to-right as they appear at the back side of the mini PC.
-Top row has 3.3V output, followed by 4 GPIO pins, followed by 2 ground pins.
-Bottom row has 3.3V output, followed by 4 GPIO pins, followed by 12V output, and 5V output.</p>
+<p>In the diagram above, pins are numbered left-to-right as they appear on the back side of the mini PC.
+The top row has a 3.3V output, 4 GPIO pins, and two ground pins.
+The bottom row has a 3.3V output, 4 GPIO pins, 12V and 5V outputs.</p>
 <p>BIOS doesn’t say which SIO chip is used.
-There are many Super I/O chips, and it could be problematic to figure out which one you have.
-In my case, I had to open the casing and read the markings on the big square chip sitting next to GPIO pins.
+There are many Super I/O chips, and figuring out which one you have could be problematic.
+In my case, I had to open the casing and read the markings on the big square chip sitting next to the GPIO pins.
 It said “iTE IT8786E-I”.</p>
 <p>Searching through <a class="reference external" href="https://github.com/torvalds/linux">Linux Kernel git repo</a>,
 I found mentions of the drivers for this chip:</p>
@@ -319,7 +319,7 @@ I found mentions of the drivers for this chip:</p>
 <span class="nv">CONFIG_GPIO_IT87</span><span class="o">=</span>m
 </pre></div>
 </div>
-<p>Letter <code class="docutils literal notranslate"><span class="pre">m</span></code> means that the module is not enabled by default.</p>
+<p>The letter <code class="docutils literal notranslate"><span class="pre">m</span></code> means that the module is not enabled by default.</p>
 </li>
 </ol>
 <p>Enabling the driver is done with the command:</p>
@@ -330,7 +330,7 @@ I found mentions of the drivers for this chip:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>gpio_it87<span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/modules
 </pre></div>
 </div>
-<p>I then discovered, that Input/Output mode can be set only through BIOS, and root user is required to set/get GPIO values.
+<p>I then discovered that Input/Output mode can be set only through BIOS, and the root user is required to set/get GPIO values.
 The biggest gotcha was that pin numbers in gpiolib do not match pin numbers in BIOS.</p>
 <p>I connected each pin to an LED on a breadboard and used the following script to discover their numbers:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">63</span><span class="k">)</span>
@@ -343,9 +343,9 @@ The biggest gotcha was that pin numbers in gpiolib do not match pin numbers in B
 <span class="k">done</span>
 </pre></div>
 </div>
-<p>The script iterates through all pins on chipset 0 and puts them into High for 1 seconds.
+<p>The script iterates through all pins on chipset 0 and puts them into High for 1 second.
 (Before running the script, I assigned all GPIO pins to Output mode in the BIOS settings).</p>
-<p>Here are the line numbers for using in gpioset and gpioget commands:</p>
+<p>Here are the line numbers for use in <code class="docutils literal notranslate"><span class="pre">gpioset</span></code> and <code class="docutils literal notranslate"><span class="pre">gpioget</span></code> commands:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="mi">1</span>   <span class="mi">2</span>   <span class="mi">3</span>   <span class="mi">4</span>   <span class="mi">5</span>   <span class="mi">6</span>   <span class="mi">7</span>
      <span class="mi">28</span>  <span class="mi">11</span>  <span class="mi">2</span>   <span class="mi">0</span>         
 <span class="o">---------------------------</span>
@@ -353,9 +353,9 @@ The biggest gotcha was that pin numbers in gpiolib do not match pin numbers in B
  <span class="mi">1</span>   <span class="mi">2</span>   <span class="mi">3</span>   <span class="mi">4</span>   <span class="mi">5</span>   <span class="mi">6</span>   <span class="mi">7</span>
 </pre></div>
 </div>
-<p>I rebooted to change pin modes to Input in BIOS, and tried to get their values.</p>
-<p>Surprisingly, all pins were returning High value when nothing was attached to it.
-Even if I supplied pull-down option</p>
+<p>I rebooted to change pin modes to Input in BIOS and tried to get their values.</p>
+<p>Surprisingly, all pins returned High value when nothing was attached to it.
+Even if I supplied a pull-down option</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>gpioget<span class="w"> </span>-B<span class="w"> </span>pull-down<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
 <span class="m">1</span>
 </pre></div>
@@ -412,7 +412,7 @@ Only 1K resistor worked, driving the voltage on input pin from 3.3V down to 0.3V
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-industrial-mini-pc">What’s industrial mini PC</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-an-industrial-mini-pc">What’s an industrial mini PC</a></li>
 </ul>
   </nav></div>
 
