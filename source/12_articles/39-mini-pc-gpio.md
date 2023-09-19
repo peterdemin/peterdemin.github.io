@@ -29,6 +29,8 @@ The common problem with them is the lack of documentation and support forums.
 I had a chance to work with this model: [Kingdel mini PC](https://a.co/d/aC6lhQ5?tag=peterdemin-20).
 It has an Intel CPU, Samsung SSD, and an array of GPIO ports.
 
+## Accessing GPIO on Linux
+
 My OS of choice is Ubuntu 22.04, but the experience is similar for most Linux distributions.
 
 At first, it wasn't clear how to use the GPIO ports, as most of the online GPIO documentation targets System-on-Chips (SoC) such as Arduino and Raspberry Pi.
@@ -52,7 +54,7 @@ When set to Output, you can set Output value to either Low or High.
 Note that changes to GPIO pin states are not real-time, and you need to Save and Exit for the changes to reflect.
 Through several reboot cycles, I mapped all GPIO pins to their function.
 
-```
+```text
  1   2   3   4   5   6   7
 3V3  7   6   5   4  GND GND
 ---------------------------
@@ -143,7 +145,7 @@ The script iterates through all pins on chipset 0 and puts them into High for 1 
 
 Here are the line numbers for use in `gpioset` and `gpioget` commands:
 
-```
+```text
  1   2   3   4   5   6   7
      28  11  2   0         
 ---------------------------
@@ -162,4 +164,4 @@ $ sudo gpioget -B pull-down 0 0
 ```
 
 The solution was to add an external pull-down resistor. I tried 1K, 10K, and 100K.
-Only 1K resistor worked, driving the voltage on input pin from 3.3V down to 0.3V which is considered as Low.
+Only 1K resistor worked, driving the voltage on the input pin from 3.3V down to 0.3V, which is considered Low.
