@@ -246,6 +246,9 @@ Their common features are:</p>
 The common problem with them is the lack of documentation and support forums.</p>
 <p>I had a chance to work with this model: <a class="reference external" href="https://a.co/d/aC6lhQ5?tag=peterdemin-20">Kingdel mini PC</a>.
 It has an Intel CPU, Samsung SSD, and an array of GPIO ports.</p>
+</section>
+<section id="accessing-gpio-on-linux">
+<h2>Accessing GPIO on Linux<a class="headerlink" href="#accessing-gpio-on-linux" title="Permalink to this heading">#</a></h2>
 <p>My OS of choice is Ubuntu 22.04, but the experience is similar for most Linux distributions.</p>
 <p>At first, it wasn’t clear how to use the GPIO ports, as most of the online GPIO documentation targets System-on-Chips (SoC) such as Arduino and Raspberry Pi.</p>
 <p>Modern Linux exposes GPIO through a Kernel driver that mounts <code class="docutils literal notranslate"><span class="pre">/dev/gpiochip[n]</span></code> character devices.
@@ -263,11 +266,11 @@ The Mode can be set in Input or Output.
 When set to Output, you can set Output value to either Low or High.
 Note that changes to GPIO pin states are not real-time, and you need to Save and Exit for the changes to reflect.
 Through several reboot cycles, I mapped all GPIO pins to their function.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="mi">1</span>   <span class="mi">2</span>   <span class="mi">3</span>   <span class="mi">4</span>   <span class="mi">5</span>   <span class="mi">6</span>   <span class="mi">7</span>
-<span class="mi">3</span><span class="n">V3</span>  <span class="mi">7</span>   <span class="mi">6</span>   <span class="mi">5</span>   <span class="mi">4</span>  <span class="n">GND</span> <span class="n">GND</span>
-<span class="o">---------------------------</span>
-<span class="mi">3</span><span class="n">V3</span>  <span class="mi">3</span>   <span class="mi">2</span>   <span class="mi">1</span>   <span class="mi">0</span>  <span class="mi">12</span><span class="n">V</span>  <span class="mi">5</span><span class="n">V</span>
- <span class="mi">1</span>   <span class="mi">2</span>   <span class="mi">3</span>   <span class="mi">4</span>   <span class="mi">5</span>   <span class="mi">6</span>   <span class="mi">7</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> 1   2   3   4   5   6   7
+3V3  7   6   5   4  GND GND
+---------------------------
+3V3  3   2   1   0  12V  5V
+ 1   2   3   4   5   6   7
 </pre></div>
 </div>
 <p>In the diagram above, pins are numbered left-to-right as they appear on the back side of the mini PC.
@@ -346,11 +349,11 @@ The biggest gotcha was that pin numbers in gpiolib do not match pin numbers in B
 <p>The script iterates through all pins on chipset 0 and puts them into High for 1 second.
 (Before running the script, I assigned all GPIO pins to Output mode in the BIOS settings).</p>
 <p>Here are the line numbers for use in <code class="docutils literal notranslate"><span class="pre">gpioset</span></code> and <code class="docutils literal notranslate"><span class="pre">gpioget</span></code> commands:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="mi">1</span>   <span class="mi">2</span>   <span class="mi">3</span>   <span class="mi">4</span>   <span class="mi">5</span>   <span class="mi">6</span>   <span class="mi">7</span>
-     <span class="mi">28</span>  <span class="mi">11</span>  <span class="mi">2</span>   <span class="mi">0</span>         
-<span class="o">---------------------------</span>
-     <span class="mi">23</span>  <span class="mi">22</span>  <span class="mi">34</span>  <span class="mi">33</span>        
- <span class="mi">1</span>   <span class="mi">2</span>   <span class="mi">3</span>   <span class="mi">4</span>   <span class="mi">5</span>   <span class="mi">6</span>   <span class="mi">7</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> 1   2   3   4   5   6   7
+     28  11  2   0         
+---------------------------
+     23  22  34  33        
+ 1   2   3   4   5   6   7
 </pre></div>
 </div>
 <p>I rebooted to change pin modes to Input in BIOS and tried to get their values.</p>
@@ -361,7 +364,7 @@ Even if I supplied a pull-down option</p>
 </pre></div>
 </div>
 <p>The solution was to add an external pull-down resistor. I tried 1K, 10K, and 100K.
-Only 1K resistor worked, driving the voltage on input pin from 3.3V down to 0.3V which is considered as Low.</p>
+Only 1K resistor worked, driving the voltage on the input pin from 3.3V down to 0.3V, which is considered Low.</p>
 </section>
 </section>
 
@@ -413,6 +416,7 @@ Only 1K resistor worked, driving the voltage on input pin from 3.3V down to 0.3V
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-an-industrial-mini-pc">What’s an industrial mini PC</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-gpio-on-linux">Accessing GPIO on Linux</a></li>
 </ul>
   </nav></div>
 
