@@ -1,3 +1,7 @@
+`Sep 23, 2023` - Notes for [](/17_notes/20-a_senior_engineer_s_guide_to_the_system_design_interview_p2.md)
+
+`Sep 20, 2023` - Notes for [](/17_notes/19-a_senior_engineer_s_guide_to_the_system_design_interview_p1.md)
+
 `Sep 18, 2023` - Added article [](/12_articles/39-mini-pc-gpio.md)
 
 `Sep 07, 2023` - Libraries to review: Fastapi, pydantic
