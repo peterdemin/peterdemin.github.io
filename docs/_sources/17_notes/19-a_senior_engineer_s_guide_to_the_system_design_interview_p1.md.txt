@@ -1,4 +1,4 @@
-# A Senior Engineer's Guide to the System Design Interview
+# A Senior Engineer's Guide to the System Design Interview (Part 1)
 
 Article: <https://interviewing.io/guides/system-design-interview>
 
@@ -70,4 +70,4 @@ Article: <https://interviewing.io/guides/system-design-interview>
 ## Links to follow
 
 - [How to conduct a system design interview](https://robertovitillo.com/how-to-conduct-a-system-design-interview/)
-- [Part 2](https://interviewing.io/guides/system-design-interview/part-two)
+- [Part 2](https://interviewing.io/guides/system-design-interview/part-two) ([Notes](/17_notes/20-a_senior_engineer_s_guide_to_the_system_design_interview_p2.md)

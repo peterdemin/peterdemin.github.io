@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Robots vs. Programmers &#8212; Peter Demin</title>
+    <title>A Senior Engineer’s Guide to the System Design Interview (Part 1) &#8212; Peter Demin</title>
   
   
   
@@ -45,11 +45,11 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '17_notes/18-robots_vs_programmers';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '17_notes/19-a_senior_engineer_s_guide_to_the_system_design_interview_p1';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="A Senior Engineer’s Guide to the System Design Interview (Part 1)" href="19-a_senior_engineer_s_guide_to_the_system_design_interview_p1.html" />
-    <link rel="prev" title="Why we always end up with waterfall" href="17-why_we_always_end_up_with_waterfall.html" />
+    <link rel="next" title="A Senior Engineer’s Guide to the System Design Interview (Part 2)" href="20-a_senior_engineer_s_guide_to_the_system_design_interview_p2.html" />
+    <link rel="prev" title="Robots vs. Programmers" href="18-robots_vs_programmers.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -192,7 +192,7 @@ document.write(`
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">Robots vs. Programmers</li>
+    <li class="breadcrumb-item active" aria-current="page">A Senior Engineer’s Guide to the System Design Interview (Part 1)</li>
   </ul>
 </nav>
 </div>
@@ -209,52 +209,87 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="robots-vs-programmers">
-<h1>Robots vs. Programmers<a class="headerlink" href="#robots-vs-programmers" title="Permalink to this heading">#</a></h1>
-<p>Article: <a class="reference external" href="https://www.yegor256.com/2023/08/29/ai-for-software-engineering.html">https://www.yegor256.com/2023/08/29/ai-for-software-engineering.html</a></p>
+  <section id="a-senior-engineer-s-guide-to-the-system-design-interview-part-1">
+<h1>A Senior Engineer’s Guide to the System Design Interview (Part 1)<a class="headerlink" href="#a-senior-engineer-s-guide-to-the-system-design-interview-part-1" title="Permalink to this heading">#</a></h1>
+<p>Article: <a class="reference external" href="https://interviewing.io/guides/system-design-interview">https://interviewing.io/guides/system-design-interview</a></p>
 <section id="notes">
 <h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h2>
-<p>Yegor predicts which new LLM-powered products are going to emerge:</p>
+<ol class="arabic simple">
+<li><p>It’s a common saying: “there are no correct answers”.
+What it omits is that there are certainly incorrect ones.</p></li>
+<li><p>You have to show your interviewer that you:
+a. Understand the fundamentals of a system (end to end).
+b. Should be able to name and explain at a high level each part of the system.
+c. Describe the tradeoffs you make.
+d. Find a solution.</p></li>
+<li><p>High signals:
+a. A broad, base-level understanding of system design fundamentals.
+b. Back-and-forth about problem constraints and parameters.
+c. Well-reasoned, qualified decisions based on engineering trade-offs.
+d. A holistic view of a system and its users.</p></li>
+<li><p>Low signals:
+a. Assumptions about the prompt.
+b. Specific answers with ironclad certainty.
+c. A predefined path from the beginning to end of the problem.
+d. Strictly technical considerations.</p></li>
+<li><p>The initial prompt has many gaps. The first task is to uncover and fill them.
+The common questions to ask:</p>
 <ul class="simple">
-<li><p>Code changes:</p>
-<ul>
-<li><p>Report bugs.</p></li>
-<li><p>Fix bugs.</p></li>
-<li><p>Review pull requests.</p></li>
-<li><p>Refactor.</p></li>
+<li><p>Who are the users, who many?</p></li>
+<li><p>What are the entities in play? What are their interactions?</p></li>
+<li><p>How big is the data?</p></li>
+<li><p>What is the expected traffic?</p></li>
 </ul>
 </li>
-<li><p>Team management:</p>
-<ul>
-<li><p>Appraise performance.</p></li>
-<li><p>Onboard new hires.</p></li>
-</ul>
-</li>
-<li><p>Project management:</p>
-<ul>
-<li><p>Formalize requirements.</p></li>
-<li><p>Backlog prioritization.</p></li>
-<li><p>Estimate.</p></li>
-<li><p>Refine bug reports.</p></li>
-<li><p>Analyze technical debt.</p></li>
-<li><p>Suggest new features.</p></li>
-<li><p>Predict.</p></li>
-</ul>
-</li>
-<li><p>Documentation:</p>
-<ul>
-<li><p>Document source code.</p></li>
-<li><p>Document architecture.</p></li>
-<li><p>Cleanup documentation.</p></li>
-</ul>
-</li>
-</ul>
+<li><p>Well-reasoned, qualified decisions based on engineering trade-offs.</p></li>
+<li><p>Interviewers test for approach and first-principles thinking.
+They don’t test for knowledge and experience with particular technology.
+But then, the two are connected, and you can’t really do one without another.</p></li>
+<li><p>The format of the interview is a talk, but just talking won’t get you nowhere.
+You must engage in deep thinking and take your time before you speak.</p></li>
+<li><p>Everything interviewer says is a hint.
+Whether a question or a comment, it’s an important signal.
+Missing a cue is a red flag in the scorecard.
+Don’t ignore anything.
+If you can’t act on the new information immediately, acknowledge it and get back to it later.</p></li>
+<li><p>Don’t push back, don’t disagree.
+Even if you’re right, this most likely will be a low light in the scorecard.</p></li>
+<li><p>Demonstrate collaborative attitude by asking questions and seeking feedback.
+Try to establish a tone as if you were working through a problem with a coworker rather than proving yourself to an interviewer.</p></li>
+<li><p>Senior candidates are expected to drive the interview.
+As if they are the interviewer themselves.</p></li>
+<li><p>Be general about technologies.
+It’s best to avoid any brand names, unless are you are an industry expert and go far on internals and comparison to competitors.
+Don’t say DynamoDB, say NoSQL database, or Key-Value store.
+Don’t say Kafka, say queue.
+Even when Kafka is a good choice, calling it out is a low signal on the scorecard.</p></li>
+<li><p>When talking about database in particular, call out the tradeoffs of SQL vs NoSQL.
+Because, that’s what people love to hear.
+Again, don’t say Postgres or Cassandra.</p></li>
+<li><p>After explaining the choice and pros and cons, make a decision.
+You can alter it later, but the choice has to be made.</p></li>
+<li><p>Making a decision without explaining the choice is a low light on the scorecard.</p></li>
+<li><p>Explaining the choice without making a decision is a low light on the scorecard.</p></li>
+</ol>
 </section>
 <section id="conclusion">
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
-<p>Yegor could’ve used ChatGPT to help him format the article :-P</p>
-<p>The product ideas make sense on the surface, some look too ambitious, though.
-I expect to see at least some of them in GitHub and GitLab by the end of 2024.</p>
+<ol class="arabic simple">
+<li><p>Interviewer tries to fill in a scorecard for the candidate’s character based on a single data point.</p></li>
+<li><p>That’s impossible, obviously. So, they use proxies.</p></li>
+<li><p>Did the candidate understand the fundamentals of a system by filling the prompt gaps?</p></li>
+<li><p>Did they name and explain at a high level each part of the system.</p></li>
+<li><p>Did they describe the tradeoffs?</p></li>
+<li><p>Were they receptive to feedback?</p></li>
+<li><p>Did they drive the interview process?</p></li>
+</ol>
+</section>
+<section id="links-to-follow">
+<h2>Links to follow<a class="headerlink" href="#links-to-follow" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://robertovitillo.com/how-to-conduct-a-system-design-interview/">How to conduct a system design interview</a></p></li>
+<li><p><a class="reference external" href="https://interviewing.io/guides/system-design-interview/part-two">Part 2</a> (<a class="reference internal" href="20-a_senior_engineer_s_guide_to_the_system_design_interview_p2.html"><span class="std std-doc">Notes</span></a></p></li>
+</ul>
 </section>
 </section>
 
@@ -270,20 +305,20 @@ I expect to see at least some of them in GitHub and GitLab by the end of 2024.</
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="17-why_we_always_end_up_with_waterfall.html"
+       href="18-robots_vs_programmers.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Why we always end up with waterfall</p>
+        <p class="prev-next-title">Robots vs. Programmers</p>
       </div>
     </a>
     <a class="right-next"
-       href="19-a_senior_engineer_s_guide_to_the_system_design_interview_p1.html"
+       href="20-a_senior_engineer_s_guide_to_the_system_design_interview_p2.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">A Senior Engineer’s Guide to the System Design Interview (Part 1)</p>
+        <p class="prev-next-title">A Senior Engineer’s Guide to the System Design Interview (Part 2)</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -307,13 +342,14 @@ I expect to see at least some of them in GitHub and GitLab by the end of 2024.</
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#links-to-follow">Links to follow</a></li>
 </ul>
   </nav></div>
 
   <div class="sidebar-secondary-item">
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/17_notes/18-robots_vs_programmers.md">
+    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/17_notes/19-a_senior_engineer_s_guide_to_the_system_design_interview_p1.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -327,7 +363,7 @@ I expect to see at least some of them in GitHub and GitLab by the end of 2024.</
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="../_sources/17_notes/18-robots_vs_programmers.md.txt">
+    <a href="../_sources/17_notes/19-a_senior_engineer_s_guide_to_the_system_design_interview_p1.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
