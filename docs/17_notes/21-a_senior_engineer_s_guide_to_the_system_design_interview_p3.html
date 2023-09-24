@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>&lt;no title&gt; &#8212; Peter Demin</title>
+    <title>A Senior Engineer’s Guide to the System Design Interview (Part 3) &#8212; Peter Demin</title>
   
   
   
@@ -45,9 +45,11 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '16_life/17-2023-09';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '17_notes/21-a_senior_engineer_s_guide_to_the_system_design_interview_p3';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Collecte - self-hosted open source email collector" href="../14_ideas/01-collector.html" />
+    <link rel="prev" title="A Senior Engineer’s Guide to the System Design Interview (Part 2)" href="20-a_senior_engineer_s_guide_to_the_system_design_interview_p2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -190,7 +192,7 @@ document.write(`
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">&lt;no title&gt;</li>
+    <li class="breadcrumb-item active" aria-current="page">A Senior Engineer’s Guide to the System Design Interview (Part 3)</li>
   </ul>
 </nav>
 </div>
@@ -207,10 +209,122 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <p><code class="docutils literal notranslate"><span class="pre">Sep</span> <span class="pre">23,</span> <span class="pre">2023</span></code> - Notes for A Senior Engineer’s Guide to the System Design Interview <a class="reference internal" href="../17_notes/20-a_senior_engineer_s_guide_to_the_system_design_interview_p2.html"><span class="std std-doc">part 2</span></a> and <a class="reference internal" href="../17_notes/21-a_senior_engineer_s_guide_to_the_system_design_interview_p3.html"><span class="std std-doc">part 3</span></a></p>
-<p><code class="docutils literal notranslate"><span class="pre">Sep</span> <span class="pre">20,</span> <span class="pre">2023</span></code> - Notes for <a class="reference internal" href="../17_notes/19-a_senior_engineer_s_guide_to_the_system_design_interview_p1.html"><span class="std std-doc">A Senior Engineer’s Guide to the System Design Interview (Part 1)</span></a></p>
-<p><code class="docutils literal notranslate"><span class="pre">Sep</span> <span class="pre">18,</span> <span class="pre">2023</span></code> - Added article <a class="reference internal" href="../12_articles/39-mini-pc-gpio.html"><span class="std std-doc">Using GPIO on an industrial mini PC</span></a></p>
-<p><code class="docutils literal notranslate"><span class="pre">Sep</span> <span class="pre">07,</span> <span class="pre">2023</span></code> - Libraries to review: Fastapi, pydantic</p>
+  <section id="a-senior-engineer-s-guide-to-the-system-design-interview-part-3">
+<h1>A Senior Engineer’s Guide to the System Design Interview (Part 3)<a class="headerlink" href="#a-senior-engineer-s-guide-to-the-system-design-interview-part-3" title="Permalink to this heading">#</a></h1>
+<p>Article: <a class="reference external" href="https://interviewing.io/guides/system-design-interview/part-three">https://interviewing.io/guides/system-design-interview/part-three</a></p>
+<section id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Framework:</p>
+<ol class="arabic simple">
+<li><p>Gather requirements</p>
+<ul class="simple">
+<li><p>Functional requirements:</p>
+<ul>
+<li><p>Identify the main objects and their relations.</p></li>
+<li><p>What attributes do these objects have? Are they mutable?</p></li>
+<li><p>Think about access patterns. “Given object X, return all related objects Y.”
+Consider the cross product of all related objects.</p></li>
+<li><p>List all the requirements you’ve identified and validate with your interviewer.</p></li>
+<li><p>Suggest complimentary features to demonstrate user-orientation.</p></li>
+</ul>
+</li>
+<li><p>Non-functional requirements:</p>
+<ul>
+<li><p>Performance:</p>
+<ul>
+<li><p>Synchronous user-facing workflows.</p></li>
+<li><p>Most frequently-accessed workflows.</p></li>
+</ul>
+</li>
+<li><p>Availability:</p>
+<ul>
+<li><p>Tradeoffs with cost and consistency.</p></li>
+</ul>
+</li>
+<li><p>Security</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Data Types, API and Scale</p>
+<ul class="simple">
+<li><p>List of Data Types we need to store: structured, blobs, media.</p></li>
+<li><p>API for these data types, HTTP verb with endpoint path for each access pattern.</p></li>
+<li><p>Scale of the data and requests the system needs to serve.</p>
+<ul>
+<li><p>Tell your interviewer: “It seems like we’ve identified the main requirements,
+we have an API in place, and we know how the distribution of requests looks.
+If I were designing this system for real, I’d probably want to do some
+back-of-the-envelope math to estimate the number of requests
+and average volume of data we need to store.
+Do you want me to do the math or do you want me to skip it?”</p></li>
+<li><p>Ballpark estimate for reads and writes per minute.
+Traffic in MB per minute.
+Storage growth in MB per minute.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Design</p>
+<ul class="simple">
+<li><p>Tell your interviewer: “I’m going to start drawing some boxes.
+I’m just thinking out loud for now, so don’t hold me to any of this.
+We can come back to it later.”</p></li>
+<li><p>Data storage.</p>
+<ul>
+<li><p>Mention using blob storage for storing binary large objects.</p></li>
+<li><p>SQL vs NoSQL dance:</p>
+<ul>
+<li><p>Do we need strong consistency?</p></li>
+<li><p>Do we have large volumes of unstructured data?</p></li>
+<li><p>Pick one, justify the choice, move on.</p></li>
+</ul>
+</li>
+<li><p>Iterate on the storage design:</p>
+<ul>
+<li><p>Add table for each entity.</p></li>
+<li><p>See if all access patterns are supported.</p></li>
+<li><p>Add fields/tables.</p></li>
+<li><p>Check for performance bottlenecks.
+Stating your rationale followed by a subtle “what do you think?” or
+“let me know if you think I’m approaching this the wrong way”
+is the perfect balance between being independent but also collaborative.</p></li>
+<li><p>Optimize read speed using prepopulated tables.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Microservices.</p>
+<ul>
+<li><p>The cherry on top.</p></li>
+<li><p>Caches.</p></li>
+<li><p>Queues.</p></li>
+<li><p>Load balancers.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<p>The process explained in the article is very close to what I experienced in interviews with many companies.
+But the more I think about it, calling this a “system design interview” is a misnomer.
+The term is so vague, that you can’t tell what’s expected of you unless you’ve read this guide.
+The main objective seems to convince the interviewer about your seniority by the way you briefly handwave complex topics.
+Just like with the coding interview, system design interview has very little to do with how you go about day-to-day work.
+It’s a separate skill, the ritual that shows that you’ve prepared for the interview process.</p>
+</section>
+<section id="links-to-follow">
+<h2>Links to follow<a class="headerlink" href="#links-to-follow" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://interviewing.io/guides/system-design-interview/part-four">Part 4</a></p></li>
+</ul>
+</section>
+</section>
 
 
                 </article>
@@ -223,6 +337,24 @@ document.write(`
   
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="20-a_senior_engineer_s_guide_to_the_system_design_interview_p2.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">A Senior Engineer’s Guide to the System Design Interview (Part 2)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../14_ideas/01-collector.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Collecte - self-hosted open source email collector</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div></div>
   
 </div>
@@ -240,15 +372,17 @@ document.write(`
     <i class="fa-solid fa-list"></i> On this page
   </div>
   <nav class="bd-toc-nav page-toc">
-    <ul class="simple visible nav section-nav flex-column">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#links-to-follow">Links to follow</a></li>
 </ul>
-
   </nav></div>
 
   <div class="sidebar-secondary-item">
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/16_life/17-2023-09.md">
+    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/17_notes/21-a_senior_engineer_s_guide_to_the_system_design_interview_p3.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -262,7 +396,7 @@ document.write(`
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="../_sources/16_life/17-2023-09.md.txt">
+    <a href="../_sources/17_notes/21-a_senior_engineer_s_guide_to_the_system_design_interview_p3.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
