@@ -32,7 +32,7 @@ Article: <https://interviewing.io/guides/system-design-interview/part-two>
 
 ## Links to follow
 
-- [Part 3](https://interviewing.io/guides/system-design-interview/part-three)
+- [Part 3](https://interviewing.io/guides/system-design-interview/part-three) ([my notes](/17_notes/21-a_senior_engineer_s_guide_to_the_system_design_interview_p3.md))
 - [Log-structured merge-tree](https://en.wikipedia.org/wiki/Log-structured_merge-tree)
 - [SSTable](https://www.scylladb.com/glossary/sstable/)
 - [AWS RDS Sharding](https://aws.amazon.com/blogs/database/sharding-with-amazon-relational-database-service/)
