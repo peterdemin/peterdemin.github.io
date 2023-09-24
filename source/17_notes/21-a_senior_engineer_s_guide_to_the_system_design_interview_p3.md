@@ -1,4 +1,4 @@
-# A Senior Engineer's Guide to the System Design Interview part 3
+# A Senior Engineer's Guide to the System Design Interview (Part 3)
 
 Article: <https://interviewing.io/guides/system-design-interview/part-three>
 
