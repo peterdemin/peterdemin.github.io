@@ -15,14 +15,15 @@ Article: <https://interviewing.io/guides/system-design-interview/part-two>
 6. Fundamental concepts:
    1. API: REST, RPC, GraphQL.
    2. Databases: SQL, NoSQL.
-   3. Scaling: Vertical, horizontal.
-   4. Load balancers: Round-robin, least connections.
-   5. Caching: Write-through, write-behind, invalidation.
-   6. Queues: at least once, at most once, ordering guarantees.
-   7. Indexing: B-tree, hash.
-   8. Failovers: Lost updates, leader failure detection, split-brain.
-   9. Replication: sync, async.
-   10. Consistent hashing: faster node number changes, log(nodes) lookups.
+   3. Consistency vs. Availability (CAP theorem with P chosen by default).
+   4. Scaling: Vertical, horizontal.
+   5. Load balancers: Round-robin, least connections.
+   6. Caching: Write-through, write-behind, invalidation.
+   7. Queues: at least once, at most once, ordering guarantees.
+   8. Indexing: B-tree, hash.
+   9. Failovers: Lost updates, leader failure detection, split-brain.
+   10. Replication: sync, async.
+   11. Consistent hashing: faster node number changes, log(nodes) lookups.
 
 ## Conclusion
 
