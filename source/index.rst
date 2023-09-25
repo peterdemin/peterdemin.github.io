@@ -1,7 +1,9 @@
 👋 Hi, I'm Peter
 ================
 
-I develop Python services for `Moveworks <https://moveworks.ai>`_ in United States.
+I live in US and open to work. 
+`LinkedIn profile <https://linkedin.com/in/peterdemin/>`_ |
+`Resume <_static/PeterDemin.pdf>`_.
 
 Previously I lived in Russia and Belarus working for Yandex and EPAM in the same position.
 
