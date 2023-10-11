@@ -3,7 +3,8 @@
 
 I live in US and open to work. 
 `LinkedIn profile <https://linkedin.com/in/peterdemin/>`_ |
-`Resume <_static/PeterDemin.pdf>`_.
+`Resume <_static/PeterDemin.pdf>`_ |
+`Calendly <https://calendly.com/peterdemin>`_.
 
 Previously I lived in Russia and Belarus working for Yandex and EPAM in the same position.
 
