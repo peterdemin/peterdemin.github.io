@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>A Senior Engineer’s Guide to the System Design Interview (Part 4) &#8212; Peter Demin</title>
+    <title>Being Accountable When You Don’t Have Control &#8212; Peter Demin</title>
   
   
   
@@ -45,11 +45,11 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '17_notes/22-a_senior_engineer_s_guide_to_the_system_design_interview_part_4_';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '17_notes/23-being_accountable_when_you_dont_have_control';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Being Accountable When You Don’t Have Control" href="23-being_accountable_when_you_dont_have_control.html" />
-    <link rel="prev" title="A Senior Engineer’s Guide to the System Design Interview (Part 3)" href="21-a_senior_engineer_s_guide_to_the_system_design_interview_p3.html" />
+    <link rel="next" title="Collecte - self-hosted open source email collector" href="../14_ideas/01-collector.html" />
+    <link rel="prev" title="A Senior Engineer’s Guide to the System Design Interview (Part 4)" href="22-a_senior_engineer_s_guide_to_the_system_design_interview_part_4_.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -192,7 +192,7 @@ document.write(`
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">A Senior Engineer’s Guide to the System Design Interview (Part 4)</li>
+    <li class="breadcrumb-item active" aria-current="page">Being Accountable When You Don’t Have Control</li>
   </ul>
 </nav>
 </div>
@@ -209,153 +209,18 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="a-senior-engineer-s-guide-to-the-system-design-interview-part-4">
-<h1>A Senior Engineer’s Guide to the System Design Interview (Part 4)<a class="headerlink" href="#a-senior-engineer-s-guide-to-the-system-design-interview-part-4" title="Permalink to this heading">#</a></h1>
-<p>Article: <a class="reference external" href="https://interviewing.io/guides/system-design-interview/part-four">https://interviewing.io/guides/system-design-interview/part-four</a></p>
+  <section id="being-accountable-when-you-dont-have-control">
+<h1>Being Accountable When You Don’t Have Control<a class="headerlink" href="#being-accountable-when-you-dont-have-control" title="Permalink to this heading">#</a></h1>
+<p>Article: <a class="reference external" href="https://www.lianedavey.com/being-accountable-when-you-dont-have-control/">https://www.lianedavey.com/being-accountable-when-you-dont-have-control/</a></p>
 <section id="notes">
 <h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h2>
-<ul>
-<li><p>Going through example designs as an exercise for the framework.</p></li>
-<li><p>Using Pastebin as a simplest example.</p></li>
-<li><p>Gather requirements:</p>
-<ul class="simple">
-<li><p>Starting with functional requirements. Objects and their interactions.</p></li>
-<li><p>The data is immutable for simplicity.</p></li>
-<li><p>Extra considerations: analytics, monetization, legal.</p></li>
-<li><p>Non-functional requirements: availability, consistency, durability, scalability, latency.</p></li>
-<li><p>Check with interviewer if you missed something.</p></li>
-<li><p>Estimates are used to justify building a complex distributed system.
-Ask your interviewer if they’d like to see some calculations.</p></li>
-<li><p>Estimate storage and bandwidth. Use 100K seconds per day (15% error).</p></li>
-</ul>
-</li>
-<li><p>Data Types, API and Scale:</p>
-<ul class="simple">
-<li><p>Using NoSQL database, because transactions and joins are not needed.</p></li>
-<li><p>Explaining API as RESTful, because there’s no batching, streaming, and push notifications.</p></li>
-<li><p>Iterating to add mutability.</p></li>
-</ul>
-</li>
-<li><p>Design:
-???</p></li>
-<li><p>Suddenly, topic switches to a distributed Unique ID generation.</p></li>
-<li><p>A lot of math to say “use 128-bit keys, possibly UUID4.”</p></li>
-<li><p>Jump to “AOL Instant Messenger.”</p></li>
-<li><p>Functional requirements: have auth, send messages.</p></li>
-<li><p>Non-functional requirements: eventual consistency, high availability, durability.</p></li>
-<li><p>Skipped data types, API, and scale.</p></li>
-<li><p>Design. Classic sandwich: load-balancer, middleware, sharded replicated database.</p></li>
-<li><p>Jump to “Design Ticketmaster” (Trying on my own before reading.)</p>
-<ul>
-<li><p>Organizers create events.</p></li>
-<li><p>People buy tickets and attend events.</p></li>
-<li><p>Entities: organizer, person, event, ticket.</p></li>
-<li><p>Functional requirements:</p>
-<ul class="simple">
-<li><p>Organizer creates event and sets the numbers and kinds of available tickets.</p></li>
-<li><p>Organizer can list their (immutable) events.</p></li>
-<li><p>Person can list and filter (search) available events.</p></li>
-<li><p>Person can purchase a ticket for an event. Reservation?</p></li>
-<li><p>Person can view purchase history.</p></li>
-<li><p>Venue stuff can punch tickets.</p></li>
-<li><p>Extra: return tickets, cancel events, change events, transfer tickets.</p></li>
-</ul>
-</li>
-<li><p>Non-functional requirements:</p>
-<ul class="simple">
-<li><p>Strict consistency: no double-booking.</p></li>
-<li><p>High availability.</p></li>
-<li><p>Fast purchase, event creation can be slower.</p></li>
-<li><p>High durability for upcoming events. Not so much for past events.</p></li>
-</ul>
-</li>
-<li><p>Data storage:</p>
-<ul class="simple">
-<li><p>Organizer: contract, collateral.</p></li>
-<li><p>Events: date, description, images, videos. Comments?</p></li>
-<li><p>Venues: sitting plan.</p></li>
-<li><p>Tickets: price, amount, type/name, sit number, virtual.</p></li>
-<li><p>People: email, payment method, notifications, promotions.</p></li>
-<li><p>SQL database for structured data, Blob storage for media.</p></li>
-<li><p>Seat occupancy cache.</p></li>
-<li><p>Shard by event.</p></li>
-</ul>
-</li>
-<li><p>API:</p>
-<ul class="simple">
-<li><p>POST /event/</p></li>
-<li><p>GET /event/{event_id}/</p></li>
-<li><p>GET /event/{event_id}/ticket/</p></li>
-<li><p>POST /event/{event_id}/ticket/</p></li>
-<li><p>GET /event/{event_id}/ticket/{ticket_id}/</p></li>
-<li><p>GET /ticket/</p></li>
-<li><p>GET /search/event/?location=…&amp;dates=…</p></li>
-</ul>
-</li>
-<li><p>Scalability:</p>
-<ul class="simple">
-<li><p>Traffic is spiky, hot events will have thousands of users trying to by tickets as as they’re available.</p></li>
-<li><p>10K RPM for sales.</p></li>
-<li><p>Several events launching at the same time.</p></li>
-<li><p>Read-only fallback</p></li>
-<li><p>Synchronous replication from leader</p></li>
-<li><p>Replicas close-by</p></li>
-</ul>
-</li>
-<li><p>Design:</p>
-<ul class="simple">
-<li><p>Services</p></li>
-</ul>
-<ul class="simple">
-<li><p>Database</p></li>
-</ul>
-<div class="graphviz"><img src="../_images/graphviz-c765f34ec093d279d69ee368269d88ffc92fc62a.png" alt="digraph database {
-edge [color=&quot;#808080&quot;, arrowsize=.6, penwidth=3, minlen=3];
-node [shape=box, fontname=&quot;DIN Next, sans-serif&quot;, style=&quot;rounded,filled&quot;, penwidth=5, fillcolor=&quot;#8010d0&quot;, color=&quot;#f0f0f0&quot;, fontcolor=white,  margin=&quot;0.35&quot; fontweight=bold]
-bgcolor=&quot;#f0f0f0&quot;;
-
-Users
-Events
-Seats
-Tickets
-
-Users -&gt; Seats [label=&quot;1 to many&quot;]
-Users -&gt; Tickets [label=&quot;1 to many&quot;]
-Events -&gt; Seats [label=&quot;1 to many&quot;]
-Events -&gt; Tickets [label=&quot;1 to many&quot;]
-Tickets -&gt; Seats [label=&quot;1 to 1&quot;]
-}" class="graphviz" /></div>
-<ul class="simple">
-<li><p>Tickets:</p>
-<ul>
-<li><p>event_id</p></li>
-<li><p>seat_id</p></li>
-<li><p>reserved_by</p></li>
-<li><p>reserved_at</p></li>
-<li><p>purchased_by</p></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+<p>TBD</p>
 </section>
 <section id="conclusion">
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
-<p>Exercises helped with understanding the steps of the framework better.
-Following the process demonstrates a systematic approach to design.
-Guide references to differences between junior, senior, and staff engineers,
-but doesn’t provide a good framework for what you should be looking out for
-to demonstrate your seniority.</p>
 </section>
 <section id="links-to-follow">
 <h2>Links to follow<a class="headerlink" href="#links-to-follow" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://brilliant.org/wiki/birthday-paradox/">Birthday paradox</a></p></li>
-<li><p><a class="reference external" href="https://phoenixnap.com/kb/acid-vs-base">BASE and ACID</a></p></li>
-<li><p>CAP</p></li>
-</ul>
 </section>
 </section>
 
@@ -371,20 +236,20 @@ to demonstrate your seniority.</p>
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="21-a_senior_engineer_s_guide_to_the_system_design_interview_p3.html"
+       href="22-a_senior_engineer_s_guide_to_the_system_design_interview_part_4_.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">A Senior Engineer’s Guide to the System Design Interview (Part 3)</p>
+        <p class="prev-next-title">A Senior Engineer’s Guide to the System Design Interview (Part 4)</p>
       </div>
     </a>
     <a class="right-next"
-       href="23-being_accountable_when_you_dont_have_control.html"
+       href="../14_ideas/01-collector.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Being Accountable When You Don’t Have Control</p>
+        <p class="prev-next-title">Collecte - self-hosted open source email collector</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -415,7 +280,7 @@ to demonstrate your seniority.</p>
   <div class="sidebar-secondary-item">
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/17_notes/22-a_senior_engineer_s_guide_to_the_system_design_interview_part_4_.md">
+    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/17_notes/23-being_accountable_when_you_dont_have_control.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -429,7 +294,7 @@ to demonstrate your seniority.</p>
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="../_sources/17_notes/22-a_senior_engineer_s_guide_to_the_system_design_interview_part_4_.md.txt">
+    <a href="../_sources/17_notes/23-being_accountable_when_you_dont_have_control.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
