@@ -53,10 +53,13 @@ Article: <https://interviewing.io/guides/system-design-interview/part-three>
                   is the perfect balance between being independent but also collaborative.
                 - Optimize read speed using prepopulated tables.
         - Microservices.
-            - The cherry on top.
             - Caches.
             - Queues.
             - Load balancers.
+        - Monitoring:
+            - Metrics.
+            - Alerts.
+            - Logging.
 
 ## Conclusion
 

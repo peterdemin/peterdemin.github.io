@@ -67,6 +67,20 @@ Article: <https://interviewing.io/guides/system-design-interview>
 6. Were they receptive to feedback?
 7. Did they drive the interview process?
 
+Here's the things Apple interviewers are looking for:
+1. Setting/scoping reasonable product requirements.
+2. System evaluation.
+3. Sharding.
+4. Monitoring.
+5. Alerting.
+6. Estimating roundtrip times and memory/disk/cpu/gpu.
+7. Caching.
+8. Inference.
+9. Succinct communication.
+10. Understandability.
+11. Creativity.
+12. And depth in all aspects of the design.
+
 ## Links to follow
 
 - [How to conduct a system design interview](https://robertovitillo.com/how-to-conduct-a-system-design-interview/)
