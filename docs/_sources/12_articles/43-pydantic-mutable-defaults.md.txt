@@ -91,7 +91,7 @@ As a down-side, they might learn a wrong lesson about default values in Python.
 Using mutable object as a default value for a function parameter is still a dangerous bug
 everywhere outside of Pydantic fields definition.
 
-And for the experienced Python developers, this means increased [intrinsic cognitive load](source/17_notes/11-cognitive_load_is_what_matters.md) to distinguish implicit behavior inside and outside of Pydantic.
+And for the experienced Python developers, this means increased [intrinsic cognitive load](/17_notes/11-cognitive_load_is_what_matters.md) to distinguish implicit behavior inside and outside of Pydantic.
 
 ## Recommendation
 
