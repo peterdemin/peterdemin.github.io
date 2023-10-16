@@ -275,7 +275,7 @@ Which means, that the same <code class="docutils literal notranslate"><span clas
     <span class="k">return</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>  <span class="c1"># slowest way when we actually might need a deepcopy</span>
 </pre></div>
 </div>
-<p>It checks a ~list~ set of known immutable types, that are safe for being defaults.
+<p>It checks a set of known immutable types, that are safe for being defaults.
 And it has a set of builtin collections that can be copied fast when empty.
 And for all the rest it’s using <code class="docutils literal notranslate"><span class="pre">deepcopy</span></code>.</p>
 </section>

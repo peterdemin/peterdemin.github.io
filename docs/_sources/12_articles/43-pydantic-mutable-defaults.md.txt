@@ -75,7 +75,7 @@ def smart_deepcopy(obj: Obj) -> Obj:
     return deepcopy(obj)  # slowest way when we actually might need a deepcopy
 ```
 
-It checks a ~list~ set of known immutable types, that are safe for being defaults.
+It checks a set of known immutable types, that are safe for being defaults.
 And it has a set of builtin collections that can be copied fast when empty.
 And for all the rest it's using `deepcopy`.
 
