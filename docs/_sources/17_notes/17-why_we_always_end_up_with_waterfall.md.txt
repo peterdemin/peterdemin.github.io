@@ -25,4 +25,4 @@ Which brings me to an idea of trying to diagram ADR, AAF, DRI as a system in the
 
 ## Links to follow
 
-- ["Thinking in Systems" by Donella H. Meadows](https://www.amazon.com/Thinking-Systems-Donella-H-Meadows/dp/1603580557?&_encoding=UTF8&tag=peterdemin-20&linkCode=ur2&linkId=64cb5331199bfc113ae750f07baf5d69&camp=1789&creative=9325)
+- ["Thinking in Systems" by Donella H. Meadows](https://www.amazon.com/Thinking-Systems-Donella-H-Meadows/dp/1603580557?&_encoding=UTF8&tag=peterdemin-20&linkCode=ur2&linkId=64cb5331199bfc113ae750f07baf5d69&camp=1789&creative=9325) (paid link)
