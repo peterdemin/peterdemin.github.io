@@ -26,7 +26,7 @@ Their common features are:
 The fanless design makes them a good candidate for dusty environments.
 The common problem with them is the lack of documentation and support forums.
 
-I had a chance to work with this model: [Kingdel mini PC](https://a.co/d/aC6lhQ5?tag=peterdemin-20).
+I had a chance to work with this model: [Kingdel mini PC](https://a.co/d/aC6lhQ5?tag=peterdemin-20) (paid link).
 It has an Intel CPU, Samsung SSD, and an array of GPIO ports.
 
 ## Accessing GPIO on Linux
