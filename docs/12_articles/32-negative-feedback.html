@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -34,16 +34,18 @@
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=6e40e738" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=ccbe24c1"></script>
+    <script src="../_static/documentation_options.js?v=8a448e45"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/32-negative-feedback';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -60,6 +62,15 @@
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -100,7 +111,8 @@
     <span class="fa-solid fa-bars"></span>
   </label>
   
-  <div class="navbar-header-items__start">
+  
+  <div class="col-lg-3 navbar-header-items__start">
     
       <div class="navbar-item">
   
@@ -117,7 +129,6 @@
     
   </div>
   
-  
   <div class="col-lg-9 navbar-header-items">
     
     
@@ -125,13 +136,15 @@
       
         <div class="navbar-item navbar-persistent--container">
           
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
         </div>
       
       
@@ -141,18 +154,20 @@ document.write(`
   
   
     <div class="navbar-persistent--mobile">
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
     </div>
   
 
   
-    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
       <span class="fa-solid fa-outdent"></span>
     </label>
   
@@ -184,15 +199,15 @@ document.write(`
 
 
 
-<nav aria-label="Breadcrumbs">
-  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
     
     <li class="breadcrumb-item breadcrumb-home">
       <a href="../index.html" class="nav-link" aria-label="Home">
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">Negative Non-Actionable Feedback</li>
+    <li class="breadcrumb-item active" aria-current="page">Negative...</li>
   </ul>
 </nav>
 </div>
@@ -210,9 +225,9 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section id="negative-non-actionable-feedback">
-<h1>Negative Non-Actionable Feedback<a class="headerlink" href="#negative-non-actionable-feedback" title="Permalink to this heading">#</a></h1>
+<h1>Negative Non-Actionable Feedback<a class="headerlink" href="#negative-non-actionable-feedback" title="Link to this heading">#</a></h1>
 <section id="the-impact-of-negative-non-actionable-feedback">
-<h2>The Impact of Negative Non-Actionable Feedback<a class="headerlink" href="#the-impact-of-negative-non-actionable-feedback" title="Permalink to this heading">#</a></h2>
+<h2>The Impact of Negative Non-Actionable Feedback<a class="headerlink" href="#the-impact-of-negative-non-actionable-feedback" title="Link to this heading">#</a></h2>
 <p>Negative non-actionable feedback, characterized by vague criticisms
 without clear guidelines for improvement, can leave the recipient
 feeling demoralized and unsure of how to rectify their perceived shortcomings.
@@ -223,7 +238,7 @@ areas of improvement, hindering the engineer’s professional growth
 and potentially impacting the overall team’s productivity.</p>
 </section>
 <section id="a-missed-opportunity-for-growth">
-<h2>A Missed Opportunity for Growth<a class="headerlink" href="#a-missed-opportunity-for-growth" title="Permalink to this heading">#</a></h2>
+<h2>A Missed Opportunity for Growth<a class="headerlink" href="#a-missed-opportunity-for-growth" title="Link to this heading">#</a></h2>
 <p>An engineering director has a vital responsibility to provide feedback
 that nurtures the potential of their team members.
 However, when negative feedback lacks specificity and actionable advice,
@@ -234,7 +249,7 @@ The engineer may struggle to understand the exact areas in need of improvement,
 hindering their progress and limiting their professional development.</p>
 </section>
 <section id="creating-a-conducive-work-environment">
-<h2>Creating a Conducive Work Environment<a class="headerlink" href="#creating-a-conducive-work-environment" title="Permalink to this heading">#</a></h2>
+<h2>Creating a Conducive Work Environment<a class="headerlink" href="#creating-a-conducive-work-environment" title="Link to this heading">#</a></h2>
 <p>A productive work environment hinges on effective communication and constructive feedback.
 An engineering director should recognize the impact of their words
 and take responsibility for providing actionable feedback that promotes growth.
@@ -245,7 +260,7 @@ culture that encourages continuous learning, innovation,
 and collaboration within the engineering team.</p>
 </section>
 <section id="the-role-of-constructive-feedback">
-<h2>The Role of Constructive Feedback<a class="headerlink" href="#the-role-of-constructive-feedback" title="Permalink to this heading">#</a></h2>
+<h2>The Role of Constructive Feedback<a class="headerlink" href="#the-role-of-constructive-feedback" title="Link to this heading">#</a></h2>
 <p>In contrast to negative non-actionable feedback, constructive
 feedback is specific, actionable, and focused on improvement.
 It offers the recipient clear guidance on how to enhance their
@@ -257,7 +272,7 @@ This approach fosters a growth mindset, boosts motivation,
 and creates an environment where individuals can thrive professionally.</p>
 </section>
 <section id="ways-to-improve">
-<h2>Ways to Improve<a class="headerlink" href="#ways-to-improve" title="Permalink to this heading">#</a></h2>
+<h2>Ways to Improve<a class="headerlink" href="#ways-to-improve" title="Link to this heading">#</a></h2>
 <p>As an engineer, you can play a valuable role in helping your
 manager provide actionable feedback.
 Here are a few ways you can contribute:</p>
@@ -314,11 +329,10 @@ will support your professional development and contribute to your success.</p>
               
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="31-pmbok-quotes.html"
@@ -338,10 +352,7 @@ will support your professional development and contribute to your success.</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -400,8 +411,8 @@ will support your professional development and contribute to your success.</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -419,7 +430,7 @@ will support your professional development and contribute to your success.</p>
       
         <div class="footer-item">
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -427,10 +438,11 @@ will support your professional development and contribute to your success.</p>
     </div>
   
   
+  
     <div class="footer-items__end">
       
         <div class="footer-item"><p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.14.1.
 </p></div>
       
     </div>

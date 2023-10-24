@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -34,16 +34,18 @@
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=6e40e738" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=ccbe24c1"></script>
+    <script src="../_static/documentation_options.js?v=8a448e45"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/25-tailscale';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -60,6 +62,15 @@
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -100,7 +111,8 @@
     <span class="fa-solid fa-bars"></span>
   </label>
   
-  <div class="navbar-header-items__start">
+  
+  <div class="col-lg-3 navbar-header-items__start">
     
       <div class="navbar-item">
   
@@ -117,7 +129,6 @@
     
   </div>
   
-  
   <div class="col-lg-9 navbar-header-items">
     
     
@@ -125,13 +136,15 @@
       
         <div class="navbar-item navbar-persistent--container">
           
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
         </div>
       
       
@@ -141,18 +154,20 @@ document.write(`
   
   
     <div class="navbar-persistent--mobile">
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
     </div>
   
 
   
-    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
       <span class="fa-solid fa-outdent"></span>
     </label>
   
@@ -184,15 +199,15 @@ document.write(`
 
 
 
-<nav aria-label="Breadcrumbs">
-  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
     
     <li class="breadcrumb-item breadcrumb-home">
       <a href="../index.html" class="nav-link" aria-label="Home">
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">Personal VPN: a tale of Tailscale and Headscale</li>
+    <li class="breadcrumb-item active" aria-current="page">Personal...</li>
   </ul>
 </nav>
 </div>
@@ -210,9 +225,9 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section id="personal-vpn-a-tale-of-tailscale-and-headscale">
-<h1>Personal VPN: a tale of Tailscale and Headscale<a class="headerlink" href="#personal-vpn-a-tale-of-tailscale-and-headscale" title="Permalink to this heading">#</a></h1>
+<h1>Personal VPN: a tale of Tailscale and Headscale<a class="headerlink" href="#personal-vpn-a-tale-of-tailscale-and-headscale" title="Link to this heading">#</a></h1>
 <section id="background">
-<h2>Background<a class="headerlink" href="#background" title="Permalink to this heading">#</a></h2>
+<h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
 <p>I’ve been using different types of VPNs for many years for several reasons:</p>
 <ol class="arabic simple">
 <li><p>Public WiFi security.</p></li>
@@ -230,14 +245,14 @@ to the proprietary Tailscale control center for personal self-hosted use.
 Which made me curious enough to finally try <a class="reference external" href="https://tailscale.com/">Tailscale</a> itself.</p>
 </section>
 <section id="installing-tailscale">
-<h2>Installing Tailscale<a class="headerlink" href="#installing-tailscale" title="Permalink to this heading">#</a></h2>
+<h2>Installing Tailscale<a class="headerlink" href="#installing-tailscale" title="Link to this heading">#</a></h2>
 <p>I quickly registered using my Google account and added two devices - all in about five minutes - impressive!</p>
 <p>Tailscale tracks Google account and IP addresses to provide network connectivity,
 which is extremely user-friendly, but leaves a weird feeling of half-way private solution.
 So, naturally, the next step is to replace the third-party proprietary control center with a self-hosted open-source alternative.</p>
 </section>
 <section id="installing-headscale">
-<h2>Installing Headscale<a class="headerlink" href="#installing-headscale" title="Permalink to this heading">#</a></h2>
+<h2>Installing Headscale<a class="headerlink" href="#installing-headscale" title="Link to this heading">#</a></h2>
 <p>Headscale provides binary releases (current version is <a class="reference external" href="https://github.com/juanfont/headscale/releases/tag/v0.17.1">0.17.1</a>)
 but I’m not too fond of the experience of downloading and upgrading from GitHub releases, so I thought I better build it from sources.</p>
 <p>I cloned the repo:</p>
@@ -248,7 +263,7 @@ but I’m not too fond of the experience of downloading and upgrading from GitHu
 <p>And quickly realized that the build instructions assume I’m an experienced <a class="reference external" href="https://nixos.org/">Nix</a> user.</p>
 </section>
 <section id="installing-nix">
-<h2>Installing Nix<a class="headerlink" href="#installing-nix" title="Permalink to this heading">#</a></h2>
+<h2>Installing Nix<a class="headerlink" href="#installing-nix" title="Link to this heading">#</a></h2>
 <p>I’ve heard good things about Nix (mostly from <a class="reference external" href="https://xeiaso.net/blog">Xe’s blog</a>), so I thought it’s a good opportunity to poke it.</p>
 <p>I fruitlessly searched for a way to install the Nix build system as an Ubuntu package, but it seems that running shell scripts from the internet with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> is the only supported way to install it right now.
 I hesitated a bit, but not for too long, and gave it a try:</p>
@@ -286,7 +301,7 @@ $ sha256sum result/bin/headscale
 <p>SHA sum doesn’t match the one from the official release (<code class="docutils literal notranslate"><span class="pre">e8d3d74b040bd2e3e9f049d95e4f4b759160518a1cf682ec0bb76f2fed7d77cf</span></code>), but whatever.</p>
 </section>
 <section id="back-to-installing-headscale">
-<h2>Back to installing Headscale<a class="headerlink" href="#back-to-installing-headscale" title="Permalink to this heading">#</a></h2>
+<h2>Back to installing Headscale<a class="headerlink" href="#back-to-installing-headscale" title="Link to this heading">#</a></h2>
 <p>Let’s see what it does:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ result/bin/headscale --help
 
@@ -381,7 +396,7 @@ I tried <code class="docutils literal notranslate"><span class="pre">curl</span>
 <p>At this point, I realized that headscale is not at the stage where I want to entrust it with my private VPN.</p>
 </section>
 <section id="back-to-installing-tailscale">
-<h2>Back to installing Tailscale<a class="headerlink" href="#back-to-installing-tailscale" title="Permalink to this heading">#</a></h2>
+<h2>Back to installing Tailscale<a class="headerlink" href="#back-to-installing-tailscale" title="Link to this heading">#</a></h2>
 <p>The free Tailscale account experience is an absolute delight.
 I added my cloud VM to the same account using <code class="docutils literal notranslate"><span class="pre">tailscale</span> <span class="pre">up</span></code> in a minute (after adding Tailscale’s repo following <a class="reference external" href="https://tailscale.com/kb/1039/install-ubuntu-2004/">these instructions</a>):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">tailscale</span>
@@ -392,7 +407,7 @@ I added my cloud VM to the same account using <code class="docutils literal notr
 I switched to this solution instead of a combination of Google Cloud Firewall Updater (<a class="reference external" href="https://github.com/peterdemin/gcpfwup">gcpfwup</a>) and ssh tunnel.</p>
 </section>
 <section id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
 <p>Tailscale revolutionized the virtual private network setup.
 At least for a personal self-hosted home server setup.</p>
 <p>On the other hand, headscale’s user experience could be better at the moment (as of January 2023, version 0.17.1).</p>
@@ -404,11 +419,10 @@ At least for a personal self-hosted home server setup.</p>
               
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="24-ChatGPT-recruiting.html"
@@ -428,10 +442,7 @@ At least for a personal self-hosted home server setup.</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -492,8 +503,8 @@ At least for a personal self-hosted home server setup.</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -511,7 +522,7 @@ At least for a personal self-hosted home server setup.</p>
       
         <div class="footer-item">
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -519,10 +530,11 @@ At least for a personal self-hosted home server setup.</p>
     </div>
   
   
+  
     <div class="footer-items__end">
       
         <div class="footer-item"><p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.14.1.
 </p></div>
       
     </div>

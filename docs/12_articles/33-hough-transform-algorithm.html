@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -34,16 +34,18 @@
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=6e40e738" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=ccbe24c1"></script>
+    <script src="../_static/documentation_options.js?v=8a448e45"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/33-hough-transform-algorithm';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -60,6 +62,15 @@
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -100,7 +111,8 @@
     <span class="fa-solid fa-bars"></span>
   </label>
   
-  <div class="navbar-header-items__start">
+  
+  <div class="col-lg-3 navbar-header-items__start">
     
       <div class="navbar-item">
   
@@ -117,7 +129,6 @@
     
   </div>
   
-  
   <div class="col-lg-9 navbar-header-items">
     
     
@@ -125,13 +136,15 @@
       
         <div class="navbar-item navbar-persistent--container">
           
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
         </div>
       
       
@@ -141,18 +154,20 @@ document.write(`
   
   
     <div class="navbar-persistent--mobile">
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
     </div>
   
 
   
-    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
       <span class="fa-solid fa-outdent"></span>
     </label>
   
@@ -184,15 +199,15 @@ document.write(`
 
 
 
-<nav aria-label="Breadcrumbs">
-  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
     
     <li class="breadcrumb-item breadcrumb-home">
       <a href="../index.html" class="nav-link" aria-label="Home">
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">Hough Transform Algorithm</li>
+    <li class="breadcrumb-item active" aria-current="page">Hough...</li>
   </ul>
 </nav>
 </div>
@@ -210,12 +225,12 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section id="hough-transform-algorithm">
-<h1>Hough Transform Algorithm<a class="headerlink" href="#hough-transform-algorithm" title="Permalink to this heading">#</a></h1>
+<h1>Hough Transform Algorithm<a class="headerlink" href="#hough-transform-algorithm" title="Link to this heading">#</a></h1>
 <p>Disclaimer: this article was generated by GPT-3.5. Prompt: Write a
 technical-oriented article explaining the Hough transform algorithm for
 finding circles in a grayscale image.</p>
 <section id="introduction">
-<span id="h-z50vezvsol1i"></span><h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h2>
+<span id="h-z50vezvsol1i"></span><h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
 <p>Computer vision plays a vital role in a wide range of applications,
 including object recognition, image segmentation, and feature
 extraction. Circle detection is a fundamental task in computer vision,
@@ -226,7 +241,7 @@ into the intricacies of the Hough Transform algorithm and explore its
 workings in circle detection.</p>
 </section>
 <section id="understanding-the-hough-transform">
-<span id="h-ws77q0yfii8b"></span><h2>Understanding the Hough Transform<a class="headerlink" href="#understanding-the-hough-transform" title="Permalink to this heading">#</a></h2>
+<span id="h-ws77q0yfii8b"></span><h2>Understanding the Hough Transform<a class="headerlink" href="#understanding-the-hough-transform" title="Link to this heading">#</a></h2>
 <p>The Hough Transform is a feature extraction technique that enables the
 detection of shapes, such as lines, circles, and ellipses, in digital
 images. Initially developed for line detection, it has been extended to
@@ -235,7 +250,7 @@ transforming the image space into parameter space, facilitating the
 detection of specific shapes based on their characteristic patterns.</p>
 </section>
 <section id="circle-detection-using-the-hough-transform">
-<span id="h-ob4qxlnwo8ej"></span><h2>Circle Detection using the Hough Transform<a class="headerlink" href="#circle-detection-using-the-hough-transform" title="Permalink to this heading">#</a></h2>
+<span id="h-ob4qxlnwo8ej"></span><h2>Circle Detection using the Hough Transform<a class="headerlink" href="#circle-detection-using-the-hough-transform" title="Link to this heading">#</a></h2>
 <p>Detecting circles in a grayscale image using the Hough Transform
 involves the following steps:</p>
 <p><strong>Step 1</strong>: Preprocessing Convert the input grayscale image into a
@@ -267,7 +282,7 @@ These parameters represent the estimated circles in the original image.</p>
 original grayscale image to visualize the circle detection results.</p>
 </section>
 <section id="benefits-and-limitations-of-the-hough-transform-algorithm">
-<span id="h-g9r4nc4zbefj"></span><h2>Benefits and Limitations of the Hough Transform Algorithm<a class="headerlink" href="#benefits-and-limitations-of-the-hough-transform-algorithm" title="Permalink to this heading">#</a></h2>
+<span id="h-g9r4nc4zbefj"></span><h2>Benefits and Limitations of the Hough Transform Algorithm<a class="headerlink" href="#benefits-and-limitations-of-the-hough-transform-algorithm" title="Link to this heading">#</a></h2>
 <p>The Hough Transform algorithm offers several advantages for circle
 detection:</p>
 <ol class="arabic simple">
@@ -289,7 +304,7 @@ for detecting circles with varying radii or non-circular shapes.</p></li>
 </ol>
 </section>
 <section id="conclusion">
-<span id="h-shoa9er7dj1"></span><h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<span id="h-shoa9er7dj1"></span><h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
 <p>The Hough Transform algorithm has proven to be a valuable tool for
 circle detection in grayscale images. By leveraging the power of
 parameter space and voting, it enables the identification of circular
@@ -299,7 +314,7 @@ in computer vision continue to enhance its effectiveness and broaden its
 scope for shape detection tasks.</p>
 </section>
 <section id="references">
-<span id="h-lukngty984rz"></span><h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<span id="h-lukngty984rz"></span><h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Duda, R.O., Hart, P.E., &amp; Stork, D.G. (2001). Pattern Classification
 (2nd ed.). Wiley-Interscience.</p></li>
@@ -316,11 +331,10 @@ Wikipedia</a></p></li>
               
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="32-negative-feedback.html"
@@ -340,10 +354,7 @@ Wikipedia</a></p></li>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -403,8 +414,8 @@ Wikipedia</a></p></li>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -422,7 +433,7 @@ Wikipedia</a></p></li>
       
         <div class="footer-item">
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -430,10 +441,11 @@ Wikipedia</a></p></li>
     </div>
   
   
+  
     <div class="footer-items__end">
       
         <div class="footer-item"><p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.14.1.
 </p></div>
       
     </div>

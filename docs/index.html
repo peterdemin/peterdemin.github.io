@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -34,16 +34,18 @@
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=6e40e738" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=ccbe24c1"></script>
+    <script src="_static/documentation_options.js?v=8a448e45"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -59,6 +61,15 @@
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -99,7 +110,8 @@
     <span class="fa-solid fa-bars"></span>
   </label>
   
-  <div class="navbar-header-items__start">
+  
+  <div class="col-lg-3 navbar-header-items__start">
     
       <div class="navbar-item">
   
@@ -116,7 +128,6 @@
     
   </div>
   
-  
   <div class="col-lg-9 navbar-header-items">
     
     
@@ -124,13 +135,15 @@
       
         <div class="navbar-item navbar-persistent--container">
           
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
         </div>
       
       
@@ -140,18 +153,20 @@ document.write(`
   
   
     <div class="navbar-persistent--mobile">
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
     </div>
   
 
   
-    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
       <span class="fa-solid fa-outdent"></span>
     </label>
   
@@ -183,7 +198,7 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section id="hi-i-m-peter">
-<h1>👋 Hi, I’m Peter<a class="headerlink" href="#hi-i-m-peter" title="Permalink to this heading">#</a></h1>
+<h1>👋 Hi, I’m Peter<a class="headerlink" href="#hi-i-m-peter" title="Link to this heading">#</a></h1>
 <p>I live in US and open to work.
 <a class="reference external" href="https://linkedin.com/in/peterdemin/">LinkedIn profile</a> |
 <a class="reference external" href="_static/PeterDemin.pdf">Resume</a> |
@@ -192,7 +207,7 @@ document.write(`
 <p>I write about Python, vim and git.
 I’m trying to keep a <a class="reference internal" href="life.html#life"><span class="std std-ref">public journal</span></a> about non-technical topics.</p>
 <section id="articles-and-notes">
-<h2>Articles and notes<a class="headerlink" href="#articles-and-notes" title="Permalink to this heading">#</a></h2>
+<h2>Articles and notes<a class="headerlink" href="#articles-and-notes" title="Link to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Articles:</span></p>
 <ul>
@@ -238,7 +253,7 @@ I’m trying to keep a <a class="reference internal" href="life.html#life"><span
 </div>
 </section>
 <section id="notes-from-my-reading-list">
-<h2>Notes from my reading list<a class="headerlink" href="#notes-from-my-reading-list" title="Permalink to this heading">#</a></h2>
+<h2>Notes from my reading list<a class="headerlink" href="#notes-from-my-reading-list" title="Link to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Articles:</span></p>
 <ul>
@@ -270,7 +285,7 @@ I’m trying to keep a <a class="reference internal" href="life.html#life"><span
 </div>
 </section>
 <section id="my-open-source-projects">
-<h2>My open source projects<a class="headerlink" href="#my-open-source-projects" title="Permalink to this heading">#</a></h2>
+<h2>My open source projects<a class="headerlink" href="#my-open-source-projects" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://kibitzr.github.io/">kibitzr</a> - Lightweight personal web assistant.</p></li>
 <li><p><a class="reference external" href="https://github.com/peterdemin/pip-compile-multi">pip-compile-multi</a> - Flexible Python dependency version locker.</p></li>
@@ -284,11 +299,11 @@ I’m trying to keep a <a class="reference internal" href="life.html#life"><span
 </ul>
 </section>
 <section id="my-side-gig">
-<h2>My side gig<a class="headerlink" href="#my-side-gig" title="Permalink to this heading">#</a></h2>
+<h2>My side gig<a class="headerlink" href="#my-side-gig" title="Link to this heading">#</a></h2>
 <p>Selling puppies at <a class="reference external" href="https://www.frenchbulldogsdmv.com/">French bulldogs DMV</a></p>
 </section>
 <section id="projects-that-did-not">
-<h2>Projects that did not<a class="headerlink" href="#projects-that-did-not" title="Permalink to this heading">#</a></h2>
+<h2>Projects that did not<a class="headerlink" href="#projects-that-did-not" title="Link to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Project ideas:</span></p>
 <ul>
@@ -302,7 +317,7 @@ I’m trying to keep a <a class="reference internal" href="life.html#life"><span
 </div>
 </section>
 <section id="projects-that-might">
-<h2>Projects that might<a class="headerlink" href="#projects-that-might" title="Permalink to this heading">#</a></h2>
+<h2>Projects that might<a class="headerlink" href="#projects-that-might" title="Link to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Project ideas:</span></p>
 <ul>
@@ -317,11 +332,10 @@ I’m trying to keep a <a class="reference internal" href="life.html#life"><span
               
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="right-next"
        href="12_articles/01-profiling-django-requests.html"
@@ -332,10 +346,7 @@ I’m trying to keep a <a class="reference internal" href="life.html#life"><span
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -395,8 +406,8 @@ I’m trying to keep a <a class="reference internal" href="life.html#life"><span
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -414,7 +425,7 @@ I’m trying to keep a <a class="reference internal" href="life.html#life"><span
       
         <div class="footer-item">
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -422,10 +433,11 @@ I’m trying to keep a <a class="reference internal" href="life.html#life"><span
     </div>
   
   
+  
     <div class="footer-items__end">
       
         <div class="footer-item"><p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.14.1.
 </p></div>
       
     </div>

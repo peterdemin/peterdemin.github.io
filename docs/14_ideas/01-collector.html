@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -34,16 +34,18 @@
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=6e40e738" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=ccbe24c1"></script>
+    <script src="../_static/documentation_options.js?v=8a448e45"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>DOCUMENTATION_OPTIONS.pagename = '14_ideas/01-collector';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -60,6 +62,15 @@
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -100,7 +111,8 @@
     <span class="fa-solid fa-bars"></span>
   </label>
   
-  <div class="navbar-header-items__start">
+  
+  <div class="col-lg-3 navbar-header-items__start">
     
       <div class="navbar-item">
   
@@ -117,7 +129,6 @@
     
   </div>
   
-  
   <div class="col-lg-9 navbar-header-items">
     
     
@@ -125,13 +136,15 @@
       
         <div class="navbar-item navbar-persistent--container">
           
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
         </div>
       
       
@@ -141,18 +154,20 @@ document.write(`
   
   
     <div class="navbar-persistent--mobile">
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
     </div>
   
 
   
-    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
       <span class="fa-solid fa-outdent"></span>
     </label>
   
@@ -184,15 +199,15 @@ document.write(`
 
 
 
-<nav aria-label="Breadcrumbs">
-  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
     
     <li class="breadcrumb-item breadcrumb-home">
       <a href="../index.html" class="nav-link" aria-label="Home">
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">Collecte - self-hosted open source email collector</li>
+    <li class="breadcrumb-item active" aria-current="page">Collecte -...</li>
   </ul>
 </nav>
 </div>
@@ -210,14 +225,14 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section id="collecte-self-hosted-open-source-email-collector">
-<h1>Collecte - self-hosted open source email collector<a class="headerlink" href="#collecte-self-hosted-open-source-email-collector" title="Permalink to this heading">#</a></h1>
+<h1>Collecte - self-hosted open source email collector<a class="headerlink" href="#collecte-self-hosted-open-source-email-collector" title="Link to this heading">#</a></h1>
 <p>Collect emails on your static website into your private git repo.
 The solution is targeted at people who already have a Linux server and domain,
 or don’t mind to get one.
 You have to be familiar with basics of operating a web server.
 No Python knowledge is required, but service is going to use it.</p>
 <section id="prerequisites">
-<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">#</a></h2>
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>You’ll need to host a Linux server somewhere.</p></li>
 <li><p>You’ll need a domain to serve the API requests.</p></li>
@@ -228,13 +243,13 @@ No Python knowledge is required, but service is going to use it.</p>
 </ul>
 </section>
 <section id="what-you-get">
-<h2>What you get<a class="headerlink" href="#what-you-get" title="Permalink to this heading">#</a></h2>
+<h2>What you get<a class="headerlink" href="#what-you-get" title="Link to this heading">#</a></h2>
 <p>Python service running on a virtual machine using systemd unit.
 Nginx serving a single API endpoint.
 Private git repository, that stores all submitted emails into a plain text file.</p>
 </section>
 <section id="how-it-works">
-<h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this heading">#</a></h2>
+<h2>How it works<a class="headerlink" href="#how-it-works" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Service accepts POST requests at <code class="docutils literal notranslate"><span class="pre">/singup</span></code>.</p></li>
 <li><p>Appends the received email to <code class="docutils literal notranslate"><span class="pre">emails.txt</span></code>.</p></li>
@@ -244,7 +259,7 @@ Private git repository, that stores all submitted emails into a plain text file.
 </ul>
 </section>
 <section id="how-to-install">
-<h2>How to install<a class="headerlink" href="#how-to-install" title="Permalink to this heading">#</a></h2>
+<h2>How to install<a class="headerlink" href="#how-to-install" title="Link to this heading">#</a></h2>
 <p>Instruction are written for Ubuntu Linux, but can be applied to any other Linux distribution.</p>
 <ol class="arabic">
 <li><p>Create a system user to run the service. <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">adduser</span> <span class="pre">--system</span> <span class="pre">collecte</span> <span class="pre">--home</span> <span class="pre">/var/lib/collecte</span></code></p></li>
@@ -308,11 +323,10 @@ Edit <code class="docutils literal notranslate"><span class="pre">/etc/nginx/sit
               
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="../17_notes/24-four_key_metrics_for_a_software_development_team.html"
@@ -332,10 +346,7 @@ Edit <code class="docutils literal notranslate"><span class="pre">/etc/nginx/sit
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -393,8 +404,8 @@ Edit <code class="docutils literal notranslate"><span class="pre">/etc/nginx/sit
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -412,7 +423,7 @@ Edit <code class="docutils literal notranslate"><span class="pre">/etc/nginx/sit
       
         <div class="footer-item">
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -420,10 +431,11 @@ Edit <code class="docutils literal notranslate"><span class="pre">/etc/nginx/sit
     </div>
   
   
+  
     <div class="footer-items__end">
       
         <div class="footer-item"><p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.14.1.
 </p></div>
       
     </div>

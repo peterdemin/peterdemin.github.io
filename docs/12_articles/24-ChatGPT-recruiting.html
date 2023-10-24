@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -34,16 +34,18 @@
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=6e40e738" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=ccbe24c1"></script>
+    <script src="../_static/documentation_options.js?v=8a448e45"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/24-ChatGPT-recruiting';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -60,6 +62,15 @@
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -100,7 +111,8 @@
     <span class="fa-solid fa-bars"></span>
   </label>
   
-  <div class="navbar-header-items__start">
+  
+  <div class="col-lg-3 navbar-header-items__start">
     
       <div class="navbar-item">
   
@@ -117,7 +129,6 @@
     
   </div>
   
-  
   <div class="col-lg-9 navbar-header-items">
     
     
@@ -125,13 +136,15 @@
       
         <div class="navbar-item navbar-persistent--container">
           
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
         </div>
       
       
@@ -141,18 +154,20 @@ document.write(`
   
   
     <div class="navbar-persistent--mobile">
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
     </div>
   
 
   
-    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
       <span class="fa-solid fa-outdent"></span>
     </label>
   
@@ -184,15 +199,15 @@ document.write(`
 
 
 
-<nav aria-label="Breadcrumbs">
-  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
     
     <li class="breadcrumb-item breadcrumb-home">
       <a href="../index.html" class="nav-link" aria-label="Home">
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">ChatGPT will replace recruiters</li>
+    <li class="breadcrumb-item active" aria-current="page">ChatGPT...</li>
   </ul>
 </nav>
 </div>
@@ -210,7 +225,7 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section id="chatgpt-will-replace-recruiters">
-<h1>ChatGPT will replace recruiters<a class="headerlink" href="#chatgpt-will-replace-recruiters" title="Permalink to this heading">#</a></h1>
+<h1>ChatGPT will replace recruiters<a class="headerlink" href="#chatgpt-will-replace-recruiters" title="Link to this heading">#</a></h1>
 <p>It’s sometimes hard to tell if the recruiter on LinkedIn is an actual person, or a bot.
 With templated reachouts, and scripted interactions, LinkedIn noticed it too, and rolled out
 auto-replies.</p>
@@ -218,14 +233,14 @@ auto-replies.</p>
 evaluate candidates profiles according to a job description, and handle the handover to hiring manager?</p>
 <p>In this article, I’m using ChatGPT to model technical recruiter’s job. At least the way I can observe it as a candidate.</p>
 <section id="profile">
-<h2>Profile<a class="headerlink" href="#profile" title="Permalink to this heading">#</a></h2>
+<h2>Profile<a class="headerlink" href="#profile" title="Link to this heading">#</a></h2>
 <p>First thing first, let’s generate a recruiter profile. No, let’s generate a template, and parametrize it later.
 Here’s what ChatGPT generate for a brief prompt:</p>
 <p><strong>Q: Generate a LinkedIn profile for a tech recruiter</strong></p>
 <p><strong>Name:</strong> {name}</p>
 <p><strong>Title:</strong> Tech Recruiter</p>
 <section id="summary">
-<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h3>
+<h3>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h3>
 <p>With over 10 years of experience in the tech industry, I have a proven
 track record of finding top talent for companies of all sizes.
 My expertise lies in identifying the skills and experience that make
@@ -235,7 +250,7 @@ I am passionate about helping companies grow and thrive by bringing
 on the right team members.</p>
 </section>
 <section id="experience">
-<h3>Experience<a class="headerlink" href="#experience" title="Permalink to this heading">#</a></h3>
+<h3>Experience<a class="headerlink" href="#experience" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><dl class="simple">
 <dt><strong>Tech Recruiter, {companies[0]} (2022-present)</strong></dt><dd><p>Responsible for full-cycle recruiting for a variety of tech roles,
@@ -269,14 +284,14 @@ process, from initial sourcing to final offer.</p>
 </ul>
 </section>
 <section id="education">
-<h3>Education<a class="headerlink" href="#education" title="Permalink to this heading">#</a></h3>
+<h3>Education<a class="headerlink" href="#education" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Bachelor’s Degree in Business Administration,
 University of California, Berkeley (2010-2014)</p></li>
 </ul>
 </section>
 <section id="skills">
-<h3>Skills<a class="headerlink" href="#skills" title="Permalink to this heading">#</a></h3>
+<h3>Skills<a class="headerlink" href="#skills" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Tech recruiting</p></li>
 <li><p>Sourcing and networking</p></li>
@@ -287,7 +302,7 @@ University of California, Berkeley (2010-2014)</p></li>
 </ul>
 </section>
 <section id="certifications">
-<h3>Certifications<a class="headerlink" href="#certifications" title="Permalink to this heading">#</a></h3>
+<h3>Certifications<a class="headerlink" href="#certifications" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Certified Professional Recruiter (CPR), National Association of Recruiters (2022)</p></li>
 <li><p>Certified Internet Recruiter (CIR), International Association of Employment Web Sites (2018)</p></li>
@@ -295,7 +310,7 @@ University of California, Berkeley (2010-2014)</p></li>
 </section>
 </section>
 <section id="parametrization">
-<h2>Parametrization<a class="headerlink" href="#parametrization" title="Permalink to this heading">#</a></h2>
+<h2>Parametrization<a class="headerlink" href="#parametrization" title="Link to this heading">#</a></h2>
 <p>Not too bad. Let’s fill in the {name} and {companies}:</p>
 <p><strong>Q: Generate a list of naturally sounding USA names</strong></p>
 <ol class="arabic simple">
@@ -325,7 +340,7 @@ University of California, Berkeley (2010-2014)</p></li>
 </ol>
 </section>
 <section id="reachout">
-<h2>Reachout<a class="headerlink" href="#reachout" title="Permalink to this heading">#</a></h2>
+<h2>Reachout<a class="headerlink" href="#reachout" title="Link to this heading">#</a></h2>
 <p>Let’s pretend we found a matching candidate profile. Now we need to reach out.</p>
 <p><strong>Q: Generate a message from the recruiter above to a software engineer with the following profile:</strong></p>
 <p><strong>Name: Peter Demin</strong></p>
@@ -348,7 +363,7 @@ Tech Recruiter</p>
 <p>Wow! this is scaringly close to what I actually receive…</p>
 </section>
 <section id="schedule-a-call">
-<h2>Schedule a call<a class="headerlink" href="#schedule-a-call" title="Permalink to this heading">#</a></h2>
+<h2>Schedule a call<a class="headerlink" href="#schedule-a-call" title="Link to this heading">#</a></h2>
 <p>Here’s how the discussion could start with. I’m asking the bot to pretend to be a recruiter.</p>
 <p><strong>Q: Now I want you to act as the recruiter above (Sarah Jones), and I will be the candidate (Peter Demin).</strong></p>
 <p><strong>My first question: Hi Sarah, thanks for reaching out, could you please attach a full job description and compensation range for this position?
@@ -398,7 +413,7 @@ Tech Recruiter</p>
 <p>Okay, the last part didn’t go so well, but I’m sure it can be improved with a better prompt.</p>
 </section>
 <section id="create-a-bot">
-<h2>Create a bot<a class="headerlink" href="#create-a-bot" title="Permalink to this heading">#</a></h2>
+<h2>Create a bot<a class="headerlink" href="#create-a-bot" title="Link to this heading">#</a></h2>
 <p><strong>Q: Generate a Python program, that can search for candidate profiles on LinkedIn and send them messages.</strong></p>
 <p>Here is a sample Python program that searches for candidate profiles on LinkedIn and sends them messages:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
@@ -463,7 +478,7 @@ Not sure, if LinkedIn would detect Selenium. Most probably, yes.
 But there should be a way to <a class="reference external" href="https://piprogramming.org/articles/How-to-make-Selenium-undetectable-and-stealth--7-Ways-to-hide-your-Bot-Automation-from-Detection-0000000017.html">automate it</a>.</p>
 </section>
 <section id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
 <p>In this article I used ChatGPT to generate recruiter’s profile, reachout message, and gave it a test drive for talking to a candidate.
 It also generate a first draft for a Python script to integrate with LinkedIn website.
 Overall, this experiment gives me a good confidence, that this technology allows automating a lot of work for technical recruiters,
@@ -476,11 +491,10 @@ and with enough effort can even replace them.</p>
               
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="23-ChatGPT-company.html"
@@ -500,10 +514,7 @@ and with enough effort can even replace them.</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -570,8 +581,8 @@ and with enough effort can even replace them.</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -589,7 +600,7 @@ and with enough effort can even replace them.</p>
       
         <div class="footer-item">
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -597,10 +608,11 @@ and with enough effort can even replace them.</p>
     </div>
   
   
+  
     <div class="footer-items__end">
       
         <div class="footer-item"><p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.14.1.
 </p></div>
       
     </div>
