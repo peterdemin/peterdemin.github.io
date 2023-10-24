@@ -1,3 +1,5 @@
+# Coding challenge GPT prompt template
+
 Source: https://twitter.com/s_tworkowski/status/1679132557906964480?s=20
 
 Here's a Coding Challenge below, you will write a program to pass the given tests and the hidden tests.
