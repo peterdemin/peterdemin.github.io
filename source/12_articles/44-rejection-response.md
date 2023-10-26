@@ -2,15 +2,15 @@
 
 > Resilience - the ability of a person to adjust to or recover readily from illness, adversity, major life changes, etc.
 
-Receiving a rejection email is hard and the first reaction is to curse.
+Receiving a rejection email is hard, and the first reaction is to curse.
 The second reaction is to close the email and forget about it.
 The alternative is to acknowledge the emotions, let them sink, and write a response to make the best out of a bad situation.
 
 The goal of going through the interview process is to get hired.
 The means of the interview is talking to the team.
-In a vein of emotional intelligence, we can flip the situation, and consider the interviews as a networking experience.
+In a vein of emotional intelligence, we can flip the situation and consider the interviews as a networking experience.
 
-The goal of networking is to establish professional connections, that might be helpful in the future.
+The goal of networking is to establish professional connections that might be helpful in the future.
 So, what should you write in response? Here's a template I adopted from [Indeed article](https://www.indeed.com/career-advice/finding-a-job/how-to-respond-to-a-job-rejection-email):
 
 ```
