@@ -1,12 +1,12 @@
-# How to setup a receiving email server on a Linux machine
+# How to set up a receiving email server on a Linux machine
 
 ## Context
 
-Most of the time I'm happy with my gmail.
+Most of the time, I'm happy with my Gmail.
 It has nice clients, filters out spam okay, and integrates with Google Calendar.
-But sometimes, companies won't give me their special content unless I pass them my work email.
+But sometimes, companies will only give me their special content if I pass them my work email.
 Whether this content is valuable or not is a separate question.
-Here I'm explaining the technical solution to gettings yourself a mailbox on your custom domain.
+Here, I explain the technical solution to getting a mailbox on your custom domain.
 (Assuming you already host a Linux server on your domain and have access to everything.)
 
 ## Configure Linux
@@ -17,7 +17,7 @@ Here I'm explaining the technical solution to gettings yourself a mailbox on you
    sudo apt install postfix -y
    ```
 
-2. Configure the host name. Update following strings in `/etc/postfix/main.cf`:
+2. Configure the hostname. Update the following strings in `/etc/postfix/main.cf`:
 
    ```
    myhostname = mail.demin.dev
@@ -60,15 +60,17 @@ IMAP: `143`, `993`, SMTP for sending emails from this server: `465`, `587`.
 Consider you want to have an email address: `peter@demin.dev`.
 And the IP address of the machine running the mail agent is `35.237.50.91`.
 
-Host name: demin.dev
-Type: MX
-TTL: 1 hour
-Data: 10 mail.demin.dev.
+1. MX record:
+   - Host name: demin.dev
+   - Type: MX
+   - TTL: 1 hour
+   - Data: 10 mail.demin.dev.
 
-Host name: mail.demin.dev
-Type: A
-TTL: 1 hour
-Data: 35.237.50.91 
+2. Mail server A record:
+   - Host name: mail.demin.dev
+   - Type: A
+   - TTL: 1 hour
+   - Data: 35.237.50.91 
 
 ## Check emails
 
@@ -80,4 +82,4 @@ less /var/spool/mail/${USER}
 
 ## Disable the mail server when you don't need it
 
-Just disable the firewall rule, you can keep everything else intact.
+Just disable the firewall rule, and you can keep everything else intact.

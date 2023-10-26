@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>How to setup a receiving email server on a Linux machine &#8212; Peter Demin</title>
+    <title>How to set up a receiving email server on a Linux machine &#8212; Peter Demin</title>
   
   
   
@@ -207,7 +207,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">How to...</li>
+    <li class="breadcrumb-item active" aria-current="page">How to set...</li>
   </ul>
 </nav>
 </div>
@@ -224,15 +224,15 @@
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="how-to-setup-a-receiving-email-server-on-a-linux-machine">
-<h1>How to setup a receiving email server on a Linux machine<a class="headerlink" href="#how-to-setup-a-receiving-email-server-on-a-linux-machine" title="Link to this heading">#</a></h1>
+  <section id="how-to-set-up-a-receiving-email-server-on-a-linux-machine">
+<h1>How to set up a receiving email server on a Linux machine<a class="headerlink" href="#how-to-set-up-a-receiving-email-server-on-a-linux-machine" title="Link to this heading">#</a></h1>
 <section id="context">
 <h2>Context<a class="headerlink" href="#context" title="Link to this heading">#</a></h2>
-<p>Most of the time I’m happy with my gmail.
+<p>Most of the time, I’m happy with my Gmail.
 It has nice clients, filters out spam okay, and integrates with Google Calendar.
-But sometimes, companies won’t give me their special content unless I pass them my work email.
+But sometimes, companies will only give me their special content if I pass them my work email.
 Whether this content is valuable or not is a separate question.
-Here I’m explaining the technical solution to gettings yourself a mailbox on your custom domain.
+Here, I explain the technical solution to getting a mailbox on your custom domain.
 (Assuming you already host a Linux server on your domain and have access to everything.)</p>
 </section>
 <section id="configure-linux">
@@ -243,7 +243,7 @@ Here I’m explaining the technical solution to gettings yourself a mailbox on y
 </pre></div>
 </div>
 </li>
-<li><p>Configure the host name. Update following strings in <code class="docutils literal notranslate"><span class="pre">/etc/postfix/main.cf</span></code>:</p>
+<li><p>Configure the hostname. Update the following strings in <code class="docutils literal notranslate"><span class="pre">/etc/postfix/main.cf</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>myhostname = mail.demin.dev
 mydestination = $myhostname localhost.$mydomain localhost $mydomain
 </pre></div>
@@ -282,14 +282,24 @@ IMAP: <code class="docutils literal notranslate"><span class="pre">143</span></c
 <h2>Add DNS record<a class="headerlink" href="#add-dns-record" title="Link to this heading">#</a></h2>
 <p>Consider you want to have an email address: <code class="docutils literal notranslate"><span class="pre">peter&#64;demin.dev</span></code>.
 And the IP address of the machine running the mail agent is <code class="docutils literal notranslate"><span class="pre">35.237.50.91</span></code>.</p>
-<p>Host name: demin.dev
-Type: MX
-TTL: 1 hour
-Data: 10 mail.demin.dev.</p>
-<p>Host name: mail.demin.dev
-Type: A
-TTL: 1 hour
-Data: 35.237.50.91</p>
+<ol class="arabic simple">
+<li><p>MX record:</p>
+<ul class="simple">
+<li><p>Host name: demin.dev</p></li>
+<li><p>Type: MX</p></li>
+<li><p>TTL: 1 hour</p></li>
+<li><p>Data: 10 mail.demin.dev.</p></li>
+</ul>
+</li>
+<li><p>Mail server A record:</p>
+<ul class="simple">
+<li><p>Host name: mail.demin.dev</p></li>
+<li><p>Type: A</p></li>
+<li><p>TTL: 1 hour</p></li>
+<li><p>Data: 35.237.50.91</p></li>
+</ul>
+</li>
+</ol>
 </section>
 <section id="check-emails">
 <h2>Check emails<a class="headerlink" href="#check-emails" title="Link to this heading">#</a></h2>
@@ -300,7 +310,7 @@ Data: 35.237.50.91</p>
 </section>
 <section id="disable-the-mail-server-when-you-don-t-need-it">
 <h2>Disable the mail server when you don’t need it<a class="headerlink" href="#disable-the-mail-server-when-you-don-t-need-it" title="Link to this heading">#</a></h2>
-<p>Just disable the firewall rule, you can keep everything else intact.</p>
+<p>Just disable the firewall rule, and you can keep everything else intact.</p>
 </section>
 </section>
 
