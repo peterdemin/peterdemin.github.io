@@ -83,3 +83,11 @@ less /var/spool/mail/${USER}
 ## Disable the mail server when you don't need it
 
 Just disable the firewall rule, and you can keep everything else intact.
+
+## The content
+
+I don't mean to pirate it, but since I had to go to such a great lengths to get them,
+here are the books I downloaded using my custom domain email address:
+
+- [Architecting event-driven API-first platforms to build Everything-as-a-Service](/_static/aws-eaas.pdf)
+- [CockroachDB The Definitive Guide](/_static/cockroachdb.pdf)
