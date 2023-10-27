@@ -1,14 +1,14 @@
 👋 Hi, I'm Peter
 ================
 
-I live in US and open to work. 
+I live in the US and am open to working as a Senior Backend Engineer. 
 `LinkedIn profile <https://linkedin.com/in/peterdemin/>`_ |
 `Resume <_static/PeterDemin.pdf>`_ |
 `Calendly <https://calendly.com/peterdemin>`_.
 
-Previously I lived in Russia and Belarus working for Yandex and EPAM in the same position.
+Previously, I lived in Russia and Belarus, working for Yandex and EPAM in the same position.
 
-I write about Python, vim and git.
+I write about Python, vim, git, and software engineering in general.
 I’m trying to keep a :ref:`public journal <life>` about non-technical topics.
 
 Articles and notes
@@ -31,7 +31,7 @@ Notes from my reading list
 
    17_notes/*
 
-My open source projects
+My open-source projects
 -----------------------
 
 * `kibitzr <https://kibitzr.github.io/>`_ - Lightweight personal web assistant.
