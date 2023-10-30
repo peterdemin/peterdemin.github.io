@@ -91,3 +91,4 @@ here are the books I downloaded using my custom domain email address:
 
 - [Architecting event-driven API-first platforms to build Everything-as-a-Service](/_static/aws-eaas.pdf)
 - [CockroachDB The Definitive Guide](/_static/cockroachdb.pdf)
+- [CockroachDB The Engineer’s Survival GUIDE](/_static/survival.pdf)
