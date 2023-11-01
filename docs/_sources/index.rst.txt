@@ -2,9 +2,9 @@
 ================
 
 I live in the US and am open to working as a Senior Backend Engineer. 
-`LinkedIn profile <https://linkedin.com/in/peterdemin/>`_ |
+`LinkedIn <https://linkedin.com/in/peterdemin/>`_ |
 `Resume <_static/PeterDemin.pdf>`_ |
-`Calendly <https://calendly.com/peterdemin>`_.
+`Calendly <https://calendly.com/peterdemin>`_ | `GitHub <https://github.com/peterdemin>`_.
 
 Previously, I lived in Russia and Belarus, working for Yandex and EPAM in the same position.
 
