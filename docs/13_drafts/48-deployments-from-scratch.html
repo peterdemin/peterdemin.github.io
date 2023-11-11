@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Tell me a story about how you coached a team member &#8212; Peter Demin</title>
+    <title>Deployments from scratch &#8212; Peter Demin</title>
   
   
   
@@ -47,11 +47,9 @@
     <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/46-coaching';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '13_drafts/48-deployments-from-scratch';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Job market for Senior Python Engineers in Q4’2023" href="49-python-job-market.html" />
-    <link rel="prev" title="How to set up a receiving email server on a Linux machine" href="45-minimal-linux-email-box.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -207,7 +205,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">Tell me a...</li>
+    <li class="breadcrumb-item active" aria-current="page">Deployments...</li>
   </ul>
 </nav>
 </div>
@@ -224,32 +222,41 @@
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="tell-me-a-story-about-how-you-coached-a-team-member">
-<h1>Tell me a story about how you coached a team member<a class="headerlink" href="#tell-me-a-story-about-how-you-coached-a-team-member" title="Link to this heading">#</a></h1>
-<p>This is the story I like to share during behavioral interviews.</p>
-<p>This was during my time at Moveworks. The team was about 50 engineers when I joined.
-As it usually goes with startups, everyone was streched thin across many projects,
-and the bus factor for many areas was one.
-For several years I was a directly responsible individual for a critical part of the product.
-When I got my first team mate, I was so busy with the tasks, that our collaboration strategy become splitting the work.
-It was great for the short-term productivity, as we got double the bandwidth, with zero communication overhead.
-The team mate was capable, and I rarely had to step in for any issues.</p>
-<p>We worked the way for about a year, and then suddenly I learned that my team mate was let go by our manager.
-This came out of the blue, and I later learned that due to personal situtation, he struggled at work, and the performance dipped a bit.
-I lost a team mate and got double the work in an area that I wasn’t paying much attention before.</p>
-<p>Few month later we got a new hire. The guy never worked with our stack before and was on a more junior side.
-But I learned a lesson, and as soon as he started, I’ve set up daily 1:1 call to talk about the tech and the team.
-With my hands still full and juggling priorities, I took extra time make sure my team mate succeeds with their projects.
-For a few months I would share best practices working with Python, and building scalable software.
-It was considerable effort, and my hands were already full.
-But the personal connection and satisfaction from observing his progress motivated me to keep going.</p>
-<p>Half a year later, we were a solid team. We could step up on each others urgent tasks and cover for vacations and sickness.
-Once at the second day of my buddy’s vacation we got an urgent escalation from a very important customer.
-I already new the project well, and promptly delivered the solution in time before he got back from vacation.
-Once he was back, I explained the design and tradeoffs I made, and effectively handed off the solution to him.
-This way, he still got full ownership of his area, and was able to explain the details and make changes autonomously to the code I wrote.</p>
-<p>Another time, I was on 2 escalations, and we got a third one. There was no way to complete all tasks in time for me working alone. He stepped up, and delivered the task swiftly and with high quality.</p>
-<p>In conclusion, my deliberate effort in team building was demanding in short term, but led to a healthy team environment, and created a friendship that lasted beyond my tenure at Moveworks.</p>
+  <section id="deployments-from-scratch">
+<h1>Deployments from scratch<a class="headerlink" href="#deployments-from-scratch" title="Link to this heading">#</a></h1>
+<p>In this article I attempt to think through software deployment from the first principles.
+It’s getting harder and harder each year to find any deployment strategy online that doesn’t
+involve having a Kubernetes cluster running inside of virtual machines in the cloud.</p>
+<p>I target a different use-case though.
+I have a single physical server in a single location, that needs to run a couple of services.
+I’m the only software developer on a team, and I don’t need to change the code much often.
+I want the set up to be simple, without extra moving parts.</p>
+<section id="deploy-object">
+<h2>Deploy object<a class="headerlink" href="#deploy-object" title="Link to this heading">#</a></h2>
+<p>So what is this thing we’re deploying?
+It’s a handful of source code files, that are executed inside of their language runtime.
+Runtime comes with a set of third-party dependencies, of course.</p>
+</section>
+<section id="desired-properties">
+<h2>Desired properties<a class="headerlink" href="#desired-properties" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Transparency. Being able to SSH to the server and observe what’s going on.</p></li>
+<li><p>Simplicity. No unnecessary levels of abstractions, that introduce new failure modes.
+(Why does my code run locally, but breaks inside of container in production?)</p></li>
+<li><p>Speed. The size of the code is tiny, really. Deploying new version should be a matter of seconds.</p></li>
+<li><p>Reliability. We shouldn’t lose data even in case of a fatal hardware failure.</p></li>
+</ol>
+</section>
+<section id="non-goals">
+<h2>Non-goals<a class="headerlink" href="#non-goals" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Resource isolation. We run our software on our hardware, no need to isolate and compartmentalize for the sake of security.</p></li>
+<li><p>Security. All people who make changes to the software also have sudo permissions on the production server.</p></li>
+<li><p>Scalability. The usage is stable, bound by physical factors, and doesn’t spike.
+We don’t need to spin up 30 times more compute in a few minutes. The whole thing is handled by a single server.</p></li>
+<li><p>High availability. If something breaks, someone will come and fix it. Few days of downtime once in a decade is okay.</p></li>
+</ol>
+</section>
 </section>
 
 
@@ -262,24 +269,6 @@ This way, he still got full ownership of his area, and was able to explain the d
                 <footer class="prev-next-footer">
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="45-minimal-linux-email-box.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">How to set up a receiving email server on a Linux machine</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="49-python-job-market.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Job market for Senior Python Engineers in Q4’2023</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
@@ -290,9 +279,21 @@ This way, he still got full ownership of his area, and was able to explain the d
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
   <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deploy-object">Deploy object</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#desired-properties">Desired properties</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-goals">Non-goals</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/12_articles/46-coaching.md">
+    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/13_drafts/48-deployments-from-scratch.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -306,7 +307,7 @@ This way, he still got full ownership of his area, and was able to explain the d
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="../_sources/12_articles/46-coaching.md.txt">
+    <a href="../_sources/13_drafts/48-deployments-from-scratch.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
