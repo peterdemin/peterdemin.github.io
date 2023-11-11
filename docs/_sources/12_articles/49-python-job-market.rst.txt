@@ -1,14 +1,17 @@
-# Job market for Senior Python Engineers in Q4'2023
+Job market for Senior Python Engineers in Q4'2023
+=================================================
 
 TL;DR: The market is much better than a year ago, but the job search is still tough.
 
-## Context
+Context
+-------
 
 I had an opportunity to measure the job market for Python programmers.
 The timeframe is October-November 2023.
 The focus on Python is no coincedence, but a property of the market.
 
-## Observations
+Observations
+------------
 
 1. Companies are looking for a skill fit.
    Employers are not willing to let new employees learn the new technology as they ramp up.
@@ -28,6 +31,7 @@ The focus on Python is no coincedence, but a property of the market.
    Most of the companies I applied to rejected me even though resume was a strong fit with job description.
    On the other hand, most of the companies that I was referred to were willing to interview me (and extend a job offer eventually).
 4. I observed 3 cohorts of employers.
+
    a) Big tech (FAANG and alike). These guys fired most of their recruiters, and now started to hire back, but they lost their hiring momentum.
       For Meta, Amazon, and Google I would start talking to a recruiter, but after a call or a quick chat, they would just ghost me.
    b) Small companies with "reasonable" salaries.
@@ -41,7 +45,8 @@ The focus on Python is no coincedence, but a property of the market.
       But for this cohort the picture is very much different: 3 out of 10 candidates are trying to cheat.
       This is insane! Out of curiosity I tried going through the process with a couple of these and had a really hard time trying to prove I'm not a camel.
 
-## Reflections
+Reflections
+-----------
 
 1. It took me 2 month to get 4 offers. I got at least one from each cohort.
 2. The process is slow at most places. Going through 9 (nine) interviews and getting a rejection is no fun.
