@@ -236,6 +236,8 @@ I want the set up to be simple, without extra moving parts.</p>
 <p>So what is this thing we’re deploying?
 It’s a handful of source code files, that are executed inside of their language runtime.
 Runtime comes with a set of third-party dependencies, of course.</p>
+<p>Alternatively, we could have a statically linked executable, that doesn’t require any runtime library.
+It’s objectively less number of moving parts, but the deployment process is still about the same.</p>
 </section>
 <section id="desired-properties">
 <h2>Desired properties<a class="headerlink" href="#desired-properties" title="Link to this heading">#</a></h2>
@@ -256,6 +258,42 @@ Runtime comes with a set of third-party dependencies, of course.</p>
 We don’t need to spin up 30 times more compute in a few minutes. The whole thing is handled by a single server.</p></li>
 <li><p>High availability. If something breaks, someone will come and fix it. Few days of downtime once in a decade is okay.</p></li>
 </ol>
+</section>
+<section id="deployment-process-outline">
+<h2>Deployment process outline<a class="headerlink" href="#deployment-process-outline" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Build an artifact.</p></li>
+<li><p>Upload it to the target server.</p></li>
+<li><p>Unpack (install) the new version.</p></li>
+<li><p>Stop the old version.</p></li>
+<li><p>Activate/start the new version.</p></li>
+</ol>
+</section>
+<section id="build-artifact">
+<h2>1. Build Artifact<a class="headerlink" href="#build-artifact" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>Executable.
+Artifact could contain a compiled binary, or a single script.
+The common idea is that we don’t want to deploy the whole source code repo with docs and tests.
+We only need the code that runs in the production.</p>
+<p>Python ecosystem provides tools, like <a class="reference external" href="https://pex.readthedocs.io%3E">pex</a>, that convert a Python package to a single executable binary file.
+But do we need to make our service a package?
+As it is customary with Django projects, the source code doesn’t follow the traditional package file structure and doesn’t have packaging meta data, such as <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file.
+The build artifact can be just a tar ball with all of the sources (excluding tests and docs.)</p>
+<p>The same with Javascript projects. Node modules directory may or may not be a part of the build artifact.</p>
+<p>Either way, we need some form of a manifest that defines which files to include into the artifact.
+The manifest can be project-specific, or convention-style, which requires less boilerplate in cases where all projects are under your control.</p>
+</li>
+<li><p>Entry point.
+A command to launch the executable, that can be put into a supervisor config of choice (Docker, SystemD, Upstart, what have you.)
+It could be just a path to the binary, or it might invoke a runtime (Python, NodeJS, etc.)</p></li>
+<li><p>Activation command.
+A script that promotes the chosen version to be the current, stops the old version if present, and starts the new one.
+Running activation script for the older version rolls back the deployment.</p></li>
+</ol>
+</section>
+<section id="upload-artifact-to-server">
+<h2>2. Upload Artifact to Server<a class="headerlink" href="#upload-artifact-to-server" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -287,6 +325,9 @@ We don’t need to spin up 30 times more compute in a few minutes. The whole thi
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deploy-object">Deploy object</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#desired-properties">Desired properties</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-goals">Non-goals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deployment-process-outline">Deployment process outline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-artifact">1. Build Artifact</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#upload-artifact-to-server">2. Upload Artifact to Server</a></li>
 </ul>
   </nav></div>
 

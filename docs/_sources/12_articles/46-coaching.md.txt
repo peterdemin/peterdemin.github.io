@@ -1,32 +1,13 @@
 # Tell me a story about how you coached a team member
 
-This is the story I like to share during behavioral interviews.
+During my tenure at Moveworks, I faced a significant challenge that reshaped my approach to team management. When I joined the company, it was a bustling startup with around 50 engineers, and I was tasked with overseeing a critical product component. Initially, I worked alone in this area, but as the team expanded, I was assigned a teammate.
 
-This was during my time at Moveworks. The team was about 50 engineers when I joined.
-As it usually goes with startups, everyone was streched thin across many projects,
-and the bus factor for many areas was one.
-For several years I was a directly responsible individual for a critical part of the product.
-When I got my first team mate, I was so busy with the tasks, that our collaboration strategy become splitting the work.
-It was great for the short-term productivity, as we got double the bandwidth, with zero communication overhead.
-The team mate was capable, and I rarely had to step in for any issues.
+In the beginning, our strategy was straightforward: divide and conquer. This approach boosted our productivity in the short term, allowing us to tackle more tasks with minimal communication. My colleague was skilled and independent, which meant I seldom needed to intervene.
 
-We worked the way for about a year, and then suddenly I learned that my team mate was let go by our manager.
-This came out of the blue, and I later learned that due to personal situtation, he struggled at work, and the performance dipped a bit.
-I lost a team mate and got double the work in an area that I wasn't paying much attention before.
+However, after a year of this work pattern, I was taken aback when my teammate was unexpectedly dismissed. I later discovered that personal challenges had affected his performance, a situation I had been unaware of due to our isolated working style. This experience was a wake-up call for me, highlighting the importance of close collaboration and open communication within a team.
 
-Few month later we got a new hire. The guy never worked with our stack before and was on a more junior side.
-But I learned a lesson, and as soon as he started, I've set up daily 1:1 call to talk about the tech and the team.
-With my hands still full and juggling priorities, I took extra time make sure my team mate succeeds with their projects.
-For a few months I would share best practices working with Python, and building scalable software.
-It was considerable effort, and my hands were already full.
-But the personal connection and satisfaction from observing his progress motivated me to keep going.
+When we welcomed a new member, who was less experienced with our technology stack, I changed my approach. Despite my own workload, I committed to daily 1:1 meetings with him. These sessions were not only about technical guidance in Python and scalable software development but also about fostering a strong team bond and understanding each other's work styles.
 
-Half a year later, we were a solid team. We could step up on each others urgent tasks and cover for vacations and sickness.
-Once at the second day of my buddy's vacation we got an urgent escalation from a very important customer.
-I already new the project well, and promptly delivered the solution in time before he got back from vacation.
-Once he was back, I explained the design and tradeoffs I made, and effectively handed off the solution to him.
-This way, he still got full ownership of his area, and was able to explain the details and make changes autonomously to the code I wrote.
+This investment in team building paid off. Over the next six months, we developed a cohesive and efficient partnership, capable of seamlessly covering for each other during absences and peak times. For instance, when my colleague was on vacation, an urgent issue arose with a key customer. I handled the situation and later briefed him, ensuring he maintained ownership of the project. Similarly, he demonstrated his growth and reliability by adeptly managing a critical task during a particularly busy period for me.
 
-Another time, I was on 2 escalations, and we got a third one. There was no way to complete all tasks in time for me working alone. He stepped up, and delivered the task swiftly and with high quality.
-
-In conclusion, my deliberate effort in team building was demanding in short term, but led to a healthy team environment, and created a friendship that lasted beyond my tenure at Moveworks.
+In conclusion, this journey at Moveworks taught me the value of proactive team engagement and the importance of understanding the challenges faced by team members. It was a demanding process, but it fostered a robust and supportive team environment and led to a meaningful professional relationship that extended beyond my time at the company. This experience has profoundly influenced my approach to leadership and team dynamics.
