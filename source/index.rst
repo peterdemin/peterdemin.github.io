@@ -1,11 +1,7 @@
 👋 Hi, I'm Peter
 ================
 
-I live in the US and am open to working as a Senior Backend Engineer. 
-`LinkedIn <https://linkedin.com/in/peterdemin/>`_ |
-`Resume <_static/PeterDemin.pdf>`_ |
-`Calendly <https://calendly.com/peterdemin>`_ | `GitHub <https://github.com/peterdemin>`_.
-
+I live in the US and work as a Senior Software Engineer. 
 Previously, I lived in Russia and Belarus, working for Yandex and EPAM in the same position.
 
 I write about Python, vim, git, and software engineering in general.
