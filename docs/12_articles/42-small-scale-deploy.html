@@ -242,6 +242,23 @@ End-to-end meaning from changes committed to git, to startup in prod.</p></li>
 <li><p>Complexity of bootstrapping a new deployment environment.</p></li>
 </ul>
 </section>
+<section id="git-push">
+<h2>Git Push<a class="headerlink" href="#git-push" title="Link to this heading">#</a></h2>
+<p>Heroku-like open-source self-hosted single-node PaaS projects:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/mardix/sailor">Sailor</a></p></li>
+<li><p><a class="reference external" href="https://dokku.com/">Dokku</a></p></li>
+</ul>
+<p>The pros of this approach are:</p>
+<ul class="simple">
+<li><p>On the client-side, the deployment is just a quick <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code> command.</p></li>
+<li><p>The project is built on the host where it’s run, so no headache around OS-level binary dependencies compatibility.</p></li>
+<li><p>End-to-end time for the deployment of the new version: <strong>very low</strong>, only incremental changes need to be transfered on network.</p></li>
+<li><p>Total time for a rollback to previous version: <strong>very low</strong>, local git checkout doesn’t incure any network costs.</p></li>
+<li><p>Ability to deploy manually, side-stepping CI/CD: <strong>hard</strong>, only committed and pushed version can be deployed.</p></li>
+<li><p>Complexity of bootstrapping a new deployment environment: <strong>low</strong>, could be a shell script.</p></li>
+</ul>
+</section>
 <section id="git-pull">
 <h2>Git Pull<a class="headerlink" href="#git-pull" title="Link to this heading">#</a></h2>
 <p>In a high-level, the git pull approach means having a code repo cloned to the prod server.
@@ -376,6 +393,7 @@ The common approach is some form of a manifest file, that contains a list of glo
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#development-experience-aspects-in-consideration">Development Experience Aspects in Consideration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#git-push">Git Push</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#git-pull">Git Pull</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rsync">Rsync</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-tar-balls">Custom Tar Balls</a></li>
