@@ -10,7 +10,7 @@ But the same process should be portable to other languages.
 ## Development Experience Aspects in Consideration
 
 - End-to-end time for the deployment of the new version.
-  End-to-end meaning from changes committed to git, to startup in prod.
+  End-to-end meaning from changes saved to a file locally, to startup in prod.
 - Total time for a rollback to previous version.
 - Ability to deploy manually, side-stepping CI/CD.
 - Complexity of bootstrapping a new deployment environment.
