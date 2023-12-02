@@ -42,6 +42,24 @@ It's objectively less number of moving parts, but the deployment process is stil
 4. Stop the old version.
 5. Activate/start the new version.
 
+## Off-topic: PaaS-like deployments
+
+Heroku workflow is different:
+
+1. Push git repo to the deployment host.
+2. Post-receive hook triggers build using smart buildpacks.
+3. Launch new version.
+4. Drain old version.
+
+Open-source self-hosted single-node PaaS projects:
+
+- [Sailor](https://github.com/mardix/sailor)
+- [Dokku](https://dokku.com/)
+
+The pros of this approach are:
+- On the client-side, the deployment is just a quick `git push` command.
+- The project is built on the host where it's run, so no headache around OS-level binary dependencies compatibility.
+
 ## 1. Build Artifact
 
 1. Executable.
