@@ -269,6 +269,26 @@ We don’t need to spin up 30 times more compute in a few minutes. The whole thi
 <li><p>Activate/start the new version.</p></li>
 </ol>
 </section>
+<section id="off-topic-paas-like-deployments">
+<h2>Off-topic: PaaS-like deployments<a class="headerlink" href="#off-topic-paas-like-deployments" title="Link to this heading">#</a></h2>
+<p>Heroku workflow is different:</p>
+<ol class="arabic simple">
+<li><p>Push git repo to the deployment host.</p></li>
+<li><p>Post-receive hook triggers build using smart buildpacks.</p></li>
+<li><p>Launch new version.</p></li>
+<li><p>Drain old version.</p></li>
+</ol>
+<p>Open-source self-hosted single-node PaaS projects:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/mardix/sailor">Sailor</a></p></li>
+<li><p><a class="reference external" href="https://dokku.com/">Dokku</a></p></li>
+</ul>
+<p>The pros of this approach are:</p>
+<ul class="simple">
+<li><p>On the client-side, the deployment is just a quick <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code> command.</p></li>
+<li><p>The project is built on the host where it’s run, so no headache around OS-level binary dependencies compatibility.</p></li>
+</ul>
+</section>
 <section id="build-artifact">
 <h2>1. Build Artifact<a class="headerlink" href="#build-artifact" title="Link to this heading">#</a></h2>
 <ol class="arabic">
@@ -326,6 +346,7 @@ Running activation script for the older version rolls back the deployment.</p></
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#desired-properties">Desired properties</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-goals">Non-goals</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deployment-process-outline">Deployment process outline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#off-topic-paas-like-deployments">Off-topic: PaaS-like deployments</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-artifact">1. Build Artifact</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#upload-artifact-to-server">2. Upload Artifact to Server</a></li>
 </ul>
