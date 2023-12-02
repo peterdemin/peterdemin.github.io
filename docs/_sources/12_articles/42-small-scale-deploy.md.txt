@@ -15,6 +15,34 @@ But the same process should be portable to other languages.
 - Ability to deploy manually, side-stepping CI/CD.
 - Complexity of bootstrapping a new deployment environment.
 
+
+## Options Overview
+
+```{eval-rst}
+.. digraph:: services
+
+    edge [color="#808080", arrowsize=.6, penwidth=3, minlen=3];
+    node [shape=box, fontname="DIN Next, sans-serif", style="rounded,filled", penwidth=5, fillcolor="#8010d0", color="#f0f0f0", fontcolor=white,  margin="0.35" fontweight=bold]
+    bgcolor="#f0f0f0";
+
+    "Has Artifacts" -> "OS-level packages" [ label=" yes " ]
+    "OS-level packages" -> ".deb, .rpm" [ label=" yes " ]
+    "OS-level packages" -> "Has Containerization" [ label=" no " ]
+    "Has Containerization" -> "Docker" [ label=" yes " ]
+    "Has Containerization" -> ".tar.gz, .whl, .pex" [ label=" no " ]
+    "Docker" -> "Private Image Store"
+    "Docker" -> "Rsync Image to Target"
+
+    "Has Artifacts" -> "Using Git" [ label=" no " ]
+    "Using Git" -> "Has Network Access to Target" [ label=" yes " ]
+    "Has Network Access to Target" -> "Git Push" [ label=" yes " ]
+    "Has Network Access to Target" -> "Git Pull" [ label=" no " ]
+    "Using Git" -> "Rsync" [ label=" no " ]
+    "Git Push" -> "Dokku"
+    "Git Push" -> "Sailor"
+```
+
+
 ## Git Push
 
 Heroku-like open-source self-hosted single-node PaaS projects:

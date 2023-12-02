@@ -242,6 +242,30 @@ End-to-end meaning from changes committed to git, to startup in prod.</p></li>
 <li><p>Complexity of bootstrapping a new deployment environment.</p></li>
 </ul>
 </section>
+<section id="options-overview">
+<h2>Options Overview<a class="headerlink" href="#options-overview" title="Link to this heading">#</a></h2>
+<div class="graphviz"><img src="../_images/graphviz-0625d21aad3eb06a038b47bbaad06de52dceb192.png" alt="digraph services {
+edge [color=&quot;#808080&quot;, arrowsize=.6, penwidth=3, minlen=3];
+node [shape=box, fontname=&quot;DIN Next, sans-serif&quot;, style=&quot;rounded,filled&quot;, penwidth=5, fillcolor=&quot;#8010d0&quot;, color=&quot;#f0f0f0&quot;, fontcolor=white,  margin=&quot;0.35&quot; fontweight=bold]
+bgcolor=&quot;#f0f0f0&quot;;
+
+&quot;Has Artifacts&quot; -&gt; &quot;OS-level packages&quot; [ label=&quot; yes &quot; ]
+&quot;OS-level packages&quot; -&gt; &quot;.deb, .rpm&quot; [ label=&quot; yes &quot; ]
+&quot;OS-level packages&quot; -&gt; &quot;Has Containerization&quot; [ label=&quot; no &quot; ]
+&quot;Has Containerization&quot; -&gt; &quot;Docker&quot; [ label=&quot; yes &quot; ]
+&quot;Has Containerization&quot; -&gt; &quot;.tar.gz, .whl, .pex&quot; [ label=&quot; no &quot; ]
+&quot;Docker&quot; -&gt; &quot;Private Image Store&quot;
+&quot;Docker&quot; -&gt; &quot;Rsync Image to Target&quot;
+
+&quot;Has Artifacts&quot; -&gt; &quot;Using Git&quot; [ label=&quot; no &quot; ]
+&quot;Using Git&quot; -&gt; &quot;Has Network Access to Target&quot; [ label=&quot; yes &quot; ]
+&quot;Has Network Access to Target&quot; -&gt; &quot;Git Push&quot; [ label=&quot; yes &quot; ]
+&quot;Has Network Access to Target&quot; -&gt; &quot;Git Pull&quot; [ label=&quot; no &quot; ]
+&quot;Using Git&quot; -&gt; &quot;Rsync&quot; [ label=&quot; no &quot; ]
+&quot;Git Push&quot; -&gt; &quot;Dokku&quot;
+&quot;Git Push&quot; -&gt; &quot;Sailor&quot;
+}" class="graphviz" /></div>
+</section>
 <section id="git-push">
 <h2>Git Push<a class="headerlink" href="#git-push" title="Link to this heading">#</a></h2>
 <p>Heroku-like open-source self-hosted single-node PaaS projects:</p>
@@ -393,6 +417,7 @@ The common approach is some form of a manifest file, that contains a list of glo
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#development-experience-aspects-in-consideration">Development Experience Aspects in Consideration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#options-overview">Options Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#git-push">Git Push</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#git-pull">Git Pull</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rsync">Rsync</a></li>
