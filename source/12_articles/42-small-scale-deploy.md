@@ -15,6 +15,22 @@ But the same process should be portable to other languages.
 - Ability to deploy manually, side-stepping CI/CD.
 - Complexity of bootstrapping a new deployment environment.
 
+## Git Push
+
+Heroku-like open-source self-hosted single-node PaaS projects:
+
+- [Sailor](https://github.com/mardix/sailor)
+- [Dokku](https://dokku.com/)
+
+The pros of this approach are:
+- On the client-side, the deployment is just a quick `git push` command.
+- The project is built on the host where it's run, so no headache around OS-level binary dependencies compatibility.
+
+- End-to-end time for the deployment of the new version: **very low**, only incremental changes need to be transfered on network.
+- Total time for a rollback to previous version: **very low**, local git checkout doesn't incure any network costs.
+- Ability to deploy manually, side-stepping CI/CD: **hard**, only committed and pushed version can be deployed.
+- Complexity of bootstrapping a new deployment environment: **low**, could be a shell script.
+
 ## Git Pull
 
 In a high-level, the git pull approach means having a code repo cloned to the prod server.
