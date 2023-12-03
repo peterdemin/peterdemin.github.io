@@ -42,6 +42,16 @@ But the same process should be portable to other languages.
     "Git Push" -> "Sailor"
 ```
 
+## Compartmentalization
+
+We can divide the deployment system into following loosely coupled components:
+
+1. User interface. Could be git hooks, CLI, web page.
+2. Build/installation system. GitHub Actions, Dockerfile, Makefile, buildpacks, custom convention.
+3. Support for HTTP services. Nginx, Apache, Caddy. Optional SSL through Let's Encrypt.
+4. Tailscale (optional). Because I love it.
+5. Process orchestration. Systemd, uWSGI, Supervisord.
+6. Monitoring: logs, health metrics.
 
 ## Git Push
 

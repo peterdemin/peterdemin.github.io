@@ -266,6 +266,18 @@ bgcolor=&quot;#f0f0f0&quot;;
 &quot;Git Push&quot; -&gt; &quot;Sailor&quot;
 }" class="graphviz" /></div>
 </section>
+<section id="compartmentalization">
+<h2>Compartmentalization<a class="headerlink" href="#compartmentalization" title="Link to this heading">#</a></h2>
+<p>We can divide the deployment system into following loosely coupled components:</p>
+<ol class="arabic simple">
+<li><p>User interface. Could be git hooks, CLI, web page.</p></li>
+<li><p>Build/installation system. GitHub Actions, Dockerfile, Makefile, buildpacks, custom convention.</p></li>
+<li><p>Support for HTTP services. Nginx, Apache, Caddy. Optional SSL through Let’s Encrypt.</p></li>
+<li><p>Tailscale (optional). Because I love it.</p></li>
+<li><p>Process orchestration. Systemd, uWSGI, Supervisord.</p></li>
+<li><p>Monitoring: logs, health metrics.</p></li>
+</ol>
+</section>
 <section id="git-push">
 <h2>Git Push<a class="headerlink" href="#git-push" title="Link to this heading">#</a></h2>
 <p>Heroku-like open-source self-hosted single-node PaaS projects:</p>
@@ -418,6 +430,7 @@ The common approach is some form of a manifest file, that contains a list of glo
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#development-experience-aspects-in-consideration">Development Experience Aspects in Consideration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#options-overview">Options Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compartmentalization">Compartmentalization</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#git-push">Git Push</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#git-pull">Git Pull</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rsync">Rsync</a></li>
