@@ -29,9 +29,10 @@ It's objectively less number of moving parts, but the deployment process is stil
 ## Non-goals
 
 1. Resource isolation. We run our software on our hardware, no need to isolate and compartmentalize for the sake of security.
-2. Security. All people who make changes to the software also have sudo permissions on the production server.
+2. Granular permission control. All people who make changes to the software also have sudo permissions on the production server.
 3. Scalability. The usage is stable, bound by physical factors, and doesn't spike.
-   We don't need to spin up 30 times more compute in a few minutes. The whole thing is handled by a single server.
+   We don't need to spin up 100 times more compute in a few minutes.
+   The whole thing is handled by a single server.
 4. High availability. If something breaks, someone will come and fix it. Few days of downtime once in a decade is okay.
 
 ## Deployment process outline
@@ -51,14 +52,10 @@ Heroku workflow is different:
 3. Launch new version.
 4. Drain old version.
 
-Open-source self-hosted single-node PaaS projects:
-
-- [Sailor](https://github.com/mardix/sailor)
-- [Dokku](https://dokku.com/)
-
 The pros of this approach are:
 - On the client-side, the deployment is just a quick `git push` command.
 - The project is built on the host where it's run, so no headache around OS-level binary dependencies compatibility.
+- All-in-one approach combines build server and runtime.
 
 ## 1. Build Artifact
 
