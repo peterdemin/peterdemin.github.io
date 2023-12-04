@@ -3,19 +3,29 @@ Self-hosted PaaS
 
 Every time a developer sneezes there's 3 new PaaS projects spawning.
 
--  `Coolify <https://coolify.io/>`__
+Kubernetes-based:
+
 -  `sablier <https://github.com/acouvreur/sablier>`__
--  `Exoframe <https://github.com/exoframejs/exoframe/>`__
--  `CapRover <https://github.com/caprover/caprover/>`__
--  `Sailor <https://github.com/mardix/sailor>`__
 -  `Tsuru <https://github.com/tsuru/tsuru>`__
 -  `Kubero <https://github.com/kubero-dev/kubero>`__
 -  `Devtron <https://github.com/devtron-labs/devtron>`__
 -  `Otomi <https://github.com/redkubes/otomi-core>`__
--  `Podi <https://github.com/coderofsalvation/podi>`__
 -  `Convox <https://github.com/convox>`__
+
+Docker-compose-based:
+
+-  `Coolify <https://coolify.io/>`__
+-  `Exoframe <https://github.com/exoframejs/exoframe/>`__
 -  `Hookah <https://github.com/bruj0/hookah>`__
--  `Piku <https://github.com/piku/piku>`__
+
+Docker-based:
+
+-  `CapRover <https://github.com/caprover/caprover/>`__
+
+No containers:
+
+-  `Podi <https://github.com/coderofsalvation/podi>`__ \* Docker optional
+-  `Piku <https://github.com/piku/piku>`__ (and a notable fork: `Sailor <https://github.com/mardix/sailor>`__)
 
 Source: `Reddit
 comment <https://www.reddit.com/r/selfhosted/comments/zv2t4s/comment/j1tp2uq/?utm_source=share&utm_medium=web2x&context=3>`__
@@ -23,7 +33,8 @@ comment <https://www.reddit.com/r/selfhosted/comments/zv2t4s/comment/j1tp2uq/?ut
 More from
 `TechTarget <https://www.techtarget.com/searchcloudcomputing/feature/6-open-source-PaaS-options-developers-should-know>`__:
 
-​​\ **Top 6 open source PaaS tools**
+Top 6 open source PaaS tools
+----------------------------
 
 There are a number of popular open source PaaS options on the market
 today, each with its own unique twist. The tools listed below are six of
@@ -59,9 +70,9 @@ an application to CapRover.
 ~~~~~~~~~~~~~~~~
 
 -  Automatic SSL certificate provisioning from Let's Encrypt
--  Local\ `  <https://www.techtarget.com/searchwindowsserver/definition/command-line-interface-CLI>`__\ `command-line
-   interface <https://www.techtarget.com/searchwindowsserver/definition/command-line-interface-CLI>`__ (CLI)
-   client for automation
+-  Local
+  `command-line interface <https://www.techtarget.com/searchwindowsserver/definition/command-line-interface-CLI>`__
+   (CLI) client for automation
 -  Web-based graphical user interface (GUI) for ease of use
 -  Supports all Docker-based applications
 -  Built-in marketplace for one-click deploys of other popular open
@@ -84,10 +95,9 @@ using a custom CLI and takes a modular approach to its own service
 marketplace, which can be enhanced with features such as log streaming
 and single sign-on support. Although the service marketplace can deploy
 things such as databases, what makes it particularly interesting is that
-it can also broker communications
-to\ `  <https://www.techtarget.com/searchapparchitecture/tip/What-are-the-types-of-APIs-and-their-differences>`__\ `third-party
-APIs <https://www.techtarget.com/searchapparchitecture/tip/What-are-the-types-of-APIs-and-their-differences>`__ such
-as GitHub and AWS.
+it can also broker communications to
+`third-party APIs <https://www.techtarget.com/searchapparchitecture/tip/What-are-the-types-of-APIs-and-their-differences>`__
+such as GitHub and AWS.
 
 .. _h.55bj2w8xkgij:
 
@@ -110,14 +120,12 @@ feels highly inspired by Heroku's own tooling. Although Dokku is a
 popular, low-overhead PaaS, what really makes it stand out is its plugin
 architecture.
 
-Built entirely as a collection of well-structured plugins, Dokku can be
-extended easily to install dependencies within a single application
+Built entirely as a collection of well-structured plugins,
+Dokku can be extended easily to install dependencies within a single application
 repository -- such as databases and caching services -- while also
-enabling support for additional features such as Let's
-Encrypt\ `  <https://www.techtarget.com/searchsecurity/tip/SSL-certificate-best-practices-for-2020-and-beyond>`__\ `SSL
-certificate
-registration <https://www.techtarget.com/searchsecurity/tip/SSL-certificate-best-practices-for-2020-and-beyond>`__ and
-even automated Slack notifications.
+enabling support for additional features such as Let's Encrypt
+`SSL certificate registration <https://www.techtarget.com/searchsecurity/tip/SSL-certificate-best-practices-for-2020-and-beyond>`__
+and even automated Slack notifications.
 
 .. _h.apb99td190pn:
 
@@ -125,9 +133,8 @@ even automated Slack notifications.
 ~~~~~~~~~~~~~~~~
 
 -  CLI client for integrating into existing build tools
--  `Git
-   push-based <https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/How-to-push-an-existing-project-to-GitHub>`__ deployment
-   strategy à la Heroku
+-  `Git push-based <https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/How-to-push-an-existing-project-to-GitHub>`__
+   deployment strategy à la Heroku
 -  Extensive plugin architecture
 -  Built-in Docker support for advanced usage
 
@@ -136,14 +143,11 @@ even automated Slack notifications.
 **4. OKD**
 ~~~~~~~~~~
 
-The open source core that powers Red Hat's OpenShift commercial PaaS
-tool, OKD is an
-enhanced\ `  <https://www.techtarget.com/searchitoperations/tip/Run-Kubernetes-at-the-edge-with-these-K8s-distributions>`__\ `distribution
-of
-Kubernetes <https://www.techtarget.com/searchitoperations/tip/Run-Kubernetes-at-the-edge-with-these-K8s-distributions>`__ optimized
-for developer-centric functionality such as continuous development and
-multi-tenant deployment. Designed to run any Kubernetes workload, OKD is
-built with team usability in mind.
+The open source core that powers Red Hat's OpenShift commercial PaaS tool, OKD is an enhanced
+`distribution of Kubernetes <https://www.techtarget.com/searchitoperations/tip/Run-Kubernetes-at-the-edge-with-these-K8s-distributions>`__
+optimized for developer-centric functionality such as continuous development and
+multi-tenant deployment.
+Designed to run any Kubernetes workload, OKD is built with team usability in mind.
 
 With both a web console and CLI, OKD creates a centralized hub for
 managing everything from the underlying technology stack to the team and
@@ -167,11 +171,9 @@ thought into the features it offers on top of Kubernetes itself.
 **5. Porter**
 ~~~~~~~~~~~~~
 
-A newcomer to the scene, Porter is a Kubernetes-powered PaaS
-that\ `  <https://techcrunch.com/2021/07/30/platform-as-a-service-startup-porter-aims-to-become-go-to-platform-for-deploying-managing-cloud-based-apps/>`__\ `launched
-in
-2020 <https://techcrunch.com/2021/07/30/platform-as-a-service-startup-porter-aims-to-become-go-to-platform-for-deploying-managing-cloud-based-apps/>`__ with
-a goal of bringing the Heroku experience to a developer's preferred
+A newcomer to the scene, Porter is a Kubernetes-powered PaaS that
+`launched in 2020 <https://techcrunch.com/2021/07/30/platform-as-a-service-startup-porter-aims-to-become-go-to-platform-for-deploying-managing-cloud-based-apps/>`__
+with a goal of bringing the Heroku experience to a developer's preferred
 cloud provider. An open source platform with self-hosting capabilities,
 Porter is a well-crafted tool with a beautifully designed web dashboard
 that has as much form as it has function.
@@ -214,10 +216,8 @@ Similarly to the other PaaS tools on this list, Rancher offers a wealth
 of additional features for managing users, clusters and organizations in
 a central location. Although its command-line tool acts as an extension
 of the existing kubectl tool, its GUI provides some excellent helper
-functions
-to\ `  <https://www.techtarget.com/searchcloudcomputing/ehandbook/Practical-advice-on-cloud-application-management>`__\ `deploy
-and manage cloud
-applications <https://www.techtarget.com/searchcloudcomputing/ehandbook/Practical-advice-on-cloud-application-management>`__.
+functions to
+`deploy and manage cloud applications <https://www.techtarget.com/searchcloudcomputing/ehandbook/Practical-advice-on-cloud-application-management>`__.
 
 .. _h.3k4un5q6yl3q:
 
