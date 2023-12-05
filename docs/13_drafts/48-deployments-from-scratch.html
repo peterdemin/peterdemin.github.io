@@ -253,9 +253,10 @@ It’s objectively less number of moving parts, but the deployment process is st
 <h2>Non-goals<a class="headerlink" href="#non-goals" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p>Resource isolation. We run our software on our hardware, no need to isolate and compartmentalize for the sake of security.</p></li>
-<li><p>Security. All people who make changes to the software also have sudo permissions on the production server.</p></li>
+<li><p>Granular permission control. All people who make changes to the software also have sudo permissions on the production server.</p></li>
 <li><p>Scalability. The usage is stable, bound by physical factors, and doesn’t spike.
-We don’t need to spin up 30 times more compute in a few minutes. The whole thing is handled by a single server.</p></li>
+We don’t need to spin up 100 times more compute in a few minutes.
+The whole thing is handled by a single server.</p></li>
 <li><p>High availability. If something breaks, someone will come and fix it. Few days of downtime once in a decade is okay.</p></li>
 </ol>
 </section>
@@ -278,15 +279,11 @@ We don’t need to spin up 30 times more compute in a few minutes. The whole thi
 <li><p>Launch new version.</p></li>
 <li><p>Drain old version.</p></li>
 </ol>
-<p>Open-source self-hosted single-node PaaS projects:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/mardix/sailor">Sailor</a></p></li>
-<li><p><a class="reference external" href="https://dokku.com/">Dokku</a></p></li>
-</ul>
 <p>The pros of this approach are:</p>
 <ul class="simple">
 <li><p>On the client-side, the deployment is just a quick <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code> command.</p></li>
 <li><p>The project is built on the host where it’s run, so no headache around OS-level binary dependencies compatibility.</p></li>
+<li><p>All-in-one approach combines build server and runtime.</p></li>
 </ul>
 </section>
 <section id="build-artifact">

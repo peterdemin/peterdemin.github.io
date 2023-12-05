@@ -272,7 +272,7 @@ bgcolor=&quot;#f0f0f0&quot;;
 <ol class="arabic simple">
 <li><p>User interface. Could be git hooks, CLI, web page.</p></li>
 <li><p>Build/installation system. GitHub Actions, Dockerfile, Makefile, buildpacks, custom convention.</p></li>
-<li><p>Support for HTTP services. Nginx, Apache, Caddy. Optional SSL through Let’s Encrypt.</p></li>
+<li><p>Support for HTTP services. Nginx, Apache (joking), Caddy, Traefik. Optional SSL through Let’s Encrypt.</p></li>
 <li><p>Tailscale (optional). Because I love it.</p></li>
 <li><p>Process orchestration. Systemd, uWSGI, Supervisord.</p></li>
 <li><p>Monitoring: logs, health metrics.</p></li>
@@ -318,10 +318,10 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class=
 </section>
 <section id="rsync">
 <h2>Rsync<a class="headerlink" href="#rsync" title="Link to this heading">#</a></h2>
-<p>Similar to git pull with core aspects being almost the same.
-Upsides:</p>
+<p>Similar to git pull with core aspects being almost the same.</p>
+<p>Upsides:</p>
 <ul class="simple">
-<li><p>Production server doesn’t development tools, or access to code repo.</p></li>
+<li><p>Production server doesn’t need git or direct access to the code repo.</p></li>
 <li><p>rsync command can be set to avoid sending unnecessary files.</p></li>
 </ul>
 <p>Downsides:</p>
@@ -333,7 +333,7 @@ Upsides:</p>
 <h2>Custom Tar Balls<a class="headerlink" href="#custom-tar-balls" title="Link to this heading">#</a></h2>
 <p>This mode adds a few steps to the deployment process - building the deployment artifacts (my.tar.gz), and unpacking on the server.</p>
 <ul class="simple">
-<li><p>End-to-end time for the deployment of the new version: <strong>low</strong>, the whole project is transfered for each deployment.</p></li>
+<li><p>End-to-end time for the deployment of the new version: <strong>medium</strong>, the whole project is transfered for each deployment.</p></li>
 <li><p>Total time for a rollback to previous version: <strong>very low</strong>, the previous version can be kept on the server for a quick switch.</p></li>
 <li><p>Ability to deploy manually, side-stepping CI/CD: <strong>easy</strong>, given the build script is independent from CI/CD environment.</p></li>
 <li><p>Complexity of bootstrapping a new deployment environment: <strong>low</strong>, could be a shell script, but has to include version switching.</p></li>
@@ -342,7 +342,7 @@ Upsides:</p>
 <ul class="simple">
 <li><p>Considerable amount of bicycle reinvention.
 Tar balls need to have a custom versioning scheme, and a way to activate target version.
-While every aspect is simple, the add up to overall project complexity and increase new engineer onboarding time.</p></li>
+While every aspect is simple, customization adds up to overall project complexity and increases new engineer onboarding time.</p></li>
 </ul>
 </section>
 <section id="runtime-specific-packages">
@@ -365,7 +365,7 @@ Docker registry is optional, and can be replaced by running <code class="docutil
 </section>
 <section id="virtual-machines">
 <h2>Virtual Machines<a class="headerlink" href="#virtual-machines" title="Link to this heading">#</a></h2>
-<p>A spin on the docker containers, providing higher level of isolation, but incuring significant overhead in performance and memory usage.</p>
+<p>A spin on the docker containers, providing higher level of isolation, but incuring significant overhead in performance, build times, and memory usage.</p>
 </section>
 <section id="deep-dive-into-custom-tar-balls">
 <h2>Deep Dive into Custom Tar Balls<a class="headerlink" href="#deep-dive-into-custom-tar-balls" title="Link to this heading">#</a></h2>

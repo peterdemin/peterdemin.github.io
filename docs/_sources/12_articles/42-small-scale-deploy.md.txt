@@ -48,7 +48,7 @@ We can divide the deployment system into following loosely coupled components:
 
 1. User interface. Could be git hooks, CLI, web page.
 2. Build/installation system. GitHub Actions, Dockerfile, Makefile, buildpacks, custom convention.
-3. Support for HTTP services. Nginx, Apache, Caddy. Optional SSL through Let's Encrypt.
+3. Support for HTTP services. Nginx, Apache (joking), Caddy, Traefik. Optional SSL through Let's Encrypt.
 4. Tailscale (optional). Because I love it.
 5. Process orchestration. Systemd, uWSGI, Supervisord.
 6. Monitoring: logs, health metrics.
@@ -92,8 +92,9 @@ The downsides of this approach:
 ## Rsync
 
 Similar to git pull with core aspects being almost the same.
+
 Upsides:
-- Production server doesn't development tools, or access to code repo.
+- Production server doesn't need git or direct access to the code repo.
 - rsync command can be set to avoid sending unnecessary files.
 
 Downsides:
@@ -103,7 +104,7 @@ Downsides:
 
 This mode adds a few steps to the deployment process - building the deployment artifacts (my.tar.gz), and unpacking on the server.
 
-- End-to-end time for the deployment of the new version: **low**, the whole project is transfered for each deployment.
+- End-to-end time for the deployment of the new version: **medium**, the whole project is transfered for each deployment.
 - Total time for a rollback to previous version: **very low**, the previous version can be kept on the server for a quick switch.
 - Ability to deploy manually, side-stepping CI/CD: **easy**, given the build script is independent from CI/CD environment.
 - Complexity of bootstrapping a new deployment environment: **low**, could be a shell script, but has to include version switching.
@@ -111,7 +112,7 @@ This mode adds a few steps to the deployment process - building the deployment a
 Downsides:
 - Considerable amount of bicycle reinvention.
   Tar balls need to have a custom versioning scheme, and a way to activate target version.
-  While every aspect is simple, the add up to overall project complexity and increase new engineer onboarding time.
+  While every aspect is simple, customization adds up to overall project complexity and increases new engineer onboarding time.
 
 ## Runtime-specific Packages
 
@@ -132,7 +133,7 @@ Docker registry is optional, and can be replaced by running `docker save` and `d
 
 ## Virtual Machines
 
-A spin on the docker containers, providing higher level of isolation, but incuring significant overhead in performance and memory usage.
+A spin on the docker containers, providing higher level of isolation, but incuring significant overhead in performance, build times, and memory usage.
 
 ## Deep Dive into Custom Tar Balls
 
