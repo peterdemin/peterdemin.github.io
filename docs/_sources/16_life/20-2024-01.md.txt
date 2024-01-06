@@ -1,4 +1,12 @@
-`Jan 05, 2024` - another example of the situation I can't quite put my finger on. When you assemble an IKEA cabinet, which has two kinds of bolts, a long one and a slightly shorter one.
+`Jan 06, 2024` - Picture a person in spacious room.
+He's a scientist and he studies and works all day long without any need for going out, making food, doing laundry, nothing. 
+He has no distractions, he's fully focused on his work.
+No Netflix, no games, no TV at all.
+Yet, he has access to all the information he needs for work.
+No people, except for brief visits of housekeeping.
+Perfectly balanced diet, regular sleep schedule, no viruses, no disturbances.
+
+`Jan 05, 2024` - Another example of the situation I can't quite put my finger on. When you assemble an IKEA cabinet, which has two kinds of bolts, a long one and a slightly shorter one.
 And it's really hard to tell which one you have in hand unless you put them next to each other.
 So, when you start assembling the cabinet, you put a shorter bolt in place and keep assembling until at the last step you are left with the longer bolt and you realize that you actually need a shorter bolt which you used at the first step and now you have to disassemble the cabinet to switch the bolts.
 It's kind of a simple mistake that is not obvious at the moment, but that comes up later when it's harder to fix it.
