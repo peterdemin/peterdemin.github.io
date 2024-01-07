@@ -1,3 +1,5 @@
+`Jan 06, 2024` - Set up the Apple Weather app to ping you whenever it rains in Seattle, and never pick up your phone to an empty notification screen.
+
 `Jan 06, 2024` - Picture a person in spacious room.
 He's a scientist and he studies and works all day long without any need for going out, making food, doing laundry, nothing. 
 He has no distractions, he's fully focused on his work.
