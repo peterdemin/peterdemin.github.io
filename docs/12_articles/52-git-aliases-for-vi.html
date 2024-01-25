@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Decentralizing the Practice of Architecture at Xapo Bank &#8212; Peter Demin</title>
+    <title>Git aliases for vi &#8212; Peter Demin</title>
   
   
   
@@ -47,11 +47,11 @@
     <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '17_notes/01_xapo';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/52-git-aliases-for-vi';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Scaling the Practice of Architecture, Conversationally" href="02_advice_process.html" />
-    <link rel="prev" title="Git aliases for vi" href="../12_articles/52-git-aliases-for-vi.html" />
+    <link rel="next" title="Decentralizing the Practice of Architecture at Xapo Bank" href="../17_notes/01_xapo.html" />
+    <link rel="prev" title="Self-hosted PaaS" href="51-self-hosted-paas.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -207,7 +207,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">Decentralizi...</li>
+    <li class="breadcrumb-item active" aria-current="page">Git aliases for vi</li>
   </ul>
 </nav>
 </div>
@@ -224,35 +224,15 @@
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="decentralizing-the-practice-of-architecture-at-xapo-bank">
-<h1>Decentralizing the Practice of Architecture at Xapo Bank<a class="headerlink" href="#decentralizing-the-practice-of-architecture-at-xapo-bank" title="Link to this heading">#</a></h1>
-<p>Article: <a class="reference external" href="https://martinfowler.com/articles/xapo-architecture-experience.html">https://martinfowler.com/articles/xapo-architecture-experience.html</a></p>
-<section id="notes">
-<h2>Notes<a class="headerlink" href="#notes" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Company had horizontal teams, separating architects from engineers.</p></li>
-<li><p>This caused big number of handoffs and slow/broken feedback loops.</p></li>
-<li><p>They changed the org structure to vertical teams aligned with the core products.</p></li>
-<li><p>They implemented few processes targeting faster decision making and broader knowledge sharing.  Namely:</p>
-<ul>
-<li><p>Architecture Decision Records (ADR).</p></li>
-<li><p>Domain-Driven Design (DDD).</p></li>
-<li><p>Architecture Advisory Forum (AAF) and Architectural Advice Process (AAP).</p></li>
-</ul>
-</li>
-<li><p>They used ticket tracker (Jira) to host ADRs and measure their progress through statuses: drafted, proposed, accepted, and adopted.</p></li>
-<li><p>ADRs linked to development stories and tasks.</p></li>
-<li><p>They allowed decisions to be taken without consensus.</p></li>
-<li><p>They provided a safe environment to make mistakes and re-evaluate past decisions.</p></li>
-</ul>
-</section>
-<section id="links-to-follow">
-<h2>Links to follow:<a class="headerlink" href="#links-to-follow" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://martinfowler.com/articles/scaling-architecture-conversationally.html">Scaling the Practice of Architecture, Conversationally</a> (<a class="reference internal" href="02_advice_process.html"><span class="std std-doc">My notes</span></a>)</p></li>
-<li><p><a class="reference external" href="https://medium.com/&#64;cat-mo/how-to-use-spikes-as-a-foundation-for-adrs-92bc1617617b">How to use spikes as a foundation for ADRs</a> (<a class="reference internal" href="04_spikes.html"><span class="std std-doc">My notes</span></a>)</p></li>
-</ul>
-</section>
+  <section id="git-aliases-for-vi">
+<h1>Git aliases for vi<a class="headerlink" href="#git-aliases-for-vi" title="Link to this heading">#</a></h1>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># git vi opens all files with uncommitted changes in vi editor</span>
+git<span class="w"> </span>config<span class="w"> </span>alias.vi<span class="w"> </span><span class="s1">&#39;!vi -o $(git status -s | awk &#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;/^[^?]/ {print $2}&#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;) -c &#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;au VimEnter * windo norm g;&#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;&#39;</span>
+
+<span class="c1"># git vib opens all files changed in the branch (compared to remote master) in vi editor</span>
+git<span class="w"> </span>config<span class="w"> </span>alias.vib<span class="w"> </span><span class="s1">&#39;!vi -o $(git diff upstream/master...HEAD --name-status | awk &#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;/^[AM]/ {print $2}&#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;)&#39;</span>
+</pre></div>
+</div>
 </section>
 
 
@@ -266,20 +246,20 @@
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../12_articles/52-git-aliases-for-vi.html"
+       href="51-self-hosted-paas.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Git aliases for vi</p>
+        <p class="prev-next-title">Self-hosted PaaS</p>
       </div>
     </a>
     <a class="right-next"
-       href="02_advice_process.html"
+       href="../17_notes/01_xapo.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Scaling the Practice of Architecture, Conversationally</p>
+        <p class="prev-next-title">Decentralizing the Practice of Architecture at Xapo Bank</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -293,20 +273,9 @@
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
   <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#links-to-follow">Links to follow:</a></li>
-</ul>
-  </nav></div>
-
-  <div class="sidebar-secondary-item">
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/17_notes/01_xapo.md">
+    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/12_articles/52-git-aliases-for-vi.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -320,7 +289,7 @@
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="../_sources/17_notes/01_xapo.md.txt">
+    <a href="../_sources/12_articles/52-git-aliases-for-vi.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
