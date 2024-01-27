@@ -1,3 +1,5 @@
+`Jan 27, 2024` - Sharpest pencil in box tears the paper.
+
 `Jan 24, 2024` - [](/12_articles/52-git-aliases-for-vi.md)
 
 `Jan 23, 2024` - One thing that seems to be a upside of Golang as compared to Python, is that it's harder to do the wrong thing. Which is true due to typing, obviously. But also for the toolset.

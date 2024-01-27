@@ -227,10 +227,10 @@
   <section id="git-aliases-for-vi">
 <h1>Git aliases for vi<a class="headerlink" href="#git-aliases-for-vi" title="Link to this heading">#</a></h1>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># git vi opens all files with uncommitted changes in vi editor</span>
-git<span class="w"> </span>config<span class="w"> </span>alias.vi<span class="w"> </span><span class="s1">&#39;!vi -o $(git status -s | awk &#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;/^[^?]/ {print $2}&#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;) -c &#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;au VimEnter * windo norm g;&#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;&#39;</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.vi<span class="w"> </span><span class="s1">&#39;!vi -o $(git status -s | awk &#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;/^[^?]/ {print $2}&#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;) -c &#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;au VimEnter * windo norm g;&#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;&#39;</span>
 
 <span class="c1"># git vib opens all files changed in the branch (compared to remote master) in vi editor</span>
-git<span class="w"> </span>config<span class="w"> </span>alias.vib<span class="w"> </span><span class="s1">&#39;!vi -o $(git diff upstream/master...HEAD --name-status | awk &#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;/^[AM]/ {print $2}&#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;)&#39;</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.vib<span class="w"> </span><span class="s1">&#39;!vi -o $(git diff origin/master...HEAD --name-status | awk &#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;/^[AM]/ {print $2}&#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;)&#39;</span>
 </pre></div>
 </div>
 </section>
