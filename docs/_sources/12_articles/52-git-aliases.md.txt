@@ -34,4 +34,7 @@ git config --global push.autoSetupRemote=true
 
 # Always use rebase for git pull
 git config --global pull.rebase=true
+
+# Remove a/ and b/ prefixes from file paths in diff and log
+git config --global diff.noprefix true
 ```
