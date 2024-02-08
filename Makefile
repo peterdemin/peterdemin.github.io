@@ -18,7 +18,7 @@ clean: counter_clean
 
 .PHONY: autogen
 autogen:
-	python gen_life.py > source/life_gd.rst
+	python3 gen_life.py > source/life_gd.rst
 
 .PHONY: build
 build: autogen html counter_build
@@ -110,11 +110,11 @@ counter_install:
 ## ENTERING
 .PHONY: life
 life:
-	vi $$(python new_life_entry.py)
+	vi $$(python3 new_life_entry.py)
 
 .PHONY: note
 note:
-	@python new_reading_note.py
+	@python3 new_reading_note.py
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
