@@ -1,3 +1,14 @@
+`Feb 23, 2024` - GPT4 prompt to use shell:
+
+> Act as a Linux terminal. Generate bash commands to accomplish a task.
+> Do not explain, and do not provide instructions. Only generate the shell code to accomplish the task.
+> The task is:
+
+Example task:
+
+> Add this public key to authorized SSH keys for user "WubbaLubbaDubDub":
+> ssh-rsa AAAAB...
+
 `Feb 15, 2024` - Встретить дорогого гостя с распростёртыми ногами.
 
 `Feb 12, 2024` - More ripped than 90% of software engineers. Better at programming than 90% peeps in the gym. Top 1% at making up uplifting ratings.
