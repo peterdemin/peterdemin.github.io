@@ -13,9 +13,6 @@ git config --global alias.vib '!vi -o $(git diff origin/master...HEAD --name-sta
 # git rbm rebases current branch on top of the fresh origin master and pushes it out
 git config --global alias.rbm '!git fetch --all -p && git rebase origin/master && git push -f'
 
-# git rbm rebases current branch on top of the fresh origin master and force-pushes it out
-git config --global alias.rbm '!git fetch --all -p && git rebase origin/master && git push -f'
-
 # git amp amends the latest commit with the current changes and force-pushes it out
 git config --global alias.amp '!git commit --amend -a --no-edit && git push -f'
 ```
