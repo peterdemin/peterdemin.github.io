@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>My favourite aliases for Git (and vi) &#8212; Peter Demin</title>
+    <title>Meaning of Life &#8212; Peter Demin</title>
   
   
   
@@ -47,11 +47,11 @@
     <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/52-git-aliases';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/53-meaning-of-life';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Meaning of Life" href="53-meaning-of-life.html" />
-    <link rel="prev" title="Self-hosted PaaS" href="51-self-hosted-paas.html" />
+    <link rel="next" title="Decentralizing the Practice of Architecture at Xapo Bank" href="../17_notes/01_xapo.html" />
+    <link rel="prev" title="My favourite aliases for Git (and vi)" href="52-git-aliases.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -207,7 +207,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">My...</li>
+    <li class="breadcrumb-item active" aria-current="page">Meaning of Life</li>
   </ul>
 </nav>
 </div>
@@ -224,43 +224,30 @@
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="my-favourite-aliases-for-git-and-vi">
-<h1>My favourite aliases for Git (and vi)<a class="headerlink" href="#my-favourite-aliases-for-git-and-vi" title="Link to this heading">#</a></h1>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># git co is a shorthand for git checkout</span>
-git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.vi<span class="w"> </span><span class="s1">&#39;checkout&#39;</span>
-
-<span class="c1"># git vi opens all files with uncommitted changes in vi editor</span>
-git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.vi<span class="w"> </span><span class="s1">&#39;!vi -o $(git status -s | awk &#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;/^[^?]/ {print $2}&#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;) -c &#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;au VimEnter * windo norm g;&#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;&#39;</span>
-
-<span class="c1"># git vib opens all files changed in the branch (compared to remote master) in vi editor</span>
-git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.vib<span class="w"> </span><span class="s1">&#39;!vi -o $(git diff origin/master...HEAD --name-status | awk &#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;/^[AM]/ {print $2}&#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;)&#39;</span>
-
-<span class="c1"># git rbm rebases current branch on top of the fresh origin master and pushes it out</span>
-git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.rbm<span class="w"> </span><span class="s1">&#39;!git fetch --all -p &amp;&amp; git rebase origin/master &amp;&amp; git push -f&#39;</span>
-
-<span class="c1"># git amp amends the latest commit with the current changes and force-pushes it out</span>
-git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.amp<span class="w"> </span><span class="s1">&#39;!git commit --amend -a --no-edit &amp;&amp; git push -f&#39;</span>
-</pre></div>
-</div>
-<section id="git-configuration">
-<h2>Git configuration<a class="headerlink" href="#git-configuration" title="Link to this heading">#</a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Record conflict resolution and re-apply it automatically</span>
-git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>rerere.enabled<span class="o">=</span><span class="nb">true</span>
-
-<span class="c1"># Use 4 spaces for tabs in git diff</span>
-git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>core.pager<span class="o">=</span><span class="s2">&quot;less -x1,5&quot;</span>
-
-<span class="c1"># Automatically set up remote upstream when pushing branch</span>
-git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>push.autoSetupRemote<span class="o">=</span><span class="nb">true</span>
-
-<span class="c1"># Always use rebase for git pull</span>
-git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>pull.rebase<span class="o">=</span><span class="nb">true</span>
-
-<span class="c1"># Remove a/ and b/ prefixes from file paths in diff and log</span>
-git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>diff.noprefix<span class="w"> </span><span class="nb">true</span>
-</pre></div>
-</div>
-</section>
+  <section id="meaning-of-life">
+<h1>Meaning of Life<a class="headerlink" href="#meaning-of-life" title="Link to this heading">#</a></h1>
+<p>I had a pleasant conversation recently that started from the topic of religion.
+We discussed how different cultures have different beliefs, but ultimately shared the same values in the same set of values exists in cultures that don’t have religion at all.</p>
+<p>The conclusion was that the differences in religion doesn’t matter much.
+Even though different countries have people live very different lives at the core it’s all the same.</p>
+<p>The values are simple of course.
+Don’t kill, don’t steal, and so on.
+They define how the society can leave and prosper together.
+Now the thing is that this values are good for society as a whole they are not always the best mean for advantage of a single person.
+And so we have laws, and police, and judges, and prisons, and punishment.
+The institutions that are meant to bring fairness and justice to all the people in the society.
+Of course, the concept of justice is an elusive one.
+Without a single definition everyone agrees upon, that would apply to every situation.
+Is it justice to kill a person who killed another person, or is it justice to lock them in a cell?
+What’s the society needs is to stop the bloodshed, so the family of a victim don’t take revenge over there criminal, creating a family feud, that takes more lives over the years.
+Having the offender in a cell, protects the society from them.
+And protects the offender from the revenge.
+In the absence of law, killing and stealing, is of course, the fastest way to achieve wealth.
+So the religion serves, among many others, the purpose of explaining these simple mechanics of living in a society.</p>
+<p>Now, why do we have injustice and unfairness?
+Why do we have rich people who ruin the life of poor people?
+And why is it so hard to achieve happyness and live a happy life?</p>
+<p>TBC</p>
 </section>
 
 
@@ -274,20 +261,20 @@ git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="51-self-hosted-paas.html"
+       href="52-git-aliases.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Self-hosted PaaS</p>
+        <p class="prev-next-title">My favourite aliases for Git (and vi)</p>
       </div>
     </a>
     <a class="right-next"
-       href="53-meaning-of-life.html"
+       href="../17_notes/01_xapo.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Meaning of Life</p>
+        <p class="prev-next-title">Decentralizing the Practice of Architecture at Xapo Bank</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -301,19 +288,9 @@ git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
   <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#git-configuration">Git configuration</a></li>
-</ul>
-  </nav></div>
-
-  <div class="sidebar-secondary-item">
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/12_articles/52-git-aliases.md">
+    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/12_articles/53-meaning-of-life.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -327,7 +304,7 @@ git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="../_sources/12_articles/52-git-aliases.md.txt">
+    <a href="../_sources/12_articles/53-meaning-of-life.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
