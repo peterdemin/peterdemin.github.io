@@ -24,5 +24,12 @@ So the religion serves, among many others, the purpose of explaining these simpl
 Now, why do we have injustice and unfairness?
 Why do we have rich people who ruin the life of poor people?
 And why is it so hard to achieve happyness and live a happy life?
+Whenever we set a goal and work hard to achieve it, we find very soon, that now we need something else.
+We're never completely satisfied with what we have, what we do, and how things are.
+The desire to always strive for something new is a fundamental pillar of being a human.
+Without it, we would just lie and do nothing. And eventually die, of course.
+But we must live, and we must make our lives better at all times.
+We find satisfaction in gettings things done the way we want them be.
+We take pleasure in exercising our free will, and exercising our power of will.
+And at some point when our 
 
-TBC
