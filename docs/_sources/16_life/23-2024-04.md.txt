@@ -1,3 +1,13 @@
+`Apr 18, 2024` - Aspects to consider for scraping:
+1. Parallelism
+2. Batching
+3. Retrying
+4. Throttling
+5. Acceptable error rate
+6. Metrics
+7. Reporting
+8. Cancel and Resume
+
 `Apr 12, 2024` - Greatness comes from character. Character forms out of people who suffered. -- [Jensen Huang](https://www.youtube.com/watch?v=4CHEZua7raE)
 Reminds me of Yoda's: Fear leads to anger. Anger leads to hate. Hate leads to suffering.
 
