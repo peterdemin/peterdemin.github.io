@@ -1,3 +1,5 @@
+`Apr 19, 2024` - When I look at a bad design, I can tell it's bad. I can point a few issues. But I can't tell how to make it good. That's why I'm not a designer.
+
 `Apr 18, 2024` - Aspects to consider for scraping:
 1. Parallelism
 2. Batching
@@ -9,7 +11,8 @@
 8. Cancel and Resume
 
 `Apr 12, 2024` - Greatness comes from character. Character forms out of people who suffered. -- [Jensen Huang](https://www.youtube.com/watch?v=4CHEZua7raE)
-Reminds me of Yoda's: Fear leads to anger. Anger leads to hate. Hate leads to suffering.
+
+Fear leads to anger. Anger leads to hate. Hate leads to suffering. -- Yoda
 
 `Apr 12, 2024` - Software attempts to automate a real word process through creation of a limited model of the important aspects.
 The depth of the real world is infinite, and our understanding of it is shallow.
