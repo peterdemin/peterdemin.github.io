@@ -88,72 +88,72 @@
      La Fete Patisserie is not just a spot for fantastic baked goods but also a place where patrons can enjoy a warm, inviting atmosphere, making it a must-visit for those on Mercer Island looking for top-notch French pastries.
 
 10. **Mainstay Provisions**
-   - **Ballard Address:** 612 NW 65th St, Seattle, WA 98117
-   - **Denny Triangle Address:** 2295 7th Ave, Seattle, WA 98121
-   - **Website:** [mainstayprovisions.com](https://www.mainstayprovisions.com)
-   - **Review summary**: 
-     Mainstay Provisions has quickly established itself as a favorite in Seattle for its blend of café culture and specialty market offerings. It's popular for its all-day menu that features a variety of breakfast, lunch, and dinner options, including uniquely crafted sandwiches, salads, and specialty coffees. The atmosphere is often described as welcoming and perfect for both quick visits or leisurely meals.
+    - **Ballard Address:** 612 NW 65th St, Seattle, WA 98117
+    - **Denny Triangle Address:** 2295 7th Ave, Seattle, WA 98121
+    - **Website:** [mainstayprovisions.com](https://www.mainstayprovisions.com)
+    - **Review summary**: 
+      Mainstay Provisions has quickly established itself as a favorite in Seattle for its blend of café culture and specialty market offerings. It's popular for its all-day menu that features a variety of breakfast, lunch, and dinner options, including uniquely crafted sandwiches, salads, and specialty coffees. The atmosphere is often described as welcoming and perfect for both quick visits or leisurely meals.
 
-     Customers frequently commend Mainstay Provisions for its high-quality food and market items. The sausage and bacon breakfast sandwiches are particularly noted for their deliciousness and hearty serving sizes. Additionally, the salted chocolate chip cookie and soft serve have been highlighted as must-try items. The venue combines the convenience of a grocery with the charm of a neighborhood café, providing a variety of local and international products alongside fresh, well-prepared meals.
+      Customers frequently commend Mainstay Provisions for its high-quality food and market items. The sausage and bacon breakfast sandwiches are particularly noted for their deliciousness and hearty serving sizes. Additionally, the salted chocolate chip cookie and soft serve have been highlighted as must-try items. The venue combines the convenience of a grocery with the charm of a neighborhood café, providing a variety of local and international products alongside fresh, well-prepared meals.
 
-     The service at Mainstay Provisions is also a point of praise, with staff members described as friendly and efficient. This spot is appreciated for its community vibe and its ability to cater to both fast-paced morning rushes and relaxed afternoons. Whether grabbing a quick coffee or sitting down for a meal, Mainstay Provisions delivers both quality and convenience in a stylish setting.
+      The service at Mainstay Provisions is also a point of praise, with staff members described as friendly and efficient. This spot is appreciated for its community vibe and its ability to cater to both fast-paced morning rushes and relaxed afternoons. Whether grabbing a quick coffee or sitting down for a meal, Mainstay Provisions delivers both quality and convenience in a stylish setting.
 
 11. **The Flour Box**
-   - **Address:** 5520 Rainier Ave S, Seattle, WA 98118
-   - **Website:** [The Flour Box](https://www.theflourboxseattle.com)
-   - **Review summary**: 
-     The Flour Box in Seattle is celebrated for its outstanding brioche donuts, which are recognized as some of the best in the city. This small bakery, initially a pop-up, has become a permanent fixture, attracting locals and visitors who line up early for their exquisite creations. Their menu includes a variety of inventive flavors like vanilla bean crème brûlée, savory chive cream cheese, and seasonal specials that often feature unique combinations such as Oreo or Thai Tea.
+    - **Address:** 5520 Rainier Ave S, Seattle, WA 98118
+    - **Website:** [The Flour Box](https://www.theflourboxseattle.com)
+    - **Review summary**: 
+      The Flour Box in Seattle is celebrated for its outstanding brioche donuts, which are recognized as some of the best in the city. This small bakery, initially a pop-up, has become a permanent fixture, attracting locals and visitors who line up early for their exquisite creations. Their menu includes a variety of inventive flavors like vanilla bean crème brûlée, savory chive cream cheese, and seasonal specials that often feature unique combinations such as Oreo or Thai Tea.
 
-     Customers rave about the high quality of the donuts, noting that they strike the perfect balance of sweetness and are just the right amount of indulgent without being overly heavy. The bakery is also praised for its friendly atmosphere and efficient service, despite the sometimes long lines, which are a testament to the popularity of their offerings.
+      Customers rave about the high quality of the donuts, noting that they strike the perfect balance of sweetness and are just the right amount of indulgent without being overly heavy. The bakery is also praised for its friendly atmosphere and efficient service, despite the sometimes long lines, which are a testament to the popularity of their offerings.
 
-     Another highlight at The Flour Box is their coffee, especially recommended is the cold brew with burnt honey, which pairs wonderfully with their baked goods. The bakery's commitment to quality and creativity has made it a standout in Seattle's competitive pastry scene, making it well worth a visit for anyone looking for exceptional donuts and a charming local experience.
+      Another highlight at The Flour Box is their coffee, especially recommended is the cold brew with burnt honey, which pairs wonderfully with their baked goods. The bakery's commitment to quality and creativity has made it a standout in Seattle's competitive pastry scene, making it well worth a visit for anyone looking for exceptional donuts and a charming local experience.
 
 12. **Petit Pierre**
-   - **Address:** 2908 NE Blakely St, Seattle, WA 98105
-   - **Website:** [Petit Pierre](https://www.petitpierrebakery.com)
-   - **Review summary**: 
-     Petit Pierre Bakery in Seattle has garnered positive reviews for its high-quality French pastries and inviting atmosphere. The bakery is celebrated for its delicious and flaky croissants, particularly the ham and cheese croissant and the pain au chocolat. Patrons have also praised the Italian sandwich and cinnamon buns, highlighting the bakery as a go-to spot for both savory and sweet treats.
+    - **Address:** 2908 NE Blakely St, Seattle, WA 98105
+    - **Website:** [Petit Pierre](https://www.petitpierrebakery.com)
+    - **Review summary**: 
+      Petit Pierre Bakery in Seattle has garnered positive reviews for its high-quality French pastries and inviting atmosphere. The bakery is celebrated for its delicious and flaky croissants, particularly the ham and cheese croissant and the pain au chocolat. Patrons have also praised the Italian sandwich and cinnamon buns, highlighting the bakery as a go-to spot for both savory and sweet treats.
 
-     Customers often mention the welcoming vibe of the bakery, with its cozy seating and friendly staff making it a pleasant place for breakfast or a mid-day snack. Despite sometimes long lines, the wait is deemed worthwhile for the quality of the pastries served. The bakery's commitment to quality is apparent, with each item freshly prepared and beautifully presented.
+      Customers often mention the welcoming vibe of the bakery, with its cozy seating and friendly staff making it a pleasant place for breakfast or a mid-day snack. Despite sometimes long lines, the wait is deemed worthwhile for the quality of the pastries served. The bakery's commitment to quality is apparent, with each item freshly prepared and beautifully presented.
 
-     Additionally, Petit Pierre Bakery's location in Seattle makes it a convenient stop for those in the neighborhood looking to satisfy their pastry cravings. The bakery has been described as a local gem that consistently delivers delightful culinary experiences.
+      Additionally, Petit Pierre Bakery's location in Seattle makes it a convenient stop for those in the neighborhood looking to satisfy their pastry cravings. The bakery has been described as a local gem that consistently delivers delightful culinary experiences.
 
-     Overall, Petit Pierre Bakery is highly recommended for anyone seeking authentic French baked goods in Seattle. The bakery's dedication to creating high-quality pastries and its charming café atmosphere provide a delightful experience for visitors.
+      Overall, Petit Pierre Bakery is highly recommended for anyone seeking authentic French baked goods in Seattle. The bakery's dedication to creating high-quality pastries and its charming café atmosphere provide a delightful experience for visitors.
 
 13. **Saint Bread**
-   - **Address:** 1421 NE Boat St, Seattle, WA 98105
-   - **Website:** [Google Link](https://maps.app.goo.gl/iF44QqGq4mLLT9Pd6)
-   - **Review summary**: 
-     Saint Bread in Seattle is celebrated for its unique and high-quality baked goods, offering items like the okonomiyaki tortilla, cardamom croissant, and smoked trout toast. Reviewers praise the friendly service and the heated patio which provides a cozy environment. Despite its higher price point, the quality and inventiveness of the offerings make it a worthwhile visit. The bakery's setting near the waterfront adds to its charm, making it a pleasant spot for enjoying both the scenery and delightful pastries.
+    - **Address:** 1421 NE Boat St, Seattle, WA 98105
+    - **Website:** [Google Link](https://maps.app.goo.gl/iF44QqGq4mLLT9Pd6)
+    - **Review summary**: 
+      Saint Bread in Seattle is celebrated for its unique and high-quality baked goods, offering items like the okonomiyaki tortilla, cardamom croissant, and smoked trout toast. Reviewers praise the friendly service and the heated patio which provides a cozy environment. Despite its higher price point, the quality and inventiveness of the offerings make it a worthwhile visit. The bakery's setting near the waterfront adds to its charm, making it a pleasant spot for enjoying both the scenery and delightful pastries.
 
 14. **Grand Central Bakery**
-   - **Eastlake Address:** 198 E. Blaine St, Seattle, WA 98102
-   - **Wallingford Address:** 1607 N. 45th Street, Seattle, WA 98103
-   - **Wedgwood Address:** 7501 35th Avenue NE, Seattle, WA 98115
-   - **Burien Address:** 626 SW 152nd St, Burien, WA 98166
-   - **Website:** [grandcentralbakery.com](https://www.grandcentralbakery.com)
-   - **Review summary**: 
-     Grand Central Bakery across its Seattle locations, including Eastlake, Wallingford, and Wedgwood, is highly praised for its quality baked goods and comfortable cafe atmosphere. Customers appreciate the diverse menu offerings, which include delicious pastries like chocolate chip cookies, butter croissants, and cinnamon rolls, along with hearty sandwiches such as turkey and bacon quiche. The bakery's fresh bread is also a standout feature.
+    - **Eastlake Address:** 198 E. Blaine St, Seattle, WA 98102
+    - **Wallingford Address:** 1607 N. 45th Street, Seattle, WA 98103
+    - **Wedgwood Address:** 7501 35th Avenue NE, Seattle, WA 98115
+    - **Burien Address:** 626 SW 152nd St, Burien, WA 98166
+    - **Website:** [grandcentralbakery.com](https://www.grandcentralbakery.com)
+    - **Review summary**: 
+      Grand Central Bakery across its Seattle locations, including Eastlake, Wallingford, and Wedgwood, is highly praised for its quality baked goods and comfortable cafe atmosphere. Customers appreciate the diverse menu offerings, which include delicious pastries like chocolate chip cookies, butter croissants, and cinnamon rolls, along with hearty sandwiches such as turkey and bacon quiche. The bakery's fresh bread is also a standout feature.
 
 15. **Fresh Flours**
-   - **Phinney Ridge Address:** 6015 Phinney Ave N, Seattle, WA 98103
-   - **South Lake Union Address:** 432 8th Ave N, Seattle, WA 98109
-   - **Beacon Hill Address:** 1624 S McClellan St, Seattle, WA 98144
-   - **West Seattle Address:** 9410 Delridge Way SW, Seattle, WA 98106
-   - **Website:** [freshfloursseattle.com](https://www.freshfloursseattle.com)
-   - **Review summary**: 
+    - **Phinney Ridge Address:** 6015 Phinney Ave N, Seattle, WA 98103
+    - **South Lake Union Address:** 432 8th Ave N, Seattle, WA 98109
+    - **Beacon Hill Address:** 1624 S McClellan St, Seattle, WA 98144
+    - **West Seattle Address:** 9410 Delridge Way SW, Seattle, WA 98106
+    - **Website:** [freshfloursseattle.com](https://www.freshfloursseattle.com)
+    - **Review summary**: 
 
 16. **Tous Les Jours**
-   - **Address:** 502 S King St, Seattle, WA 98104
-   - **Website:** [Tous Les Jours](https://www.tljus.com)
-   - **Review summary**: 
+    - **Address:** 502 S King St, Seattle, WA 98104
+    - **Website:** [Tous Les Jours](https://www.tljus.com)
+    - **Review summary**: 
 
 17. **Lady Yum**
-   - **Address:** 2130 6th Ave, Seattle, WA 98121
-   - **Website:** [Lady Yum](https://www.ladyyum.com)
-   - **Review summary**: 
+    - **Address:** 2130 6th Ave, Seattle, WA 98121
+    - **Website:** [Lady Yum](https://www.ladyyum.com)
+    - **Review summary**: 
 
 18. **Le Fournil**
-   - **Address:** 3230 Eastlake Ave E, Seattle, WA 98102
-   - **Website:** [Le Fournil](https://www.le-fournil.com)
-   - **Review summary**: 
+    - **Address:** 3230 Eastlake Ave E, Seattle, WA 98102
+    - **Website:** [Le Fournil](https://www.le-fournil.com)
+    - **Review summary**: 
