@@ -133,6 +133,7 @@
    - **Burien Address:** 626 SW 152nd St, Burien, WA 98166
    - **Website:** [grandcentralbakery.com](https://www.grandcentralbakery.com)
    - **Review summary**: 
+     Grand Central Bakery across its Seattle locations, including Eastlake, Wallingford, and Wedgwood, is highly praised for its quality baked goods and comfortable cafe atmosphere. Customers appreciate the diverse menu offerings, which include delicious pastries like chocolate chip cookies, butter croissants, and cinnamon rolls, along with hearty sandwiches such as turkey and bacon quiche. The bakery's fresh bread is also a standout feature.
 
 15. **Fresh Flours**
    - **Phinney Ridge Address:** 6015 Phinney Ave N, Seattle, WA 98103
