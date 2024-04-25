@@ -10,7 +10,7 @@
 
 2. **Byen Bakeri**
    - **Address:** 15 Nickerson St, Seattle, WA 98109
-   - **Website:** [Google Link](https://g.co/kgs/apr1knT)
+   - **Website:** [byenbakeri.com](https://www.byenbakeri.com)
    - **Review summary**:
      Byen Bakeri is celebrated for its authentic Scandinavian offerings in Seattle. Reviewers consistently praise its cozy ambiance and the quality of its baked goods, particularly the Royal Almond Croissant and Princess Cake. It is described as a bit pricey, but the portion sizes and the freshness of the pastries make it worth the cost. Customers also enjoy the quiche and various tarts, appreciating the bakery for its genuine Scandinavian flavors and welcoming atmosphere.
 
@@ -142,18 +142,22 @@
     - **West Seattle Address:** 9410 Delridge Way SW, Seattle, WA 98106
     - **Website:** [freshfloursseattle.com](https://www.freshfloursseattle.com)
     - **Review summary**: 
+      Offers a serene setting ideal for enjoying coffee and Japanese-inspired pastries. Known for its calm atmosphere and favorites like matcha macarons and red bean pastries.
 
 16. **Tous Les Jours**
     - **Address:** 502 S King St, Seattle, WA 98104
     - **Website:** [Tous Les Jours](https://www.tljus.com)
     - **Review summary**: 
+      Showcases a variety of beautifully presented Asian-French pastries. Known for distinctive offerings like taro cream buns and guava pastries, and exceptional drinks like the iced Matcha lavender latte.
 
 17. **Lady Yum**
     - **Address:** 2130 6th Ave, Seattle, WA 98121
     - **Website:** [Lady Yum](https://www.ladyyum.com)
     - **Review summary**: 
+      Specializes in macarons with a whimsical decor. Known for champagne deals and a variety of macaron flavors, providing a delightful experience both in-store and online.
 
 18. **Le Fournil**
     - **Address:** 3230 Eastlake Ave E, Seattle, WA 98102
     - **Website:** [Le Fournil](https://www.le-fournil.com)
     - **Review summary**: 
+      Renowned for authentic French pastries like mille-feuille and chocolate tarts. Praised for its warm ambiance and high-quality offerings at reasonable prices.
