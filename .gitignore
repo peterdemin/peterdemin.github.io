@@ -5,3 +5,4 @@ source/*_gd.rst
 node_modules
 /backgammon/_site
 .DS_Store
+__pycache__
