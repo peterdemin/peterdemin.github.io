@@ -1,4 +1,5 @@
 import time
+from typing import List
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from httpx import AsyncClient
@@ -50,7 +51,7 @@ async def stop_times(stop_id: str):
     return {"arrivals": extact_arrival_times(data, stop_id)}
 
 
-def extact_arrival_times(data: dict, stop_id: str) -> list[int]:
+def extact_arrival_times(data: dict, stop_id: str) -> List[int]:
     arrivals = []
     for entity in data['entity']:
         for stop_time_update in entity['trip_update']['stop_time_update']:

@@ -1,19 +1,16 @@
 [Unit]
 Description=bus daemon
-Requires=bus.socket
 After=network.target
 
 [Service]
-Type=notify
+Type=simple
 User=bus
 Group=bus
-RuntimeDirectory=gunicorn
-WorkingDirectory=/home/bus/
-ExecStart=/home/bus/run.pex bus.app
+WorkingDirectory=/home/bus/bus/
+ExecStart=/home/bus/bus/run.sh
 ExecReload=/bin/kill -s HUP $MAINPID
 KillMode=mixed
 TimeoutStopSec=5
-PrivateTmp=true
 
 [Install]
 WantedBy=multi-user.target
