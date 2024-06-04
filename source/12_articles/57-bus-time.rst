@@ -37,11 +37,17 @@ Next bus
             function timeSpans(times) {
                 var html = "";
                 times.forEach((item) => {
-                    const date = new Date(item * 1000);
-                    const timeString = date.toTimeString().split(' ')[0];
-                    html += `<span>${timeString}</span> `;
+                    const t = formatTime(item);
+                    html += `<span>${t}</span> `;
                 });
                 return html;
+            }
+
+            function formatTime(timestampSec) {
+                const date = new Date(timestampSec * 1000);
+                const hours = String(date.getHours()).padStart(2, '0');
+                const minutes = String(date.getMinutes()).padStart(2, '0');
+                return `${hours}:${minutes}`;
             }
 
             // Fetch bus arrival times on page load
