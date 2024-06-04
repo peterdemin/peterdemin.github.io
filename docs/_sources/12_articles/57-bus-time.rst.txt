@@ -25,13 +25,15 @@ Next bus
             // Function to display bus arrival times
             function displayBusArrivalTimes(data, stopId) {
                 const busArrivalTimesDiv = document.getElementById('bus-arrival-times');
+                const routes = data.routes
+                const route = "102615"
                 busArrivalTimesDiv.innerHTML = ''; // Clear previous data
                 busArrivalTimesDiv.innerHTML += "<p><b>85th:</b>";
-                busArrivalTimesDiv.innerHTML += timeSpans(data.arrivals["7160"])
+                busArrivalTimesDiv.innerHTML += timeSpans(routes["7160"][route])
                 busArrivalTimesDiv.innerHTML += "</p><p><b>65th:</b>";
-                busArrivalTimesDiv.innerHTML += timeSpans(data.arrivals["7210"])
+                busArrivalTimesDiv.innerHTML += timeSpans(routes["7210"][route])
                 busArrivalTimesDiv.innerHTML += "</p><p><b>Harrison:</b>";
-                busArrivalTimesDiv.innerHTML += timeSpans(data.arrivals["6237"])
+                busArrivalTimesDiv.innerHTML += timeSpans(routes["6237"][route])
                 busArrivalTimesDiv.innerHTML += "</p>";
             }
 
