@@ -43,12 +43,17 @@ class Schedule:
 schedule = Schedule()
 
 
-@app.get("/{stop_id}")
-async def stop_times(stop_id: str):
+@app.get("/{stop_ids}")
+async def stop_times(stop_ids: str):
     ok, data = await schedule.get()
     if not ok:
         return {"error": "Tripupdates API returned non-200", "details": data}
-    return {"arrivals": extact_arrival_times(data, stop_id)}
+    return {
+        "arrivals": {
+            stop_id: extact_arrival_times(data, stop_id)
+            for stop_id in stop_ids.split(',')
+        }
+    }
 
 
 def extact_arrival_times(data: dict, stop_id: str) -> List[int]:
