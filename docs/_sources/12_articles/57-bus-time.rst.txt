@@ -6,7 +6,7 @@ Next bus
     <div id="bus-arrival-times"></div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const apiUrl = 'https://api.demin.dev/7160';
+            const apiUrl = 'https://api.demin.dev/7160,7210,6237';
 
             // Function to fetch and display bus arrival times
             async function fetchBusArrivalTimes() {
@@ -26,12 +26,22 @@ Next bus
             function displayBusArrivalTimes(data, stopId) {
                 const busArrivalTimesDiv = document.getElementById('bus-arrival-times');
                 busArrivalTimesDiv.innerHTML = ''; // Clear previous data
-                data.arrivals.forEach((item) => {
+                busArrivalTimesDiv.innerHTML += "<h2>85th</h2>";
+                busArrivalTimesDiv.innerHTML += timeSpans(data.arrivals["7160"])
+                busArrivalTimesDiv.innerHTML += "<h2>65th</h2>";
+                busArrivalTimesDiv.innerHTML += timeSpans(data.arrivals["7210"])
+                busArrivalTimesDiv.innerHTML += "<h2>Harrison</h2>";
+                busArrivalTimesDiv.innerHTML += timeSpans(data.arrivals["6237"])
+            }
+
+            function timeSpans(times) {
+                var html = "";
+                times.forEach((item) => {
                     const date = new Date(item * 1000);
                     const timeString = date.toTimeString().split(' ')[0];
-                    const busInfo = `<p>${timeString}</p>`;
-                    busArrivalTimesDiv.innerHTML += busInfo;
-                })
+                    html += `<span>${timeString}</span> `;
+                });
+                return html;
             }
 
             // Fetch bus arrival times on page load
