@@ -26,19 +26,20 @@ Next bus
             function displayBusArrivalTimes(data, stopId) {
                 const busArrivalTimesDiv = document.getElementById('bus-arrival-times');
                 busArrivalTimesDiv.innerHTML = ''; // Clear previous data
-                busArrivalTimesDiv.innerHTML += "<h2>85th</h2>";
+                busArrivalTimesDiv.innerHTML += "<p><b>85th:</b>";
                 busArrivalTimesDiv.innerHTML += timeSpans(data.arrivals["7160"])
-                busArrivalTimesDiv.innerHTML += "<h2>65th</h2>";
+                busArrivalTimesDiv.innerHTML += "</p><p><b>65th:</b>";
                 busArrivalTimesDiv.innerHTML += timeSpans(data.arrivals["7210"])
-                busArrivalTimesDiv.innerHTML += "<h2>Harrison</h2>";
+                busArrivalTimesDiv.innerHTML += "</p><p><b>Harrison:</b>";
                 busArrivalTimesDiv.innerHTML += timeSpans(data.arrivals["6237"])
+                busArrivalTimesDiv.innerHTML += "</p>";
             }
 
             function timeSpans(times) {
                 var html = "";
                 times.forEach((item) => {
                     const t = formatTime(item);
-                    html += `<span>${t}</span> `;
+                    html += ` <span>${t}</span>`;
                 });
                 return html;
             }
