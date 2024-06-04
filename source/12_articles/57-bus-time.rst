@@ -28,13 +28,9 @@ Next bus
                 const routes = data.routes
                 const route = "102615"
                 busArrivalTimesDiv.innerHTML = ''; // Clear previous data
-                busArrivalTimesDiv.innerHTML += "<p><b>85th:</b>";
-                busArrivalTimesDiv.innerHTML += timeSpans(routes["7160"][route])
-                busArrivalTimesDiv.innerHTML += "</p><p><b>65th:</b>";
-                busArrivalTimesDiv.innerHTML += timeSpans(routes["7210"][route])
-                busArrivalTimesDiv.innerHTML += "</p><p><b>Harrison:</b>";
-                busArrivalTimesDiv.innerHTML += timeSpans(routes["6237"][route])
-                busArrivalTimesDiv.innerHTML += "</p>";
+                busArrivalTimesDiv.innerHTML += "<p><b>85th:</b>" + timeSpans(routes["7160"][route]) + "</p>";
+                busArrivalTimesDiv.innerHTML += "<p><b>65th:</b>" + timeSpans(routes["7210"][route]) + "</p>";
+                busArrivalTimesDiv.innerHTML += "<p><b>Harrison:</b>" + timeSpans(routes["6237"][route]) + "</p>";
             }
 
             function timeSpans(times) {
