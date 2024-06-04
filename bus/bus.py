@@ -52,7 +52,11 @@ async def stop_times(stop_ids: str):
         "arrivals": {
             stop_id: extact_arrival_times(data, stop_id)
             for stop_id in stop_ids.split(',')
-        }
+        },
+        "routes": {
+            stop_id: extact_routes(data, stop_id)
+            for stop_id in stop_ids.split(',')
+        },
     }
 
 
@@ -63,3 +67,16 @@ def extact_arrival_times(data: dict, stop_id: str) -> List[int]:
             if stop_time_update['stop_id'] == stop_id:
                 arrivals.append(stop_time_update['arrival']['time'])
     return arrivals
+
+
+def extact_routes(data: dict, stop_id: str) -> List[int]:
+    routes = {}
+    for entity in data['entity']:
+        arrivals = []
+        for stop_time_update in entity['trip_update']['stop_time_update']:
+            if stop_time_update['stop_id'] == stop_id:
+                arrivals.append(stop_time_update['arrival']['time'])
+        if arrivals:
+            route_id = entity['trip_update']['trip']['route_id']
+            routes.setdefault(route_id, []).extend(arrivals)
+    return routes
