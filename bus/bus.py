@@ -79,4 +79,7 @@ def extact_routes(data: dict, stop_id: str) -> List[int]:
         if arrivals:
             route_id = entity['trip_update']['trip']['route_id']
             routes.setdefault(route_id, []).extend(arrivals)
-    return routes
+    return {
+        route_id: sorted(times)
+        for route_id, times in routes.items()
+    }
