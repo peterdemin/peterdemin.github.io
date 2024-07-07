@@ -34,12 +34,31 @@ Next bus
             }
 
             function timeSpans(times) {
-                var html = "";
-                times.forEach((item) => {
+                const uniqueTimes = [];
+                const now = formatTime(Math.floor(Date.now() / 1000));
+                removeDuplicates(times).forEach((item) => {
                     const t = formatTime(item);
+                    if t >= now {
+                        uniqueTimes.push(t)
+                    }
+                });
+                var html = "";
+                uniqueTimes.forEach((t) => {
                     html += ` <span>${t}</span>`;
                 });
                 return html;
+            }
+
+            function removeDuplicates(strings) {
+                const uniqueStrings = [];
+                const seenStrings = new Set();
+                for (const string of strings) {
+                    if (!seenStrings.has(string)) {
+                        uniqueStrings.push(string);
+                        seenStrings.add(string);
+                    }
+                }
+                return uniqueStrings;
             }
 
             function formatTime(timestampSec) {
