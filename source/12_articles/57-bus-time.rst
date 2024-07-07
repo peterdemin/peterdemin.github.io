@@ -38,7 +38,7 @@ Next bus
                 const now = formatTime(Math.floor(Date.now() / 1000));
                 removeDuplicates(times).forEach((item) => {
                     const t = formatTime(item);
-                    if t >= now {
+                    if (t >= now) {
                         uniqueTimes.push(t)
                     }
                 });
