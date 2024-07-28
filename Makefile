@@ -21,7 +21,7 @@ autogen:
 	python3 gen_life.py > source/life_gd.rst
 
 .PHONY: build
-build: autogen html counter_build
+build: autogen html counter_build photos_build
 
 .PHONY: browser
 browser:
@@ -106,6 +106,10 @@ counter_build:
 .PHONY: counter_install
 counter_install:
 	$(MAKE) -C backgammon install
+
+.PHONY: photos_build
+photos_build:
+	$(MAKE) -C source/18_photos/01_snowlake/
 
 ## ENTERING
 .PHONY: life
