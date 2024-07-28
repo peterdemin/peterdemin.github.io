@@ -1,0 +1,77 @@
+{% macro gallery_images_index(from, to, images) -%}
+
+<div class="row">
+  <div class="col gallery">
+    {% for i in range(from, to) %}
+      <a href="{{ images[i].src }}"
+         class="gallery-photo"
+         data-index="{{ i-from }}"
+         data-type="{{ images[i].type }}"
+         data-gallery="{{ from }}"
+         data-width="{{ images[i].size[0] }}"
+         data-height="{{ images[i].size[1] }}"
+         data-date="{{ images[i].date }}"
+         style="--w: {{ images[i].thumbnail_size[0] }}; --h: {{ images[i].thumbnail_size[1] }}">
+         <img src="{{ images[i].thumbnail }}" class="thumbnail rounded" alt="{{ images[i].description }}"/></a>
+    {% endfor %}
+  </div>
+</div>
+{%- endmacro %}
+
+
+
+{% macro gallery_images_string(from, to, images) -%}
+
+<div class="row">
+  <div class="col gallery">
+    {% set index = namespace(value=0) %}
+    {% set first_photo = namespace(value=-1) %}
+    {% for image in images %}
+      {% if image.name >= from and image.name <= to %}
+        {% if first_photo.value == -1 %}
+          {% set first_photo.value = loop.index %}
+        {% endif %}
+
+        <a href="{{ image.src }}"
+           class="gallery-photo"
+           data-index="{{ index.value }}"
+           data-type="{{ image.type }}"
+           data-gallery="{{ first_photo.value }}"
+           data-width="{{ image.size[0] }}"
+           data-height="{{ image.size[1] }}"
+           data-date="{{ image.date }}"
+           style="--w: {{ image.thumbnail_size[0] }}; --h: {{ image.thumbnail_size[1] }}">
+           <img src="{{ image.thumbnail }}" class="thumbnail rounded" alt="{{ image.description }}"/></a>
+
+           {% set index.value = index.value + 1 %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+{%- endmacro %}
+
+
+{% macro section(from, to, title, description, images) -%}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col gallery-section">
+
+        <h2>
+          <a name="section_{{ from }}"></a>
+          {{ title }}
+          <a href="#section_{{ from }}">
+              <svg class="section-link-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+              </svg>
+          </a>
+        </h2>
+        <p>{{ description }}</p>
+    </div>
+  </div>
+  {% if from is number %}
+    {{ gallery_images_index(from, to, images) }}
+  {% else %}
+    {{ gallery_images_string(from, to, images) }}
+  {% endif %}
+</div>
+{%- endmacro %}
