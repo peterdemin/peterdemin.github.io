@@ -4,3 +4,4 @@ pip-compile-multi
 ipdb
 pylint
 jc
+heic-to-jpg
