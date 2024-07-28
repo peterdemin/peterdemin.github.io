@@ -27,6 +27,12 @@ Notes from my reading list
 
    17_notes/*
 
+Photos
+------
+
+* `Snow Lake <18_photos/01_snowlake/index.html>`_
+
+
 My open-source projects
 -----------------------
 
