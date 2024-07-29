@@ -22,7 +22,7 @@ Notes from my reading list
 
 .. toctree::
    :maxdepth: 1
-   :caption: Articles:
+   :caption: Notes:
    :glob:
 
    17_notes/*
@@ -30,8 +30,12 @@ Notes from my reading list
 Photos
 ------
 
-* `Snow Lake <18_photos/01_snowlake/index.html>`_
+.. toctree::
+   :maxdepth: 1
+   :caption: Photos:
+   :glob:
 
+   18_photos/*/index
 
 My open-source projects
 -----------------------

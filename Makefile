@@ -4,6 +4,8 @@ SPHINXOPTS  ?=
 SPHINXBUILD ?= sphinx-build
 SOURCEDIR   = source
 BUILDDIR    = build
+PHOTOS_SUBDIRS = $(wildcard source/18_photos/*)
+
 
 .DEFAULT_GOAL := help
 
@@ -107,9 +109,12 @@ counter_build:
 counter_install:
 	$(MAKE) -C backgammon install
 
+.PHONY: $(PHOTOS_SUBDIRS)
+$(PHOTOS_SUBDIRS):
+	$(MAKE) -C $@
+
 .PHONY: photos_build
-photos_build:
-	$(MAKE) -C source/18_photos/01_snowlake/
+photos_build: $(PHOTOS_SUBDIRS)
 
 ## ENTERING
 .PHONY: life
