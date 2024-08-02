@@ -1,0 +1,6 @@
+`Aug 01, 2024` - I find this to be an interesting phenomena in driving.
+When there are two lanes and there's a merge ahead from the right lane.
+In the perfect world the merge is fair, the cars from the left and right lane alternate and both lanes go at the same speed.But what happens instead is some cars from the right lane merge early breaking the alternation order.
+Then the car from behind in the right lane goes ahead and merges before the early merger.
+And this breaks the pattern so that some cars from the right lane get into the left lane without a car between them.
+The result is that the right lane goes faster.
