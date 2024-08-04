@@ -321,6 +321,17 @@ Ask your interviewer if they’d like to see some calculations.</p></li>
 <ul class="simple">
 <li><p>Services</p></li>
 </ul>
+<div class="graphviz"><img src="../_images/graphviz-92db38bbf99fea0531f326380cd50d941647adde.png" alt="digraph services {
+edge [color=&quot;#808080&quot;, arrowsize=.6, penwidth=3, minlen=3];
+node [shape=box, fontname=&quot;DIN Next, sans-serif&quot;, style=&quot;rounded,filled&quot;, penwidth=5, fillcolor=&quot;#8010d0&quot;, color=&quot;#f0f0f0&quot;, fontcolor=white,  margin=&quot;0.35&quot; fontweight=bold]
+bgcolor=&quot;#f0f0f0&quot;;
+
+User -&gt; &quot;Load Balancer&quot; -&gt; Backend -&gt; &quot;SQL Database&quot;
+User -&gt; CDN -&gt; &quot;Blob storage&quot;
+Backend -&gt; &quot;Blob storage&quot;
+Backend -&gt; Cache
+User -&gt; CDN -&gt; &quot;Cache (pub/sub)&quot;
+}" class="graphviz" /></div>
 <ul class="simple">
 <li><p>Database</p></li>
 </ul>
