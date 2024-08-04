@@ -82,7 +82,7 @@ Article: <https://interviewing.io/guides/system-design-interview/part-four>
             User -> CDN -> "Blob storage"
             Backend -> "Blob storage"
             Backend -> Cache
-            User -> CDN -> Cache (pub/sub)
+            User -> CDN -> "Cache (pub/sub)"
         ```
 
        - Database
