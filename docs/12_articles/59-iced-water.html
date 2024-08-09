@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Decentralizing the Practice of Architecture at Xapo Bank &#8212; Peter Demin</title>
+    <title>Cooling Water with Ice &#8212; Peter Demin</title>
   
   
   
@@ -47,11 +47,12 @@
     <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '17_notes/01_xapo';</script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/59-iced-water';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Scaling the Practice of Architecture, Conversationally" href="02_advice_process.html" />
-    <link rel="prev" title="Cooling Water with Ice" href="../12_articles/59-iced-water.html" />
+    <link rel="next" title="Decentralizing the Practice of Architecture at Xapo Bank" href="../17_notes/01_xapo.html" />
+    <link rel="prev" title="It’s not cold in Russia" href="58-its-not-cold-in-russia.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -207,7 +208,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">Decentralizi...</li>
+    <li class="breadcrumb-item active" aria-current="page">Cooling...</li>
   </ul>
 </nav>
 </div>
@@ -224,34 +225,78 @@
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="decentralizing-the-practice-of-architecture-at-xapo-bank">
-<h1>Decentralizing the Practice of Architecture at Xapo Bank<a class="headerlink" href="#decentralizing-the-practice-of-architecture-at-xapo-bank" title="Link to this heading">#</a></h1>
-<p>Article: <a class="reference external" href="https://martinfowler.com/articles/xapo-architecture-experience.html">https://martinfowler.com/articles/xapo-architecture-experience.html</a></p>
-<section id="notes">
-<h2>Notes<a class="headerlink" href="#notes" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Company had horizontal teams, separating architects from engineers.</p></li>
-<li><p>This caused big number of handoffs and slow/broken feedback loops.</p></li>
-<li><p>They changed the org structure to vertical teams aligned with the core products.</p></li>
-<li><p>They implemented few processes targeting faster decision making and broader knowledge sharing.  Namely:</p>
-<ul>
-<li><p>Architecture Decision Records (ADR).</p></li>
-<li><p>Domain-Driven Design (DDD).</p></li>
-<li><p>Architecture Advisory Forum (AAF) and Architectural Advice Process (AAP).</p></li>
-</ul>
-</li>
-<li><p>They used ticket tracker (Jira) to host ADRs and measure their progress through statuses: drafted, proposed, accepted, and adopted.</p></li>
-<li><p>ADRs linked to development stories and tasks.</p></li>
-<li><p>They allowed decisions to be taken without consensus.</p></li>
-<li><p>They provided a safe environment to make mistakes and re-evaluate past decisions.</p></li>
-</ul>
+  <section id="cooling-water-with-ice">
+<h1>Cooling Water with Ice<a class="headerlink" href="#cooling-water-with-ice" title="Link to this heading">#</a></h1>
+<section id="tl-dr">
+<h2>TL;DR<a class="headerlink" href="#tl-dr" title="Link to this heading">#</a></h2>
+<p>One ice cube cools four ounces of water to just above freezing temperature.</p>
+<p>To cool <strong>12 oz</strong> of water from 20°C to just above freezing, approximately 88.9 grams of ice is needed, which is equivalent to about 3.14 ounces. A standard ice cube (approximately 1 ounce) can be used as an approximation, requiring about <strong>3 ice cubes</strong>.</p>
 </section>
-<section id="links-to-follow">
-<h2>Links to follow:<a class="headerlink" href="#links-to-follow" title="Link to this heading">#</a></h2>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
+<p>I have this nice home water carbonation machine. It dispenses water by 6 oz increments, and 12 oz is my sweet spot.
+Effectiveness of water absorbtion of carbon dioxide depends on water temperature. The colder the better.
+The machine doesn’t cool the water itself, and doesn’t have much insulation in the water tank (which I think is a design flaw).
+My fridge produces ice cubes, though.
+Following is a school way of figuring out how much ice do I need to put into tank for a glass of bubbly water.</p>
+</section>
+<section id="physics">
+<h2>Physics<a class="headerlink" href="#physics" title="Link to this heading">#</a></h2>
+<p>To calculate the amount of ice you need to cool 12 oz (about 355 mL) of water from 20°C to just above freezing (0°C), we’ll use the principle of energy conservation. The heat lost by the water must equal the heat gained by the ice.</p>
+</section>
+<section id="assumptions">
+<h2>Assumptions<a class="headerlink" href="#assumptions" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Ice starts at 0°C (melting point).</p></li>
+<li><p>The specific heat capacity of water is 4.18 J/g°C.</p></li>
+<li><p>The latent heat of fusion for ice (the energy required to melt ice at 0°C) is 334 J/g.</p></li>
+<li><p>The density of water is 1 g/mL, so 355 mL of water is approximately 355 grams.</p></li>
+</ol>
+</section>
+<section id="step-1-calculate-the-heat-energy-lost-by-the-water">
+<h2>Step 1: Calculate the heat energy lost by the water<a class="headerlink" href="#step-1-calculate-the-heat-energy-lost-by-the-water" title="Link to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[Q_{\text{water}} = m_{\text{water}} \times c_{\text{water}} \times \Delta T_{\text{water}}\]</div>
+<p>Where:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://martinfowler.com/articles/scaling-architecture-conversationally.html">Scaling the Practice of Architecture, Conversationally</a> (<a class="reference internal" href="02_advice_process.html"><span class="std std-doc">My notes</span></a>)</p></li>
-<li><p><a class="reference external" href="https://medium.com/&#64;cat-mo/how-to-use-spikes-as-a-foundation-for-adrs-92bc1617617b">How to use spikes as a foundation for ADRs</a> (<a class="reference internal" href="04_spikes.html"><span class="std std-doc">My notes</span></a>)</p></li>
+<li><p><span class="math notranslate nohighlight">\(Q_{\text{water}}\)</span> is the heat lost by the water,</p></li>
+<li><p><span class="math notranslate nohighlight">\(m_{\text{water}} = 355 \, \text{g}\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(c_{\text{water}} = 4.18 \, \text{J/g°C}\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Delta T_{\text{water}} = 20 \, \text{°C} - 0 \, \text{°C} = 20 \, \text{°C}\)</span>.</p></li>
 </ul>
+<div class="math notranslate nohighlight">
+\[Q_{\text{water}} = 355 \, \text{g} \times 4.18 \, \text{J/g°C} \times 20 \, \text{°C}\]</div>
+<div class="math notranslate nohighlight">
+\[Q_{\text{water}} = 29,678 \, \text{J}\]</div>
+</section>
+<section id="step-2-calculate-the-amount-of-ice-needed">
+<h2>Step 2: Calculate the amount of ice needed<a class="headerlink" href="#step-2-calculate-the-amount-of-ice-needed" title="Link to this heading">#</a></h2>
+<p>Since the ice will absorb heat and melt, the heat required to melt <span class="math notranslate nohighlight">\(m_{\text{ice}}\)</span> grams of ice is given by:</p>
+<div class="math notranslate nohighlight">
+\[Q_{\text{ice}} = m_{\text{ice}} \times L_{\text{fusion}}\]</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(Q_{\text{ice}}\)</span> is the heat absorbed by the ice,</p></li>
+<li><p><span class="math notranslate nohighlight">\(L_{\text{fusion}} = 334 \, \text{J/g}\)</span> (latent heat of fusion).</p></li>
+</ul>
+<p>Since the heat lost by the water equals the heat gained by the ice:</p>
+<div class="math notranslate nohighlight">
+\[Q_{\text{water}} = Q_{\text{ice}}\]</div>
+<div class="math notranslate nohighlight">
+\[29,678 \, \text{J} = m_{\text{ice}} \times 334 \, \text{J/g}\]</div>
+<div class="math notranslate nohighlight">
+\[m_{\text{ice}} = \frac{29,678 \, \text{J}}{334 \, \text{J/g}}\]</div>
+<div class="math notranslate nohighlight">
+\[m_{\text{ice}} \approx 88.9 \, \text{g}\]</div>
+<div class="math notranslate nohighlight">
+\[1 \, \text{ounce} = 28.3495 \, \text{grams}\]</div>
+<div class="math notranslate nohighlight">
+\[88.9 \, \text{grams} \times \frac{1 \, \text{ounce}}{28.3495 \, \text{grams}} \approx 3.14 \, \text{ounces}\]</div>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
+<p>You would need approximately 3 oz (88.9 grams) of ice to cool 12 oz (355 mL) of water from 20°C to just above freezing.
+A standard ice cube weighs approximately 1 ounce, so you need about 3 ice cubes.</p>
 </section>
 </section>
 
@@ -266,20 +311,20 @@
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../12_articles/59-iced-water.html"
+       href="58-its-not-cold-in-russia.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Cooling Water with Ice</p>
+        <p class="prev-next-title">It’s not cold in Russia</p>
       </div>
     </a>
     <a class="right-next"
-       href="02_advice_process.html"
+       href="../17_notes/01_xapo.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Scaling the Practice of Architecture, Conversationally</p>
+        <p class="prev-next-title">Decentralizing the Practice of Architecture at Xapo Bank</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -298,15 +343,20 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#links-to-follow">Links to follow:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tl-dr">TL;DR</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#physics">Physics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assumptions">Assumptions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-calculate-the-heat-energy-lost-by-the-water">Step 1: Calculate the heat energy lost by the water</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-calculate-the-amount-of-ice-needed">Step 2: Calculate the amount of ice needed</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
 </ul>
   </nav></div>
 
   <div class="sidebar-secondary-item">
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/17_notes/01_xapo.md">
+    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/12_articles/59-iced-water.rst">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -320,7 +370,7 @@
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="../_sources/17_notes/01_xapo.md.txt">
+    <a href="../_sources/12_articles/59-iced-water.rst.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
