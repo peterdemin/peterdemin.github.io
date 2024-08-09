@@ -17,6 +17,66 @@ The machine doesn't cool the water itself, and doesn't have much insulation in t
 My fridge produces ice cubes, though.
 Following is a school way of figuring out how much ice do I need to put into tank for a glass of bubbly water.
 
+Interactive form
+----------------
+
+.. raw:: html
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        .slider-container {
+            margin-bottom: 20px;
+        }
+        .result {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+    </style>
+    <div class="slider-container">
+        <label for="waterAmount">Amount of water (oz): <span id="waterAmountLabel">12</span></label>
+        <input type="range" id="waterAmount" min="1" max="48" value="12" oninput="calculateIceCubes()">
+    </div>
+    <div class="slider-container">
+        <label for="roomTemperature">Room temperature (°F): <span id="roomTemperatureLabel">72</span></label>
+        <input type="range" id="roomTemperature" min="32" max="120" value="72" oninput="calculateIceCubes()">
+    </div>
+    <div class="result">
+        Number of ice cubes needed: <span id="iceCubesNeeded">3</span>
+    </div>
+
+    <script>
+        function calculateIceCubes() {
+            // Get values from sliders
+            const waterAmount = document.getElementById('waterAmount').value;
+            const roomTemperatureF = document.getElementById('roomTemperature').value;
+            // Update labels
+            document.getElementById('waterAmountLabel').textContent = waterAmount;
+            document.getElementById('roomTemperatureLabel').textContent = roomTemperatureF;
+            // Convert room temperature from Fahrenheit to Celsius
+            const roomTemperatureC = (roomTemperatureF - 32) * 5 / 9;
+            // Constants
+            const specificHeatWater = 4.18; // J/g°C
+            const latentHeatIce = 334; // J/g
+            const iceCubeWeight = 28.35; // g (approximate 1 oz ice cube)
+            // Convert water amount from oz to grams (1 oz = 29.5735 mL, and water density is 1 g/mL)
+            const waterAmountGrams = waterAmount * 29.5735;
+            // Calculate the heat energy required to cool the water to just above freezing
+            const heatLost = waterAmountGrams * specificHeatWater * (roomTemperatureC - 0);
+            // Calculate the amount of ice needed
+            const iceNeededGrams = heatLost / latentHeatIce;
+            // Convert ice needed from grams to number of ice cubes
+            const iceCubesNeeded = Math.max(1, Math.round(iceNeededGrams / iceCubeWeight));
+            // Update the result
+            document.getElementById('iceCubesNeeded').textContent = iceCubesNeeded;
+        }
+        // Initial calculation on page load
+        calculateIceCubes();
+    </script>
+
+
 Physics
 -------
 
