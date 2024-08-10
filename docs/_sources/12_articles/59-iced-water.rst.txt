@@ -4,9 +4,10 @@ Cooling Water with Ice
 TL;DR
 -----
 
-One ice cube cools four ounces of water to just above freezing temperature.
+One ice cube cools two ounces of water to just above freezing temperature.
 
-To cool **12 oz** of water from 20°C to just above freezing, approximately 88.9 grams of ice is needed, which is equivalent to about 3.14 ounces. A standard ice cube (approximately 1 ounce) can be used as an approximation, requiring about **3 ice cubes**.
+To cool **12 oz** of water from 20°C to just above freezing, approximately 88.9 grams of ice is needed.
+A standard ice cube (approximately 16 grams) can be used as an approximation, requiring about **6 ice cubes**.
 
 Background
 ----------
@@ -36,15 +37,22 @@ Interactive form
         }
     </style>
     <div class="slider-container">
-        <label for="waterAmount">Amount of water (oz): <span id="waterAmountLabel">12</span></label>
+        <label for="waterAmount">Amount of water: <span id="waterAmountLabel">12</span> oz</label>
         <input type="range" id="waterAmount" min="1" max="48" value="12" oninput="calculateIceCubes()">
     </div>
     <div class="slider-container">
-        <label for="roomTemperature">Room temperature (°F): <span id="roomTemperatureLabel">72</span></label>
+        <label for="roomTemperature">Room temperature: <span id="roomTemperatureLabel">72</span> °F</label>
         <input type="range" id="roomTemperature" min="32" max="120" value="72" oninput="calculateIceCubes()">
     </div>
+    <div class="slider-container">
+        <label for="iceCubeWeight">Ice cube weight: <span id="iceCubeWeightLabel">16</span> g</label>
+        <input type="range" id="iceCubeWeight" min="1" max="50" value="16" oninput="calculateIceCubes()">
+    </div>
     <div class="result">
-        Number of ice cubes needed: <span id="iceCubesNeeded">3</span>
+        Number of ice cubes needed: <span id="iceCubesNeeded">6</span>
+    </div>
+    <div class="result">
+        Time needed: <span id="minutesNeeded">5</span> minutes
     </div>
 
     <script>
@@ -52,15 +60,17 @@ Interactive form
             // Get values from sliders
             const waterAmount = document.getElementById('waterAmount').value;
             const roomTemperatureF = document.getElementById('roomTemperature').value;
+            const iceCubeWeight = document.getElementById('iceCubeWeight').value;
             // Update labels
             document.getElementById('waterAmountLabel').textContent = waterAmount;
             document.getElementById('roomTemperatureLabel').textContent = roomTemperatureF;
+            document.getElementById('iceCubeWeightLabel').textContent = iceCubeWeight;
             // Convert room temperature from Fahrenheit to Celsius
             const roomTemperatureC = (roomTemperatureF - 32) * 5 / 9;
             // Constants
             const specificHeatWater = 4.18; // J/g°C
             const latentHeatIce = 334; // J/g
-            const iceCubeWeight = 28.35; // g (approximate 1 oz ice cube)
+            const transitionRate = 60 * 100; // J/m
             // Convert water amount from oz to grams (1 oz = 29.5735 mL, and water density is 1 g/mL)
             const waterAmountGrams = waterAmount * 29.5735;
             // Calculate the heat energy required to cool the water to just above freezing
@@ -69,8 +79,10 @@ Interactive form
             const iceNeededGrams = heatLost / latentHeatIce;
             // Convert ice needed from grams to number of ice cubes
             const iceCubesNeeded = Math.max(1, Math.round(iceNeededGrams / iceCubeWeight));
+            const minutesNeeded = Math.max(1, Math.round(heatLost / transitionRate));
             // Update the result
             document.getElementById('iceCubesNeeded').textContent = iceCubesNeeded;
+            document.getElementById('minutesNeeded').textContent = minutesNeeded;
         }
         // Initial calculation on page load
         calculateIceCubes();
@@ -80,15 +92,16 @@ Interactive form
 Physics
 -------
 
-To calculate the amount of ice you need to cool 12 oz (about 355 mL) of water from 20°C to just above freezing (0°C), we'll use the principle of energy conservation. The heat lost by the water must equal the heat gained by the ice.
+To calculate the amount of ice needed to cool 12 oz (355 mL) of water from 20°C to 0°C, we'll use the principle of energy conservation.
+The heat lost by the water must equal the heat gained by the ice.
 
 Assumptions
 -----------
 
-1. Ice starts at 0°C (melting point).
+1. Ice melting point is 0°C.
 2. The specific heat capacity of water is 4.18 J/g°C.
 3. The latent heat of fusion for ice (the energy required to melt ice at 0°C) is 334 J/g.
-4. The density of water is 1 g/mL, so 355 mL of water is approximately 355 grams.
+4. The density of water is 1 g/mL, so 355 mL of water is 355 grams.
 
 Step 1: Calculate the heat energy lost by the water
 ---------------------------------------------------
@@ -106,11 +119,7 @@ Where:
 
 .. math::
 
-    Q_{\text{water}} = 355 \, \text{g} \times 4.18 \, \text{J/g°C} \times 20 \, \text{°C}
-
-.. math::
-
-    Q_{\text{water}} = 29,678 \, \text{J}
+    Q_{\text{water}} = 355 \, \text{g} \times 4.18 \, \text{J/g°C} \times 20 \, \text{°C} = 29,678 \, \text{J}
 
 Step 2: Calculate the amount of ice needed
 ------------------------------------------
@@ -138,22 +147,27 @@ Since the heat lost by the water equals the heat gained by the ice:
 
 .. math::
 
-    m_{\text{ice}} = \frac{29,678 \, \text{J}}{334 \, \text{J/g}}
+    m_{\text{ice}} = \frac{29,678 \, \text{J}}{334 \, \text{J/g}} \approx 89 \, \text{g}
+
+My ice cubes weighs 16 grams on average, so I need about 6 ice cubes.
+
+Step 3: Calculate the amount of time needed
+-------------------------------------------
+
+For a rough estimate, assuming the heat transfer rate :math:`R` is about 100 W (100 J/s, a typical estimate for moderate convective conditions):
 
 .. math::
 
-    m_{\text{ice}} \approx 88.9 \, \text{g}
+    t = \frac{Q_{\text{ice}}}{R}
 
 .. math::
 
-    1 \, \text{ounce} = 28.3495 \, \text{grams}
+    t = \frac{29,678 \, \text{J}}{100 \, \text{J/g}} \approx 297 \text{seconds} \approx 5 \text{minutes}
 
-.. math::
+Calculation flaws
+-----------------
 
-    88.9 \, \text{grams} \times \frac{1 \, \text{ounce}}{28.3495 \, \text{grams}} \approx 3.14 \, \text{ounces}
+The formula above doesn't take into consideration:
 
-Conclusion
-----------
-
-You would need approximately 3 oz (88.9 grams) of ice to cool 12 oz (355 mL) of water from 20°C to just above freezing.
-A standard ice cube weighs approximately 1 ounce, so you need about 3 ice cubes.
+1. Room air warming up water as the ice melts.
+2. Volume of water increasing from the melted ice. With 89 grams from molten ice, I need only 9 ounces of water initially to get 12 ounces of ice-cold water.
