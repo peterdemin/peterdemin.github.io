@@ -7,16 +7,16 @@ TL;DR
 One ice cube cools two ounces of water to just above freezing temperature.
 
 To cool **12 oz** of water from 20°C to just above freezing, approximately 88.9 grams of ice is needed.
-A standard ice cube (approximately 16 grams) can be used as an approximation, requiring about **6 ice cubes**.
+A standard ice cube (approximately 16 grams) can be used as an approximation, requiring about **six ice cubes**.
 
 Background
 ----------
 
-I have this nice home water carbonation machine. It dispenses water by 6 oz increments, and 12 oz is my sweet spot.
-Effectiveness of water absorbtion of carbon dioxide depends on water temperature. The colder the better.
-The machine doesn't cool the water itself, and doesn't have much insulation in the water tank (which I think is a design flaw).
+I have this lovely home water carbonation machine. It dispenses water in 6 oz increments, and 12 oz is my sweet spot.
+The effectiveness of water absorption of carbon dioxide depends on water temperature. The colder the better.
+The machine doesn't cool the water itself and has little insulation in the water tank (which I think is a design flaw).
 My fridge produces ice cubes, though.
-Following is a school way of figuring out how much ice do I need to put into tank for a glass of bubbly water.
+Following is a school way of figuring out how much ice I must put into a tank for a glass of bubbly water.
 
 Interactive form
 ----------------
@@ -149,7 +149,7 @@ Since the heat lost by the water equals the heat gained by the ice:
 
     m_{\text{ice}} = \frac{29,678 \, \text{J}}{334 \, \text{J/g}} \approx 89 \, \text{g}
 
-My ice cubes weighs 16 grams on average, so I need about 6 ice cubes.
+My ice cubes weigh 16 grams on average, so I need about six ice cubes.
 
 Step 3: Calculate the amount of time needed
 -------------------------------------------
@@ -170,4 +170,7 @@ Calculation flaws
 The formula above doesn't take into consideration:
 
 1. Room air warming up water as the ice melts.
-2. Volume of water increasing from the melted ice. With 89 grams from molten ice, I need only 9 ounces of water initially to get 12 ounces of ice-cold water.
+2. The volume of water increases from the melted ice. With 89 grams of molten ice, I need only 9 ounces of water to get 12 ounces of ice-cold water.
+3. The convection varies significantly as the water temperature changes.
+   100 J/s might be true for room temperature, but it evidently takes more than 10 minutes for all ice cubes to melt completely.
+   But this is fine, water is cold enough for carbonation purposes.
