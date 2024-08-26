@@ -23,7 +23,7 @@ autogen:
 	python3 gen_life.py > source/life_gd.rst
 
 .PHONY: build
-build: autogen html counter_build photos_build
+build: autogen html counter_build photos_build tree
 
 .PHONY: browser
 browser:
@@ -115,6 +115,11 @@ $(PHOTOS_SUBDIRS):
 
 .PHONY: photos_build
 photos_build: $(PHOTOS_SUBDIRS)
+
+.PHONY: tree
+tree:
+	cp -f source/12_articles/61-tree.html build/html/12_articles/61-tree.html
+
 
 ## ENTERING
 .PHONY: life
