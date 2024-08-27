@@ -6,3 +6,4 @@ node_modules
 /backgammon/_site
 .DS_Store
 __pycache__
+source/12_articles/.ipynb_checkpoints/

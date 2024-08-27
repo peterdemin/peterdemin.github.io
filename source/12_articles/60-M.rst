@@ -1,0 +1,394 @@
+Macy's stock seasonality
+========================
+
+Background
+----------
+
+I noticed that in the last few years, Macy's stock has been growing around the Thanksgiving season, which aligns with makes sense, since that's where Americans buy their presents.
+I wanted to do a little more math than just eye-balling the chart.
+Below is an export from Jupyter Notebook that I used to analyze daily stock prices for Macy's in the range from October to December from 2015 to 2023.
+
+Imports & Constants
+-------------------
+
+.. code:: ipython3
+
+    import pandas
+    import matplotlib.pyplot as plt
+
+.. code:: ipython3
+
+    # Inclusive range for dicing
+    YEARS = (2015, 2023)
+    MONTHS = (10, 12)
+
+Download S&P 500 stock prices history as a CSV and parse the date
+-----------------------------------------------------------------
+
+.. code:: ipython3
+
+    # https://www.nasdaq.com/market-activity/index/spx/historical?page=102&rows_per_page=25&timeline=y10
+    spx = pandas.read_csv('60-SPX.csv')
+    spx = spx.reindex(index=spx.index[::-1])
+    spx = spx.reset_index(drop=True)
+    del spx['Open']
+    del spx['Close/Last']
+    spx['Year'] = spx['Date'].str.split('/', expand=True)[2].astype(int)
+    spx['Month'] = spx['Date'].str.split('/', expand=True)[0].astype(int)
+    spx['Day'] = spx['Date'].str.split('/', expand=True)[1].astype(int)
+    spx
+
+
+.. raw:: html
+
+    <div>
+    <style scoped>
+        .dataframe tbody tr th:only-of-type {
+            vertical-align: middle;
+        }
+    
+        .dataframe tbody tr th {
+            vertical-align: top;
+        }
+    
+        .dataframe thead th {
+            text-align: right;
+        }
+    </style>
+    <table border="1" class="dataframe">
+      <thead>
+        <tr style="text-align: right;">
+          <th></th>
+          <th>Date</th>
+          <th>High</th>
+          <th>Low</th>
+          <th>Year</th>
+          <th>Month</th>
+          <th>Day</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>0</th>
+          <td>08/26/2014</td>
+          <td>2005.04</td>
+          <td>1998.59</td>
+          <td>2014</td>
+          <td>8</td>
+          <td>26</td>
+        </tr>
+        <tr>
+          <th>1</th>
+          <td>08/27/2014</td>
+          <td>2002.14</td>
+          <td>1996.20</td>
+          <td>2014</td>
+          <td>8</td>
+          <td>27</td>
+        </tr>
+        <tr>
+          <th>2</th>
+          <td>08/28/2014</td>
+          <td>1998.55</td>
+          <td>1990.52</td>
+          <td>2014</td>
+          <td>8</td>
+          <td>28</td>
+        </tr>
+        <tr>
+          <th>3</th>
+          <td>08/29/2014</td>
+          <td>2003.38</td>
+          <td>1994.65</td>
+          <td>2014</td>
+          <td>8</td>
+          <td>29</td>
+        </tr>
+        <tr>
+          <th>4</th>
+          <td>09/01/2014</td>
+          <td>0.00</td>
+          <td>0.00</td>
+          <td>2014</td>
+          <td>9</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th>...</th>
+          <td>...</td>
+          <td>...</td>
+          <td>...</td>
+          <td>...</td>
+          <td>...</td>
+          <td>...</td>
+        </tr>
+        <tr>
+          <th>2523</th>
+          <td>08/19/2024</td>
+          <td>5608.30</td>
+          <td>5550.74</td>
+          <td>2024</td>
+          <td>8</td>
+          <td>19</td>
+        </tr>
+        <tr>
+          <th>2524</th>
+          <td>08/20/2024</td>
+          <td>5620.51</td>
+          <td>5585.50</td>
+          <td>2024</td>
+          <td>8</td>
+          <td>20</td>
+        </tr>
+        <tr>
+          <th>2525</th>
+          <td>08/21/2024</td>
+          <td>5632.68</td>
+          <td>5591.57</td>
+          <td>2024</td>
+          <td>8</td>
+          <td>21</td>
+        </tr>
+        <tr>
+          <th>2526</th>
+          <td>08/22/2024</td>
+          <td>5643.22</td>
+          <td>5560.95</td>
+          <td>2024</td>
+          <td>8</td>
+          <td>22</td>
+        </tr>
+        <tr>
+          <th>2527</th>
+          <td>08/23/2024</td>
+          <td>5641.82</td>
+          <td>5585.16</td>
+          <td>2024</td>
+          <td>8</td>
+          <td>23</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>2528 rows × 6 columns</p>
+    </div>
+
+
+
+Download the target stock (M) prices history and parse the date
+---------------------------------------------------------------
+
+.. code:: ipython3
+
+    # https://finance.yahoo.com/quote/M/history/
+    prices = pandas.read_csv('60-M.csv')
+    
+    del prices['Open']
+    del prices['Close']
+    del prices['Adj Close']
+    del prices['Volume']
+    prices['Year'] = prices['Date'].str.split('-', expand=True)[0].astype(int)
+    prices['Month'] = prices['Date'].str.split('-', expand=True)[1].astype(int)
+    prices['Day'] = prices['Date'].str.split('-', expand=True)[2].astype(int)
+
+Merge the two datasets using date
+---------------------------------
+
+Discard any rows with incomplete data
+
+.. code:: ipython3
+
+    df = pandas.merge(spx, prices, on=['Year', 'Month', 'Day'], how='inner', suffixes=('Spx', 'Stock'))
+    df = df[(YEARS[0] <= df.Year) & (df.Year <= YEARS[1]) & (MONTHS[0] <= df.Month) & (df.Month <= MONTHS[1])]
+    df['didx'] = [
+        d
+        for year in range(YEARS[0], YEARS[1] + 1)
+        for d in range((df.Year == year).sum())
+    ]
+    df.describe()
+
+
+
+
+.. raw:: html
+
+    <div>
+    <style scoped>
+        .dataframe tbody tr th:only-of-type {
+            vertical-align: middle;
+        }
+    
+        .dataframe tbody tr th {
+            vertical-align: top;
+        }
+    
+        .dataframe thead th {
+            text-align: right;
+        }
+    </style>
+    <table border="1" class="dataframe">
+      <thead>
+        <tr style="text-align: right;">
+          <th></th>
+          <th>HighSpx</th>
+          <th>LowSpx</th>
+          <th>Year</th>
+          <th>Month</th>
+          <th>Day</th>
+          <th>HighStock</th>
+          <th>LowStock</th>
+          <th>didx</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>count</th>
+          <td>571.000000</td>
+          <td>571.000000</td>
+          <td>571.000000</td>
+          <td>571.000000</td>
+          <td>571.000000</td>
+          <td>571.000000</td>
+          <td>571.000000</td>
+          <td>571.000000</td>
+        </tr>
+        <tr>
+          <th>mean</th>
+          <td>3249.744991</td>
+          <td>3215.057180</td>
+          <td>2018.998249</td>
+          <td>10.984238</td>
+          <td>15.562172</td>
+          <td>25.290193</td>
+          <td>24.382172</td>
+          <td>31.224168</td>
+        </tr>
+        <tr>
+          <th>std</th>
+          <td>899.323476</td>
+          <td>888.901796</td>
+          <td>2.582328</td>
+          <td>0.821699</td>
+          <td>8.823070</td>
+          <td>11.689632</td>
+          <td>11.410891</td>
+          <td>18.331992</td>
+        </tr>
+        <tr>
+          <th>min</th>
+          <td>1927.210000</td>
+          <td>1893.700000</td>
+          <td>2015.000000</td>
+          <td>10.000000</td>
+          <td>1.000000</td>
+          <td>5.990000</td>
+          <td>5.570000</td>
+          <td>0.000000</td>
+        </tr>
+        <tr>
+          <th>25%</th>
+          <td>2556.490000</td>
+          <td>2543.895000</td>
+          <td>2017.000000</td>
+          <td>10.000000</td>
+          <td>8.000000</td>
+          <td>15.915000</td>
+          <td>15.395000</td>
+          <td>15.000000</td>
+        </tr>
+        <tr>
+          <th>50%</th>
+          <td>3098.200000</td>
+          <td>3083.260000</td>
+          <td>2019.000000</td>
+          <td>11.000000</td>
+          <td>15.000000</td>
+          <td>23.059999</td>
+          <td>22.040001</td>
+          <td>31.000000</td>
+        </tr>
+        <tr>
+          <th>75%</th>
+          <td>3981.490000</td>
+          <td>3935.905000</td>
+          <td>2021.000000</td>
+          <td>12.000000</td>
+          <td>23.000000</td>
+          <td>35.070002</td>
+          <td>33.399999</td>
+          <td>47.000000</td>
+        </tr>
+        <tr>
+          <th>max</th>
+          <td>4808.930000</td>
+          <td>4780.980000</td>
+          <td>2023.000000</td>
+          <td>12.000000</td>
+          <td>31.000000</td>
+          <td>52.480000</td>
+          <td>51.209999</td>
+          <td>63.000000</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+
+
+Square up the data
+------------------
+
+We want to plot several years on the same chart, so let’s trim the
+excess. For all the covered years find the smallest last day index.
+
+.. code:: ipython3
+
+    years = list(range(min(df.Year), max(df.Year) + 1))
+    max_didx = min(max(df[df.Year==year].didx) for year in years)
+    min_didx = max(min(df[df.Year==year].didx) for year in years)
+    didxs = list(range(min_didx, max_didx + 1))
+
+Plot
+----
+
+1. The stock price deviations for the selected months range over the
+   selected years.
+2. The S&P index price for the same dates.
+3. Stock price corrected to S&P index.
+
+Note that we plot percentage changes of the stock from the first day of
+the season. On day one all prices are at 0%, and then for each year they
+deviate.
+
+.. code:: ipython3
+
+    def convert_to_season(df, y, years, didxs):
+        base = dict(zip(df.Year[df.didx==0], y[df.didx==0]))
+        return pandas.DataFrame(
+            [
+                [
+                    (y[(df.Year==year) & (df.didx==didx)].iloc[0] - base[year]) * 100 / base[year]
+                    for year in years
+                ]
+                for didx in didxs
+            ],
+            columns=map(str, years)
+        )
+    
+    stock_seasons = convert_to_season(df, df.LowStock, years, didxs)
+    spx_seasons = convert_to_season(df, df.LowSpx, years, didxs)
+    stock_seasons.plot()
+    spx_seasons.plot()
+    (stock_seasons - spx_seasons).plot();
+
+
+
+.. image:: /12_articles/images/12.60.0.png
+
+
+
+.. image:: /12_articles/images/12.60.1.png
+
+
+
+.. image:: /12_articles/images/12.60.2.png
+
