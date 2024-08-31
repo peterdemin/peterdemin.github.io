@@ -33,7 +33,7 @@ author = "Peter Demin"
 # ones.
 extensions = [
     "myst_parser",
-    "sphinx_togglebutton",
+    "sphinx_design",
     "sphinx.ext.graphviz",
     "sphinx.ext.extlinks",
 ]

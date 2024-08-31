@@ -5,3 +5,7 @@ ipdb
 pylint
 jc
 heic-to-jpg
+ipython
+jupyter
+pandas
+matplotlib

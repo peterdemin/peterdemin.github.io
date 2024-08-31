@@ -1,7 +1,7 @@
 sphinx
 myst-parser
 pydata-sphinx-theme
-sphinx-togglebutton
+sphinx-design
 graphviz
 gdocsync
 simple-photo-gallery
