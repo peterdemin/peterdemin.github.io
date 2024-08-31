@@ -1,4 +1,11 @@
-`Aug 30, 2024` - Crazy man market analysis.
+`Aug 30, 2024` - Crazy man market analysis (close).
+
+1. I jinxed it for eBay, it dipped right after I called it stable.
+   ![EBAY](/16_life/images/ebay-2024-08-30.png)
+2. NVDA didn't dip a little bit, it dipped significantly.
+   ![NVDA](/16_life/images/nvda-2024-08-30.png)
+
+`Aug 30, 2024` - Crazy man market analysis (open).
 
 1. What's going on with MSFT? Nothing they're OpenAI's bitch now.
 2. NVDA dipped down, taking FSELX with it. The news show that they're going to come back strong soon.
@@ -9,14 +16,13 @@
 
 1. eBay gains popularity, as more people are willing to buy second-hand eletronics (read phones).
    When most of the tech stock went down in July, eBay kept growing.
-   ![EBAY](/16_life/images/ebay-09-24.png)
+   ![EBAY](/16_life/images/ebay-2024-08-26.png)
 2. Nvidia dipped a little bit on the overall growth trend.
-   ![NVDA](/16_life/images/nvda-09-24.png)
+   ![NVDA](/16_life/images/nvda-2024-08-26.png)
 3. What the hell is this PDD company? It tanked a lot. It's last year has been very volatile.
-   ![PDD](/16_life/images/pdd-09-24.png)
+   ![PDD](/16_life/images/pdd-2024-08-26.png)
 4. Just look at this MRM shit. Closed at $2.48, opened at $7.01. Daytrading my ass.
 5. Macy's got a bad look from big guys and going down. Not all the way to the bottom just yet, let's take a look in 5 days.
-
 
 `Aug 24, 2024` - I like the idea how software systems are complex and complicated.
 Complex stands for inherent problem the software solves.
