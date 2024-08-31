@@ -25,8 +25,7 @@ If ipython is not an option, cProfile.runctx can be used:
 >>> cProfile.runctx("client.get('/')", globals(), locals(), sort=2, filename='profile.pstats')
 
 
-.. admonition:: Example profiler output
-   :class: dropdown
+.. dropdown:: Example profiler output
 
     .. image:: images/profile.png
        :target: /_images/profile.png
