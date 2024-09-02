@@ -4,12 +4,11 @@ SPHINXOPTS  ?=
 SPHINXBUILD ?= sphinx-build
 SOURCEDIR   = source
 BUILDDIR    = build
-PHOTOS_SUBDIRS = $(wildcard source/18_photos/*)
-
+GALLERIES = $(wildcard source/18_photos/*/gallery.json)
+PHOTOS_SUBDIRS := $(patsubst %/,%,$(dir $(GALLERIES)))
 
 .DEFAULT_GOAL := help
 
-# Put it first so that "make" without argument is like "make help".
 .PHONY: help
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
@@ -109,12 +108,12 @@ counter_build:
 counter_install:
 	$(MAKE) -C backgammon install
 
+.PHONY: photos_build
+photos_build: $(PHOTOS_SUBDIRS)
+
 .PHONY: $(PHOTOS_SUBDIRS)
 $(PHOTOS_SUBDIRS):
 	$(MAKE) -C $@
-
-.PHONY: photos_build
-photos_build: $(PHOTOS_SUBDIRS)
 
 .PHONY: tree
 tree:
