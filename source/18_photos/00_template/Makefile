@@ -1,3 +1,5 @@
+# Usage: make -C source/18_photos/DD_NNNN -f ../00_template/Makefile init
+
 MAKEFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
 DIRNAME := $(notdir $(patsubst %/,%,$(dir $(MAKEFILE_PATH))))
 
@@ -12,10 +14,13 @@ build:
 	rm -f public/images/thumbnails/*.*
 
 .PHONY: init
-init: gallery.json
+init: index.md Makefile
 
 index.md: gallery.json
 	jq '"# " + .title' -r < gallery.json > index.md
 
 gallery.json:
 	gallery-init
+
+Makefile: $(MAKEFILE_PATH)
+	cp $(MAKEFILE_PATH) $@
