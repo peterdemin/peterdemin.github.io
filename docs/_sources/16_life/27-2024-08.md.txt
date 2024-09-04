@@ -1,3 +1,5 @@
+`Aug 30, 2024` - Added [](/12_articles/62-100q.rst), [](/12_articles/63-100q-open.rst)
+
 `Aug 30, 2024` - Crazy man market analysis (close).
 
 1. I jinxed it for eBay, it dipped right after I called it stable.
@@ -11,6 +13,8 @@
 2. NVDA dipped down, taking FSELX with it. The news show that they're going to come back strong soon.
 3. PDD is bonkers, random off-market jumper.
 4. Macy's stable, time to start stocking up (from MSFT, for example) for November.
+
+`Aug 26, 2024` - Added [](/12_articles/60-M.rst), [](/12_articles/61-tree.md)
 
 `Aug 26, 2024` - Crazy man market analysis.
 
@@ -47,6 +51,8 @@ Social contracts prevent expression of internal desires.
 `Aug 18, 2024` - this tea bag summarizes my thoughts of food in the US. The brown dust resembles tea only in color. But that’s what Americans like. No sophistication, big quantities, low price.
 
 ![Lipton](/16_life/images/lipton.jpeg)
+
+`Aug 09, 2024` - Added [](/12_articles/59-iced-water.rst)
 
 `Aug 07, 2024` - I was watching [Expanse](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://en.wikipedia.org/wiki/The_Expanse_(TV_series)) and was fascinated by their handheld devices (phones?).
 I liked the way they wirelessly cast screen using two-fingers swipe up in the direction of the cast target.
