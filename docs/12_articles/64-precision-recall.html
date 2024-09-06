@@ -1,0 +1,1063 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Precision-Recall &#8212; Peter Demin</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=6e40e738" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script src="../_static/documentation_options.js?v=8a448e45"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/64-precision-recall';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Decentralizing the Practice of Architecture at Xapo Bank" href="../17_notes/01_xapo.html" />
+    <link rel="prev" title="100 questions for Washington state in Aug 2024" href="63-100q-open.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Peter Demin</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Precision-Recall</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="precision-recall">
+<h1>Precision-Recall<a class="headerlink" href="#precision-recall" title="Link to this heading">#</a></h1>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
+<p>I’m familiarizing myself with basic ML concept of Precision-Recall curve
+to build intuition around it.</p>
+<p>My source:
+<a class="reference external" href="https://scikit-learn.org/dev/auto_examples/model_selection/plot_precision_recall.html">https://scikit-learn.org/dev/auto_examples/model_selection/plot_precision_recall.html</a></p>
+</section>
+<section id="first-well-load-a-small-toy-dataset">
+<h2>First, we’ll load a small toy dataset<a class="headerlink" href="#first-well-load-a-small-toy-dataset" title="Link to this heading">#</a></h2>
+<p>Following the SciKit doc, we’ll use Iris (flower, not part of an eye, or
+godess).</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import numpy as np
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.metrics._ranking import precision_recall_curve
+import pandas
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import LinearSVC
+from sklearn.metrics import PrecisionRecallDisplay
+
+random_state = np.random.RandomState(3)
+
+X, y = load_iris(return_X_y=True)
+</pre></div>
+</div>
+</section>
+<section id="mess-it-up">
+<h2>Mess it up<a class="headerlink" href="#mess-it-up" title="Link to this heading">#</a></h2>
+<p>The dataset has 150 records, 4 floating-point flower properties (like
+length) for X, and specific flower species label for Y (0, 1, 2). There
+are 310 Iris species, but this small dataset has only 3. So, it’s kinda
+multilabel. We don’t need that, for precision-recall we need something
+binary. So we trim both X and Y to only keep records for <code class="docutils literal notranslate"><span class="pre">Y=0</span></code> aka
+False and <code class="docutils literal notranslate"><span class="pre">1</span></code> aka True.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X, y = X[y&lt;2], y[y&lt;2]
+pandas.DataFrame(X)
+</pre></div>
+</div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>95</th>
+      <td>5.7</td>
+      <td>3.0</td>
+      <td>4.2</td>
+      <td>1.2</td>
+    </tr>
+    <tr>
+      <th>96</th>
+      <td>5.7</td>
+      <td>2.9</td>
+      <td>4.2</td>
+      <td>1.3</td>
+    </tr>
+    <tr>
+      <th>97</th>
+      <td>6.2</td>
+      <td>2.9</td>
+      <td>4.3</td>
+      <td>1.3</td>
+    </tr>
+    <tr>
+      <th>98</th>
+      <td>5.1</td>
+      <td>2.5</td>
+      <td>3.0</td>
+      <td>1.1</td>
+    </tr>
+    <tr>
+      <th>99</th>
+      <td>5.7</td>
+      <td>2.8</td>
+      <td>4.1</td>
+      <td>1.3</td>
+    </tr>
+  </tbody>
+</table>
+<p>100 rows × 4 columns</p>
+</div><div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>y
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+       <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+       <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
+       <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
+       <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>It’s good that it’s binary now, but it’s too easy. If we train a model
+on this data now, it will have 100% accuracy, so precision and recall
+will look stupied. So, we add noisy features, a whole lot, 100 times
+more noise than signal. That will make model to sweat.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X = np.concatenate([X, random_state.randn(X.shape[0], 100 * X.shape[1])], axis=1)
+
+pandas.DataFrame(X)
+</pre></div>
+</div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>394</th>
+      <th>395</th>
+      <th>396</th>
+      <th>397</th>
+      <th>398</th>
+      <th>399</th>
+      <th>400</th>
+      <th>401</th>
+      <th>402</th>
+      <th>403</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>1.788628</td>
+      <td>0.436510</td>
+      <td>0.096497</td>
+      <td>-1.863493</td>
+      <td>-0.277388</td>
+      <td>-0.354759</td>
+      <td>...</td>
+      <td>-0.041844</td>
+      <td>-0.272736</td>
+      <td>-2.676521</td>
+      <td>-0.430101</td>
+      <td>0.084964</td>
+      <td>1.097779</td>
+      <td>2.046333</td>
+      <td>0.666988</td>
+      <td>0.079092</td>
+      <td>-0.964763</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0.089053</td>
+      <td>0.778897</td>
+      <td>1.264645</td>
+      <td>-0.880511</td>
+      <td>0.236406</td>
+      <td>0.815604</td>
+      <td>...</td>
+      <td>-0.695176</td>
+      <td>0.350235</td>
+      <td>0.877156</td>
+      <td>-1.154259</td>
+      <td>0.167770</td>
+      <td>0.247067</td>
+      <td>-0.334747</td>
+      <td>-0.487161</td>
+      <td>-1.854910</td>
+      <td>1.148821</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>-0.932924</td>
+      <td>-1.240371</td>
+      <td>0.657913</td>
+      <td>-1.832275</td>
+      <td>0.963271</td>
+      <td>0.434219</td>
+      <td>...</td>
+      <td>1.220892</td>
+      <td>-2.011595</td>
+      <td>-1.504712</td>
+      <td>-0.149936</td>
+      <td>0.027270</td>
+      <td>-1.604372</td>
+      <td>-0.674309</td>
+      <td>-0.455614</td>
+      <td>-0.497364</td>
+      <td>-0.518032</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>-0.140283</td>
+      <td>0.830035</td>
+      <td>0.686235</td>
+      <td>0.538731</td>
+      <td>0.221271</td>
+      <td>-0.770385</td>
+      <td>...</td>
+      <td>-0.290146</td>
+      <td>1.390606</td>
+      <td>-1.455962</td>
+      <td>0.569578</td>
+      <td>0.006109</td>
+      <td>0.859871</td>
+      <td>-0.444911</td>
+      <td>0.753343</td>
+      <td>-0.467831</td>
+      <td>0.663535</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>-1.922484</td>
+      <td>0.528894</td>
+      <td>0.782406</td>
+      <td>-1.553416</td>
+      <td>0.890992</td>
+      <td>-1.091646</td>
+      <td>...</td>
+      <td>1.027371</td>
+      <td>-1.060412</td>
+      <td>0.745221</td>
+      <td>-1.398008</td>
+      <td>0.078579</td>
+      <td>-1.648937</td>
+      <td>-0.172256</td>
+      <td>-0.816176</td>
+      <td>-1.003245</td>
+      <td>0.214830</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>95</th>
+      <td>5.7</td>
+      <td>3.0</td>
+      <td>4.2</td>
+      <td>1.2</td>
+      <td>-1.048244</td>
+      <td>0.062068</td>
+      <td>-0.304341</td>
+      <td>-0.516236</td>
+      <td>0.432118</td>
+      <td>0.675260</td>
+      <td>...</td>
+      <td>1.365158</td>
+      <td>0.914614</td>
+      <td>0.020456</td>
+      <td>-0.314531</td>
+      <td>1.468110</td>
+      <td>1.703369</td>
+      <td>0.409053</td>
+      <td>-0.293020</td>
+      <td>-0.038827</td>
+      <td>-0.759583</td>
+    </tr>
+    <tr>
+      <th>96</th>
+      <td>5.7</td>
+      <td>2.9</td>
+      <td>4.2</td>
+      <td>1.3</td>
+      <td>1.586293</td>
+      <td>-0.490875</td>
+      <td>-1.612975</td>
+      <td>0.097659</td>
+      <td>-0.170520</td>
+      <td>1.269662</td>
+      <td>...</td>
+      <td>-1.006722</td>
+      <td>1.040696</td>
+      <td>-1.780113</td>
+      <td>0.576967</td>
+      <td>0.222845</td>
+      <td>-0.030648</td>
+      <td>1.560297</td>
+      <td>1.289232</td>
+      <td>0.005855</td>
+      <td>-1.530362</td>
+    </tr>
+    <tr>
+      <th>97</th>
+      <td>6.2</td>
+      <td>2.9</td>
+      <td>4.3</td>
+      <td>1.3</td>
+      <td>0.845536</td>
+      <td>-1.045338</td>
+      <td>-1.111983</td>
+      <td>-0.156758</td>
+      <td>0.316664</td>
+      <td>0.104065</td>
+      <td>...</td>
+      <td>0.167184</td>
+      <td>0.398998</td>
+      <td>0.104368</td>
+      <td>1.282921</td>
+      <td>-1.973232</td>
+      <td>1.331549</td>
+      <td>1.144706</td>
+      <td>0.378739</td>
+      <td>0.497428</td>
+      <td>0.880610</td>
+    </tr>
+    <tr>
+      <th>98</th>
+      <td>5.1</td>
+      <td>2.5</td>
+      <td>3.0</td>
+      <td>1.1</td>
+      <td>0.252259</td>
+      <td>1.805827</td>
+      <td>-0.505050</td>
+      <td>0.088796</td>
+      <td>-0.059348</td>
+      <td>-1.280433</td>
+      <td>...</td>
+      <td>-1.077416</td>
+      <td>0.696924</td>
+      <td>-0.582393</td>
+      <td>-1.444338</td>
+      <td>-1.175554</td>
+      <td>0.287162</td>
+      <td>-1.674579</td>
+      <td>1.712218</td>
+      <td>-0.191547</td>
+      <td>-0.217705</td>
+    </tr>
+    <tr>
+      <th>99</th>
+      <td>5.7</td>
+      <td>2.8</td>
+      <td>4.1</td>
+      <td>1.3</td>
+      <td>-0.843062</td>
+      <td>-1.487719</td>
+      <td>-0.123779</td>
+      <td>0.488852</td>
+      <td>-2.191656</td>
+      <td>-2.167447</td>
+      <td>...</td>
+      <td>0.842751</td>
+      <td>-1.043519</td>
+      <td>1.658296</td>
+      <td>-0.766213</td>
+      <td>-0.651521</td>
+      <td>-3.106978</td>
+      <td>-2.366992</td>
+      <td>-0.659680</td>
+      <td>-1.394787</td>
+      <td>1.489548</td>
+    </tr>
+  </tbody>
+</table>
+<p>100 rows × 404 columns</p>
+</div></section>
+<section id="split-to-train-and-test-data">
+<h2>Split to train and test data<a class="headerlink" href="#split-to-train-and-test-data" title="Link to this heading">#</a></h2>
+<p>Because we’re such great data scientists, we can’t even think about
+testing the model on training data even for educational purposes.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=random_state)
+</pre></div>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>classifier = make_pipeline(StandardScaler(), LinearSVC(random_state=random_state))
+classifier.fit(X_train, y_train);
+</pre></div>
+</div>
+</section>
+<section id="boom-weve-got-a-binary-classifier-model">
+<h2>Boom, we’ve got a binary classifier model<a class="headerlink" href="#boom-weve-got-a-binary-classifier-model" title="Link to this heading">#</a></h2>
+<p>We trained it to predict the likelyhood of smoking pile of garbage being
+Iris flower of species number 1. For whatever <code class="docutils literal notranslate"><span class="pre">4</span> <span class="pre">+</span> <span class="pre">40800</span></code> floats we
+throw in, the model returns a <em>score</em> of how likely the label is 1.
+Let’s take a look at the test output.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>y_score = classifier.decision_function(X_test)
+pandas.DataFrame.from_dict({
+    &#39;$Y_{score}$&#39;: y_score,
+    &#39;$Y_{true}$&#39;: y_test,
+}).plot();
+</pre></div>
+</div>
+<img alt="../_images/12.64_11_0.png" src="../_images/12.64_11_0.png" />
+<p>Note how <span class="math notranslate nohighlight">\(Y_{score}\)</span> values are small signed floating point
+numbers unlike label, which are either 0 or 1. That’s because the score
+doesn’t directly map to the label. Very loosely, it’s a likelyhood of
+input having labeled as 1, but not in statistical terms. Let’s say,
+there is a correlation. Ok, that might be not the best way to present
+this data. How about we plot only scores, and paint it red for label 1
+and blue for label 0.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pandas.DataFrame.from_dict({
+    &#39;$Y_{score}$&#39;: y_score,
+    &#39;$Y_{true}$&#39;: y_test,
+}).reset_index().plot(
+    kind=&#39;scatter&#39;,
+    x=&#39;index&#39;,
+    y=&#39;$Y_{score}$&#39;,
+    c=&#39;$Y_{true}$&#39;,
+    colormap=&#39;bwr&#39;,
+);
+</pre></div>
+</div>
+<img alt="../_images/12.64_13_0.png" src="../_images/12.64_13_0.png" />
+<p>That easier on the eye. We can see that dots at the top are red, dots at
+the bottom are blue, and in the middle there’s a mix. To actually tell,
+if the score predicts the label to be 1, we need to have a threshold.
+With the threshold, we’ll be able to say, okay, everything above this
+magical number has label 1.</p>
+</section>
+<section id="lets-build-some-curves">
+<h2>Let’s build some curves<a class="headerlink" href="#lets-build-some-curves" title="Link to this heading">#</a></h2>
+<p>Scikit learn provides handy implementation for drawing the P/R curve,
+let’s take a look, so we know what good looks like.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>display = PrecisionRecallDisplay.from_predictions(
+    y_test, y_score, name=&quot;LinearSVC&quot;, plot_chance_level=True
+).ax_.set_title(&quot;2-class Precision-Recall curve&quot;)
+</pre></div>
+</div>
+<img alt="../_images/12.64_15_0.png" src="../_images/12.64_15_0.png" />
+<p>Beautiful, it’s like a staircase that mostly goes down, except half of
+the time it goes up. Definitely tells me a lot about the quality of this
+model (it doesn’t).</p>
+</section>
+<section id="lets-get-under-the-hood">
+<h2>Let’s get under the hood<a class="headerlink" href="#lets-get-under-the-hood" title="Link to this heading">#</a></h2>
+<p>First, we’ll sort the “true” labels (y_test) and the predicted scores
+(y_score) together by score.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>score_indices = np.argsort(y_score)
+sy_score = y_score[score_indices]
+sy_test = y_test[score_indices]
+pandas.DataFrame.from_dict({&#39;$Y_{true}$&#39;: sy_test, &#39;$Y_{score}$&#39;: sy_score}).plot();
+</pre></div>
+</div>
+<img alt="../_images/12.64_17_0.png" src="../_images/12.64_17_0.png" />
+<p>Looks good, very organized. Y_score grows monotonically through its
+range, while y_true jumps up and down like crazy. But if we squeeze hard
+enough, we’ll see that we have more 1’s on the right side. Actually,
+let’s do that color trick again.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>(pandas.DataFrame.from_dict({&#39;$Y_{score}$&#39;: sy_score, &#39;$Y_{true}$&#39;: sy_test})
+       .reset_index()
+       .plot(kind=&#39;scatter&#39;, x=&#39;index&#39;, y=&#39;$Y_{score}$&#39;, c=&#39;$Y_{true}$&#39;, colormap=&#39;bwr&#39;));
+</pre></div>
+</div>
+<img alt="../_images/12.64_19_0.png" src="../_images/12.64_19_0.png" />
+<p>Nice, good job. We can eye-ball that the right threshold for y_score is
+around 0, maybe 0.1. The P/R curve will help us pick the right number
+for we are the professionals and never eye-ball shit.</p>
+</section>
+<section id="precision-recall-and-threshold">
+<h2>Precision, recall, and threshold<a class="headerlink" href="#precision-recall-and-threshold" title="Link to this heading">#</a></h2>
+<p>Let’s use this handy function from scikit to compute precision, recall,
+and threshold. It takes <code class="docutils literal notranslate"><span class="pre">y_test</span></code> as <code class="docutils literal notranslate"><span class="pre">y_true</span></code> - the true test labels
+from the dataset, and <code class="docutils literal notranslate"><span class="pre">y_score</span></code> - the predicted score. It returns
+three lists of floats of the same length as the score and true labels.</p>
+<p>In mathematical notation:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(N\)</span> - number of labels, same as number of scores.</p></li>
+<li><p><span class="math notranslate nohighlight">\(Y\)</span> - <code class="docutils literal notranslate"><span class="pre">y_true</span></code> - the true (test) label for the record.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\hat{Y}\)</span> - <code class="docutils literal notranslate"><span class="pre">y_score</span></code> - the predicted score.</p></li>
+<li><p><span class="math notranslate nohighlight">\(P=\sum_{i=0}^{N}{Y_i}\)</span> - total number of positive test labels.</p></li>
+</ul>
+<p>It sorts <span class="math notranslate nohighlight">\((Y, \hat{Y})\)</span> pairs by <span class="math notranslate nohighlight">\(\hat{Y}\)</span>. And then
+iterates over them while running cumulative sums and doing simple math.
+At each iteration of the loop it calculates precision and recall at this
+score threshold:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(S_i=\hat{Y_{i}}\)</span> - append the current score to the list of
+<em>thresholds</em>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(T_i=\sum_{k=0}^{i}{(Y_k=1)}\)</span> - cumulative count of <em>true
+positives</em> so far.</p></li>
+<li><p><span class="math notranslate nohighlight">\(P_i = \frac{T_i}{i}\)</span> - calculate precision at <code class="docutils literal notranslate"><span class="pre">i</span></code> as the
+number of true positives divided by the number of records already
+seen.</p></li>
+<li><p><span class="math notranslate nohighlight">\(R_i = \frac{T_i}{P}\)</span> - calculate recall at <code class="docutils literal notranslate"><span class="pre">i</span></code> as the number
+of true positives divided by total number of true labels.</p></li>
+</ul>
+</section>
+<section id="english-please">
+<h2>English, please<a class="headerlink" href="#english-please" title="Link to this heading">#</a></h2>
+<p>We want to find a <em>threshold</em> such that any <code class="docutils literal notranslate"><span class="pre">y_score</span></code> above it means
+the label is 1. We saw that the prediction is not always accurate and
+the data is noisy, so we need to have a number. The number will tell us
+how confident we are in the label prediction. The name for it is
+precision. When the precision is 1 it means that we never make mistake
+by predicting label 1 to something that is label 0. It says nothing
+about the other kind of mistake, though. Predicting label 0 to what is
+actually label 1 is okay, and doesn’t hurt the precision. Maybe
+<em>conservative</em> is a good word, at least <em>asymmetrical</em>. Of course,
+everybody in this data science field undestands it, and never bothers to
+clarify this detail, just calling it a precision.</p>
+<p>Great, back to the threshold. If the treshold is set below the minimum
+observed score, it means that everything is label 1, and nothing is
+label 0. The recall for such threshold would be 100%, it finds all true
+positives. The precision would point to whatever the proportion of
+labels is in the dataset. It’s not zero, because it’s sometimes right,
+it’s not 100% because it sometimes wrong.</p>
+<p>On the other hand, if the score threshold is set above the maximum
+observed value, everything gets label 0. Super conservative. The
+precision of such system is 100%, because it never make a mistake of
+saying that the label is 1 for something that is 0. Those who do
+nothing, never make mistakes. The recall is zero, though, as nothing is
+ever found.</p>
+</section>
+<section id="computation-details">
+<h2>Computation details<a class="headerlink" href="#computation-details" title="Link to this heading">#</a></h2>
+<p>We want is to calculate precision and recall for every possible score.
+But we can’t cover all possible numbers. Luckily, we don’t need to.
+Because our evaluation dataset is finite, and between the adjacent
+points, the precision and recall is the same. So instead of going over
+all possible numbers, we just need to iterate over all observed scores.</p>
+<p>For each score we want to know how many points were below it, and how
+many of those had the true label of 1. This asks for some sorting. The
+trick is to sort all pairs (of score and true label) by score in a
+<em>descending order</em>. Then, computing the threshold becomes very easy,
+it’s just the score at every point.</p>
+<p>For every threshold (assuming unique score thresholds) we want to find
+precision and recall. Being at this threshold means that all the points
+below are predicted to be labeled 0, and all the points above are
+predicted as 1. The precision of such prediction is the number of points
+above that are actually labeled 1, divided by the total number of points
+above. We, professionals, say: number of <em>true positives</em> divided by sum
+of <em>true positives</em> an <em>false positives</em>. In other words, we divide the
+real number of positive values by the number of positive predictions,
+and that’s the precision at this threshold.</p>
+<p>We could have stopped here, you know. You want your predictions to be
+correct 90% of the times, pick the score threshold where your precision
+is closest to 0.9.</p>
+<p>But we’re curious, as the real professional data scientists are. So we
+need to know more about the data. We’ll calculate the recall. Recall is
+a funky term, that shows how many <em>true positives</em> we have predicted out
+all the positive values. We take the number of <em>true positives</em> seen so
+far, just like for the precision. But now we divide it by the total
+number of points with true label 1 in the evaluation dataset. That’s
+right, the denominator for the recall is constant at each iteration, and
+the nominator is ever-increasing. At the beginning of the loop when the
+score threshold is at the highest, and we haven’t observed any true
+positives, the recall is zero. At the end, when score threshold is at
+the lowest score, the recall is the number of <em>true positives</em> divided
+by the total number of points with label 1.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>precisions, recalls, thresholds = precision_recall_curve(y_test, y_score)
+thresholds = np.append(thresholds, float(&#39;nan&#39;))
+precisions.shape, recalls.shape, thresholds.shape
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">((</span><span class="mi">51</span><span class="p">,),</span> <span class="p">(</span><span class="mi">51</span><span class="p">,),</span> <span class="p">(</span><span class="mi">51</span><span class="p">,))</span>
+</pre></div>
+</div>
+</section>
+<section id="lets-take-a-look">
+<h2>Let’s take a look<a class="headerlink" href="#lets-take-a-look" title="Link to this heading">#</a></h2>
+<p>Okay, that was all good knowledge, thank you very much, but can you show
+me some examples? How about we plot these 3 sequences against each
+other?</p>
+<p>First, all three lines on the same chart.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pandas.DataFrame.from_dict({&#39;$Precision$&#39;: precisions, &#39;$Recall$&#39;: recalls, &#39;$Threshold$&#39;: thresholds}).plot();
+</pre></div>
+</div>
+<img alt="../_images/12.64_23_0.png" src="../_images/12.64_23_0.png" />
+<p>Magnificient! But not very helpful. We see that the threshold are just
+sorted scores. We see recall starting at 1.0 and going down to zero. And
+the precision starts somewhere around 0.5 and goes up (and sometimes
+down) to 1.0.</p>
+<p>How about we put recall as the X axis, and plot precision and thresholds
+as Y.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pandas.DataFrame.from_dict({&#39;$Precision$&#39;: precisions, &#39;$Recall$&#39;: recalls, &#39;$Threshold$&#39;: thresholds}).plot(x=&#39;$Recall$&#39;);
+</pre></div>
+</div>
+<img alt="../_images/12.64_25_0.png" src="../_images/12.64_25_0.png" />
+<p>Yeah, that’s very close to what scikit plotted for us above. The steps
+are not as pronounced, but that’s fine.</p>
+<p>How about we go crazy and plot both precision and recall against the
+threshold?</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pandas.DataFrame.from_dict({&#39;$Precision$&#39;: precisions, &#39;$Recall$&#39;: recalls, &#39;$Threshold$&#39;: thresholds}).plot(x=&#39;$Threshold$&#39;);
+</pre></div>
+</div>
+<img alt="../_images/12.64_27_0.png" src="../_images/12.64_27_0.png" />
+<p>The lines cross! What a coincedence (it’s not). Funny, that the
+threshold of the cross is about where we (no, you, against my better
+judgement) eye-balled the sweet spot. Is there any theoretical
+significance to this spot? I don’t think so. You don’t get the biggest
+bang for your buck by jerking target precision for the system after
+every evaluation. You want the target precision to be good and stable,
+and preferrably decided by someone who understands the product, the
+users, and also that murky statistical part, that precision doesn’t take
+into account <em>false negatives</em> - predictions of label 0 when it’s
+actually 1.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="63-100q-open.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">100 questions for Washington state in Aug 2024</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../17_notes/01_xapo.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Decentralizing the Practice of Architecture at Xapo Bank</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-well-load-a-small-toy-dataset">First, we’ll load a small toy dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mess-it-up">Mess it up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#split-to-train-and-test-data">Split to train and test data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boom-weve-got-a-binary-classifier-model">Boom, we’ve got a binary classifier model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lets-build-some-curves">Let’s build some curves</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lets-get-under-the-hood">Let’s get under the hood</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-recall-and-threshold">Precision, recall, and threshold</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#english-please">English, please</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computation-details">Computation details</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lets-take-a-look">Let’s take a look</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  
+  <div class="tocsection editthispage">
+    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/12_articles/64-precision-recall.rst">
+      <i class="fa-solid fa-pencil"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </div>
+</div>
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="../_sources/12_articles/64-precision-recall.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2022, Peter Demin.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.14.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
