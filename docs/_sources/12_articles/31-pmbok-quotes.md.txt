@@ -1,6 +1,4 @@
-# PMBOK quotes
-
-## Stakeholders
+# Project Management Body of Knowledge (PMBOK) quotes
 
 Stakeholders may influence, affect, or be affected by a project decision, activity, or outcome in either a *positive* or *negative* way.
 
