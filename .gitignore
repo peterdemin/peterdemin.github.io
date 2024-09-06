@@ -7,3 +7,4 @@ node_modules
 .DS_Store
 __pycache__
 source/12_articles/.ipynb_checkpoints/
+/.ipynb_checkpoints/
