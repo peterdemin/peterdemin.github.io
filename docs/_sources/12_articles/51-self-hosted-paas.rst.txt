@@ -27,8 +27,7 @@ No containers:
 -  `Podi <https://github.com/coderofsalvation/podi>`__ \* Docker optional
 -  `Piku <https://github.com/piku/piku>`__ (and a notable fork: `Sailor <https://github.com/mardix/sailor>`__)
 
-Source: `Reddit
-comment <https://www.reddit.com/r/selfhosted/comments/zv2t4s/comment/j1tp2uq/?utm_source=share&utm_medium=web2x&context=3>`__
+Source: `Reddit comment <https://www.reddit.com/r/selfhosted/comments/zv2t4s/comment/j1tp2uq/?utm_source=share&utm_medium=web2x&context=3>`__
 
 More from
 `TechTarget <https://www.techtarget.com/searchcloudcomputing/feature/6-open-source-PaaS-options-developers-should-know>`__:
@@ -40,10 +39,8 @@ There are a number of popular open source PaaS options on the market
 today, each with its own unique twist. The tools listed below are six of
 the most popular -- or increasingly popular -- projects that engineering
 teams are using to abstract the complexities of infrastructure
-management while
-still\ `  <https://www.techtarget.com/searchdatacenter/post/4-ways-data-center-operations-must-adapt-to-the-cloud-era>`__\ `embracing
-the power of the
-cloud <https://www.techtarget.com/searchdatacenter/post/4-ways-data-center-operations-must-adapt-to-the-cloud-era>`__.
+management while still
+`embracing the power of the cloud <https://www.techtarget.com/searchdatacenter/post/4-ways-data-center-operations-must-adapt-to-the-cloud-era>`__.
 
 .. _h.gbggszmu3t4u:
 
@@ -71,7 +68,7 @@ an application to CapRover.
 
 -  Automatic SSL certificate provisioning from Let's Encrypt
 -  Local
-  `command-line interface <https://www.techtarget.com/searchwindowsserver/definition/command-line-interface-CLI>`__
+   `command-line interface <https://www.techtarget.com/searchwindowsserver/definition/command-line-interface-CLI>`__
    (CLI) client for automation
 -  Web-based graphical user interface (GUI) for ease of use
 -  Supports all Docker-based applications
