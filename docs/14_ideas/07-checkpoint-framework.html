@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>LLM-based personal assistant &#8212; Peter Demin</title>
+    <title>Checkpoint framework &#8212; Peter Demin</title>
   
   
   
@@ -42,10 +42,11 @@
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '15_projects/02-llm-personal-assistant';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '14_ideas/07-checkpoint-framework';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Checkpoint framework" href="../14_ideas/07-checkpoint-framework.html" />
+    <link rel="next" title="LLM-based personal assistant" href="../15_projects/02-llm-personal-assistant.html" />
+    <link rel="prev" title="Git form saver" href="06-git-form-saver.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -201,7 +202,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">LLM-based...</li>
+    <li class="breadcrumb-item active" aria-current="page">Checkpoint framework</li>
   </ul>
 </nav>
 </div>
@@ -218,30 +219,38 @@
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="llm-based-personal-assistant">
-<h1>LLM-based personal assistant<a class="headerlink" href="#llm-based-personal-assistant" title="Link to this heading">#</a></h1>
-<section id="classification-prompt">
-<h2>Classification prompt<a class="headerlink" href="#classification-prompt" title="Link to this heading">#</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Act as a smart personal assistant. Classify the User&#39;s message as either command or query.
-Respond with a Classification containing only one word: &quot;query&quot; or &quot;command&quot;.
-Don&#39;t put anything else into classification.
-
-&lt;user&gt;: shut down
-&lt;assistant&gt;: command
-
-&lt;user&gt;: what time is it?
-&lt;assistant&gt;: query
-
-&lt;user&gt;: set the alarm for 8 am
-&lt;assistant&gt;: command
-
-&lt;user&gt;: find new movies with high rating
-&lt;assistant&gt;: query
-
-&lt;user&gt;: send me a &quot;wake up&quot; message at 8 am
-&lt;assistant&gt;:
-</pre></div>
-</div>
+  <section id="checkpoint-framework">
+<h1>Checkpoint framework<a class="headerlink" href="#checkpoint-framework" title="Link to this heading">#</a></h1>
+<section id="context">
+<h2>Context<a class="headerlink" href="#context" title="Link to this heading">#</a></h2>
+<p>In service-oriented architecture one user action (or scenario)
+involves services calling other services, creating a tree of calls.
+It’s hard to tell what are the exact inputs and output for each call
+without having access to the detailed logs.
+And almost impossible to tell what are the possible inputs to something
+sitting in between of other services just by looking at the code.</p>
+<p>In well-designed architecture, each component knows very little about other.
+It helps with managing complexity, and changing each component separately.
+Contrary to the component, its developer needs to understand the overall system
+to make the right design choices, and foresee problems.
+But when looking at the code, a new team member can only infer what components know,
+not what they need to know.
+This knowledge lives in documentation and heads of people who built the system.</p>
+</section>
+<section id="problem">
+<h2>Problem<a class="headerlink" href="#problem" title="Link to this heading">#</a></h2>
+<p>When looking at underdocumented untested component, it’s sometimes hard to tell what are the example
+inputs and expected outputs.
+Component here means an API, a class, or a function.</p>
+</section>
+<section id="solution">
+<h2>Solution<a class="headerlink" href="#solution" title="Link to this heading">#</a></h2>
+<p>Have checkpoint annotations throughout the code, that record inputs and outputs of the components.
+The checkpoint system runs more or less fixed set of scenarios, and records data as it passes through each checkpoint.
+The recorded data is made available to the code as static test assets.</p>
+<p>The recording is automated and regular.
+Developers add new scenarios to cover new features.
+When the inputs or outputs of the existing checkpoint change, the test assets are automatically updated, and the developers are alerted about the change (along with the result of the test run).</p>
 </section>
 </section>
 
@@ -256,13 +265,22 @@ Don&#39;t put anything else into classification.
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../14_ideas/07-checkpoint-framework.html"
+       href="06-git-form-saver.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Checkpoint framework</p>
+        <p class="prev-next-title">Git form saver</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="../15_projects/02-llm-personal-assistant.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">LLM-based personal assistant</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -279,14 +297,16 @@ Don&#39;t put anything else into classification.
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-prompt">Classification prompt</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context">Context</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem">Problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solution">Solution</a></li>
 </ul>
   </nav></div>
 
   <div class="sidebar-secondary-item">
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/15_projects/02-llm-personal-assistant.rst">
+    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/14_ideas/07-checkpoint-framework.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -300,7 +320,7 @@ Don&#39;t put anything else into classification.
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="../_sources/15_projects/02-llm-personal-assistant.rst.txt">
+    <a href="../_sources/14_ideas/07-checkpoint-framework.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
