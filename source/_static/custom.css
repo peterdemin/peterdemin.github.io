@@ -2,6 +2,10 @@
     display: none;
 }
 
+.bd-sidebar-primary {
+    display: none;
+}
+
 .navbar-toggler {
     display: none;
 }
