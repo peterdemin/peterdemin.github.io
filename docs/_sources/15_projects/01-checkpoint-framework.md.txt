@@ -52,7 +52,7 @@ The library has a few parts:
 
 ## Similarity with Open Telemetry
 
-Open Telemetry provides similar functionality but with a different focus.
+[Open Telemetry](https://opentelemetry.io/docs/what-is-opentelemetry/) provides similar functionality but with a different focus.
 It captures performance metrics while having limited payload.
 The purpose is to provide visibilty into the production runtime.
 
