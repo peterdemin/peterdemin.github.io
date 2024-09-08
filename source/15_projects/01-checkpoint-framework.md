@@ -46,8 +46,9 @@ The library has a few parts:
 1. Expose a control endpoint that enables/disables checkpointing.
 2. Instrument the web framework to automatically record request and response data.
 3. Instrument the client library to record outbound requests.
-4. Provide decorator to checkpoint critical parts of the internal processing.
-5. Testing-time library to load the previously recorded assets.
+4. Instrument SQL framework to record raw queries and their output.
+5. Provide decorator to checkpoint critical parts of the internal processing.
+6. Testing-time library to load the previously recorded assets.
 
 ## Similarity with Open Telemetry
 
