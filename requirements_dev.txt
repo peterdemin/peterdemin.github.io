@@ -10,27 +10,23 @@ anyio==4.4.0
     # via
     #   httpx
     #   jupyter-server
-appnope==0.1.3
-    # via
-    #   ipykernel
-    #   ipython
+appnope==0.1.4
+    # via ipykernel
 argon2-cffi==23.1.0
     # via jupyter-server
 argon2-cffi-bindings==21.2.0
     # via argon2-cffi
 arrow==1.3.0
     # via isoduration
-astroid==3.0.1
+astroid==3.2.4
     # via pylint
-asttokens==2.4.0
+asttokens==2.4.1
     # via stack-data
 async-lru==2.0.4
     # via jupyterlab
-backcall==0.2.0
-    # via ipython
 bleach==6.1.0
     # via nbconvert
-build==1.0.3
+build==1.2.2
     # via pip-tools
 comm==0.2.2
     # via
@@ -48,9 +44,9 @@ decorator==5.1.1
     #   ipython
 defusedxml==0.7.1
     # via nbconvert
-dill==0.3.7
+dill==0.3.8
     # via pylint
-executing==2.0.0
+executing==2.1.0
     # via stack-data
 fastjsonschema==2.20.0
     # via nbformat
@@ -71,7 +67,7 @@ ipykernel==6.29.5
     #   jupyter
     #   jupyter-console
     #   jupyterlab
-ipython==8.16.1
+ipython==8.27.0
     # via
     #   -r requirements_dev.in
     #   ipdb
@@ -82,9 +78,9 @@ ipywidgets==8.1.5
     # via jupyter
 isoduration==20.11.0
     # via jsonschema
-isort==5.12.0
+isort==5.13.2
     # via pylint
-jc==1.23.6
+jc==1.25.3
     # via -r requirements_dev.in
 jedi==0.19.1
     # via ipython
@@ -146,11 +142,11 @@ jupyterlab-server==2.27.3
     #   notebook
 jupyterlab-widgets==3.0.13
     # via ipywidgets
-kiwisolver==1.4.5
+kiwisolver==1.4.7
     # via matplotlib
 matplotlib==3.9.2
     # via -r requirements_dev.in
-matplotlib-inline==0.1.6
+matplotlib-inline==0.1.7
     # via
     #   ipykernel
     #   ipython
@@ -183,23 +179,21 @@ pandas==2.2.2
     # via -r requirements_dev.in
 pandocfilters==1.5.1
     # via nbconvert
-parso==0.8.3
+parso==0.8.4
     # via jedi
-pexpect==4.8.0
+pexpect==4.9.0
     # via ipython
-pickleshare==0.7.5
-    # via ipython
-pip-compile-multi==2.6.3
+pip-compile-multi==2.6.4
     # via -r requirements_dev.in
-pip-tools==7.3.0
+pip-tools==7.4.1
     # via pip-compile-multi
-platformdirs==3.11.0
+platformdirs==4.3.1
     # via
     #   jupyter-core
     #   pylint
 prometheus-client==0.20.0
     # via jupyter-server
-prompt-toolkit==3.0.39
+prompt-toolkit==3.0.47
     # via
     #   ipython
     #   jupyter-console
@@ -209,12 +203,14 @@ ptyprocess==0.7.0
     # via
     #   pexpect
     #   terminado
-pure-eval==0.2.2
+pure-eval==0.2.3
     # via stack-data
-pylint==3.0.2
+pylint==3.2.7
     # via -r requirements_dev.in
-pyproject-hooks==1.0.0
-    # via build
+pyproject-hooks==1.1.0
+    # via
+    #   build
+    #   pip-tools
 python-dateutil==2.9.0.post0
     # via
     #   arrow
@@ -248,7 +244,7 @@ rpds-py==0.20.0
     # via
     #   jsonschema
     #   referencing
-ruamel-yaml==0.18.0
+ruamel-yaml==0.18.6
     # via jc
 ruamel-yaml-clib==0.2.8
     # via ruamel-yaml
@@ -274,7 +270,7 @@ threadpoolctl==3.5.0
     # via scikit-learn
 tinycss2==1.3.0
     # via nbconvert
-tomlkit==0.12.1
+tomlkit==0.13.2
     # via pylint
 toposort==1.10
     # via pip-compile-multi
@@ -286,7 +282,7 @@ tornado==6.4.1
     #   jupyterlab
     #   notebook
     #   terminado
-traitlets==5.11.2
+traitlets==5.14.3
     # via
     #   comm
     #   ipykernel
@@ -302,13 +298,13 @@ traitlets==5.11.2
     #   nbclient
     #   nbconvert
     #   nbformat
-types-python-dateutil==2.9.0.20240821
+types-python-dateutil==2.9.0.20240906
     # via arrow
 tzdata==2024.1
     # via pandas
 uri-template==1.3.0
     # via jsonschema
-wcwidth==0.2.8
+wcwidth==0.2.13
     # via prompt-toolkit
 webcolors==24.8.0
     # via jsonschema
@@ -318,7 +314,7 @@ webencodings==0.5.1
     #   tinycss2
 websocket-client==1.8.0
     # via jupyter-server
-wheel==0.41.2
+wheel==0.44.0
     # via pip-tools
 widgetsnbextension==4.0.13
     # via ipywidgets
@@ -326,9 +322,9 @@ xmltodict==0.13.0
     # via jc
 
 # The following packages are considered to be unsafe in a requirements file:
-pip==23.3.1
+pip==24.2
     # via pip-tools
-setuptools==68.2.2
+setuptools==74.1.2
     # via
     #   jupyterlab
     #   pip-tools
