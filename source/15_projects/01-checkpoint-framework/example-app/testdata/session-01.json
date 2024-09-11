@@ -1,0 +1,88 @@
+[
+  {
+    "location": "app/process",
+    "timestamp": 1726068654.054345,
+    "input": {
+      "args": [
+        {
+          "number": 7
+        }
+      ],
+      "kwargs": {}
+    },
+    "output": {
+      "square": 49
+    }
+  },
+  {
+    "location": "app/flask",
+    "timestamp": 1726068654.3327239,
+    "input": {
+      "method": "POST",
+      "url": "http://127.0.0.1:5000/another",
+      "headers": {
+        "Host": "127.0.0.1:5000",
+        "User-Agent": "python-requests/2.31.0",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept": "*/*",
+        "Connection": "keep-alive",
+        "Content-Length": "13",
+        "Content-Type": "application/json"
+      },
+      "body": "{\"number\": 7}"
+    },
+    "output": {
+      "status_code": 200,
+      "headers": {
+        "Content-Type": "application/json",
+        "Content-Length": "40"
+      },
+      "body": "{\n  \"message\": {\n    \"square\": 49\n  }\n}\n"
+    }
+  },
+  {
+    "location": "app/requests",
+    "timestamp": 1726068654.42695,
+    "input": {
+      "method": "post",
+      "url": "http://127.0.0.1:5000/another",
+      "headers": {},
+      "body": null
+    },
+    "output": {
+      "status_code": 200,
+      "headers": {
+        "Server": "Werkzeug/3.0.4 Python/3.10.13",
+        "Date": "Wed, 11 Sep 2024 15:30:54 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "40",
+        "Connection": "close"
+      },
+      "body": "{\n  \"message\": {\n    \"square\": 49\n  }\n}\n"
+    }
+  },
+  {
+    "location": "app/flask",
+    "timestamp": 1726068654.5159192,
+    "input": {
+      "method": "POST",
+      "url": "http://127.0.0.1:5000/example",
+      "headers": {
+        "Host": "127.0.0.1:5000",
+        "User-Agent": "curl/8.7.1",
+        "Accept": "*/*",
+        "Content-Length": "16",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "body": "{\"key\": \"value\"}"
+    },
+    "output": {
+      "status_code": 200,
+      "headers": {
+        "Content-Type": "application/json",
+        "Content-Length": "45"
+      },
+      "body": "{\n  \"message\": \"This is an example route.\"\n}\n"
+    }
+  }
+]

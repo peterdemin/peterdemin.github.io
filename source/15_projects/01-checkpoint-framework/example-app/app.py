@@ -9,8 +9,8 @@ import flask
 app = flask.Flask(__name__)
 logger = logging.getLogger(__name__)
 
-# CHECKPOINT_API_URL = "https://api.demin.dev/cp/checkpoints/example"
-CHECKPOINT_API_URL = "http://127.0.0.1:8000/cp/checkpoints/example"
+CHECKPOINT_API_URL = "https://api.demin.dev/cp/checkpoints/example"
+# CHECKPOINT_API_URL = "http://127.0.0.1:8000/cp/checkpoints/example"
 
 
 class CheckpointClient:
@@ -72,16 +72,17 @@ class RequestsCheckpoint:
         self._client = client
         self._original_request = requests.Session.request
         self._session = requests.Session()
+        self._session_request = self._session.request
 
     def register(self) -> None:
         requests.Session.request = self.instrumented_request
 
     def instrumented_request(self, method, url, **kwargs):
         if url == self._client.api_url:
-            return self._original_request(self._session, method, url, **kwargs)
+            return self._session_request(method, url, **kwargs)
         start_time = time.time()
         try:
-            response = self._original_request(self._session, method, url, **kwargs)
+            response = self._session_request(method, url, **kwargs)
         except Exception as e:
             self._client.send(self._client.make_checkpoint(
                 "requests",
