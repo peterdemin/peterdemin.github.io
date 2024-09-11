@@ -1,3 +1,4 @@
+
 Next bus
 ========
 
@@ -6,7 +7,7 @@ Next bus
     <div id="bus-arrival-times"></div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const apiUrl = 'https://api.demin.dev/7160,7210,6237';
+            const apiUrl = 'https://api.demin.dev/bus/7160,7210,6237';
 
             // Function to fetch and display bus arrival times
             async function fetchBusArrivalTimes() {
