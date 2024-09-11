@@ -95,52 +95,52 @@ class ScheduleAPI:
 
 class Checkpoint(BaseModel):
     location: str
-    timestamp: int
+    timestamp: float
     input: str
     output: str
 
 
 class CheckpointRepository:
-    def add(self, checkpoint: Checkpoint) -> None:
+    def add(self, tenant: str, checkpoint: Checkpoint) -> None:
         raise NotImplementedError()
 
-    def fetch_all(self) -> list[Checkpoint]:
+    def fetch_all(self, tenant: str) -> list[Checkpoint]:
         raise NotImplementedError()
 
 
 class InMemoryCheckpointRepository(CheckpointRepository):
     def __init__(self) -> None:
-        self._storage: list[Checkpoint] = []
+        self._storage: dict[str, list[Checkpoint]] = {}
 
-    def add(self, checkpoint: Checkpoint) -> None:
-        self._storage.append(checkpoint)
+    def add(self, tenant: str, checkpoint: Checkpoint) -> None:
+        self._storage.setdefault(tenant, []).append(checkpoint)
 
-    def fetch_all(self) -> list[Checkpoint]:
-        return self._storage
+    def fetch_all(self, tenant: str) -> list[Checkpoint]:
+        return self._storage.get(tenant) or []
 
 
-class IngestionAPI:
+class CheckpointAPI:
     def __init__(self, checkpoint_repository: CheckpointRepository) -> None:
         self._checkpoint_repository = checkpoint_repository
 
-    async def ingest_checkpoint(self, checkpoint: Checkpoint) -> dict:
-        self._checkpoint_repository.add(checkpoint)
+    async def ingest_checkpoint(self, tenant: str, checkpoint: Checkpoint) -> dict:
+        self._checkpoint_repository.add(tenant, checkpoint)
         return {"status": "ok"}
 
-    async def get_checkpoints(self) -> list[dict]:
+    async def get_checkpoints(self, tenant: str) -> list[dict]:
         return [
             checkpoint.dict()
-            for checkpoint in self._checkpoint_repository.fetch_all()
+            for checkpoint in self._checkpoint_repository.fetch_all(tenant)
         ]
 
     def register(self, app: FastAPI, prefix: str = "") -> None:
         app.add_api_route(
-            f"{prefix}/checkpoints", self.ingest_checkpoint, methods=["POST"]
+            f"{prefix}/checkpoints" + "/{tenant}", self.ingest_checkpoint, methods=["POST"]
         )
         app.add_api_route(
-            f"{prefix}/checkpoints", self.get_checkpoints, methods=["GET"]
+            f"{prefix}/checkpoints" + "/{tenant}", self.get_checkpoints, methods=["GET"]
         )
 
 
 ScheduleAPI(Schedule()).register(app)
-IngestionAPI(InMemoryCheckpointRepository()).register(app, "/cp")
+CheckpointAPI(InMemoryCheckpointRepository()).register(app, "/cp")
