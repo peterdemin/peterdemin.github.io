@@ -4,33 +4,55 @@ from typing import Any, Dict, Optional
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
-app = FastAPI()
 
-
-# Define the schema for a checkpoint
 class Checkpoint(BaseModel):
-    service_name: str
-    timestamp: datetime
-    input: Dict[str, Any]
-    output: Dict[str, Any]
-    metadata: Optional[Dict[str, Any]] = None
+    location: str
+    timestamp: int
+    input: str
+    output: str
 
 
-# Example storage (replace with actual DB integration)
-checkpoint_storage = []
+class CheckpointRepository:
+    def add(self, checkpoint: Checkpoint) -> None:
+        raise NotImplementedError()
+
+    def fetch_all(self) -> List[Checkpoint]:
+        raise NotImplementedError()
 
 
-@app.post("/checkpoints")
-async def ingest_checkpoint(checkpoint: Checkpoint):
-    try:
-        # Store the checkpoint (this is just a placeholder)
-        checkpoint_storage.append(checkpoint.dict())
-        return {"message": "Checkpoint recorded successfully."}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail="Internal server error")
+class InMemoryCheckpointRepository(CheckpointRepository):
+    def __init__(self) -> None:
+        self._storage: List[Checkpoint] = []
+
+    def add(self, checkpoint: Checkpoint) -> None:
+        self._storage.append(checkpoint)
+
+    def fetch_all(self) -> List[Checkpoint]:
+        return self._storage
 
 
-# Test route to view stored checkpoints (for development purposes)
-@app.get("/checkpoints")
-async def get_checkpoints():
-    return checkpoint_storage
+class IngestionAPI:
+    def __init__(self, checkpoint_repository: CheckpointRepository) -> None:
+        self._checkpoint_repository = checkpoint_repository
+
+    async def ingest_checkpoint(checkpoint: Checkpoint):
+        try:
+            # Store the checkpoint (this is just a placeholder)
+            self._checkpoint_repository.add(checkpoint)
+            return {"message": "Checkpoint recorded successfully."}
+        except Exception as e:
+            raise HTTPException(status_code=500, detail="Internal server error")
+
+    async def get_checkpoints():
+        return [
+            checkpoint.dict()
+            for checkpoint in self._checkpoint_repository.fetch_all()
+        ]
+
+    def register(self, app: FastAPI) -> None:
+        app.post("/checkpoints")(self.ingest_checkpoint)
+        app.get("/checkpoints")(self.get_checkpoints)
+
+
+app = FastAPI()
+IngestionAPI(InMemoryCheckpointRepository()).register(app)
