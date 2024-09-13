@@ -2,15 +2,15 @@
 
 set -exo pipefail
 
-TARGET_DIR="~bus/bus"
+TARGET_DIR="/home/bus/bus"
 
-if test -d ${TARGET_DIR}
+if test -d "${TARGET_DIR}"
 then
-    rm -rf ${TARGET_DIR}.bak
-    mv ${TARGET_DIR} ${TARGET_DIR}.bak
+    rm -rf "${TARGET_DIR}.bak"
+    mv "${TARGET_DIR}" "${TARGET_DIR}.bak"
 fi
 mv bus ~bus/
-chown -R bus:bus ${TARGET_DIR}
+chown -R bus:bus "${TARGET_DIR}"
 
 systemctl daemon-reload
 systemctl restart bus.service
