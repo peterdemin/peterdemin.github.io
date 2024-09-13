@@ -95,9 +95,11 @@ class ScheduleAPI:
 
 class Checkpoint(BaseModel):
     location: str
-    timestamp: float
+    start_ts: float
+    finish_ts: float
     input: str
     output: str
+    metadata: dict
 
 
 class CheckpointRepository:
@@ -109,15 +111,16 @@ class CheckpointRepository:
 
 
 class InMemoryCheckpointRepository(CheckpointRepository):
-    CHECKPOINT_LIMIT = 50
+    DEFAULT_CHECKPOINT_LIMIT = 50
 
-    def __init__(self) -> None:
+    def __init__(self, checkpoint_limit: int = DEFAULT_CHECKPOINT_LIMIT) -> None:
         self._storage: dict[str, list[Checkpoint]] = {}
+        self._checkpoint_limit = checkpoint_limit
 
     def add(self, tenant: str, checkpoint: Checkpoint) -> None:
         self._storage.setdefault(tenant, []).append(checkpoint)
-        if len(self._storage[tenant]) > self.CHECKPOINT_LIMIT:
-            self._storage[tenant] = self._storage[tenant][self.CHECKPOINT_LIMIT:]
+        if len(self._storage[tenant]) > self._checkpoint_limit:
+            self._storage[tenant] = self._storage[tenant][-self._checkpoint_limit:]
 
     def fetch_all(self, tenant: str) -> list[Checkpoint]:
         return self._storage.get(tenant) or []
@@ -139,14 +142,13 @@ class CheckpointAPI:
 
     def register(self, app: FastAPI, prefix: str = "") -> None:
         app.add_api_route(
-            f"{prefix}/checkpoints" + "/{tenant}", self.ingest_checkpoint, methods=["POST"]
+            prefix + "/{tenant}", self.ingest_checkpoint, methods=["POST"]
         )
         app.add_api_route(
-            f"{prefix}/checkpoints" + "/{tenant}", self.get_checkpoints, methods=["GET"]
+            prefix + "/{tenant}", self.get_checkpoints, methods=["GET"]
         )
 
 
 ScheduleAPI(Schedule()).register(app, "/bus")
 checkpoint_api = CheckpointAPI(InMemoryCheckpointRepository())
-checkpoint_api.register(app, "/cp")
 checkpoint_api.register(app, "/i8t")
