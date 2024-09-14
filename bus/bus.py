@@ -1,4 +1,5 @@
 import time
+from typing import Optional
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -17,9 +18,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-SCHEDULE_URL = (
-    "https://s3.amazonaws.com/kcm-alerts-realtime-prod/tripupdates_pb.json"
-)
+SCHEDULE_URL = "https://s3.amazonaws.com/kcm-alerts-realtime-prod/tripupdates_pb.json"
 
 
 class Schedule:
@@ -99,7 +98,7 @@ class Checkpoint(BaseModel):
     finish_ts: float
     input: str
     output: str
-    metadata: dict
+    metadata: Optional[dict] = None
 
 
 class CheckpointRepository:
@@ -120,7 +119,7 @@ class InMemoryCheckpointRepository(CheckpointRepository):
     def add(self, tenant: str, checkpoint: Checkpoint) -> None:
         self._storage.setdefault(tenant, []).append(checkpoint)
         if len(self._storage[tenant]) > self._checkpoint_limit:
-            self._storage[tenant] = self._storage[tenant][-self._checkpoint_limit:]
+            self._storage[tenant] = self._storage[tenant][-self._checkpoint_limit :]
 
     def fetch_all(self, tenant: str) -> list[Checkpoint]:
         return self._storage.get(tenant) or []
@@ -144,9 +143,7 @@ class CheckpointAPI:
         app.add_api_route(
             prefix + "/{tenant}", self.ingest_checkpoint, methods=["POST"]
         )
-        app.add_api_route(
-            prefix + "/{tenant}", self.get_checkpoints, methods=["GET"]
-        )
+        app.add_api_route(prefix + "/{tenant}", self.get_checkpoints, methods=["GET"])
 
 
 ScheduleAPI(Schedule()).register(app, "/bus")
