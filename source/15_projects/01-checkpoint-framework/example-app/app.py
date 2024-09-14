@@ -1,5 +1,3 @@
-import logging
-
 import flask
 import requests
 from i8t.client import IntrospectClient, IntrospectDecorator, introspect
@@ -7,7 +5,6 @@ from i8t.instrument.flask_introspect import FlaskIntrospect
 from i8t.instrument.requests_introspect import RequestsIntrospect
 
 app = flask.Flask(__name__)
-logger = logging.getLogger(__name__)
 
 
 @app.route("/example", methods=["GET", "POST"])
