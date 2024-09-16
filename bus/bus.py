@@ -89,7 +89,7 @@ class ScheduleAPI:
         return {route_id: sorted(times) for route_id, times in routes.items()}
 
     def register(self, app: FastAPI, prefix: str = "") -> None:
-        app.add_api_route("{prefix}/{stop_ids}", self.stop_times, methods=["GET"])
+        app.add_api_route(prefix + "/{stop_ids}", self.stop_times, methods=["GET"])
 
 
 class Checkpoint(BaseModel):
