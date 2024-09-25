@@ -147,5 +147,5 @@ class CheckpointAPI:
 
 
 ScheduleAPI(Schedule()).register(app, "/bus")
-checkpoint_api = CheckpointAPI(InMemoryCheckpointRepository())
+checkpoint_api = CheckpointAPI(InMemoryCheckpointRepository(100))
 checkpoint_api.register(app, "/i8t")
