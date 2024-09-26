@@ -92,13 +92,20 @@ class ScheduleAPI:
         app.add_api_route(prefix + "/{stop_ids}", self.stop_times, methods=["GET"])
 
 
-class Checkpoint(BaseModel):
+class Metadata(BaseModel):
+    name: str
     location: str
     start_ts: float
     finish_ts: float
+    context: str = ""
+    input_hint: str = ""
+    output_hint: str = ""
+
+
+class Checkpoint(BaseModel):
     input: str
     output: str
-    metadata: Optional[dict] = None
+    metadata: Metadata
 
 
 class CheckpointRepository:
@@ -110,19 +117,31 @@ class CheckpointRepository:
 
 
 class InMemoryCheckpointRepository(CheckpointRepository):
-    DEFAULT_CHECKPOINT_LIMIT = 50
+    DEFAULT_CHECKPOINT_LIMIT = 100
+    DEFAULT_TTL = 60.0  # seconds
 
-    def __init__(self, checkpoint_limit: int = DEFAULT_CHECKPOINT_LIMIT) -> None:
-        self._storage: dict[str, list[Checkpoint]] = {}
+    def __init__(
+        self, checkpoint_limit: int = DEFAULT_CHECKPOINT_LIMIT, ttl: float = DEFAULT_TTL
+    ) -> None:
+        self._storage: dict[str, list[tuple[float, Checkpoint]]] = {}
         self._checkpoint_limit = checkpoint_limit
+        self._ttl = ttl
 
     def add(self, tenant: str, checkpoint: Checkpoint) -> None:
-        self._storage.setdefault(tenant, []).append(checkpoint)
+        self._trim_old(tenant)
         if len(self._storage[tenant]) > self._checkpoint_limit:
-            self._storage[tenant] = self._storage[tenant][-self._checkpoint_limit :]
+            self._storage[tenant] = self._storage[tenant][-self._checkpoint_limit:]
+        self._storage[tenant].append((time.time(), checkpoint))
 
     def fetch_all(self, tenant: str) -> list[Checkpoint]:
-        return self._storage.get(tenant) or []
+        self._trim_old(tenant)
+        return [v for _, v in self._storage[tenant]]
+
+    def _trim_old(self, tenant: str) -> None:
+        now = time.time()
+        self._storage[tenant] = [
+            (t, v) for t, v in (self._storage.get(tenant) or []) if now - t < self._ttl
+        ]
 
 
 class CheckpointAPI:
@@ -147,5 +166,5 @@ class CheckpointAPI:
 
 
 ScheduleAPI(Schedule()).register(app, "/bus")
-checkpoint_api = CheckpointAPI(InMemoryCheckpointRepository(100))
+checkpoint_api = CheckpointAPI(InMemoryCheckpointRepository())
 checkpoint_api.register(app, "/i8t")
