@@ -1,4 +1,5 @@
 import time
+import asyncio
 from typing import Optional
 
 from fastapi import FastAPI
@@ -150,6 +151,7 @@ class CheckpointAPI:
 
     async def ingest_checkpoint(self, tenant: str, checkpoint: Checkpoint) -> dict:
         self._checkpoint_repository.add(tenant, checkpoint)
+        asyncio.sleep(0.1)
         return {"status": "ok"}
 
     async def get_checkpoints(self, tenant: str) -> list[dict]:
