@@ -22,7 +22,7 @@ autogen:
 	python3 gen_life.py > source/life_gd.rst
 
 .PHONY: build
-build: autogen html counter_build photos_build tree
+build: autogen html counter_build race_build photos_build tree
 
 .PHONY: browser
 browser:
@@ -107,6 +107,14 @@ counter_build:
 .PHONY: counter_install
 counter_install:
 	$(MAKE) -C backgammon install
+
+## RACE
+
+.PHONY: race_build
+race_build:
+	rm -rf build/html/race
+	mkdir -p build/html/race
+	cp race/* build/html/race
 
 .PHONY: photos_build
 photos_build: $(PHOTOS_SUBDIRS)
