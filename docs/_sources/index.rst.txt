@@ -49,6 +49,7 @@ My open-source projects
 * `OpenAI CLI <https://github.com/peterdemin/openai-cli>`_ - command-line interface for OpenAI GPT-3 model.
 * `Image checker <https://github.com/peterdemin/imgchkr>`_ - fictional JPEG validation microservice I use for experiments.
 * `Backgammon counter <counter/>`_ - Small 11ty + tailwind web page, mostly built by GPT-4.
+* `Cursor racing game <race/>`_ - built by GPT o1 preview.
 
 My side gig
 -----------

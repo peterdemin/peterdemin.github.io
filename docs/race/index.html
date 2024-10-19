@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ribbon Tracing Game</title>
+    <style>
+        canvas {
+            border: 1px solid #000;
+            display: block;
+            margin: 0 auto;
+            background-color: #f0f0f0;
+        }
+        #scoreboard {
+            text-align: center;
+            margin-top: 10px;
+        }
+        #scoreboard span {
+            margin: 0 15px;
+            font-size: 18px;
+        }
+        #startButton {
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="gameCanvas" width="600" height="600"></canvas>
+<div id="scoreboard">
+    <span>Time Left: <span id="timeLeft">30</span>s</span>
+    <span>Accuracy: <span id="accuracy">100</span>%</span>
+    <span>Rounds Completed: <span id="roundsCompleted">0</span></span>
+</div>
+<button id="startButton">Start Game</button>
+
+<script src="game.js"></script>
+
+</body>
+</html>
+
