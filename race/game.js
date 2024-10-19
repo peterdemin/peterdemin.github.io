@@ -9,48 +9,45 @@ const roundsCompletedDisplay = document.getElementById('roundsCompleted');
 const startButton = document.getElementById('startButton');
 
 // Game variables
-let timeLeft = 30;
+let timeLeft = 10;
 let accuracy = 100;
-let roundsCompleted = 0;
-let isDrawing = false;
+let roundProgress = 0;
 let totalPoints = 0;
 let pointsInside = 0;
 let gameInterval;
 let shapePath;
+let startPointPath;
+let gameStarted = false;
+let previousPosition = null;
+let distanceTraveled = 0;
 
-// Initialize game
 function initGame() {
     resetGame();
     drawShape();
     canvas.addEventListener('mousemove', onMouseMove);
-    canvas.addEventListener('mousedown', onMouseDown);
-    canvas.addEventListener('mouseup', onMouseUp);
 
-    gameInterval = setInterval(() => {
-        timeLeft--;
-        timeLeftDisplay.textContent = timeLeft;
-        if (timeLeft <= 0) {
-            endGame();
-        }
-    }, 1000);
+    startButton.style.display = 'none';
+    alert('Move your cursor into the start point to begin!');
 }
 
-// Reset game variables
 function resetGame() {
-    timeLeft = 30;
+    timeLeft = 10;
     accuracy = 100;
-    roundsCompleted = 0;
+    roundProgress = 0;
     totalPoints = 0;
     pointsInside = 0;
+    gameStarted = false;
+    previousPosition = null;
+    distanceTraveled = 0;
     timeLeftDisplay.textContent = timeLeft;
     accuracyDisplay.textContent = accuracy;
-    roundsCompletedDisplay.textContent = roundsCompleted;
+    roundsCompletedDisplay.textContent = roundProgress;
 }
 
-// Draw the ribbon shape
 function drawShape() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     shapePath = new Path2D();
+
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
     const outerRadius = 200;
@@ -63,15 +60,32 @@ function drawShape() {
 
     ctx.fillStyle = 'lightblue';
     ctx.fill(shapePath);
+
+    // Draw start point
+    startPointPath = new Path2D();
+    const startAngle = -Math.PI / 2; // Top center
+    const startPointRadius = 5;
+    const startX = centerX + (outerRadius + innerRadius) / 2 * Math.cos(startAngle);
+    const startY = centerY + (outerRadius + innerRadius) / 2 * Math.sin(startAngle);
+    startPointPath.arc(startX, startY, startPointRadius, 0, 2 * Math.PI);
+
+    ctx.fillStyle = 'green';
+    ctx.fill(startPointPath);
 }
 
-// Mouse move event handler
 function onMouseMove(event) {
-    if (!isDrawing) return;
-
     const rect = canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
+
+    if (!gameStarted) {
+        if (ctx.isPointInPath(startPointPath, x, y)) {
+            startGameTimer();
+            gameStarted = true;
+            previousPosition = { x, y };
+        }
+        return;
+    }
 
     totalPoints++;
 
@@ -86,48 +100,50 @@ function onMouseMove(event) {
         ctx.fillRect(x, y, 2, 2);
     }
 
+    // Calculate distance traveled for round completion
+    if (previousPosition) {
+        const dx = x - previousPosition.x;
+        const dy = y - previousPosition.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        distanceTraveled += distance;
+
+        // Estimate the circumference of the middle path
+        const averageRadius = (200 + 180) / 2;
+        const circumference = 2 * Math.PI * averageRadius;
+
+        // Update round progress
+        roundProgress = (distanceTraveled / circumference);
+
+        roundsCompletedDisplay.textContent = roundProgress;
+        distanceTraveled = 0; // Reset for next round
+    }
+
+    previousPosition = { x, y };
     updateAccuracy();
 }
 
-// Mouse down event handler
-function onMouseDown() {
-    isDrawing = true;
-    totalPoints = 0;
-    pointsInside = 0;
-}
-
-// Mouse up event handler
-function onMouseUp() {
-    isDrawing = false;
-    if (accuracy >= 80) {
-        roundsCompleted++;
-        roundsCompletedDisplay.textContent = roundsCompleted;
-        alert('Great job! You completed a round.');
-    } else {
-        alert('Try again! Keep the cursor within the ribbon.');
-    }
-    accuracy = 100;
-    accuracyDisplay.textContent = accuracy;
-    drawShape();
-}
-
-// Update accuracy display
 function updateAccuracy() {
     accuracy = ((pointsInside / totalPoints) * 100).toFixed(2);
     accuracyDisplay.textContent = accuracy;
 }
 
-// End the game
+function startGameTimer() {
+    gameInterval = setInterval(() => {
+        timeLeft--;
+        timeLeftDisplay.textContent = timeLeft;
+        if (timeLeft <= 0) {
+            endGame();
+        }
+    }, 1000);
+}
+
 function endGame() {
     clearInterval(gameInterval);
     canvas.removeEventListener('mousemove', onMouseMove);
-    canvas.removeEventListener('mousedown', onMouseDown);
-    canvas.removeEventListener('mouseup', onMouseUp);
-    alert(`Game Over! You completed ${roundsCompleted} rounds.`);
+    alert(`Time's up! You completed ${roundProgress} rounds with ${accuracy}% accuracy.`);
+    startButton.style.display = 'block';
 }
 
-// Start button event listener
 startButton.addEventListener('click', () => {
     initGame();
-    startButton.style.display = 'none';
 });
