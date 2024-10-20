@@ -1,4 +1,4 @@
-# Checkpoint framework
+# Checkpoint framework idea
 
 ## Context
 
@@ -72,3 +72,19 @@ The test assets also serve as a documentation for the parts of code that a paric
 
 Contract testing is a related concept, that uses the recorded API calls, and allows isolated testing of cross-service interactions.
 It doesn't define the process of acquiring the test assets, and catching the drift, though.
+
+# Checkpoint framework limitations
+
+After trying to apply checkpoint framework prototype to a big and messy project, I discovered a few setbacks.
+The common issue for all of them was non-determinism.
+The same HTTP request produces different result when repeated, or executed on the next day.
+The reason for that is usage of random identifiers and timestamps.
+It's possible to record all API calls, and all database access.
+But if application is generating different queries every time, mocking becomes complicated.
+
+Consider the following example:
+
+```python
+def good_luck_contract_testing():
+    return random.random() > 0.5
+```

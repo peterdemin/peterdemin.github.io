@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Checkpoint framework &#8212; Peter Demin</title>
+    <title>Checkpoint framework idea &#8212; Peter Demin</title>
   
   
   
@@ -42,11 +42,11 @@
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '15_projects/01-checkpoint-framework';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '14_ideas/07-checkpoint-framework';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="LLM-based personal assistant" href="02-llm-personal-assistant.html" />
-    <link rel="prev" title="Git form saver" href="../14_ideas/06-git-form-saver.html" />
+    <link rel="next" title="LLM-based personal assistant" href="../15_projects/02-llm-personal-assistant.html" />
+    <link rel="prev" title="Git form saver" href="06-git-form-saver.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -234,7 +234,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">Checkpoint framework</li>
+    <li class="breadcrumb-item active" aria-current="page">Checkpoint...</li>
   </ul>
 </nav>
 </div>
@@ -251,8 +251,8 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="checkpoint-framework">
-<h1>Checkpoint framework<a class="headerlink" href="#checkpoint-framework" title="Link to this heading">#</a></h1>
+  <section id="checkpoint-framework-idea">
+<h1>Checkpoint framework idea<a class="headerlink" href="#checkpoint-framework-idea" title="Link to this heading">#</a></h1>
 <section id="context">
 <h2>Context<a class="headerlink" href="#context" title="Link to this heading">#</a></h2>
 <p>In service-oriented architecture one user action (or scenario)
@@ -325,6 +325,20 @@ The test assets also serve as a documentation for the parts of code that a paric
 It doesn’t define the process of acquiring the test assets, and catching the drift, though.</p>
 </section>
 </section>
+<section id="checkpoint-framework-limitations">
+<h1>Checkpoint framework limitations<a class="headerlink" href="#checkpoint-framework-limitations" title="Link to this heading">#</a></h1>
+<p>After trying to apply checkpoint framework prototype to a big and messy project, I discovered a few setbacks.
+The common issue for all of them was non-determinism.
+The same HTTP request produces different result when repeated, or executed on the next day.
+The reason for that is usage of random identifiers and timestamps.
+It’s possible to record all API calls, and all database access.
+But if application is generating different queries every time, mocking becomes complicated.</p>
+<p>Consider the following example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">good_luck_contract_testing</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mf">0.5</span>
+</pre></div>
+</div>
+</section>
 
 
                 </article>
@@ -337,7 +351,7 @@ It doesn’t define the process of acquiring the test assets, and catching the d
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../14_ideas/06-git-form-saver.html"
+       href="06-git-form-saver.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
@@ -346,7 +360,7 @@ It doesn’t define the process of acquiring the test assets, and catching the d
       </div>
     </a>
     <a class="right-next"
-       href="02-llm-personal-assistant.html"
+       href="../15_projects/02-llm-personal-assistant.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
@@ -372,6 +386,7 @@ It doesn’t define the process of acquiring the test assets, and catching the d
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Checkpoint framework idea</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context">Context</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem">Problem</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solution">Solution</a></li>
@@ -380,13 +395,17 @@ It doesn’t define the process of acquiring the test assets, and catching the d
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#similarity-with-vcr-like-test-libraries">Similarity with VCR-like test libraries</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contract-testing-aspect">Contract testing aspect</a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint-framework-limitations">Checkpoint framework limitations</a></li>
+</ul>
+
   </nav></div>
 
   <div class="sidebar-secondary-item">
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/15_projects/01-checkpoint-framework.md">
+    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/14_ideas/07-checkpoint-framework.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -401,7 +420,7 @@ It doesn’t define the process of acquiring the test assets, and catching the d
   <div class="sidebar-secondary-item">
 
   <div class="tocsection sourcelink">
-    <a href="../_sources/15_projects/01-checkpoint-framework.md.txt">
+    <a href="../_sources/14_ideas/07-checkpoint-framework.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
