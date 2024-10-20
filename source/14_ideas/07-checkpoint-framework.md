@@ -100,6 +100,11 @@ However, generating such fixtures for each recording is a separate challenge.
 
 The checkpoint framework is currently on pause until I find a project where it's useful.
 
+In high-quality codebases, using checkpoint framework might not bring much value, because you can test everything without adding another layer of abstraction.
+In messed up projects, adding checkpoints is a lot of work.
+Probably more than ever was put into code quality.
+So, might not be a good fit either.
+
 ## Links
 
 Few projects I found while researching ideas for the checkpoint framework:
