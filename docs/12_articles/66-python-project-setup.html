@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Solarized Dark Theme for Firefox Reader View &#8212; Peter Demin</title>
+    <title>Development environment setup script &#8212; Peter Demin</title>
   
   
   
@@ -42,11 +42,11 @@
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/65-firefox-reader-solarized-dark';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/66-python-project-setup';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Development environment setup script" href="66-python-project-setup.html" />
-    <link rel="prev" title="Precision-Recall" href="64-precision-recall.html" />
+    <link rel="next" title="Decentralizing the Practice of Architecture at Xapo Bank" href="../17_notes/01_xapo.html" />
+    <link rel="prev" title="Solarized Dark Theme for Firefox Reader View" href="65-firefox-reader-solarized-dark.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -234,7 +234,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">Solarized...</li>
+    <li class="breadcrumb-item active" aria-current="page">Development...</li>
   </ul>
 </nav>
 </div>
@@ -251,21 +251,65 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="solarized-dark-theme-for-firefox-reader-view">
-<h1>Solarized Dark Theme for Firefox Reader View<a class="headerlink" href="#solarized-dark-theme-for-firefox-reader-view" title="Link to this heading">#</a></h1>
-<p>Firefox Reader View has a limited, non-extendable set of themes, which doesn’t include <a class="reference external" href="https://ethanschoonover.com/solarized/">Solarized</a> Dark.
-Which is unfortunate because I put Solarized Dark on everything I can.</p>
-<p>But if you want to spend 3 minutes, you can set the right palette in the Custom Theme tab.</p>
-<p><img alt="Screenshot" src="../_images/12-65-screenshot.png" /></p>
+  <section id="development-environment-setup-script">
+<h1>Development environment setup script<a class="headerlink" href="#development-environment-setup-script" title="Link to this heading">#</a></h1>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
+<p>Over the years I found that the best teams scale their development environment setup through a shell script.
+Interestingly, the script is always at the same path: <code class="docutils literal notranslate"><span class="pre">tools/setup.sh</span></code>.
+As you can imagine, we’re targeting operating systems that support bash.
+In fact, these days I see that companies converge on MacOS for all employees for security and uniformity.</p>
+<p>We won’t need no Virtual Machines or Docker. Just bare-metal laptop and shell script (mostly).</p>
+</section>
+<section id="boilerplate">
+<h2>Boilerplate<a class="headerlink" href="#boilerplate" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+
+<span class="nb">set</span><span class="w"> </span>-e<span class="w"> </span>-o<span class="w"> </span>pipefail
+
+<span class="nv">PYTHON_VERSION</span><span class="o">=</span><span class="s2">&quot;3.12&quot;</span>
+<span class="nv">PYTHON</span><span class="o">=</span><span class="s2">&quot;python</span><span class="si">${</span><span class="nv">PYTHON_VERSION</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nv">VENV_DIR</span><span class="o">=</span>~/.virtualenvs/P
+
+brew<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;python@</span><span class="si">${</span><span class="nv">PYTHON_VERSION</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c1"># Ensure virtualenv is created and active</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$VIRTUAL_ENV</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.virtualenvs/
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">VENV_DIR</span><span class="si">}</span><span class="s2">/bin/activate&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="nv">$PYTHON</span><span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span><span class="si">${</span><span class="nv">VENV_DIR</span><span class="si">}</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">    </span>.<span class="w"> </span><span class="si">${</span><span class="nv">VENV_DIR</span><span class="si">}</span>/bin/activate
+<span class="k">fi</span>
+
+<span class="nv">$PYTHON</span><span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements/prereq.txt
+<span class="nv">$PYTHON</span><span class="w"> </span>-m<span class="w"> </span>piptools<span class="w"> </span>sync<span class="w"> </span>requirements/dev.txt
+
+pre-commit<span class="w"> </span>install
+pre-commit<span class="w"> </span>autoupdate
+</pre></div>
+</div>
+<p>Few highlights:</p>
 <ol class="arabic simple">
-<li><p>For each of the four colors in the palette, click on the ✏️  button to open the color picker pop-up.</p></li>
-<li><p>Switch to the “Color Sliders” tab.</p></li>
-<li><p>In the sliders dropdown, choose “RGB Sliders.”</p></li>
-<li><p>For the “Background,” enter “Hex Color #” <code class="docutils literal notranslate"><span class="pre">002b36</span></code>.</p></li>
-<li><p>For the “Text,” “Visited Links,” and “Unvisited Links,” put <code class="docutils literal notranslate"><span class="pre">839496</span></code>.</p></li>
-<li><p>Leave “Highlighter for read aloud” at its default value.</p></li>
+<li><p>We put Python version into a constant, because it’s bound to change.</p></li>
+<li><p>If it was Ubuntu, we’d replace <code class="docutils literal notranslate"><span class="pre">brew</span></code> with <code class="docutils literal notranslate"><span class="pre">apt</span></code>, though.
+So, no big deal, maybe companies will migrate to Linux some day.</p></li>
+<li><p>Having Python virtual environment outside of repo is good for grep and such.</p></li>
+<li><p>Having it under <code class="docutils literal notranslate"><span class="pre">~/.virtualenvs/</span></code> specifically is compatible with my beloved <a class="reference external" href="https://virtualenvwrapper.readthedocs.io/en/latest/index.html">virtualenvwrapper</a>.
+I don’t want to enforce virtualenvwrapper on all team members, though.
+The way I use it with is to run <code class="docutils literal notranslate"><span class="pre">mkvirtualenv</span> <span class="pre">-a</span> <span class="pre">$PWD</span> <span class="pre">-p</span> <span class="pre">(which</span> <span class="pre">python3.12)</span> <span class="pre">P</span> <span class="pre">&amp;&amp;</span> <span class="pre">tools/setup.sh</span></code>.</p></li>
+<li><p>Virtualenv’s name is a single letter, preferrably the first letter of the project’s name.
+This way, I can navigate to the project by running <code class="docutils literal notranslate"><span class="pre">workon</span> <span class="pre">P</span></code>.</p></li>
+<li><p>The nested logic allows running the script with and without virtualenv A) created and B) activated.</p></li>
+<li><p>Requirements installation is split into two phases:</p>
+<ol class="arabic simple">
+<li><p>Install the blessed pip version and pip-tools.</p></li>
+<li><p>Run pip-sync to ensure the environment is healthy no repeated runs.</p></li>
 </ol>
-<p>And Bob’s your uncle.</p>
+</li>
+<li><p>Force installation of pre-commit hooks, so ground rules can be enforced reliably.</p></li>
+</ol>
+</section>
 </section>
 
 
@@ -279,20 +323,20 @@ Which is unfortunate because I put Solarized Dark on everything I can.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="64-precision-recall.html"
+       href="65-firefox-reader-solarized-dark.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Precision-Recall</p>
+        <p class="prev-next-title">Solarized Dark Theme for Firefox Reader View</p>
       </div>
     </a>
     <a class="right-next"
-       href="66-python-project-setup.html"
+       href="../17_notes/01_xapo.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Development environment setup script</p>
+        <p class="prev-next-title">Decentralizing the Practice of Architecture at Xapo Bank</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -307,10 +351,23 @@ Which is unfortunate because I put Solarized Dark on everything I can.</p>
 
 
   <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boilerplate">Boilerplate</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/12_articles/65-firefox-reader-solarized-dark.md">
+    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/12_articles/66-python-project-setup.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -325,7 +382,7 @@ Which is unfortunate because I put Solarized Dark on everything I can.</p>
   <div class="sidebar-secondary-item">
 
   <div class="tocsection sourcelink">
-    <a href="../_sources/12_articles/65-firefox-reader-solarized-dark.md.txt">
+    <a href="../_sources/12_articles/66-python-project-setup.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
