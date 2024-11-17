@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Checkpoint framework &#8212; Peter Demin</title>
+    <title>Sentence mixing puzzle game &#8212; Peter Demin</title>
   
   
   
@@ -42,11 +42,11 @@
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '14_ideas/07-checkpoint-framework';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '14_ideas/08-word-mix';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Sentence mixing puzzle game" href="08-word-mix.html" />
-    <link rel="prev" title="Git form saver" href="06-git-form-saver.html" />
+    <link rel="next" title="LLM-based personal assistant" href="../15_projects/02-llm-personal-assistant.html" />
+    <link rel="prev" title="Checkpoint framework" href="07-checkpoint-framework.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -234,7 +234,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">Checkpoint framework</li>
+    <li class="breadcrumb-item active" aria-current="page">Sentence...</li>
   </ul>
 </nav>
 </div>
@@ -251,118 +251,18 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="checkpoint-framework">
-<h1>Checkpoint framework<a class="headerlink" href="#checkpoint-framework" title="Link to this heading">#</a></h1>
-<section id="idea">
-<h2>Idea<a class="headerlink" href="#idea" title="Link to this heading">#</a></h2>
-<section id="context">
-<h3>Context<a class="headerlink" href="#context" title="Link to this heading">#</a></h3>
-<p>In service-oriented architecture one user action (or scenario)
-involves services calling other services, creating a tree of calls.
-It’s hard to tell what are the exact inputs and output for each call
-without having access to the detailed logs.
-And almost impossible to tell what are the possible inputs to something
-sitting in between of other services just by looking at the code.</p>
-<p>In well-designed architecture, each component knows very little about other.
-It helps with managing complexity, and changing each component separately.
-Contrary to the component, its developer needs to understand the overall system
-to make the right design choices, and foresee problems.
-But when looking at the code, a new team member can only infer what components know,
-not what they need to know.
-This knowledge lives in documentation and heads of people who built the system.</p>
-</section>
-<section id="problem">
-<h3>Problem<a class="headerlink" href="#problem" title="Link to this heading">#</a></h3>
-<p>When looking at underdocumented untested component,
-it’s sometimes hard to tell what are the example inputs and expected outputs.
-Component here means an API, a class, or a function.</p>
-</section>
-<section id="solution">
-<h3>Solution<a class="headerlink" href="#solution" title="Link to this heading">#</a></h3>
-<p>Have checkpoint annotations throughout the code, that record inputs and outputs of the components.
-The checkpoint system runs more or less fixed set of scenarios, and records data as it passes through each checkpoint.
-The recorded data is made available to the code as static test assets.</p>
-<p>The recording is automated and regular.
-Developers add new scenarios to cover new features.
-When the inputs or outputs of the existing checkpoint change, the test assets are automatically updated, and the developers are alerted about the change (along with the result of the test run).</p>
-</section>
-<section id="design">
-<h3>Design<a class="headerlink" href="#design" title="Link to this heading">#</a></h3>
-<p>The checkpoint service has two parts:</p>
-<ol class="arabic simple">
-<li><p>Ingestion API, that receives checkpoint data from product components, and stores them to a database.</p></li>
-<li><p>User Interface to review the stored checkpoint trees and export them as test assets.</p></li>
-</ol>
-<p>Each language runtime that exports checkpoints has framework-specific library.
-The library has a few parts:</p>
-<ol class="arabic simple">
-<li><p>Expose a control endpoint that enables/disables checkpointing.</p></li>
-<li><p>Instrument the web framework to automatically record request and response data.</p></li>
-<li><p>Instrument the client library to record outbound requests.</p></li>
-<li><p>Instrument SQL framework to record raw queries and their output.</p></li>
-<li><p>Provide decorator to checkpoint critical parts of the internal processing.</p></li>
-<li><p>Testing-time library to load the previously recorded assets.</p></li>
-</ol>
-</section>
-<section id="similarity-with-open-telemetry">
-<h3>Similarity with Open Telemetry<a class="headerlink" href="#similarity-with-open-telemetry" title="Link to this heading">#</a></h3>
-<p><a class="reference external" href="https://opentelemetry.io/docs/what-is-opentelemetry/">Open Telemetry</a> provides similar functionality but with a different focus.
-It captures performance metrics while having limited payload.
-The purpose is to provide visibilty into the production runtime.</p>
-<p>The checkpoint, on the other hand, is disabled most of the time,
-only recording complete data flow in a more focused setting.
-The performance is not critical during the recording sessions.</p>
-</section>
-<section id="similarity-with-vcr-like-test-libraries">
-<h3>Similarity with VCR-like test libraries<a class="headerlink" href="#similarity-with-vcr-like-test-libraries" title="Link to this heading">#</a></h3>
-<p><a class="reference external" href="https://vcrpy.readthedocs.io/en/latest/">VCR.py</a> partially implements the checkpoint system,
-but lacks cross-service interactions.
-Focusing on the outbound calls, it helps with canning integration tests, improving reliability.
-It also helps with catching a drift in external API output.
-The test assets also serve as a documentation for the parts of code that a paricularly opaque in what passes through them.</p>
-</section>
-<section id="contract-testing-aspect">
-<h3>Contract testing aspect<a class="headerlink" href="#contract-testing-aspect" title="Link to this heading">#</a></h3>
-<p>Contract testing is a related concept, that uses the recorded API calls, and allows isolated testing of cross-service interactions.
-It doesn’t define the process of acquiring the test assets, and catching the drift, though.</p>
-</section>
-</section>
-<section id="limitations">
-<h2>Limitations<a class="headerlink" href="#limitations" title="Link to this heading">#</a></h2>
-<p>After trying to apply checkpoint framework prototype to a big and messy project, I discovered a few setbacks.
-The common issue for all of them was non-determinism.
-The same HTTP request produces different result when repeated, or executed on the next day.
-The reason for that is usage of random identifiers and timestamps.
-It’s possible to record all API calls, and all database access.
-But if application is generating different queries every time, mocking becomes complicated.</p>
-<p>Consider the following example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">good_luck_contract_testing</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mf">0.5</span>
-</pre></div>
-</div>
-<p>Another challenge is read&amp;write persistence layer, particularly cache.
-The first read returns nothing, the second read for the same key returns something because there was a write call in between.
-It seems that for the persistence layer, database fixtures is a better approach.
-However, generating such fixtures for each recording is a separate challenge.</p>
-</section>
-<section id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
-<p>The checkpoint framework is currently on pause until I find a project where it’s useful.</p>
-<p>In high-quality codebases, using checkpoint framework might not bring much value, because you can test everything without adding another layer of abstraction.
-In messed up projects, adding checkpoints is a lot of work.
-Probably more than ever was put into code quality.
-So, might not be a good fit either.</p>
-</section>
-<section id="links">
-<h2>Links<a class="headerlink" href="#links" title="Link to this heading">#</a></h2>
-<p>Few projects I found while researching ideas for the checkpoint framework:</p>
-<ol class="arabic simple">
-<li><p>https://docs.pact.io - Contract testing for HTTP and message integrations.</p></li>
-<li><p>https://pypi.org/project/pytest-snapshot/ - Pytest plugin for snapshot testing.</p></li>
-<li><p>https://github.com/ditrit/specimen - Yaml-based data-driven testing.</p></li>
-</ol>
-<p>My implementation for the checkpoint framework is open-sourced here: https://github.com/peterdemin/i8t</p>
-</section>
+  <section id="sentence-mixing-puzzle-game">
+<h1>Sentence mixing puzzle game<a class="headerlink" href="#sentence-mixing-puzzle-game" title="Link to this heading">#</a></h1>
+<p>We take a long sentence or passage of 2-3 sentences.
+We mix in a short sentence between the words.
+The player must separate them back.
+Example:</p>
+<blockquote>
+<div><p>The software is <em>all</em> provided “as is”, without <em>you</em> warranty of any kind,
+<em>need</em> express or implied, <em>is</em> including but not limited to the warranties
+of merchantability, fitness for a particular <em>love</em> purpose and noninfringement.</p>
+</div></blockquote>
+<p>The mix of MIT software license and “All you need is love” by Beatles.</p>
 </section>
 
 
@@ -376,20 +276,20 @@ So, might not be a good fit either.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="06-git-form-saver.html"
+       href="07-checkpoint-framework.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Git form saver</p>
+        <p class="prev-next-title">Checkpoint framework</p>
       </div>
     </a>
     <a class="right-next"
-       href="08-word-mix.html"
+       href="../15_projects/02-llm-personal-assistant.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Sentence mixing puzzle game</p>
+        <p class="prev-next-title">LLM-based personal assistant</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -404,34 +304,10 @@ So, might not be a good fit either.</p>
 
 
   <div class="sidebar-secondary-item">
-<div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#idea">Idea</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#context">Context</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem">Problem</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution">Solution</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#design">Design</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#similarity-with-open-telemetry">Similarity with Open Telemetry</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#similarity-with-vcr-like-test-libraries">Similarity with VCR-like test libraries</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contract-testing-aspect">Contract testing aspect</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations">Limitations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#links">Links</a></li>
-</ul>
-  </nav></div>
-
-  <div class="sidebar-secondary-item">
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/14_ideas/07-checkpoint-framework.md">
+    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/14_ideas/08-word-mix.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -446,7 +322,7 @@ So, might not be a good fit either.</p>
   <div class="sidebar-secondary-item">
 
   <div class="tocsection sourcelink">
-    <a href="../_sources/14_ideas/07-checkpoint-framework.md.txt">
+    <a href="../_sources/14_ideas/08-word-mix.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
