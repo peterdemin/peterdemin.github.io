@@ -22,15 +22,18 @@ autogen:
 	python3 gen_life.py > source/life_gd.rst
 
 .PHONY: build
-build: autogen html counter_build race_build photos_build tree
+build: autogen html counter_build race_build photos_build tree wordmix
+
+.PHONY: lightweight
+lightweight: autogen html tree wordmix
 
 .PHONY: browser
 browser:
 	open build/html/index.html
 
 .PHONY: watch
-watch: build browser  ## compile the docs watching for changes
-	watch '$(MAKE) html'
+watch: build browser  ## compile the docs continuously
+	watch '$(MAKE) lightweight'
 
 .PHONY: jot
 jot:
@@ -126,6 +129,10 @@ $(PHOTOS_SUBDIRS):
 .PHONY: tree
 tree:
 	cp -f source/12_articles/61-tree.html build/html/12_articles/61-tree.html
+
+.PHONY: wordmix
+wordmix:
+	cp -f source/14_ideas/08-word-mix-so.html build/html/14_ideas/08-word-mix-so.html
 
 
 ## ENTERING

@@ -1,17 +1,15 @@
-Sentence mixing puzzle game
-===========================
-
-Prototype
----------
-
-.. raw:: html
-
-    <a href="08-word-mix-so.html">Stand-alone version</a>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentence Mix</title>
+</head>
+<body>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
+            margin: 20px;
             padding: 0;
             background-color: #f5f5f5;
         }
@@ -64,8 +62,9 @@ Prototype
         }
     </style>
 
-    <h2>Level <span id="level-number">1</span></h2>
+    <h1>Sentence Mix</h1>
     <p>Select all words that do not belong to the passage.</p>
+    <h2>Level <span id="level-number">1</span></h2>
     <div id="game-area"></div>
     <button id="next-level">Next Level</button>
     <div id="game-over">You completed all levels! Congratulations!</div>
@@ -152,36 +151,6 @@ Prototype
 
         initializeLevel();
     </script>
+</body>
+</html>
 
-
-Prompt
-------
-
-    Act as a Javascript software engineer.
-    Write HTML and Javascript for a puzzle game.
-    Don't use any Javascript frameworks.
-    Here's a brief game description:
-
-    # Sentence mixing puzzle game
-
-    We take a long sentence or passage of 2-3 sentences.
-    We mix in a short sentence between the words.
-    The player must separate them back.
-    Example:
-
-    > The software is *all* provided "as is", without *you* warranty of any kind,
-
-    > *need* express or implied, *is* including but not limited to the warranties
-
-    > of merchantability, fitness for a particular *love* purpose and noninfringement.
-
-    The mix of MIT software license and "All you need is love" by Beatles.
-
-    ## Gameplay
-
-    The page presents a mixed passage in large font so that each word can be conveniently
-    tapped by a finger on a phone screen.
-    Initially, all words are black. When user taps on a word it becomes red. 
-    The game stops when the user selects all the words of the second (shorter) sentence.
-    None of the words that do not belong to the second sentence should be selected.
-    When the game stops, the selected words blink three times and become green.
