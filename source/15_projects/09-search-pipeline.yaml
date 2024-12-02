@@ -1,0 +1,29 @@
+search_index:
+  type: dict
+  schema:
+    path: {type: str}
+    versions:
+      type: list
+      items:
+        - type: dict
+          schema:
+            content: {type: str}
+            chunks:
+              type: list
+              items:
+                - type: dict
+                  schema:
+                    content: {type: str}
+                    embedding:
+                      type: list
+                      items: {type: float}
+            facts:
+              type: list
+              items:
+                - type: dict
+                  schema:
+                    content: {type: str}
+                    embedding:
+                      type: list
+                      items: {type: float}
+                    is_good: {type: boolean}
