@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>LLM-based personal assistant &#8212; Peter Demin</title>
+    <title>Search Pipeline &#8212; Peter Demin</title>
   
   
   
@@ -42,11 +42,10 @@
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '15_projects/02-llm-personal-assistant';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '15_projects/09-search-pipeline';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Search Pipeline" href="09-search-pipeline.html" />
-    <link rel="prev" title="Sentence mixing puzzle game" href="../14_ideas/08-word-mix.html" />
+    <link rel="prev" title="LLM-based personal assistant" href="02-llm-personal-assistant.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -234,7 +233,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">LLM-based...</li>
+    <li class="breadcrumb-item active" aria-current="page">Search Pipeline</li>
   </ul>
 </nav>
 </div>
@@ -251,30 +250,100 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="llm-based-personal-assistant">
-<h1>LLM-based personal assistant<a class="headerlink" href="#llm-based-personal-assistant" title="Link to this heading">#</a></h1>
-<section id="classification-prompt">
-<h2>Classification prompt<a class="headerlink" href="#classification-prompt" title="Link to this heading">#</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Act as a smart personal assistant. Classify the User&#39;s message as either command or query.
-Respond with a Classification containing only one word: &quot;query&quot; or &quot;command&quot;.
-Don&#39;t put anything else into classification.
-
-&lt;user&gt;: shut down
-&lt;assistant&gt;: command
-
-&lt;user&gt;: what time is it?
-&lt;assistant&gt;: query
-
-&lt;user&gt;: set the alarm for 8 am
-&lt;assistant&gt;: command
-
-&lt;user&gt;: find new movies with high rating
-&lt;assistant&gt;: query
-
-&lt;user&gt;: send me a &quot;wake up&quot; message at 8 am
-&lt;assistant&gt;:
+  <section id="search-pipeline">
+<h1>Search Pipeline<a class="headerlink" href="#search-pipeline" title="Link to this heading">#</a></h1>
+<section id="search-index-configuration">
+<h2>Search Index Configuration<a class="headerlink" href="#search-index-configuration" title="Link to this heading">#</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">list</span>
+<span class="nt">items</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dict</span>
+<span class="w">  </span><span class="nt">schema</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">glob</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="nv">str</span><span class="p p-Indicator">,</span><span class="nt"> required</span><span class="p">:</span><span class="w"> </span><span class="nv">true</span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">docs_parser</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="nv">str</span><span class="p p-Indicator">}</span>
 </pre></div>
 </div>
+</section>
+<section id="search-index-data-structure">
+<h2>Search Index Data Structure<a class="headerlink" href="#search-index-data-structure" title="Link to this heading">#</a></h2>
+<div class="code yaml highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">search_index</span><span class="p">:</span>
+  <span class="nb">type</span><span class="p">:</span> <span class="nb">dict</span>
+  <span class="n">schema</span><span class="p">:</span>
+    <span class="n">path</span><span class="p">:</span> <span class="p">{</span><span class="nb">type</span><span class="p">:</span> <span class="nb">str</span><span class="p">}</span>
+    <span class="n">versions</span><span class="p">:</span>
+      <span class="nb">type</span><span class="p">:</span> <span class="nb">list</span>
+      <span class="n">items</span><span class="p">:</span>
+        <span class="o">-</span> <span class="nb">type</span><span class="p">:</span> <span class="nb">dict</span>
+          <span class="n">schema</span><span class="p">:</span>
+            <span class="n">content</span><span class="p">:</span> <span class="p">{</span><span class="nb">type</span><span class="p">:</span> <span class="nb">str</span><span class="p">}</span>
+            <span class="n">chunks</span><span class="p">:</span>
+              <span class="nb">type</span><span class="p">:</span> <span class="nb">list</span>
+              <span class="n">items</span><span class="p">:</span>
+                <span class="o">-</span> <span class="nb">type</span><span class="p">:</span> <span class="nb">dict</span>
+                  <span class="n">schema</span><span class="p">:</span>
+                    <span class="n">content</span><span class="p">:</span> <span class="p">{</span><span class="nb">type</span><span class="p">:</span> <span class="nb">str</span><span class="p">}</span>
+                    <span class="n">embedding</span><span class="p">:</span>
+                      <span class="nb">type</span><span class="p">:</span> <span class="nb">list</span>
+                      <span class="n">items</span><span class="p">:</span> <span class="p">{</span><span class="nb">type</span><span class="p">:</span> <span class="nb">float</span><span class="p">}</span>
+            <span class="n">facts</span><span class="p">:</span>
+              <span class="nb">type</span><span class="p">:</span> <span class="nb">list</span>
+              <span class="n">items</span><span class="p">:</span>
+                <span class="o">-</span> <span class="nb">type</span><span class="p">:</span> <span class="nb">dict</span>
+                  <span class="n">schema</span><span class="p">:</span>
+                    <span class="n">content</span><span class="p">:</span> <span class="p">{</span><span class="nb">type</span><span class="p">:</span> <span class="nb">str</span><span class="p">}</span>
+                    <span class="n">embedding</span><span class="p">:</span>
+                      <span class="nb">type</span><span class="p">:</span> <span class="nb">list</span>
+                      <span class="n">items</span><span class="p">:</span> <span class="p">{</span><span class="nb">type</span><span class="p">:</span> <span class="nb">float</span><span class="p">}</span>
+                    <span class="n">is_good</span><span class="p">:</span> <span class="p">{</span><span class="nb">type</span><span class="p">:</span> <span class="n">boolean</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="pipeline-dag">
+<h2>Pipeline DAG<a class="headerlink" href="#pipeline-dag" title="Link to this heading">#</a></h2>
+<div class="graphviz"><img src="../_images/graphviz-a10b18f365232f117c24b0407f6914be23fe547e.png" alt="digraph pipeline {
+edge [color=&quot;#808080&quot;, arrowsize=.6, penwidth=3, minlen=3];
+node [shape=box, fontname=&quot;DIN Next, sans-serif&quot;, style=&quot;rounded,filled&quot;, penwidth=5, fillcolor=&quot;#8010d0&quot;, color=&quot;#f0f0f0&quot;, fontcolor=white,  margin=&quot;0.35&quot; fontweight=bold]
+bgcolor=&quot;#f0f0f0&quot;;
+path -&gt; content [label=&quot; Save version&quot;]
+content -&gt; doc [label=&quot; Split file into docs&quot;]
+doc -&gt; chunk [label=&quot; Split&quot;]
+doc -&gt; fact [label=&quot; Extract knowledge&quot;]
+doc -&gt; tfidf [label=&quot; Build TF-IDF&quot;]
+chunk [label=&quot; chunk (e)&quot;]
+fact [label=&quot; fact (e)&quot;]
+chunk -&gt; embedding
+fact -&gt; embedding
+
+embedding [label=&quot;Embeddings (fact or chunk)&quot;]
+tfidf [label=&quot; Term inverse index&quot;]
+embedding -&gt; kNN [label=&quot; Collect&quot;]
+serve -&gt; kNN [label=&quot; Find top-K embeddings&quot;]
+kNN -&gt; RAG [label=&quot; Summarize&quot;]
+serve -&gt; tfidf [label=&quot; Find top-N docs&quot;]
+tfidf -&gt; RAG  [label=&quot; Summarize&quot;]
+serve -&gt; LLM [label=&quot; Answer from internal memory&quot;]
+LLM -&gt; RAG  [label=&quot; Summarize&quot;]
+}" class="graphviz" /></div>
+</section>
+<section id="knowledge-extraction">
+<h2>Knowledge Extraction<a class="headerlink" href="#knowledge-extraction" title="Link to this heading">#</a></h2>
+<p>Prompt:</p>
+<blockquote>
+<div><p>Format the following document as a list of self-sufficient evergreen facts. One per line. Include supporting context in each fact.</p>
+<p>{text}</p>
+</div></blockquote>
+<p>Postprocessing:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39; </span><span class="se">\n</span><span class="s1">-&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">output</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()]</span>
+</pre></div>
+</div>
+</section>
+<section id="retrieval-augmented-generation">
+<h2>Retrieval-Augmented Generation<a class="headerlink" href="#retrieval-augmented-generation" title="Link to this heading">#</a></h2>
+<p>Prompt:</p>
+<blockquote>
+<div><p>Answer the following question using only the context below. Only include information specifically discussed. Copy the answer verbatim from the context. Exclude irrelevant sentences. Be concise.</p>
+<p>Question: {question}
+Context: {context}</p>
+</div></blockquote>
 </section>
 </section>
 
@@ -289,22 +358,13 @@ Don&#39;t put anything else into classification.
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../14_ideas/08-word-mix.html"
+       href="02-llm-personal-assistant.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Sentence mixing puzzle game</p>
+        <p class="prev-next-title">LLM-based personal assistant</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="09-search-pipeline.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Search Pipeline</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -324,7 +384,11 @@ Don&#39;t put anything else into classification.
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-prompt">Classification prompt</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#search-index-configuration">Search Index Configuration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#search-index-data-structure">Search Index Data Structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-dag">Pipeline DAG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-extraction">Knowledge Extraction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-augmented-generation">Retrieval-Augmented Generation</a></li>
 </ul>
   </nav></div>
 
@@ -332,7 +396,7 @@ Don&#39;t put anything else into classification.
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/15_projects/02-llm-personal-assistant.rst">
+    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/15_projects/09-search-pipeline.rst">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -347,7 +411,7 @@ Don&#39;t put anything else into classification.
   <div class="sidebar-secondary-item">
 
   <div class="tocsection sourcelink">
-    <a href="../_sources/15_projects/02-llm-personal-assistant.rst.txt">
+    <a href="../_sources/15_projects/09-search-pipeline.rst.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
