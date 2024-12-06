@@ -3,6 +3,11 @@
 
 -----
 
+.. include:: 16_life/31-2024-12.md
+   :parser: myst_parser.sphinx_
+
+-----
+
 .. include:: 16_life/30-2024-11.md
    :parser: myst_parser.sphinx_
 
