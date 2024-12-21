@@ -1,11 +1,11 @@
-`Dec 21, 2024` - High-level software features for running a beauty salon.
+`Dec 21, 2024` - High-level software features for running a beauty salon based on <https://glossgenius.com/>.
 
-*Client Management:*
+**Client Management:**
 - Keep client notes
 - View previous appointment history
 - Send customized messages
 
-*Booking:*
+**Booking:**
 - Set appointment slots and working hours
 - Schedule, reschedule, and cancel online (without client app or login)
 - Double booking
@@ -15,16 +15,16 @@
 - Fill last minute cancellations by keeping a client waitlist
 - Calendar apps integration
 
-*Legal and Payments:*
+**Legal and Payments:**
 - Stripe integration for payment processing
 - Sign waiver forms in person and online
 - Put credit card on file for faster checkout
 
-*Marketing:*
+**Marketing:**
 - SMS & Email Marketing features integrated with books
 - Run custom campaigns
 
-*Analytics:*
+**Analytics:**
 - Get insights into how new clients discover your business
 
 `Dec 20, 2024` - Indie stuff:
