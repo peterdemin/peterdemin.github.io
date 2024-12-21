@@ -1,3 +1,32 @@
+`Dec 21, 2024` - High-level software features for running a beauty salon.
+
+*Client Management:*
+- Keep client notes
+- View previous appointment history
+- Send customized messages
+
+*Booking:*
+- Set appointment slots and working hours
+- Schedule, reschedule, and cancel online (without client app or login)
+- Double booking
+- Gap time
+- Recurring appointments
+- Reminders (SMS and Email)
+- Fill last minute cancellations by keeping a client waitlist
+- Calendar apps integration
+
+*Legal and Payments:*
+- Stripe integration for payment processing
+- Sign waiver forms in person and online
+- Put credit card on file for faster checkout
+
+*Marketing:*
+- SMS & Email Marketing features integrated with books
+- Run custom campaigns
+
+*Analytics:*
+- Get insights into how new clients discover your business
+
 `Dec 20, 2024` - Indie stuff:
 - <https://fanzine.world/>
 - <https://minifeed.net/blogs/>
