@@ -254,13 +254,16 @@
   <section id="my-favourite-aliases-for-git-and-vi">
 <h1>My favourite aliases for Git (and vi)<a class="headerlink" href="#my-favourite-aliases-for-git-and-vi" title="Link to this heading">#</a></h1>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># git co is a shorthand for git checkout</span>
-git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.vi<span class="w"> </span><span class="s1">&#39;checkout&#39;</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.co<span class="w"> </span><span class="s1">&#39;checkout&#39;</span>
 
 <span class="c1"># git vi opens all files with uncommitted changes in vi editor</span>
 git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.vi<span class="w"> </span><span class="s1">&#39;!vi -o $(git status -s | awk &#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;/^[^?]/ {print $2}&#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;) -c &#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;au VimEnter * windo norm g;&#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;&#39;</span>
 
 <span class="c1"># git vib opens all files changed in the branch (compared to remote master) in vi editor</span>
 git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.vib<span class="w"> </span><span class="s1">&#39;!vi -o $(git diff origin/master...HEAD --name-status | awk &#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;/^[AM]/ {print $2}&#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;)&#39;</span>
+
+<span class="c1"># git vib opens files changed in the last commit in vi editor</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.vih<span class="w"> </span><span class="s1">&#39;!vi -o $(git diff HEAD~1..HEAD --name-status | awk &#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;/^[AM]/ {print $2}&#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;)&#39;</span>
 
 <span class="c1"># git rbm rebases current branch on top of the fresh origin master and pushes it out</span>
 git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.rbm<span class="w"> </span><span class="s1">&#39;!git fetch --all -p &amp;&amp; git rebase origin/master &amp;&amp; git push -f&#39;</span>
