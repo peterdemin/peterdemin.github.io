@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Password Generator &#8212; Peter Demin</title>
+    <title>Beauty salon IT department &#8212; Peter Demin</title>
   
   
   
@@ -45,11 +45,11 @@
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/67-password';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/68-beauty-salon';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Beauty salon IT department" href="68-beauty-salon.html" />
-    <link rel="prev" title="Development environment setup script" href="66-python-project-setup.html" />
+    <link rel="next" title="Decentralizing the Practice of Architecture at Xapo Bank" href="../17_notes/01_xapo.html" />
+    <link rel="prev" title="Password Generator" href="67-password.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -222,7 +222,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Password Generator</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Beauty salon IT department</span></li>
   </ul>
 </nav>
 </div>
@@ -239,35 +239,97 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="password-generator">
-<h1>Password Generator<a class="headerlink" href="#password-generator" title="Link to this heading">#</a></h1>
-<div id="passwordDisplay" style="font-size: 24pt; margin: 1em; font-family: monospace"></div>
-<label for="lengthSlider">Password Length: <span id="lengthValue">16</span></label>
-<input type="range" id="lengthSlider" min="8" max="32" value="16" oninput="updatePassword()">
-
-<script>
-  function generateRandomString(length) {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-    return result;
-  }
-
-  function updatePassword() {
-    const length = document.getElementById('lengthSlider').value;
-    document.getElementById('lengthValue').textContent = length;
-    document.getElementById('passwordDisplay').textContent = generateRandomString(length);
-  }
-
-  // Generate a password on page load
-  window.onload = updatePassword;
-</script><hr class="docutils" />
-<p>Offline command-line version:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import string, random; print(&quot;&quot;.join(random.sample(string.ascii_letters + string.digits, 16)))&#39;</span>
-</pre></div>
-</div>
+  <section id="beauty-salon-it-department">
+<h1>Beauty salon IT department<a class="headerlink" href="#beauty-salon-it-department" title="Link to this heading">#</a></h1>
+<section id="high-level-software-features">
+<h2>High-level software features<a class="headerlink" href="#high-level-software-features" title="Link to this heading">#</a></h2>
+<p>(based on <a class="reference external" href="https://glossgenius.com/">https://glossgenius.com/</a>)</p>
+<p><strong>Client Management:</strong></p>
+<ul class="simple">
+<li><p>Keep client notes</p></li>
+<li><p>View previous appointment history</p></li>
+<li><p>Send customized messages</p></li>
+</ul>
+<p><strong>Content Management:</strong></p>
+<ul class="simple">
+<li><p>Description for services with photos and videos</p></li>
+<li><p>Landing pages</p></li>
+<li><p>Marketing pages</p></li>
+</ul>
+<p><strong>Booking:</strong></p>
+<ul class="simple">
+<li><p>Set appointment slots and working hours</p></li>
+<li><p>Schedule, reschedule, and cancel online (without client app or login)</p></li>
+<li><p>Double booking</p></li>
+<li><p>Gap time</p></li>
+<li><p>Recurring appointments</p></li>
+<li><p>Reminders (SMS and Email)</p></li>
+<li><p>Fill last minute cancellations by keeping a client waitlist</p></li>
+<li><p>Calendar apps integration</p></li>
+</ul>
+<p><strong>Legal and Payments:</strong></p>
+<ul class="simple">
+<li><p>Stripe integration for payment processing</p></li>
+<li><p>Deposits collection upon booking</p></li>
+<li><p>Sign waiver forms in person and online</p></li>
+<li><p>Put credit card on file for faster checkout</p></li>
+</ul>
+<p><strong>Marketing:</strong></p>
+<ul class="simple">
+<li><p>SMS &amp; Email Marketing features integrated with books</p></li>
+<li><p>Run custom campaigns</p></li>
+</ul>
+<p><strong>Analytics:</strong></p>
+<ul class="simple">
+<li><p>Get insights into how new clients discover your business</p></li>
+</ul>
+</section>
+<section id="frontend-components">
+<h2>Frontend components<a class="headerlink" href="#frontend-components" title="Link to this heading">#</a></h2>
+<p><strong>Static pages:</strong></p>
+<ul class="simple">
+<li><p>About (short preface, location, working hours, contact information and form)</p></li>
+<li><p>Services list</p></li>
+<li><p>Per-service pages</p></li>
+</ul>
+<p><strong>Booking wizard:</strong></p>
+<ul class="simple">
+<li><p>Present slots for the chosen service (days, and times)</p></li>
+<li><p>Pick a slot</p></li>
+<li><p>Get name, phone, and email</p></li>
+<li><p>Get credit card</p></li>
+<li><p>Submit the booking</p></li>
+</ul>
+</section>
+<section id="backend-components">
+<h2>Backend components<a class="headerlink" href="#backend-components" title="Link to this heading">#</a></h2>
+<p><strong>Static site generator:</strong></p>
+<ul class="simple">
+<li><p>Highly customizable (no builtin templates)</p></li>
+<li><p>Fast to build</p></li>
+<li><p>Blazingly fast to serve from CDN (asset minification)</p></li>
+</ul>
+<p><strong>Booking API:</strong></p>
+<ul class="simple">
+<li><p>Read service durations from procedures catalog.</p></li>
+<li><p>Two-way integration with external calendars (fetch availability, push new events) both for employees and customers.</p></li>
+<li><p>Exposes available slots for a procedure as a JSON API.</p></li>
+<li><p>Records appointment submissions.</p></li>
+</ul>
+<p><strong>Customer Relations Manager:</strong></p>
+<ul class="simple">
+<li><p>Name, phone, email</p></li>
+<li><p>Headshot</p></li>
+<li><p>Records of the past procedures</p></li>
+<li><p>Notes</p></li>
+</ul>
+<p><strong>Email &amp; SMS:</strong></p>
+<ul class="simple">
+<li><p>Booking confirmations and reminders</p></li>
+<li><p>Cancellation</p></li>
+<li><p>Marketing</p></li>
+</ul>
+</section>
 </section>
 
 
@@ -281,20 +343,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="66-python-project-setup.html"
+       href="67-password.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Development environment setup script</p>
+        <p class="prev-next-title">Password Generator</p>
       </div>
     </a>
     <a class="right-next"
-       href="68-beauty-salon.html"
+       href="../17_notes/01_xapo.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Beauty salon IT department</p>
+        <p class="prev-next-title">Decentralizing the Practice of Architecture at Xapo Bank</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -310,10 +372,24 @@
 
 
   <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#high-level-software-features">High-level software features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#frontend-components">Frontend components</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backend-components">Backend components</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/12_articles/67-password.rst">
+    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/12_articles/68-beauty-salon.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -329,7 +405,7 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/12_articles/67-password.rst.txt"
+      <li><a href="../_sources/12_articles/68-beauty-salon.md.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div></div>
