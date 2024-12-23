@@ -44,7 +44,7 @@ exceptiongroup==1.2.2
     # via
     #   trio
     #   trio-websocket
-gdocsync==0.0.9
+gdocsync==0.0.10
     # via -r requirements.in
 google-api-core==2.24.0
     # via google-api-python-client
