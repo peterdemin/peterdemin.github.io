@@ -80,13 +80,13 @@ controller. I later moved on to a space agency, writing shared libraries
 and simulation software for spaceships.
 
 That was a lot of fun but didn't pay well, so I moved on to an
-early-stage startup, building voice training software for a
-debt-collection agency with Django, PostgreSQL, and Google voice
-recognition API. The startup flopped in a few months when the sole
-investor had a change of heart.
+early-stage startup, building voice training software for a debt
+collection agency with Django, PostgreSQL, and Google voice recognition
+API. The startup flopped in a few months when the sole investor had a
+change of heart.
 
 At this point, I had enough experience to join the most prestigious tech
-company in Russia - Yandex (it's an umbrella corporation, very much like
+company in Russia - Yandex (an umbrella corporation, very much like
 Google). I joined a small team working on a startup-inside-enterprise
 project. The product can be explained as ML-heavy FourSquare. My focus
 wasn't on ML, though. I was responsible for a RESTful API backend,
@@ -103,12 +103,12 @@ REST Framework for the next 4 years until I got a green card.
 With the green card, I was free to choose where I wanted to work. I got
 offers from the top tech companies but picked a startup where my efforts
 would create the most leverage. At the time of writing, I've been
-working at Moveworks for almost 4 years as a senior remote engineer.
-This is the most remote-friendly company with the highest bar for code
-quality I worked at. Post-pandemic, though, I started to notice that
-instead of building remote-first culture, leadership pushes hard on
-in-person benefits, making it an uncomfortable experience for the remote
-minority of software engineers.
+working remotely at Moveworks for almost 4 years as a senior software
+engineer. This is the most remote-friendly company with the highest bar
+for code quality I ever worked at. Post-pandemic, though, I started to
+notice that instead of building a remote-first culture, leadership
+pushes hard on in-person benefits, making it an uncomfortable experience
+for the remote minority of software engineers.
 
 .. _h.idhlwuxishkm:
 
@@ -121,5 +121,5 @@ and autonomous teams. I learned about a few companies that embraced
 these values and my long-time passion – for-profit open-source: GitLab
 and PostHog.
 
-Recently I found Kaz's interview about focus on crafters in Shopify, and
-it motivated me to apply there.
+Recently, I found Kaz's interview about focusing on crafters in Shopify,
+which motivated me to apply there.
