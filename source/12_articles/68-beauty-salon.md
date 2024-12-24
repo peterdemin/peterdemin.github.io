@@ -1,5 +1,11 @@
 # Beauty salon IT department
 
+I'm helping my wife to open a beauty salon.
+Since I know nothing about beauty, I'm doing technical part.
+One essential part of the beauty salon is a public website.
+It's purpose is to rank highly in Google for relevant queries and to let people book appointments.
+
+
 ## High-level software features
 
 (based on <https://glossgenius.com/>)
@@ -46,11 +52,15 @@
 - Per-service pages
 
 **Booking wizard:**
-- Present slots for the chosen service (days, and times)
-- Pick a slot
-- Get name, phone, and email
-- Get credit card
-- Submit the booking
+- Present a menu of services
+- Fetch booking slots for the chosen service from the booking API
+- Present available days
+- When user picks a day, show available times
+- If the user picks another day, update the times
+- Let the user pick a time slot
+- Ask user for a name, phone, and email
+- Depending on the service configuration, get credit card
+- Submit the booking information to the booking API
 
 
 ## Backend components
