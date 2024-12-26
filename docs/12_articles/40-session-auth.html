@@ -306,6 +306,10 @@ It may look like the localhost domain is the same, but the browser actually cons
 <h2>Cross-Origin Troubles in Local Development<a class="headerlink" href="#cross-origin-troubles-in-local-development" title="Link to this heading">#</a></h2>
 <p>In local environment, we have frontend and backend served from <code class="docutils literal notranslate"><span class="pre">localhost</span></code>, but from different ports.
 Let’s say <code class="docutils literal notranslate"><span class="pre">3000</span></code> for the frontend, and <code class="docutils literal notranslate"><span class="pre">8000</span></code> for the backend.</p>
+<blockquote>
+<div><p><strong>PRO TIP</strong>: If your frontend is just and HTML file open from the disk as <code class="docutils literal notranslate"><span class="pre">file:///...</span></code>,
+add <code class="docutils literal notranslate"><span class="pre">&quot;null&quot;</span></code> to the allowed origins on your dev server.</p>
+</div></blockquote>
 <p>Session authentication kinda works if you login on the backend port directly.
 The cookie is set for <code class="docutils literal notranslate"><span class="pre">localhost:8000</span></code>, and the browser passes it to server for every AJAX request coming from <code class="docutils literal notranslate"><span class="pre">localhost:3000</span></code> origin.</p>
 <p>– What if you try to login through AJAX?</p>
