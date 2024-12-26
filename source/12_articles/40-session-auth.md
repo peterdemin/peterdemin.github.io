@@ -76,6 +76,9 @@ That would do for the production. But not for local development.
 In local environment, we have frontend and backend served from `localhost`, but from different ports.
 Let's say `3000` for the frontend, and `8000` for the backend.
 
+> **PRO TIP**: If your frontend is just and HTML file open from the disk as `file:///...`,
+> add `"null"` to the allowed origins on your dev server.
+
 Session authentication kinda works if you login on the backend port directly.
 The cookie is set for `localhost:8000`, and the browser passes it to server for every AJAX request coming from `localhost:3000` origin.
 
