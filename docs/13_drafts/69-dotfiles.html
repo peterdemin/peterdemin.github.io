@@ -1,0 +1,607 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Dot files &#8212; Peter Demin</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=86f57b9a" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '13_drafts/69-dotfiles';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Peter Demin</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"></div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Dot files</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="dot-files">
+<h1>Dot files<a class="headerlink" href="#dot-files" title="Link to this heading">#</a></h1>
+<section id="vimrc">
+<h2>~/.vimrc<a class="headerlink" href="#vimrc" title="Link to this heading">#</a></h2>
+<div class="highlight-vim notranslate"><div class="highlight"><pre><span></span><span class="k">set</span> <span class="nb">nocompatible</span>
+<span class="k">filetype</span> off
+
+<span class="c">&quot; set rtp+=~/.vim/bundle/vundle/</span>
+<span class="c">&quot; call vundle#rc()</span>
+
+<span class="k">call</span> plug#begin<span class="p">()</span>
+
+<span class="c">&quot; let Vundle manage Vundle</span>
+<span class="c">&quot; required!</span>
+<span class="c">&quot; Plug &#39;gmarik/vundle&#39;</span>
+
+<span class="c">&quot; The bundles you install will be listed here</span>
+<span class="c">&quot; Bundle &#39;Lokaltog/powerline&#39;, {&#39;rtp&#39;: &#39;powerline/bindings/vim/&#39;}</span>
+Plug <span class="s1">&#39;scrooloose/nerdtree&#39;</span>
+<span class="c">&quot; Bundle &#39;klen/python-mode&#39;</span>
+<span class="c">&quot; Plug &#39;Valloric/YouCompleteMe&#39;</span>
+Plug <span class="s1">&#39;vim-scripts/indentpython.vim&#39;</span>
+<span class="c">&quot; Plug &#39;scrooloose/syntastic&#39;</span>
+Plug <span class="s1">&#39;nvie/vim-flake8&#39;</span>
+Plug <span class="s1">&#39;djoshea/vim-autoread&#39;</span>
+<span class="c">&quot; Plug &#39;janko-m/vim-test&#39;  - useless with bazel</span>
+<span class="c">&quot; Plug &#39;kien/ctrlp.vim&#39;</span>
+<span class="c">&quot; Plug &#39;mfukar/robotframework-vim&#39;</span>
+Plug <span class="s1">&#39;mitsuhiko/vim-jinja&#39;</span>
+<span class="c">&quot; Plug &#39;saltstack/salt-vim&#39;</span>
+Plug <span class="s1">&#39;altercation/vim-colors-solarized&#39;</span>
+<span class="c">&quot; Plug &#39;mattn/emmet-vim&#39;</span>
+<span class="c">&quot; Plug &#39;kchmck/vim-coffee-script&#39;</span>
+Plug <span class="s1">&#39;tpope/vim-surround&#39;</span>
+Plug <span class="s1">&#39;mantiz/vim-plugin-dirsettings&#39;</span>
+<span class="c">&quot; Plug &#39;junegunn/goyo.vim&#39;</span>
+Plug <span class="s1">&#39;mileszs/ack.vim&#39;</span>
+Plug <span class="s1">&#39;tpope/vim-rsi&#39;</span>
+Plug <span class="s1">&#39;godlygeek/tabular&#39;</span>
+<span class="c">&quot; Plug &#39;plasticboy/vim-markdown&#39;</span>
+Plug <span class="s1">&#39;junegunn/fzf&#39;</span>
+Plug <span class="s1">&#39;junegunn/fzf.vim&#39;</span>
+Plug <span class="s1">&#39;tpope/vim-repeat&#39;</span>
+Plug <span class="s1">&#39;neoclide/coc.nvim&#39;</span><span class="p">,</span> {<span class="s1">&#39;branch&#39;</span>: <span class="s1">&#39;release&#39;</span>}
+
+<span class="k">call</span> plug#<span class="k">end</span><span class="p">()</span>
+
+<span class="k">filetype</span> plugin indent <span class="k">on</span>
+<span class="nb">syntax</span> <span class="k">on</span>
+<span class="k">set</span> <span class="nb">background</span><span class="p">=</span><span class="nb">dark</span>
+<span class="c">&quot; set background=light</span>
+<span class="k">set</span> <span class="nb">t_Co</span><span class="p">=</span><span class="m">16</span>
+<span class="k">let</span> <span class="k">g</span>:solarized_termcolors<span class="p">=</span><span class="m">16</span>
+<span class="k">colorscheme</span> solarized
+
+<span class="k">if</span> &amp;<span class="nb">diff</span>
+    <span class="k">colorscheme</span> solarized
+    <span class="k">set</span> <span class="nb">syntax</span><span class="p">=</span>none
+<span class="k">endif</span>
+
+
+augroup vimrc_autocmds
+    autocmd<span class="p">!</span>
+<span class="c">    &quot; highlight characters past column 120</span>
+<span class="c">    &quot; autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black</span>
+<span class="c">    &quot; autocmd FileType python match Excess /\%150v.*/</span>
+    autocmd <span class="nb">FileType</span> python <span class="k">set</span> <span class="nb">nowrap</span>
+    autocmd <span class="nb">FileType</span> python <span class="k">set</span> <span class="nb">colorcolumn</span><span class="p">=</span><span class="m">120</span>
+    augroup END
+
+<span class="c">&quot; Powerline setup</span>
+<span class="c">&quot; set encoding=utf-8</span>
+<span class="c">&quot; set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 9</span>
+<span class="c">&quot; set laststatus=2</span>
+<span class="c">&quot; set fillchars+=stl:\ ,stlnc:\</span>
+<span class="c">&quot; let g:Powerline_symbols = &#39;fancy&#39;</span>
+
+<span class="c">&quot; NerdTree setup</span>
+map <span class="p">&lt;</span>F2<span class="p">&gt;</span> :NERDTreeToggle<span class="p">&lt;</span>CR<span class="p">&gt;</span>
+command NERDTreeFindAndFocus <span class="k">call</span> NERDTreeFind<span class="p">()</span> <span class="p">|</span> <span class="k">call</span> NERDTreeFocus<span class="p">()</span>
+map <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">&lt;</span>C<span class="p">-</span><span class="k">n</span><span class="p">&gt;</span> :NERDTreeFindAndFocus<span class="p">&lt;</span>CR<span class="p">&gt;</span>
+<span class="k">let</span> NERDTreeIgnore <span class="p">=</span> [<span class="s1">&#39;\.pyc$&#39;</span>]
+
+<span class="c">&quot; &quot; YouCompleteMe</span>
+<span class="c">&quot; let g:ycm_autoclose_preview_window_after_completion=1</span>
+<span class="c">&quot; let g:ycm_python_binary_path = &#39;python&#39;  &quot; Py3 support</span>
+
+<span class="c">&quot; syntastic</span>
+<span class="c">&quot; let python_highlight_all=1</span>
+
+<span class="c">&quot; vim.test</span>
+<span class="c">&quot; let test#python#runner = &#39;pytest&#39;</span>
+
+<span class="c">&quot; &quot; Goyo</span>
+<span class="c">&quot; function! s:goyo_enter()</span>
+<span class="c">&quot;   silent !tmux set status off</span>
+<span class="c">&quot;   silent !tmux list-panes -F &#39;\#F&#39; | grep -q Z || tmux resize-pane -Z</span>
+<span class="c">&quot; endfunction</span>
+<span class="c">&quot;</span>
+<span class="c">&quot; function! s:goyo_leave()</span>
+<span class="c">&quot;   silent !tmux set status on</span>
+<span class="c">&quot;   silent !tmux list-panes -F &#39;\#F&#39; | grep -q Z &amp;&amp; tmux resize-pane -Z</span>
+<span class="c">&quot;   set background=dark</span>
+<span class="c">&quot; endfunction</span>
+
+<span class="c">&quot; autocmd! User GoyoEnter nested call &lt;SID&gt;goyo_enter()</span>
+<span class="c">&quot; autocmd! User GoyoLeave nested call &lt;SID&gt;goyo_leave()</span>
+
+<span class="c">&quot; ack/ag</span>
+<span class="k">let</span> <span class="k">g</span>:ackprg <span class="p">=</span> <span class="s1">&#39;ag --vimgrep --smart-case --ignore node_modules --ignore build&#39;</span>
+
+<span class="c">&quot; cnoreabbrev ag Ack</span>
+<span class="c">&quot; cnoreabbrev aG Ack</span>
+<span class="c">&quot; cnoreabbrev Ag Ack</span>
+<span class="c">&quot; cnoreabbrev AG Ack</span>
+
+<span class="c">&quot; CtrlP</span>
+<span class="c">&quot; Remove limits on the number of files:</span>
+<span class="c">&quot; let g:ctrlp_max_files=0</span>
+<span class="c">&quot; let g:ctrlp_max_depth=100</span>
+
+<span class="c">&quot; General settings</span>
+<span class="k">set</span> <span class="nb">smartindent</span>
+<span class="k">set</span> <span class="nb">expandtab</span>
+<span class="k">set</span> <span class="nb">ignorecase</span>
+<span class="k">set</span> <span class="nb">smartcase</span>
+<span class="k">set</span> <span class="nb">shiftwidth</span><span class="p">=</span><span class="m">4</span>
+<span class="k">set</span> <span class="nb">tabstop</span><span class="p">=</span><span class="m">4</span>
+<span class="k">set</span> <span class="nb">hlsearch</span>
+<span class="k">set</span> <span class="nb">ruler</span>
+<span class="k">set</span> <span class="nb">autowrite</span>
+<span class="k">set</span> <span class="nb">autoread</span>
+<span class="k">set</span> <span class="nb">nofoldenable</span>
+<span class="k">set</span> <span class="k">number</span>
+<span class="c">&quot; Maintain undo history between sessions in ~/.vim/undodir:</span>
+<span class="k">set</span> <span class="nb">undofile</span>
+<span class="k">set</span> <span class="nb">undodir</span><span class="p">=~</span><span class="sr">/.vim/</span><span class="nb">undodir</span>
+<span class="c">&quot; More natural split opening</span>
+<span class="k">set</span> <span class="nb">splitbelow</span>
+<span class="k">set</span> <span class="nb">splitright</span>
+<span class="c">&quot; Search faster</span>
+<span class="k">set</span> <span class="nb">wildignore</span><span class="p">=</span>*.dll<span class="p">,</span>*.exe<span class="p">,</span>*.pyc<span class="p">,</span>*.pdf<span class="p">,</span>*.doc<span class="p">,</span>*.gz
+<span class="k">set</span> <span class="nb">wildignore</span><span class="p">+=</span>**<span class="sr">/node_modules/</span>**
+<span class="c">&quot; Force UNIX line endings</span>
+<span class="k">set</span> <span class="nb">ff</span><span class="p">=</span>unix
+
+<span class="c">&quot; Always show at least two lines before/after cursor</span>
+<span class="k">set</span> <span class="nb">scrolloff</span><span class="p">=</span><span class="m">2</span>
+<span class="c">&quot; Always show at least five columns before/after cursor</span>
+<span class="k">set</span> <span class="nb">sidescrolloff</span><span class="p">=</span><span class="m">5</span>
+
+<span class="k">if</span> &amp;<span class="k">history</span> <span class="p">&lt;</span> <span class="m">1000</span>
+  <span class="k">set</span> <span class="k">history</span><span class="p">=</span><span class="m">1000</span>
+<span class="k">endif</span>
+<span class="k">if</span> &amp;<span class="nb">tabpagemax</span> <span class="p">&lt;</span> <span class="m">50</span>
+  <span class="k">set</span> <span class="nb">tabpagemax</span><span class="p">=</span><span class="m">50</span>
+<span class="k">endif</span>
+<span class="k">if</span> <span class="p">!</span>empty<span class="p">(</span>&amp;<span class="nb">viminfo</span><span class="p">)</span>
+  <span class="k">set</span> <span class="nb">viminfo</span>^<span class="p">=!</span>
+<span class="k">endif</span>
+
+<span class="c">&quot; Shortcuts</span>
+<span class="k">let</span> mapleader <span class="p">=</span> <span class="s2">&quot;,&quot;</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">b</span> Oimport pdb; pdb.set_trace<span class="p">()&lt;</span>Esc<span class="p">&gt;</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span>rb Oimport pdb; pdb.Pdb<span class="p">(</span>stdout<span class="p">=</span>sys.__stdout__<span class="p">)</span>.set_trace<span class="p">()&lt;</span>Esc<span class="p">&gt;</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span>ib Oimport ipdb; ipdb.set_trace<span class="p">()&lt;</span>Esc<span class="p">&gt;</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">h</span> :<span class="k">set</span> <span class="nb">hlsearch</span><span class="p">!&lt;</span>CR<span class="p">&gt;</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">l</span> :<span class="k">set</span> <span class="nb">list</span><span class="p">!&lt;</span>CR<span class="p">&gt;</span>
+<span class="nb">vnoremap</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="sr">/ y/</span><span class="p">&lt;</span>C<span class="p">-</span>R<span class="p">&gt;</span><span class="m">0</span><span class="p">&lt;</span>CR<span class="p">&gt;</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span>? :AckFromSearch<span class="p">!&lt;</span>CR<span class="p">&gt;</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span>. :<span class="k">let</span> @<span class="sr">/=substitute(substitute(substitute(@/</span><span class="p">,</span> <span class="s1">&#39;_\([a-z]\)&#39;</span><span class="p">,</span> <span class="s1">&#39;_\\?\1&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">),</span> <span class="s1">&#39;\&lt;\@&lt;!\([A-Z]\)\C&#39;</span><span class="p">,</span> <span class="s1">&#39;_\\?\1&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">),</span> <span class="s1">&#39;[A-Z]&#39;</span><span class="p">,</span> <span class="s1">&#39;\L\0&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">)&lt;</span>CR<span class="p">&gt;</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">t</span> :<span class="p">!</span>bazeltest %:<span class="k">r</span><span class="p">&lt;</span>CR<span class="p">&gt;</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span>it :<span class="p">!</span>bazeltest %:<span class="k">r</span> <span class="p">--</span>minloglevel<span class="p">=</span>DEBUG <span class="p">--</span>logtostderr<span class="p">&lt;</span>CR<span class="p">&gt;</span>
+<span class="c">&quot; nnoremap &lt;leader&gt;g :YcmCompleter GoTo&lt;CR&gt;</span>
+<span class="c">&quot; nnoremap &lt;leader&gt;d :YcmCompleter GetDoc&lt;CR&gt;</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">w</span> :%s<span class="sr">/\s\+$/</span>/<span class="k">e</span><span class="p">&lt;</span>CR<span class="p">&gt;</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">u</span> :exe <span class="s2">&quot;!open https://bitbucket.org/teachingstrategies/tadpoles-web/src/release/%\\\#lines-&quot;</span> . line<span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)&lt;</span>CR<span class="p">&gt;</span>
+<span class="nb">vnoremap</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">y</span> :<span class="s1">&#39;&lt;,&#39;</span><span class="p">&gt;</span> <span class="p">!</span> python <span class="p">-</span><span class="k">c</span> <span class="s1">&#39;import sys, json, yaml; print(yaml.dump(json.load(sys.stdin), indent=2))&#39;</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">j</span> :% <span class="p">!</span> jq .<span class="p">&lt;</span>CR<span class="p">&gt;</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">n</span> :NERDTreeFind<span class="p">&lt;</span>CR<span class="p">&gt;</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">r</span> :<span class="k">redraw</span><span class="p">!&lt;</span>CR<span class="p">&gt;</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>C<span class="p">-</span>P<span class="p">&gt;</span> :GFiles<span class="p">&lt;</span>CR<span class="p">&gt;</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span>s :<span class="p">!</span>slackme %:<span class="k">t</span>:<span class="k">r</span><span class="p">&lt;</span>CR<span class="p">&gt;</span>
+
+<span class="c">&quot; Split navigations</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>C<span class="p">-</span>J<span class="p">&gt;</span> <span class="p">&lt;</span>C<span class="p">-</span>W<span class="p">&gt;&lt;</span>C<span class="p">-</span>J<span class="p">&gt;</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>C<span class="p">-</span>K<span class="p">&gt;</span> <span class="p">&lt;</span>C<span class="p">-</span>W<span class="p">&gt;&lt;</span>C<span class="p">-</span>K<span class="p">&gt;</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>C<span class="p">-</span>L<span class="p">&gt;</span> <span class="p">&lt;</span>C<span class="p">-</span>W<span class="p">&gt;&lt;</span>C<span class="p">-</span>L<span class="p">&gt;</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>C<span class="p">-</span>H<span class="p">&gt;</span> <span class="p">&lt;</span>C<span class="p">-</span>W<span class="p">&gt;&lt;</span>C<span class="p">-</span>H<span class="p">&gt;</span>
+<span class="c">&quot; Use Return as Escape in insert mode</span>
+<span class="c">&quot; inoremap &lt;CR&gt; &lt;Esc&gt;</span>
+<span class="c">&quot; Use K to split string under cursor</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>CR<span class="p">&gt;</span> <span class="k">i</span><span class="p">&lt;</span>CR<span class="p">&gt;&lt;</span>Esc<span class="p">&gt;</span>
+
+<span class="c">&quot; Coc.nvim</span>
+nmap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="nb">gd</span> <span class="p">&lt;</span>Plug<span class="p">&gt;(</span>coc<span class="p">-</span>definition<span class="p">)</span>
+nmap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> gy <span class="p">&lt;</span>Plug<span class="p">&gt;(</span>coc<span class="p">-</span>type<span class="p">-</span>definition<span class="p">)</span>
+nmap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> gi <span class="p">&lt;</span>Plug<span class="p">&gt;(</span>coc<span class="p">-</span>implementation<span class="p">)</span>
+nmap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="k">gr</span> <span class="p">&lt;</span>Plug<span class="p">&gt;(</span>coc<span class="p">-</span>references<span class="p">)</span>
+
+<span class="c">&quot; Remove trailing whitespace in Python files</span>
+autocmd <span class="nb">BufWritePre</span> *.<span class="k">py</span> %s<span class="sr">/\s\+$/</span>/<span class="k">e</span>
+
+<span class="c">&quot; Settings for working with YAML</span>
+<span class="k">au</span> <span class="nb">BufRead</span><span class="p">,</span><span class="nb">BufNewFile</span> *.mwyml <span class="k">set</span> <span class="k">filetype</span><span class="p">=</span>yaml
+autocmd <span class="nb">FileType</span> yaml <span class="k">setlocal</span> <span class="k">ts</span><span class="p">=</span><span class="m">2</span> <span class="k">sts</span><span class="p">=</span><span class="m">2</span> <span class="k">sw</span><span class="p">=</span><span class="m">2</span> <span class="nb">expandtab</span>
+autocmd <span class="nb">FileType</span> html <span class="k">setlocal</span> <span class="k">ts</span><span class="p">=</span><span class="m">2</span> <span class="k">sts</span><span class="p">=</span><span class="m">2</span> <span class="k">sw</span><span class="p">=</span><span class="m">2</span> <span class="nb">expandtab</span>
+</pre></div>
+</div>
+</section>
+<section id="vim-coc-settings-json">
+<h2>~/.vim/coc-settings.json<a class="headerlink" href="#vim-coc-settings-json" title="Link to this heading">#</a></h2>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="s2">&quot;jedi.enable&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;jedi.startupMessage&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;jedi.markupKindPreferred&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;plaintext&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;jedi.trace.server&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;off&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;jedi.jediSettings.autoImportModules&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="s2">&quot;jedi.jediSettings.caseInsensitiveCompletion&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;jedi.jediSettings.debug&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;jedi.executable.command&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;jedi-language-server&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;jedi.executable.args&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="s2">&quot;jedi.codeAction.nameExtractFunction&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;jls_extract_def&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;jedi.codeAction.nameExtractVariable&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;jls_extract_var&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;jedi.completion.disableSnippets&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;jedi.completion.resolveEagerly&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;jedi.completion.ignorePatterns&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="s2">&quot;jedi.diagnostics.enable&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;jedi.diagnostics.didOpen&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;jedi.diagnostics.didChange&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;jedi.diagnostics.didSave&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;jedi.hover.enable&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;jedi.hover.disable.keyword.all&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;jedi.hover.disable.keyword.names&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="s2">&quot;jedi.hover.disable.keyword.fullNames&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="s2">&quot;jedi.workspace.extraPaths&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="s2">&quot;jedi.workspace.environmentPath&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;/Users/peterdemin/.virtualenvs/9/bin/python&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;jedi.workspace.symbols.maxSymbols&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">20</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;jedi.workspace.symbols.ignoreFolders&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;.nox&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;.tox&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;.venv&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;__pycache__&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;venv&quot;</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vimrc">~/.vimrc</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vim-coc-settings-json">~/.vim/coc-settings.json</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  
+  <div class="tocsection editthispage">
+    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/13_drafts/69-dotfiles.rst">
+      <i class="fa-solid fa-pencil"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </div>
+</div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/13_drafts/69-dotfiles.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2022, Peter Demin.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
