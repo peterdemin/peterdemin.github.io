@@ -54,3 +54,44 @@ Few highlights:
     1. Install the blessed pip version and pip-tools.
     2. Run pip-sync to ensure the environment is healthy no repeated runs.
 7. Force installation of pre-commit hooks, so ground rules can be enforced reliably.
+
+
+## Pre-commit hooks
+
+`.pre-commit-config.yaml`:
+
+```yaml
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: check-json
+      - id: check-toml
+      - id: check-yaml
+      - id: end-of-file-fixer
+
+  - repo: local
+    hooks:
+    - id: isort
+      name: isort
+      entry: isort
+      language: system
+      require_serial: true
+      types_or: [cython, pyi, python]
+      args: ['--filter-files']
+
+    - id: black
+      name: black
+      entry: black
+      language: system
+      require_serial: true
+      types_or: [python, pyi]
+
+    - id: flake8
+      name: flake8
+      entry: flake8
+      language: system
+      require_serial: true
+      types_or: [python, pyi]
+```
