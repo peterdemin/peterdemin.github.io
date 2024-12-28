@@ -185,16 +185,12 @@ Dot files
     nnoremap <leader>. :let @/=substitute(substitute(substitute(@/, '_\([a-z]\)', '_\\?\1', 'g'), '\<\@<!\([A-Z]\)\C', '_\\?\1', 'g'), '[A-Z]', '\L\0', 'g')<CR>
     nnoremap <leader>t :!bazeltest %:r<CR>
     nnoremap <leader>it :!bazeltest %:r --minloglevel=DEBUG --logtostderr<CR>
-    " nnoremap <leader>g :YcmCompleter GoTo<CR>
-    " nnoremap <leader>d :YcmCompleter GetDoc<CR>
     nnoremap <leader>w :%s/\s\+$//e<CR>
-    nnoremap <leader>u :exe "!open https://bitbucket.org/teachingstrategies/tadpoles-web/src/release/%\\\#lines-" . line(".")<CR>
     vnoremap <leader>y :'<,'> ! python -c 'import sys, json, yaml; print(yaml.dump(json.load(sys.stdin), indent=2))'
     nnoremap <leader>j :% ! jq .<CR>
     nnoremap <leader>n :NERDTreeFind<CR>
     nnoremap <leader>r :redraw!<CR>
     nnoremap <C-P> :GFiles<CR>
-    nnoremap <leader>s :!slackme %:t:r<CR>
 
     " Split navigations
     nnoremap <C-J> <C-W><C-J>
