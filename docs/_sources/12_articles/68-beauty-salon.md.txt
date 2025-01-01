@@ -68,12 +68,12 @@ It's purpose is to rank highly in Google for relevant queries and to let people 
 **Static site generator:**
 - Highly customizable (no builtin templates)
 - Fast to build
-- Blazingly fast to serve from CDN (asset minification)
+- Blazingly fast to serve (asset minification, compression, server proximity)
 
 **Booking API:**
 - Read service durations from procedures catalog.
 - Two-way integration with external calendars (fetch availability, push new events) both for employees and customers.
-- Exposes available slots for a procedure as a JSON API.
+- Exposes available slots for a service as a JSON API.
 - Records appointment submissions.
 
 **Customer Relations Manager:**
@@ -86,3 +86,12 @@ It's purpose is to rank highly in Google for relevant queries and to let people 
 - Booking confirmations and reminders
 - Cancellation
 - Marketing
+
+## Tech stack
+
+- Static frontend built with Vite, React, Tailwind, and Jinja templates for granular components and flexibility. 
+- FastAPI backend with PostgreSQL database. 
+- Single Ubuntu VM to serve the whole thing.
+- Stripe for payments. 
+- Google Calendar for appointments booking. 
+- Public monorepo on GitHub (because software is not the moat for beauty salon business). 
