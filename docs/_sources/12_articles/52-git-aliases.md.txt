@@ -24,16 +24,16 @@ git config --global alias.amp '!git commit --amend -a --no-edit && git push -f'
 
 ```bash
 # Record conflict resolution and re-apply it automatically
-git config --global rerere.enabled=true
+git config --global rerere.enabled true
 
 # Use 4 spaces for tabs in git diff
-git config --global core.pager="less -x1,5"
+git config --global core.pager "less -x1,5"
 
 # Automatically set up remote upstream when pushing branch
-git config --global push.autoSetupRemote=true
+git config --global push.autoSetupRemote true
 
 # Always use rebase for git pull
-git config --global pull.rebase=true
+git config --global pull.rebase true
 
 # Remove a/ and b/ prefixes from file paths in diff and log
 git config --global diff.noprefix true
