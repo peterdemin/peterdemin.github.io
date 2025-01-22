@@ -1,7 +1,7 @@
 # Beauty salon IT department
 
 I'm helping my wife to open a beauty salon.
-Since I know nothing about beauty, I'm doing technical part.
+Since I know nothing about beauty, I'm doing the technical part.
 One essential part of the beauty salon is a public website.
 It's purpose is to rank highly in Google for relevant queries and to let people book appointments.
 
@@ -31,7 +31,7 @@ It's purpose is to rank highly in Google for relevant queries and to let people 
 - Calendar apps integration
 
 **Legal and Payments:**
-- Stripe integration for payment processing
+- Square integration for payment processing
 - Deposits collection upon booking
 - Sign waiver forms in person and online
 - Put credit card on file for faster checkout
@@ -87,11 +87,22 @@ It's purpose is to rank highly in Google for relevant queries and to let people 
 - Cancellation
 - Marketing
 
+## Admin dashboard
+
+**Appointment view**
+- Linked from Calendar event sent to the employee.
+- Shows client's name, phone, and email.
+- Shows name of the service, duration, and price.
+- Shows dates of other appointments made with the same phone or email.
+- Has a button to Pay for the service.
+- The button opens a payment page, which has suggested tips and connects with Square terminal to accept card payments.
+
 ## Tech stack
 
 - Static frontend built with Vite, React, Tailwind, and Jinja templates for granular components and flexibility. 
 - FastAPI backend with PostgreSQL database. 
 - Single Ubuntu VM to serve the whole thing.
-- Stripe for payments. 
+- Square for payments. 
 - Google Calendar for appointments booking. 
 - Public monorepo on GitHub (because software is not the moat for beauty salon business). 
+- Admin page is build with the same stack as the public frontend, but served only behind VPN on a separate subdomain.
