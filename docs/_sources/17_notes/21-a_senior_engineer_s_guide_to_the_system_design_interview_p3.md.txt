@@ -73,4 +73,5 @@ It's a separate skill, the ritual demonstrating that you've prepared for the int
 
 ## Links to follow
 
-- [Part 4](https://interviewing.io/guides/system-design-interview/part-four)
+- [Part 4](https://interviewing.io/guides/system-design-interview/part-four) ([my notes](/17_notes/22-a_senior_engineer_s_guide_to_the_system_design_interview_part_4_.md))
+
