@@ -5,40 +5,40 @@ Article: <https://interviewing.io/guides/system-design-interview/part-four>
 ## Notes
 
 - Going through example designs as an exercise for the framework.
-- Using Pastebin as a simplest example.
+- Using Pastebin as a most straightforward example.
 - Gather requirements:
     - Starting with functional requirements. Objects and their interactions.
     - The data is immutable for simplicity.
     - Extra considerations: analytics, monetization, legal.
     - Non-functional requirements: availability, consistency, durability, scalability, latency.
-    - Check with interviewer if you missed something.
+    - Check with the interviewer if you missed something.
     - Estimates are used to justify building a complex distributed system.
       Ask your interviewer if they’d like to see some calculations.
     - Estimate storage and bandwidth. Use 100K seconds per day (15% error).
-- Data Types, API and Scale:
-    - Using NoSQL database, because transactions and joins are not needed.
-    - Explaining API as RESTful, because there's no batching, streaming, and push notifications.
+- Data Types, API, and Scale:
+    - Using NoSQL database because transactions and joins are not needed.
+    - Explaining API as RESTful because there are no batching, streaming, or push notifications.
     - Iterating to add mutability.
 - Design:
     ???
-- Suddenly, topic switches to a distributed Unique ID generation.
-- A lot of math to say "use 128-bit keys, possibly UUID4."
+- Suddenly, the topic switches to a distributed Unique ID generation.
+- A lot of math to say, "Use 128-bit keys, possibly UUID4."
 - Jump to "AOL Instant Messenger."
-- Functional requirements: have auth, send messages.
+- Functional requirements: have authentication and send messages.
 - Non-functional requirements: eventual consistency, high availability, durability.
 - Skipped data types, API, and scale.
 - Design. Classic sandwich: load-balancer, middleware, sharded replicated database.
-- Jump to "Design Ticketmaster" (Trying on my own before reading.)
+- Jump to "Design Ticketmaster" (I'm trying on my own before reading.)
     - Organizers create events.
     - People buy tickets and attend events.
     - Entities: organizer, person, event, ticket.
     - Functional requirements:
-        - Organizer creates event and sets the numbers and kinds of available tickets.
+        - Organizer creates events and sets the numbers and kinds of available tickets.
         - Organizer can list their (immutable) events.
         - Person can list and filter (search) available events.
         - Person can purchase a ticket for an event. Reservation?
         - Person can view purchase history.
-        - Venue stuff can punch tickets.
+        - Venue staff can punch tickets.
         - Extra: return tickets, cancel events, change events, transfer tickets.
     - Non-functional requirements:
         - Strict consistency: no double-booking.
@@ -63,7 +63,7 @@ Article: <https://interviewing.io/guides/system-design-interview/part-four>
         - GET /ticket/
         - GET /search/event/?location=...&dates=...
     - Scalability:
-        - Traffic is spiky, hot events will have thousands of users trying to by tickets as as they're available.
+        - Traffic is spiky; hot events will have thousands of users trying to buy tickets as soon as they're available.
         - 10K RPM for sales.
         - Several events launching at the same time.
         - Read-only fallback
@@ -113,9 +113,9 @@ Article: <https://interviewing.io/guides/system-design-interview/part-four>
 
 ## Conclusion
 
-Exercises helped with understanding the steps of the framework better.
+Exercises helped me understand the steps of the framework better.
 Following the process demonstrates a systematic approach to design.
-Guide references to differences between junior, senior, and staff engineers,
+The guide references the differences between junior, senior, and staff engineers
 but doesn't provide a good framework for what you should be looking out for
 to demonstrate your seniority.
 
