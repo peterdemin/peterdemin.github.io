@@ -253,9 +253,9 @@
 <li><p>Identify the main objects and their relations.</p></li>
 <li><p>What attributes do these objects have? Are they mutable?</p></li>
 <li><p>Think about access patterns. “Given object X, return all related objects Y.”
-Consider the cross product of all related objects.</p></li>
+Consider the cross-product of all related objects.</p></li>
 <li><p>List all the requirements you’ve identified and validate with your interviewer.</p></li>
-<li><p>Suggest complimentary features to demonstrate user-orientation.</p></li>
+<li><p>Suggest complimentary features to demonstrate user orientation.</p></li>
 </ul>
 </li>
 <li><p>Non-functional requirements:</p>
@@ -263,7 +263,7 @@ Consider the cross product of all related objects.</p></li>
 <li><p>Performance:</p>
 <ul>
 <li><p>Synchronous user-facing workflows.</p></li>
-<li><p>Most frequently-accessed workflows.</p></li>
+<li><p>Most frequently accessed workflows.</p></li>
 </ul>
 </li>
 <li><p>Availability:</p>
@@ -276,9 +276,9 @@ Consider the cross product of all related objects.</p></li>
 </li>
 </ul>
 </li>
-<li><p>Data Types, API and Scale</p>
+<li><p>Data Types, API, and Scale</p>
 <ul class="simple">
-<li><p>List of Data Types we need to store: structured, blobs, media.</p></li>
+<li><p>List of Data Types we need to store: structured, blobs, and media.</p></li>
 <li><p>API for these data types, HTTP verb with endpoint path for each access pattern.</p></li>
 <li><p>Scale of the data and requests the system needs to serve.</p>
 <ul>
@@ -287,7 +287,7 @@ we have an API in place, and we know how the distribution of requests looks.
 If I were designing this system for real, I’d probably want to do some
 back-of-the-envelope math to estimate the number of requests
 and average volume of data we need to store.
-Do you want me to do the math or do you want me to skip it?”</p></li>
+Do you want me to do the math, or do you want me to skip it?”</p></li>
 <li><p>Ballpark estimate for reads and writes per minute.
 Traffic in MB per minute.
 Storage growth in MB per minute.</p></li>
@@ -302,23 +302,23 @@ I’m just thinking out loud for now, so don’t hold me to any of this.
 We can come back to it later.”</p></li>
 <li><p>Data storage.</p>
 <ul>
-<li><p>Mention using blob storage for storing binary large objects.</p></li>
-<li><p>SQL vs NoSQL dance:</p>
+<li><p>Mention using blob storage to store large binary objects.</p></li>
+<li><p>SQL vs. NoSQL dance:</p>
 <ul>
 <li><p>Do we need strong consistency?</p></li>
 <li><p>Do we have large volumes of unstructured data?</p></li>
-<li><p>Pick one, justify the choice, move on.</p></li>
+<li><p>Pick one, justify the choice, and move on.</p></li>
 </ul>
 </li>
 <li><p>Iterate on the storage design:</p>
 <ul>
-<li><p>Add table for each entity.</p></li>
+<li><p>Add a table for each entity.</p></li>
 <li><p>See if all access patterns are supported.</p></li>
 <li><p>Add fields/tables.</p></li>
 <li><p>Check for performance bottlenecks.
-Stating your rationale followed by a subtle “what do you think?” or
+Stating your rationale followed by a subtle “What do you think?” or
 “let me know if you think I’m approaching this the wrong way”
-is the perfect balance between being independent but also collaborative.</p></li>
+is the perfect balance between being independent and collaborative.</p></li>
 <li><p>Optimize read speed using prepopulated tables.</p></li>
 </ul>
 </li>
@@ -345,11 +345,11 @@ is the perfect balance between being independent but also collaborative.</p></li
 <section id="conclusion">
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
 <p>The process explained in the article is very close to what I experienced in interviews with many companies.
-But the more I think about it, calling this a “system design interview” is a misnomer.
-The term is so vague, that you can’t tell what’s expected of you unless you’ve read this guide.
+But the more I think about it, the more I realize that calling this a “system design interview” is a misnomer.
+The term is so vague that you can’t tell what’s expected of you unless you’ve read this guide.
 The main objective seems to convince the interviewer about your seniority by the way you briefly handwave complex topics.
-Just like with the coding interview, system design interview has very little to do with how you go about day-to-day work.
-It’s a separate skill, the ritual that shows that you’ve prepared for the interview process.</p>
+Just like the coding interview, the system design interview has little to do with how you go about your day-to-day work.
+It’s a separate skill, the ritual demonstrating that you’ve prepared for the interview process.</p>
 </section>
 <section id="links-to-follow">
 <h2>Links to follow<a class="headerlink" href="#links-to-follow" title="Link to this heading">#</a></h2>
