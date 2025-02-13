@@ -1,3 +1,21 @@
+`Feb 13, 2025` - Sad [resignation letter](https://marcan.st/2025/02/resigning-as-asahi-linux-project-lead/) from Asahi Linux maintainer.
+I've never used or heard about Asahi Linux before.
+Or never cared about running Linux on Apple hardware, since MacOS is close enough to Linux for my uses.
+But the letter clicked with me of a few topics.
+
+One is, [hell is other people](https://en.wikipedia.org/wiki/Hell_Is_Other_People), including OSS.
+I love open-source, and most of my hobby projects are public.
+But not many of them see much external contribution.
+The most joy I get is when I'm heads-down working on them, not when I try to align with strangers.
+
+Another is [Conway's Law](https://en.wikipedia.org/wiki/Conway%27s_law):
+
+> [O]rganizations which design systems (in the broad sense used here) are constrained to produce designs which are copies of the communication structures of these organizations.
+
+I see open-source as a great organizational structure to run software projects.
+But it's still prone to the problems, that any human community has.
+I still wonder, though, can open-source projects governance be tweaked in ways, to solve it?..
+
 `Feb 13, 2025` - This is gold: 
 
 > [Rational ignorance](https://en.wikipedia.org/wiki/Rational_ignorance) is refraining from acquiring knowledge when the supposed cost of educating oneself on an issue exceeds the expected potential benefit that the knowledge would provide.
