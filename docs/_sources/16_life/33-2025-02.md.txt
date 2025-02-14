@@ -1,4 +1,9 @@
-`Feb 14, 2025` - TIL Talos Group of Cisco has 64 open-source repos on GitHub: https://github.com/Cisco-Talos. Most prominent is [ClamAV](https://github.com/Cisco-Talos/clamav) - an open source anti-virus toolkit.
+`Feb 14, 2025` - TIL Talos Group of Cisco has 64 open-source repos on GitHub: https://github.com/Cisco-Talos.
+Most prominent is [ClamAV](https://github.com/Cisco-Talos/clamav) - the [only](https://en.wikipedia.org/wiki/Comparison_of_antivirus_software) open source anti-virus toolkit.
+Of course it wasn't originated inside of Cisco.
+And it wasn't even the first acquisition.
+And Talos Group is kinda independent company under Cisco umbrella (based in Maryland, by the way).
+But still, I find this to be a cool piece of trivia.
 
 `Feb 13, 2025` - Sad [resignation letter](https://marcan.st/2025/02/resigning-as-asahi-linux-project-lead/) from Asahi Linux maintainer.
 I've never used or heard about Asahi Linux before.
