@@ -1,3 +1,5 @@
+`Feb 28, 2025` - Cool sketching video: https://www.youtube.com/watch?v=uFyc3orK6cs
+
 `Feb 14, 2025` - TIL Talos Group of Cisco has 64 open-source repos on GitHub: https://github.com/Cisco-Talos.
 Most prominent is [ClamAV](https://github.com/Cisco-Talos/clamav) - the [only](https://en.wikipedia.org/wiki/Comparison_of_antivirus_software) open source anti-virus toolkit.
 Of course it wasn't originated inside of Cisco.
