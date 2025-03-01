@@ -57,7 +57,7 @@ class AnnotatedLifeLine:
 
 def parse_git_log(*dirs: str) -> Dict[datetime.datetime, List[str]]:
     """Execute git log command and parse output related to files in selected dirs."""
-    by_date = {}
+    by_date: Dict[datetime.datetime, List[str]] = {}
     day = datetime.datetime.today()
     cmd = GIT_LOG_COMMAND + [os.path.join(d, "*.*") for d in dirs]
     history = subprocess.check_output(cmd, encoding="utf-8")
@@ -77,6 +77,11 @@ def generate_life_records(
     files_by_date: Dict[datetime.datetime, List[str]]
 ) -> Iterable[LifeRecord]:
     """Compose life records linking to notes created by date."""
+    life_lines = []
+    for file_name in iter_life_files():
+        with open(file_name, "rt", encoding="utf-8") as fobj:
+            life_lines.extend(fobj)
+    all_life_content = "\n".join(life_lines)
     for day in sorted(files_by_date, reverse=True):
         file_paths = sorted(
             os.path.relpath(path, SOURCE_DIR)
@@ -84,17 +89,22 @@ def generate_life_records(
             if os.path.exists(path)
             and os.path.splitext(path)[1].lower() in ALLOWED_EXTS
         )
-        missing_paths = []
         life_path = find_life_file(day)
-        if os.path.exists(life_path):
-            with open(life_path, "rt", encoding="utf-8") as fobj:
-                missing_paths = [path for path in file_paths if path not in fobj.read()]
-        if missing_paths == file_paths:
+        for path in file_paths:
+            if path in all_life_content:
+                # At least one record from that day is already present, skip whole day.
+                break
+        else:
             yield LifeRecord(
                 life_path=life_path,
                 date=day,
                 file_paths=file_paths,
             )
+
+
+def iter_life_files() -> list[str]:
+    """Find all 16_life/NN-YYYY-MM.md files."""
+    return glob.glob(os.path.join(LIFE_DIR, "??-????-??.md"))
 
 
 def find_life_file(date: datetime.datetime) -> str:
