@@ -322,7 +322,3 @@ xmltodict==0.14.2
 # The following packages are considered to be unsafe in a requirements file:
 pip==25.0.1
     # via pip-tools
-setuptools==75.8.2
-    # via
-    #   jupyterlab
-    #   pip-tools
