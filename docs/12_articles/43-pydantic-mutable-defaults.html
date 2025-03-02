@@ -30,7 +30,7 @@
   <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=86f57b9a" />
@@ -246,18 +246,18 @@
 <p>When going through FastAPI documentation, one thing caught my eye and raised a wave of butthurt from the past.</p>
 <p><a class="reference external" href="https://fastapi.tiangolo.com/tutorial/path-operation-configuration/#summary-and-description">Path Operation Configuration</a> chapter references Pydantic model.
 In the model, it defines a <code class="docutils literal notranslate"><span class="pre">tags</span></code> field with a default set to an empty <code class="docutils literal notranslate"><span class="pre">set()</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
 
-<span class="k">class</span> <span class="nc">Item</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Item</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">tags</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>In Python sets are mutable, and default values are initialized in-place during initial parsing.
 Which means, that the same <code class="docutils literal notranslate"><span class="pre">set</span></code> object will be used for all future instances of <code class="docutils literal notranslate"><span class="pre">Item</span></code>.</p>
 <p>Except, it won’t. A quick check to confirm it:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="k">class</span> <span class="nc">Item</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="k">class</span><span class="w"> </span><span class="nc">Item</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
    <span class="o">...</span><span class="p">:</span>     <span class="n">tags</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
    <span class="o">...</span><span class="p">:</span>
 
@@ -286,7 +286,7 @@ Which means, that the same <code class="docutils literal notranslate"><span clas
 </div>
 <p>We can see, that unless explicitely overriden, a field uses <code class="docutils literal notranslate"><span class="pre">smart_deepcopy</span></code> to provide a default value for the new instance.</p>
 <p>And here’s what <a class="reference external" href="https://github.com/pydantic/pydantic/blob/v2.4.2/pydantic/_internal/_utils.py#L301-L317">smart_deepcopy</a> does:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">smart_deepcopy</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Obj</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Obj</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">smart_deepcopy</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Obj</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Obj</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return type as is for immutable built-in types</span>
 <span class="sd">    Use obj.copy() for built-in empty collections</span>
 <span class="sd">    Use copy.deepcopy() for non-empty collections and unknown objects.</span>
@@ -325,9 +325,9 @@ everywhere outside of Pydantic fields definition.</p>
 <h2>Recommendation<a class="headerlink" href="#recommendation" title="Link to this heading">#</a></h2>
 <p>When using mutable objects as Pydantic fields’ default value, use <code class="docutils literal notranslate"><span class="pre">default_factory</span></code> to highlight the dynamic nature of the object, and make the handling explicit.
 Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
 
-<span class="k">class</span> <span class="nc">Item</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Item</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="n">tags</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">set</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -447,7 +447,7 @@ Example:</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.1.
     <br/>
   </p>
 </div>

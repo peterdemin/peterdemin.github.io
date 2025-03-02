@@ -159,7 +159,6 @@ assert level_order_traversal(build_tree([1, 2, None, 3, None, 4])) == [[1], [2],
 assert level_order_traversal(build_tree([1, 2, 3, 4, 5, 6, 7])) == [[1], [2, 3], [4, 5, 6, 7]]
 ```
 
-
 ### Reverse words
 
 Disqualified. LLM couldn't come up with a meaningful solution that passes the tests.
@@ -167,14 +166,9 @@ Disqualified. LLM couldn't come up with a meaningful solution that passes the te
 
 ## Conclusion
 
-Meta uses simple problems, with concise solutions taking under 10 lines of code.
-GPT 4o is pretty good at leet code. But it doesn't produce a good code immediately. It takes a few rounds of "Make this code more concise" and "Optimize this code for speed".
-Here's my initial prompt template:
-
-Let's practice for coding interviews. Write a solution for the following problem.  After the function, add a comprehensive set of tests using assert statements.
-'The sky is dark blue.' Can you reverse the order of this string? 
-
-## P.S.
-
-I took the interview, and the questions were nothing like those.
-They were pretty simple, and interviewers didn't care much about the code, focusing more on big-O and brain teasers.
+- Meta uses simple problems, with concise solutions taking under 20 lines of code.
+- GPT 4o is pretty good at leet code.
+  But it doesn't produce a good code immediately.
+  It takes a few rounds of "Make this code more concise" and "Optimize this code for speed".
+  Here's my initial prompt template:
+  > Let's practice for coding interviews. Write a solution for the following problem. After the function, add a comprehensive set of tests using assert statements.
