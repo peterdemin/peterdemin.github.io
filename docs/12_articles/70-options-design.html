@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Decentralizing the Practice of Architecture at Xapo Bank &#8212; Peter Demin</title>
+    <title>Option-centric CLI code design &#8212; Peter Demin</title>
   
   
   
@@ -45,11 +45,11 @@
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '17_notes/01_xapo';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/70-options-design';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Scaling the Practice of Architecture, Conversationally" href="02_advice_process.html" />
-    <link rel="prev" title="Option-centric CLI code design" href="../12_articles/70-options-design.html" />
+    <link rel="next" title="Decentralizing the Practice of Architecture at Xapo Bank" href="../17_notes/01_xapo.html" />
+    <link rel="prev" title="Ignominious Python timezones" href="69-pytz.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -222,7 +222,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Decentralizing the Practice of Architecture at Xapo Bank</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Option-centric CLI code design</span></li>
   </ul>
 </nav>
 </div>
@@ -239,35 +239,45 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="decentralizing-the-practice-of-architecture-at-xapo-bank">
-<h1>Decentralizing the Practice of Architecture at Xapo Bank<a class="headerlink" href="#decentralizing-the-practice-of-architecture-at-xapo-bank" title="Link to this heading">#</a></h1>
-<p>Article: <a class="reference external" href="https://martinfowler.com/articles/xapo-architecture-experience.html">https://martinfowler.com/articles/xapo-architecture-experience.html</a></p>
-<section id="notes">
-<h2>Notes<a class="headerlink" href="#notes" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Company had horizontal teams, separating architects from engineers.</p></li>
-<li><p>This caused big number of handoffs and slow/broken feedback loops.</p></li>
-<li><p>They changed the org structure to vertical teams aligned with the core products.</p></li>
-<li><p>They implemented few processes targeting faster decision making and broader knowledge sharing.  Namely:</p>
-<ul>
-<li><p>Architecture Decision Records (ADR).</p></li>
-<li><p>Domain-Driven Design (DDD).</p></li>
-<li><p>Architecture Advisory Forum (AAF) and Architectural Advice Process (AAP).</p></li>
-</ul>
-</li>
-<li><p>They used ticket tracker (Jira) to host ADRs and measure their progress through statuses: drafted, proposed, accepted, and adopted.</p></li>
-<li><p>ADRs linked to development stories and tasks.</p></li>
-<li><p>They allowed decisions to be taken without consensus.</p></li>
-<li><p>They provided a safe environment to make mistakes and re-evaluate past decisions.</p></li>
-</ul>
-</section>
-<section id="links-to-follow">
-<h2>Links to follow:<a class="headerlink" href="#links-to-follow" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://martinfowler.com/articles/scaling-architecture-conversationally.html">Scaling the Practice of Architecture, Conversationally</a> (<a class="reference internal" href="02_advice_process.html"><span class="std std-doc">My notes</span></a>)</p></li>
-<li><p><a class="reference external" href="https://medium.com/&#64;cat-mo/how-to-use-spikes-as-a-foundation-for-adrs-92bc1617617b">How to use spikes as a foundation for ADRs</a> (<a class="reference internal" href="04_spikes.html"><span class="std std-doc">My notes</span></a>)</p></li>
-</ul>
-</section>
+  <section id="option-centric-cli-code-design">
+<h1>Option-centric CLI code design<a class="headerlink" href="#option-centric-cli-code-design" title="Link to this heading">#</a></h1>
+<p>What I want to explain here is the way to organize command-line application in a way that’s fast to develop, and to reason about.</p>
+<p>I switched to this approach during a rewrite for <a class="reference external" href="http://pip-compile-multi.readthedocs.io/en/latest/">pip-compile-multi</a>.</p>
+<p>The problem I wanted to solve was that application got many features, that could interract in many ways.
+The logic affected by each feature was spread across the codebase and it was sometimes hard to tell, how exactly a command-line argument affects the application.
+Another issue was that there was no obvious place to put the docs, and it was easy to forget to update them.</p>
+<p>What I wanted is to have all aspects of a command-line option to be encapsulated in one file.
+This includes:</p>
+<ol class="arabic simple">
+<li><p>All the command-line option attributes, including name, type, and help text.</p></li>
+<li><p>The complete public documentation.</p></li>
+<li><p>All the related logic.</p></li>
+</ol>
+<p>With all the features extracted, the core flow of the application became very focused and straightforward.
+It’s easy to see what features affect each particular step.
+Similarly, it’s quick to grep all references of a feature.</p>
+<p>There’s gotta be a catch, right? Of course, all the ugliness sweeped away from core flow and features has to go somewhere.
+I called this hell hole a Controller.
+Controller is using god-object anti-pattern, it imports all features, initializes them and provides routing for each use-case from the core flow.
+It has a natural tendency of turning into a dumpster fire, so that’s the part that requires some discipline.
+The trick is to limit controller’s work to a mere routing to the right feature.</p>
+<p>Another anti-pattern, that made this setup work so smoothly is strategically placed global variables.
+The feature controller is a stateful singleton (aka global class instance).
+I can feel readers closing the tab in disdain here.
+But hey, the best part of knowing the rules is knowing when to break them.
+I could have carefully broken up the controller into relevant pieces of functionality.
+I could have passed the instances of broken up controllers through a dependency injection.
+It would have made the code design cleaner, and more canonical.
+It would also make it harder to maintain.
+I don’t have hundreds of options, I only have a dozen.
+My ugly rug, hiding all the sweep is 200 LoC, not 10,000.
+I haven’t touched the project in a year, but then needed to add a new feature.
+Without much recollection of what’s what, I just grepped my way through the codebase, found something similar and piggy-backed on it.</p>
+<p>Much to my disappointment, I found that most people don’t share my mindset, though.
+The idea of option encapsulation doesn’t click immediately.
+And (at least mine) contributors are not famililar with the design pattern (that I made up).
+Oh, well, what can I say? I wouldn’t have any other way, still.
+This design is reason the project is alive after eight years it started.</p>
 </section>
 
 
@@ -281,20 +291,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../12_articles/70-options-design.html"
+       href="69-pytz.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Option-centric CLI code design</p>
+        <p class="prev-next-title">Ignominious Python timezones</p>
       </div>
     </a>
     <a class="right-next"
-       href="02_advice_process.html"
+       href="../17_notes/01_xapo.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Scaling the Practice of Architecture, Conversationally</p>
+        <p class="prev-next-title">Decentralizing the Practice of Architecture at Xapo Bank</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -310,23 +320,10 @@
 
 
   <div class="sidebar-secondary-item">
-<div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#links-to-follow">Links to follow:</a></li>
-</ul>
-  </nav></div>
-
-  <div class="sidebar-secondary-item">
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/17_notes/01_xapo.md">
+    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/12_articles/70-options-design.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -342,7 +339,7 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/17_notes/01_xapo.md.txt"
+      <li><a href="../_sources/12_articles/70-options-design.md.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div></div>
