@@ -1,4 +1,4 @@
-# Option-centric CLI code design
+# Configuration-Driven Development
 
 What I want to explain here is the way to organize command-line application in a way that's fast to develop, and to reason about.
 
