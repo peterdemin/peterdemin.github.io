@@ -1,8 +1,8 @@
-# Book Driven Development
+# Book-Driven Development
 
 ## Definition
 
-Book Driven Development is a software engineering approach for organizing the development process around a Book.
+Book-Driven Development is a software engineering approach for organizing the development process around a Book.
 The Book means a single location that includes all documentation related to running a company.
 The same approach can be applied to other fields as well, but the author focuses on their area of expertise.
 
@@ -93,4 +93,3 @@ The company is using Sphinx docs for the Book generation. This provides many ben
 3. In-depth code walkthroughs pick docstrings from source code.
 4. Topic deep-dives documented through Jupyter Notebooks.
 5. High-level behavioral test included in project pages.
-
