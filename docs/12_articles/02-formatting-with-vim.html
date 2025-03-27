@@ -241,11 +241,8 @@
                   
   <section id="formatting-data-with-vim">
 <h1>Formatting data with Vim<a class="headerlink" href="#formatting-data-with-vim" title="Link to this heading">#</a></h1>
-<section id="reindent-json">
-<h2>Reindent JSON<a class="headerlink" href="#reindent-json" title="Link to this heading">#</a></h2>
 <p>One of Vim’s great features is how it can integrate with external utilities.
 Here are the commands that I use most.</p>
-</section>
 <section id="prettify-json">
 <h2>Prettify JSON<a class="headerlink" href="#prettify-json" title="Link to this heading">#</a></h2>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:% !python -mjson.tool
@@ -278,7 +275,7 @@ replace buffer with results, effectively reindenting JSON document.</p>
 </section>
 <section id="python-data-structure-to-json">
 <h2>Python data structure to JSON<a class="headerlink" href="#python-data-structure-to-json" title="Link to this heading">#</a></h2>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:% !python -c &#39;import sys, json; from collections import OrderedDict; print(json.dumps(eval(sys.stdin.read()), indent=2))&#39;
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:% !python -c &#39;import sys, json; print(json.dumps(eval(sys.stdin.read()), indent=2))&#39;
 </pre></div>
 </div>
 </section>
@@ -291,6 +288,18 @@ replace buffer with results, effectively reindenting JSON document.</p>
 <section id="yaml-to-json">
 <h2>YAML to JSON<a class="headerlink" href="#yaml-to-json" title="Link to this heading">#</a></h2>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:% !python -c &#39;import sys, json, yaml; print(json.dumps(yaml.safe_load(sys.stdin), indent=2))&#39;
+</pre></div>
+</div>
+</section>
+<section id="csv-column-to-txt">
+<h2>CSV column to txt<a class="headerlink" href="#csv-column-to-txt" title="Link to this heading">#</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:% !python -c &#39;import sys, csv; print(&quot;\n&quot;.join(row[0] for row in csv.reader(sys.stdin)))&#39;
+</pre></div>
+</div>
+</section>
+<section id="txt-to-single-column-csv">
+<h2>Txt to single-column CSV<a class="headerlink" href="#txt-to-single-column-csv" title="Link to this heading">#</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>:% !python -c &#39;import sys, csv; csv.writer(sys.stdout).writerows([line.strip()] for line in sys.stdin)&#39;
 </pre></div>
 </div>
 </section>
@@ -343,7 +352,6 @@ replace buffer with results, effectively reindenting JSON document.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reindent-json">Reindent JSON</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prettify-json">Prettify JSON</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-pretty-json-to-a-compressed-one-line-form">Convert pretty JSON to a compressed one-line form</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reindent-xml">Reindent XML</a></li>
@@ -351,6 +359,8 @@ replace buffer with results, effectively reindenting JSON document.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-data-structure-to-json">Python data structure to JSON</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#json-to-yaml">JSON to YAML</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#yaml-to-json">YAML to JSON</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#csv-column-to-txt">CSV column to txt</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#txt-to-single-column-csv">Txt to single-column CSV</a></li>
 </ul>
   </nav></div>
 

@@ -1,7 +1,5 @@
 # Formatting data with Vim
 
-## Reindent JSON
-
 One of Vim's great features is how it can integrate with external utilities.
 Here are the commands that I use most.
 
@@ -30,7 +28,7 @@ Alternatively, if jq is available:
 
 ## Python data structure to JSON
 
-    :% !python -c 'import sys, json; from collections import OrderedDict; print(json.dumps(eval(sys.stdin.read()), indent=2))'
+    :% !python -c 'import sys, json; print(json.dumps(eval(sys.stdin.read()), indent=2))'
 
 ## JSON to YAML
 
@@ -39,3 +37,11 @@ Alternatively, if jq is available:
 ## YAML to JSON
 
     :% !python -c 'import sys, json, yaml; print(json.dumps(yaml.safe_load(sys.stdin), indent=2))'
+
+## CSV column to txt
+
+    :% !python -c 'import sys, csv; print("\n".join(row[0] for row in csv.reader(sys.stdin)))'
+
+## Txt to single-column CSV
+
+    :% !python -c 'import sys, csv; csv.writer(sys.stdout).writerows([line.strip()] for line in sys.stdin)'
