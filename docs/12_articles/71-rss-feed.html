@@ -242,7 +242,7 @@
   <section id="my-rss-feed-reader-setup">
 <h1>My RSS feed reader setup<a class="headerlink" href="#my-rss-feed-reader-setup" title="Link to this heading">#</a></h1>
 <p>I run a <a class="reference external" href="https://github.com/Athou/commafeed">CommaFeed</a> instance on a free-tier Google Cloud Platform virtual machine.
-It’s a Google Reader inspired self-hosted personal RSS reader.</p>
+It’s a Google Reader-inspired self-hosted personal RSS reader.</p>
 <p>CommaFeed service runs as a SystemD Unit under a separate system user with a home directory.</p>
 <section id="user-setup">
 <h2>User setup<a class="headerlink" href="#user-setup" title="Link to this heading">#</a></h2>
@@ -262,8 +262,8 @@ Running processes:                  1
 </section>
 <section id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">#</a></h2>
-<p>I believe most of the configuration is the default, with database pointing to a JDBC file.
-I have redis configured, but I’m not running redis itself. Go figure.</p>
+<p>Most of the configuration is the default, with the database pointing to an H2 file.
+I have Redis configured, but I’m not running Redis itself. Go figure.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># ~commafeed/config.yml</span>
 <span class="c1"># CommaFeed settings</span>
 <span class="c1"># ------------------</span>
@@ -393,7 +393,7 @@ I have redis configured, but I’m not running redis itself. Go figure.</p>
 <section id="reverse-proxy">
 <h2>Reverse proxy<a class="headerlink" href="#reverse-proxy" title="Link to this heading">#</a></h2>
 <p>Nginx has a section dedicated to the feed subdomain.
-Nothing fancy, just proxy pass to a localhost port for defined under <code class="docutils literal notranslate"><span class="pre">applicationConnectors</span></code>:</p>
+It is nothing fancy, just a proxy pass to a localhost port defined under <code class="docutils literal notranslate"><span class="pre">applicationConnectors</span></code>:</p>
 <div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">server</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kn">server_name</span><span class="w"> </span><span class="s">feed.demin.dev</span><span class="p">;</span>
 
@@ -418,7 +418,7 @@ I don’t think I ever saw what’s there.</p>
 </section>
 <section id="systemd-unit">
 <h2>SystemD Unit<a class="headerlink" href="#systemd-unit" title="Link to this heading">#</a></h2>
-<p>In part because the VM has only 0.1 CPU, in part because I like simple things, runtime doesn’t use Docker.
+<p>The runtime doesn’t use Docker, in part because the VM has only 0.1 CPU and, in part, because I like simple things.
 It’s just a <code class="docutils literal notranslate"><span class="pre">commafeed.jar</span></code> downloaded from the official <a class="reference external" href="https://github.com/Athou/commafeed/releases">release page</a>.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>~commafeed/commafeed.service<span class="w"> </span>/etc/systemd/system/commafeed.service
 </pre></div>
@@ -442,7 +442,7 @@ It’s just a <code class="docutils literal notranslate"><span class="pre">comma
 </section>
 <section id="backup">
 <h2>Backup<a class="headerlink" href="#backup" title="Link to this heading">#</a></h2>
-<p>I don’t care about the list of the links I didn’t read yet enough to automate the JDBC file backup.
+<p>I don’t care about the list of links I haven’t read yet enough to automate the database backup.
 I wouldn’t want to lose the extensive library of feeds I aggregated over many years, though.
 So my solution is to just export the <a class="reference download internal" download="" href="../_downloads/bcbdf9250536e27c58b0e254c61af7b7/71-opml.xml"><span class="xref download myst">OPML file</span></a> whenever I think about how I don’t want to lose it.</p>
 </section>
