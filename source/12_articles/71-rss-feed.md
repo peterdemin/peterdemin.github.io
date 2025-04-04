@@ -1,7 +1,7 @@
 # My RSS feed reader setup
 
 I run a [CommaFeed](https://github.com/Athou/commafeed) instance on a free-tier Google Cloud Platform virtual machine.
-It's a Google Reader inspired self-hosted personal RSS reader.
+It's a Google Reader-inspired self-hosted personal RSS reader.
 
 CommaFeed service runs as a SystemD Unit under a separate system user with a home directory.
 
@@ -23,8 +23,8 @@ Running processes:                  1
 
 ## Configuration
 
-I believe most of the configuration is the default, with database pointing to a JDBC file.
-I have redis configured, but I'm not running redis itself. Go figure.
+Most of the configuration is the default, with the database pointing to an H2 file.
+I have Redis configured, but I'm not running Redis itself. Go figure.
 
 ```yaml
 # ~commafeed/config.yml
@@ -155,7 +155,7 @@ redis:
 ## Reverse proxy
 
 Nginx has a section dedicated to the feed subdomain.
-Nothing fancy, just proxy pass to a localhost port for defined under `applicationConnectors`:
+It is nothing fancy, just a proxy pass to a localhost port defined under `applicationConnectors`:
 
 ```nginx
 server {
@@ -182,7 +182,7 @@ I don't think I ever saw what's there.
 
 ## SystemD Unit
 
-In part because the VM has only 0.1 CPU, in part because I like simple things, runtime doesn't use Docker.
+The runtime doesn't use Docker, in part because the VM has only 0.1 CPU and, in part, because I like simple things.
 It's just a `commafeed.jar` downloaded from the official [release page](https://github.com/Athou/commafeed/releases).
 
 ```bash
@@ -208,7 +208,7 @@ WantedBy=multi-user.target
 
 ## Backup
 
-I don't care about the list of the links I didn't read yet enough to automate the JDBC file backup.
+I don't care about the list of links I haven't read yet enough to automate the database backup.
 I wouldn't want to lose the extensive library of feeds I aggregated over many years, though.
 So my solution is to just export the [OPML file](./71-opml.xml) whenever I think about how I don't want to lose it.
 
