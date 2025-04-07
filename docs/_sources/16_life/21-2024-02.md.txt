@@ -18,7 +18,7 @@ Example task:
 
 `Feb 15, 2024` - Встретить дорогого гостя с распростёртыми ногами.
 
-`Feb 12, 2024` - More ripped than 90% of software engineers. Better at programming than 90% peeps in the gym. Top 1% at making up uplifting ratings.
+`Feb 12, 2024` - More ripped than 90% of software engineers. Better at programming than 90% peeps in the gym. Top 1% at making up uplifting ratings. Dan Luu explained it nicely in [95%-ile isn't that good](https://danluu.com/p95-skill/).
 
 `Feb 11, 2024` - I thought of Walgreens as a pharmacy. But turns out they sell cigars and booze. Умом Россию не понять.
 
