@@ -358,11 +358,17 @@ Its purpose is to rank highly in Google for relevant queries and to let people b
 <li><p>The frontend builder synchronizes Google Docs with git-tracked reStructuredText (RST) files using <a class="reference external" href="https://github.com/peterdemin/gdocsync/">gdocsync</a>.</p></li>
 <li><p>Select content (hours of operation, email templates) is exported to the API as binary assets.</p></li>
 <li><p>FastAPI backend with PostgreSQL database.</p></li>
-<li><p>A single Ubuntu VM serves the whole thing.</p></li>
-<li><p>Square for payments.</p></li>
-<li><p>Google Calendar for appointment booking.</p></li>
+<li><p>A single-CPU Ubuntu VM serves precompressed static content through nginx, API as a <code class="docutils literal notranslate"><span class="pre">systemd</span></code> unit, and PostgreSQL database.</p></li>
 <li><p>Public monorepo on GitHub (because software is not the moat for a beauty salon business).</p></li>
-<li><p>The admin page is built with the same stack as the public frontend, but is served only behind the VPN on a separate subdomain.</p></li>
+<li><p>The admin page is built with the same stack as the public front end, but is served only behind the VPN on a separate subdomain.</p></li>
+</ul>
+<p><strong>Integrations:</strong></p>
+<ul class="simple">
+<li><p>Tailscale for VPN.</p></li>
+<li><p>Square for payments.</p></li>
+<li><p>Twilio for SMS.</p></li>
+<li><p>Google Workspace for emails.</p></li>
+<li><p>Google Calendar for employees.</p></li>
 </ul>
 </section>
 </section>
