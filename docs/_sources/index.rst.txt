@@ -40,8 +40,9 @@ Photos
 My open-source projects
 -----------------------
 
-* `kibitzr <https://kibitzr.github.io/>`_ - Lightweight personal web assistant.
 * `pip-compile-multi <https://github.com/peterdemin/pip-compile-multi>`_ - Flexible Python dependency version locker.
+* `gdocsync <https://github.com/peterdemin/gdocsync/>`_ - Google Docs synchronization to local RST files.
+* `kibitzr <https://kibitzr.github.io/>`_ - Lightweight personal web assistant.
 * `awsme <https://github.com/peterdemin/awsme>`_ - Amazon Web Services Cloud Watch Metrics Library.
 * `gcpfwup <https://pypi.org/project/gcpfwup/>`_ - GCP Firewall update tool.
 * `reshell <https://pypi.org/project/reshell/>`_ - Reverse shell for deployment debugging.
