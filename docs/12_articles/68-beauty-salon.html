@@ -244,10 +244,10 @@
 <p>I’m helping my wife to open a beauty salon.
 Since I know nothing about beauty, I’m doing the technical part.
 One essential part of the beauty salon is a public website.
-It’s purpose is to rank highly in Google for relevant queries and to let people book appointments.</p>
+Its purpose is to rank highly in Google for relevant queries and to let people book appointments.</p>
 <section id="high-level-software-features">
 <h2>High-level software features<a class="headerlink" href="#high-level-software-features" title="Link to this heading">#</a></h2>
-<p>(based on <a class="reference external" href="https://glossgenius.com/">https://glossgenius.com/</a>)</p>
+<p>(Inspired by <a class="reference external" href="https://glossgenius.com/">https://glossgenius.com/</a>)</p>
 <p><strong>Client Management:</strong></p>
 <ul class="simple">
 <li><p>Keep client notes</p></li>
@@ -268,15 +268,15 @@ It’s purpose is to rank highly in Google for relevant queries and to let peopl
 <li><p>Gap time</p></li>
 <li><p>Recurring appointments</p></li>
 <li><p>Reminders (SMS and Email)</p></li>
-<li><p>Fill last minute cancellations by keeping a client waitlist</p></li>
+<li><p>Fill last-minute cancellations by keeping a client waitlist</p></li>
 <li><p>Calendar apps integration</p></li>
 </ul>
 <p><strong>Legal and Payments:</strong></p>
 <ul class="simple">
 <li><p>Square integration for payment processing</p></li>
-<li><p>Deposits collection upon booking</p></li>
+<li><p>Deposit collection upon booking</p></li>
 <li><p>Sign waiver forms in person and online</p></li>
-<li><p>Put credit card on file for faster checkout</p></li>
+<li><p>Put a credit card on file for faster checkout</p></li>
 </ul>
 <p><strong>Marketing:</strong></p>
 <ul class="simple">
@@ -292,7 +292,7 @@ It’s purpose is to rank highly in Google for relevant queries and to let peopl
 <h2>Frontend components<a class="headerlink" href="#frontend-components" title="Link to this heading">#</a></h2>
 <p><strong>Static pages:</strong></p>
 <ul class="simple">
-<li><p>About (short preface, location, working hours, contact information and form)</p></li>
+<li><p>About (short preface, location, working hours, contact information, and contact form)</p></li>
 <li><p>Services list</p></li>
 <li><p>Per-service pages</p></li>
 </ul>
@@ -301,11 +301,11 @@ It’s purpose is to rank highly in Google for relevant queries and to let peopl
 <li><p>Present a menu of services</p></li>
 <li><p>Fetch booking slots for the chosen service from the booking API</p></li>
 <li><p>Present available days</p></li>
-<li><p>When user picks a day, show available times</p></li>
+<li><p>When the user picks a day, show available times</p></li>
 <li><p>If the user picks another day, update the times</p></li>
 <li><p>Let the user pick a time slot</p></li>
-<li><p>Ask user for a name, phone, and email</p></li>
-<li><p>Depending on the service configuration, get credit card</p></li>
+<li><p>Ask the user for a name, phone, and email</p></li>
+<li><p>Depending on the service configuration, get a credit card</p></li>
 <li><p>Submit the booking information to the booking API</p></li>
 </ul>
 </section>
@@ -313,14 +313,14 @@ It’s purpose is to rank highly in Google for relevant queries and to let peopl
 <h2>Backend components<a class="headerlink" href="#backend-components" title="Link to this heading">#</a></h2>
 <p><strong>Static site generator:</strong></p>
 <ul class="simple">
-<li><p>Highly customizable (no builtin templates)</p></li>
+<li><p>Highly customizable (no built-in templates)</p></li>
 <li><p>Fast to build</p></li>
 <li><p>Blazingly fast to serve (asset minification, compression, server proximity)</p></li>
 </ul>
 <p><strong>Booking API:</strong></p>
 <ul class="simple">
-<li><p>Read service durations from procedures catalog.</p></li>
-<li><p>Two-way integration with external calendars (fetch availability, push new events) both for employees and customers.</p></li>
+<li><p>Read service durations from the procedures catalog.</p></li>
+<li><p>Two-way integration with external calendars (fetch availability, push new events).</p></li>
 <li><p>Exposes available slots for a service as a JSON API.</p></li>
 <li><p>Records appointment submissions.</p></li>
 </ul>
@@ -344,22 +344,25 @@ It’s purpose is to rank highly in Google for relevant queries and to let peopl
 <ul class="simple">
 <li><p>Linked from Calendar event sent to the employee.</p></li>
 <li><p>Shows client’s name, phone, and email.</p></li>
-<li><p>Shows name of the service, duration, and price.</p></li>
+<li><p>Shows the name of the service, duration, and price.</p></li>
 <li><p>Shows dates of other appointments made with the same phone or email.</p></li>
-<li><p>Has a button to Pay for the service.</p></li>
-<li><p>The button opens a payment page, which has suggested tips and connects with Square terminal to accept card payments.</p></li>
+<li><p>Has a button to pay for the service.</p></li>
+<li><p>The button opens a payment page with suggested tips and connects with the Square terminal to accept card payments.</p></li>
 </ul>
 </section>
-<section id="tech-stack">
-<h2>Tech stack<a class="headerlink" href="#tech-stack" title="Link to this heading">#</a></h2>
+<section id="technical-stack">
+<h2>Technical stack<a class="headerlink" href="#technical-stack" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Static frontend built with Vite, React, Tailwind, and Jinja templates for granular components and flexibility.</p></li>
+<li><p>All content (services, about us, email templates) is stored in Google Docs.</p></li>
+<li><p>The static frontend is built with Vite, React, Tailwind, and Jinja templates for granular components and flexibility.</p></li>
+<li><p>The frontend builder synchronizes Google Docs with git-tracked reStructuredText (RST) files using <a class="reference external" href="https://github.com/peterdemin/gdocsync/">gdocsync</a>.</p></li>
+<li><p>Select content (hours of operation, email templates) is exported to the API as binary assets.</p></li>
 <li><p>FastAPI backend with PostgreSQL database.</p></li>
-<li><p>Single Ubuntu VM to serve the whole thing.</p></li>
+<li><p>A single Ubuntu VM serves the whole thing.</p></li>
 <li><p>Square for payments.</p></li>
-<li><p>Google Calendar for appointments booking.</p></li>
-<li><p>Public monorepo on GitHub (because software is not the moat for beauty salon business).</p></li>
-<li><p>Admin page is build with the same stack as the public frontend, but served only behind VPN on a separate subdomain.</p></li>
+<li><p>Google Calendar for appointment booking.</p></li>
+<li><p>Public monorepo on GitHub (because software is not the moat for a beauty salon business).</p></li>
+<li><p>The admin page is built with the same stack as the public frontend, but is served only behind the VPN on a separate subdomain.</p></li>
 </ul>
 </section>
 </section>
@@ -415,7 +418,7 @@ It’s purpose is to rank highly in Google for relevant queries and to let peopl
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#frontend-components">Frontend components</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backend-components">Backend components</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#admin-dashboard">Admin dashboard</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tech-stack">Tech stack</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#technical-stack">Technical stack</a></li>
 </ul>
   </nav></div>
 
