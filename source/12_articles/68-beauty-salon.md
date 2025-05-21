@@ -3,12 +3,12 @@
 I'm helping my wife to open a beauty salon.
 Since I know nothing about beauty, I'm doing the technical part.
 One essential part of the beauty salon is a public website.
-It's purpose is to rank highly in Google for relevant queries and to let people book appointments.
+Its purpose is to rank highly in Google for relevant queries and to let people book appointments.
 
 
 ## High-level software features
 
-(based on <https://glossgenius.com/>)
+(Inspired by <https://glossgenius.com/>)
 
 **Client Management:**
 - Keep client notes
@@ -27,14 +27,14 @@ It's purpose is to rank highly in Google for relevant queries and to let people 
 - Gap time
 - Recurring appointments
 - Reminders (SMS and Email)
-- Fill last minute cancellations by keeping a client waitlist
+- Fill last-minute cancellations by keeping a client waitlist
 - Calendar apps integration
 
 **Legal and Payments:**
 - Square integration for payment processing
-- Deposits collection upon booking
+- Deposit collection upon booking
 - Sign waiver forms in person and online
-- Put credit card on file for faster checkout
+- Put a credit card on file for faster checkout
 
 **Marketing:**
 - SMS & Email Marketing features integrated with books
@@ -47,7 +47,7 @@ It's purpose is to rank highly in Google for relevant queries and to let people 
 ## Frontend components
 
 **Static pages:**
-- About (short preface, location, working hours, contact information and form)
+- About (short preface, location, working hours, contact information, and contact form)
 - Services list
 - Per-service pages
 
@@ -55,24 +55,24 @@ It's purpose is to rank highly in Google for relevant queries and to let people 
 - Present a menu of services
 - Fetch booking slots for the chosen service from the booking API
 - Present available days
-- When user picks a day, show available times
+- When the user picks a day, show available times
 - If the user picks another day, update the times
 - Let the user pick a time slot
-- Ask user for a name, phone, and email
-- Depending on the service configuration, get credit card
+- Ask the user for a name, phone, and email
+- Depending on the service configuration, get a credit card
 - Submit the booking information to the booking API
 
 
 ## Backend components
 
 **Static site generator:**
-- Highly customizable (no builtin templates)
+- Highly customizable (no built-in templates)
 - Fast to build
 - Blazingly fast to serve (asset minification, compression, server proximity)
 
 **Booking API:**
-- Read service durations from procedures catalog.
-- Two-way integration with external calendars (fetch availability, push new events) both for employees and customers.
+- Read service durations from the procedures catalog.
+- Two-way integration with external calendars (fetch availability, push new events).
 - Exposes available slots for a service as a JSON API.
 - Records appointment submissions.
 
@@ -92,17 +92,20 @@ It's purpose is to rank highly in Google for relevant queries and to let people 
 **Appointment view**
 - Linked from Calendar event sent to the employee.
 - Shows client's name, phone, and email.
-- Shows name of the service, duration, and price.
+- Shows the name of the service, duration, and price.
 - Shows dates of other appointments made with the same phone or email.
-- Has a button to Pay for the service.
-- The button opens a payment page, which has suggested tips and connects with Square terminal to accept card payments.
+- Has a button to pay for the service.
+- The button opens a payment page with suggested tips and connects with the Square terminal to accept card payments.
 
-## Tech stack
+## Technical stack
 
-- Static frontend built with Vite, React, Tailwind, and Jinja templates for granular components and flexibility. 
-- FastAPI backend with PostgreSQL database. 
-- Single Ubuntu VM to serve the whole thing.
-- Square for payments. 
-- Google Calendar for appointments booking. 
-- Public monorepo on GitHub (because software is not the moat for beauty salon business). 
-- Admin page is build with the same stack as the public frontend, but served only behind VPN on a separate subdomain.
+- All content (services, about us, email templates) is stored in Google Docs.
+- The static frontend is built with Vite, React, Tailwind, and Jinja templates for granular components and flexibility.
+- The frontend builder synchronizes Google Docs with git-tracked reStructuredText (RST) files using [gdocsync](https://github.com/peterdemin/gdocsync/).
+- Select content (hours of operation, email templates) is exported to the API as binary assets.
+- FastAPI backend with PostgreSQL database.
+- A single Ubuntu VM serves the whole thing.
+- Square for payments.
+- Google Calendar for appointment booking.
+- Public monorepo on GitHub (because software is not the moat for a beauty salon business).
+- The admin page is built with the same stack as the public frontend, but is served only behind the VPN on a separate subdomain.
