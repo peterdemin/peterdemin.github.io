@@ -104,8 +104,13 @@ Its purpose is to rank highly in Google for relevant queries and to let people b
 - The frontend builder synchronizes Google Docs with git-tracked reStructuredText (RST) files using [gdocsync](https://github.com/peterdemin/gdocsync/).
 - Select content (hours of operation, email templates) is exported to the API as binary assets.
 - FastAPI backend with PostgreSQL database.
-- A single Ubuntu VM serves the whole thing.
-- Square for payments.
-- Google Calendar for appointment booking.
+- A single-CPU Ubuntu VM serves precompressed static content through nginx, API as a `systemd` unit, and PostgreSQL database.
 - Public monorepo on GitHub (because software is not the moat for a beauty salon business).
-- The admin page is built with the same stack as the public frontend, but is served only behind the VPN on a separate subdomain.
+- The admin page is built with the same stack as the public front end, but is served only behind the VPN on a separate subdomain.
+
+**Integrations:**
+- Tailscale for VPN.
+- Square for payments.
+- Twilio for SMS.
+- Google Workspace for emails.
+- Google Calendar for employees.
