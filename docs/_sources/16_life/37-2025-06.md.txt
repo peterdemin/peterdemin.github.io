@@ -1,3 +1,5 @@
+`Jun 17, 2025` - Today I learned about [1,700 Free Online Courses from Top Universities from Open Culture](https://www.openculture.com/freeonlinecourses). I'm going to explore what's available in the next few days.
+
 `Jun 10, 2025` - Reading [OpenAI's practical guide to building agents](https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf) got me thinking, that they position Agentic software not as an evolution of existing software. But as enabling new kind of software. The one that didn't exist and wasn't possible before. The one, that users have no intuition about, and no way to discover.
 Which reminded me of the time we were rolling out new features for a corporate chatbot to customers and really struggled to find creative ways of educating users that the bot has new capabilities.
 Let's say you want to check if the bakery has products for your dietary restrictions. Would you go through a menu looking for the ingredients or would you look for an agentic interface? At least couple years ago, most people were avoiding these dumb nasty bots like fire. I'm not sure if it's still true.
