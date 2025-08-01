@@ -235,6 +235,14 @@
 <h1>Journal<a class="headerlink" href="#journal" title="Link to this heading">#</a></h1>
 </section>
 <hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">Aug</span> <span class="pre">01,</span> <span class="pre">2025</span></code> - Recently I had a conversation with a high-rank manager who didn’t see value in code ownership. He talked about design and ideas, but not people and tasks. This reminded me how past breakages were caused by people making changes without sufficient context. Or how a new team member spends a week on a task that takes twenty minutes. I’d like to split this context into three parts:</p>
+<ol class="arabic simple">
+<li><p>System design - the pretty diagramming part, that is usually done well, covered in design docs and presentations. A good design, though, is so boring, that you can grasp the idea in ten minutes.</p></li>
+<li><p>Core principles - the ideas that influence how the design was produced. This is surprisingly variable between teams, never documented, and lives between an architect’s head and tribe knowledge. It’s also fluent, has many interpretations, and can be hardly expressed in words.</p></li>
+<li><p>Minute decision that are seldomly discussed but spread all over the code. This is the biggest chunk of the context, the meat and cause of all the quirks and optimizations.</p></li>
+</ol>
+<p>Of all three, only the first one is available to people outside of the code owners. The other two take so much effort to maintain, that only the owners have the capacity to hold.</p>
+<hr class="docutils" />
 <p><code class="docutils literal notranslate"><span class="pre">Jun</span> <span class="pre">17,</span> <span class="pre">2025</span></code> - Today I learned about <a class="reference external" href="https://www.openculture.com/freeonlinecourses">1,700 Free Online Courses from Top Universities from Open Culture</a>. I’m going to explore what’s available in the next few days.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Jun</span> <span class="pre">10,</span> <span class="pre">2025</span></code> - Reading <a class="reference external" href="https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf">OpenAI’s practical guide to building agents</a> got me thinking, that they position Agentic software not as an evolution of existing software. But as enabling new kind of software. The one that didn’t exist and wasn’t possible before. The one, that users have no intuition about, and no way to discover.
 Which reminded me of the time we were rolling out new features for a corporate chatbot to customers and really struggled to find creative ways of educating users that the bot has new capabilities.
