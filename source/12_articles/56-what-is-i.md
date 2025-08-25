@@ -2,21 +2,22 @@
 
 ## Preface
 
-These are my thoughts on the lecture "Myth of Myself" by Alan Watts.
+These are my thoughts on the lecture
+"[![Myth of Myself](https://img.youtube.com/vi/C48hI9Qb2q4/default.jpg)](https://youtu.be/C48hI9Qb2q4)"
+by Alan Watts.
 
-https://www.youtube.com/watch?v=C48hI9Qb2q4
 
 I'm a big fan of Alan Watts and find his lectures fascinating.
 What I like most is how he segues from one topic to another, continuously flowing his thoughts.
 
 ## My take
 
-I want to combine the philosophy of soul and "I" with software engineering.
+I want to combine the philosophy of the soul and "I" with software engineering.
 In particular, with Entity and Value, as they are introduced in Domain-Driven Development.
 
 > Entities underscore the essence of identity, and value objects encapsulate immutability and lack of a distinct identity.
 
-For example, nails in a box are represented by their amount.
+For example, nails in a box are represented by their number.
 They have attributes such as length and the mark of steel, but these attributes are immutable (for the sake of software modeling).
 Entities, on the other hand, are unique.
 For example, users of a web service.
@@ -31,19 +32,19 @@ The primary key is internal to the system and never exposed outside.
 Users can change their email, username, password, phone number, or any external attribute.
 But their identity won't be affected; it is still their account, even if nothing is the same as a day ago.
 
-Now, let's leap to philosophy.
-Let's say that we (people) are the users, and "I" is this internal primary key that defines our identity but is never exposed to us.
+Now, let's leap into philosophy.
+Let's say that we (people) are the users, and "I" is this internal primary key that defines our identity, but is never exposed to us.
 We can change our attributes, but our identity remains the same.
 We can change our views and moods, constantly altering our memories and gaining new knowledge while forgetting things we don't need.
 My point is that this is getting pretty close to the common perception of "I" or soul.
-"I," which has desires and needs, has body and mind but is not the same as any of them.
+"I," which has desires and needs, has a body and a mind, but is not the same as any of them.
 
 I can replace a body part, such as an arm or heart, but I will still be myself.
 Where it gets confusing is the brain, of course.
 If someone else replaces my brain, I won't feel like myself.
 At the same time, if my brain is transplanted into another body, "I" will move to that body, too.
 
-So, "I" is anchored inside of the brain.
+So, "I" is anchored inside the brain.
 This means that its essence lies in how the synapses are interconnected.
 What if we have surgery and sever part of the connections?
 If the injury is not severe, it won't affect my perception of myself.
