@@ -2,10 +2,9 @@
 
 ## Preface
 
-These are my thoughts on the lecture
-"[![Myth of Myself](https://img.youtube.com/vi/C48hI9Qb2q4/default.jpg)](https://youtu.be/C48hI9Qb2q4)"
-by Alan Watts.
+These are my thoughts on the lecture "[Myth of Myself](https://youtu.be/C48hI9Qb2q4)" by Alan Watts.
 
+[![Myth of Myself](https://img.youtube.com/vi/C48hI9Qb2q4/default.jpg)](https://youtu.be/C48hI9Qb2q4)
 
 I'm a big fan of Alan Watts and find his lectures fascinating.
 What I like most is how he segues from one topic to another, continuously flowing his thoughts.
