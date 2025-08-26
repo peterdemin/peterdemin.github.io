@@ -1,5 +1,5 @@
-👋 Hi, I'm Peter
-================
+👋 Hi, I'm Sahana
+=================
 
 I live in the US and work as a Senior Software Engineer. 
 Previously, I lived in Russia and Belarus, working for Yandex and EPAM in the same position.
