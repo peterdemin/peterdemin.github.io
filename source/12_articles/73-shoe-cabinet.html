@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Shoe Cabinet Designer</title>
+  <style>
+    /* --- BASIC LAYOUT --- */
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:system-ui,sans-serif}
+    body{display:grid;grid-template-rows:auto 1fr auto}
+    header{padding:.75rem 1rem;background:#f6f6f6;box-shadow:0 2px 4px rgba(0,0,0,.08)}
+    form{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.75rem;max-width:960px;margin:0 auto}
+    label{display:flex;flex-direction:column;font-size:.875rem}
+    input[type=number]{padding:.35rem .5rem;border:1px solid #ccc;border-radius:6px;font-size:1rem}
+    main{position:relative}
+    #canvas-container{width:100%;height:100%}
+    #partsList{padding:1rem;background:#fafafa;border-top:1px solid #eee;font-family:monospace;white-space:pre-wrap}
+  </style>
+</head>
+<body>
+  <header>
+    <form id="controlForm">
+      <label>Max Shoe Width (in)<input type="number" id="shoeWidth" value="4.5" step="0.1" min="3"></label>
+      <label>Shoe Length (in)<input type="number" id="shoeLength" value="11" step="0.1" min="5"></label>
+      <label>Cabinet Width (in)<input type="number" id="cabinetWidth" value="28.5" step="0.1" min="10"></label>
+      <label>Cabinet Height (in)<input type="number" id="cabinetHeight" value="23" step="0.1" min="10"></label>
+      <label>Cabinet Depth (in)<input type="number" id="cabinetDepth" value="7" step="0.1" min="4"></label>
+    </form>
+  </header>
+
+  <main>
+    <div id="canvas-container"></div>
+  </main>
+
+  <pre id="partsList"></pre>
+
+  <!-- THREE.js (global build) -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+  <!-- OrbitControls that attaches to global THREE -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/controls/OrbitControls.js"></script>
+
+  <script>
+    /********************
+     * CONFIG CONSTANTS *
+     ********************/
+    const SIDE_THICKNESS  = 0.75; // inches
+    const SHELF_THICKNESS = 0.5;  // inches
+    const MIN_ANGLE       = 45;   // degrees
+    const MAX_ANGLE       = 60;   // degrees
+    const DEFAULT_SHELVES = 3;    // shelves rendered by default
+
+    /*****************
+     * DOM ELEMENTS  *
+     *****************/
+    const container   = document.getElementById('canvas-container');
+    const partsOutput = document.getElementById('partsList');
+    const form        = document.getElementById('controlForm');
+
+    /*****************
+     * THREE.JS SETUP*
+     *****************/
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xf5f5f5);
+
+    const camera = new THREE.PerspectiveCamera(
+      45,
+      container.clientWidth / container.clientHeight,
+      0.1,
+      1000
+    );
+    camera.position.set(40, 30, 40);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    container.appendChild(renderer.domElement);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+
+    // Lights
+    scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.6);
+    dirLight.position.set(50, 50, 25);
+    scene.add(dirLight);
+
+    /*****************
+     * GLOBAL STATE  *
+     *****************/
+    let cabinetGroup = null; // reference to current cabinet for cleanup
+
+    /*****************
+     * UTILITIES     *
+     *****************/
+    function disposeGroup(group){
+      group.traverse(obj=>{
+        if(obj.geometry) obj.geometry.dispose();
+        if(obj.material){Array.isArray(obj.material)?obj.material.forEach(m=>m.dispose()):obj.material.dispose();}
+      });
+    }
+
+    function createTextSprite(text){
+      const canvas=document.createElement('canvas');
+      canvas.width=1024;canvas.height=256;
+      const ctx=canvas.getContext('2d');
+      ctx.font='100px system-ui';ctx.fillStyle='#000';ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText(text,canvas.width/2,canvas.height/2);
+      const texture=new THREE.CanvasTexture(canvas);
+      const mat=new THREE.SpriteMaterial({map:texture,transparent:true});
+      const sprite=new THREE.Sprite(mat);
+      sprite.scale.set(8,2,1);
+      return sprite;
+    }
+
+    /*****************
+     * BUILD CABINET *
+     *****************/
+    function buildCabinet(){
+      // read inputs
+      const shoeLen   = +document.getElementById('shoeLength').value;
+      const cabW      = +document.getElementById('cabinetWidth').value;
+      const cabH      = +document.getElementById('cabinetHeight').value;
+      const cabD      = +document.getElementById('cabinetDepth').value;
+
+      if(cabinetGroup){
+        scene.remove(cabinetGroup);
+        disposeGroup(cabinetGroup);
+      }
+      cabinetGroup=new THREE.Group();
+
+      // shelf angle (toe‑down to front)
+      let angleDeg=Math.atan(shoeLen/cabD)*180/Math.PI;
+      angleDeg=Math.min(Math.max(angleDeg,MIN_ANGLE),MAX_ANGLE);
+      const angleRad=THREE.MathUtils.degToRad(angleDeg);
+
+      const interiorW = cabW - 2*SIDE_THICKNESS;
+
+      const sideMat = new THREE.MeshStandardMaterial({color:0xb6846b});
+      const shelfMat= new THREE.MeshStandardMaterial({color:0xd5b79f});
+
+      // sides
+      const sideGeom=new THREE.BoxGeometry(SIDE_THICKNESS,cabH,cabD);
+      const leftSide=new THREE.Mesh(sideGeom,sideMat);
+      const rightSide=new THREE.Mesh(sideGeom,sideMat);
+      leftSide.position.set(-interiorW/2-SIDE_THICKNESS/2,cabH/2,0);
+      rightSide.position.set(interiorW/2+SIDE_THICKNESS/2,cabH/2,0);
+      cabinetGroup.add(leftSide,rightSide);
+
+      // shelves
+      const shelfGeom=new THREE.BoxGeometry(interiorW,SHELF_THICKNESS,cabD);
+      const spacing=cabH/(DEFAULT_SHELVES+1);
+      for(let i=1;i<=DEFAULT_SHELVES;i++){
+        const shelf=new THREE.Mesh(shelfGeom,shelfMat);
+        shelf.position.set(0,-SHELF_THICKNESS/2,0);
+        shelf.rotation.x=-angleRad; // front lower
+        const pivot=new THREE.Group();
+        pivot.position.set(0,i*spacing,0);
+        pivot.add(shelf);
+        cabinetGroup.add(pivot);
+
+        const label=createTextSprite(angleDeg.toFixed(1)+'°');
+        label.position.set(0,i*spacing+1,cabD/2+2);
+        cabinetGroup.add(label);
+      }
+
+      scene.add(cabinetGroup);
+
+      // parts list
+      partsOutput.textContent=[
+        'PARTS LIST',
+        '-----------',
+        `Side Walls: 2 × ${SIDE_THICKNESS}" T × ${cabH}" H × ${cabD}" D`,
+        `Shelves:    ${DEFAULT_SHELVES} × ${SHELF_THICKNESS}" T × ${interiorW.toFixed(2)}" W × ${cabD}" D @ ${angleDeg.toFixed(1)}°`
+      ].join('\n');
+    }
+
+    // initial build & listeners
+    buildCabinet();
+    form.addEventListener('input',buildCabinet);
+
+    window.addEventListener('resize',()=>{
+      camera.aspect=container.clientWidth/container.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth,container.clientHeight);
+    });
+
+    (function animate(){
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene,camera);
+    })();
+  </script>
+</body>
+</html>
+
