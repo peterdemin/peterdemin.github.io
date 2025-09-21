@@ -99,8 +99,12 @@ sync:
 
 ## API
 
+.PHONY: bus-linux
+bus-linux:
+	cd bus && GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags="-s -w" -o bus
+
 .PHONY: bus
-bus:
+bus: bus-linux
 	scp -r bus $(APIHOST):
 	ssh $(APIHOST) 'sudo ./bus/deploy.sh'
 

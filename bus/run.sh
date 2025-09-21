@@ -1,4 +1,3 @@
 #!/bin/sh
 
-. .venv/bin/activate
-.venv/bin/uvicorn bus:app --uds /tmp/bus.sock
+exec ./bus -unix /tmp/bus.sock -socket-mode 666

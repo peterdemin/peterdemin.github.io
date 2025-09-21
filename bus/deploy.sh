@@ -12,10 +12,6 @@ fi
 mv bus ~bus/
 chown -R bus:bus "${TARGET_DIR}"
 
-pushd "${TARGET_DIR}"
-sudo -u bus "./install.sh"
-popd
-
 systemctl daemon-reload
 systemctl restart bus.service
 systemctl status bus.service
