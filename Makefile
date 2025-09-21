@@ -99,8 +99,12 @@ sync:
 
 ## API
 
+.PHONY: bus-test
+bus-test:
+	cd bus && go test .
+
 .PHONY: bus-linux
-bus-linux:
+bus-linux: bus-test
 	cd bus && GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags="-s -w" -o bus
 
 .PHONY: bus
