@@ -6,6 +6,7 @@ SOURCEDIR   = source
 BUILDDIR    = build
 GALLERIES = $(wildcard source/18_photos/*/gallery.json)
 PHOTOS_SUBDIRS := $(patsubst %/,%,$(dir $(GALLERIES)))
+APIHOST = demin-dev-2.tail13c89.ts.net
 
 .DEFAULT_GOAL := help
 
@@ -96,7 +97,15 @@ upgrade:
 sync:
 	pip-sync requirements_dev.txt
 
+## API
+
+.PHONY: bus
+bus:
+	scp -r bus $(APIHOST):
+	ssh $(APIHOST) 'sudo ./bus/deploy.sh'
+
 ## COUNTER
+
 .PHONY: counter_clean
 counter_clean:
 	$(MAKE) -C backgammon clean
@@ -119,6 +128,8 @@ race_build:
 	mkdir -p build/html/race
 	cp race/* build/html/race
 
+## PHOTOS
+
 .PHONY: photos_build
 photos_build: $(PHOTOS_SUBDIRS)
 
@@ -130,10 +141,11 @@ $(PHOTOS_SUBDIRS):
 tree:
 	cp -f source/12_articles/61-tree.html build/html/12_articles/61-tree.html
 
+## WORDMIX
+
 .PHONY: wordmix
 wordmix:
 	cp -f source/14_ideas/08-word-mix-so.html build/html/14_ideas/08-word-mix-so.html
-
 
 ## ENTERING
 .PHONY: life
