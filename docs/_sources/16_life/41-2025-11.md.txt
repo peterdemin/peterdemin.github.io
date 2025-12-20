@@ -1,3 +1,5 @@
+`Dec 20, 2025` - TIL about automatic Postgres configuration from https://github.com/piercefreeman/autopg/tree/main/autopgpool
+
 `Nov 23, 2025` - [this comment](https://news.ycombinator.com/item?id=46025285) left me bitter and confused:
 
 > Well it took me 2 full-time weeks to properly implement a RAG-based system so that it found actually relevant data and did not hallucinate. Had to:
