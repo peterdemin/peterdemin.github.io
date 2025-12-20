@@ -1,4 +1,5 @@
-`Dec 20, 2025` - TIL about automatic Postgres configuration from https://github.com/piercefreeman/autopg/tree/main/autopgpool
+`Dec 20, 2025` - TIL about automatic Postgres configuration from https://github.com/piercefreeman/autopg/tree/main/autopgpool. 
+And this: https://servury.com/blog/privacy-is-marketing-anonymity-is-architecture/ - anonymity vs privacy. 
 
 `Nov 23, 2025` - [this comment](https://news.ycombinator.com/item?id=46025285) left me bitter and confused:
 
