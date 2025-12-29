@@ -230,7 +230,25 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <p><code class="docutils literal notranslate"><span class="pre">Dec</span> <span class="pre">27,</span> <span class="pre">2025</span></code> - Inspired by <a class="reference external" href="https://clan.lol/">Clan</a> and other Nix stories, I attempted to migrate my silly Vagrant+VirtualBox home setup to Terraform+KVM. I’m not very familiar with either, so I thought that’s gonna be a fun learning experience. In a way, it was, but I learned not what I was hoping to.
+  <p><code class="docutils literal notranslate"><span class="pre">Dec</span> <span class="pre">29,</span> <span class="pre">2025</span></code> - I’m continuing my exodus from greedy Google infrastructure for my personal files.
+So far, I’ve got a nice 4 TB SSD drive and repurposed an old 4 TB HDD to set up Immich with a backup through Syncthing.
+I also set up another Syncthing folder to backup Google Drive from my laptop (which runs Google Drive client to download all files).
+It’s fine so far, except that few random photos got their creation date in a far-far future, so they show up at the top.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Dec</span> <span class="pre">29,</span> <span class="pre">2025</span></code> - On the third day of Christmas I managed to migrate from Virtualbox to libvirt.
+I learned about <a class="reference external" href="https://wiki.archlinux.org/title/Libvirt#Configure_filesystem_passthrough">virtiofs</a> - a way to share directories with libvirt VMs, similar to shared folders of VirtualBox, but with manual mounting on the guest side.
+I tried <a class="reference external" href="https://cockpit-project.org/">Cockpit</a> and Cockpit-machines, which is a WebUI to libvirt, but it didn’t provide enough functionality (which I thought is extremely basic).
+I learned some obscure factoids about <a class="reference external" href="https://docs.cloud-init.io/en/latest/index.html">cloud-init</a>, but still very confused. It’s such a weird combination of convenience and complexity.
+I landed on <a class="reference external" href="https://vagrant-libvirt.github.io/vagrant-libvirt/">vagrant-libvirt</a> provider, and made just a few changes to my Vagrantfile to adjust.</p>
+<p>I wish I could remove Vagrant from my setup, but that would mean reimplementing the following steps, that I’m not too keen on:</p>
+<ol class="arabic simple">
+<li><p>SSH key provisioning.</p></li>
+<li><p>Network configuration with static IP address for the guest and port forwarding.</p></li>
+<li><p>Mounting the virtiofs mounts.</p></li>
+</ol>
+<p>After all this good work, I looked at my GitHub repo with a lonely 1 star, and “unpublished” it.
+It’s a fun thing to hack around, but a hard thing to share with other people.
+So far, I learned that most people are pretty secretive about their home media library setup, and not interested in cooperating or consolidating.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Dec</span> <span class="pre">27,</span> <span class="pre">2025</span></code> - Inspired by <a class="reference external" href="https://clan.lol/">Clan</a> and other Nix stories, I attempted to migrate my silly Vagrant+VirtualBox home setup to Terraform+KVM. I’m not very familiar with either, so I thought that’s gonna be a fun learning experience. In a way, it was, but I learned not what I was hoping to.
 I started at Medium’s article <a class="reference external" href="https://medium.com/&#64;mohrezfadaei/vagrant-and-virtualbox-are-no-longer-enough-why-kvm-and-terraform-are-the-future-of-devops-24f978c9ca2c">Vagrant and VirtualBox Are No Longer Enough: Why KVM and Terraform Are the Future of DevOps</a>. AI-generated illustration was the first sign, but I ignored it. Looking at the article now, it’s obvious to me now, that it’s an AI slop through and through. Fuck you, <a class="reference external" href="https://medium.com/&#64;mohrezfadaei">Mohammad Reza Fadaei</a>, you lazy piece of shit.</p>
 <p>The first challenge came from Terraform provider for libvirtd being not an “official” Hashicorp thing, but a “learning platform” for a random stranger (No offense, <a class="reference external" href="https://www.mac-vicar.eu/">Duncan Mac-Vicar P.</a>, thanks for doing what you’re doing).</p>
 <p>The second challenge was that the Duncan’s provider got a major rewrite and all Terraform recipes from the tutorial had to be migrated.</p>
