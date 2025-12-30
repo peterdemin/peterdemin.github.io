@@ -1,5 +1,18 @@
 <?xml version='1.0' encoding='utf-8'?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2025-12-29T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Dec 29, 2025</id><title>Journal</title><published>2025-12-29T00:00:00Z</published><updated>2025-12-29T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 29, 2025"/><content type="html"><![CDATA[<p>I'm continuing my exodus from greedy Google infrastructure for my personal files.
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2025-12-30T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Dec 30, 2025</id><title>Journal</title><published>2025-12-30T00:00:00Z</published><updated>2025-12-30T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 30, 2025"/><content type="html"><![CDATA[<p>I got bored enough to add an <a href="/life.xml">RSS feed</a> to this journal.
+Having a custom plain-text format for these records, I had to add a custom Atom generator.
+Overall it was a smooth sailing, with two gotchas:</p>
+<ol>
+<li>CommaFeed (at least) doesn't like escaped HTML inside content fields, even if <code>type=&quot;html&quot;</code>.
+So I had to switch to CDATA encoding.</li>
+<li>Python's builtin <code>xml.etree</code> library doesn't support CDATA (<a href="https://github.com/python/cpython/issues/81055">CPython#81055</a> hanging from 2019).</li>
+<li>So I switched to lxml that does.
+Turns out lxml.etree is slightly incompatible in managing namespaces.
+It took a bit of googling to find out, that instead of <code>ET.register_namespace('', 'http://www.w3.org/2005/Atom')</code>,
+I should do <code>ET.Element(..., nsmap={None: 'http://www.w3.org/2005/Atom'})</code>.
+So, business as usual.</li>
+</ol>
+]]></content></entry><entry><id>Dec 29, 2025</id><title>Journal</title><published>2025-12-29T00:00:00Z</published><updated>2025-12-29T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 29, 2025"/><content type="html"><![CDATA[<p>I'm continuing my exodus from greedy Google infrastructure for my personal files.
 So far, I've got a nice 4 TB SSD drive and repurposed an old 4 TB HDD to set up Immich with a backup through Syncthing.
 I also set up another Syncthing folder to backup Google Drive from my laptop (which runs Google Drive client to download all files).
 It's fine so far, except that few random photos got their creation date in a far-far future, so they show up at the top.</p>
@@ -492,10 +505,4 @@ While he's moving the limbs, the mud stays liquid.
 When he stops moving, the surface of mud dries out and becomes hard and sharp crust.
 The crust traps the man an making any movement is now takes significant effort and hurts.
 Without movement it's comfortable, though.</p>
-]]></content></entry><entry><id>Jun 26, 2024</id><title>Journal</title><published>2024-06-26T00:00:00Z</published><updated>2024-06-26T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jun 26, 2024"/><content type="html"><![CDATA[<p>When you look at life back, you can tell the defining traits of your personality and the key decisions you made a long time back.
-Sometimes they do feel like a big deal, and you know it's important right away.
-Sometimes it's just minutae that doesn't seem of any significance in short term.
-And sometimes we obsess a lot about something that we can't even remember five years down the road.
-But never have I made a critical decision thinking how would I feel about it when I'm fifty.
-Something about how the dots get connected once you look back.</p>
 ]]></content></entry></feed>
