@@ -6,7 +6,6 @@ import os
 import re
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass
-from html import escape
 from typing import Iterable, Optional
 
 from markdown_it import MarkdownIt
@@ -177,8 +176,8 @@ def build_atom_feed(
         ET.SubElement(entry, q("title")).text = title
         ET.SubElement(entry, q("updated")).text = it.atom_date
         ET.SubElement(entry, q("link"), {"href": site_url + it.url})
-        ET.SubElement(entry, q("content"), {"type": "html"}).text = escape(
-            md.render(it.record.text)
+        ET.SubElement(entry, q("content"), {"type": "html"}).text = md.render(
+            it.record.text
         )
 
     xml_bytes = ET.tostring(feed, encoding="utf-8", xml_declaration=True)
