@@ -4,16 +4,17 @@ import datetime
 import glob
 import os
 import re
-import xml.etree.ElementTree as ET
 from dataclasses import dataclass
 from typing import Iterable, Optional
 
+from lxml import etree as ET
 from markdown_it import MarkdownIt
 
 SOURCE_DIR = "source"
 LIFE_DIR = os.path.join(SOURCE_DIR, "16_life")
 RE_LIFE_DATE = re.compile(r"^`([A-Z][a-z]{2} \d{2}, \d{4})`")
 LIFE_DATE_FMT = "%b %d, %Y"
+ATOM_NS = "http://www.w3.org/2005/Atom"
 
 
 @dataclass(frozen=True)
@@ -136,7 +137,6 @@ def maybe_parse_date(text: str) -> Optional[datetime.datetime]:
 def build_atom_feed(
     *,
     items: list[FeedItem],
-    feed_id: str,
     title: str,
     feed_url: str,
     site_url: str,
@@ -144,10 +144,9 @@ def build_atom_feed(
     max_items: int,
 ) -> str:
     """Generate Atom Feed XML"""
-    ns = "http://www.w3.org/2005/Atom"
 
     def q(x):
-        return str(ET.QName(ns, x))
+        return str(ET.QName(ATOM_NS, x))
 
     def add_top_level_element(
         name: str, text: str = "", attrib: dict | None = None
@@ -157,27 +156,25 @@ def build_atom_feed(
             el.text = text
         return el
 
-    ET.register_namespace("", ns)
-    feed = ET.Element(q("feed"))
-    add_top_level_element("id", feed_id)
+    feed = ET.Element(q("feed"), nsmap={None: ATOM_NS})
+    add_top_level_element("id", feed_url)
     add_top_level_element("title", title)
     add_top_level_element("updated", items[0].atom_date)
     add_top_level_element("link", attrib={"rel": "self", "href": feed_url})
     add_top_level_element("link", attrib={"href": site_url})
-
-    # Author
     author = add_top_level_element("author")
     ET.SubElement(author, q("name")).text = author_name
-    md = MarkdownIt()
 
+    md = MarkdownIt()
     for it in items[:max_items]:
         entry = ET.SubElement(feed, q("entry"))
         ET.SubElement(entry, q("id")).text = it.stable_id
-        ET.SubElement(entry, q("title")).text = title
+        ET.SubElement(entry, q("title")).text = "Journal"
+        ET.SubElement(entry, q("published")).text = it.atom_date
         ET.SubElement(entry, q("updated")).text = it.atom_date
         ET.SubElement(entry, q("link"), {"href": site_url + it.url})
-        ET.SubElement(entry, q("content"), {"type": "html"}).text = md.render(
-            it.record.text
+        ET.SubElement(entry, q("content"), {"type": "html"}).text = ET.CDATA(
+            md.render(it.record.text)
         )
 
     xml_bytes = ET.tostring(feed, encoding="utf-8", xml_declaration=True)
@@ -193,7 +190,6 @@ def main():
                 key=lambda x: x.record.sort_key,
                 reverse=True,
             ),
-            feed_id="Journal",
             title="Peter Demin",
             author_name="Peter Demin",
             feed_url="https://peter.demin.dev/life.xml",
