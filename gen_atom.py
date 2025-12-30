@@ -1,0 +1,208 @@
+"""Parse all life files and generate Atom XML"""
+
+import datetime
+import glob
+import os
+import re
+import xml.etree.ElementTree as ET
+from dataclasses import dataclass
+from html import escape
+from typing import Iterable, Optional
+
+from markdown_it import MarkdownIt
+
+SOURCE_DIR = "source"
+LIFE_DIR = os.path.join(SOURCE_DIR, "16_life")
+RE_LIFE_DATE = re.compile(r"^`([A-Z][a-z]{2} \d{2}, \d{4})`")
+LIFE_DATE_FMT = "%b %d, %Y"
+
+
+@dataclass(frozen=True)
+class AnnotatedLifeLine:
+    """Information about a single line of life file."""
+
+    text: str
+    date: Optional[datetime.datetime]
+    lineno: int = 0
+
+
+@dataclass(frozen=True)
+class MultilineLifeRecord:
+    """Aggregation of one or more lines for a single life record."""
+
+    date: datetime.datetime
+    lines: list[AnnotatedLifeLine]
+
+    @property
+    def text(self) -> str:
+        """Format sanitized record text as a single multiline string."""
+        res: list[str] = []
+        for line in self.lines:
+            text = line.text
+            if line.date is not None:
+                text = text.replace(f"`{self.short_date}`", "").lstrip(" -·")
+            if not text or text == "---":
+                continue
+            res.append(text)
+        return "\n".join(res)
+
+    @property
+    def short_date(self) -> str:
+        """Canonical short date representation for the life records"""
+        return self.date.strftime(LIFE_DATE_FMT)
+
+    @property
+    def sort_key(self) -> tuple[datetime.datetime, int]:
+        """Sort key for life records"""
+        return (self.date, -self.lines[0].lineno)
+
+
+@dataclass(frozen=True)
+class FeedItem:
+    """Atom Feed Item"""
+
+    stable_id: str
+    record: MultilineLifeRecord
+
+    @property
+    def url(self) -> str:
+        """Generate URL suffix to locate this record"""
+        return f"#:~:text={self.record.short_date}"
+
+    @property
+    def atom_date(self) -> str:
+        """Format record date for Atom Feed"""
+        return self.record.date.replace(microsecond=0).isoformat() + "Z"
+
+
+def aggregate_life_records(
+    annotated_lines: Iterable[AnnotatedLifeLine],
+) -> Iterable[MultilineLifeRecord]:
+    """Combine all lines for the same record with date."""
+    cur_date, cur_lines = None, []
+    for line in annotated_lines:
+        if line.date:
+            if cur_date is not None:
+                yield MultilineLifeRecord(date=cur_date, lines=cur_lines)
+            cur_date, cur_lines = line.date, []
+        cur_lines.append(line)
+    if cur_date is not None:
+        yield MultilineLifeRecord(date=cur_date, lines=cur_lines)
+
+
+def wrap_feed_items(records: Iterable[MultilineLifeRecord]) -> Iterable[FeedItem]:
+    """Wrap life records in FeedItems with stable IDs"""
+    cur_date: datetime.datetime | None = None
+    day_count = 0
+    for record in records:
+        if record.date == cur_date:
+            day_count += 1
+        else:
+            day_count = 0
+        suffix = f"_{day_count}" if day_count else ""
+        yield FeedItem(stable_id=f"{record.short_date}{suffix}", record=record)
+        cur_date = record.date
+
+
+def iter_life_lines() -> Iterable[AnnotatedLifeLine]:
+    """Compose life records linking to notes created by date."""
+    for file_name in iter_life_files():
+        yield from parse_life_file(file_name)
+
+
+def iter_life_files() -> list[str]:
+    """Find all 16_life/NN-YYYY-MM.md files."""
+    return sorted(glob.glob(os.path.join(LIFE_DIR, "??-????-??.md")))
+
+
+def parse_life_file(file_path: str) -> Iterable[AnnotatedLifeLine]:
+    """Parses life file at a given path and returns a list of annotated lines."""
+    with open(file_path, "rt", encoding="utf-8") as fobj:
+        for idx, line in enumerate(fobj):
+            text = line.rstrip()
+            yield AnnotatedLifeLine(
+                lineno=idx,
+                text=text,
+                date=maybe_parse_date(line),
+            )
+
+
+def maybe_parse_date(text: str) -> Optional[datetime.datetime]:
+    """Tries to parse date from the life record text."""
+    if mobj := RE_LIFE_DATE.match(text):
+        return datetime.datetime.strptime(mobj.group(1), LIFE_DATE_FMT)
+    return None
+
+
+def build_atom_feed(
+    *,
+    items: list[FeedItem],
+    feed_id: str,
+    title: str,
+    feed_url: str,
+    site_url: str,
+    author_name: str,
+    max_items: int,
+) -> str:
+    """Generate Atom Feed XML"""
+    ns = "http://www.w3.org/2005/Atom"
+
+    def q(x):
+        return str(ET.QName(ns, x))
+
+    def add_top_level_element(
+        name: str, text: str = "", attrib: dict | None = None
+    ) -> ET.Element:
+        el = ET.SubElement(feed, q(name), attrib=attrib or {})
+        if text:
+            el.text = text
+        return el
+
+    ET.register_namespace("", ns)
+    feed = ET.Element(q("feed"))
+    add_top_level_element("id", feed_id)
+    add_top_level_element("title", title)
+    add_top_level_element("updated", items[0].atom_date)
+    add_top_level_element("link", attrib={"rel": "self", "href": feed_url})
+    add_top_level_element("link", attrib={"href": site_url})
+
+    # Author
+    author = add_top_level_element("author")
+    ET.SubElement(author, q("name")).text = author_name
+    md = MarkdownIt()
+
+    for it in items[:max_items]:
+        entry = ET.SubElement(feed, q("entry"))
+        ET.SubElement(entry, q("id")).text = it.stable_id
+        ET.SubElement(entry, q("title")).text = title
+        ET.SubElement(entry, q("updated")).text = it.atom_date
+        ET.SubElement(entry, q("link"), {"href": site_url + it.url})
+        ET.SubElement(entry, q("content"), {"type": "html"}).text = escape(
+            md.render(it.record.text)
+        )
+
+    xml_bytes = ET.tostring(feed, encoding="utf-8", xml_declaration=True)
+    return xml_bytes.decode("utf-8")
+
+
+def main():
+    """Updates 16_life files with links to 12_articles and 17_notes files."""
+    print(
+        build_atom_feed(
+            items=sorted(
+                wrap_feed_items(aggregate_life_records(iter_life_lines())),
+                key=lambda x: x.record.sort_key,
+                reverse=True,
+            ),
+            feed_id="Journal",
+            title="Peter Demin",
+            author_name="Peter Demin",
+            feed_url="https://peter.demin.dev/life.xml",
+            site_url="https://peter.demin.dev/life.html",
+            max_items=100,
+        )
+    )
+
+
+if __name__ == "__main__":
+    main()

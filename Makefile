@@ -22,8 +22,12 @@ clean: counter_clean
 autogen:
 	python3 gen_life.py > source/life_gd.rst
 
+.PHONY: rss
+rss:
+	python3 gen_atom.py > build/html/life.xml
+
 .PHONY: build
-build: autogen html counter_build race_build photos_build tree wordmix
+build: autogen html rss counter_build race_build photos_build tree wordmix
 
 .PHONY: lightweight
 lightweight: autogen html tree wordmix
