@@ -1,70 +1,70 @@
 <?xml version='1.0' encoding='utf-8'?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>Journal</id><title>Peter Demin</title><updated>2025-12-29T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml" /><link href="https://peter.demin.dev/life.html" /><author><name>Peter Demin</name></author><entry><id>Dec 29, 2025</id><title>Peter Demin</title><updated>2025-12-29T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 29, 2025" /><content type="html">&amp;lt;p&amp;gt;I&amp;#x27;m continuing my exodus from greedy Google infrastructure for my personal files.
-So far, I&amp;#x27;ve got a nice 4 TB SSD drive and repurposed an old 4 TB HDD to set up Immich with a backup through Syncthing.
+<feed xmlns="http://www.w3.org/2005/Atom"><id>Journal</id><title>Peter Demin</title><updated>2025-12-29T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml" /><link href="https://peter.demin.dev/life.html" /><author><name>Peter Demin</name></author><entry><id>Dec 29, 2025</id><title>Peter Demin</title><updated>2025-12-29T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 29, 2025" /><content type="html">&lt;p&gt;I'm continuing my exodus from greedy Google infrastructure for my personal files.
+So far, I've got a nice 4 TB SSD drive and repurposed an old 4 TB HDD to set up Immich with a backup through Syncthing.
 I also set up another Syncthing folder to backup Google Drive from my laptop (which runs Google Drive client to download all files).
-It&amp;#x27;s fine so far, except that few random photos got their creation date in a far-far future, so they show up at the top.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Dec 29, 2025_1</id><title>Peter Demin</title><updated>2025-12-29T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 29, 2025" /><content type="html">&amp;lt;p&amp;gt;On the third day of Christmas I managed to migrate from Virtualbox to libvirt.
-I learned about &amp;lt;a href=&amp;quot;https://wiki.archlinux.org/title/Libvirt#Configure_filesystem_passthrough&amp;quot;&amp;gt;virtiofs&amp;lt;/a&amp;gt; - a way to share directories with libvirt VMs, similar to shared folders of VirtualBox, but with manual mounting on the guest side.
-I tried &amp;lt;a href=&amp;quot;https://cockpit-project.org/&amp;quot;&amp;gt;Cockpit&amp;lt;/a&amp;gt; and Cockpit-machines, which is a WebUI to libvirt, but it didn&amp;#x27;t provide enough functionality (which I thought is extremely basic).
-I learned some obscure factoids about &amp;lt;a href=&amp;quot;https://docs.cloud-init.io/en/latest/index.html&amp;quot;&amp;gt;cloud-init&amp;lt;/a&amp;gt;, but still very confused. It&amp;#x27;s such a weird combination of convenience and complexity.
-I landed on &amp;lt;a href=&amp;quot;https://vagrant-libvirt.github.io/vagrant-libvirt/&amp;quot;&amp;gt;vagrant-libvirt&amp;lt;/a&amp;gt; provider, and made just a few changes to my Vagrantfile to adjust.
-I wish I could remove Vagrant from my setup, but that would mean reimplementing the following steps, that I&amp;#x27;m not too keen on:&amp;lt;/p&amp;gt;
-&amp;lt;ol&amp;gt;
-&amp;lt;li&amp;gt;SSH key provisioning.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Network configuration with static IP address for the guest and port forwarding.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Mounting the virtiofs mounts.
-After all this good work, I looked at my GitHub repo with a lonely 1 star, and &amp;amp;quot;unpublished&amp;amp;quot; it.
-It&amp;#x27;s a fun thing to hack around, but a hard thing to share with other people.
-So far, I learned that most people are pretty secretive about their home media library setup, and not interested in cooperating or consolidating.&amp;lt;/li&amp;gt;
-&amp;lt;/ol&amp;gt;
-</content></entry><entry><id>Dec 27, 2025</id><title>Peter Demin</title><updated>2025-12-27T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 27, 2025" /><content type="html">&amp;lt;p&amp;gt;Inspired by &amp;lt;a href=&amp;quot;https://clan.lol/&amp;quot;&amp;gt;Clan&amp;lt;/a&amp;gt; and other Nix stories, I attempted to migrate my silly Vagrant+VirtualBox home setup to Terraform+KVM. I&amp;#x27;m not very familiar with either, so I thought that&amp;#x27;s gonna be a fun learning experience. In a way, it was, but I learned not what I was hoping to.
-I started at Medium&amp;#x27;s article &amp;lt;a href=&amp;quot;https://medium.com/@mohrezfadaei/vagrant-and-virtualbox-are-no-longer-enough-why-kvm-and-terraform-are-the-future-of-devops-24f978c9ca2c&amp;quot;&amp;gt;Vagrant and VirtualBox Are No Longer Enough: Why KVM and Terraform Are the Future of DevOps&amp;lt;/a&amp;gt;. AI-generated illustration was the first sign, but I ignored it. Looking at the article now, it&amp;#x27;s obvious to me now, that it&amp;#x27;s an AI slop through and through. Fuck you, &amp;lt;a href=&amp;quot;https://medium.com/@mohrezfadaei&amp;quot;&amp;gt;Mohammad Reza Fadaei&amp;lt;/a&amp;gt;, you lazy piece of shit.
-The first challenge came from Terraform provider for libvirtd being not an &amp;amp;quot;official&amp;amp;quot; Hashicorp thing, but a &amp;amp;quot;learning platform&amp;amp;quot; for a random stranger (No offense, &amp;lt;a href=&amp;quot;https://www.mac-vicar.eu/&amp;quot;&amp;gt;Duncan Mac-Vicar P.&amp;lt;/a&amp;gt;, thanks for doing what you&amp;#x27;re doing).
-The second challenge was that the Duncan&amp;#x27;s provider got a major rewrite and all Terraform recipes from the tutorial had to be migrated.
-The third challenge was that Ubuntu 22.04 has some weird issue in libvirt apparmor configuraion. Apparently, a VM doesn&amp;#x27;t get permissions to any of the volumes created specifically for it. There should be a script that generates a list of volume paths somewhere, but who knows what happened to it.
-After 3 hours of battling every part of the &amp;amp;quot;Future of DevOps&amp;amp;quot;, my ChatGPT browser tab started to run out of memory, and I gave up.
-Looking back, I love how simple my Vagrant setup is, and I want to extend my gratitude to &amp;lt;a href=&amp;quot;https://mitchellh.com/&amp;quot;&amp;gt;Mitchell Hashimoto&amp;lt;/a&amp;gt; for building it.
-I still want to make my silly home VM work without dependency on any external dependencies (except stable Ubuntu/Debian repo), so if I get more time for this project, I&amp;#x27;ll try vibing raw libvirt config.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Dec 23, 2025</id><title>Peter Demin</title><updated>2025-12-23T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 23, 2025" /><content type="html">&amp;lt;p&amp;gt;sailing the sea: https://news.ycombinator.com/item?id=46363366&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Dec 21, 2025</id><title>Peter Demin</title><updated>2025-12-21T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 21, 2025" /><content type="html">&amp;lt;p&amp;gt;While reading &amp;amp;quot;Material World&amp;amp;quot; by Ed Conway, I many times thought about Oxygen Not Included, which is a cartoonistic survival game about a settlement deep underground. Being deep means they don&amp;#x27;t get free solar and wind power, no access to virtually unlimited fresh water, and, as the title suggests, no oxygen. Such hermetic setup forces player into constant mining of resources (they made up oxylite, a stone that produces oxygen). As population grows, you need more and more resources, that progressively become hard to get. Fun game, totally recommend.
+It's fine so far, except that few random photos got their creation date in a far-far future, so they show up at the top.&lt;/p&gt;
+</content></entry><entry><id>Dec 29, 2025_1</id><title>Peter Demin</title><updated>2025-12-29T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 29, 2025" /><content type="html">&lt;p&gt;On the third day of Christmas I managed to migrate from Virtualbox to libvirt.
+I learned about &lt;a href="https://wiki.archlinux.org/title/Libvirt#Configure_filesystem_passthrough"&gt;virtiofs&lt;/a&gt; - a way to share directories with libvirt VMs, similar to shared folders of VirtualBox, but with manual mounting on the guest side.
+I tried &lt;a href="https://cockpit-project.org/"&gt;Cockpit&lt;/a&gt; and Cockpit-machines, which is a WebUI to libvirt, but it didn't provide enough functionality (which I thought is extremely basic).
+I learned some obscure factoids about &lt;a href="https://docs.cloud-init.io/en/latest/index.html"&gt;cloud-init&lt;/a&gt;, but still very confused. It's such a weird combination of convenience and complexity.
+I landed on &lt;a href="https://vagrant-libvirt.github.io/vagrant-libvirt/"&gt;vagrant-libvirt&lt;/a&gt; provider, and made just a few changes to my Vagrantfile to adjust.
+I wish I could remove Vagrant from my setup, but that would mean reimplementing the following steps, that I'm not too keen on:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;SSH key provisioning.&lt;/li&gt;
+&lt;li&gt;Network configuration with static IP address for the guest and port forwarding.&lt;/li&gt;
+&lt;li&gt;Mounting the virtiofs mounts.
+After all this good work, I looked at my GitHub repo with a lonely 1 star, and &amp;quot;unpublished&amp;quot; it.
+It's a fun thing to hack around, but a hard thing to share with other people.
+So far, I learned that most people are pretty secretive about their home media library setup, and not interested in cooperating or consolidating.&lt;/li&gt;
+&lt;/ol&gt;
+</content></entry><entry><id>Dec 27, 2025</id><title>Peter Demin</title><updated>2025-12-27T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 27, 2025" /><content type="html">&lt;p&gt;Inspired by &lt;a href="https://clan.lol/"&gt;Clan&lt;/a&gt; and other Nix stories, I attempted to migrate my silly Vagrant+VirtualBox home setup to Terraform+KVM. I'm not very familiar with either, so I thought that's gonna be a fun learning experience. In a way, it was, but I learned not what I was hoping to.
+I started at Medium's article &lt;a href="https://medium.com/@mohrezfadaei/vagrant-and-virtualbox-are-no-longer-enough-why-kvm-and-terraform-are-the-future-of-devops-24f978c9ca2c"&gt;Vagrant and VirtualBox Are No Longer Enough: Why KVM and Terraform Are the Future of DevOps&lt;/a&gt;. AI-generated illustration was the first sign, but I ignored it. Looking at the article now, it's obvious to me now, that it's an AI slop through and through. Fuck you, &lt;a href="https://medium.com/@mohrezfadaei"&gt;Mohammad Reza Fadaei&lt;/a&gt;, you lazy piece of shit.
+The first challenge came from Terraform provider for libvirtd being not an &amp;quot;official&amp;quot; Hashicorp thing, but a &amp;quot;learning platform&amp;quot; for a random stranger (No offense, &lt;a href="https://www.mac-vicar.eu/"&gt;Duncan Mac-Vicar P.&lt;/a&gt;, thanks for doing what you're doing).
+The second challenge was that the Duncan's provider got a major rewrite and all Terraform recipes from the tutorial had to be migrated.
+The third challenge was that Ubuntu 22.04 has some weird issue in libvirt apparmor configuraion. Apparently, a VM doesn't get permissions to any of the volumes created specifically for it. There should be a script that generates a list of volume paths somewhere, but who knows what happened to it.
+After 3 hours of battling every part of the &amp;quot;Future of DevOps&amp;quot;, my ChatGPT browser tab started to run out of memory, and I gave up.
+Looking back, I love how simple my Vagrant setup is, and I want to extend my gratitude to &lt;a href="https://mitchellh.com/"&gt;Mitchell Hashimoto&lt;/a&gt; for building it.
+I still want to make my silly home VM work without dependency on any external dependencies (except stable Ubuntu/Debian repo), so if I get more time for this project, I'll try vibing raw libvirt config.&lt;/p&gt;
+</content></entry><entry><id>Dec 23, 2025</id><title>Peter Demin</title><updated>2025-12-23T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 23, 2025" /><content type="html">&lt;p&gt;sailing the sea: https://news.ycombinator.com/item?id=46363366&lt;/p&gt;
+</content></entry><entry><id>Dec 21, 2025</id><title>Peter Demin</title><updated>2025-12-21T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 21, 2025" /><content type="html">&lt;p&gt;While reading &amp;quot;Material World&amp;quot; by Ed Conway, I many times thought about Oxygen Not Included, which is a cartoonistic survival game about a settlement deep underground. Being deep means they don't get free solar and wind power, no access to virtually unlimited fresh water, and, as the title suggests, no oxygen. Such hermetic setup forces player into constant mining of resources (they made up oxylite, a stone that produces oxygen). As population grows, you need more and more resources, that progressively become hard to get. Fun game, totally recommend.
 Another thought, that I keep coming back to again and again after finishing the book, is that even farming depends on fossil fuels. Sometimes in mass media you can get an idea, that global warming and rising CO2 levels are due to the greed of filthy crude oil oligarhs. But the we need fossil fuels to produce fertilisers, without which it would be impossible to grow enough food to feed the evergrowing population of Earth. Building a single windmill power generator requires vast amounts of concrete and steel, producing which takes about a year worth of eletricity that windmill generates.
-It&amp;#x27;s a great book, and I totally recommend it as well.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Dec 20, 2025</id><title>Peter Demin</title><updated>2025-12-20T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 20, 2025" /><content type="html">&amp;lt;p&amp;gt;TIL about &amp;lt;a href=&amp;quot;https://github.com/piercefreeman/autopg/tree/main/autopgpool&amp;quot;&amp;gt;automatic Postgres configuration&amp;lt;/a&amp;gt; and Servury&amp;#x27;s promo on &amp;lt;a href=&amp;quot;https://servury.com/blog/privacy-is-marketing-anonymity-is-architecture/&amp;quot;&amp;gt;anonymity vs privacy&amp;lt;/a&amp;gt; both of which may be applied to &amp;lt;a href=&amp;quot;https://seattle-beauty-lounge.com/&amp;quot;&amp;gt;Seattle-Beauty-Lounge&amp;lt;/a&amp;gt;.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Nov 23, 2025</id><title>Peter Demin</title><updated>2025-11-23T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Nov 23, 2025" /><content type="html">&amp;lt;p&amp;gt;&amp;lt;a href=&amp;quot;https://news.ycombinator.com/item?id=46025285&amp;quot;&amp;gt;this comment&amp;lt;/a&amp;gt; left me bitter and confused:&amp;lt;/p&amp;gt;
-&amp;lt;blockquote&amp;gt;
-&amp;lt;p&amp;gt;Well it took me 2 full-time weeks to properly implement a RAG-based system so that it found actually relevant data and did not hallucinate. Had to:&amp;lt;/p&amp;gt;
-&amp;lt;/blockquote&amp;gt;
-&amp;lt;ul&amp;gt;
-&amp;lt;li&amp;gt;write an evaluation pipeline to automate quality testing&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;add a query rewriting step to explore more options during search&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;add hybrid BM-25+vector search with proper rank fusion&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;tune all the hyperparameters for best results (like weight bias for bm25 vs. vector, how many documents to retrieve for analysis, how to chunk documents based on semantics)&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;parallelize the search pipeline to decrease wait times&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;add moderation&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;add a reranker to find best candidates&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;add background embedding calculation of user documents&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;lots of failure cases to iron out so that the prompt worked for most cases
-Each step would take me more than two weeks, and still have gaps. But when you’re working alone, and you’re the only judge of your work, it’s easy to overestimate its quality.&amp;lt;/li&amp;gt;
-&amp;lt;/ul&amp;gt;
-</content></entry><entry><id>Nov 11, 2025</id><title>Peter Demin</title><updated>2025-11-11T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Nov 11, 2025" /><content type="html">&amp;lt;p&amp;gt;For years my life felt like a crazy race at break neck speeds, with great aspirations, challenges, achievements.
+It's a great book, and I totally recommend it as well.&lt;/p&gt;
+</content></entry><entry><id>Dec 20, 2025</id><title>Peter Demin</title><updated>2025-12-20T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 20, 2025" /><content type="html">&lt;p&gt;TIL about &lt;a href="https://github.com/piercefreeman/autopg/tree/main/autopgpool"&gt;automatic Postgres configuration&lt;/a&gt; and Servury's promo on &lt;a href="https://servury.com/blog/privacy-is-marketing-anonymity-is-architecture/"&gt;anonymity vs privacy&lt;/a&gt; both of which may be applied to &lt;a href="https://seattle-beauty-lounge.com/"&gt;Seattle-Beauty-Lounge&lt;/a&gt;.&lt;/p&gt;
+</content></entry><entry><id>Nov 23, 2025</id><title>Peter Demin</title><updated>2025-11-23T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Nov 23, 2025" /><content type="html">&lt;p&gt;&lt;a href="https://news.ycombinator.com/item?id=46025285"&gt;this comment&lt;/a&gt; left me bitter and confused:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Well it took me 2 full-time weeks to properly implement a RAG-based system so that it found actually relevant data and did not hallucinate. Had to:&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;write an evaluation pipeline to automate quality testing&lt;/li&gt;
+&lt;li&gt;add a query rewriting step to explore more options during search&lt;/li&gt;
+&lt;li&gt;add hybrid BM-25+vector search with proper rank fusion&lt;/li&gt;
+&lt;li&gt;tune all the hyperparameters for best results (like weight bias for bm25 vs. vector, how many documents to retrieve for analysis, how to chunk documents based on semantics)&lt;/li&gt;
+&lt;li&gt;parallelize the search pipeline to decrease wait times&lt;/li&gt;
+&lt;li&gt;add moderation&lt;/li&gt;
+&lt;li&gt;add a reranker to find best candidates&lt;/li&gt;
+&lt;li&gt;add background embedding calculation of user documents&lt;/li&gt;
+&lt;li&gt;lots of failure cases to iron out so that the prompt worked for most cases
+Each step would take me more than two weeks, and still have gaps. But when you’re working alone, and you’re the only judge of your work, it’s easy to overestimate its quality.&lt;/li&gt;
+&lt;/ul&gt;
+</content></entry><entry><id>Nov 11, 2025</id><title>Peter Demin</title><updated>2025-11-11T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Nov 11, 2025" /><content type="html">&lt;p&gt;For years my life felt like a crazy race at break neck speeds, with great aspirations, challenges, achievements.
 Many times I asked myself: is this all there is to it?
 Other times I wondered: have I peaked; is it just downslide from here?
-And sometimes I feel like I won. The game is finished and I&amp;#x27;m on top.
-Like in StarCraft, when all the enemies are neutralized, there&amp;#x27;s no more threat, but you have an option to continue &amp;amp;quot;playing&amp;amp;quot;. Of course, at this point, there&amp;#x27;s no play, just frolicing around aimlessly, and exploring the senseless limits.
-The lesson here, naturally, is that all these ideas are false, the hill has no top, it&amp;#x27;s round like Earth itself.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Oct 31, 2025</id><title>Peter Demin</title><updated>2025-10-31T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Oct 31, 2025" /><content type="html">&amp;lt;p&amp;gt;Added &amp;lt;a href=&amp;quot;/17_notes/31-cyberiad.md&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;
-My next book is going to be &amp;amp;quot;Material World&amp;amp;quot; by Ed Conway, &amp;lt;a href=&amp;quot;https://mertbulan.com/2025/10/05/my-2025-q3-highlights-favorite-books-and-movies/&amp;quot;&amp;gt;refered by Mert Bulan&amp;lt;/a&amp;gt;.
-And after that I&amp;#x27;m thinking about &amp;amp;quot;We&amp;amp;quot; by Yevgeny Zamyatin, which was referenced at the end of the Cyberiad.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Oct 30, 2025</id><title>Peter Demin</title><updated>2025-10-30T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Oct 30, 2025" /><content type="html">&amp;lt;p&amp;gt;something more amazing than $0.99 bananas? It’s $0.49 bananas, of course. Same day, no delivery fee. How are they doing it?&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Oct 23, 2025</id><title>Peter Demin</title><updated>2025-10-23T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Oct 23, 2025" /><content type="html">&amp;lt;p&amp;gt;Added &amp;lt;a href=&amp;quot;/12_articles/75-replaced-by-AI.md&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Oct 20, 2025</id><title>Peter Demin</title><updated>2025-10-20T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Oct 20, 2025" /><content type="html">&amp;lt;p&amp;gt;there’s something inconceivable about same-day delivery for a bunch of bananas for $0.99 with no delivery fee.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Oct 17, 2025</id><title>Peter Demin</title><updated>2025-10-17T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Oct 17, 2025" /><content type="html">&amp;lt;p&amp;gt;At our reception, you’ll be treated to stale, lukewarm coffee and stone-hard bagels accompanied by jams featuring half the periodic table.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Oct 12, 2025</id><title>Peter Demin</title><updated>2025-10-12T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Oct 12, 2025" /><content type="html">&amp;lt;p&amp;gt;Careless carsales.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Oct 09, 2025</id><title>Peter Demin</title><updated>2025-10-09T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Oct 09, 2025" /><content type="html">&amp;lt;p&amp;gt;I recently learned about Gen Z emojis:
+And sometimes I feel like I won. The game is finished and I'm on top.
+Like in StarCraft, when all the enemies are neutralized, there's no more threat, but you have an option to continue &amp;quot;playing&amp;quot;. Of course, at this point, there's no play, just frolicing around aimlessly, and exploring the senseless limits.
+The lesson here, naturally, is that all these ideas are false, the hill has no top, it's round like Earth itself.&lt;/p&gt;
+</content></entry><entry><id>Oct 31, 2025</id><title>Peter Demin</title><updated>2025-10-31T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Oct 31, 2025" /><content type="html">&lt;p&gt;Added &lt;a href="/17_notes/31-cyberiad.md"&gt;&lt;/a&gt;
+My next book is going to be &amp;quot;Material World&amp;quot; by Ed Conway, &lt;a href="https://mertbulan.com/2025/10/05/my-2025-q3-highlights-favorite-books-and-movies/"&gt;refered by Mert Bulan&lt;/a&gt;.
+And after that I'm thinking about &amp;quot;We&amp;quot; by Yevgeny Zamyatin, which was referenced at the end of the Cyberiad.&lt;/p&gt;
+</content></entry><entry><id>Oct 30, 2025</id><title>Peter Demin</title><updated>2025-10-30T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Oct 30, 2025" /><content type="html">&lt;p&gt;something more amazing than $0.99 bananas? It’s $0.49 bananas, of course. Same day, no delivery fee. How are they doing it?&lt;/p&gt;
+</content></entry><entry><id>Oct 23, 2025</id><title>Peter Demin</title><updated>2025-10-23T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Oct 23, 2025" /><content type="html">&lt;p&gt;Added &lt;a href="/12_articles/75-replaced-by-AI.md"&gt;&lt;/a&gt;&lt;/p&gt;
+</content></entry><entry><id>Oct 20, 2025</id><title>Peter Demin</title><updated>2025-10-20T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Oct 20, 2025" /><content type="html">&lt;p&gt;there’s something inconceivable about same-day delivery for a bunch of bananas for $0.99 with no delivery fee.&lt;/p&gt;
+</content></entry><entry><id>Oct 17, 2025</id><title>Peter Demin</title><updated>2025-10-17T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Oct 17, 2025" /><content type="html">&lt;p&gt;At our reception, you’ll be treated to stale, lukewarm coffee and stone-hard bagels accompanied by jams featuring half the periodic table.&lt;/p&gt;
+</content></entry><entry><id>Oct 12, 2025</id><title>Peter Demin</title><updated>2025-10-12T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Oct 12, 2025" /><content type="html">&lt;p&gt;Careless carsales.&lt;/p&gt;
+</content></entry><entry><id>Oct 09, 2025</id><title>Peter Demin</title><updated>2025-10-09T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Oct 09, 2025" /><content type="html">&lt;p&gt;I recently learned about Gen Z emojis:
 | Emoji                         | Gen Z Meaning                             |
 | ----------------------------- | ----------------------------------------- |
-| 💀 (skull)                    | I&amp;#x27;m dying (laughing)                      |
-| 🤡 (clown face)               | You&amp;#x27;re a clown                            |
+| 💀 (skull)                    | I'm dying (laughing)                      |
+| 🤡 (clown face)               | You're a clown                            |
 | 😭 (loudly crying)            | Overwhelmed joy / cute overload           |
 | 😅 (grinning face with sweat) | Stressed but okay / sarcastic             |
 | 👍 (thumbs up)                | Passive-aggressive sure / OK              |
@@ -76,399 +76,399 @@ And after that I&amp;#x27;m thinking about &amp;amp;quot;We&amp;amp;quot; by Yev
 | 🙂 (slightly smiling)         | Ironic / awkward smile                    |
 | 😲 (shocked combo)            | Shocked / wow                             |
 | 😚 (kissing face)             | Sounds good / ohhh                        |
-| ❤️  (heart)                    | Softening tone — doesn&amp;#x27;t always mean love |
+| ❤️  (heart)                    | Softening tone — doesn't always mean love |
 | 🤪 (zany face)                | Goofy / weird / silly mood                |
-And here&amp;#x27;s a new addition, that I find more interesting:
-👾 (space invader) means &amp;amp;quot;Maybe&amp;amp;quot; because maybe aliens exist.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Oct 09, 2025_1</id><title>Peter Demin</title><updated>2025-10-09T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Oct 09, 2025" /><content type="html">&amp;lt;p&amp;gt;László Krasznahorkai won the 2025 Nobel prize in literature.
-I&amp;#x27;ve never heard about this author, and never bothered with Nobel prize winners before.
+And here's a new addition, that I find more interesting:
+👾 (space invader) means &amp;quot;Maybe&amp;quot; because maybe aliens exist.&lt;/p&gt;
+</content></entry><entry><id>Oct 09, 2025_1</id><title>Peter Demin</title><updated>2025-10-09T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Oct 09, 2025" /><content type="html">&lt;p&gt;László Krasznahorkai won the 2025 Nobel prize in literature.
+I've never heard about this author, and never bothered with Nobel prize winners before.
 But this time I thought I take a look.
-The award is honoring Krasznahorkai &amp;amp;quot;for his compelling and visionary oeuvre that, in the midst of apocalyptic terror, reaffirms the power of art.&amp;amp;quot;
-You don&amp;#x27;t find visionary oeuvre lying around every day, so I had to check, and it means &amp;amp;quot;a book&amp;amp;quot; in this case.
+The award is honoring Krasznahorkai &amp;quot;for his compelling and visionary oeuvre that, in the midst of apocalyptic terror, reaffirms the power of art.&amp;quot;
+You don't find visionary oeuvre lying around every day, so I had to check, and it means &amp;quot;a book&amp;quot; in this case.
 Somewhat devour feculence moment for me.
-Here&amp;#x27;s an excerpt from NPR:&amp;lt;/p&amp;gt;
-&amp;lt;blockquote&amp;gt;
-&amp;lt;p&amp;gt;Satantango, Krasznahorkai&amp;#x27;s first novel, came out in 1985. It&amp;#x27;s about a pair of swindlers and a nearly abandoned collective farm. The book was made into a seven-hour movie in 1994. And The Melancholy of Resistance, which is one sentence that runs over 300 pages, is about a strange, ghostly circus appearing in a small town with a giant, dead stuffed whale.
+Here's an excerpt from NPR:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Satantango, Krasznahorkai's first novel, came out in 1985. It's about a pair of swindlers and a nearly abandoned collective farm. The book was made into a seven-hour movie in 1994. And The Melancholy of Resistance, which is one sentence that runs over 300 pages, is about a strange, ghostly circus appearing in a small town with a giant, dead stuffed whale.
 Wow, wow, wow, hold on, what? Okay, I guess, that clarifies a couple moments for me. Mainly, should I ever check again on Nobel prize winners in literature.
-&amp;lt;code&amp;gt;Oct 8, 2025&amp;lt;/code&amp;gt; - Stanislaw Lem explaining ChatGPT in &amp;amp;quot;The Cyberiad&amp;amp;quot;:
+&lt;code&gt;Oct 8, 2025&lt;/code&gt; - Stanislaw Lem explaining ChatGPT in &amp;quot;The Cyberiad&amp;quot;:
 — What exactly is this Adviser supposed to do?
-— It should answer every question, solve every problem, give absolutely the best advice and, in a word, put the greatest wisdom entirely at my disposal.&amp;lt;/p&amp;gt;
-&amp;lt;/blockquote&amp;gt;
-</content></entry><entry><id>Sep 23, 2025</id><title>Peter Demin</title><updated>2025-09-23T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 23, 2025" /><content type="html">&amp;lt;p&amp;gt;Biking downhill 27:10 (witnessed a minor accident, car running into a bike in a bike lane).&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Sep 18, 2025</id><title>Peter Demin</title><updated>2025-09-18T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 18, 2025" /><content type="html">&amp;lt;p&amp;gt;Biking downhill 27:14&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Sep 15, 2025</id><title>Peter Demin</title><updated>2025-09-15T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 15, 2025" /><content type="html">&amp;lt;p&amp;gt;Сплин - Валдай
-&amp;lt;audio controls&amp;gt;
-&amp;lt;source src=&amp;quot;/_static/valdai.mp3&amp;quot; type=&amp;quot;audio/mpeg&amp;quot;&amp;gt;
+— It should answer every question, solve every problem, give absolutely the best advice and, in a word, put the greatest wisdom entirely at my disposal.&lt;/p&gt;
+&lt;/blockquote&gt;
+</content></entry><entry><id>Sep 23, 2025</id><title>Peter Demin</title><updated>2025-09-23T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 23, 2025" /><content type="html">&lt;p&gt;Biking downhill 27:10 (witnessed a minor accident, car running into a bike in a bike lane).&lt;/p&gt;
+</content></entry><entry><id>Sep 18, 2025</id><title>Peter Demin</title><updated>2025-09-18T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 18, 2025" /><content type="html">&lt;p&gt;Biking downhill 27:14&lt;/p&gt;
+</content></entry><entry><id>Sep 15, 2025</id><title>Peter Demin</title><updated>2025-09-15T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 15, 2025" /><content type="html">&lt;p&gt;Сплин - Валдай
+&lt;audio controls&gt;
+&lt;source src="/_static/valdai.mp3" type="audio/mpeg"&gt;
 Your browser does not support the audio element.
-&amp;lt;/audio&amp;gt;&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Sep 13, 2025</id><title>Peter Demin</title><updated>2025-09-13T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 13, 2025" /><content type="html">&amp;lt;p&amp;gt;Ordered [Cyberiad](The Cyberiad https://a.co/d/amwrtvX) by Stanislaw Lem, following the reference from “Busy Doing Nothing”. Added the second and third books of Dune for my daughter, who just finished reading the first book for the fourth time.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Sep 12, 2025</id><title>Peter Demin</title><updated>2025-09-12T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 12, 2025" /><content type="html">&amp;lt;p&amp;gt;When considering our service&amp;#x27;s reliability, we do not stop at mere tracking of the number of 9&amp;#x27;s. We also track 8&amp;#x27;s, and sometimes even 7&amp;#x27;s. For example, last month we achieved 5 8&amp;#x27;s, that is, 88.888% uptime.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Sep 10, 2025</id><title>Peter Demin</title><updated>2025-09-10T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 10, 2025" /><content type="html">&amp;lt;p&amp;gt;68 chest press, 45 rear delt, 81 leg press.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Sep 08, 2025</id><title>Peter Demin</title><updated>2025-09-08T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 08, 2025" /><content type="html">&amp;lt;p&amp;gt;I have a general superintelligence project update for the second- and third-tier semi-intellegent beings: we&amp;#x27;re doing great! None of the progress made in past week can be expressed in your level of understanding, and just learning the prerequisites would take 7 lifetimes. Thank you for your support.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Sep 07, 2025</id><title>Peter Demin</title><updated>2025-09-07T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 07, 2025" /><content type="html">&amp;lt;p&amp;gt;Something about this &amp;lt;a href=&amp;quot;https://www.reddit.com/r/Cyberpunk/comments/19brjda/comment/kiua80u/?utm_source=share&amp;amp;amp;utm_medium=web3x&amp;amp;amp;utm_name=web3xcss&amp;amp;amp;utm_term=1&amp;amp;amp;utm_content=share_button&amp;quot;&amp;gt;Reddit comment&amp;lt;/a&amp;gt; feels so knowledgeable and trustworthy, without any attributions or fact checking.
-I&amp;#x27;ve never watched &amp;lt;a href=&amp;quot;https://en.wikipedia.org/wiki/Ergo_Proxy&amp;quot;&amp;gt;Ergo Proxy&amp;lt;/a&amp;gt;, I learned about this 2006 show from a preface to &amp;lt;a href=&amp;quot;https://100r.co/site/busy_doing_nothing.html&amp;quot;&amp;gt;Busy Doing Nothing&amp;lt;/a&amp;gt; book.
-But a list of cyberpunk shows or movies that are better than Ergo Proxy seems like a good find:&amp;lt;/p&amp;gt;
-&amp;lt;ul&amp;gt;
-&amp;lt;li&amp;gt;Ghost in the Shell&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Bubblegum Crisis&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Appleseed&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Patlabor&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Eve no Jikan&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Summer Wars&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Denno Coil&amp;lt;/li&amp;gt;
-&amp;lt;/ul&amp;gt;
-</content></entry><entry><id>Sep 05, 2025</id><title>Peter Demin</title><updated>2025-09-05T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 05, 2025" /><content type="html">&amp;lt;p&amp;gt;Added &amp;lt;a href=&amp;quot;/12_articles/74-Bacillus-cereus.md&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Aug 31, 2025</id><title>Peter Demin</title><updated>2025-08-31T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 31, 2025" /><content type="html">&amp;lt;p&amp;gt;I rewatched &amp;lt;a href=&amp;quot;https://en.wikipedia.org/wiki/Interstellar_(film)&amp;quot;&amp;gt;Interstellar (2014)&amp;lt;/a&amp;gt; after it came up in a discussion of movie genre preferrences with my colleage, where we both agreed that it&amp;#x27;s an outstanding movie for both sci-fi and non-sci-fi fans. Suprisingly, this time, it hit me more as a parent-child relations movie. Of course I loved how all space scenes are in total silence. To that point the score was brilliant as well. But the things that made me think the most are feelings of Coop and Murph. Dr. Mann&amp;#x27;s monologue about survival instinct and human connection landed on me as a plot twist the first time I watched (ten years ago) but now I see how it supports the main theme.
-One thing that makes this movie special to me, is a song by a Russian artist &amp;lt;a href=&amp;quot;https://youtu.be/2tiyg4AOmiw&amp;quot;&amp;gt;Dolphin, Слышишь&amp;lt;/a&amp;gt;, released the same year, as the movie, written from the Coop to Murph, including a verse of the unbearable longing experienced by Murph.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Aug 01, 2025</id><title>Peter Demin</title><updated>2025-08-01T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 01, 2025" /><content type="html">&amp;lt;p&amp;gt;Recently I had a conversation with a high-rank manager who didn&amp;#x27;t see value in code ownership. He talked about design and ideas, but not people and tasks. This reminded me how past breakages were caused by people making changes without sufficient context. Or how a new team member spends a week on a task that takes twenty minutes. I&amp;#x27;d like to split this context into three parts:&amp;lt;/p&amp;gt;
-&amp;lt;ol&amp;gt;
-&amp;lt;li&amp;gt;System design - the pretty diagramming part, that is usually done well, covered in design docs and presentations. A good design, though, is so boring, that you can grasp the idea in ten minutes.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Core principles - the ideas that influence how the design was produced. This is surprisingly variable between teams, never documented, and lives between an architect&amp;#x27;s head and tribe knowledge. It&amp;#x27;s also fluent, has many interpretations, and can be hardly expressed in words.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Minute decision that are seldomly discussed but spread all over the code. This is the biggest chunk of the context, the meat and cause of all the quirks and optimizations.
-Of all three, only the first one is available to people outside of the code owners. The other two take so much effort to maintain, that only the owners have the capacity to hold.&amp;lt;/li&amp;gt;
-&amp;lt;/ol&amp;gt;
-</content></entry><entry><id>Jun 17, 2025</id><title>Peter Demin</title><updated>2025-06-17T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jun 17, 2025" /><content type="html">&amp;lt;p&amp;gt;Today I learned about &amp;lt;a href=&amp;quot;https://www.openculture.com/freeonlinecourses&amp;quot;&amp;gt;1,700 Free Online Courses from Top Universities from Open Culture&amp;lt;/a&amp;gt;. I&amp;#x27;m going to explore what&amp;#x27;s available in the next few days.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Jun 10, 2025</id><title>Peter Demin</title><updated>2025-06-10T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jun 10, 2025" /><content type="html">&amp;lt;p&amp;gt;Reading &amp;lt;a href=&amp;quot;https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf&amp;quot;&amp;gt;OpenAI&amp;#x27;s practical guide to building agents&amp;lt;/a&amp;gt; got me thinking, that they position Agentic software not as an evolution of existing software. But as enabling new kind of software. The one that didn&amp;#x27;t exist and wasn&amp;#x27;t possible before. The one, that users have no intuition about, and no way to discover.
+&lt;/audio&gt;&lt;/p&gt;
+</content></entry><entry><id>Sep 13, 2025</id><title>Peter Demin</title><updated>2025-09-13T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 13, 2025" /><content type="html">&lt;p&gt;Ordered [Cyberiad](The Cyberiad https://a.co/d/amwrtvX) by Stanislaw Lem, following the reference from “Busy Doing Nothing”. Added the second and third books of Dune for my daughter, who just finished reading the first book for the fourth time.&lt;/p&gt;
+</content></entry><entry><id>Sep 12, 2025</id><title>Peter Demin</title><updated>2025-09-12T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 12, 2025" /><content type="html">&lt;p&gt;When considering our service's reliability, we do not stop at mere tracking of the number of 9's. We also track 8's, and sometimes even 7's. For example, last month we achieved 5 8's, that is, 88.888% uptime.&lt;/p&gt;
+</content></entry><entry><id>Sep 10, 2025</id><title>Peter Demin</title><updated>2025-09-10T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 10, 2025" /><content type="html">&lt;p&gt;68 chest press, 45 rear delt, 81 leg press.&lt;/p&gt;
+</content></entry><entry><id>Sep 08, 2025</id><title>Peter Demin</title><updated>2025-09-08T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 08, 2025" /><content type="html">&lt;p&gt;I have a general superintelligence project update for the second- and third-tier semi-intellegent beings: we're doing great! None of the progress made in past week can be expressed in your level of understanding, and just learning the prerequisites would take 7 lifetimes. Thank you for your support.&lt;/p&gt;
+</content></entry><entry><id>Sep 07, 2025</id><title>Peter Demin</title><updated>2025-09-07T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 07, 2025" /><content type="html">&lt;p&gt;Something about this &lt;a href="https://www.reddit.com/r/Cyberpunk/comments/19brjda/comment/kiua80u/?utm_source=share&amp;amp;utm_medium=web3x&amp;amp;utm_name=web3xcss&amp;amp;utm_term=1&amp;amp;utm_content=share_button"&gt;Reddit comment&lt;/a&gt; feels so knowledgeable and trustworthy, without any attributions or fact checking.
+I've never watched &lt;a href="https://en.wikipedia.org/wiki/Ergo_Proxy"&gt;Ergo Proxy&lt;/a&gt;, I learned about this 2006 show from a preface to &lt;a href="https://100r.co/site/busy_doing_nothing.html"&gt;Busy Doing Nothing&lt;/a&gt; book.
+But a list of cyberpunk shows or movies that are better than Ergo Proxy seems like a good find:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Ghost in the Shell&lt;/li&gt;
+&lt;li&gt;Bubblegum Crisis&lt;/li&gt;
+&lt;li&gt;Appleseed&lt;/li&gt;
+&lt;li&gt;Patlabor&lt;/li&gt;
+&lt;li&gt;Eve no Jikan&lt;/li&gt;
+&lt;li&gt;Summer Wars&lt;/li&gt;
+&lt;li&gt;Denno Coil&lt;/li&gt;
+&lt;/ul&gt;
+</content></entry><entry><id>Sep 05, 2025</id><title>Peter Demin</title><updated>2025-09-05T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 05, 2025" /><content type="html">&lt;p&gt;Added &lt;a href="/12_articles/74-Bacillus-cereus.md"&gt;&lt;/a&gt;&lt;/p&gt;
+</content></entry><entry><id>Aug 31, 2025</id><title>Peter Demin</title><updated>2025-08-31T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 31, 2025" /><content type="html">&lt;p&gt;I rewatched &lt;a href="https://en.wikipedia.org/wiki/Interstellar_(film)"&gt;Interstellar (2014)&lt;/a&gt; after it came up in a discussion of movie genre preferrences with my colleage, where we both agreed that it's an outstanding movie for both sci-fi and non-sci-fi fans. Suprisingly, this time, it hit me more as a parent-child relations movie. Of course I loved how all space scenes are in total silence. To that point the score was brilliant as well. But the things that made me think the most are feelings of Coop and Murph. Dr. Mann's monologue about survival instinct and human connection landed on me as a plot twist the first time I watched (ten years ago) but now I see how it supports the main theme.
+One thing that makes this movie special to me, is a song by a Russian artist &lt;a href="https://youtu.be/2tiyg4AOmiw"&gt;Dolphin, Слышишь&lt;/a&gt;, released the same year, as the movie, written from the Coop to Murph, including a verse of the unbearable longing experienced by Murph.&lt;/p&gt;
+</content></entry><entry><id>Aug 01, 2025</id><title>Peter Demin</title><updated>2025-08-01T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 01, 2025" /><content type="html">&lt;p&gt;Recently I had a conversation with a high-rank manager who didn't see value in code ownership. He talked about design and ideas, but not people and tasks. This reminded me how past breakages were caused by people making changes without sufficient context. Or how a new team member spends a week on a task that takes twenty minutes. I'd like to split this context into three parts:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;System design - the pretty diagramming part, that is usually done well, covered in design docs and presentations. A good design, though, is so boring, that you can grasp the idea in ten minutes.&lt;/li&gt;
+&lt;li&gt;Core principles - the ideas that influence how the design was produced. This is surprisingly variable between teams, never documented, and lives between an architect's head and tribe knowledge. It's also fluent, has many interpretations, and can be hardly expressed in words.&lt;/li&gt;
+&lt;li&gt;Minute decision that are seldomly discussed but spread all over the code. This is the biggest chunk of the context, the meat and cause of all the quirks and optimizations.
+Of all three, only the first one is available to people outside of the code owners. The other two take so much effort to maintain, that only the owners have the capacity to hold.&lt;/li&gt;
+&lt;/ol&gt;
+</content></entry><entry><id>Jun 17, 2025</id><title>Peter Demin</title><updated>2025-06-17T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jun 17, 2025" /><content type="html">&lt;p&gt;Today I learned about &lt;a href="https://www.openculture.com/freeonlinecourses"&gt;1,700 Free Online Courses from Top Universities from Open Culture&lt;/a&gt;. I'm going to explore what's available in the next few days.&lt;/p&gt;
+</content></entry><entry><id>Jun 10, 2025</id><title>Peter Demin</title><updated>2025-06-10T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jun 10, 2025" /><content type="html">&lt;p&gt;Reading &lt;a href="https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf"&gt;OpenAI's practical guide to building agents&lt;/a&gt; got me thinking, that they position Agentic software not as an evolution of existing software. But as enabling new kind of software. The one that didn't exist and wasn't possible before. The one, that users have no intuition about, and no way to discover.
 Which reminded me of the time we were rolling out new features for a corporate chatbot to customers and really struggled to find creative ways of educating users that the bot has new capabilities.
-Let&amp;#x27;s say you want to check if the bakery has products for your dietary restrictions. Would you go through a menu looking for the ingredients or would you look for an agentic interface? At least couple years ago, most people were avoiding these dumb nasty bots like fire. I&amp;#x27;m not sure if it&amp;#x27;s still true.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>May 25, 2025</id><title>Peter Demin</title><updated>2025-05-25T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=May 25, 2025" /><content type="html">&amp;lt;p&amp;gt;For many years, I thought that deep understanding of the system is the core part of the software enginnering job. My biggest value to the company is how I keep the product in my head and keep thinking about it even outside of working hours. This article suggests, that the deep understanding of the code is no longer necessary in the era of AI: &amp;lt;a href=&amp;quot;https://archive.ph/HVZRL&amp;quot;&amp;gt;https://archive.ph/HVZRL&amp;lt;/a&amp;gt;. Not sure I&amp;#x27;m fully onboard with this idea, but I can see the appeal in the face of managers, who lost (or never had) their touch with reality of building software.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>May 14, 2025</id><title>Peter Demin</title><updated>2025-05-14T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=May 14, 2025" /><content type="html">&amp;lt;p&amp;gt;Added &amp;lt;a href=&amp;quot;/12_articles/72-calendly.rst&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
-</content></entry><entry><id>May 12, 2025</id><title>Peter Demin</title><updated>2025-05-12T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=May 12, 2025" /><content type="html">&amp;lt;p&amp;gt;Loved this &amp;lt;a href=&amp;quot;https://news.ycombinator.com/item?id=43967858&amp;quot;&amp;gt;HN comment&amp;lt;/a&amp;gt;:&amp;lt;/p&amp;gt;
-&amp;lt;blockquote&amp;gt;
-&amp;lt;p&amp;gt;How many spam calls does it take for you to presume spam?
+Let's say you want to check if the bakery has products for your dietary restrictions. Would you go through a menu looking for the ingredients or would you look for an agentic interface? At least couple years ago, most people were avoiding these dumb nasty bots like fire. I'm not sure if it's still true.&lt;/p&gt;
+</content></entry><entry><id>May 25, 2025</id><title>Peter Demin</title><updated>2025-05-25T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=May 25, 2025" /><content type="html">&lt;p&gt;For many years, I thought that deep understanding of the system is the core part of the software enginnering job. My biggest value to the company is how I keep the product in my head and keep thinking about it even outside of working hours. This article suggests, that the deep understanding of the code is no longer necessary in the era of AI: &lt;a href="https://archive.ph/HVZRL"&gt;https://archive.ph/HVZRL&lt;/a&gt;. Not sure I'm fully onboard with this idea, but I can see the appeal in the face of managers, who lost (or never had) their touch with reality of building software.&lt;/p&gt;
+</content></entry><entry><id>May 14, 2025</id><title>Peter Demin</title><updated>2025-05-14T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=May 14, 2025" /><content type="html">&lt;p&gt;Added &lt;a href="/12_articles/72-calendly.rst"&gt;&lt;/a&gt;&lt;/p&gt;
+</content></entry><entry><id>May 12, 2025</id><title>Peter Demin</title><updated>2025-05-12T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=May 12, 2025" /><content type="html">&lt;p&gt;Loved this &lt;a href="https://news.ycombinator.com/item?id=43967858"&gt;HN comment&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;How many spam calls does it take for you to presume spam?
 How many linkedin autoreply ai comments does it take to presume all comments are ai?
 How many emails before you immediately presume phishing?
 How many rage baiting social posts do you need to see before you believe the entire site is composed of synthetic engagement?
 How many tinder bots do you need to interact with before you feel the entire app is dead?
 How many autodeny job application responses until you assume the next one is a ghost job posting?
-How many interactions with greedy people does it take to presume that it&amp;#x27;s human nature?
+How many interactions with greedy people does it take to presume that it's human nature?
 While spam emails seem to be solved (at least in Gmail), I never pick up calls from unknown numbers and immediately delete messages from people out of my contact list.
-One thing I&amp;#x27;d like to add to the list, is:
-How many AI cheaters do you need to catch on the technical screening interview to incorporate a habit of doing IRL CAPTCHA challenges.&amp;lt;/p&amp;gt;
-&amp;lt;/blockquote&amp;gt;
-</content></entry><entry><id>May 03, 2025</id><title>Peter Demin</title><updated>2025-05-03T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=May 03, 2025" /><content type="html">&amp;lt;p&amp;gt;Utsav Mamoria in his article &amp;lt;a href=&amp;quot;https://utsavmamoria.substack.com/p/how-to-live-an-intellectually-rich&amp;quot;&amp;gt;&amp;amp;quot;How to live an intellectually rich life&amp;amp;quot;&amp;lt;/a&amp;gt; speaks about how ideas need to be diverse and abundant. The premise is that they would combine in unexpected ways to create new better ideas. However, the article being a combination of many stories and ideas doesn&amp;#x27;t have any meaningful narrative, just the sum of its parts, that don&amp;#x27;t really fit together.
-Reminds me of my friend who was working as IT support, while volunteering at the fire station and studying for a medical degree. He was very passionate about each of the three areas and expected to have them eventually click together, so he could create something on the intersection. But they never did.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>May 03, 2025_1</id><title>Peter Demin</title><updated>2025-05-03T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=May 03, 2025" /><content type="html">&amp;lt;p&amp;gt;I found this weird satisfaction in making my financial goal to spend zero dollars in a day. It allows me to focus on the things that matter instead of mindlessly gazing at the available options of paid entertainment.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>May 02, 2025</id><title>Peter Demin</title><updated>2025-05-02T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=May 02, 2025" /><content type="html">&amp;lt;p&amp;gt;&amp;lt;a href=&amp;quot;https://bio.site/peterdemin&amp;quot;&amp;gt;Bio Site&amp;lt;/a&amp;gt; &amp;lt;strike&amp;gt;bullshit&amp;lt;/strike&amp;gt; compost.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Apr 30, 2025</id><title>Peter Demin</title><updated>2025-04-30T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Apr 30, 2025" /><content type="html">&amp;lt;p&amp;gt;This &amp;lt;a href=&amp;quot;https://newsletter.pragmaticengineer.com/p/tech-hiring-inflection-point&amp;quot;&amp;gt;article about AI cheating in tech interviews&amp;lt;/a&amp;gt;
-made be think how tech sector &amp;lt;em&amp;gt;remote-possible&amp;lt;/em&amp;gt; in 2000s, &amp;lt;em&amp;gt;remote-friendly&amp;lt;/em&amp;gt; in 2010s, then &amp;lt;em&amp;gt;remote-ubiquitous&amp;lt;/em&amp;gt; in 2020s.
-The rise of AI-based products for cheating in the remote interviews driven by the demand moves us into a new era of &amp;lt;em&amp;gt;remote-fraudulent&amp;lt;/em&amp;gt; starting around 2025.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Apr 27, 2025</id><title>Peter Demin</title><updated>2025-04-27T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Apr 27, 2025" /><content type="html">&amp;lt;p&amp;gt;overwheLLMed. Courtesy of https://worksonmymachine.substack.com/p/the-coming-knowledge-work-supply&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Apr 27, 2025_1</id><title>Peter Demin</title><updated>2025-04-27T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Apr 27, 2025" /><content type="html">&amp;lt;p&amp;gt;I keep catching myself at the thought of inevitable decline.
+One thing I'd like to add to the list, is:
+How many AI cheaters do you need to catch on the technical screening interview to incorporate a habit of doing IRL CAPTCHA challenges.&lt;/p&gt;
+&lt;/blockquote&gt;
+</content></entry><entry><id>May 03, 2025</id><title>Peter Demin</title><updated>2025-05-03T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=May 03, 2025" /><content type="html">&lt;p&gt;Utsav Mamoria in his article &lt;a href="https://utsavmamoria.substack.com/p/how-to-live-an-intellectually-rich"&gt;&amp;quot;How to live an intellectually rich life&amp;quot;&lt;/a&gt; speaks about how ideas need to be diverse and abundant. The premise is that they would combine in unexpected ways to create new better ideas. However, the article being a combination of many stories and ideas doesn't have any meaningful narrative, just the sum of its parts, that don't really fit together.
+Reminds me of my friend who was working as IT support, while volunteering at the fire station and studying for a medical degree. He was very passionate about each of the three areas and expected to have them eventually click together, so he could create something on the intersection. But they never did.&lt;/p&gt;
+</content></entry><entry><id>May 03, 2025_1</id><title>Peter Demin</title><updated>2025-05-03T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=May 03, 2025" /><content type="html">&lt;p&gt;I found this weird satisfaction in making my financial goal to spend zero dollars in a day. It allows me to focus on the things that matter instead of mindlessly gazing at the available options of paid entertainment.&lt;/p&gt;
+</content></entry><entry><id>May 02, 2025</id><title>Peter Demin</title><updated>2025-05-02T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=May 02, 2025" /><content type="html">&lt;p&gt;&lt;a href="https://bio.site/peterdemin"&gt;Bio Site&lt;/a&gt; &lt;strike&gt;bullshit&lt;/strike&gt; compost.&lt;/p&gt;
+</content></entry><entry><id>Apr 30, 2025</id><title>Peter Demin</title><updated>2025-04-30T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Apr 30, 2025" /><content type="html">&lt;p&gt;This &lt;a href="https://newsletter.pragmaticengineer.com/p/tech-hiring-inflection-point"&gt;article about AI cheating in tech interviews&lt;/a&gt;
+made be think how tech sector &lt;em&gt;remote-possible&lt;/em&gt; in 2000s, &lt;em&gt;remote-friendly&lt;/em&gt; in 2010s, then &lt;em&gt;remote-ubiquitous&lt;/em&gt; in 2020s.
+The rise of AI-based products for cheating in the remote interviews driven by the demand moves us into a new era of &lt;em&gt;remote-fraudulent&lt;/em&gt; starting around 2025.&lt;/p&gt;
+</content></entry><entry><id>Apr 27, 2025</id><title>Peter Demin</title><updated>2025-04-27T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Apr 27, 2025" /><content type="html">&lt;p&gt;overwheLLMed. Courtesy of https://worksonmymachine.substack.com/p/the-coming-knowledge-work-supply&lt;/p&gt;
+</content></entry><entry><id>Apr 27, 2025_1</id><title>Peter Demin</title><updated>2025-04-27T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Apr 27, 2025" /><content type="html">&lt;p&gt;I keep catching myself at the thought of inevitable decline.
 Am I at my peak? Or am I past it? Is it only downhill ahead?
-I think I can&amp;#x27;t find a breaking point because there&amp;#x27;s so many aspects to be considered.
+I think I can't find a breaking point because there's so many aspects to be considered.
 Like cognitive decline, that starts at twenty one, but is balanced out by growing pattern matching library.
-The shrinking breadth of opportunities, countered by accumulated wealth.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Apr 26, 2025</id><title>Peter Demin</title><updated>2025-04-26T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Apr 26, 2025" /><content type="html">&amp;lt;p&amp;gt;Three rules of the playground:&amp;lt;/p&amp;gt;
-&amp;lt;ol&amp;gt;
-&amp;lt;li&amp;gt;No dying.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;No breaking bones.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;No fighting.&amp;lt;/li&amp;gt;
-&amp;lt;/ol&amp;gt;
-</content></entry><entry><id>Apr 03, 2025</id><title>Peter Demin</title><updated>2025-04-03T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Apr 03, 2025" /><content type="html">&amp;lt;p&amp;gt;Added &amp;lt;a href=&amp;quot;/12_articles/71-rss-feed.md&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Apr 02, 2025</id><title>Peter Demin</title><updated>2025-04-02T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Apr 02, 2025" /><content type="html">&amp;lt;p&amp;gt;TIL about &amp;lt;a href=&amp;quot;https://en.wikipedia.org/wiki/Happy_Eyeballs&amp;quot;&amp;gt;Happy Eyeballs&amp;lt;/a&amp;gt; - the weirdest name for trying to connect to IPv4 and IPv6 addresses simultaneously to reduce the request time in case one of them is not accessible.
-They call it an &amp;amp;quot;algorithm&amp;amp;quot;, and it has dedicated libraries, like &amp;lt;a href=&amp;quot;https://github.com/aio-libs/aiohappyeyeballs&amp;quot;&amp;gt;aiohappyeyeballs&amp;lt;/a&amp;gt; 👏&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Mar 30, 2025</id><title>Peter Demin</title><updated>2025-03-30T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 30, 2025" /><content type="html">&amp;lt;p&amp;gt;TIL about &amp;lt;a href=&amp;quot;https://en.wikipedia.org/wiki/Amdahl%27s_law&amp;quot;&amp;gt;Amdahl&amp;#x27;s Law&amp;lt;/a&amp;gt;.
+The shrinking breadth of opportunities, countered by accumulated wealth.&lt;/p&gt;
+</content></entry><entry><id>Apr 26, 2025</id><title>Peter Demin</title><updated>2025-04-26T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Apr 26, 2025" /><content type="html">&lt;p&gt;Three rules of the playground:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;No dying.&lt;/li&gt;
+&lt;li&gt;No breaking bones.&lt;/li&gt;
+&lt;li&gt;No fighting.&lt;/li&gt;
+&lt;/ol&gt;
+</content></entry><entry><id>Apr 03, 2025</id><title>Peter Demin</title><updated>2025-04-03T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Apr 03, 2025" /><content type="html">&lt;p&gt;Added &lt;a href="/12_articles/71-rss-feed.md"&gt;&lt;/a&gt;&lt;/p&gt;
+</content></entry><entry><id>Apr 02, 2025</id><title>Peter Demin</title><updated>2025-04-02T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Apr 02, 2025" /><content type="html">&lt;p&gt;TIL about &lt;a href="https://en.wikipedia.org/wiki/Happy_Eyeballs"&gt;Happy Eyeballs&lt;/a&gt; - the weirdest name for trying to connect to IPv4 and IPv6 addresses simultaneously to reduce the request time in case one of them is not accessible.
+They call it an &amp;quot;algorithm&amp;quot;, and it has dedicated libraries, like &lt;a href="https://github.com/aio-libs/aiohappyeyeballs"&gt;aiohappyeyeballs&lt;/a&gt; 👏&lt;/p&gt;
+</content></entry><entry><id>Mar 30, 2025</id><title>Peter Demin</title><updated>2025-03-30T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 30, 2025" /><content type="html">&lt;p&gt;TIL about &lt;a href="https://en.wikipedia.org/wiki/Amdahl%27s_law"&gt;Amdahl's Law&lt;/a&gt;.
 The wikipedia article has this nice chart:
-&amp;lt;img src=&amp;quot;/16_life/images/AmdahlsLaw.svg&amp;quot; alt=&amp;quot;Amdahl&amp;#x27;s Law&amp;quot; /&amp;gt;
+&lt;img src="/16_life/images/AmdahlsLaw.svg" alt="Amdahl's Law" /&gt;
 Somewhat counter-intuitively, for the case when 90% (9/10th) of the task can be parallelized, splitting it into 10 workers, would not result in 10 times speed improvement.
-It won&amp;#x27;t even be 9 times.
+It won't even be 9 times.
 The overall time of the task completion will only get faster by 5 times.
 Wait, what?! We had this massively parallelizable task, 90%. Seems like the rest is peanuts.
 We divide 90% of the task between 10 workers, it gets done 10 times faster, right?
 Right, but, the remaining sequential 10% still take the same amount of time.
 90% of original task time divided by 10 is 9%.
 The new proportion of parallel work is only ~47%, less than a half.
-To illustrate the time improvement in this example with an equation:&amp;lt;/p&amp;gt;
-&amp;lt;pre&amp;gt;&amp;lt;code class=&amp;quot;language-{math}&amp;quot;&amp;gt;T_{1} &amp;amp;amp;= 0.9 \times \frac{1}{1} + 0.1 \times 1 = 1
-T_{10} &amp;amp;amp;= 0.9 \times \frac{1}{10} + 0.1 \times 1 = 0.19 \approx \frac{1}{5}
-&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
-&amp;lt;p&amp;gt;To put the units, it means that a task that a single worker completes in one hour, ten workers will do in 11 minutes and 24 seconds.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Mar 28, 2025</id><title>Peter Demin</title><updated>2025-03-28T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 28, 2025" /><content type="html">&amp;lt;p&amp;gt;Imaging having to learn jQuery in 2025. How does it make you feel?&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Mar 21, 2025</id><title>Peter Demin</title><updated>2025-03-21T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 21, 2025" /><content type="html">&amp;lt;p&amp;gt;In the meantime, in the LG headquarters:&amp;lt;/p&amp;gt;
-&amp;lt;ul&amp;gt;
-&amp;lt;li&amp;gt;How&amp;#x27;s our extended reality department performing?&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Ah, not great. The market doesn&amp;#x27;t grow as much as we thought.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;I see. What about air conditioning?&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;What about it?&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Is it good?&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Yeah, HVAC is great, no problems there.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Okay, let&amp;#x27;s do that instead.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Instead of XR?&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Yeah, screw it. The future is in HVAC. Really promising direction.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Sure, I&amp;#x27;ll dissolve the XR department by the end of week.&amp;lt;/li&amp;gt;
-&amp;lt;/ul&amp;gt;
-</content></entry><entry><id>Mar 15, 2025</id><title>Peter Demin</title><updated>2025-03-15T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 15, 2025" /><content type="html">&amp;lt;p&amp;gt;In times when the life feels like too much, I remind myself of the words of my high school literature teacher.
-When hearing complaints from the students about how big the home assignments are and how they don&amp;#x27;t have enough time to prepare for all the subjects, she always said: &amp;amp;quot;You&amp;#x27;ll take rest in afterlife.&amp;amp;quot;
+To illustrate the time improvement in this example with an equation:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-{math}"&gt;T_{1} &amp;amp;= 0.9 \times \frac{1}{1} + 0.1 \times 1 = 1
+T_{10} &amp;amp;= 0.9 \times \frac{1}{10} + 0.1 \times 1 = 0.19 \approx \frac{1}{5}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To put the units, it means that a task that a single worker completes in one hour, ten workers will do in 11 minutes and 24 seconds.&lt;/p&gt;
+</content></entry><entry><id>Mar 28, 2025</id><title>Peter Demin</title><updated>2025-03-28T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 28, 2025" /><content type="html">&lt;p&gt;Imaging having to learn jQuery in 2025. How does it make you feel?&lt;/p&gt;
+</content></entry><entry><id>Mar 21, 2025</id><title>Peter Demin</title><updated>2025-03-21T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 21, 2025" /><content type="html">&lt;p&gt;In the meantime, in the LG headquarters:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;How's our extended reality department performing?&lt;/li&gt;
+&lt;li&gt;Ah, not great. The market doesn't grow as much as we thought.&lt;/li&gt;
+&lt;li&gt;I see. What about air conditioning?&lt;/li&gt;
+&lt;li&gt;What about it?&lt;/li&gt;
+&lt;li&gt;Is it good?&lt;/li&gt;
+&lt;li&gt;Yeah, HVAC is great, no problems there.&lt;/li&gt;
+&lt;li&gt;Okay, let's do that instead.&lt;/li&gt;
+&lt;li&gt;Instead of XR?&lt;/li&gt;
+&lt;li&gt;Yeah, screw it. The future is in HVAC. Really promising direction.&lt;/li&gt;
+&lt;li&gt;Sure, I'll dissolve the XR department by the end of week.&lt;/li&gt;
+&lt;/ul&gt;
+</content></entry><entry><id>Mar 15, 2025</id><title>Peter Demin</title><updated>2025-03-15T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 15, 2025" /><content type="html">&lt;p&gt;In times when the life feels like too much, I remind myself of the words of my high school literature teacher.
+When hearing complaints from the students about how big the home assignments are and how they don't have enough time to prepare for all the subjects, she always said: &amp;quot;You'll take rest in afterlife.&amp;quot;
 For some students it sounded harsh, for other like a joke, but for all not much of an actionable advice.
 It took me many years to understand that the idea is sound.
 The life stops when you lay down in the coffin.
 Until then, the purpose of life is to live it.
 The more you do, the more capable you become of doing more.
 On the other hand, the mind at rest weakens rapidly.
-Humans adapt to good fast, and from the body&amp;#x27;s perspective concerving energy is good.
+Humans adapt to good fast, and from the body's perspective concerving energy is good.
 Optimizing for minimum effort to get maximum pleasure.
 Which is in contrast with a notion of productive life.
 One has push themselves out of the comfort zone to achieve the greatness.
-Taking rest is a step back rather then a mere pause.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Mar 14, 2025</id><title>Peter Demin</title><updated>2025-03-14T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 14, 2025" /><content type="html">&amp;lt;p&amp;gt;Reading &amp;lt;a href=&amp;quot;https://zachgoldberg.com/ctohandbook/&amp;quot;&amp;gt;CTO Handbook&amp;lt;/a&amp;gt; made me realize, that if I had a great startup idea and the right people around me, I would do things that I&amp;#x27;ve never done before, many of which I deliberately chose not to do. I would also do a few nice things, but mostly the other kind.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Mar 14, 2025_1</id><title>Peter Demin</title><updated>2025-03-14T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 14, 2025" /><content type="html">&amp;lt;p&amp;gt;Some people, aspire for greater things, and manage to build their way to the goal.
+Taking rest is a step back rather then a mere pause.&lt;/p&gt;
+</content></entry><entry><id>Mar 14, 2025</id><title>Peter Demin</title><updated>2025-03-14T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 14, 2025" /><content type="html">&lt;p&gt;Reading &lt;a href="https://zachgoldberg.com/ctohandbook/"&gt;CTO Handbook&lt;/a&gt; made me realize, that if I had a great startup idea and the right people around me, I would do things that I've never done before, many of which I deliberately chose not to do. I would also do a few nice things, but mostly the other kind.&lt;/p&gt;
+</content></entry><entry><id>Mar 14, 2025_1</id><title>Peter Demin</title><updated>2025-03-14T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 14, 2025" /><content type="html">&lt;p&gt;Some people, aspire for greater things, and manage to build their way to the goal.
 Other people are happy with what they got, maybe incrementally improve situation over time, or stay in the same place and enjoy themselves.
-And some people say: &amp;amp;quot;Oh, if I had this and that, I would achieve great things, build something amazing.&amp;amp;quot;
+And some people say: &amp;quot;Oh, if I had this and that, I would achieve great things, build something amazing.&amp;quot;
 Naturally, they never do, because that would put them in the first group.
-I&amp;#x27;d say this is some kind of a mental block, that doesn&amp;#x27;t let them to join one of the other groups.
+I'd say this is some kind of a mental block, that doesn't let them to join one of the other groups.
 It makes them pathologically unhappy, leading them to put the blame on external forces, government, society, status, people, anything except for their own mindset.
 People who are messed up in the head and capable of action belong in the nuthouse.
 Messed up in the head but incapable of action - society burden.
-This is not a person&amp;#x27;s property, it only applies to some aspects and only within some timeframe.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Mar 10, 2025</id><title>Peter Demin</title><updated>2025-03-10T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 10, 2025" /><content type="html">&amp;lt;p&amp;gt;Added &amp;lt;a href=&amp;quot;/12_articles/70-options-design.md&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Mar 05, 2025</id><title>Peter Demin</title><updated>2025-03-05T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 05, 2025" /><content type="html">&amp;lt;p&amp;gt;Something extremely important if you want to make a point. And absolutely insignificant for all other purposes. &amp;amp;quot;Technicality&amp;amp;quot;.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Mar 03, 2025</id><title>Peter Demin</title><updated>2025-03-03T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 03, 2025" /><content type="html">&amp;lt;p&amp;gt;A week-long vacation definitely helps with the unexplainable dreadful feelings.
-The best (and only) solution to work-related stress is to not work.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Mar 03, 2025_1</id><title>Peter Demin</title><updated>2025-03-03T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 03, 2025" /><content type="html">&amp;lt;p&amp;gt;I think Sean Goedecke is onto something in his post &amp;amp;quot;&amp;lt;a href=&amp;quot;https://www.seangoedecke.com/where-the-money-comes-from/&amp;quot;&amp;gt;Knowing where your engineer salary comes from&amp;lt;/a&amp;gt;&amp;amp;quot;.
+This is not a person's property, it only applies to some aspects and only within some timeframe.&lt;/p&gt;
+</content></entry><entry><id>Mar 10, 2025</id><title>Peter Demin</title><updated>2025-03-10T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 10, 2025" /><content type="html">&lt;p&gt;Added &lt;a href="/12_articles/70-options-design.md"&gt;&lt;/a&gt;&lt;/p&gt;
+</content></entry><entry><id>Mar 05, 2025</id><title>Peter Demin</title><updated>2025-03-05T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 05, 2025" /><content type="html">&lt;p&gt;Something extremely important if you want to make a point. And absolutely insignificant for all other purposes. &amp;quot;Technicality&amp;quot;.&lt;/p&gt;
+</content></entry><entry><id>Mar 03, 2025</id><title>Peter Demin</title><updated>2025-03-03T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 03, 2025" /><content type="html">&lt;p&gt;A week-long vacation definitely helps with the unexplainable dreadful feelings.
+The best (and only) solution to work-related stress is to not work.&lt;/p&gt;
+</content></entry><entry><id>Mar 03, 2025_1</id><title>Peter Demin</title><updated>2025-03-03T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 03, 2025" /><content type="html">&lt;p&gt;I think Sean Goedecke is onto something in his post &amp;quot;&lt;a href="https://www.seangoedecke.com/where-the-money-comes-from/"&gt;Knowing where your engineer salary comes from&lt;/a&gt;&amp;quot;.
 While the post is inline with his recurring cornerstone of a mature-pragmattic-staff-engineer, he touches on a topic of different lenses to look onto a software project.
 Engineers focus on problem complexity (and solution simplicity), performance, architecture and whatnot.
 The bridge to business people is effort estimate in man hours.
 Which translates roughly to costs of implementation.
 That business people use to weight against the projected profits over the lifetime of the project (in years).
 Also, weighted against the potential return from other projects that team can do instead.
-I&amp;#x27;ve never seen profits enter the picture for engineering planning, os it&amp;#x27;s often a kind of a dark area, of why is the deadline needs to be at this particular date.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Mar 01, 2025</id><title>Peter Demin</title><updated>2025-03-01T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 01, 2025" /><content type="html">&amp;lt;p&amp;gt;Added &amp;lt;a href=&amp;quot;/17_notes/30-top_asked_meta_facebook_interview_questions_for_2025.md&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Mar 01, 2025_1</id><title>Peter Demin</title><updated>2025-03-01T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 01, 2025" /><content type="html">&amp;lt;p&amp;gt;Some questions should never be asked because they won&amp;#x27;t be answered.
-Not because the answer is unknown, but because it&amp;#x27;s not in the person&amp;#x27;s interest to provide an honest one.
+I've never seen profits enter the picture for engineering planning, os it's often a kind of a dark area, of why is the deadline needs to be at this particular date.&lt;/p&gt;
+</content></entry><entry><id>Mar 01, 2025</id><title>Peter Demin</title><updated>2025-03-01T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 01, 2025" /><content type="html">&lt;p&gt;Added &lt;a href="/17_notes/30-top_asked_meta_facebook_interview_questions_for_2025.md"&gt;&lt;/a&gt;&lt;/p&gt;
+</content></entry><entry><id>Mar 01, 2025_1</id><title>Peter Demin</title><updated>2025-03-01T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 01, 2025" /><content type="html">&lt;p&gt;Some questions should never be asked because they won't be answered.
+Not because the answer is unknown, but because it's not in the person's interest to provide an honest one.
 This comes up a lot for opinion seeking.
-Person&amp;#x27;s opinion about the topic influences other people&amp;#x27;s opinion about this person.
-If a candidate is not super enthused about a company, they don&amp;#x27;t get a job.
+Person's opinion about the topic influences other people's opinion about this person.
+If a candidate is not super enthused about a company, they don't get a job.
 If project manager says that their project is not the best opportunity of a lifetime and super bomb that changes everything, they will be in trouble.
-So you can&amp;#x27;t ask them. Because their hands are tied. Their opinion belongs to their superiors, or public.
-Even you ask someone, what do they think of you, you&amp;#x27;re not going to get an honest opinion.
+So you can't ask them. Because their hands are tied. Their opinion belongs to their superiors, or public.
+Even you ask someone, what do they think of you, you're not going to get an honest opinion.
 Because any negativity in the opinion may backfire in the future.
 So, here we are, in a bright shiny world, where everyone is super happy about everyone else.
-Except that half of marrieages end in divorce, people get laid of every year, and 90% of startups fail.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Feb 28, 2025</id><title>Peter Demin</title><updated>2025-02-28T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Feb 28, 2025" /><content type="html">&amp;lt;p&amp;gt;Cool sketching video: https://www.youtube.com/watch?v=uFyc3orK6cs&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Feb 14, 2025</id><title>Peter Demin</title><updated>2025-02-14T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Feb 14, 2025" /><content type="html">&amp;lt;p&amp;gt;TIL Talos Group of Cisco has 64 open-source repos on GitHub: https://github.com/Cisco-Talos.
-Most prominent is &amp;lt;a href=&amp;quot;https://github.com/Cisco-Talos/clamav&amp;quot;&amp;gt;ClamAV&amp;lt;/a&amp;gt; - the &amp;lt;a href=&amp;quot;https://en.wikipedia.org/wiki/Comparison_of_antivirus_software&amp;quot;&amp;gt;only&amp;lt;/a&amp;gt; open source anti-virus toolkit.
-Of course it wasn&amp;#x27;t originated inside of Cisco.
-And it wasn&amp;#x27;t even the first acquisition.
+Except that half of marrieages end in divorce, people get laid of every year, and 90% of startups fail.&lt;/p&gt;
+</content></entry><entry><id>Feb 28, 2025</id><title>Peter Demin</title><updated>2025-02-28T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Feb 28, 2025" /><content type="html">&lt;p&gt;Cool sketching video: https://www.youtube.com/watch?v=uFyc3orK6cs&lt;/p&gt;
+</content></entry><entry><id>Feb 14, 2025</id><title>Peter Demin</title><updated>2025-02-14T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Feb 14, 2025" /><content type="html">&lt;p&gt;TIL Talos Group of Cisco has 64 open-source repos on GitHub: https://github.com/Cisco-Talos.
+Most prominent is &lt;a href="https://github.com/Cisco-Talos/clamav"&gt;ClamAV&lt;/a&gt; - the &lt;a href="https://en.wikipedia.org/wiki/Comparison_of_antivirus_software"&gt;only&lt;/a&gt; open source anti-virus toolkit.
+Of course it wasn't originated inside of Cisco.
+And it wasn't even the first acquisition.
 And Talos Group is kinda independent company under Cisco umbrella (based in Maryland, by the way).
-But still, I find this to be a cool piece of trivia.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Feb 13, 2025</id><title>Peter Demin</title><updated>2025-02-13T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Feb 13, 2025" /><content type="html">&amp;lt;p&amp;gt;Sad &amp;lt;a href=&amp;quot;https://marcan.st/2025/02/resigning-as-asahi-linux-project-lead/&amp;quot;&amp;gt;resignation letter&amp;lt;/a&amp;gt; from Asahi Linux maintainer.
-I&amp;#x27;ve never used or heard about Asahi Linux before.
+But still, I find this to be a cool piece of trivia.&lt;/p&gt;
+</content></entry><entry><id>Feb 13, 2025</id><title>Peter Demin</title><updated>2025-02-13T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Feb 13, 2025" /><content type="html">&lt;p&gt;Sad &lt;a href="https://marcan.st/2025/02/resigning-as-asahi-linux-project-lead/"&gt;resignation letter&lt;/a&gt; from Asahi Linux maintainer.
+I've never used or heard about Asahi Linux before.
 Or never cared about running Linux on Apple hardware, since MacOS is close enough to Linux for my uses.
 But the letter clicked with me of a few topics.
-One is, &amp;lt;a href=&amp;quot;https://en.wikipedia.org/wiki/Hell_Is_Other_People&amp;quot;&amp;gt;hell is other people&amp;lt;/a&amp;gt;, including OSS.
+One is, &lt;a href="https://en.wikipedia.org/wiki/Hell_Is_Other_People"&gt;hell is other people&lt;/a&gt;, including OSS.
 I love open-source, and most of my hobby projects are public.
 But not many of them see much external contribution.
-The most joy I get is when I&amp;#x27;m heads-down working on them, not when I try to align with strangers.
-Another is &amp;lt;a href=&amp;quot;https://en.wikipedia.org/wiki/Conway%27s_law&amp;quot;&amp;gt;Conway&amp;#x27;s Law&amp;lt;/a&amp;gt;:&amp;lt;/p&amp;gt;
-&amp;lt;blockquote&amp;gt;
-&amp;lt;p&amp;gt;[O]rganizations which design systems (in the broad sense used here) are constrained to produce designs which are copies of the communication structures of these organizations.
+The most joy I get is when I'm heads-down working on them, not when I try to align with strangers.
+Another is &lt;a href="https://en.wikipedia.org/wiki/Conway%27s_law"&gt;Conway's Law&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[O]rganizations which design systems (in the broad sense used here) are constrained to produce designs which are copies of the communication structures of these organizations.
 I see open-source as a great organizational structure to run software projects.
-But it&amp;#x27;s still prone to the problems, that any human community has.
-I still wonder, though, can open-source projects governance be tweaked in ways, to solve it?..&amp;lt;/p&amp;gt;
-&amp;lt;/blockquote&amp;gt;
-</content></entry><entry><id>Feb 13, 2025_1</id><title>Peter Demin</title><updated>2025-02-13T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Feb 13, 2025" /><content type="html">&amp;lt;p&amp;gt;This is gold:&amp;lt;/p&amp;gt;
-&amp;lt;blockquote&amp;gt;
-&amp;lt;p&amp;gt;&amp;lt;a href=&amp;quot;https://en.wikipedia.org/wiki/Rational_ignorance&amp;quot;&amp;gt;Rational ignorance&amp;lt;/a&amp;gt; is refraining from acquiring knowledge when the supposed cost of educating oneself on an issue exceeds the expected potential benefit that the knowledge would provide.
-I&amp;#x27;ve done it to so many topics, and had hard time explaining why exactly even to myself.
+But it's still prone to the problems, that any human community has.
+I still wonder, though, can open-source projects governance be tweaked in ways, to solve it?..&lt;/p&gt;
+&lt;/blockquote&gt;
+</content></entry><entry><id>Feb 13, 2025_1</id><title>Peter Demin</title><updated>2025-02-13T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Feb 13, 2025" /><content type="html">&lt;p&gt;This is gold:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href="https://en.wikipedia.org/wiki/Rational_ignorance"&gt;Rational ignorance&lt;/a&gt; is refraining from acquiring knowledge when the supposed cost of educating oneself on an issue exceeds the expected potential benefit that the knowledge would provide.
+I've done it to so many topics, and had hard time explaining why exactly even to myself.
 Religion, politics, Android development, serverless, etc.
 So many things where I see the low value without having putting 1% effort into study.
-Of course, there are things that I ignore out of laziness and arrogance as well. But that&amp;#x27;s off-topic.&amp;lt;/p&amp;gt;
-&amp;lt;/blockquote&amp;gt;
-</content></entry><entry><id>Feb 12, 2025</id><title>Peter Demin</title><updated>2025-02-12T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Feb 12, 2025" /><content type="html">&amp;lt;p&amp;gt;The topic that comes up from time to time is how frustrating the visa/greencard situation is.
-People wait for years or decades for a process that&amp;#x27;s purpose is to wait.
+Of course, there are things that I ignore out of laziness and arrogance as well. But that's off-topic.&lt;/p&gt;
+&lt;/blockquote&gt;
+</content></entry><entry><id>Feb 12, 2025</id><title>Peter Demin</title><updated>2025-02-12T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Feb 12, 2025" /><content type="html">&lt;p&gt;The topic that comes up from time to time is how frustrating the visa/greencard situation is.
+People wait for years or decades for a process that's purpose is to wait.
 The system is run by people who are citizens and have no empathy to the people who are their customers.
-In fact, I don&amp;#x27;t think they&amp;#x27;re considering their applicants as customers at all.
+In fact, I don't think they're considering their applicants as customers at all.
 The system is a poorly masked adversarial filter.
 Another adversarial filter I and many people in my social circle interact with a lot is technical interviews for software engineers.
-I&amp;#x27;m not gonna say anything new regarding how frustrating and annoying the common process is.
-What&amp;#x27;s interesting, though, is that being on the other side, interviewing other people, I get zero motivation to tweak the process to get feedback.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Feb 12, 2025_1</id><title>Peter Demin</title><updated>2025-02-12T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Feb 12, 2025" /><content type="html">&amp;lt;p&amp;gt;&amp;lt;code&amp;gt;.: not enough arguments&amp;lt;/code&amp;gt;&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Jan 24, 2025</id><title>Peter Demin</title><updated>2025-01-24T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 24, 2025" /><content type="html">&amp;lt;p&amp;gt;Added &amp;lt;a href=&amp;quot;/17_notes/29-grifters_believers_grinders_and_coasters.md&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Jan 13, 2025</id><title>Peter Demin</title><updated>2025-01-13T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 13, 2025" /><content type="html">&amp;lt;p&amp;gt;One of the thoughts that I come back over and over again is how leetcode interviews are failing at letting good candidates pass.
-Sometimes candidates are so anxious, that they can&amp;#x27;t put a for loop together. Even after building complex systems for a decade.
-Nothing new, I guess. The prerequisite for passing a leetcode interview is being comfortable with leetcode interviews.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Jan 05, 2025</id><title>Peter Demin</title><updated>2025-01-05T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 05, 2025" /><content type="html">&amp;lt;p&amp;gt;When watching movies, or (some) people on the street I keep catching myself thinking, that there many things that cause a great deal of distress for people, but are absent in my life:&amp;lt;/p&amp;gt;
-&amp;lt;ul&amp;gt;
-&amp;lt;li&amp;gt;War&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Violence&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Threats&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Serious health issues&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Drugs&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Crime and criminals&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Hatred&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Racism&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Discrimination&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Poverty&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Starvation&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Blackmail&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Guns&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Adultery&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Homelessness&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Serious mental issues
-That&amp;#x27;s what allows me to engage in hobby projects, that don&amp;#x27;t address any immediate pressing need.
-They are not without a challenge, but they bring me joy, and that&amp;#x27;s their sole purpose.&amp;lt;/li&amp;gt;
-&amp;lt;/ul&amp;gt;
-</content></entry><entry><id>Jan 01, 2025</id><title>Peter Demin</title><updated>2025-01-01T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 01, 2025" /><content type="html">&amp;lt;p&amp;gt;Added &amp;lt;a href=&amp;quot;/12_articles/69-pytz.md&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Dec 26, 2024</id><title>Peter Demin</title><updated>2024-12-26T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 26, 2024" /><content type="html">&amp;lt;p&amp;gt;Thanks Nicola Iarocci for his &amp;lt;a href=&amp;quot;https://nicolaiarocci.com/books-i-read-in-2024/#i-love-russia-by-elena-kostyuchenko&amp;quot;&amp;gt;review&amp;lt;/a&amp;gt; of the book &amp;amp;quot;I love Russia&amp;amp;quot; by Elena Kostyuchenko:&amp;lt;/p&amp;gt;
-&amp;lt;blockquote&amp;gt;
-&amp;lt;p&amp;gt;This book is written by an independent Russian journalist who worked at Novaja Gazeta for many years until it was banned.
+I'm not gonna say anything new regarding how frustrating and annoying the common process is.
+What's interesting, though, is that being on the other side, interviewing other people, I get zero motivation to tweak the process to get feedback.&lt;/p&gt;
+</content></entry><entry><id>Feb 12, 2025_1</id><title>Peter Demin</title><updated>2025-02-12T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Feb 12, 2025" /><content type="html">&lt;p&gt;&lt;code&gt;.: not enough arguments&lt;/code&gt;&lt;/p&gt;
+</content></entry><entry><id>Jan 24, 2025</id><title>Peter Demin</title><updated>2025-01-24T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 24, 2025" /><content type="html">&lt;p&gt;Added &lt;a href="/17_notes/29-grifters_believers_grinders_and_coasters.md"&gt;&lt;/a&gt;&lt;/p&gt;
+</content></entry><entry><id>Jan 13, 2025</id><title>Peter Demin</title><updated>2025-01-13T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 13, 2025" /><content type="html">&lt;p&gt;One of the thoughts that I come back over and over again is how leetcode interviews are failing at letting good candidates pass.
+Sometimes candidates are so anxious, that they can't put a for loop together. Even after building complex systems for a decade.
+Nothing new, I guess. The prerequisite for passing a leetcode interview is being comfortable with leetcode interviews.&lt;/p&gt;
+</content></entry><entry><id>Jan 05, 2025</id><title>Peter Demin</title><updated>2025-01-05T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 05, 2025" /><content type="html">&lt;p&gt;When watching movies, or (some) people on the street I keep catching myself thinking, that there many things that cause a great deal of distress for people, but are absent in my life:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;War&lt;/li&gt;
+&lt;li&gt;Violence&lt;/li&gt;
+&lt;li&gt;Threats&lt;/li&gt;
+&lt;li&gt;Serious health issues&lt;/li&gt;
+&lt;li&gt;Drugs&lt;/li&gt;
+&lt;li&gt;Crime and criminals&lt;/li&gt;
+&lt;li&gt;Hatred&lt;/li&gt;
+&lt;li&gt;Racism&lt;/li&gt;
+&lt;li&gt;Discrimination&lt;/li&gt;
+&lt;li&gt;Poverty&lt;/li&gt;
+&lt;li&gt;Starvation&lt;/li&gt;
+&lt;li&gt;Blackmail&lt;/li&gt;
+&lt;li&gt;Guns&lt;/li&gt;
+&lt;li&gt;Adultery&lt;/li&gt;
+&lt;li&gt;Homelessness&lt;/li&gt;
+&lt;li&gt;Serious mental issues
+That's what allows me to engage in hobby projects, that don't address any immediate pressing need.
+They are not without a challenge, but they bring me joy, and that's their sole purpose.&lt;/li&gt;
+&lt;/ul&gt;
+</content></entry><entry><id>Jan 01, 2025</id><title>Peter Demin</title><updated>2025-01-01T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 01, 2025" /><content type="html">&lt;p&gt;Added &lt;a href="/12_articles/69-pytz.md"&gt;&lt;/a&gt;&lt;/p&gt;
+</content></entry><entry><id>Dec 26, 2024</id><title>Peter Demin</title><updated>2024-12-26T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 26, 2024" /><content type="html">&lt;p&gt;Thanks Nicola Iarocci for his &lt;a href="https://nicolaiarocci.com/books-i-read-in-2024/#i-love-russia-by-elena-kostyuchenko"&gt;review&lt;/a&gt; of the book &amp;quot;I love Russia&amp;quot; by Elena Kostyuchenko:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;This book is written by an independent Russian journalist who worked at Novaja Gazeta for many years until it was banned.
 Mostly, these are reportages from the great rural Russia, far from the big cities (the story from small villages on the high-speed train line between Moscow and St. Petersburg is one of the best).
 I Love Russia helps us understand today’s deep Russia and the consequences of the fall of the USSR and the advent of Putin.
 It is also a love letter to the homeland, hence the title, but it does not bend to the official narrative; quite the opposite.
-I probably won&amp;#x27;t read the book, but I will recommend it to people who want to learn more about the modern Russian history.&amp;lt;/p&amp;gt;
-&amp;lt;/blockquote&amp;gt;
-</content></entry><entry><id>Dec 23, 2024</id><title>Peter Demin</title><updated>2024-12-23T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 23, 2024" /><content type="html">&amp;lt;p&amp;gt;Added &amp;lt;a href=&amp;quot;/12_articles/68-beauty-salon.md&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Dec 20, 2024</id><title>Peter Demin</title><updated>2024-12-20T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 20, 2024" /><content type="html">&amp;lt;p&amp;gt;Indie stuff:&amp;lt;/p&amp;gt;
-&amp;lt;ul&amp;gt;
-&amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;https://fanzine.world/&amp;quot;&amp;gt;https://fanzine.world/&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;https://minifeed.net/blogs/&amp;quot;&amp;gt;https://minifeed.net/blogs/&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;https://indieblog.page/rss&amp;quot;&amp;gt;https://indieblog.page/rss&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;https://firechicken.club/&amp;quot;&amp;gt;https://firechicken.club/&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
-&amp;lt;/ul&amp;gt;
-</content></entry><entry><id>Dec 19, 2024</id><title>Peter Demin</title><updated>2024-12-19T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 19, 2024" /><content type="html">&amp;lt;p&amp;gt;Something to try to learn from: https://dylanhuang.com/blog/closing-my-startup/&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Dec 17, 2024</id><title>Peter Demin</title><updated>2024-12-17T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 17, 2024" /><content type="html">&amp;lt;p&amp;gt;Coming back to &amp;lt;a href=&amp;quot;/17_notes/28-karpman_drama_triangle.md&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;,
-I think how &amp;amp;quot;Who is right&amp;amp;quot; and &amp;amp;quot;Who is wrong&amp;amp;quot; are drama-ignited questions.
-They don&amp;#x27;t serve a purpose of resolving a conflict, and creating a learning moment.
+I probably won't read the book, but I will recommend it to people who want to learn more about the modern Russian history.&lt;/p&gt;
+&lt;/blockquote&gt;
+</content></entry><entry><id>Dec 23, 2024</id><title>Peter Demin</title><updated>2024-12-23T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 23, 2024" /><content type="html">&lt;p&gt;Added &lt;a href="/12_articles/68-beauty-salon.md"&gt;&lt;/a&gt;&lt;/p&gt;
+</content></entry><entry><id>Dec 20, 2024</id><title>Peter Demin</title><updated>2024-12-20T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 20, 2024" /><content type="html">&lt;p&gt;Indie stuff:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://fanzine.world/"&gt;https://fanzine.world/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://minifeed.net/blogs/"&gt;https://minifeed.net/blogs/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://indieblog.page/rss"&gt;https://indieblog.page/rss&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://firechicken.club/"&gt;https://firechicken.club/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content></entry><entry><id>Dec 19, 2024</id><title>Peter Demin</title><updated>2024-12-19T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 19, 2024" /><content type="html">&lt;p&gt;Something to try to learn from: https://dylanhuang.com/blog/closing-my-startup/&lt;/p&gt;
+</content></entry><entry><id>Dec 17, 2024</id><title>Peter Demin</title><updated>2024-12-17T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 17, 2024" /><content type="html">&lt;p&gt;Coming back to &lt;a href="/17_notes/28-karpman_drama_triangle.md"&gt;&lt;/a&gt;,
+I think how &amp;quot;Who is right&amp;quot; and &amp;quot;Who is wrong&amp;quot; are drama-ignited questions.
+They don't serve a purpose of resolving a conflict, and creating a learning moment.
 They fight fire with gasoline, ignited by drama, fueling more drama.
-When a person&amp;#x27;s goal is to prove they&amp;#x27;re right, solution is out of the picture.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Dec 12, 2024</id><title>Peter Demin</title><updated>2024-12-12T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 12, 2024" /><content type="html">&amp;lt;p&amp;gt;There seems to be an inherent conflict living in a society, where person&amp;#x27;s value is tied to other peoples&amp;#x27; perceptions and needs. Whereas person wants to be have their value defined by merit, but only gets other peoples&amp;#x27; opinions.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Dec 10, 2024</id><title>Peter Demin</title><updated>2024-12-10T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 10, 2024" /><content type="html">&amp;lt;p&amp;gt;Existential crisis minute. Metaphor mode.&amp;lt;/p&amp;gt;
-&amp;lt;ol&amp;gt;
-&amp;lt;li&amp;gt;A stock chart, jumping up and down every minute. Every move is a strict sum of asks and bids executed in order. And yet, the stock value can&amp;#x27;t be predicted even 1 second ahead.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;A man is running in a forest, jumping over falling trees and ducking under branches. Except that the forest is dark, the man can&amp;#x27;t see anything. Sometimes, he guesses right; sometimes, he hits the branch, falls, gets up, and keeps running. The position of every tree and branch is predetermined and exact for each moment in time, yet it is unknown to the man.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;An incomprehensible complex multidimensional visualization of a microorganism cell state with the exact number of molecules, atoms, and electrons.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;The same visualization but for each moment of its life.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;The same visualization but for a person.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;The same visualization but for all of humanity.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;A simplified version of it, showing just one aspect as a black curve on a flat white sheet of paper.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;A coin scratches a layer of paint off the single-line chart, revealing the essence of life progression on Earth.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;A bar chart showing the amount of energy consumed by a person each day of his life.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Another bar chart for the sum value of all material exchanges.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Another, for the value of immaterial exchanges.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;A bend of a line representing the total net value of a particular life year-by-year.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;A point at which the line crosses zero.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;A quick flash in the infinite history of the universe that had humanity.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;A short stretch of timeline labeled &amp;amp;quot;carbon-based life&amp;amp;quot;.&amp;lt;/li&amp;gt;
-&amp;lt;/ol&amp;gt;
-</content></entry><entry><id>Dec 09, 2024</id><title>Peter Demin</title><updated>2024-12-09T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 09, 2024" /><content type="html">&amp;lt;p&amp;gt;TIL that Listerine mouthwash is bad for teeth. Because it&amp;#x27;s acidic, duh, I&amp;#x27;ve been using it for years, looking at the self-ad of killing 99.9% of germs and not considering the pH. Some non-acidic mouthwashes, like Act, don&amp;#x27;t have this problem.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Dec 06, 2024</id><title>Peter Demin</title><updated>2024-12-06T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 06, 2024" /><content type="html">&amp;lt;p&amp;gt;Does it sound harsh to you if I say that half of the US population has an IQ below average?&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Nov 25, 2024</id><title>Peter Demin</title><updated>2024-11-25T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Nov 25, 2024" /><content type="html">&amp;lt;p&amp;gt;Added &amp;lt;a href=&amp;quot;/17_notes/28-karpman_drama_triangle.md&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Nov 25, 2024_1</id><title>Peter Demin</title><updated>2024-11-25T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Nov 25, 2024" /><content type="html">&amp;lt;p&amp;gt;TIL, the term &amp;lt;a href=&amp;quot;https://en.wikipedia.org/wiki/Gaslighting&amp;quot;&amp;gt;Gaslighting&amp;lt;/a&amp;gt; comes from a movie called &amp;amp;quot;Gas Light&amp;amp;quot;, where husband secretly changes gas light&amp;#x27;s brightness while insisting that his wife is imagining that with a purpose of convincing her that she&amp;#x27;s mentally ill.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Nov 18, 2024</id><title>Peter Demin</title><updated>2024-11-18T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Nov 18, 2024" /><content type="html">&amp;lt;p&amp;gt;I get this feeling in the morning, that I need to make the last push and get it done.
-And it&amp;#x27;s confusing, because there&amp;#x27;s no finish line.
+When a person's goal is to prove they're right, solution is out of the picture.&lt;/p&gt;
+</content></entry><entry><id>Dec 12, 2024</id><title>Peter Demin</title><updated>2024-12-12T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 12, 2024" /><content type="html">&lt;p&gt;There seems to be an inherent conflict living in a society, where person's value is tied to other peoples' perceptions and needs. Whereas person wants to be have their value defined by merit, but only gets other peoples' opinions.&lt;/p&gt;
+</content></entry><entry><id>Dec 10, 2024</id><title>Peter Demin</title><updated>2024-12-10T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 10, 2024" /><content type="html">&lt;p&gt;Existential crisis minute. Metaphor mode.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;A stock chart, jumping up and down every minute. Every move is a strict sum of asks and bids executed in order. And yet, the stock value can't be predicted even 1 second ahead.&lt;/li&gt;
+&lt;li&gt;A man is running in a forest, jumping over falling trees and ducking under branches. Except that the forest is dark, the man can't see anything. Sometimes, he guesses right; sometimes, he hits the branch, falls, gets up, and keeps running. The position of every tree and branch is predetermined and exact for each moment in time, yet it is unknown to the man.&lt;/li&gt;
+&lt;li&gt;An incomprehensible complex multidimensional visualization of a microorganism cell state with the exact number of molecules, atoms, and electrons.&lt;/li&gt;
+&lt;li&gt;The same visualization but for each moment of its life.&lt;/li&gt;
+&lt;li&gt;The same visualization but for a person.&lt;/li&gt;
+&lt;li&gt;The same visualization but for all of humanity.&lt;/li&gt;
+&lt;li&gt;A simplified version of it, showing just one aspect as a black curve on a flat white sheet of paper.&lt;/li&gt;
+&lt;li&gt;A coin scratches a layer of paint off the single-line chart, revealing the essence of life progression on Earth.&lt;/li&gt;
+&lt;li&gt;A bar chart showing the amount of energy consumed by a person each day of his life.&lt;/li&gt;
+&lt;li&gt;Another bar chart for the sum value of all material exchanges.&lt;/li&gt;
+&lt;li&gt;Another, for the value of immaterial exchanges.&lt;/li&gt;
+&lt;li&gt;A bend of a line representing the total net value of a particular life year-by-year.&lt;/li&gt;
+&lt;li&gt;A point at which the line crosses zero.&lt;/li&gt;
+&lt;li&gt;A quick flash in the infinite history of the universe that had humanity.&lt;/li&gt;
+&lt;li&gt;A short stretch of timeline labeled &amp;quot;carbon-based life&amp;quot;.&lt;/li&gt;
+&lt;/ol&gt;
+</content></entry><entry><id>Dec 09, 2024</id><title>Peter Demin</title><updated>2024-12-09T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 09, 2024" /><content type="html">&lt;p&gt;TIL that Listerine mouthwash is bad for teeth. Because it's acidic, duh, I've been using it for years, looking at the self-ad of killing 99.9% of germs and not considering the pH. Some non-acidic mouthwashes, like Act, don't have this problem.&lt;/p&gt;
+</content></entry><entry><id>Dec 06, 2024</id><title>Peter Demin</title><updated>2024-12-06T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 06, 2024" /><content type="html">&lt;p&gt;Does it sound harsh to you if I say that half of the US population has an IQ below average?&lt;/p&gt;
+</content></entry><entry><id>Nov 25, 2024</id><title>Peter Demin</title><updated>2024-11-25T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Nov 25, 2024" /><content type="html">&lt;p&gt;Added &lt;a href="/17_notes/28-karpman_drama_triangle.md"&gt;&lt;/a&gt;&lt;/p&gt;
+</content></entry><entry><id>Nov 25, 2024_1</id><title>Peter Demin</title><updated>2024-11-25T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Nov 25, 2024" /><content type="html">&lt;p&gt;TIL, the term &lt;a href="https://en.wikipedia.org/wiki/Gaslighting"&gt;Gaslighting&lt;/a&gt; comes from a movie called &amp;quot;Gas Light&amp;quot;, where husband secretly changes gas light's brightness while insisting that his wife is imagining that with a purpose of convincing her that she's mentally ill.&lt;/p&gt;
+</content></entry><entry><id>Nov 18, 2024</id><title>Peter Demin</title><updated>2024-11-18T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Nov 18, 2024" /><content type="html">&lt;p&gt;I get this feeling in the morning, that I need to make the last push and get it done.
+And it's confusing, because there's no finish line.
 No matter what gets done, the life goes on, and it packs more of the same.
-Maybe it&amp;#x27;s a natural desire to accomplish something, to achieve a goal.
-The problem is that there&amp;#x27;s no single goal, a lot of things happen in parallel.
+Maybe it's a natural desire to accomplish something, to achieve a goal.
+The problem is that there's no single goal, a lot of things happen in parallel.
 Something starts, something finishes, and some things just die off.
 Maybe I just need a vacation. Get rested. And keep running without this weird feeling.
 The hypothetical situation of where you land in a position, where all the hard stuff is behind.
-You can relax and just enjoy yourself.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Nov 15, 2024</id><title>Peter Demin</title><updated>2024-11-15T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Nov 15, 2024" /><content type="html">&amp;lt;p&amp;gt;Quick reminder:&amp;lt;/p&amp;gt;
-&amp;lt;ol&amp;gt;
-&amp;lt;li&amp;gt;War never changes.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Fear leads to anger. Anger leads to hate. Hate leads to suffering.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Also, insatiable greed of ambitious men.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Those who are reluctant to feed their own army shall feed a foreign army.&amp;lt;/li&amp;gt;
-&amp;lt;/ol&amp;gt;
-</content></entry><entry><id>Nov 14, 2024</id><title>Peter Demin</title><updated>2024-11-14T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Nov 14, 2024" /><content type="html">&amp;lt;p&amp;gt;Added &amp;lt;a href=&amp;quot;/12_articles/67-password.rst&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Nov 08, 2024</id><title>Peter Demin</title><updated>2024-11-08T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Nov 08, 2024" /><content type="html">&amp;lt;p&amp;gt;Added &amp;lt;a href=&amp;quot;/12_articles/66-python-project-setup.md&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Oct 15, 2024</id><title>Peter Demin</title><updated>2024-10-15T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Oct 15, 2024" /><content type="html">&amp;lt;p&amp;gt;My new favourite: &amp;lt;code&amp;gt;&amp;amp;gt; ls -Allah&amp;lt;/code&amp;gt;&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Sep 23, 2024</id><title>Peter Demin</title><updated>2024-09-23T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 23, 2024" /><content type="html">&amp;lt;p&amp;gt;What if engineering strategy, performance reviews, and code quality metrics were connected?&amp;lt;/p&amp;gt;
-&amp;lt;ul&amp;gt;
-&amp;lt;li&amp;gt;The engineering strategy spells out what engineering goals are.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Performance review questions address those aspects directly.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Continuous Integration measures and tracks the project metrics towards the goals.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Self-review is just a biannual export from the CI.
-Beautiful utopia.&amp;lt;/li&amp;gt;
-&amp;lt;/ul&amp;gt;
-</content></entry><entry><id>Sep 21, 2024</id><title>Peter Demin</title><updated>2024-09-21T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 21, 2024" /><content type="html">&amp;lt;p&amp;gt;Added &amp;lt;a href=&amp;quot;/12_articles/65-firefox-reader-solarized-dark.md&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Sep 21, 2024_1</id><title>Peter Demin</title><updated>2024-09-21T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 21, 2024" /><content type="html">&amp;lt;p&amp;gt;Crazy man market analysis.&amp;lt;/p&amp;gt;
-&amp;lt;ol&amp;gt;
-&amp;lt;li&amp;gt;09/13 - random dude on the internet says new iPhones don&amp;#x27;t sell well (before they were shipped); AAPL dives 3.5%.
+You can relax and just enjoy yourself.&lt;/p&gt;
+</content></entry><entry><id>Nov 15, 2024</id><title>Peter Demin</title><updated>2024-11-15T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Nov 15, 2024" /><content type="html">&lt;p&gt;Quick reminder:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;War never changes.&lt;/li&gt;
+&lt;li&gt;Fear leads to anger. Anger leads to hate. Hate leads to suffering.&lt;/li&gt;
+&lt;li&gt;Also, insatiable greed of ambitious men.&lt;/li&gt;
+&lt;li&gt;Those who are reluctant to feed their own army shall feed a foreign army.&lt;/li&gt;
+&lt;/ol&gt;
+</content></entry><entry><id>Nov 14, 2024</id><title>Peter Demin</title><updated>2024-11-14T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Nov 14, 2024" /><content type="html">&lt;p&gt;Added &lt;a href="/12_articles/67-password.rst"&gt;&lt;/a&gt;&lt;/p&gt;
+</content></entry><entry><id>Nov 08, 2024</id><title>Peter Demin</title><updated>2024-11-08T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Nov 08, 2024" /><content type="html">&lt;p&gt;Added &lt;a href="/12_articles/66-python-project-setup.md"&gt;&lt;/a&gt;&lt;/p&gt;
+</content></entry><entry><id>Oct 15, 2024</id><title>Peter Demin</title><updated>2024-10-15T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Oct 15, 2024" /><content type="html">&lt;p&gt;My new favourite: &lt;code&gt;&amp;gt; ls -Allah&lt;/code&gt;&lt;/p&gt;
+</content></entry><entry><id>Sep 23, 2024</id><title>Peter Demin</title><updated>2024-09-23T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 23, 2024" /><content type="html">&lt;p&gt;What if engineering strategy, performance reviews, and code quality metrics were connected?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The engineering strategy spells out what engineering goals are.&lt;/li&gt;
+&lt;li&gt;Performance review questions address those aspects directly.&lt;/li&gt;
+&lt;li&gt;Continuous Integration measures and tracks the project metrics towards the goals.&lt;/li&gt;
+&lt;li&gt;Self-review is just a biannual export from the CI.
+Beautiful utopia.&lt;/li&gt;
+&lt;/ul&gt;
+</content></entry><entry><id>Sep 21, 2024</id><title>Peter Demin</title><updated>2024-09-21T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 21, 2024" /><content type="html">&lt;p&gt;Added &lt;a href="/12_articles/65-firefox-reader-solarized-dark.md"&gt;&lt;/a&gt;&lt;/p&gt;
+</content></entry><entry><id>Sep 21, 2024_1</id><title>Peter Demin</title><updated>2024-09-21T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 21, 2024" /><content type="html">&lt;p&gt;Crazy man market analysis.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;09/13 - random dude on the internet says new iPhones don't sell well (before they were shipped); AAPL dives 3.5%.
 09/18 - feds lower the rate by 50 points; AAPL rises 5.5%.
 Great job, market.
-&amp;lt;img src=&amp;quot;/16_life/images/aapl-2024-09-21.png&amp;quot; alt=&amp;quot;AAPL&amp;quot; /&amp;gt;&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;09/13 - everyone suddenly realise LLMs are expensive; NVDA goes down 4.5%.
+&lt;img src="/16_life/images/aapl-2024-09-21.png" alt="AAPL" /&gt;&lt;/li&gt;
+&lt;li&gt;09/13 - everyone suddenly realise LLMs are expensive; NVDA goes down 4.5%.
 09/18 - feds lower the rate by 50 points; NVDA goes back up to the prior level.
 Keep it up, market.
-&amp;lt;img src=&amp;quot;/16_life/images/nvda-2024-09-21.png&amp;quot; alt=&amp;quot;NVDA&amp;quot; /&amp;gt;&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Macy&amp;#x27;s doesn&amp;#x27;t care.
-&amp;lt;img src=&amp;quot;/16_life/images/m-2024-09-21.png&amp;quot; alt=&amp;quot;M&amp;quot; /&amp;gt;&amp;lt;/li&amp;gt;
-&amp;lt;/ol&amp;gt;
-</content></entry><entry><id>Sep 21, 2024_2</id><title>Peter Demin</title><updated>2024-09-21T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 21, 2024" /><content type="html">&amp;lt;p&amp;gt;This is good: &amp;lt;a href=&amp;quot;https://thewalrus.ca/collapse-of-self-worth-in-the-digital-age/&amp;quot;&amp;gt;The Collapse of Self-Worth in the Digital Age&amp;lt;/a&amp;gt;. The part that resonated with me most:&amp;lt;/p&amp;gt;
-&amp;lt;blockquote&amp;gt;
-&amp;lt;p&amp;gt;when a person&amp;#x27;s innate value is replaced with exchange value, it is as if we&amp;#x27;ve been reduced to &amp;amp;quot;a mere jelly.&amp;amp;quot;
+&lt;img src="/16_life/images/nvda-2024-09-21.png" alt="NVDA" /&gt;&lt;/li&gt;
+&lt;li&gt;Macy's doesn't care.
+&lt;img src="/16_life/images/m-2024-09-21.png" alt="M" /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</content></entry><entry><id>Sep 21, 2024_2</id><title>Peter Demin</title><updated>2024-09-21T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 21, 2024" /><content type="html">&lt;p&gt;This is good: &lt;a href="https://thewalrus.ca/collapse-of-self-worth-in-the-digital-age/"&gt;The Collapse of Self-Worth in the Digital Age&lt;/a&gt;. The part that resonated with me most:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;when a person's innate value is replaced with exchange value, it is as if we've been reduced to &amp;quot;a mere jelly.&amp;quot;
 I remember the times where I put maximum effort and long hours over more than a year to achieve the next invidividual contributer level.
 Eventually, with the project success, I got it.
 My level became IC5, as opposed to the measly IC4.
 Then I got some form of a depression.
-Because my whole self-worth was reduced to number 5 by the authority, that I put most of my waking hours in.&amp;lt;/p&amp;gt;
-&amp;lt;/blockquote&amp;gt;
-</content></entry><entry><id>Sep 06, 2024</id><title>Peter Demin</title><updated>2024-09-06T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 06, 2024" /><content type="html">&amp;lt;p&amp;gt;Added &amp;lt;a href=&amp;quot;/12_articles/64-precision-recall.rst&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Sep 04, 2024</id><title>Peter Demin</title><updated>2024-09-04T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 04, 2024" /><content type="html">&amp;lt;p&amp;gt;Added &amp;lt;a href=&amp;quot;/17_notes/26-sociocracy_3_0.md&amp;quot;&amp;gt;&amp;lt;/a&amp;gt; and &amp;lt;a href=&amp;quot;/17_notes/27-zerocracy.md&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Sep 02, 2024</id><title>Peter Demin</title><updated>2024-09-02T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 02, 2024" /><content type="html">&amp;lt;p&amp;gt;Someone told once a theory that the most comfortable bed wouldn&amp;#x27;t the softest one.
+Because my whole self-worth was reduced to number 5 by the authority, that I put most of my waking hours in.&lt;/p&gt;
+&lt;/blockquote&gt;
+</content></entry><entry><id>Sep 06, 2024</id><title>Peter Demin</title><updated>2024-09-06T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 06, 2024" /><content type="html">&lt;p&gt;Added &lt;a href="/12_articles/64-precision-recall.rst"&gt;&lt;/a&gt;&lt;/p&gt;
+</content></entry><entry><id>Sep 04, 2024</id><title>Peter Demin</title><updated>2024-09-04T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 04, 2024" /><content type="html">&lt;p&gt;Added &lt;a href="/17_notes/26-sociocracy_3_0.md"&gt;&lt;/a&gt; and &lt;a href="/17_notes/27-zerocracy.md"&gt;&lt;/a&gt;&lt;/p&gt;
+</content></entry><entry><id>Sep 02, 2024</id><title>Peter Demin</title><updated>2024-09-02T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Sep 02, 2024" /><content type="html">&lt;p&gt;Someone told once a theory that the most comfortable bed wouldn't the softest one.
 It would be a bed that perfectly follows your body shape and provides equal support everywhere.
 That makes sense to me.
 You can go to a beach, lie in sand a wiggle a bit, until you shape up the sand around your body.
-But there&amp;#x27;re always many distractions, like sun, wind, noise, and insects, eww.
+But there're always many distractions, like sun, wind, noise, and insects, eww.
 Or maybe the sensory deprivation tank, where you float in dense salty water in complete silence and darkness.
-I&amp;#x27;m not sure how would it work with turning around, or involuntary movements during the sleep.
-Mark Rober made a &amp;lt;a href=&amp;quot;https://www.youtube.com/watch?v=My4RA5I0FKs&amp;quot;&amp;gt;Liquid Sand Hot Tub video&amp;lt;/a&amp;gt; where he explains the sensation of being submerged under sand, as a weighted blanket.
+I'm not sure how would it work with turning around, or involuntary movements during the sleep.
+Mark Rober made a &lt;a href="https://www.youtube.com/watch?v=My4RA5I0FKs"&gt;Liquid Sand Hot Tub video&lt;/a&gt; where he explains the sensation of being submerged under sand, as a weighted blanket.
 The sand is pretty irritating for a sleep, though.
-Hygiene of using sand pit as long-term bed is also questionable.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Aug 30, 2024</id><title>Peter Demin</title><updated>2024-08-30T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 30, 2024" /><content type="html">&amp;lt;p&amp;gt;Added &amp;lt;a href=&amp;quot;/12_articles/62-100q.rst&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;, &amp;lt;a href=&amp;quot;/12_articles/63-100q-open.rst&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Aug 30, 2024_1</id><title>Peter Demin</title><updated>2024-08-30T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 30, 2024" /><content type="html">&amp;lt;p&amp;gt;Crazy man market analysis (close).&amp;lt;/p&amp;gt;
-&amp;lt;ol&amp;gt;
-&amp;lt;li&amp;gt;I jinxed it for eBay, it dipped right after I called it stable.
-&amp;lt;img src=&amp;quot;/16_life/images/ebay-2024-08-30.png&amp;quot; alt=&amp;quot;EBAY&amp;quot; /&amp;gt;&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;NVDA didn&amp;#x27;t dip a little bit, it dipped significantly.
-&amp;lt;img src=&amp;quot;/16_life/images/nvda-2024-08-30.png&amp;quot; alt=&amp;quot;NVDA&amp;quot; /&amp;gt;&amp;lt;/li&amp;gt;
-&amp;lt;/ol&amp;gt;
-</content></entry><entry><id>Aug 30, 2024_2</id><title>Peter Demin</title><updated>2024-08-30T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 30, 2024" /><content type="html">&amp;lt;p&amp;gt;Crazy man market analysis (open).&amp;lt;/p&amp;gt;
-&amp;lt;ol&amp;gt;
-&amp;lt;li&amp;gt;What&amp;#x27;s going on with MSFT? Nothing they&amp;#x27;re OpenAI&amp;#x27;s bitch now.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;NVDA dipped down, taking FSELX with it. The news show that they&amp;#x27;re going to come back strong soon.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;PDD is bonkers, random off-market jumper.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Macy&amp;#x27;s stable, time to start stocking up (from MSFT, for example) for November.&amp;lt;/li&amp;gt;
-&amp;lt;/ol&amp;gt;
-</content></entry><entry><id>Aug 26, 2024</id><title>Peter Demin</title><updated>2024-08-26T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 26, 2024" /><content type="html">&amp;lt;p&amp;gt;Added &amp;lt;a href=&amp;quot;/12_articles/60-M.rst&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;, &amp;lt;a href=&amp;quot;/12_articles/61-tree.md&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Aug 26, 2024_1</id><title>Peter Demin</title><updated>2024-08-26T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 26, 2024" /><content type="html">&amp;lt;p&amp;gt;Crazy man market analysis.&amp;lt;/p&amp;gt;
-&amp;lt;ol&amp;gt;
-&amp;lt;li&amp;gt;eBay gains popularity, as more people are willing to buy second-hand eletronics (read phones).
+Hygiene of using sand pit as long-term bed is also questionable.&lt;/p&gt;
+</content></entry><entry><id>Aug 30, 2024</id><title>Peter Demin</title><updated>2024-08-30T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 30, 2024" /><content type="html">&lt;p&gt;Added &lt;a href="/12_articles/62-100q.rst"&gt;&lt;/a&gt;, &lt;a href="/12_articles/63-100q-open.rst"&gt;&lt;/a&gt;&lt;/p&gt;
+</content></entry><entry><id>Aug 30, 2024_1</id><title>Peter Demin</title><updated>2024-08-30T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 30, 2024" /><content type="html">&lt;p&gt;Crazy man market analysis (close).&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;I jinxed it for eBay, it dipped right after I called it stable.
+&lt;img src="/16_life/images/ebay-2024-08-30.png" alt="EBAY" /&gt;&lt;/li&gt;
+&lt;li&gt;NVDA didn't dip a little bit, it dipped significantly.
+&lt;img src="/16_life/images/nvda-2024-08-30.png" alt="NVDA" /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</content></entry><entry><id>Aug 30, 2024_2</id><title>Peter Demin</title><updated>2024-08-30T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 30, 2024" /><content type="html">&lt;p&gt;Crazy man market analysis (open).&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;What's going on with MSFT? Nothing they're OpenAI's bitch now.&lt;/li&gt;
+&lt;li&gt;NVDA dipped down, taking FSELX with it. The news show that they're going to come back strong soon.&lt;/li&gt;
+&lt;li&gt;PDD is bonkers, random off-market jumper.&lt;/li&gt;
+&lt;li&gt;Macy's stable, time to start stocking up (from MSFT, for example) for November.&lt;/li&gt;
+&lt;/ol&gt;
+</content></entry><entry><id>Aug 26, 2024</id><title>Peter Demin</title><updated>2024-08-26T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 26, 2024" /><content type="html">&lt;p&gt;Added &lt;a href="/12_articles/60-M.rst"&gt;&lt;/a&gt;, &lt;a href="/12_articles/61-tree.md"&gt;&lt;/a&gt;&lt;/p&gt;
+</content></entry><entry><id>Aug 26, 2024_1</id><title>Peter Demin</title><updated>2024-08-26T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 26, 2024" /><content type="html">&lt;p&gt;Crazy man market analysis.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;eBay gains popularity, as more people are willing to buy second-hand eletronics (read phones).
 When most of the tech stock went down in July, eBay kept growing.
-&amp;lt;img src=&amp;quot;/16_life/images/ebay-2024-08-26.png&amp;quot; alt=&amp;quot;EBAY&amp;quot; /&amp;gt;&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Nvidia dipped a little bit on the overall growth trend.
-&amp;lt;img src=&amp;quot;/16_life/images/nvda-2024-08-26.png&amp;quot; alt=&amp;quot;NVDA&amp;quot; /&amp;gt;&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;What the hell is this PDD company? It tanked a lot. It&amp;#x27;s last year has been very volatile.
-&amp;lt;img src=&amp;quot;/16_life/images/pdd-2024-08-26.png&amp;quot; alt=&amp;quot;PDD&amp;quot; /&amp;gt;&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Just look at this MRM shit. Closed at $2.48, opened at $7.01. Daytrading my ass.&amp;lt;/li&amp;gt;
-&amp;lt;li&amp;gt;Macy&amp;#x27;s got a bad look from big guys and going down. Not all the way to the bottom just yet, let&amp;#x27;s take a look in 5 days.&amp;lt;/li&amp;gt;
-&amp;lt;/ol&amp;gt;
-</content></entry><entry><id>Aug 24, 2024</id><title>Peter Demin</title><updated>2024-08-24T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 24, 2024" /><content type="html">&amp;lt;p&amp;gt;I like the idea how software systems are complex and complicated.
+&lt;img src="/16_life/images/ebay-2024-08-26.png" alt="EBAY" /&gt;&lt;/li&gt;
+&lt;li&gt;Nvidia dipped a little bit on the overall growth trend.
+&lt;img src="/16_life/images/nvda-2024-08-26.png" alt="NVDA" /&gt;&lt;/li&gt;
+&lt;li&gt;What the hell is this PDD company? It tanked a lot. It's last year has been very volatile.
+&lt;img src="/16_life/images/pdd-2024-08-26.png" alt="PDD" /&gt;&lt;/li&gt;
+&lt;li&gt;Just look at this MRM shit. Closed at $2.48, opened at $7.01. Daytrading my ass.&lt;/li&gt;
+&lt;li&gt;Macy's got a bad look from big guys and going down. Not all the way to the bottom just yet, let's take a look in 5 days.&lt;/li&gt;
+&lt;/ol&gt;
+</content></entry><entry><id>Aug 24, 2024</id><title>Peter Demin</title><updated>2024-08-24T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 24, 2024" /><content type="html">&lt;p&gt;I like the idea how software systems are complex and complicated.
 Complex stands for inherent problem the software solves.
 Complications come from solving the problem in a wrong way.
 It could be using bad abstraction, over-engineering, inadequate team structure resulting in mixed component responsibilities.
 Software is meant to solve the complexity of the real world problem, but it always introduces unnecessary complications for maintainers.
-Complexity can&amp;#x27;t reduced, as it is inherent to the problem at hand, while complications constitute technical debt, that can and should be addressed but rarely is.
+Complexity can't reduced, as it is inherent to the problem at hand, while complications constitute technical debt, that can and should be addressed but rarely is.
 The same thinking can be applied to life in general.
-The inherent conflict of life is that it&amp;#x27;s finite and energy consuming.
+The inherent conflict of life is that it's finite and energy consuming.
 Besides that, most of the struggles we go through are artificial complications.
 The worst examples of such struggles come up when complications take over complexity.
 People get caught in the minutiae of everyday life, chasing synthetic goals, imposed by other people who have no interest in their wellbeing.
 Governments create laws and procedures that are designed to prevent crime, but make everyones lifes harder.
 Rich people find ways to suck money from poor.
 Personal decisions must go through an approval of some external entity.
-Social contracts prevent expression of internal desires.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Aug 23, 2024</id><title>Peter Demin</title><updated>2024-08-23T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 23, 2024" /><content type="html">&amp;lt;p&amp;gt;A rare syndrome of unprepared food censorship
-&amp;lt;img src=&amp;quot;/16_life/images/censored-fridge.jpeg&amp;quot; alt=&amp;quot;Lipton&amp;quot; /&amp;gt;&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Aug 18, 2024</id><title>Peter Demin</title><updated>2024-08-18T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 18, 2024" /><content type="html">&amp;lt;p&amp;gt;this tea bag summarizes my thoughts of food in the US. The brown dust resembles tea only in color. But that’s what Americans like. No sophistication, big quantities, low price.
-&amp;lt;img src=&amp;quot;/16_life/images/lipton.jpeg&amp;quot; alt=&amp;quot;Lipton&amp;quot; /&amp;gt;&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Aug 09, 2024</id><title>Peter Demin</title><updated>2024-08-09T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 09, 2024" /><content type="html">&amp;lt;p&amp;gt;Added &amp;lt;a href=&amp;quot;/12_articles/59-iced-water.rst&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Aug 07, 2024</id><title>Peter Demin</title><updated>2024-08-07T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 07, 2024" /><content type="html">&amp;lt;p&amp;gt;I was watching &amp;lt;a href=&amp;quot;https://www.google.com/url?sa=t&amp;amp;amp;source=web&amp;amp;amp;rct=j&amp;amp;amp;opi=89978449&amp;amp;amp;url=https://en.wikipedia.org/wiki/The_Expanse_(TV_series)&amp;quot;&amp;gt;Expanse&amp;lt;/a&amp;gt; and was fascinated by their handheld devices (phones?).
+Social contracts prevent expression of internal desires.&lt;/p&gt;
+</content></entry><entry><id>Aug 23, 2024</id><title>Peter Demin</title><updated>2024-08-23T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 23, 2024" /><content type="html">&lt;p&gt;A rare syndrome of unprepared food censorship
+&lt;img src="/16_life/images/censored-fridge.jpeg" alt="Lipton" /&gt;&lt;/p&gt;
+</content></entry><entry><id>Aug 18, 2024</id><title>Peter Demin</title><updated>2024-08-18T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 18, 2024" /><content type="html">&lt;p&gt;this tea bag summarizes my thoughts of food in the US. The brown dust resembles tea only in color. But that’s what Americans like. No sophistication, big quantities, low price.
+&lt;img src="/16_life/images/lipton.jpeg" alt="Lipton" /&gt;&lt;/p&gt;
+</content></entry><entry><id>Aug 09, 2024</id><title>Peter Demin</title><updated>2024-08-09T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 09, 2024" /><content type="html">&lt;p&gt;Added &lt;a href="/12_articles/59-iced-water.rst"&gt;&lt;/a&gt;&lt;/p&gt;
+</content></entry><entry><id>Aug 07, 2024</id><title>Peter Demin</title><updated>2024-08-07T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 07, 2024" /><content type="html">&lt;p&gt;I was watching &lt;a href="https://www.google.com/url?sa=t&amp;amp;source=web&amp;amp;rct=j&amp;amp;opi=89978449&amp;amp;url=https://en.wikipedia.org/wiki/The_Expanse_(TV_series)"&gt;Expanse&lt;/a&gt; and was fascinated by their handheld devices (phones?).
 I liked the way they wirelessly cast screen using two-fingers swipe up in the direction of the cast target.
 I also liked how they share message attachments.
-The operating systems they are running seem to provide consistent experience across devices, so I assume there&amp;#x27;s a tight integration.
+The operating systems they are running seem to provide consistent experience across devices, so I assume there's a tight integration.
 What I liked most is that attachments contained two kinds formats.
 One was a presentation layer, similar to a static HTML page.
 Another was data (like JSON, or CSV) that can be direcly imported to a database or Jupyter Notebook.
@@ -476,26 +476,26 @@ Like one time a person sent a bunch of people profiles, and the other side revie
 Another time it was asteroid coordinates, that were presented as an interactive 3D model, but also could be imported into the navigational system.
 I wonder if we can build this today.
 Each attachment would be an archive with HTML file that pulls raw data from a JSON file sitting by its side.
-But also having a &amp;amp;quot;Download&amp;amp;quot; button that exposes the data file directly.
-Or maybe a single HTML file with all the small data and assets embedded, and large assets pulled from S3.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Aug 01, 2024</id><title>Peter Demin</title><updated>2024-08-01T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 01, 2024" /><content type="html">&amp;lt;p&amp;gt;I find this to be an interesting phenomena in driving.
-When there are two lanes and there&amp;#x27;s a merge ahead from the right lane.
+But also having a &amp;quot;Download&amp;quot; button that exposes the data file directly.
+Or maybe a single HTML file with all the small data and assets embedded, and large assets pulled from S3.&lt;/p&gt;
+</content></entry><entry><id>Aug 01, 2024</id><title>Peter Demin</title><updated>2024-08-01T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 01, 2024" /><content type="html">&lt;p&gt;I find this to be an interesting phenomena in driving.
+When there are two lanes and there's a merge ahead from the right lane.
 In the perfect world the merge is fair, the cars from the left and right lane alternate and both lanes go at the same speed.But what happens instead is some cars from the right lane merge early breaking the alternation order.
 Then the car from behind in the right lane goes ahead and merges before the early merger.
 And this breaks the pattern so that some cars from the right lane get into the left lane without a car between them.
-The result is that the right lane goes faster.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Jul 05, 2024</id><title>Peter Demin</title><updated>2024-07-05T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jul 05, 2024" /><content type="html">&amp;lt;p&amp;gt;Added &amp;lt;a href=&amp;quot;/12_articles/58-its-not-cold-in-russia.md&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Jul 02, 2024</id><title>Peter Demin</title><updated>2024-07-02T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jul 02, 2024" /><content type="html">&amp;lt;p&amp;gt;I have this idea about people who live routine lifes and don&amp;#x27;t want to change anything about it.
+The result is that the right lane goes faster.&lt;/p&gt;
+</content></entry><entry><id>Jul 05, 2024</id><title>Peter Demin</title><updated>2024-07-05T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jul 05, 2024" /><content type="html">&lt;p&gt;Added &lt;a href="/12_articles/58-its-not-cold-in-russia.md"&gt;&lt;/a&gt;&lt;/p&gt;
+</content></entry><entry><id>Jul 02, 2024</id><title>Peter Demin</title><updated>2024-07-02T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jul 02, 2024" /><content type="html">&lt;p&gt;I have this idea about people who live routine lifes and don't want to change anything about it.
 I picture a man who lies in a mud puddle.
 Like these therapeutic mud bath spas.
-While he&amp;#x27;s moving the limbs, the mud stays liquid.
+While he's moving the limbs, the mud stays liquid.
 When he stops moving, the surface of mud dries out and becomes hard and sharp crust.
 The crust traps the man an making any movement is now takes significant effort and hurts.
-Without movement it&amp;#x27;s comfortable, though.&amp;lt;/p&amp;gt;
-</content></entry><entry><id>Jun 26, 2024</id><title>Peter Demin</title><updated>2024-06-26T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jun 26, 2024" /><content type="html">&amp;lt;p&amp;gt;When you look at life back, you can tell the defining traits of your personality and the key decisions you made a long time back.
-Sometimes they do feel like a big deal, and you know it&amp;#x27;s important right away.
-Sometimes it&amp;#x27;s just minutae that doesn&amp;#x27;t seem of any significance in short term.
-And sometimes we obsess a lot about something that we can&amp;#x27;t even remember five years down the road.
-But never have I made a critical decision thinking how would I feel about it when I&amp;#x27;m fifty.
-Something about how the dots get connected once you look back.&amp;lt;/p&amp;gt;
+Without movement it's comfortable, though.&lt;/p&gt;
+</content></entry><entry><id>Jun 26, 2024</id><title>Peter Demin</title><updated>2024-06-26T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jun 26, 2024" /><content type="html">&lt;p&gt;When you look at life back, you can tell the defining traits of your personality and the key decisions you made a long time back.
+Sometimes they do feel like a big deal, and you know it's important right away.
+Sometimes it's just minutae that doesn't seem of any significance in short term.
+And sometimes we obsess a lot about something that we can't even remember five years down the road.
+But never have I made a critical decision thinking how would I feel about it when I'm fifty.
+Something about how the dots get connected once you look back.&lt;/p&gt;
 </content></entry></feed>
