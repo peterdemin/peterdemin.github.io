@@ -1,4 +1,4 @@
-`Dec 30, 2025` - I got bored enough to add an [RSS feed](/life.xml) to this journal.
+`Dec 30, 2025` - I got bored enough to add an [RSS feed](https://peter.demin.dev/life.xml) to this journal.
 Having a custom plain-text format for these records, I had to add a custom Atom generator.
 Overall it was a smooth sailing, with two gotchas:
 
