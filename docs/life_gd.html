@@ -248,10 +248,14 @@ It took a bit of googling to find out, that instead of <code class="docutils lit
 I should do <code class="docutils literal notranslate"><span class="pre">ET.Element(...,</span> <span class="pre">nsmap={None:</span> <span class="pre">'http://www.w3.org/2005/Atom'})</span></code>.</p></li>
 </ol>
 <p>So, business as usual.</p>
-<p><code class="docutils literal notranslate"><span class="pre">Dec</span> <span class="pre">29,</span> <span class="pre">2025</span></code> - I’m continuing my exodus from greedy Google infrastructure for my personal files.
+<p><code class="docutils literal notranslate"><span class="pre">Dec</span> <span class="pre">29,</span> <span class="pre">2025</span></code> - I’m continuing my exodus from <em>greedy</em> (also free and privacy-preserving) Google infrastructure for my personal files.
 So far, I’ve got a nice 4 TB SSD drive and repurposed an old 4 TB HDD to set up Immich with a backup through Syncthing.
 I also set up another Syncthing folder to backup Google Drive from my laptop (which runs Google Drive client to download all files).
-It’s fine so far, except that few random photos got their creation date in a far-far future, so they show up at the top.</p>
+It’s fine so far, except that few random photos got their creation date in a far-far future, so they show up at the top.
+On a related note, Paul Baecher published <a class="reference external" href="https://baecher.dev/stdout/incremental-backups-of-gmail-takeouts/">Incremental backups of Gmail takeouts</a>.
+I asked him if he automated downloads from the Takeout, and he suggested trying an option to pull email backups through Google Drive, which has a proper client. That would require having enough space in Google Drive to store all emails, of course.
+For uninititated, last year Google added authentication for downloading from the takeout links, so I can’t use wget in a shell script on the server.
+Currently, I download the archive to my laptop and then scp it to the server, which is extremely lame.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Dec</span> <span class="pre">29,</span> <span class="pre">2025</span></code> - On the third day of Christmas I managed to migrate from Virtualbox to libvirt.
 I learned about <a class="reference external" href="https://wiki.archlinux.org/title/Libvirt#Configure_filesystem_passthrough">virtiofs</a> - a way to share directories with libvirt VMs, similar to shared folders of VirtualBox, but with manual mounting on the guest side.
 I tried <a class="reference external" href="https://cockpit-project.org/">Cockpit</a> and Cockpit-machines, which is a WebUI to libvirt, but it didn’t provide enough functionality (which I thought is extremely basic).
