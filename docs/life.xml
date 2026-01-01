@@ -1,5 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2025-12-30T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Dec 30, 2025</id><title>Journal</title><published>2025-12-30T00:00:00Z</published><updated>2025-12-30T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 30, 2025"/><content type="html"><![CDATA[<p>I got bored enough to add an <a href="https://peter.demin.dev/life.xml">RSS feed</a> to this journal.
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2025-12-31T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Dec 31, 2025</id><title>Journal</title><published>2025-12-31T00:00:00Z</published><updated>2025-12-31T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 31, 2025"/><content type="html"><![CDATA[<p>Updated <a href="/12_articles/71-rss-feed.md"></a> with the new subscriptions:</p>
+<ul>
+<li><a href="https://nesbitt.io/feed.xml">Andrew Nesbitt</a></li>
+<li><a href="https://maurycyz.com/index.xml">Maurycy's blog</a></li>
+<li><a href="https://nathan.rs/posts/index.xml">Nathan Barry</a></li>
+<li><a href="https://peter.demin.dev/life.xml">Peter Demin</a> (that's me!)</li>
+<li><a href="https://specbranch.com/index.xml">Speculative Branches</a></li>
+<li><a href="https://joshs.bearblog.dev/feed/">people, ideas, machines</a></li>
+<li><a href="https://functional.computer/feed.xml">samir : coffee → nonsense</a></li>
+<li><a href="https://jyn.dev/atom.xml">the website of jyn</a></li>
+</ul>
+]]></content></entry><entry><id>Dec 30, 2025</id><title>Journal</title><published>2025-12-30T00:00:00Z</published><updated>2025-12-30T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Dec 30, 2025"/><content type="html"><![CDATA[<p>I got bored enough to add an <a href="https://peter.demin.dev/life.xml">RSS feed</a> to this journal.
 Having a custom plain-text format for these records, I had to add a custom Atom generator.
 Overall it was a smooth sailing, with two gotchas:</p>
 <ol>
@@ -502,11 +513,4 @@ Then the car from behind in the right lane goes ahead and merges before the earl
 And this breaks the pattern so that some cars from the right lane get into the left lane without a car between them.
 The result is that the right lane goes faster.</p>
 ]]></content></entry><entry><id>Jul 05, 2024</id><title>Journal</title><published>2024-07-05T00:00:00Z</published><updated>2024-07-05T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jul 05, 2024"/><content type="html"><![CDATA[<p>Added <a href="/12_articles/58-its-not-cold-in-russia.md"></a></p>
-]]></content></entry><entry><id>Jul 02, 2024</id><title>Journal</title><published>2024-07-02T00:00:00Z</published><updated>2024-07-02T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jul 02, 2024"/><content type="html"><![CDATA[<p>I have this idea about people who live routine lifes and don't want to change anything about it.
-I picture a man who lies in a mud puddle.
-Like these therapeutic mud bath spas.
-While he's moving the limbs, the mud stays liquid.
-When he stops moving, the surface of mud dries out and becomes hard and sharp crust.
-The crust traps the man an making any movement is now takes significant effort and hurts.
-Without movement it's comfortable, though.</p>
 ]]></content></entry></feed>
