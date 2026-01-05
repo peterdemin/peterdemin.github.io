@@ -1,0 +1,193 @@
+# How much can Google Cloud Platform free-tier Virtual Machine serve
+
+Google Cloud Platform generously offers a tiny Virtual Machine instance for [free](https://docs.cloud.google.com/free/docs/free-cloud-features#compute) per account.
+The [e2-micro](https://docs.cloud.google.com/compute/docs/general-purpose-machines#e2-shared-core) is not exactly a power house: 0.25 CPU, 1 GB RAM, and 30 GB HDD (not SSD).
+But don't be discouraged, as you'll see how much we can pack on it.
+Of course, everyone has an opinion on what should be hosted on a personal VM in the cloud, but here's my take, and I hope someone can pick up something useful.
+Also, a disclaimer, while the hosting part is free, a nice domain name is not.
+I used to use Google Domains, but they moved their business to SquareSpace.
+I pay $12/year for demin.dev.
+
+My choice of services to run:
+
+- Static website using `nginx`.
+- Mailbox using `postfix`.
+- VPN using `tailscale`.
+- XMPP server using `ejabberd`.
+- Folder synchronization with `syncthing`.
+- RSS reader using `commafeed`.
+
+This leaves a bit of memory to run an API server for personal experiments.
+
+In the interest of efficiency we won't be using containerization or nested virtualization (sorry, no [PaaS](/12_articles/51-self-hosted-paas.html) preaching here), which means extra fuss for installing each separate piece.
+But you'll see that the setup has the same steps for all parts, and it's a good opportunity to learn about the Linux fundamentals.
+
+## Install GCloud CLI
+
+I prefer scriptable solutions to clicking around in a Web UI, so we'll be using [Google Cloud command-line interface](https://docs.cloud.google.com/sdk/docs/install-sdk).
+There are many ways to install `gcloud`, my favorite is to use `pip`.
+With a modern Python (3.12+ at the moment of writing), create a virtualenv and run `pip install gcloud`.
+
+After installation, authenticate the CLI under your Google account: `gcloud auth login`.
+
+## Create a VM
+
+I extracted the parts that you most likely want to change as variables.
+I'm using domain name demin.dev, and my user name is peterdemin:
+
+```bash
+PROJECT=demindev
+ACCOUNT=763427644786
+NAME=peter
+PUBKEY=$(ssh-keygen -yf ~/.ssh/id_rsa)
+INSTANCE=demin-dev
+
+gcloud compute instances create $INSTANCE \
+    --project=$PROJECT \
+    --zone=us-west1-c \
+    --machine-type=e2-micro \
+    --network-interface=network-tier=STANDARD,stack-type=IPV4_ONLY,subnet=default \
+    --tags=http-server,https-server,jabber-server \
+    --public-ptr \
+    --public-ptr-domain=demin.dev. \
+    --metadata=ssh-keys=$NAME:$PUBKEY \
+    --maintenance-policy=MIGRATE \
+    --provisioning-model=STANDARD \
+    --service-account=$ACCOUNT-compute@developer.gserviceaccount.com \
+    --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/trace.append \
+    --create-disk=auto-delete=yes,boot=yes,device-name=$INSTANCE,image=projects/debian-cloud/global/images/debian-13-trixie-v20251014,mode=rw,size=10,type=pd-standard \
+    --no-shielded-secure-boot \
+    --shielded-vtpm \
+    --shielded-integrity-monitoring \
+    --labels=goog-ec-src=vm_add-gcloud \
+    --reservation-affinity=any
+```
+
+I'm using the latest stable Debian release that happens to be 13 Trixie.
+I'm a long time fan of Ubuntu, but I found that Ubuntu server is a bit too heavy for the e2-micro size, while Debian provides a similar experience.
+
+It'll take a second to start the VM. Use this time to update the DNS settings for the domain with the new `EXTERNAL ADDRESS`.
+Don't worry that the address is "ephemeral", in my experience Google doesn't change IP addresses of running VMs.
+In opposite, it actually tends to reuse the same IPv4 address if you delete/recreate a VM.
+
+## Provision
+
+Personally, I put all VM setup code in a shell script, so my workflow looks like this:
+
+```bash
+scp provision.sh "${IP}:"
+ssh "${IP}" -- "chmod +x provision.sh && sudo ./provision.sh"
+```
+
+For the sake of the guideline, I'll split the steps, so it's easier to follow and adjust.
+Login to the instance is become root:
+
+```bash
+ssh $IP
+sudo su
+```
+
+All further instructions assume you're running as root on the VM.
+
+### Clean up Google cruft
+
+Google preinstalls its CLI to the VM cloud images. I find it unnecessary and wasteful, so the first step is to clean up:
+
+```bash
+apt remove -y google-cloud-cli google-cloud-cli-anthoscli google-guest-agent google-osconfig-agent
+apt autoremove
+```
+
+This operation is crazy slow (about 10 minutes), mostly because Google decided to delete the package files one-by-one, instead of in bulk. Keeping packages would most likely mean upgrading them, which takes same crazy amount of time.
+
+If you want the life of this VM to be snappy, the alternative is to put these packages on hold:
+
+```bash
+apt-mark hold google-cloud-cli google-cloud-cli-anthoscli google-guest-agent google-osconfig-agent
+```
+
+### Install Tailscale
+
+I like to start with tailscale, because that allows me to disable public SSH access to the instance as soon as possible.
+
+First we need to add tailscale's Debian package repo:
+
+```bash
+mkdir -p /etc/apt/keyrings
+curl -fsSL https://pkgs.tailscale.com/stable/debian/trixie.noarmor.gpg > /usr/share/keyrings/tailscale-archive-keyring.gpg
+curl -fsSL https://pkgs.tailscale.com/stable/debian/trixie.tailscale-keyring.list > /etc/apt/sources.list.d/tailscale.list
+```
+
+Refresh packages list and install:
+
+```bash
+apt-get update
+apt-get install -y tailscale
+```
+
+Tailscale authentication is done by following the link from this command:
+
+```bash
+tailscale login
+```
+
+Now you can logout from SSH session, disable allow-ssh firewall rule and connect back on the tailscale host that would looks something like `demin-dev.tail6f730.ts.net`.
+While at it, you might also want to disable RDP and internal traffic rules as well.
+
+### Folder synchronization with Syncthing
+
+The steps to install Syncthing from package maintainer's repo are similar:
+
+```
+curl -L -o /etc/apt/keyrings/syncthing-archive-keyring.gpg https://syncthing.net/release-key.gpg
+echo "deb [signed-by=/etc/apt/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing stable-v2" > /etc/apt/sources.list.d/syncthing.list
+apt-get update
+apt-get install -y syncthing
+```
+
+Syncthing uses per-user SystemD units. Let's make a separate system user for it and launch:
+
+```bash
+useradd -rms /sbin/nologin syncthing
+systemctl enable syncthing@syncthing.service
+systemctl start syncthing@syncthing.service
+```
+
+Then you can open Web UI on port `8384` on the tailscale's host and finish the setup in the browser:
+
+https://demin-dev.tail6f730.ts.net:8384/
+
+### Nginx and HTTPS
+
+The domain needs TLS certificates to serve HTTPS and XMPP traffic.
+Certbot recommends to use snap installation, because they don't have the time to support everyone who can't figure out Python installation.
+But it's more efficient to install from pip. Here are the steps.
+
+First, let's make sure we have Python3 installed:
+
+```bash
+apt-get install -y ca-certificates python3-venv python-is-python3
+```
+
+Now, we'll create a virtualenv for certbot and install it system-wide:
+
+```bash
+python3 -m venv /opt/certbot/
+/opt/certbot/bin/python3 -m pip install certbot certbot-nginx
+ln -s /opt/certbot/bin/certbot /usr/bin/certbot
+```
+
+This is not ideal, because we're not using the system the package manager.
+So it won't get automatic updates, and removing can only be done manually.
+For this particular case, I think, it's fine, though.
+In case you want to upgrade it later, run:
+
+```bash
+/opt/certbot/bin/python3 -m pip install -U certbot certbot-nginx
+```
+
+Initialize the certificates:
+
+```bash
+certbot --agree-tos --nginx -m $NAME@$DOMAIN
+```
