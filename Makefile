@@ -6,7 +6,7 @@ SOURCEDIR   = source
 BUILDDIR    = build
 GALLERIES = $(wildcard source/18_photos/*/gallery.json)
 PHOTOS_SUBDIRS := $(patsubst %/,%,$(dir $(GALLERIES)))
-APIHOST = demin-dev-2.tail13c89.ts.net
+APIHOST = demin-dev.tail13c89.ts.net
 
 .DEFAULT_GOAL := help
 

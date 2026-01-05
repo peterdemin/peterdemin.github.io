@@ -1,5 +1,6 @@
 #!/bin/sh
 
-python3.12 -m venv .venv
-. .venv/bin/activate
-.venv/bin/python -m pip install -r requirements.txt
+sudo useradd -rms /sbin/nologin bus
+sudo cp bus/etc/systemd/system/bus.service /etc/systemd/system/bus.service
+sudo systemctl daemon-reload
+sudo systemctl enable bus.service
