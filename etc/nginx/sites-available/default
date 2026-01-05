@@ -19,15 +19,17 @@
 # Default server configuration
 #
 server {
-    server_name www.demin.dev demin.dev;
+    server_name www.demin.dev demin.dev conference.demin.dev pubsub.demin.dev;
     return 301 https://peter.demin.dev;
 
     listen [::]:443 ssl ipv6only=on; # managed by Certbot
     listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/demin.dev-0003/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/demin.dev-0003/privkey.pem; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/demin.dev/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/demin.dev/privkey.pem; # managed by Certbot
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+
 
 
 }
@@ -37,8 +39,8 @@ server {
 
     listen [::]:443 ssl; # managed by Certbot
     listen 443 ssl http2;
-    ssl_certificate /etc/letsencrypt/live/demin.dev-0003/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/demin.dev-0003/privkey.pem; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/demin.dev/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/demin.dev/privkey.pem; # managed by Certbot
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
@@ -55,53 +57,12 @@ upstream bus {
 }
 
 server {
-    server_name hub.demin.dev; # managed by Certbot
-    if ($host = demin.dev) {
-        return 301 https://$host$request_uri;
-    } # managed by Certbot
-    # Any request to this server will first be sent to this URL
-    auth_request /vouch-validate;
-    location = /vouch-validate {
-        # This address is where Vouch will be listening on
-        proxy_pass http://127.0.0.1:9090/validate;
-        proxy_pass_request_body off; # no need to send the POST body
-    
-        proxy_set_header Content-Length "";
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    
-        # these return values are passed to the @error401 call
-        auth_request_set $auth_resp_jwt $upstream_http_x_vouch_jwt;
-        auth_request_set $auth_resp_err $upstream_http_x_vouch_err;
-        auth_request_set $auth_resp_failcount $upstream_http_x_vouch_failcount;
-    }
-    # If the user is not logged in, redirect them to Vouch's login URL
-    error_page 401 = @error401;
-    location @error401 {
-        return 302 https://vouch.demin.dev/login?url=https://$http_host$request_uri&vouch-failcount=$auth_resp_failcount&X-Vouch-Token=$auth_resp_jwt&error=$auth_resp_err;
-    }
-    # location / {
-    #     proxy_pass http://home.tail13c89.ts.net;
-    #     proxy_set_header Host hub.demin.dev;
-    # }
-    listen [::]:443 ssl; # managed by Certbot
-    listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/demin.dev-0003/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/demin.dev-0003/privkey.pem; # managed by Certbot
-    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
-
-}
-
-
-server {
     server_name feed.demin.dev;
 
     listen [::]:443 ssl; # managed by Certbot
     listen 443 ssl http2;
-    ssl_certificate /etc/letsencrypt/live/demin.dev-0003/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/demin.dev-0003/privkey.pem; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/demin.dev/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/demin.dev/privkey.pem; # managed by Certbot
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
@@ -114,7 +75,26 @@ server {
 }
 
 server {
-    server_name demin.dev www.demin.dev vouch.demin.dev home.demin.dev;
+    server_name daniel.demin.dev;
+
+    listen [::]:443 ssl; # managed by Certbot
+    listen 443 ssl http2;
+    ssl_certificate /etc/letsencrypt/live/demin.dev/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/demin.dev/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+    root /var/www/daniel;
+    index index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ =404; # Serve static files, or return 404 if not found
+    }
+
+}
+
+server {
+    server_name demin.dev www.demin.dev;
     if ($host = demin.dev) {
         return 301 https://$host$request_uri;
     } # managed by Certbot
