@@ -156,7 +156,7 @@ apt autoremove
 
 This operation is crazy slow (about 10 minutes), mostly because Google decided to delete the package files one-by-one, instead of in bulk. Keeping packages would most likely mean upgrading them, which takes same crazy amount of time.
 
-If you want the life of this VM to be snappy, the alternative is to put these packages on hold:
+If you don't want to wait now, put these packages on hold, and get back uninstalling later:
 
 ```bash
 apt-mark hold google-cloud-cli google-cloud-cli-anthoscli google-guest-agent google-osconfig-agent
@@ -201,7 +201,7 @@ EOF
 sysctl -p /etc/sysctl.d/99-tailscale.conf
 tailscale up --advertise-exit-node
 ```
-
+ 
 Then open [Tailscale](https://tailscale.com) admin console, open the machine page, and choose Exit Node: Allowed under Routing Settings.
 
 To verify, enable the new Exit Node on your laptop and open [](https://whatismyipaddress.com/), it should show something like this:
@@ -251,7 +251,7 @@ First, let's make sure we have nginx and Python installed:
 apt-get install -y nginx ca-certificates python3-venv python-is-python3
 ```
 
-Now, we'll create a virtualenv for certbot and install it system-wide:
+Create a Python virtualenv for certbot and install it system-wide from the Python Package Index:
 
 ```bash
 python3 -m venv /opt/certbot/
@@ -268,7 +268,9 @@ In case you want to upgrade it later, run:
 /opt/certbot/bin/python3 -m pip install -U certbot certbot-nginx
 ```
 
-Let's configure nginx. Make sure you include jabber subdomains:
+Let's configure nginx.
+Make sure you include jabber subdomains.
+Example `/etc/nginx/sites-available/default`:
 
 ```
 server {
@@ -283,7 +285,6 @@ server {
 
 server {
     server_name feed.demin.dev;
-
     location / {
       proxy_pass http://127.0.0.1:8082;
       proxy_set_header  X-Forwarded-Proto https;
@@ -299,7 +300,7 @@ certbot --agree-tos --nginx -m $EMAIL
 SLEEPTIME=$(awk 'BEGIN{srand(); print int(rand()*(3600+1))}'); echo "0 0,12 * * * root sleep $SLEEPTIME && certbot renew -q" >> /etc/crontab
 ```
 
-This command will pick the subdomains from the nginx config, and update it to include the HTTPS-related details.
+This command picks the subdomains from the nginx config, and updates it to include the HTTPS-related details.
 
 ## Ejabberd
 
