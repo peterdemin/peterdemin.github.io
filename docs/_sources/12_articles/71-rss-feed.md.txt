@@ -5,20 +5,16 @@ It's a Google Reader-inspired self-hosted personal RSS reader.
 
 CommaFeed service runs as a SystemD Unit under a separate system user with a home directory.
 
+## Install Java SDK
+
+```
+sudo apt-get install -y default-jdk
+```
+
 ## User setup
 
 ```
-$ lslogins commafeed
-Username:                           commafeed
-UID:                                112
-Gecos field:
-Home directory:                     /home/commafeed
-Shell:                              /usr/sbin/nologin
-No login:                           yes
-Primary group:                      commafeed
-GID:                                117
-Hushed:                             no
-Running processes:                  1
+sudo useradd -r -m -s /sbin/nologin commafeed
 ```
 
 ## Configuration

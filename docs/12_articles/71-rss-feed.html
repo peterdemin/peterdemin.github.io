@@ -244,19 +244,15 @@
 <p>I run a <a class="reference external" href="https://github.com/Athou/commafeed">CommaFeed</a> instance on a free-tier Google Cloud Platform virtual machine.
 It’s a Google Reader-inspired self-hosted personal RSS reader.</p>
 <p>CommaFeed service runs as a SystemD Unit under a separate system user with a home directory.</p>
+<section id="install-java-sdk">
+<h2>Install Java SDK<a class="headerlink" href="#install-java-sdk" title="Link to this heading">#</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">default</span><span class="o">-</span><span class="n">jdk</span>
+</pre></div>
+</div>
+</section>
 <section id="user-setup">
 <h2>User setup<a class="headerlink" href="#user-setup" title="Link to this heading">#</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ lslogins commafeed
-Username:                           commafeed
-UID:                                112
-Gecos field:
-Home directory:                     /home/commafeed
-Shell:                              /usr/sbin/nologin
-No login:                           yes
-Primary group:                      commafeed
-GID:                                117
-Hushed:                             no
-Running processes:                  1
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">useradd</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">m</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">nologin</span> <span class="n">commafeed</span>
 </pre></div>
 </div>
 </section>
@@ -556,6 +552,7 @@ So my solution is to just export the <a class="reference download internal" down
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-java-sdk">Install Java SDK</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#user-setup">User setup</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration">Configuration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reverse-proxy">Reverse proxy</a></li>

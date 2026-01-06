@@ -1,0 +1,617 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>How much can Google Cloud Platform free-tier Virtual Machine serve &#8212; Peter Demin</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=86f57b9a" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '13_drafts/76-gcp-free-tier';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Peter Demin</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"></div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">How much can Google Cloud Platform free-tier Virtual Machine serve</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="how-much-can-google-cloud-platform-free-tier-virtual-machine-serve">
+<h1>How much can Google Cloud Platform free-tier Virtual Machine serve<a class="headerlink" href="#how-much-can-google-cloud-platform-free-tier-virtual-machine-serve" title="Link to this heading">#</a></h1>
+<p>Google Cloud Platform generously offers a tiny Virtual Machine instance for <a class="reference external" href="https://docs.cloud.google.com/free/docs/free-cloud-features#compute">free</a> per account.
+The <a class="reference external" href="https://docs.cloud.google.com/compute/docs/general-purpose-machines#e2-shared-core">e2-micro</a> is not exactly a power house: 0.25 CPU, 1 GB RAM, and 30 GB HDD (not SSD).
+But don’t be discouraged, as you’ll see how much we can pack on it.
+Of course, everyone has an opinion on what should be hosted on a personal VM in the cloud, but here’s my take, and I hope someone can pick up something useful.
+Also, a disclaimer, while the hosting part is free, a nice domain name is not.
+I used to use Google Domains, but they moved their business to SquareSpace.
+I pay $12/year for demin.dev.</p>
+<p>My choice of services to run:</p>
+<ul class="simple">
+<li><p>Static website using <code class="docutils literal notranslate"><span class="pre">nginx</span></code>.</p></li>
+<li><p>Mailbox using <code class="docutils literal notranslate"><span class="pre">postfix</span></code>.</p></li>
+<li><p>VPN using <code class="docutils literal notranslate"><span class="pre">tailscale</span></code>.</p></li>
+<li><p>XMPP server using <code class="docutils literal notranslate"><span class="pre">ejabberd</span></code>.</p></li>
+<li><p>Folder synchronization with <code class="docutils literal notranslate"><span class="pre">syncthing</span></code>.</p></li>
+<li><p>RSS reader using <code class="docutils literal notranslate"><span class="pre">commafeed</span></code>.</p></li>
+</ul>
+<p>This leaves a bit of memory to run an API server for personal experiments.</p>
+<p>In the interest of efficiency we won’t be using containerization or nested virtualization (sorry, no <a class="reference internal" href="#/12_articles/51-self-hosted-paas.html"><span class="xref myst">PaaS</span></a> preaching here), which means extra fuss for installing each separate piece.
+But you’ll see that the setup has the same steps for all parts, and it’s a good opportunity to learn about the Linux fundamentals.</p>
+<section id="install-gcloud-cli">
+<h2>Install GCloud CLI<a class="headerlink" href="#install-gcloud-cli" title="Link to this heading">#</a></h2>
+<p>I prefer scriptable solutions to clicking around in a Web UI, so we’ll be using <a class="reference external" href="https://docs.cloud.google.com/sdk/docs/install-sdk">Google Cloud command-line interface</a>.
+There are many ways to install <code class="docutils literal notranslate"><span class="pre">gcloud</span></code>, my favorite is to use <code class="docutils literal notranslate"><span class="pre">pip</span></code>.
+With a modern Python (3.12+ at the moment of writing), create a virtualenv and run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">gcloud</span></code>.</p>
+<p>After installation, authenticate the CLI under your Google account: <code class="docutils literal notranslate"><span class="pre">gcloud</span> <span class="pre">auth</span> <span class="pre">login</span></code>.</p>
+</section>
+<section id="create-a-vm">
+<h2>Create a VM<a class="headerlink" href="#create-a-vm" title="Link to this heading">#</a></h2>
+<p>I extracted the parts that you most likely want to change as variables.
+I’m using domain name demin.dev, and my user name is peterdemin:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">PROJECT</span><span class="o">=</span>demindev
+<span class="nv">ACCOUNT</span><span class="o">=</span><span class="m">763427644786</span>
+<span class="nv">USERNAME</span><span class="o">=</span>peter
+<span class="nv">PUBKEY</span><span class="o">=</span><span class="k">$(</span>ssh-keygen<span class="w"> </span>-yf<span class="w"> </span>~/.ssh/id_rsa<span class="k">)</span>
+<span class="nv">INSTANCE</span><span class="o">=</span>demin-dev
+<span class="nv">DOMAIN</span><span class="o">=</span>demin.dev
+
+gcloud<span class="w"> </span>compute<span class="w"> </span>instances<span class="w"> </span>create<span class="w"> </span><span class="nv">$INSTANCE</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--project<span class="o">=</span><span class="nv">$PROJECT</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--zone<span class="o">=</span>us-west1-c<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--machine-type<span class="o">=</span>e2-micro<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--network-interface<span class="o">=</span>network-tier<span class="o">=</span>STANDARD,stack-type<span class="o">=</span>IPV4_ONLY,subnet<span class="o">=</span>default<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--tags<span class="o">=</span>http-server,https-server,jabber-server<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--public-ptr<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--public-ptr-domain<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">DOMAIN</span><span class="si">}</span><span class="s2">.&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--metadata<span class="o">=</span><span class="s2">&quot;ssh-keys=</span><span class="si">${</span><span class="nv">USERNAME</span><span class="si">}</span><span class="s2">:</span><span class="si">${</span><span class="nv">PUBKEY</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--maintenance-policy<span class="o">=</span>MIGRATE<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--provisioning-model<span class="o">=</span>STANDARD<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--service-account<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">ACCOUNT</span><span class="si">}</span><span class="s2">-compute@developer.gserviceaccount.com&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--scopes<span class="o">=</span>https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/trace.append<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--create-disk<span class="o">=</span>auto-delete<span class="o">=</span>yes,boot<span class="o">=</span>yes,device-name<span class="o">=</span><span class="nv">$INSTANCE</span>,image<span class="o">=</span>projects/debian-cloud/global/images/debian-13-trixie-v20251014,mode<span class="o">=</span>rw,size<span class="o">=</span><span class="m">10</span>,type<span class="o">=</span>pd-standard<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--no-shielded-secure-boot<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--shielded-vtpm<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--shielded-integrity-monitoring<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--labels<span class="o">=</span>goog-ec-src<span class="o">=</span>vm_add-gcloud<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--reservation-affinity<span class="o">=</span>any
+</pre></div>
+</div>
+<p>I’m using the latest stable Debian release that happens to be 13 Trixie.
+I’m a long time fan of Ubuntu, but I found that Ubuntu server is a bit too heavy for the e2-micro size, while Debian provides a similar experience.</p>
+<p>The command will output something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NAME</span>            <span class="n">ZONE</span>        <span class="n">MACHINE_TYPE</span>  <span class="n">PREEMPTIBLE</span>  <span class="n">INTERNAL_IP</span>  <span class="n">EXTERNAL_IP</span>   <span class="n">STATUS</span>
+<span class="n">demin</span><span class="o">-</span><span class="n">dev</span>       <span class="n">us</span><span class="o">-</span><span class="n">west1</span><span class="o">-</span><span class="n">c</span>  <span class="n">e2</span><span class="o">-</span><span class="n">micro</span>                   <span class="mf">10.138.0.4</span>   <span class="mf">35.212.175.9</span>  <span class="n">RUNNING</span>
+</pre></div>
+</div>
+<p>It’ll take a second to start the VM.
+Use this time to update the DNS settings for the domain with the new <code class="docutils literal notranslate"><span class="pre">EXTERNAL_IP</span></code>.
+Don’t worry that the address is “ephemeral”, in my experience Google doesn’t change IP addresses of running VMs.
+In opposite, it actually tends to reuse the same IPv4 address if you delete/recreate a VM.</p>
+</section>
+<section id="configure-firewall">
+<h2>Configure Firewall<a class="headerlink" href="#configure-firewall" title="Link to this heading">#</a></h2>
+<p>Make sure we have HTTP/HTTPS rules, and add Jabber ports:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>compute<span class="w"> </span>firewall-rules<span class="w"> </span>create<span class="w"> </span>default-allow-http<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--project<span class="o">=</span><span class="nv">$PROJECT</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--direction<span class="o">=</span>INGRESS<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--priority<span class="o">=</span><span class="m">1000</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--network<span class="o">=</span>default<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--action<span class="o">=</span>ALLOW<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--rules<span class="o">=</span>tcp:80<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--source-ranges<span class="o">=</span><span class="m">0</span>.0.0.0/0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--target-tags<span class="o">=</span>http-server<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+gcloud<span class="w"> </span>compute<span class="w"> </span>firewall-rules<span class="w"> </span>create<span class="w"> </span>default-allow-https<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--project<span class="o">=</span><span class="nv">$PROJECT</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--direction<span class="o">=</span>INGRESS<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--priority<span class="o">=</span><span class="m">1000</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--network<span class="o">=</span>default<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--action<span class="o">=</span>ALLOW<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--rules<span class="o">=</span>tcp:443<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--source-ranges<span class="o">=</span><span class="m">0</span>.0.0.0/0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--target-tags<span class="o">=</span>https-server<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+gcloud<span class="w"> </span>compute<span class="w"> </span>firewall-rules<span class="w"> </span>create<span class="w"> </span>jabber<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--project<span class="o">=</span><span class="nv">$PROJECT</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--direction<span class="o">=</span>INGRESS<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--priority<span class="o">=</span><span class="m">1000</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--network<span class="o">=</span>default<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--action<span class="o">=</span>ALLOW<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--rules<span class="o">=</span>tcp:5222,tcp:5223,tcp:5269,tcp:5443,tcp:5280,tcp:1883,udp:5478<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--source-ranges<span class="o">=</span><span class="m">0</span>.0.0.0/0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--target-tags<span class="o">=</span>jabber-server<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+</pre></div>
+</div>
+</section>
+<section id="provision">
+<h2>Provision<a class="headerlink" href="#provision" title="Link to this heading">#</a></h2>
+<p>Personally, I put all VM setup code in a shell script, so my workflow looks like this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scp<span class="w"> </span>provision.sh<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">IP</span><span class="si">}</span><span class="s2">:&quot;</span>
+ssh<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">IP</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>--<span class="w"> </span><span class="s2">&quot;chmod +x provision.sh &amp;&amp; sudo ./provision.sh&quot;</span>
+</pre></div>
+</div>
+<p>For the sake of the guideline, I’ll split the steps, so it’s easier to follow and adjust.
+Login to the instance is become root:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span><span class="nv">$IP</span>
+sudo<span class="w"> </span>su
+</pre></div>
+</div>
+<p>All further instructions assume you’re running as root on the VM.</p>
+<p>For the email server instructions please refer to <a class="reference internal" href="../12_articles/45-minimal-linux-email-box.html"><span class="std std-doc">How to set up a receiving email server on a Linux machine</span></a></p>
+<section id="clean-up-google-cruft">
+<h3>Clean up Google cruft<a class="headerlink" href="#clean-up-google-cruft" title="Link to this heading">#</a></h3>
+<p>Google preinstalls its CLI to the VM cloud images. I find it unnecessary and wasteful, so the first step is to clean up:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt<span class="w"> </span>remove<span class="w"> </span>-y<span class="w"> </span>google-cloud-cli<span class="w"> </span>google-cloud-cli-anthoscli<span class="w"> </span>google-guest-agent<span class="w"> </span>google-osconfig-agent
+apt<span class="w"> </span>autoremove
+</pre></div>
+</div>
+<p>This operation is crazy slow (about 10 minutes), mostly because Google decided to delete the package files one-by-one, instead of in bulk. Keeping packages would most likely mean upgrading them, which takes same crazy amount of time.</p>
+<p>If you want the life of this VM to be snappy, the alternative is to put these packages on hold:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-mark<span class="w"> </span>hold<span class="w"> </span>google-cloud-cli<span class="w"> </span>google-cloud-cli-anthoscli<span class="w"> </span>google-guest-agent<span class="w"> </span>google-osconfig-agent
+</pre></div>
+</div>
+</section>
+<section id="install-tailscale">
+<h3>Install Tailscale<a class="headerlink" href="#install-tailscale" title="Link to this heading">#</a></h3>
+<p>I like to start with tailscale, because that allows me to disable public SSH access to the instance as soon as possible.</p>
+<p>First we need to add tailscale’s Debian package repo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>/etc/apt/keyrings
+curl<span class="w"> </span>-fsSL<span class="w"> </span>https://pkgs.tailscale.com/stable/debian/trixie.noarmor.gpg<span class="w"> </span>&gt;<span class="w"> </span>/usr/share/keyrings/tailscale-archive-keyring.gpg
+curl<span class="w"> </span>-fsSL<span class="w"> </span>https://pkgs.tailscale.com/stable/debian/trixie.tailscale-keyring.list<span class="w"> </span>&gt;<span class="w"> </span>/etc/apt/sources.list.d/tailscale.list
+</pre></div>
+</div>
+<p>Refresh packages list and install:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>update
+apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>tailscale
+</pre></div>
+</div>
+<p>Tailscale authentication is done by following the link from this command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tailscale<span class="w"> </span>login
+</pre></div>
+</div>
+<p>Now you can logout from SSH session, disable allow-ssh firewall rule and connect back on the tailscale host that would looks something like <code class="docutils literal notranslate"><span class="pre">demin-dev.tail6f730.ts.net</span></code>.
+While at it, you might also want to disable RDP and internal traffic rules as well.</p>
+</section>
+<section id="folder-synchronization-with-syncthing">
+<h3>Folder synchronization with Syncthing<a class="headerlink" href="#folder-synchronization-with-syncthing" title="Link to this heading">#</a></h3>
+<p>The steps to install Syncthing from package maintainer’s repo are similar:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">L</span> <span class="o">-</span><span class="n">o</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">keyrings</span><span class="o">/</span><span class="n">syncthing</span><span class="o">-</span><span class="n">archive</span><span class="o">-</span><span class="n">keyring</span><span class="o">.</span><span class="n">gpg</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">syncthing</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="n">release</span><span class="o">-</span><span class="n">key</span><span class="o">.</span><span class="n">gpg</span>
+<span class="n">echo</span> <span class="s2">&quot;deb [signed-by=/etc/apt/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing stable-v2&quot;</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">syncthing</span><span class="o">.</span><span class="n">list</span>
+<span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
+<span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">syncthing</span>
+</pre></div>
+</div>
+<p>Syncthing uses per-user SystemD units. Let’s make a separate system user for it and launch:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>useradd<span class="w"> </span>-rms<span class="w"> </span>/sbin/nologin<span class="w"> </span>syncthing
+systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>syncthing@syncthing.service
+systemctl<span class="w"> </span>start<span class="w"> </span>syncthing@syncthing.service
+</pre></div>
+</div>
+<p>Then you can open Web UI on port <code class="docutils literal notranslate"><span class="pre">8384</span></code> on the tailscale’s host and finish the setup in the browser:</p>
+<p>https://demin-dev.tail6f730.ts.net:8384/</p>
+</section>
+<section id="nginx-and-https">
+<h3>Nginx and HTTPS<a class="headerlink" href="#nginx-and-https" title="Link to this heading">#</a></h3>
+<p>The domain needs TLS certificates to serve HTTPS and XMPP traffic.
+Certbot recommends to use snap installation, because they don’t have the time to support everyone who can’t figure out Python installation.
+But it’s more efficient to install from pip. Here are the steps.</p>
+<p>First, let’s make sure we have Python3 installed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ca-certificates<span class="w"> </span>python3-venv<span class="w"> </span>python-is-python3
+</pre></div>
+</div>
+<p>Now, we’ll create a virtualenv for certbot and install it system-wide:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>/opt/certbot/
+/opt/certbot/bin/python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>certbot<span class="w"> </span>certbot-nginx
+ln<span class="w"> </span>-s<span class="w"> </span>/opt/certbot/bin/certbot<span class="w"> </span>/usr/bin/certbot
+</pre></div>
+</div>
+<p>This is not ideal, because we’re not using the system the package manager.
+So it won’t get automatic updates, and removing can only be done manually.
+For this particular case, I think, it’s fine, though.
+In case you want to upgrade it later, run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/certbot/bin/python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>certbot<span class="w"> </span>certbot-nginx
+</pre></div>
+</div>
+<p>Initialize the certificates:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>certbot<span class="w"> </span>--agree-tos<span class="w"> </span>--nginx<span class="w"> </span>-m<span class="w"> </span><span class="nv">$NAME</span>@<span class="nv">$DOMAIN</span>
+</pre></div>
+</div>
+<p>Setup automatic renewal as per <a class="reference external" href="https://eff-certbot.readthedocs.io/en/latest/using.html#setting-up-automated-renewal">official docs</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SLEEPTIME</span><span class="o">=</span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">&#39;BEGIN{srand(); print int(rand()*(3600+1))}&#39;</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;0 0,12 * * * root sleep </span><span class="nv">$SLEEPTIME</span><span class="s2"> &amp;&amp; certbot renew -q&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/crontab
+</pre></div>
+</div>
+</section>
+</section>
+<section id="ejabberd">
+<h2>Ejabberd<a class="headerlink" href="#ejabberd" title="Link to this heading">#</a></h2>
+<p>Install with SQLite support:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ejabberd<span class="w"> </span>sqlite3<span class="w"> </span>libsqlite3-dev<span class="w"> </span>erlang-p1-sqlite3
+</pre></div>
+</div>
+<p>Update <code class="docutils literal notranslate"><span class="pre">/etc/ejabberd/ejabberd.yml</span></code> to configure host, TLS, and database:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hosts:
+<span class="w">  </span>-<span class="w"> </span>demin.dev
+
+certfiles:
+<span class="w">  </span><span class="c1"># - &quot;/etc/ejabberd/ejabberd.pem&quot;</span>
+<span class="w">  </span>-<span class="w"> </span>/etc/letsencrypt/live/demin.dev/fullchain.pem
+<span class="w">  </span>-<span class="w"> </span>/etc/letsencrypt/live/demin.dev/privkey.pem
+
+sql_type:<span class="w"> </span>sqlite
+sql_database:<span class="w"> </span><span class="s2">&quot;/var/lib/ejabberd/ejabberd.db&quot;</span>
+auth_method:<span class="w"> </span>sql
+default_db:<span class="w"> </span>sql
+
+...
+
+modules:
+
+<span class="w">  </span>...
+
+<span class="w">  </span>mod_mam:
+<span class="w">    </span>db_type:<span class="w"> </span>sql
+</pre></div>
+</div>
+<p>Using default mnesia database will cause frequent crashes due to running out of 1GB of memory.</p>
+<p>To allow ejabberd share the certificates with nginx, change the group ownership and permissions:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chgrp<span class="w"> </span>-R<span class="w"> </span>ejabberd<span class="w"> </span>/etc/letsencrypt
+chmod<span class="w"> </span>g+rx<span class="w"> </span>/etc/letsencrypt/archive
+</pre></div>
+</div>
+<p>Start service and register the first user:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>start<span class="w"> </span>ejabberd.service
+<span class="nb">read</span><span class="w"> </span>-rsp<span class="w"> </span><span class="s2">&quot;Enter password for account </span><span class="nv">$NAME</span><span class="s2">: &quot;</span><span class="w"> </span>password
+sudo<span class="w"> </span>-u<span class="w"> </span>ejabberd<span class="w"> </span>ejabberdctl<span class="w"> </span>register<span class="w"> </span><span class="nv">$NAME</span><span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span><span class="nv">$password</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-gcloud-cli">Install GCloud CLI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-vm">Create a VM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-firewall">Configure Firewall</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#provision">Provision</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clean-up-google-cruft">Clean up Google cruft</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-tailscale">Install Tailscale</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#folder-synchronization-with-syncthing">Folder synchronization with Syncthing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nginx-and-https">Nginx and HTTPS</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejabberd">Ejabberd</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  
+  <div class="tocsection editthispage">
+    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/13_drafts/76-gcp-free-tier.md">
+      <i class="fa-solid fa-pencil"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </div>
+</div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/13_drafts/76-gcp-free-tier.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2022, Peter Demin.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
