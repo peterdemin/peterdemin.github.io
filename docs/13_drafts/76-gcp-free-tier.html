@@ -377,7 +377,7 @@ apt<span class="w"> </span>autoremove
 </pre></div>
 </div>
 <p>This operation is crazy slow (about 10 minutes), mostly because Google decided to delete the package files one-by-one, instead of in bulk. Keeping packages would most likely mean upgrading them, which takes same crazy amount of time.</p>
-<p>If you want the life of this VM to be snappy, the alternative is to put these packages on hold:</p>
+<p>If you don’t want to wait now, put these packages on hold, and get back uninstalling later:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-mark<span class="w"> </span>hold<span class="w"> </span>google-cloud-cli<span class="w"> </span>google-cloud-cli-anthoscli<span class="w"> </span>google-guest-agent<span class="w"> </span>google-osconfig-agent
 </pre></div>
 </div>
@@ -450,7 +450,7 @@ But it’s more efficient to install from pip. Here are the steps.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>nginx<span class="w"> </span>ca-certificates<span class="w"> </span>python3-venv<span class="w"> </span>python-is-python3
 </pre></div>
 </div>
-<p>Now, we’ll create a virtualenv for certbot and install it system-wide:</p>
+<p>Create a Python virtualenv for certbot and install it system-wide from the Python Package Index:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>/opt/certbot/
 /opt/certbot/bin/python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>certbot<span class="w"> </span>certbot-nginx
 ln<span class="w"> </span>-s<span class="w"> </span>/opt/certbot/bin/certbot<span class="w"> </span>/usr/bin/certbot
@@ -463,7 +463,9 @@ In case you want to upgrade it later, run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/certbot/bin/python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>certbot<span class="w"> </span>certbot-nginx
 </pre></div>
 </div>
-<p>Let’s configure nginx. Make sure you include jabber subdomains:</p>
+<p>Let’s configure nginx.
+Make sure you include jabber subdomains.
+Example <code class="docutils literal notranslate"><span class="pre">/etc/nginx/sites-available/default</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>server {
     server_name www.demin.dev demin.dev conference.demin.dev pubsub.demin.dev;
     root /var/www/html;
@@ -476,7 +478,6 @@ In case you want to upgrade it later, run:</p>
 
 server {
     server_name feed.demin.dev;
-
     location / {
       proxy_pass http://127.0.0.1:8082;
       proxy_set_header  X-Forwarded-Proto https;
@@ -490,7 +491,7 @@ server {
 <span class="nv">SLEEPTIME</span><span class="o">=</span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">&#39;BEGIN{srand(); print int(rand()*(3600+1))}&#39;</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;0 0,12 * * * root sleep </span><span class="nv">$SLEEPTIME</span><span class="s2"> &amp;&amp; certbot renew -q&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/crontab
 </pre></div>
 </div>
-<p>This command will pick the subdomains from the nginx config, and update it to include the HTTPS-related details.</p>
+<p>This command picks the subdomains from the nginx config, and updates it to include the HTTPS-related details.</p>
 </section>
 </section>
 <section id="ejabberd">
