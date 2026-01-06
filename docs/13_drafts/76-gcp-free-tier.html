@@ -251,19 +251,20 @@ I pay $12/year for demin.dev.</p>
 <li><p>VPN using <code class="docutils literal notranslate"><span class="pre">tailscale</span></code>.</p></li>
 <li><p>Folder synchronization with <code class="docutils literal notranslate"><span class="pre">syncthing</span></code>.</p></li>
 <li><p>Static website and reverse proxy using <code class="docutils literal notranslate"><span class="pre">nginx</span></code>.</p></li>
-<li><p>Mailbox using <code class="docutils literal notranslate"><span class="pre">postfix</span></code>.</p></li>
 <li><p>XMPP server using <code class="docutils literal notranslate"><span class="pre">ejabberd</span></code>.</p></li>
+<li><p>Mailbox using <code class="docutils literal notranslate"><span class="pre">postfix</span></code>.</p></li>
 <li><p>RSS reader using <code class="docutils literal notranslate"><span class="pre">commafeed</span></code>.</p></li>
 </ul>
 <p>This setup provides me these enjoyable, free, and open-source things:</p>
 <ol class="arabic simple">
 <li><p>Email and XMPP accounts: peter&#64;demin.dev.</p></li>
-<li><p>RSS reader at feed.demin.dev.</p></li>
 <li><p>Personal static website at peter.demin.dev.</p></li>
+<li><p>Personal RSS reader at feed.demin.dev.</p></li>
 <li><p>VPN exit node, that makes me look like a Google Cloud server 🤪</p></li>
+<li><p>Cloud backup server (the unreliable kind, because there’s no redundancy).</p></li>
 </ol>
-<p>In the interest of efficiency we won’t be using containerization or nested virtualization (sorry, no <a class="reference internal" href="#/12_articles/51-self-hosted-paas.html"><span class="xref myst">PaaS</span></a> preaching here), which means extra fuss for installing each separate piece.
-But you’ll see that the setup has the same steps for all parts, and it’s a good opportunity to learn about the Linux fundamentals.</p>
+<p>In the interest of efficiency, we won’t be using containerization or nested virtualization (sorry, no <a class="reference internal" href="#/12_articles/51-self-hosted-paas.html"><span class="xref myst">PaaS</span></a> preaching here), which means extra fuss for installing each separate piece.
+But you’ll see that the setup has the same steps for many parts, and it’s a good opportunity to learn about the Linux fundamentals: managing packages, users, configuration files, and SystemD units.</p>
 <section id="install-gcloud-cli">
 <h2>Install GCloud CLI<a class="headerlink" href="#install-gcloud-cli" title="Link to this heading">#</a></h2>
 <p>I prefer scriptable solutions to clicking around in a Web UI, so we’ll be using <a class="reference external" href="https://docs.cloud.google.com/sdk/docs/install-sdk">Google Cloud command-line interface</a>.
@@ -313,7 +314,8 @@ I’m a long time fan of Ubuntu, but I found that Ubuntu server is a bit too hea
 <p>It’ll take a second to start the VM.
 Use this time to update the DNS settings for the domain with the new <code class="docutils literal notranslate"><span class="pre">EXTERNAL_IP</span></code>.
 Don’t worry that the address is “ephemeral”, in my experience Google doesn’t change IP addresses of running VMs.
-In opposite, it actually tends to reuse the same IPv4 address if you delete/recreate a VM.</p>
+In opposite, it actually tends to reuse the same IPv4 address if you delete/recreate a VM.
+The jabber subdomains (conference.demin.dev and pubsub.demin.dev) can be <code class="docutils literal notranslate"><span class="pre">A</span></code> records with the same IP, or a <code class="docutils literal notranslate"><span class="pre">CNAME</span></code>, it doesn’t matter.</p>
 </section>
 <section id="configure-firewall">
 <h2>Configure Firewall<a class="headerlink" href="#configure-firewall" title="Link to this heading">#</a></h2>
@@ -400,7 +402,25 @@ apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w">
 </div>
 <p>Now you can logout from SSH session, disable allow-ssh firewall rule and connect back on the tailscale host that would looks something like <code class="docutils literal notranslate"><span class="pre">demin-dev.tail6f730.ts.net</span></code>.
 While at it, you might also want to disable RDP and internal traffic rules as well.</p>
-<p>If you designate this server as an exit node, you can use it for security on public WiFi.</p>
+<p>If you designate this server as an exit node, you can use it for security on public WiFi.
+You’ll need to apply <a class="reference external" href="https://tailscale.com/kb/1019/subnets?tab=linux#enable-ip-forwarding">extra configuration</a>, though:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/sysctl.d/99-tailscale.conf<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+<span class="s">net.ipv4.ip_forward = 1</span>
+<span class="s">net.ipv6.conf.all.forwarding = 1</span>
+<span class="s">EOF</span>
+sysctl<span class="w"> </span>-p<span class="w"> </span>/etc/sysctl.d/99-tailscale.conf
+tailscale<span class="w"> </span>up<span class="w"> </span>--advertise-exit-node
+</pre></div>
+</div>
+<p>Then open <a class="reference external" href="https://tailscale.com">Tailscale</a> admin console, open the machine page, and choose Exit Node: Allowed under Routing Settings.</p>
+<p>To verify, enable the new Exit Node on your laptop and open <a class="reference external" href="https://whatismyipaddress.com/"></a>, it should show something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ISP</span><span class="p">:</span>      <span class="n">Google</span> <span class="n">LLC</span>
+<span class="n">Services</span><span class="p">:</span> <span class="n">Data</span> <span class="n">Center</span><span class="o">/</span><span class="n">Transit</span>
+<span class="n">City</span><span class="p">:</span>     <span class="n">The</span> <span class="n">Dalles</span>
+<span class="n">Region</span><span class="p">:</span>   <span class="n">Oregon</span>
+<span class="n">Country</span><span class="p">:</span>  <span class="n">United</span> <span class="n">States</span>
+</pre></div>
+</div>
 </section>
 <section id="folder-synchronization-with-syncthing">
 <h3>Folder synchronization with Syncthing<a class="headerlink" href="#folder-synchronization-with-syncthing" title="Link to this heading">#</a></h3>
@@ -475,7 +495,10 @@ server {
 </section>
 <section id="ejabberd">
 <h2>Ejabberd<a class="headerlink" href="#ejabberd" title="Link to this heading">#</a></h2>
-<p>Install with SQLite support:</p>
+<p>I was inspired to set up an XMPP server after reading about <a class="reference external" href="https://xn--gckvb8fzb.com/run-your-own-instant-messaging-service-on-freebsd/">FreeBSD setup from マリウス</a>.
+There are a few differences with my setup, though.
+Using default mnesia database will cause frequent crashes due to running out of 1GB of memory so we’ll switch to the second easiest option, SQLite.</p>
+<p>Install ejabberd with SQLite support:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ejabberd<span class="w"> </span>sqlite3<span class="w"> </span>libsqlite3-dev<span class="w"> </span>erlang-p1-sqlite3
 </pre></div>
 </div>
@@ -503,7 +526,6 @@ modules:
 <span class="w">    </span>db_type:<span class="w"> </span>sql
 </pre></div>
 </div>
-<p>Using default mnesia database will cause frequent crashes due to running out of 1GB of memory.</p>
 <p>To allow ejabberd share the certificates with nginx, change the group ownership and permissions:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chgrp<span class="w"> </span>-R<span class="w"> </span>ejabberd<span class="w"> </span>/etc/letsencrypt
 chmod<span class="w"> </span>g+rx<span class="w"> </span>/etc/letsencrypt/archive

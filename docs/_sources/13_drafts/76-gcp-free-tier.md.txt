@@ -13,19 +13,20 @@ My choice of services to run:
 - VPN using `tailscale`.
 - Folder synchronization with `syncthing`.
 - Static website and reverse proxy using `nginx`.
-- Mailbox using `postfix`.
 - XMPP server using `ejabberd`.
+- Mailbox using `postfix`.
 - RSS reader using `commafeed`.
 
 This setup provides me these enjoyable, free, and open-source things:
 
 1. Email and XMPP accounts: peter@demin.dev.
-2. RSS reader at feed.demin.dev.
-3. Personal static website at peter.demin.dev.
+2. Personal static website at peter.demin.dev.
+3. Personal RSS reader at feed.demin.dev.
 4. VPN exit node, that makes me look like a Google Cloud server 🤪
+5. Cloud backup server (the unreliable kind, because there's no redundancy).
 
-In the interest of efficiency we won't be using containerization or nested virtualization (sorry, no [PaaS](/12_articles/51-self-hosted-paas.html) preaching here), which means extra fuss for installing each separate piece.
-But you'll see that the setup has the same steps for all parts, and it's a good opportunity to learn about the Linux fundamentals.
+In the interest of efficiency, we won't be using containerization or nested virtualization (sorry, no [PaaS](/12_articles/51-self-hosted-paas.html) preaching here), which means extra fuss for installing each separate piece.
+But you'll see that the setup has the same steps for many parts, and it's a good opportunity to learn about the Linux fundamentals: managing packages, users, configuration files, and SystemD units.
 
 ## Install GCloud CLI
 
@@ -83,6 +84,7 @@ It'll take a second to start the VM.
 Use this time to update the DNS settings for the domain with the new `EXTERNAL_IP`.
 Don't worry that the address is "ephemeral", in my experience Google doesn't change IP addresses of running VMs.
 In opposite, it actually tends to reuse the same IPv4 address if you delete/recreate a VM.
+The jabber subdomains (conference.demin.dev and pubsub.demin.dev) can be `A` records with the same IP, or a `CNAME`, it doesn't matter.
 
 ## Configure Firewall
 
@@ -189,6 +191,28 @@ Now you can logout from SSH session, disable allow-ssh firewall rule and connect
 While at it, you might also want to disable RDP and internal traffic rules as well.
 
 If you designate this server as an exit node, you can use it for security on public WiFi.
+You'll need to apply [extra configuration](https://tailscale.com/kb/1019/subnets?tab=linux#enable-ip-forwarding), though:
+
+```bash
+cat | sudo tee /etc/sysctl.d/99-tailscale.conf <<EOF
+net.ipv4.ip_forward = 1
+net.ipv6.conf.all.forwarding = 1
+EOF
+sysctl -p /etc/sysctl.d/99-tailscale.conf
+tailscale up --advertise-exit-node
+```
+
+Then open [Tailscale](https://tailscale.com) admin console, open the machine page, and choose Exit Node: Allowed under Routing Settings.
+
+To verify, enable the new Exit Node on your laptop and open [](https://whatismyipaddress.com/), it should show something like this:
+
+```
+ISP:      Google LLC
+Services: Data Center/Transit
+City:     The Dalles
+Region:   Oregon
+Country:  United States
+```
 
 ### Folder synchronization with Syncthing
 
@@ -268,7 +292,6 @@ server {
 }
 ```
 
-
 Generate the certificates and setup automatic renewal as per [official docs](https://eff-certbot.readthedocs.io/en/latest/using.html#setting-up-automated-renewal):
 
 ```bash
@@ -280,7 +303,11 @@ This command will pick the subdomains from the nginx config, and update it to in
 
 ## Ejabberd
 
-Install with SQLite support:
+I was inspired to set up an XMPP server after reading about [FreeBSD setup from マリウス](https://マリウス.com/run-your-own-instant-messaging-service-on-freebsd/).
+There are a few differences with my setup, though.
+Using default mnesia database will cause frequent crashes due to running out of 1GB of memory so we'll switch to the second easiest option, SQLite.
+
+Install ejabberd with SQLite support:
 
 ```bash
 apt-get install -y ejabberd sqlite3 libsqlite3-dev erlang-p1-sqlite3
@@ -311,8 +338,6 @@ modules:
   mod_mam:
     db_type: sql
 ```
-
-Using default mnesia database will cause frequent crashes due to running out of 1GB of memory.
 
 To allow ejabberd share the certificates with nginx, change the group ownership and permissions:
 
