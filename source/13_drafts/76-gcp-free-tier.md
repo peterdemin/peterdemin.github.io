@@ -1,11 +1,11 @@
-# How much can Google Cloud Platform free-tier Virtual Machine serve
+# How much can a Google Cloud Platform free-tier Virtual Machine serve
 
 Google Cloud Platform generously offers a tiny Virtual Machine instance for [free](https://docs.cloud.google.com/free/docs/free-cloud-features#compute) per account.
 The [e2-micro](https://docs.cloud.google.com/compute/docs/general-purpose-machines#e2-shared-core) is not exactly a power house: 0.25 CPU, 1 GB RAM, and 30 GB HDD (not SSD).
 But don't be discouraged, as you'll see how much we can pack on it.
 Of course, everyone has an opinion on what should be hosted on a personal VM in the cloud, but here's my take, and I hope someone can pick up something useful.
 Also, a disclaimer, while the hosting part is free, a nice domain name is not.
-I used to use Google Domains, but they moved their business to SquareSpace.
+I used to use Google Domains, but they moved their business to Squarespace.
 I pay $12/year for demin.dev.
 
 My choice of services to run:
@@ -17,16 +17,8 @@ My choice of services to run:
 - Mailbox using `postfix`.
 - RSS reader using `commafeed`.
 
-This setup provides me these enjoyable, free, and open-source things:
-
-1. Email and XMPP accounts: peter@demin.dev.
-2. Personal static website at peter.demin.dev.
-3. Personal RSS reader at feed.demin.dev.
-4. VPN exit node, that makes me look like a Google Cloud server 🤪
-5. Cloud backup server (the unreliable kind, because there's no redundancy).
-
 In the interest of efficiency, we won't be using containerization or nested virtualization (sorry, no [PaaS](/12_articles/51-self-hosted-paas.html) preaching here), which means extra fuss for installing each separate piece.
-But you'll see that the setup has the same steps for many parts, and it's a good opportunity to learn about the Linux fundamentals: managing packages, users, configuration files, and SystemD units.
+But you'll see that the setup follows the same steps across many parts, and it's a good opportunity to learn Linux fundamentals: managing packages, users, configuration files, and SystemD units.
 
 ## Install GCloud CLI
 
@@ -39,7 +31,7 @@ After installation, authenticate the CLI under your Google account: `gcloud auth
 ## Create a VM
 
 I extracted the parts that you most likely want to change as variables.
-I'm using domain name demin.dev, and my user name is peterdemin:
+I'm using the domain name demin.dev, and my user name is peter:
 
 ```bash
 PROJECT=demindev
@@ -71,7 +63,7 @@ gcloud compute instances create $INSTANCE \
 ```
 
 I'm using the latest stable Debian release that happens to be 13 Trixie.
-I'm a long time fan of Ubuntu, but I found that Ubuntu server is a bit too heavy for the e2-micro size, while Debian provides a similar experience.
+I'm a long-time Ubuntu fan, but Ubuntu Server is too heavy for the e2-micro size, while Debian offers a similar experience with less bloat.
 
 The command will output something like this:
 
@@ -81,14 +73,14 @@ demin-dev       us-west1-c  e2-micro                   10.138.0.4   35.212.175.9
 ```
 
 It'll take a second to start the VM.
-Use this time to update the DNS settings for the domain with the new `EXTERNAL_IP`.
-Don't worry that the address is "ephemeral", in my experience Google doesn't change IP addresses of running VMs.
-In opposite, it actually tends to reuse the same IPv4 address if you delete/recreate a VM.
-The jabber subdomains (conference.demin.dev and pubsub.demin.dev) can be `A` records with the same IP, or a `CNAME`, it doesn't matter.
+Use this time to update the domain's DNS settings with the new `EXTERNAL_IP`.
+Don't worry about the address being "ephemeral"; in my experience, Google doesn't change the IP addresses of running VMs.
+On the contrary, it tends to reuse the same IPv4 address if you delete/recreate a VM.
+The jabber subdomains (conference.demin.dev and pubsub.demin.dev) can be `A` records with the same IP, or a `CNAME` record mapping to the domain.
 
 ## Configure Firewall
 
-Make sure we have HTTP/HTTPS rules, and add Jabber ports:
+Ensure Google Firewall has rules for HTTP/HTTPS, and Jabber:
 
 ```bash
 gcloud compute firewall-rules create default-allow-http \
@@ -133,7 +125,7 @@ ssh "${IP}" -- "chmod +x provision.sh && sudo ./provision.sh"
 ```
 
 For the sake of the guideline, I'll split the steps, so it's easier to follow and adjust.
-Login to the instance is become root:
+Log in to the instance and become root:
 
 ```bash
 ssh $IP
@@ -142,21 +134,22 @@ sudo su
 
 All further instructions assume you're running as root on the VM.
 
-For the email server instructions please refer to [](/12_articles/45-minimal-linux-email-box.md).
+For the email server instructions, please refer to [](/12_articles/45-minimal-linux-email-box.md).
 The instructions for the RSS header are in [](/12_articles/71-rss-feed.md).
 
 ### Clean up Google cruft
 
-Google preinstalls its CLI to the VM cloud images. I find it unnecessary and wasteful, so the first step is to clean up:
+Google preinstalls its CLI in the VM cloud images. I find it unnecessary and wasteful, clean up:
 
 ```bash
 apt remove -y google-cloud-cli google-cloud-cli-anthoscli google-guest-agent google-osconfig-agent
 apt autoremove
 ```
 
-This operation is crazy slow (about 10 minutes), mostly because Google decided to delete the package files one-by-one, instead of in bulk. Keeping packages would most likely mean upgrading them, which takes same crazy amount of time.
+This operation is crazy slow (about 10 minutes), mainly because Google decided to delete the package files one by one instead of in bulk.
+Keeping packages would most likely mean upgrading them, which takes the same crazy amount of time.
 
-If you don't want to wait now, put these packages on hold, and get back uninstalling later:
+If you don't want to wait now, put these packages on hold, and get back to uninstalling later:
 
 ```bash
 apt-mark hold google-cloud-cli google-cloud-cli-anthoscli google-guest-agent google-osconfig-agent
@@ -164,9 +157,9 @@ apt-mark hold google-cloud-cli google-cloud-cli-anthoscli google-guest-agent goo
 
 ### Install Tailscale
 
-I like to start with tailscale, because that allows me to disable public SSH access to the instance as soon as possible.
+I like to start with Tailscale because it lets me disable public SSH access to the instance as soon as possible.
 
-First we need to add tailscale's Debian package repo:
+Add Tailscale's Debian package repo:
 
 ```bash
 mkdir -p /etc/apt/keyrings
@@ -174,7 +167,7 @@ curl -fsSL https://pkgs.tailscale.com/stable/debian/trixie.noarmor.gpg > /usr/sh
 curl -fsSL https://pkgs.tailscale.com/stable/debian/trixie.tailscale-keyring.list > /etc/apt/sources.list.d/tailscale.list
 ```
 
-Refresh packages list and install:
+Refresh the packages list and install:
 
 ```bash
 apt-get update
@@ -187,10 +180,10 @@ Tailscale authentication is done by following the link from this command:
 tailscale login
 ```
 
-Now you can logout from SSH session, disable allow-ssh firewall rule and connect back on the tailscale host that would looks something like `demin-dev.tail6f730.ts.net`.
-While at it, you might also want to disable RDP and internal traffic rules as well.
+Now you can log out of the SSH session, disable the default-allow-ssh firewall rule, and connect back to the Tailscale host, which would look something like `demin-dev.tail6f730.ts.net`.
+While at it, you should also disable RDP and internal traffic rules.
 
-If you designate this server as an exit node, you can use it for security on public WiFi.
+If you designate this server as an exit node, you can use it to enhance security on public Wi-Fi.
 You'll need to apply [extra configuration](https://tailscale.com/kb/1019/subnets?tab=linux#enable-ip-forwarding), though:
 
 ```bash
@@ -216,7 +209,7 @@ Country:  United States
 
 ### Folder synchronization with Syncthing
 
-The steps to install Syncthing from package maintainer's repo are similar:
+The steps to install Syncthing from the package maintainer's repo are similar:
 
 ```
 curl -L -o /etc/apt/keyrings/syncthing-archive-keyring.gpg https://syncthing.net/release-key.gpg
@@ -233,16 +226,16 @@ systemctl enable syncthing@syncthing.service
 systemctl start syncthing@syncthing.service
 ```
 
-Then you can open Web UI on port `8384` on the tailscale's host and finish the setup in the browser:
+Then you can open Web UI on port `8384` on the Tailscale's host and finish the setup in the browser:
 
 https://demin-dev.tail6f730.ts.net:8384/
 
-One cool thing to do is to share `/var/www/html` with your laptop for a seemless website deployment experience.
+One cool thing to do is to share `/var/www/html` with your laptop for a seamless website deployment experience.
 
 ### Nginx and HTTPS
 
 The domain needs TLS certificates to serve HTTPS and XMPP traffic.
-Certbot recommends to use snap installation, because they don't have the time to support everyone who can't figure out Python installation.
+Certbot recommends using the snap package because they don't have the time to support everyone who can't figure out how to install Python.
 But it's more efficient to install from pip. Here are the steps.
 
 First, let's make sure we have nginx and Python installed:
@@ -259,9 +252,9 @@ python3 -m venv /opt/certbot/
 ln -s /opt/certbot/bin/certbot /usr/bin/certbot
 ```
 
-This is not ideal, because we're not using the system the package manager.
+This is not ideal, because we're not using the system's package manager.
 So it won't get automatic updates for the certbot, and removing has to be done "manually".
-For this particular case, I think, it's fine, though.
+For this particular case, it's fine, though.
 In case you want to upgrade it later, run:
 
 ```bash
@@ -269,12 +262,12 @@ In case you want to upgrade it later, run:
 ```
 
 Let's configure nginx.
-Make sure you include jabber subdomains.
+Add jabber subdomains here to include them in the TLS certificate, even though XMPP traffic will never use HTTP/HTTPS ports with them.
 Example `/etc/nginx/sites-available/default`:
 
 ```
 server {
-    server_name www.demin.dev demin.dev conference.demin.dev pubsub.demin.dev;
+    server_name demin.dev conference.demin.dev pubsub.demin.dev;
     root /var/www/html;
     index index.html index.htm;
     location / {
@@ -293,20 +286,20 @@ server {
 }
 ```
 
-Generate the certificates and setup automatic renewal as per [official docs](https://eff-certbot.readthedocs.io/en/latest/using.html#setting-up-automated-renewal):
+Generate the certificates and set up automatic renewal as per [official docs](https://eff-certbot.readthedocs.io/en/latest/using.html#setting-up-automated-renewal):
 
 ```bash
 certbot --agree-tos --nginx -m $EMAIL
 SLEEPTIME=$(awk 'BEGIN{srand(); print int(rand()*(3600+1))}'); echo "0 0,12 * * * root sleep $SLEEPTIME && certbot renew -q" >> /etc/crontab
 ```
 
-This command picks the subdomains from the nginx config, and updates it to include the HTTPS-related details.
+This command picks the subdomains from the nginx config and updates them to include the HTTPS-related details.
 
 ## Ejabberd
 
 I was inspired to set up an XMPP server after reading about [FreeBSD setup from マリウス](https://マリウス.com/run-your-own-instant-messaging-service-on-freebsd/).
 There are a few differences with my setup, though.
-Using default mnesia database will cause frequent crashes due to running out of 1GB of memory so we'll switch to the second easiest option, SQLite.
+Using the default Mnesia database will cause frequent crashes due to running out of 1GB of memory, so we'll switch to the second-easiest option: SQLite.
 
 Install ejabberd with SQLite support:
 
@@ -354,3 +347,13 @@ systemctl start ejabberd.service
 read -rsp "Enter password for account $NAME: " password
 sudo -u ejabberd ejabberdctl register $NAME $DOMAIN $password
 ```
+
+## Conclusion
+
+This setup provides me with these enjoyable, free, and open-source things:
+
+1. Email and XMPP accounts: `peter@demin.dev`.
+2. Personal static website at `peter.demin.dev`.
+3. Personal RSS reader at `feed.demin.dev`.
+4. VPN exit node, that makes me look like a Google Cloud server 🤪
+5. Cloud backup server (the unreliable kind, because there's no redundancy).
