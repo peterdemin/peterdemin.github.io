@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>How much can Google Cloud Platform free-tier Virtual Machine serve &#8212; Peter Demin</title>
+    <title>How much can a Google Cloud Platform free-tier Virtual Machine serve &#8212; Peter Demin</title>
   
   
   
@@ -220,7 +220,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">How much can Google Cloud Platform free-tier Virtual Machine serve</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">How much can a Google Cloud Platform free-tier Virtual Machine serve</span></li>
   </ul>
 </nav>
 </div>
@@ -237,14 +237,14 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="how-much-can-google-cloud-platform-free-tier-virtual-machine-serve">
-<h1>How much can Google Cloud Platform free-tier Virtual Machine serve<a class="headerlink" href="#how-much-can-google-cloud-platform-free-tier-virtual-machine-serve" title="Link to this heading">#</a></h1>
+  <section id="how-much-can-a-google-cloud-platform-free-tier-virtual-machine-serve">
+<h1>How much can a Google Cloud Platform free-tier Virtual Machine serve<a class="headerlink" href="#how-much-can-a-google-cloud-platform-free-tier-virtual-machine-serve" title="Link to this heading">#</a></h1>
 <p>Google Cloud Platform generously offers a tiny Virtual Machine instance for <a class="reference external" href="https://docs.cloud.google.com/free/docs/free-cloud-features#compute">free</a> per account.
 The <a class="reference external" href="https://docs.cloud.google.com/compute/docs/general-purpose-machines#e2-shared-core">e2-micro</a> is not exactly a power house: 0.25 CPU, 1 GB RAM, and 30 GB HDD (not SSD).
 But don’t be discouraged, as you’ll see how much we can pack on it.
 Of course, everyone has an opinion on what should be hosted on a personal VM in the cloud, but here’s my take, and I hope someone can pick up something useful.
 Also, a disclaimer, while the hosting part is free, a nice domain name is not.
-I used to use Google Domains, but they moved their business to SquareSpace.
+I used to use Google Domains, but they moved their business to Squarespace.
 I pay $12/year for demin.dev.</p>
 <p>My choice of services to run:</p>
 <ul class="simple">
@@ -255,16 +255,8 @@ I pay $12/year for demin.dev.</p>
 <li><p>Mailbox using <code class="docutils literal notranslate"><span class="pre">postfix</span></code>.</p></li>
 <li><p>RSS reader using <code class="docutils literal notranslate"><span class="pre">commafeed</span></code>.</p></li>
 </ul>
-<p>This setup provides me these enjoyable, free, and open-source things:</p>
-<ol class="arabic simple">
-<li><p>Email and XMPP accounts: peter&#64;demin.dev.</p></li>
-<li><p>Personal static website at peter.demin.dev.</p></li>
-<li><p>Personal RSS reader at feed.demin.dev.</p></li>
-<li><p>VPN exit node, that makes me look like a Google Cloud server 🤪</p></li>
-<li><p>Cloud backup server (the unreliable kind, because there’s no redundancy).</p></li>
-</ol>
 <p>In the interest of efficiency, we won’t be using containerization or nested virtualization (sorry, no <a class="reference internal" href="#/12_articles/51-self-hosted-paas.html"><span class="xref myst">PaaS</span></a> preaching here), which means extra fuss for installing each separate piece.
-But you’ll see that the setup has the same steps for many parts, and it’s a good opportunity to learn about the Linux fundamentals: managing packages, users, configuration files, and SystemD units.</p>
+But you’ll see that the setup follows the same steps across many parts, and it’s a good opportunity to learn Linux fundamentals: managing packages, users, configuration files, and SystemD units.</p>
 <section id="install-gcloud-cli">
 <h2>Install GCloud CLI<a class="headerlink" href="#install-gcloud-cli" title="Link to this heading">#</a></h2>
 <p>I prefer scriptable solutions to clicking around in a Web UI, so we’ll be using <a class="reference external" href="https://docs.cloud.google.com/sdk/docs/install-sdk">Google Cloud command-line interface</a>.
@@ -275,7 +267,7 @@ With a modern Python (3.12+ at the moment of writing), create a virtualenv and r
 <section id="create-a-vm">
 <h2>Create a VM<a class="headerlink" href="#create-a-vm" title="Link to this heading">#</a></h2>
 <p>I extracted the parts that you most likely want to change as variables.
-I’m using domain name demin.dev, and my user name is peterdemin:</p>
+I’m using the domain name demin.dev, and my user name is peter:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">PROJECT</span><span class="o">=</span>demindev
 <span class="nv">ACCOUNT</span><span class="o">=</span><span class="m">763427644786</span>
 <span class="nv">USERNAME</span><span class="o">=</span>peter
@@ -305,21 +297,21 @@ gcloud<span class="w"> </span>compute<span class="w"> </span>instances<span clas
 </pre></div>
 </div>
 <p>I’m using the latest stable Debian release that happens to be 13 Trixie.
-I’m a long time fan of Ubuntu, but I found that Ubuntu server is a bit too heavy for the e2-micro size, while Debian provides a similar experience.</p>
+I’m a long-time Ubuntu fan, but Ubuntu Server is too heavy for the e2-micro size, while Debian offers a similar experience with less bloat.</p>
 <p>The command will output something like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NAME</span>            <span class="n">ZONE</span>        <span class="n">MACHINE_TYPE</span>  <span class="n">PREEMPTIBLE</span>  <span class="n">INTERNAL_IP</span>  <span class="n">EXTERNAL_IP</span>   <span class="n">STATUS</span>
 <span class="n">demin</span><span class="o">-</span><span class="n">dev</span>       <span class="n">us</span><span class="o">-</span><span class="n">west1</span><span class="o">-</span><span class="n">c</span>  <span class="n">e2</span><span class="o">-</span><span class="n">micro</span>                   <span class="mf">10.138.0.4</span>   <span class="mf">35.212.175.9</span>  <span class="n">RUNNING</span>
 </pre></div>
 </div>
 <p>It’ll take a second to start the VM.
-Use this time to update the DNS settings for the domain with the new <code class="docutils literal notranslate"><span class="pre">EXTERNAL_IP</span></code>.
-Don’t worry that the address is “ephemeral”, in my experience Google doesn’t change IP addresses of running VMs.
-In opposite, it actually tends to reuse the same IPv4 address if you delete/recreate a VM.
-The jabber subdomains (conference.demin.dev and pubsub.demin.dev) can be <code class="docutils literal notranslate"><span class="pre">A</span></code> records with the same IP, or a <code class="docutils literal notranslate"><span class="pre">CNAME</span></code>, it doesn’t matter.</p>
+Use this time to update the domain’s DNS settings with the new <code class="docutils literal notranslate"><span class="pre">EXTERNAL_IP</span></code>.
+Don’t worry about the address being “ephemeral”; in my experience, Google doesn’t change the IP addresses of running VMs.
+On the contrary, it tends to reuse the same IPv4 address if you delete/recreate a VM.
+The jabber subdomains (conference.demin.dev and pubsub.demin.dev) can be <code class="docutils literal notranslate"><span class="pre">A</span></code> records with the same IP, or a <code class="docutils literal notranslate"><span class="pre">CNAME</span></code> record mapping to the domain.</p>
 </section>
 <section id="configure-firewall">
 <h2>Configure Firewall<a class="headerlink" href="#configure-firewall" title="Link to this heading">#</a></h2>
-<p>Make sure we have HTTP/HTTPS rules, and add Jabber ports:</p>
+<p>Ensure Google Firewall has rules for HTTP/HTTPS, and Jabber:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>compute<span class="w"> </span>firewall-rules<span class="w"> </span>create<span class="w"> </span>default-allow-http<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--project<span class="o">=</span><span class="nv">$PROJECT</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--direction<span class="o">=</span>INGRESS<span class="w"> </span><span class="se">\</span>
@@ -361,37 +353,38 @@ ssh<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</sp
 </pre></div>
 </div>
 <p>For the sake of the guideline, I’ll split the steps, so it’s easier to follow and adjust.
-Login to the instance is become root:</p>
+Log in to the instance and become root:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span><span class="nv">$IP</span>
 sudo<span class="w"> </span>su
 </pre></div>
 </div>
 <p>All further instructions assume you’re running as root on the VM.</p>
-<p>For the email server instructions please refer to <a class="reference internal" href="../12_articles/45-minimal-linux-email-box.html"><span class="std std-doc">How to set up a receiving email server on a Linux machine</span></a>.
+<p>For the email server instructions, please refer to <a class="reference internal" href="../12_articles/45-minimal-linux-email-box.html"><span class="std std-doc">How to set up a receiving email server on a Linux machine</span></a>.
 The instructions for the RSS header are in <a class="reference internal" href="../12_articles/71-rss-feed.html"><span class="std std-doc">My RSS feed reader setup</span></a>.</p>
 <section id="clean-up-google-cruft">
 <h3>Clean up Google cruft<a class="headerlink" href="#clean-up-google-cruft" title="Link to this heading">#</a></h3>
-<p>Google preinstalls its CLI to the VM cloud images. I find it unnecessary and wasteful, so the first step is to clean up:</p>
+<p>Google preinstalls its CLI in the VM cloud images. I find it unnecessary and wasteful, clean up:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt<span class="w"> </span>remove<span class="w"> </span>-y<span class="w"> </span>google-cloud-cli<span class="w"> </span>google-cloud-cli-anthoscli<span class="w"> </span>google-guest-agent<span class="w"> </span>google-osconfig-agent
 apt<span class="w"> </span>autoremove
 </pre></div>
 </div>
-<p>This operation is crazy slow (about 10 minutes), mostly because Google decided to delete the package files one-by-one, instead of in bulk. Keeping packages would most likely mean upgrading them, which takes same crazy amount of time.</p>
-<p>If you don’t want to wait now, put these packages on hold, and get back uninstalling later:</p>
+<p>This operation is crazy slow (about 10 minutes), mainly because Google decided to delete the package files one by one instead of in bulk.
+Keeping packages would most likely mean upgrading them, which takes the same crazy amount of time.</p>
+<p>If you don’t want to wait now, put these packages on hold, and get back to uninstalling later:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-mark<span class="w"> </span>hold<span class="w"> </span>google-cloud-cli<span class="w"> </span>google-cloud-cli-anthoscli<span class="w"> </span>google-guest-agent<span class="w"> </span>google-osconfig-agent
 </pre></div>
 </div>
 </section>
 <section id="install-tailscale">
 <h3>Install Tailscale<a class="headerlink" href="#install-tailscale" title="Link to this heading">#</a></h3>
-<p>I like to start with tailscale, because that allows me to disable public SSH access to the instance as soon as possible.</p>
-<p>First we need to add tailscale’s Debian package repo:</p>
+<p>I like to start with Tailscale because it lets me disable public SSH access to the instance as soon as possible.</p>
+<p>Add Tailscale’s Debian package repo:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>/etc/apt/keyrings
 curl<span class="w"> </span>-fsSL<span class="w"> </span>https://pkgs.tailscale.com/stable/debian/trixie.noarmor.gpg<span class="w"> </span>&gt;<span class="w"> </span>/usr/share/keyrings/tailscale-archive-keyring.gpg
 curl<span class="w"> </span>-fsSL<span class="w"> </span>https://pkgs.tailscale.com/stable/debian/trixie.tailscale-keyring.list<span class="w"> </span>&gt;<span class="w"> </span>/etc/apt/sources.list.d/tailscale.list
 </pre></div>
 </div>
-<p>Refresh packages list and install:</p>
+<p>Refresh the packages list and install:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>update
 apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>tailscale
 </pre></div>
@@ -400,9 +393,9 @@ apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tailscale<span class="w"> </span>login
 </pre></div>
 </div>
-<p>Now you can logout from SSH session, disable allow-ssh firewall rule and connect back on the tailscale host that would looks something like <code class="docutils literal notranslate"><span class="pre">demin-dev.tail6f730.ts.net</span></code>.
-While at it, you might also want to disable RDP and internal traffic rules as well.</p>
-<p>If you designate this server as an exit node, you can use it for security on public WiFi.
+<p>Now you can log out of the SSH session, disable the default-allow-ssh firewall rule, and connect back to the Tailscale host, which would look something like <code class="docutils literal notranslate"><span class="pre">demin-dev.tail6f730.ts.net</span></code>.
+While at it, you should also disable RDP and internal traffic rules.</p>
+<p>If you designate this server as an exit node, you can use it to enhance security on public Wi-Fi.
 You’ll need to apply <a class="reference external" href="https://tailscale.com/kb/1019/subnets?tab=linux#enable-ip-forwarding">extra configuration</a>, though:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/sysctl.d/99-tailscale.conf<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
 <span class="s">net.ipv4.ip_forward = 1</span>
@@ -424,7 +417,7 @@ tailscale<span class="w"> </span>up<span class="w"> </span>--advertise-exit-node
 </section>
 <section id="folder-synchronization-with-syncthing">
 <h3>Folder synchronization with Syncthing<a class="headerlink" href="#folder-synchronization-with-syncthing" title="Link to this heading">#</a></h3>
-<p>The steps to install Syncthing from package maintainer’s repo are similar:</p>
+<p>The steps to install Syncthing from the package maintainer’s repo are similar:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">L</span> <span class="o">-</span><span class="n">o</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">keyrings</span><span class="o">/</span><span class="n">syncthing</span><span class="o">-</span><span class="n">archive</span><span class="o">-</span><span class="n">keyring</span><span class="o">.</span><span class="n">gpg</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">syncthing</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="n">release</span><span class="o">-</span><span class="n">key</span><span class="o">.</span><span class="n">gpg</span>
 <span class="n">echo</span> <span class="s2">&quot;deb [signed-by=/etc/apt/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing stable-v2&quot;</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">syncthing</span><span class="o">.</span><span class="n">list</span>
 <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
@@ -437,14 +430,14 @@ systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> 
 systemctl<span class="w"> </span>start<span class="w"> </span>syncthing@syncthing.service
 </pre></div>
 </div>
-<p>Then you can open Web UI on port <code class="docutils literal notranslate"><span class="pre">8384</span></code> on the tailscale’s host and finish the setup in the browser:</p>
+<p>Then you can open Web UI on port <code class="docutils literal notranslate"><span class="pre">8384</span></code> on the Tailscale’s host and finish the setup in the browser:</p>
 <p>https://demin-dev.tail6f730.ts.net:8384/</p>
-<p>One cool thing to do is to share <code class="docutils literal notranslate"><span class="pre">/var/www/html</span></code> with your laptop for a seemless website deployment experience.</p>
+<p>One cool thing to do is to share <code class="docutils literal notranslate"><span class="pre">/var/www/html</span></code> with your laptop for a seamless website deployment experience.</p>
 </section>
 <section id="nginx-and-https">
 <h3>Nginx and HTTPS<a class="headerlink" href="#nginx-and-https" title="Link to this heading">#</a></h3>
 <p>The domain needs TLS certificates to serve HTTPS and XMPP traffic.
-Certbot recommends to use snap installation, because they don’t have the time to support everyone who can’t figure out Python installation.
+Certbot recommends using the snap package because they don’t have the time to support everyone who can’t figure out how to install Python.
 But it’s more efficient to install from pip. Here are the steps.</p>
 <p>First, let’s make sure we have nginx and Python installed:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>nginx<span class="w"> </span>ca-certificates<span class="w"> </span>python3-venv<span class="w"> </span>python-is-python3
@@ -456,18 +449,18 @@ But it’s more efficient to install from pip. Here are the steps.</p>
 ln<span class="w"> </span>-s<span class="w"> </span>/opt/certbot/bin/certbot<span class="w"> </span>/usr/bin/certbot
 </pre></div>
 </div>
-<p>This is not ideal, because we’re not using the system the package manager.
+<p>This is not ideal, because we’re not using the system’s package manager.
 So it won’t get automatic updates for the certbot, and removing has to be done “manually”.
-For this particular case, I think, it’s fine, though.
+For this particular case, it’s fine, though.
 In case you want to upgrade it later, run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/certbot/bin/python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>certbot<span class="w"> </span>certbot-nginx
 </pre></div>
 </div>
 <p>Let’s configure nginx.
-Make sure you include jabber subdomains.
+Add jabber subdomains here to include them in the TLS certificate, even though XMPP traffic will never use HTTP/HTTPS ports with them.
 Example <code class="docutils literal notranslate"><span class="pre">/etc/nginx/sites-available/default</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>server {
-    server_name www.demin.dev demin.dev conference.demin.dev pubsub.demin.dev;
+    server_name demin.dev conference.demin.dev pubsub.demin.dev;
     root /var/www/html;
     index index.html index.htm;
     location / {
@@ -486,19 +479,19 @@ server {
 }
 </pre></div>
 </div>
-<p>Generate the certificates and setup automatic renewal as per <a class="reference external" href="https://eff-certbot.readthedocs.io/en/latest/using.html#setting-up-automated-renewal">official docs</a>:</p>
+<p>Generate the certificates and set up automatic renewal as per <a class="reference external" href="https://eff-certbot.readthedocs.io/en/latest/using.html#setting-up-automated-renewal">official docs</a>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>certbot<span class="w"> </span>--agree-tos<span class="w"> </span>--nginx<span class="w"> </span>-m<span class="w"> </span><span class="nv">$EMAIL</span>
 <span class="nv">SLEEPTIME</span><span class="o">=</span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">&#39;BEGIN{srand(); print int(rand()*(3600+1))}&#39;</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;0 0,12 * * * root sleep </span><span class="nv">$SLEEPTIME</span><span class="s2"> &amp;&amp; certbot renew -q&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/crontab
 </pre></div>
 </div>
-<p>This command picks the subdomains from the nginx config, and updates it to include the HTTPS-related details.</p>
+<p>This command picks the subdomains from the nginx config and updates them to include the HTTPS-related details.</p>
 </section>
 </section>
 <section id="ejabberd">
 <h2>Ejabberd<a class="headerlink" href="#ejabberd" title="Link to this heading">#</a></h2>
 <p>I was inspired to set up an XMPP server after reading about <a class="reference external" href="https://xn--gckvb8fzb.com/run-your-own-instant-messaging-service-on-freebsd/">FreeBSD setup from マリウス</a>.
 There are a few differences with my setup, though.
-Using default mnesia database will cause frequent crashes due to running out of 1GB of memory so we’ll switch to the second easiest option, SQLite.</p>
+Using the default Mnesia database will cause frequent crashes due to running out of 1GB of memory, so we’ll switch to the second-easiest option: SQLite.</p>
 <p>Install ejabberd with SQLite support:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ejabberd<span class="w"> </span>sqlite3<span class="w"> </span>libsqlite3-dev<span class="w"> </span>erlang-p1-sqlite3
 </pre></div>
@@ -538,6 +531,17 @@ chmod<span class="w"> </span>g+rx<span class="w"> </span>/etc/letsencrypt/archiv
 sudo<span class="w"> </span>-u<span class="w"> </span>ejabberd<span class="w"> </span>ejabberdctl<span class="w"> </span>register<span class="w"> </span><span class="nv">$NAME</span><span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span><span class="nv">$password</span>
 </pre></div>
 </div>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
+<p>This setup provides me with these enjoyable, free, and open-source things:</p>
+<ol class="arabic simple">
+<li><p>Email and XMPP accounts: <code class="docutils literal notranslate"><span class="pre">peter&#64;demin.dev</span></code>.</p></li>
+<li><p>Personal static website at <code class="docutils literal notranslate"><span class="pre">peter.demin.dev</span></code>.</p></li>
+<li><p>Personal RSS reader at <code class="docutils literal notranslate"><span class="pre">feed.demin.dev</span></code>.</p></li>
+<li><p>VPN exit node, that makes me look like a Google Cloud server 🤪</p></li>
+<li><p>Cloud backup server (the unreliable kind, because there’s no redundancy).</p></li>
+</ol>
 </section>
 </section>
 
@@ -581,6 +585,7 @@ sudo<span class="w"> </span>-u<span class="w"> </span>ejabberd<span class="w"> <
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejabberd">Ejabberd</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
 </ul>
   </nav></div>
 
