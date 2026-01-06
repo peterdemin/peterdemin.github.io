@@ -357,3 +357,6 @@ This setup provides me with these enjoyable, free, and open-source things:
 3. Personal RSS reader at `feed.demin.dev`.
 4. VPN exit node, that makes me look like a Google Cloud server 🤪
 5. Cloud backup server (the unreliable kind, because there's no redundancy).
+
+Similar experience is available through some companies, but having it hosted on my VM feels empowering.
+I wish more people played with such internet presence.
