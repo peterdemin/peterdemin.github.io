@@ -486,9 +486,8 @@ server {
 </div>
 <p>This command picks the subdomains from the nginx config and updates them to include the HTTPS-related details.</p>
 </section>
-</section>
 <section id="ejabberd">
-<h2>Ejabberd<a class="headerlink" href="#ejabberd" title="Link to this heading">#</a></h2>
+<h3>Ejabberd<a class="headerlink" href="#ejabberd" title="Link to this heading">#</a></h3>
 <p>I was inspired to set up an XMPP server after reading about <a class="reference external" href="https://xn--gckvb8fzb.com/run-your-own-instant-messaging-service-on-freebsd/">FreeBSD setup from マリウス</a>.
 There are a few differences with my setup, though.
 Using the default Mnesia database will cause frequent crashes due to running out of 1GB of memory, so we’ll switch to the second-easiest option: SQLite.</p>
@@ -531,6 +530,7 @@ chmod<span class="w"> </span>g+rx<span class="w"> </span>/etc/letsencrypt/archiv
 sudo<span class="w"> </span>-u<span class="w"> </span>ejabberd<span class="w"> </span>ejabberdctl<span class="w"> </span>register<span class="w"> </span><span class="nv">$NAME</span><span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span><span class="nv">$password</span>
 </pre></div>
 </div>
+</section>
 </section>
 <section id="conclusion">
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
@@ -582,9 +582,9 @@ sudo<span class="w"> </span>-u<span class="w"> </span>ejabberd<span class="w"> <
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-tailscale">Install Tailscale</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#folder-synchronization-with-syncthing">Folder synchronization with Syncthing</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nginx-and-https">Nginx and HTTPS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejabberd">Ejabberd</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejabberd">Ejabberd</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
 </ul>
   </nav></div>

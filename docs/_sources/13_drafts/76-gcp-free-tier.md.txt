@@ -295,7 +295,7 @@ SLEEPTIME=$(awk 'BEGIN{srand(); print int(rand()*(3600+1))}'); echo "0 0,12 * * 
 
 This command picks the subdomains from the nginx config and updates them to include the HTTPS-related details.
 
-## Ejabberd
+### Ejabberd
 
 I was inspired to set up an XMPP server after reading about [FreeBSD setup from マリウス](https://マリウス.com/run-your-own-instant-messaging-service-on-freebsd/).
 There are a few differences with my setup, though.
