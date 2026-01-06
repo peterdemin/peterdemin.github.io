@@ -1,5 +1,4 @@
 -r requirements.in
--r bus/requirements.in
 
 pip-compile-multi
 ipdb
@@ -11,3 +10,4 @@ jupyter
 pandas
 matplotlib
 scikit-learn
+gcloud
