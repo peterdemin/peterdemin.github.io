@@ -248,14 +248,20 @@ I used to use Google Domains, but they moved their business to SquareSpace.
 I pay $12/year for demin.dev.</p>
 <p>My choice of services to run:</p>
 <ul class="simple">
-<li><p>Static website using <code class="docutils literal notranslate"><span class="pre">nginx</span></code>.</p></li>
-<li><p>Mailbox using <code class="docutils literal notranslate"><span class="pre">postfix</span></code>.</p></li>
 <li><p>VPN using <code class="docutils literal notranslate"><span class="pre">tailscale</span></code>.</p></li>
-<li><p>XMPP server using <code class="docutils literal notranslate"><span class="pre">ejabberd</span></code>.</p></li>
 <li><p>Folder synchronization with <code class="docutils literal notranslate"><span class="pre">syncthing</span></code>.</p></li>
+<li><p>Static website and reverse proxy using <code class="docutils literal notranslate"><span class="pre">nginx</span></code>.</p></li>
+<li><p>Mailbox using <code class="docutils literal notranslate"><span class="pre">postfix</span></code>.</p></li>
+<li><p>XMPP server using <code class="docutils literal notranslate"><span class="pre">ejabberd</span></code>.</p></li>
 <li><p>RSS reader using <code class="docutils literal notranslate"><span class="pre">commafeed</span></code>.</p></li>
 </ul>
-<p>This leaves a bit of memory to run an API server for personal experiments.</p>
+<p>This setup provides me these enjoyable, free, and open-source things:</p>
+<ol class="arabic simple">
+<li><p>Email and XMPP accounts: peter&#64;demin.dev.</p></li>
+<li><p>RSS reader at feed.demin.dev.</p></li>
+<li><p>Personal static website at peter.demin.dev.</p></li>
+<li><p>VPN exit node, that makes me look like a Google Cloud server 🤪</p></li>
+</ol>
 <p>In the interest of efficiency we won’t be using containerization or nested virtualization (sorry, no <a class="reference internal" href="#/12_articles/51-self-hosted-paas.html"><span class="xref myst">PaaS</span></a> preaching here), which means extra fuss for installing each separate piece.
 But you’ll see that the setup has the same steps for all parts, and it’s a good opportunity to learn about the Linux fundamentals.</p>
 <section id="install-gcloud-cli">
@@ -359,7 +365,8 @@ sudo<span class="w"> </span>su
 </pre></div>
 </div>
 <p>All further instructions assume you’re running as root on the VM.</p>
-<p>For the email server instructions please refer to <a class="reference internal" href="../12_articles/45-minimal-linux-email-box.html"><span class="std std-doc">How to set up a receiving email server on a Linux machine</span></a></p>
+<p>For the email server instructions please refer to <a class="reference internal" href="../12_articles/45-minimal-linux-email-box.html"><span class="std std-doc">How to set up a receiving email server on a Linux machine</span></a>.
+The instructions for the RSS header are in <a class="reference internal" href="../12_articles/71-rss-feed.html"><span class="std std-doc">My RSS feed reader setup</span></a>.</p>
 <section id="clean-up-google-cruft">
 <h3>Clean up Google cruft<a class="headerlink" href="#clean-up-google-cruft" title="Link to this heading">#</a></h3>
 <p>Google preinstalls its CLI to the VM cloud images. I find it unnecessary and wasteful, so the first step is to clean up:</p>
@@ -393,6 +400,7 @@ apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w">
 </div>
 <p>Now you can logout from SSH session, disable allow-ssh firewall rule and connect back on the tailscale host that would looks something like <code class="docutils literal notranslate"><span class="pre">demin-dev.tail6f730.ts.net</span></code>.
 While at it, you might also want to disable RDP and internal traffic rules as well.</p>
+<p>If you designate this server as an exit node, you can use it for security on public WiFi.</p>
 </section>
 <section id="folder-synchronization-with-syncthing">
 <h3>Folder synchronization with Syncthing<a class="headerlink" href="#folder-synchronization-with-syncthing" title="Link to this heading">#</a></h3>
@@ -411,14 +419,15 @@ systemctl<span class="w"> </span>start<span class="w"> </span>syncthing@syncthin
 </div>
 <p>Then you can open Web UI on port <code class="docutils literal notranslate"><span class="pre">8384</span></code> on the tailscale’s host and finish the setup in the browser:</p>
 <p>https://demin-dev.tail6f730.ts.net:8384/</p>
+<p>One cool thing to do is to share <code class="docutils literal notranslate"><span class="pre">/var/www/html</span></code> with your laptop for a seemless website deployment experience.</p>
 </section>
 <section id="nginx-and-https">
 <h3>Nginx and HTTPS<a class="headerlink" href="#nginx-and-https" title="Link to this heading">#</a></h3>
 <p>The domain needs TLS certificates to serve HTTPS and XMPP traffic.
 Certbot recommends to use snap installation, because they don’t have the time to support everyone who can’t figure out Python installation.
 But it’s more efficient to install from pip. Here are the steps.</p>
-<p>First, let’s make sure we have Python3 installed:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ca-certificates<span class="w"> </span>python3-venv<span class="w"> </span>python-is-python3
+<p>First, let’s make sure we have nginx and Python installed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>nginx<span class="w"> </span>ca-certificates<span class="w"> </span>python3-venv<span class="w"> </span>python-is-python3
 </pre></div>
 </div>
 <p>Now, we’ll create a virtualenv for certbot and install it system-wide:</p>
@@ -428,20 +437,40 @@ ln<span class="w"> </span>-s<span class="w"> </span>/opt/certbot/bin/certbot<spa
 </pre></div>
 </div>
 <p>This is not ideal, because we’re not using the system the package manager.
-So it won’t get automatic updates, and removing can only be done manually.
+So it won’t get automatic updates for the certbot, and removing has to be done “manually”.
 For this particular case, I think, it’s fine, though.
 In case you want to upgrade it later, run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/certbot/bin/python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>certbot<span class="w"> </span>certbot-nginx
 </pre></div>
 </div>
-<p>Initialize the certificates:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>certbot<span class="w"> </span>--agree-tos<span class="w"> </span>--nginx<span class="w"> </span>-m<span class="w"> </span><span class="nv">$NAME</span>@<span class="nv">$DOMAIN</span>
+<p>Let’s configure nginx. Make sure you include jabber subdomains:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>server {
+    server_name www.demin.dev demin.dev conference.demin.dev pubsub.demin.dev;
+    root /var/www/html;
+    index index.html index.htm;
+    location / {
+        # Serve static files, or return 404 if not found
+        try_files $uri $uri/ =404;
+    }
+}
+
+server {
+    server_name feed.demin.dev;
+
+    location / {
+      proxy_pass http://127.0.0.1:8082;
+      proxy_set_header  X-Forwarded-Proto https;
+      proxy_set_header Host $http_host;
+    }
+}
 </pre></div>
 </div>
-<p>Setup automatic renewal as per <a class="reference external" href="https://eff-certbot.readthedocs.io/en/latest/using.html#setting-up-automated-renewal">official docs</a>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SLEEPTIME</span><span class="o">=</span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">&#39;BEGIN{srand(); print int(rand()*(3600+1))}&#39;</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;0 0,12 * * * root sleep </span><span class="nv">$SLEEPTIME</span><span class="s2"> &amp;&amp; certbot renew -q&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/crontab
+<p>Generate the certificates and setup automatic renewal as per <a class="reference external" href="https://eff-certbot.readthedocs.io/en/latest/using.html#setting-up-automated-renewal">official docs</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>certbot<span class="w"> </span>--agree-tos<span class="w"> </span>--nginx<span class="w"> </span>-m<span class="w"> </span><span class="nv">$EMAIL</span>
+<span class="nv">SLEEPTIME</span><span class="o">=</span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">&#39;BEGIN{srand(); print int(rand()*(3600+1))}&#39;</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;0 0,12 * * * root sleep </span><span class="nv">$SLEEPTIME</span><span class="s2"> &amp;&amp; certbot renew -q&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/crontab
 </pre></div>
 </div>
+<p>This command will pick the subdomains from the nginx config, and update it to include the HTTPS-related details.</p>
 </section>
 </section>
 <section id="ejabberd">

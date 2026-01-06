@@ -10,14 +10,19 @@ I pay $12/year for demin.dev.
 
 My choice of services to run:
 
-- Static website using `nginx`.
-- Mailbox using `postfix`.
 - VPN using `tailscale`.
-- XMPP server using `ejabberd`.
 - Folder synchronization with `syncthing`.
+- Static website and reverse proxy using `nginx`.
+- Mailbox using `postfix`.
+- XMPP server using `ejabberd`.
 - RSS reader using `commafeed`.
 
-This leaves a bit of memory to run an API server for personal experiments.
+This setup provides me these enjoyable, free, and open-source things:
+
+1. Email and XMPP accounts: peter@demin.dev.
+2. RSS reader at feed.demin.dev.
+3. Personal static website at peter.demin.dev.
+4. VPN exit node, that makes me look like a Google Cloud server 🤪
 
 In the interest of efficiency we won't be using containerization or nested virtualization (sorry, no [PaaS](/12_articles/51-self-hosted-paas.html) preaching here), which means extra fuss for installing each separate piece.
 But you'll see that the setup has the same steps for all parts, and it's a good opportunity to learn about the Linux fundamentals.
@@ -135,7 +140,8 @@ sudo su
 
 All further instructions assume you're running as root on the VM.
 
-For the email server instructions please refer to [](/12_articles/45-minimal-linux-email-box.md)
+For the email server instructions please refer to [](/12_articles/45-minimal-linux-email-box.md).
+The instructions for the RSS header are in [](/12_articles/71-rss-feed.md).
 
 ### Clean up Google cruft
 
@@ -182,6 +188,8 @@ tailscale login
 Now you can logout from SSH session, disable allow-ssh firewall rule and connect back on the tailscale host that would looks something like `demin-dev.tail6f730.ts.net`.
 While at it, you might also want to disable RDP and internal traffic rules as well.
 
+If you designate this server as an exit node, you can use it for security on public WiFi.
+
 ### Folder synchronization with Syncthing
 
 The steps to install Syncthing from package maintainer's repo are similar:
@@ -205,16 +213,18 @@ Then you can open Web UI on port `8384` on the tailscale's host and finish the s
 
 https://demin-dev.tail6f730.ts.net:8384/
 
+One cool thing to do is to share `/var/www/html` with your laptop for a seemless website deployment experience.
+
 ### Nginx and HTTPS
 
 The domain needs TLS certificates to serve HTTPS and XMPP traffic.
 Certbot recommends to use snap installation, because they don't have the time to support everyone who can't figure out Python installation.
 But it's more efficient to install from pip. Here are the steps.
 
-First, let's make sure we have Python3 installed:
+First, let's make sure we have nginx and Python installed:
 
 ```bash
-apt-get install -y ca-certificates python3-venv python-is-python3
+apt-get install -y nginx ca-certificates python3-venv python-is-python3
 ```
 
 Now, we'll create a virtualenv for certbot and install it system-wide:
@@ -226,7 +236,7 @@ ln -s /opt/certbot/bin/certbot /usr/bin/certbot
 ```
 
 This is not ideal, because we're not using the system the package manager.
-So it won't get automatic updates, and removing can only be done manually.
+So it won't get automatic updates for the certbot, and removing has to be done "manually".
 For this particular case, I think, it's fine, though.
 In case you want to upgrade it later, run:
 
@@ -234,17 +244,39 @@ In case you want to upgrade it later, run:
 /opt/certbot/bin/python3 -m pip install -U certbot certbot-nginx
 ```
 
-Initialize the certificates:
+Let's configure nginx. Make sure you include jabber subdomains:
 
-```bash
-certbot --agree-tos --nginx -m $NAME@$DOMAIN
+```
+server {
+    server_name www.demin.dev demin.dev conference.demin.dev pubsub.demin.dev;
+    root /var/www/html;
+    index index.html index.htm;
+    location / {
+        # Serve static files, or return 404 if not found
+        try_files $uri $uri/ =404;
+    }
+}
+
+server {
+    server_name feed.demin.dev;
+
+    location / {
+      proxy_pass http://127.0.0.1:8082;
+      proxy_set_header  X-Forwarded-Proto https;
+      proxy_set_header Host $http_host;
+    }
+}
 ```
 
-Setup automatic renewal as per [official docs](https://eff-certbot.readthedocs.io/en/latest/using.html#setting-up-automated-renewal):
+
+Generate the certificates and setup automatic renewal as per [official docs](https://eff-certbot.readthedocs.io/en/latest/using.html#setting-up-automated-renewal):
 
 ```bash
+certbot --agree-tos --nginx -m $EMAIL
 SLEEPTIME=$(awk 'BEGIN{srand(); print int(rand()*(3600+1))}'); echo "0 0,12 * * * root sleep $SLEEPTIME && certbot renew -q" >> /etc/crontab
 ```
+
+This command will pick the subdomains from the nginx config, and update it to include the HTTPS-related details.
 
 ## Ejabberd
 
