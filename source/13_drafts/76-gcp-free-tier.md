@@ -38,9 +38,10 @@ I'm using domain name demin.dev, and my user name is peterdemin:
 ```bash
 PROJECT=demindev
 ACCOUNT=763427644786
-NAME=peter
+USERNAME=peter
 PUBKEY=$(ssh-keygen -yf ~/.ssh/id_rsa)
 INSTANCE=demin-dev
+DOMAIN=demin.dev
 
 gcloud compute instances create $INSTANCE \
     --project=$PROJECT \
@@ -49,11 +50,11 @@ gcloud compute instances create $INSTANCE \
     --network-interface=network-tier=STANDARD,stack-type=IPV4_ONLY,subnet=default \
     --tags=http-server,https-server,jabber-server \
     --public-ptr \
-    --public-ptr-domain=demin.dev. \
-    --metadata=ssh-keys=$NAME:$PUBKEY \
+    --public-ptr-domain="${DOMAIN}." \
+    --metadata="ssh-keys=${USERNAME}:${PUBKEY}" \
     --maintenance-policy=MIGRATE \
     --provisioning-model=STANDARD \
-    --service-account=$ACCOUNT-compute@developer.gserviceaccount.com \
+    --service-account="${ACCOUNT}-compute@developer.gserviceaccount.com" \
     --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/trace.append \
     --create-disk=auto-delete=yes,boot=yes,device-name=$INSTANCE,image=projects/debian-cloud/global/images/debian-13-trixie-v20251014,mode=rw,size=10,type=pd-standard \
     --no-shielded-secure-boot \
@@ -66,9 +67,54 @@ gcloud compute instances create $INSTANCE \
 I'm using the latest stable Debian release that happens to be 13 Trixie.
 I'm a long time fan of Ubuntu, but I found that Ubuntu server is a bit too heavy for the e2-micro size, while Debian provides a similar experience.
 
-It'll take a second to start the VM. Use this time to update the DNS settings for the domain with the new `EXTERNAL ADDRESS`.
+The command will output something like this:
+
+```
+NAME            ZONE        MACHINE_TYPE  PREEMPTIBLE  INTERNAL_IP  EXTERNAL_IP   STATUS
+demin-dev       us-west1-c  e2-micro                   10.138.0.4   35.212.175.9  RUNNING
+```
+
+It'll take a second to start the VM.
+Use this time to update the DNS settings for the domain with the new `EXTERNAL_IP`.
 Don't worry that the address is "ephemeral", in my experience Google doesn't change IP addresses of running VMs.
 In opposite, it actually tends to reuse the same IPv4 address if you delete/recreate a VM.
+
+## Configure Firewall
+
+Make sure we have HTTP/HTTPS rules, and add Jabber ports:
+
+```bash
+gcloud compute firewall-rules create default-allow-http \
+    --project=$PROJECT \
+    --direction=INGRESS \
+    --priority=1000 \
+    --network=default \
+    --action=ALLOW \
+    --rules=tcp:80 \
+    --source-ranges=0.0.0.0/0 \
+    --target-tags=http-server \
+    || true
+gcloud compute firewall-rules create default-allow-https \
+    --project=$PROJECT \
+    --direction=INGRESS \
+    --priority=1000 \
+    --network=default \
+    --action=ALLOW \
+    --rules=tcp:443 \
+    --source-ranges=0.0.0.0/0 \
+    --target-tags=https-server \
+    || true
+gcloud compute firewall-rules create jabber \
+    --project=$PROJECT \
+    --direction=INGRESS \
+    --priority=1000 \
+    --network=default \
+    --action=ALLOW \
+    --rules=tcp:5222,tcp:5223,tcp:5269,tcp:5443,tcp:5280,tcp:1883,udp:5478 \
+    --source-ranges=0.0.0.0/0 \
+    --target-tags=jabber-server \
+    || true
+```
 
 ## Provision
 
@@ -88,6 +134,8 @@ sudo su
 ```
 
 All further instructions assume you're running as root on the VM.
+
+For the email server instructions please refer to [](/12_articles/45-minimal-linux-email-box.md)
 
 ### Clean up Google cruft
 
@@ -190,4 +238,61 @@ Initialize the certificates:
 
 ```bash
 certbot --agree-tos --nginx -m $NAME@$DOMAIN
+```
+
+Setup automatic renewal as per [official docs](https://eff-certbot.readthedocs.io/en/latest/using.html#setting-up-automated-renewal):
+
+```bash
+SLEEPTIME=$(awk 'BEGIN{srand(); print int(rand()*(3600+1))}'); echo "0 0,12 * * * root sleep $SLEEPTIME && certbot renew -q" >> /etc/crontab
+```
+
+## Ejabberd
+
+Install with SQLite support:
+
+```bash
+apt-get install -y ejabberd sqlite3 libsqlite3-dev erlang-p1-sqlite3
+```
+
+Update `/etc/ejabberd/ejabberd.yml` to configure host, TLS, and database:
+
+```bash
+hosts:
+  - demin.dev
+
+certfiles:
+  # - "/etc/ejabberd/ejabberd.pem"
+  - /etc/letsencrypt/live/demin.dev/fullchain.pem
+  - /etc/letsencrypt/live/demin.dev/privkey.pem
+
+sql_type: sqlite
+sql_database: "/var/lib/ejabberd/ejabberd.db"
+auth_method: sql
+default_db: sql
+
+...
+
+modules:
+
+  ...
+
+  mod_mam:
+    db_type: sql
+```
+
+Using default mnesia database will cause frequent crashes due to running out of 1GB of memory.
+
+To allow ejabberd share the certificates with nginx, change the group ownership and permissions:
+
+```bash
+chgrp -R ejabberd /etc/letsencrypt
+chmod g+rx /etc/letsencrypt/archive
+```
+
+Start service and register the first user:
+
+```bash
+systemctl start ejabberd.service
+read -rsp "Enter password for account $NAME: " password
+sudo -u ejabberd ejabberdctl register $NAME $DOMAIN $password
 ```
