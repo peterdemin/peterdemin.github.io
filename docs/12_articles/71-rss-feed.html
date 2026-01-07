@@ -294,12 +294,12 @@ It’s a Google Reader-inspired self-hosted personal RSS reader.</p>
 </section>
 <section id="user-registration">
 <h2>User registration<a class="headerlink" href="#user-registration" title="Link to this heading">#</a></h2>
-<p>By default, CommaFeed doesn’t allow user registration, which is a sensible default for a public self-hosted service.
+<p>By default, CommaFeed doesn’t allow user registration, which is sensible for a public, self-hosted service.
 To add a user for yourself, launch it with registration enabled:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>-u<span class="w"> </span>commafeed<span class="w"> </span>/bin/sh<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;cd ~commafeed; COMMAFEED_USERS_ALLOW_REGISTRATIONS=true ./commafeed&#39;</span>
 </pre></div>
 </div>
-<p>Then open CommaFeed Web UI in the browser (in my case, it’s https://feed.demin.dev), and create an account.
+<p>Then open the CommaFeed Web UI in your browser (in my case, https://feed.demin.dev) and create an account.
 Now stop the service (By pressing Ctrl+C), and launch it through the SystemD Unit:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
 sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>commafeed.service
@@ -309,9 +309,10 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w
 </section>
 <section id="backup">
 <h2>Backup<a class="headerlink" href="#backup" title="Link to this heading">#</a></h2>
-<p>I don’t care about the posts I haven’t read enough to automate the database backup.
-I wouldn’t want to lose the extensive library of feeds I aggregated over many years, though.
-So my solution is to just export the <a class="reference download internal" download="" href="../_downloads/bcbdf9250536e27c58b0e254c61af7b7/71-opml.xml"><span class="xref download myst">OPML file</span></a> whenever I think about how I don’t want to lose it.</p>
+<p>I wouldn’t want to lose the extensive library of feeds I aggregated over many years.
+My solution is to export the <a class="reference download internal" download="" href="../_downloads/bcbdf9250536e27c58b0e254c61af7b7/71-opml.xml"><span class="xref download myst">OPML file</span></a> whenever I think about how I don’t want to lose it.
+That’s a standard format that is easy to inspect and migrate to another service.
+I wish CommaFeed maintained a copy of this file in its data directory so I can back it up.</p>
 </section>
 <section id="the-treasure">
 <h2>The treasure<a class="headerlink" href="#the-treasure" title="Link to this heading">#</a></h2>
@@ -376,8 +377,8 @@ So my solution is to just export the <a class="reference download internal" down
 </section>
 <section id="hardened-systemd-unit">
 <h2>Hardened SystemD Unit<a class="headerlink" href="#hardened-systemd-unit" title="Link to this heading">#</a></h2>
-<p>I don’t believe that CommaFeed has a big attach surface, but we should apply the principle of least priviliges.
-The hardened version, that won’t let CommaFeed process do any harm even if it gets hacked:</p>
+<p>As a usual best practice, we should apply the principle of least privilege.
+The hardened version, which won’t let CommaFeed process do any harm even if it gets hacked:</p>
 <div class="highlight-systemd notranslate"><div class="highlight"><pre><span></span><span class="k">[Unit]</span>
 <span class="na">Description</span><span class="o">=</span><span class="s">A bloat-free feed reader</span>
 <span class="na">Wants</span><span class="o">=</span><span class="s">network-online.target</span>

@@ -62,14 +62,14 @@ WantedBy=multi-user.target
 
 ## User registration
 
-By default, CommaFeed doesn't allow user registration, which is a sensible default for a public self-hosted service.
+By default, CommaFeed doesn't allow user registration, which is sensible for a public, self-hosted service.
 To add a user for yourself, launch it with registration enabled:
 
 ```bash
 sudo -u commafeed /bin/sh -c 'cd ~commafeed; COMMAFEED_USERS_ALLOW_REGISTRATIONS=true ./commafeed'
 ```
 
-Then open CommaFeed Web UI in the browser (in my case, it's https://feed.demin.dev), and create an account.
+Then open the CommaFeed Web UI in your browser (in my case, https://feed.demin.dev) and create an account.
 Now stop the service (By pressing Ctrl+C), and launch it through the SystemD Unit:
 
 ```bash
@@ -80,9 +80,10 @@ sudo systemctl start commafeed.service
 
 ## Backup
 
-I don't care about the posts I haven't read enough to automate the database backup.
-I wouldn't want to lose the extensive library of feeds I aggregated over many years, though.
-So my solution is to just export the [OPML file](./71-opml.xml) whenever I think about how I don't want to lose it.
+I wouldn't want to lose the extensive library of feeds I aggregated over many years.
+My solution is to export the [OPML file](./71-opml.xml) whenever I think about how I don't want to lose it.
+That's a standard format that is easy to inspect and migrate to another service.
+I wish CommaFeed maintained a copy of this file in its data directory so I can back it up.
 
 ## The treasure
 
@@ -146,8 +147,8 @@ Here's the list of feeds from the OPML file in alphabetical order:
 
 ## Hardened SystemD Unit
 
-I don't believe that CommaFeed has a big attach surface, but we should apply the principle of least priviliges.
-The hardened version, that won't let CommaFeed process do any harm even if it gets hacked:
+As a usual best practice, we should apply the principle of least privilege.
+The hardened version, which won't let CommaFeed process do any harm even if it gets hacked:
 
 ```systemd
 [Unit]
