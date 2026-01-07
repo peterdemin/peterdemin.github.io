@@ -10,6 +10,7 @@ from typing import Iterable, Optional
 from lxml import etree as ET
 from markdown_it import MarkdownIt
 
+BASE_URL = "https://peter.demin.dev"
 SOURCE_DIR = "source"
 LIFE_DIR = os.path.join(SOURCE_DIR, "16_life")
 RE_LIFE_DATE = re.compile(r"^`([A-Z][a-z]{2} \d{2}, \d{4})`")
@@ -134,6 +135,18 @@ def maybe_parse_date(text: str) -> Optional[datetime.datetime]:
     return None
 
 
+def render_internal_link(self, tokens, idx, options, env):
+    href = tokens[idx].attrs["href"]
+    if href.endswith(".md"):
+        href = href[:-2] + 'html'
+    if href.endswith(".rst"):
+        href = href[:-3] + 'html'
+    if href.startswith("/"):
+        href = BASE_URL + href
+    tokens[idx].attrs["href"] = href
+    return self.renderToken(tokens, idx, options, env)
+
+
 def build_atom_feed(
     *,
     items: list[FeedItem],
@@ -166,6 +179,7 @@ def build_atom_feed(
     ET.SubElement(author, q("name")).text = author_name
 
     md = MarkdownIt()
+    md.add_render_rule("link_open", render_internal_link)
     for it in items[:max_items]:
         entry = ET.SubElement(feed, q("entry"))
         ET.SubElement(entry, q("id")).text = it.stable_id
