@@ -20,7 +20,7 @@ sudo chmod +x /home/commafeed/commafeed
 
 ## Reverse proxy
 
-Nginx has a section dedicated to proxy pass feed subdomain to a localhost port:
+Nginx has a section dedicated to proxy pass `feed` subdomain to a localhost port:
 
 `/etc/nginx/sites-available/default`:
 
@@ -34,6 +34,8 @@ server {
     }
 }
 ```
+
+Make sure you configure TLS certificates, using certbot, for example.
 
 ## SystemD Unit
 
@@ -54,6 +56,26 @@ Restart=always
 
 [Install]
 WantedBy=multi-user.target
+```
+
+(Check out the hardened version below.)
+
+## User registration
+
+By default, CommaFeed doesn't allow user registration, which is a sensible default for a public self-hosted service.
+To add a user for yourself, launch it with registration enabled:
+
+```bash
+sudo -u commafeed /bin/sh -c 'cd ~commafeed; COMMAFEED_USERS_ALLOW_REGISTRATIONS=true ./commafeed'
+```
+
+Then open CommaFeed Web UI in the browser (in my case, it's https://feed.demin.dev), and create an account.
+Now stop the service (By pressing Ctrl+C), and launch it through the SystemD Unit:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable commafeed.service
+sudo systemctl start commafeed.service
 ```
 
 ## Backup
@@ -121,3 +143,74 @@ Here's the list of feeds from the OPML file in alphabetical order:
 - [tonsky.me](https://tonsky.me/atom.xml)
 - [uninformativ.de (en)](https://www.uninformativ.de/blog/feeds/en.atom)
 - [マリウス](https://xn--gckvb8fzb.com/index.xml)
+
+## Hardened SystemD Unit
+
+I don't believe that CommaFeed has a big attach surface, but we should apply the principle of least priviliges.
+The hardened version, that won't let CommaFeed process do any harm even if it gets hacked:
+
+```systemd
+[Unit]
+Description=A bloat-free feed reader
+Wants=network-online.target
+After=local-fs.target network-online.target
+
+[Service]
+Type=simple
+User=commafeed
+Group=commafeed
+WorkingDirectory=/home/commafeed
+ExecStart=/home/commafeed/commafeed
+SyslogIdentifier=commafeed
+Restart=always
+RestartSec=2
+
+# Baseline safety
+NoNewPrivileges=yes
+UMask=0077
+RemoveIPC=yes
+CapabilityBoundingSet=
+AmbientCapabilities=
+
+# Filesystem sandbox
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/home/commafeed/data
+
+# Stop it from seeing other processes' details
+ProtectProc=invisible
+ProcSubset=pid
+
+# Kernel / namespace / device isolation
+PrivateTmp=yes
+PrivateDevices=yes
+PrivateUsers=yes
+PrivateMounts=yes
+
+ProtectControlGroups=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectClock=yes
+ProtectHostname=yes
+
+LockPersonality=yes
+RestrictSUIDSGID=yes
+RestrictRealtime=yes
+RestrictNamespaces=yes
+MemoryDenyWriteExecute=yes
+
+# Syscall filtering
+SystemCallArchitectures=native
+SystemCallFilter=@system-service @network-io
+SystemCallErrorNumber=EPERM
+
+# Only allow the socket families it likely needs
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+# Optional resource limits
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target
+```
