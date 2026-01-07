@@ -15,7 +15,7 @@ My choice of services to run:
 - Static website and reverse proxy using [nginx](https://nginx.org/) and [Let's Encrypt](https://letsencrypt.org/).
 - XMPP server using [ejabberd](https://www.ejabberd.im/).
 - Email server using [postfix](https://www.postfix.org/).
-- RSS reader using [commafeed](https://www.commafeed.com).
+- RSS reader using [commafeed](https://github.com/Athou/commafeed).
 
 In the interest of efficiency, we won't be using containerization or nested virtualization (sorry, no [PaaS](/12_articles/51-self-hosted-paas.html) preaching here), which means extra fuss for installing each separate piece.
 But you'll see that the setup follows the same steps across many parts, and it's a good opportunity to learn Linux fundamentals: managing packages, users, configuration files, and SystemD units.
