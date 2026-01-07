@@ -3,187 +3,41 @@
 I run a [CommaFeed](https://github.com/Athou/commafeed) instance on a free-tier Google Cloud Platform virtual machine.
 It's a Google Reader-inspired self-hosted personal RSS reader.
 
-CommaFeed service runs as a SystemD Unit under a separate system user with a home directory.
+I'm not using Docker, in part because the VM has only 0.25 CPU and, in part, because I like simple things.
 
-## Install Java SDK
+## Setup
 
-```
-sudo apt-get install -y default-jdk
-```
-
-## User setup
+CommaFeed service runs under a SystemD Unit using a separate system user with a home directory:
 
 ```
-sudo useradd -r -m -s /sbin/nologin commafeed
+sudo useradd -rms /sbin/nologin commafeed
+sudo -u commafeed wget -O /home/commafeed/commafeed \
+    https://github.com/Athou/commafeed/releases/download/5.12.1/commafeed-5.12.1-h2-linux-x86_64-runner
+sudo chmod +x /home/commafeed/commafeed
 ```
 
-## Configuration
-
-Most of the configuration is the default, with the database pointing to an H2 file.
-I have Redis configured, but I'm not running Redis itself. Go figure.
-
-```yaml
-# ~commafeed/config.yml
-# CommaFeed settings
-# ------------------
-app:
-  # url used to access commafeed
-  publicUrl: https://feed.demin.dev/
-
-  # wether to allow user registrations
-  allowRegistrations: false
-
-  # create a demo account the first time the app starts
-  createDemoAccount: false
-
-  # put your google analytics tracking code here
-  googleAnalyticsTrackingCode:
-
-  # put your google server key (used for youtube favicon fetching)
-  googleAuthKey:
-
-  # number of http threads
-  backgroundThreads: 3
-
-  # number of database updating threads
-  databaseUpdateThreads: 1
-
-  # settings for sending emails (password recovery)
-  smtpHost:
-  smtpPort:
-  smtpTls: false
-  smtpUserName:
-  smtpPassword:
-  smtpFromAddress:
-
-  # wether this commafeed instance has a lot of feeds to refresh
-  # leave this to false in almost all cases
-  heavyLoad: false
-
-  # minimum amount of time commafeed will wait before refreshing the same feed
-  refreshIntervalMinutes: 5
-
-  # wether to enable pubsub
-  # probably not needed if refreshIntervalMinutes is low
-  pubsubhubbub: false
-
-  # if enabled, images in feed entries will be proxied through the server instead of accessed directly by the browser
-  # useful if commafeed is usually accessed through a restricting proxy
-  imageProxyEnabled: false
-
-  # database query timeout (in milliseconds), 0 to disable
-  queryTimeout: 0
-
-  # time to keep unread statuses (in days), 0 to disable
-  keepStatusDays: 0
-
-  # entries to keep per feed, old entries will be deleted, 0 to disable
-  maxFeedCapacity: 500
-
-  # cache service to use, possible values are 'noop' and 'redis'
-  cache: noop
-
-  # announcement string displayed on the main page
-  announcement:
-
-# Database connection
-# -------------------
-# for MySQL
-# driverClass is com.mysql.jdbc.Driver
-# url is jdbc:mysql://localhost/commafeed?autoReconnect=true&failOverReadOnly=false&maxReconnects=20&rewriteBatchedStatements=true
-#
-# for PostgreSQL
-# driverClass is org.postgresql.Driver
-# url is jdbc:postgresql://localhost:5432/commafeed
-#
-# for Microsoft SQL Server
-# driverClass is net.sourceforge.jtds.jdbc.Driver
-# url is jdbc:jtds:sqlserver://localhost:1433/commafeed;instance=<instanceName, remove if not needed>
-
-database:
-  driverClass: org.h2.Driver
-  url: jdbc:h2:/home/commafeed/db;mv_store=false
-  user: sa
-  password: sa
-  properties:
-    charSet: UTF-8
-  validationQuery: "/* CommaFeed Health Check */ SELECT 1"
-  minSize: 1
-  maxSize: 50
-  maxConnectionAge: 30m
-
-server:
-  applicationConnectors:
-    - type: http
-      port: 8082
-  adminConnectors:
-    - type: http
-      port: 8084
-
-logging:
-  level: WARN
-  loggers:
-    com.commafeed: INFO
-    liquibase: INFO
-    io.dropwizard.server.ServerFactory: INFO
-  appenders:
-    - type: console
-    - type: file
-      currentLogFilename: log/commafeed.log
-      threshold: ALL
-      archive: true
-      archivedLogFilenamePattern: log/commafeed-%d.log
-      archivedFileCount: 5
-      timeZone: EST
-
-# Redis pool configuration
-# (only used if app.cache is 'redis')
-# -----------------------------------
-redis:
-  host: localhost
-  port: 6379
-  password:
-  timeout: 2000
-  database: 0
-  maxTotal: 500
-```
+(Check the [releases page](https://github.com/Athou/commafeed/releases/latest) to get the latest native binary for your operating system).
 
 ## Reverse proxy
 
-Nginx has a section dedicated to the feed subdomain.
-It is nothing fancy, just a proxy pass to a localhost port defined under `applicationConnectors`:
+Nginx has a section dedicated to proxy pass feed subdomain to a localhost port:
+
+`/etc/nginx/sites-available/default`:
 
 ```nginx
 server {
     server_name feed.demin.dev;
-
-    listen [::]:443 ssl; # managed by Certbot
-    listen 443 ssl http2;
-    ssl_certificate /etc/letsencrypt/live/demin.dev-0003/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/demin.dev-0003/privkey.pem; # managed by Certbot
-    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
-
     location / {
       proxy_pass http://127.0.0.1:8082;
       proxy_set_header  X-Forwarded-Proto https;
       proxy_set_header Host $http_host;
     }
-
 }
 ```
 
-You may notice that `adminConnectors` are not even exposed.
-I don't think I ever saw what's there.
-
 ## SystemD Unit
 
-The runtime doesn't use Docker, in part because the VM has only 0.1 CPU and, in part, because I like simple things.
-It's just a `commafeed.jar` downloaded from the official [release page](https://github.com/Athou/commafeed/releases).
-
-```bash
-sudo ln -s ~commafeed/commafeed.service /etc/systemd/system/commafeed.service
-```
+`/etc/systemd/system/commafeed.service`:
 
 ```systemd
 [Unit]
@@ -194,7 +48,7 @@ After=local-fs.target network.target
 User=commafeed
 Group=commafeed
 WorkingDirectory=/home/commafeed
-ExecStart=/usr/bin/java -Djava.net.preferIPv4Stack=true -server -jar commafeed.jar server config.yml
+ExecStart=/home/commafeed/commafeed
 SyslogIdentifier=commafeed
 Restart=always
 
@@ -204,7 +58,7 @@ WantedBy=multi-user.target
 
 ## Backup
 
-I don't care about the list of links I haven't read yet enough to automate the database backup.
+I don't care about the posts I haven't read enough to automate the database backup.
 I wouldn't want to lose the extensive library of feeds I aggregated over many years, though.
 So my solution is to just export the [OPML file](./71-opml.xml) whenever I think about how I don't want to lose it.
 
