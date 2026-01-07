@@ -243,182 +243,37 @@
 <h1>My RSS feed reader setup<a class="headerlink" href="#my-rss-feed-reader-setup" title="Link to this heading">#</a></h1>
 <p>I run a <a class="reference external" href="https://github.com/Athou/commafeed">CommaFeed</a> instance on a free-tier Google Cloud Platform virtual machine.
 It’s a Google Reader-inspired self-hosted personal RSS reader.</p>
-<p>CommaFeed service runs as a SystemD Unit under a separate system user with a home directory.</p>
-<section id="install-java-sdk">
-<h2>Install Java SDK<a class="headerlink" href="#install-java-sdk" title="Link to this heading">#</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">default</span><span class="o">-</span><span class="n">jdk</span>
+<p>I’m not using Docker, in part because the VM has only 0.25 CPU and, in part, because I like simple things.</p>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<p>CommaFeed service runs under a SystemD Unit using a separate system user with a home directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">useradd</span> <span class="o">-</span><span class="n">rms</span> <span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">nologin</span> <span class="n">commafeed</span>
+<span class="n">sudo</span> <span class="o">-</span><span class="n">u</span> <span class="n">commafeed</span> <span class="n">wget</span> <span class="o">-</span><span class="n">O</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">commafeed</span><span class="o">/</span><span class="n">commafeed</span> \
+    <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">Athou</span><span class="o">/</span><span class="n">commafeed</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="n">download</span><span class="o">/</span><span class="mf">5.12.1</span><span class="o">/</span><span class="n">commafeed</span><span class="o">-</span><span class="mf">5.12.1</span><span class="o">-</span><span class="n">h2</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">runner</span>
+<span class="n">sudo</span> <span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">commafeed</span><span class="o">/</span><span class="n">commafeed</span>
 </pre></div>
 </div>
-</section>
-<section id="user-setup">
-<h2>User setup<a class="headerlink" href="#user-setup" title="Link to this heading">#</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">useradd</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">m</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">nologin</span> <span class="n">commafeed</span>
-</pre></div>
-</div>
-</section>
-<section id="configuration">
-<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">#</a></h2>
-<p>Most of the configuration is the default, with the database pointing to an H2 file.
-I have Redis configured, but I’m not running Redis itself. Go figure.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># ~commafeed/config.yml</span>
-<span class="c1"># CommaFeed settings</span>
-<span class="c1"># ------------------</span>
-<span class="nt">app</span><span class="p">:</span>
-<span class="w">  </span><span class="c1"># url used to access commafeed</span>
-<span class="w">  </span><span class="nt">publicUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://feed.demin.dev/</span>
-
-<span class="w">  </span><span class="c1"># wether to allow user registrations</span>
-<span class="w">  </span><span class="nt">allowRegistrations</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-
-<span class="w">  </span><span class="c1"># create a demo account the first time the app starts</span>
-<span class="w">  </span><span class="nt">createDemoAccount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-
-<span class="w">  </span><span class="c1"># put your google analytics tracking code here</span>
-<span class="w">  </span><span class="nt">googleAnalyticsTrackingCode</span><span class="p">:</span>
-
-<span class="w">  </span><span class="c1"># put your google server key (used for youtube favicon fetching)</span>
-<span class="w">  </span><span class="nt">googleAuthKey</span><span class="p">:</span>
-
-<span class="w">  </span><span class="c1"># number of http threads</span>
-<span class="w">  </span><span class="nt">backgroundThreads</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
-
-<span class="w">  </span><span class="c1"># number of database updating threads</span>
-<span class="w">  </span><span class="nt">databaseUpdateThreads</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
-
-<span class="w">  </span><span class="c1"># settings for sending emails (password recovery)</span>
-<span class="w">  </span><span class="nt">smtpHost</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">smtpPort</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">smtpTls</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="w">  </span><span class="nt">smtpUserName</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">smtpPassword</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">smtpFromAddress</span><span class="p">:</span>
-
-<span class="w">  </span><span class="c1"># wether this commafeed instance has a lot of feeds to refresh</span>
-<span class="w">  </span><span class="c1"># leave this to false in almost all cases</span>
-<span class="w">  </span><span class="nt">heavyLoad</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-
-<span class="w">  </span><span class="c1"># minimum amount of time commafeed will wait before refreshing the same feed</span>
-<span class="w">  </span><span class="nt">refreshIntervalMinutes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
-
-<span class="w">  </span><span class="c1"># wether to enable pubsub</span>
-<span class="w">  </span><span class="c1"># probably not needed if refreshIntervalMinutes is low</span>
-<span class="w">  </span><span class="nt">pubsubhubbub</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-
-<span class="w">  </span><span class="c1"># if enabled, images in feed entries will be proxied through the server instead of accessed directly by the browser</span>
-<span class="w">  </span><span class="c1"># useful if commafeed is usually accessed through a restricting proxy</span>
-<span class="w">  </span><span class="nt">imageProxyEnabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-
-<span class="w">  </span><span class="c1"># database query timeout (in milliseconds), 0 to disable</span>
-<span class="w">  </span><span class="nt">queryTimeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
-
-<span class="w">  </span><span class="c1"># time to keep unread statuses (in days), 0 to disable</span>
-<span class="w">  </span><span class="nt">keepStatusDays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
-
-<span class="w">  </span><span class="c1"># entries to keep per feed, old entries will be deleted, 0 to disable</span>
-<span class="w">  </span><span class="nt">maxFeedCapacity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500</span>
-
-<span class="w">  </span><span class="c1"># cache service to use, possible values are &#39;noop&#39; and &#39;redis&#39;</span>
-<span class="w">  </span><span class="nt">cache</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">noop</span>
-
-<span class="w">  </span><span class="c1"># announcement string displayed on the main page</span>
-<span class="w">  </span><span class="nt">announcement</span><span class="p">:</span>
-
-<span class="c1"># Database connection</span>
-<span class="c1"># -------------------</span>
-<span class="c1"># for MySQL</span>
-<span class="c1"># driverClass is com.mysql.jdbc.Driver</span>
-<span class="c1"># url is jdbc:mysql://localhost/commafeed?autoReconnect=true&amp;failOverReadOnly=false&amp;maxReconnects=20&amp;rewriteBatchedStatements=true</span>
-<span class="c1">#</span>
-<span class="c1"># for PostgreSQL</span>
-<span class="c1"># driverClass is org.postgresql.Driver</span>
-<span class="c1"># url is jdbc:postgresql://localhost:5432/commafeed</span>
-<span class="c1">#</span>
-<span class="c1"># for Microsoft SQL Server</span>
-<span class="c1"># driverClass is net.sourceforge.jtds.jdbc.Driver</span>
-<span class="c1"># url is jdbc:jtds:sqlserver://localhost:1433/commafeed;instance=&lt;instanceName, remove if not needed&gt;</span>
-
-<span class="nt">database</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">driverClass</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">org.h2.Driver</span>
-<span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jdbc:h2:/home/commafeed/db;mv_store=false</span>
-<span class="w">  </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sa</span>
-<span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sa</span>
-<span class="w">  </span><span class="nt">properties</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">charSet</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UTF-8</span>
-<span class="w">  </span><span class="nt">validationQuery</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/*</span><span class="nv"> </span><span class="s">CommaFeed</span><span class="nv"> </span><span class="s">Health</span><span class="nv"> </span><span class="s">Check</span><span class="nv"> </span><span class="s">*/</span><span class="nv"> </span><span class="s">SELECT</span><span class="nv"> </span><span class="s">1&quot;</span>
-<span class="w">  </span><span class="nt">minSize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
-<span class="w">  </span><span class="nt">maxSize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span>
-<span class="w">  </span><span class="nt">maxConnectionAge</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30m</span>
-
-<span class="nt">server</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">applicationConnectors</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span>
-<span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8082</span>
-<span class="w">  </span><span class="nt">adminConnectors</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span>
-<span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8084</span>
-
-<span class="nt">logging</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WARN</span>
-<span class="w">  </span><span class="nt">loggers</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">com.commafeed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">INFO</span>
-<span class="w">    </span><span class="nt">liquibase</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">INFO</span>
-<span class="w">    </span><span class="nt">io.dropwizard.server.ServerFactory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">INFO</span>
-<span class="w">  </span><span class="nt">appenders</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">console</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">file</span>
-<span class="w">      </span><span class="nt">currentLogFilename</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">log/commafeed.log</span>
-<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ALL</span>
-<span class="w">      </span><span class="nt">archive</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">      </span><span class="nt">archivedLogFilenamePattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">log/commafeed-%d.log</span>
-<span class="w">      </span><span class="nt">archivedFileCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
-<span class="w">      </span><span class="nt">timeZone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EST</span>
-
-<span class="c1"># Redis pool configuration</span>
-<span class="c1"># (only used if app.cache is &#39;redis&#39;)</span>
-<span class="c1"># -----------------------------------</span>
-<span class="nt">redis</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span>
-<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6379</span>
-<span class="w">  </span><span class="nt">password</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2000</span>
-<span class="w">  </span><span class="nt">database</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
-<span class="w">  </span><span class="nt">maxTotal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500</span>
-</pre></div>
-</div>
+<p>(Check the <a class="reference external" href="https://github.com/Athou/commafeed/releases/latest">releases page</a> to get the latest native binary for your operating system).</p>
 </section>
 <section id="reverse-proxy">
 <h2>Reverse proxy<a class="headerlink" href="#reverse-proxy" title="Link to this heading">#</a></h2>
-<p>Nginx has a section dedicated to the feed subdomain.
-It is nothing fancy, just a proxy pass to a localhost port defined under <code class="docutils literal notranslate"><span class="pre">applicationConnectors</span></code>:</p>
+<p>Nginx has a section dedicated to proxy pass <code class="docutils literal notranslate"><span class="pre">feed</span></code> subdomain to a localhost port:</p>
+<p><code class="docutils literal notranslate"><span class="pre">/etc/nginx/sites-available/default</span></code>:</p>
 <div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">server</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kn">server_name</span><span class="w"> </span><span class="s">feed.demin.dev</span><span class="p">;</span>
-
-<span class="w">    </span><span class="kn">listen</span><span class="w"> </span><span class="s">[::]:443</span><span class="w"> </span><span class="s">ssl</span><span class="p">;</span><span class="w"> </span><span class="c1"># managed by Certbot</span>
-<span class="w">    </span><span class="kn">listen</span><span class="w"> </span><span class="mi">443</span><span class="w"> </span><span class="s">ssl</span><span class="w"> </span><span class="s">http2</span><span class="p">;</span>
-<span class="w">    </span><span class="kn">ssl_certificate</span><span class="w"> </span><span class="s">/etc/letsencrypt/live/demin.dev-0003/fullchain.pem</span><span class="p">;</span><span class="w"> </span><span class="c1"># managed by Certbot</span>
-<span class="w">    </span><span class="kn">ssl_certificate_key</span><span class="w"> </span><span class="s">/etc/letsencrypt/live/demin.dev-0003/privkey.pem</span><span class="p">;</span><span class="w"> </span><span class="c1"># managed by Certbot</span>
-<span class="w">    </span><span class="kn">include</span><span class="w"> </span><span class="s">/etc/letsencrypt/options-ssl-nginx.conf</span><span class="p">;</span><span class="w"> </span><span class="c1"># managed by Certbot</span>
-<span class="w">    </span><span class="kn">ssl_dhparam</span><span class="w"> </span><span class="s">/etc/letsencrypt/ssl-dhparams.pem</span><span class="p">;</span><span class="w"> </span><span class="c1"># managed by Certbot</span>
-
 <span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://127.0.0.1:8082</span><span class="p">;</span>
 <span class="w">      </span><span class="kn">proxy_set_header</span><span class="w">  </span><span class="s">X-Forwarded-Proto</span><span class="w"> </span><span class="s">https</span><span class="p">;</span>
 <span class="w">      </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$http_host</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
-
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>You may notice that <code class="docutils literal notranslate"><span class="pre">adminConnectors</span></code> are not even exposed.
-I don’t think I ever saw what’s there.</p>
+<p>Make sure you configure TLS certificates, using certbot, for example.</p>
 </section>
 <section id="systemd-unit">
 <h2>SystemD Unit<a class="headerlink" href="#systemd-unit" title="Link to this heading">#</a></h2>
-<p>The runtime doesn’t use Docker, in part because the VM has only 0.1 CPU and, in part, because I like simple things.
-It’s just a <code class="docutils literal notranslate"><span class="pre">commafeed.jar</span></code> downloaded from the official <a class="reference external" href="https://github.com/Athou/commafeed/releases">release page</a>.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>~commafeed/commafeed.service<span class="w"> </span>/etc/systemd/system/commafeed.service
-</pre></div>
-</div>
+<p><code class="docutils literal notranslate"><span class="pre">/etc/systemd/system/commafeed.service</span></code>:</p>
 <div class="highlight-systemd notranslate"><div class="highlight"><pre><span></span><span class="k">[Unit]</span>
 <span class="na">Description</span><span class="o">=</span><span class="s">A bloat-free feed reader</span>
 <span class="na">After</span><span class="o">=</span><span class="s">local-fs.target network.target</span>
@@ -427,7 +282,7 @@ It’s just a <code class="docutils literal notranslate"><span class="pre">comma
 <span class="na">User</span><span class="o">=</span><span class="s">commafeed</span>
 <span class="na">Group</span><span class="o">=</span><span class="s">commafeed</span>
 <span class="na">WorkingDirectory</span><span class="o">=</span><span class="s">/home/commafeed</span>
-<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/bin/java -Djava.net.preferIPv4Stack=true -server -jar commafeed.jar server config.yml</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/home/commafeed/commafeed</span>
 <span class="na">SyslogIdentifier</span><span class="o">=</span><span class="s">commafeed</span>
 <span class="na">Restart</span><span class="o">=</span><span class="s">always</span>
 
@@ -435,10 +290,26 @@ It’s just a <code class="docutils literal notranslate"><span class="pre">comma
 <span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
 </pre></div>
 </div>
+<p>(Check out the hardened version below.)</p>
+</section>
+<section id="user-registration">
+<h2>User registration<a class="headerlink" href="#user-registration" title="Link to this heading">#</a></h2>
+<p>By default, CommaFeed doesn’t allow user registration, which is a sensible default for a public self-hosted service.
+To add a user for yourself, launch it with registration enabled:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>-u<span class="w"> </span>commafeed<span class="w"> </span>/bin/sh<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;cd ~commafeed; COMMAFEED_USERS_ALLOW_REGISTRATIONS=true ./commafeed&#39;</span>
+</pre></div>
+</div>
+<p>Then open CommaFeed Web UI in the browser (in my case, it’s https://feed.demin.dev), and create an account.
+Now stop the service (By pressing Ctrl+C), and launch it through the SystemD Unit:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>commafeed.service
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>commafeed.service
+</pre></div>
+</div>
 </section>
 <section id="backup">
 <h2>Backup<a class="headerlink" href="#backup" title="Link to this heading">#</a></h2>
-<p>I don’t care about the list of links I haven’t read yet enough to automate the database backup.
+<p>I don’t care about the posts I haven’t read enough to automate the database backup.
 I wouldn’t want to lose the extensive library of feeds I aggregated over many years, though.
 So my solution is to just export the <a class="reference download internal" download="" href="../_downloads/bcbdf9250536e27c58b0e254c61af7b7/71-opml.xml"><span class="xref download myst">OPML file</span></a> whenever I think about how I don’t want to lose it.</p>
 </section>
@@ -503,6 +374,76 @@ So my solution is to just export the <a class="reference download internal" down
 <li><p><a class="reference external" href="https://xn--gckvb8fzb.com/index.xml">マリウス</a></p></li>
 </ul>
 </section>
+<section id="hardened-systemd-unit">
+<h2>Hardened SystemD Unit<a class="headerlink" href="#hardened-systemd-unit" title="Link to this heading">#</a></h2>
+<p>I don’t believe that CommaFeed has a big attach surface, but we should apply the principle of least priviliges.
+The hardened version, that won’t let CommaFeed process do any harm even if it gets hacked:</p>
+<div class="highlight-systemd notranslate"><div class="highlight"><pre><span></span><span class="k">[Unit]</span>
+<span class="na">Description</span><span class="o">=</span><span class="s">A bloat-free feed reader</span>
+<span class="na">Wants</span><span class="o">=</span><span class="s">network-online.target</span>
+<span class="na">After</span><span class="o">=</span><span class="s">local-fs.target network-online.target</span>
+
+<span class="k">[Service]</span>
+<span class="na">Type</span><span class="o">=</span><span class="s">simple</span>
+<span class="na">User</span><span class="o">=</span><span class="s">commafeed</span>
+<span class="na">Group</span><span class="o">=</span><span class="s">commafeed</span>
+<span class="na">WorkingDirectory</span><span class="o">=</span><span class="s">/home/commafeed</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/home/commafeed/commafeed</span>
+<span class="na">SyslogIdentifier</span><span class="o">=</span><span class="s">commafeed</span>
+<span class="na">Restart</span><span class="o">=</span><span class="s">always</span>
+<span class="na">RestartSec</span><span class="o">=</span><span class="s">2</span>
+
+<span class="c1"># Baseline safety</span>
+<span class="na">NoNewPrivileges</span><span class="o">=</span><span class="s">yes</span>
+<span class="na">UMask</span><span class="o">=</span><span class="s">0077</span>
+<span class="na">RemoveIPC</span><span class="o">=</span><span class="s">yes</span>
+<span class="na">CapabilityBoundingSet</span><span class="o">=</span>
+<span class="na">AmbientCapabilities</span><span class="o">=</span>
+
+<span class="c1"># Filesystem sandbox</span>
+<span class="na">ProtectSystem</span><span class="o">=</span><span class="s">strict</span>
+<span class="na">ProtectHome</span><span class="o">=</span><span class="s">read-only</span>
+<span class="na">ReadWritePaths</span><span class="o">=</span><span class="s">/home/commafeed/data</span>
+
+<span class="c1"># Stop it from seeing other processes&#39; details</span>
+<span class="na">ProtectProc</span><span class="o">=</span><span class="s">invisible</span>
+<span class="na">ProcSubset</span><span class="o">=</span><span class="s">pid</span>
+
+<span class="c1"># Kernel / namespace / device isolation</span>
+<span class="na">PrivateTmp</span><span class="o">=</span><span class="s">yes</span>
+<span class="na">PrivateDevices</span><span class="o">=</span><span class="s">yes</span>
+<span class="na">PrivateUsers</span><span class="o">=</span><span class="s">yes</span>
+<span class="na">PrivateMounts</span><span class="o">=</span><span class="s">yes</span>
+
+<span class="na">ProtectControlGroups</span><span class="o">=</span><span class="s">yes</span>
+<span class="na">ProtectKernelTunables</span><span class="o">=</span><span class="s">yes</span>
+<span class="na">ProtectKernelModules</span><span class="o">=</span><span class="s">yes</span>
+<span class="na">ProtectKernelLogs</span><span class="o">=</span><span class="s">yes</span>
+<span class="na">ProtectClock</span><span class="o">=</span><span class="s">yes</span>
+<span class="na">ProtectHostname</span><span class="o">=</span><span class="s">yes</span>
+
+<span class="na">LockPersonality</span><span class="o">=</span><span class="s">yes</span>
+<span class="na">RestrictSUIDSGID</span><span class="o">=</span><span class="s">yes</span>
+<span class="na">RestrictRealtime</span><span class="o">=</span><span class="s">yes</span>
+<span class="na">RestrictNamespaces</span><span class="o">=</span><span class="s">yes</span>
+<span class="na">MemoryDenyWriteExecute</span><span class="o">=</span><span class="s">yes</span>
+
+<span class="c1"># Syscall filtering</span>
+<span class="na">SystemCallArchitectures</span><span class="o">=</span><span class="s">native</span>
+<span class="na">SystemCallFilter</span><span class="o">=</span><span class="s">@system-service @network-io</span>
+<span class="na">SystemCallErrorNumber</span><span class="o">=</span><span class="s">EPERM</span>
+
+<span class="c1"># Only allow the socket families it likely needs</span>
+<span class="na">RestrictAddressFamilies</span><span class="o">=</span><span class="s">AF_UNIX AF_INET AF_INET6</span>
+
+<span class="c1"># Optional resource limits</span>
+<span class="na">LimitNOFILE</span><span class="o">=</span><span class="s">4096</span>
+
+<span class="k">[Install]</span>
+<span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
+</pre></div>
+</div>
+</section>
 </section>
 
 
@@ -552,13 +493,13 @@ So my solution is to just export the <a class="reference download internal" down
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-java-sdk">Install Java SDK</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#user-setup">User setup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration">Configuration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reverse-proxy">Reverse proxy</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#systemd-unit">SystemD Unit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#user-registration">User registration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backup">Backup</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-treasure">The treasure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hardened-systemd-unit">Hardened SystemD Unit</a></li>
 </ul>
   </nav></div>
 
