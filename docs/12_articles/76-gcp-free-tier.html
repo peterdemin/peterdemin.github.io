@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>How much can a Google Cloud Platform free-tier Virtual Machine serve &#8212; Peter Demin</title>
+    <title>How much can a single Google Cloud Platform free-tier Virtual Machine run &#8212; Peter Demin</title>
   
   
   
@@ -45,9 +45,11 @@
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '13_drafts/76-gcp-free-tier';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/76-gcp-free-tier';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Decentralizing the Practice of Architecture at Xapo Bank" href="../17_notes/01_xapo.html" />
+    <link rel="prev" title="To be replaced by AI is a choice" href="75-replaced-by-AI.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -220,7 +222,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">How much can a Google Cloud Platform free-tier Virtual Machine serve</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">How much can a single Google Cloud Platform free-tier Virtual Machine run</span></li>
   </ul>
 </nav>
 </div>
@@ -237,10 +239,10 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="how-much-can-a-google-cloud-platform-free-tier-virtual-machine-serve">
-<h1>How much can a Google Cloud Platform free-tier Virtual Machine serve<a class="headerlink" href="#how-much-can-a-google-cloud-platform-free-tier-virtual-machine-serve" title="Link to this heading">#</a></h1>
+  <section id="how-much-can-a-single-google-cloud-platform-free-tier-virtual-machine-run">
+<h1>How much can a single Google Cloud Platform free-tier Virtual Machine run<a class="headerlink" href="#how-much-can-a-single-google-cloud-platform-free-tier-virtual-machine-run" title="Link to this heading">#</a></h1>
 <p>Google Cloud Platform generously offers a tiny Virtual Machine instance for <a class="reference external" href="https://docs.cloud.google.com/free/docs/free-cloud-features#compute">free</a> per account.
-The <a class="reference external" href="https://docs.cloud.google.com/compute/docs/general-purpose-machines#e2-shared-core">e2-micro</a> is not exactly a power house: 0.25 CPU, 1 GB RAM, and 30 GB HDD (not SSD).
+The <a class="reference external" href="https://docs.cloud.google.com/compute/docs/general-purpose-machines#e2-shared-core">e2-micro</a> is not exactly a power house: <code class="docutils literal notranslate"><span class="pre">0.25</span></code> CPU, <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">GB</span></code> RAM, and <code class="docutils literal notranslate"><span class="pre">30</span> <span class="pre">GB</span></code> HDD (not SSD).
 But don’t be discouraged, as you’ll see how much we can pack on it.
 Of course, everyone has an opinion on what should be hosted on a personal VM in the cloud, but here’s my take, and I hope someone can pick up something useful.
 Also, a disclaimer, while the hosting part is free, a nice domain name is not.
@@ -248,12 +250,12 @@ I used to use Google Domains, but they moved their business to Squarespace.
 I pay $12/year for demin.dev.</p>
 <p>My choice of services to run:</p>
 <ul class="simple">
-<li><p>VPN using <code class="docutils literal notranslate"><span class="pre">tailscale</span></code>.</p></li>
-<li><p>Folder synchronization with <code class="docutils literal notranslate"><span class="pre">syncthing</span></code>.</p></li>
-<li><p>Static website and reverse proxy using <code class="docutils literal notranslate"><span class="pre">nginx</span></code>.</p></li>
-<li><p>XMPP server using <code class="docutils literal notranslate"><span class="pre">ejabberd</span></code>.</p></li>
-<li><p>Mailbox using <code class="docutils literal notranslate"><span class="pre">postfix</span></code>.</p></li>
-<li><p>RSS reader using <code class="docutils literal notranslate"><span class="pre">commafeed</span></code>.</p></li>
+<li><p>VPN using <a class="reference external" href="https://tailscale.com/">tailscale</a>.</p></li>
+<li><p>Folder synchronization with <a class="reference external" href="https://syncthing.net/">syncthing</a>.</p></li>
+<li><p>Static website and reverse proxy using <a class="reference external" href="https://nginx.org/">nginx</a> and <a class="reference external" href="https://letsencrypt.org/">Let’s Encrypt</a>.</p></li>
+<li><p>XMPP server using <a class="reference external" href="https://www.ejabberd.im/">ejabberd</a>.</p></li>
+<li><p>Email server using <a class="reference external" href="https://www.postfix.org/">postfix</a>.</p></li>
+<li><p>RSS reader using <a class="reference external" href="https://www.commafeed.com">commafeed</a>.</p></li>
 </ul>
 <p>In the interest of efficiency, we won’t be using containerization or nested virtualization (sorry, no <a class="reference internal" href="#/12_articles/51-self-hosted-paas.html"><span class="xref myst">PaaS</span></a> preaching here), which means extra fuss for installing each separate piece.
 But you’ll see that the setup follows the same steps across many parts, and it’s a good opportunity to learn Linux fundamentals: managing packages, users, configuration files, and SystemD units.</p>
@@ -296,16 +298,16 @@ gcloud<span class="w"> </span>compute<span class="w"> </span>instances<span clas
 <span class="w">    </span>--reservation-affinity<span class="o">=</span>any
 </pre></div>
 </div>
-<p>I’m using the latest stable Debian release that happens to be 13 Trixie.
+<p>I’m using the latest stable Debian release that happens to be <a class="reference external" href="https://www.debian.org/releases/trixie/">13 Trixie</a>.
 I’m a long-time Ubuntu fan, but Ubuntu Server is too heavy for the e2-micro size, while Debian offers a similar experience with less bloat.</p>
-<p>The command will output something like this:</p>
+<p>The command outputs something like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NAME</span>            <span class="n">ZONE</span>        <span class="n">MACHINE_TYPE</span>  <span class="n">PREEMPTIBLE</span>  <span class="n">INTERNAL_IP</span>  <span class="n">EXTERNAL_IP</span>   <span class="n">STATUS</span>
 <span class="n">demin</span><span class="o">-</span><span class="n">dev</span>       <span class="n">us</span><span class="o">-</span><span class="n">west1</span><span class="o">-</span><span class="n">c</span>  <span class="n">e2</span><span class="o">-</span><span class="n">micro</span>                   <span class="mf">10.138.0.4</span>   <span class="mf">35.212.175.9</span>  <span class="n">RUNNING</span>
 </pre></div>
 </div>
 <p>It’ll take a second to start the VM.
 Use this time to update the domain’s DNS settings with the new <code class="docutils literal notranslate"><span class="pre">EXTERNAL_IP</span></code>.
-Don’t worry about the address being “ephemeral”; in my experience, Google doesn’t change the IP addresses of running VMs.
+Don’t worry about the address being “ephemeral”; in my experience, Google doesn’t change IP addresses of running VMs.
 On the contrary, it tends to reuse the same IPv4 address if you delete/recreate a VM.
 The jabber subdomains (conference.demin.dev and pubsub.demin.dev) can be <code class="docutils literal notranslate"><span class="pre">A</span></code> records with the same IP, or a <code class="docutils literal notranslate"><span class="pre">CNAME</span></code> record mapping to the domain.</p>
 </section>
@@ -359,8 +361,8 @@ sudo<span class="w"> </span>su
 </pre></div>
 </div>
 <p>All further instructions assume you’re running as root on the VM.</p>
-<p>For the email server instructions, please refer to <a class="reference internal" href="../12_articles/45-minimal-linux-email-box.html"><span class="std std-doc">How to set up a receiving email server on a Linux machine</span></a>.
-The instructions for the RSS header are in <a class="reference internal" href="../12_articles/71-rss-feed.html"><span class="std std-doc">My RSS feed reader setup</span></a>.</p>
+<p>For the email server instructions, please refer to <a class="reference internal" href="45-minimal-linux-email-box.html"><span class="std std-doc">How to set up a receiving email server on a Linux machine</span></a>.
+The instructions for the RSS reader are in <a class="reference internal" href="71-rss-feed.html"><span class="std std-doc">My RSS feed reader setup</span></a>.</p>
 <section id="clean-up-google-cruft">
 <h3>Clean up Google cruft<a class="headerlink" href="#clean-up-google-cruft" title="Link to this heading">#</a></h3>
 <p>Google preinstalls its CLI in the VM cloud images. I find it unnecessary and wasteful, clean up:</p>
@@ -557,6 +559,24 @@ I wish more people played with such internet presence.</p>
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="75-replaced-by-AI.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">To be replaced by AI is a choice</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../17_notes/01_xapo.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Decentralizing the Practice of Architecture at Xapo Bank</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -595,7 +615,7 @@ I wish more people played with such internet presence.</p>
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/13_drafts/76-gcp-free-tier.md">
+    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/12_articles/76-gcp-free-tier.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -611,7 +631,7 @@ I wish more people played with such internet presence.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/13_drafts/76-gcp-free-tier.md.txt"
+      <li><a href="../_sources/12_articles/76-gcp-free-tier.md.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div></div>
