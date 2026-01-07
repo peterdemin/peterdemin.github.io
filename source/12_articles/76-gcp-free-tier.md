@@ -3,7 +3,8 @@
 Google Cloud Platform generously offers a tiny Virtual Machine instance for [free](https://docs.cloud.google.com/free/docs/free-cloud-features#compute) per account.
 The [e2-micro](https://docs.cloud.google.com/compute/docs/general-purpose-machines#e2-shared-core) is not exactly a power house: `0.25` CPU, `1 GB` RAM, and `30 GB` HDD (not SSD).
 But don't be discouraged, as you'll see how much we can pack on it.
-Of course, everyone has an opinion on what should be hosted on a personal VM in the cloud, but here's my take, and I hope someone can pick up something useful.
+
+Of course, everyone has an opinion on what should be hosted on a personal VM in the cloud, but here's my take, and I hope someone finds something useful for their own.
 Also, a disclaimer, while the hosting part is free, a nice domain name is not.
 I used to use Google Domains, but they moved their business to Squarespace.
 I pay $12/year for demin.dev.
@@ -358,5 +359,8 @@ This setup provides me with these enjoyable, free, and open-source things:
 4. VPN exit node, that makes me look like a Google Cloud server 🤪
 5. Cloud backup server (the unreliable kind, because there's no redundancy).
 
-Similar experience is available through some companies, but having it hosted on my VM feels empowering.
-I wish more people played with such internet presence.
+A similar experience is available from some companies, but having it hosted on my VM feels empowering.
+I wish more people played with such an internet presence.
+
+An honourable mention goes to [AlgoVPN](https://github.com/trailofbits/algo) - a set of Ansible scripts that simplify the setup of a personal WireGuard and IPsec VPN.
+This was the first GCP VM I launched automatically. Even though I switched to Tailscale for the VPN needs, it's a great project and a lot to learn from.
