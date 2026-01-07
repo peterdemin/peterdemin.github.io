@@ -1,4 +1,4 @@
-# How much can a single Google Cloud Platform free-tier Virtual Machine run
+# Personal cloud VM on Google Cloud Platform free tier
 
 Google Cloud Platform generously offers a tiny Virtual Machine instance for [free](https://docs.cloud.google.com/free/docs/free-cloud-features#compute) per account.
 The [e2-micro](https://docs.cloud.google.com/compute/docs/general-purpose-machines#e2-shared-core) is not exactly a power house: `0.25` CPU, `1 GB` RAM, and `30 GB` HDD (not SSD).
@@ -353,8 +353,8 @@ sudo -u ejabberd ejabberdctl register $NAME $DOMAIN $password
 This setup provides me with these enjoyable, free, and open-source things:
 
 1. Email and XMPP accounts: `peter@demin.dev`.
-2. Personal static website at `peter.demin.dev`.
-3. Personal RSS reader at `feed.demin.dev`.
+2. Static website at `peter.demin.dev`.
+3. RSS reader at `feed.demin.dev`.
 4. VPN exit node, that makes me look like a Google Cloud server 🤪
 5. Cloud backup server (the unreliable kind, because there's no redundancy).
 
