@@ -243,8 +243,8 @@
 <h1>Personal cloud VM on Google Cloud Platform free tier<a class="headerlink" href="#personal-cloud-vm-on-google-cloud-platform-free-tier" title="Link to this heading">#</a></h1>
 <p>Google Cloud Platform generously offers a tiny Virtual Machine instance for <a class="reference external" href="https://docs.cloud.google.com/free/docs/free-cloud-features#compute">free</a> per account.
 The <a class="reference external" href="https://docs.cloud.google.com/compute/docs/general-purpose-machines#e2-shared-core">e2-micro</a> is not exactly a power house: <code class="docutils literal notranslate"><span class="pre">0.25</span></code> CPU, <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">GB</span></code> RAM, and <code class="docutils literal notranslate"><span class="pre">30</span> <span class="pre">GB</span></code> HDD (not SSD).
-But don’t be discouraged, as you’ll see how much we can pack on it.
-Of course, everyone has an opinion on what should be hosted on a personal VM in the cloud, but here’s my take, and I hope someone can pick up something useful.
+But don’t be discouraged, as you’ll see how much we can pack on it.</p>
+<p>Of course, everyone has an opinion on what should be hosted on a personal VM in the cloud, but here’s my take, and I hope someone finds something useful for their own.
 Also, a disclaimer, while the hosting part is free, a nice domain name is not.
 I used to use Google Domains, but they moved their business to Squarespace.
 I pay $12/year for demin.dev.</p>
@@ -544,8 +544,10 @@ sudo<span class="w"> </span>-u<span class="w"> </span>ejabberd<span class="w"> <
 <li><p>VPN exit node, that makes me look like a Google Cloud server 🤪</p></li>
 <li><p>Cloud backup server (the unreliable kind, because there’s no redundancy).</p></li>
 </ol>
-<p>Similar experience is available through some companies, but having it hosted on my VM feels empowering.
-I wish more people played with such internet presence.</p>
+<p>A similar experience is available from some companies, but having it hosted on my VM feels empowering.
+I wish more people played with such an internet presence.</p>
+<p>An honourable mention goes to <a class="reference external" href="https://github.com/trailofbits/algo">AlgoVPN</a> - a set of Ansible scripts that simplify the setup of a personal WireGuard and IPsec VPN.
+This was the first GCP VM I launched automatically. Even though I switched to Tailscale for the VPN needs, it’s a great project and a lot to learn from.</p>
 </section>
 </section>
 
