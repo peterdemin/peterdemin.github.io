@@ -1,7 +1,7 @@
-# How much can a Google Cloud Platform free-tier Virtual Machine serve
+# How much can a single Google Cloud Platform free-tier Virtual Machine run
 
 Google Cloud Platform generously offers a tiny Virtual Machine instance for [free](https://docs.cloud.google.com/free/docs/free-cloud-features#compute) per account.
-The [e2-micro](https://docs.cloud.google.com/compute/docs/general-purpose-machines#e2-shared-core) is not exactly a power house: 0.25 CPU, 1 GB RAM, and 30 GB HDD (not SSD).
+The [e2-micro](https://docs.cloud.google.com/compute/docs/general-purpose-machines#e2-shared-core) is not exactly a power house: `0.25` CPU, `1 GB` RAM, and `30 GB` HDD (not SSD).
 But don't be discouraged, as you'll see how much we can pack on it.
 Of course, everyone has an opinion on what should be hosted on a personal VM in the cloud, but here's my take, and I hope someone can pick up something useful.
 Also, a disclaimer, while the hosting part is free, a nice domain name is not.
@@ -10,12 +10,12 @@ I pay $12/year for demin.dev.
 
 My choice of services to run:
 
-- VPN using `tailscale`.
-- Folder synchronization with `syncthing`.
-- Static website and reverse proxy using `nginx`.
-- XMPP server using `ejabberd`.
-- Mailbox using `postfix`.
-- RSS reader using `commafeed`.
+- VPN using [tailscale](https://tailscale.com/).
+- Folder synchronization with [syncthing](https://syncthing.net/).
+- Static website and reverse proxy using [nginx](https://nginx.org/) and [Let's Encrypt](https://letsencrypt.org/).
+- XMPP server using [ejabberd](https://www.ejabberd.im/).
+- Email server using [postfix](https://www.postfix.org/).
+- RSS reader using [commafeed](https://www.commafeed.com).
 
 In the interest of efficiency, we won't be using containerization or nested virtualization (sorry, no [PaaS](/12_articles/51-self-hosted-paas.html) preaching here), which means extra fuss for installing each separate piece.
 But you'll see that the setup follows the same steps across many parts, and it's a good opportunity to learn Linux fundamentals: managing packages, users, configuration files, and SystemD units.
@@ -62,10 +62,10 @@ gcloud compute instances create $INSTANCE \
     --reservation-affinity=any
 ```
 
-I'm using the latest stable Debian release that happens to be 13 Trixie.
+I'm using the latest stable Debian release that happens to be [13 Trixie](https://www.debian.org/releases/trixie/).
 I'm a long-time Ubuntu fan, but Ubuntu Server is too heavy for the e2-micro size, while Debian offers a similar experience with less bloat.
 
-The command will output something like this:
+The command outputs something like this:
 
 ```
 NAME            ZONE        MACHINE_TYPE  PREEMPTIBLE  INTERNAL_IP  EXTERNAL_IP   STATUS
@@ -74,7 +74,7 @@ demin-dev       us-west1-c  e2-micro                   10.138.0.4   35.212.175.9
 
 It'll take a second to start the VM.
 Use this time to update the domain's DNS settings with the new `EXTERNAL_IP`.
-Don't worry about the address being "ephemeral"; in my experience, Google doesn't change the IP addresses of running VMs.
+Don't worry about the address being "ephemeral"; in my experience, Google doesn't change IP addresses of running VMs.
 On the contrary, it tends to reuse the same IPv4 address if you delete/recreate a VM.
 The jabber subdomains (conference.demin.dev and pubsub.demin.dev) can be `A` records with the same IP, or a `CNAME` record mapping to the domain.
 
@@ -135,7 +135,7 @@ sudo su
 All further instructions assume you're running as root on the VM.
 
 For the email server instructions, please refer to [](/12_articles/45-minimal-linux-email-box.md).
-The instructions for the RSS header are in [](/12_articles/71-rss-feed.md).
+The instructions for the RSS reader are in [](/12_articles/71-rss-feed.md).
 
 ### Clean up Google cruft
 
