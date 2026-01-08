@@ -47,7 +47,7 @@ gcloud compute instances create $INSTANCE \
     --zone=us-west1-c \
     --machine-type=e2-micro \
     --network-interface=network-tier=STANDARD,stack-type=IPV4_ONLY,subnet=default \
-    --tags=http-server,https-server,jabber-server \
+    --tags=http-server,https-server,jabber-server,smtp-server \
     --public-ptr \
     --public-ptr-domain="${DOMAIN}." \
     --metadata="ssh-keys=${USERNAME}:${PUBKEY}" \
@@ -113,6 +113,16 @@ gcloud compute firewall-rules create jabber \
     --rules=tcp:5222,tcp:5223,tcp:5269,tcp:5443,tcp:5280,tcp:1883,udp:5478 \
     --source-ranges=0.0.0.0/0 \
     --target-tags=jabber-server \
+    || true
+gcloud compute firewall-rules create smtp \
+    --project=$PROJECT \
+    --direction=INGRESS \
+    --priority=1000 \
+    --network=default \
+    --action=ALLOW \
+    --rules=tcp:25 \
+    --source-ranges=0.0.0.0/0 \
+    --target-tags=smtp-server \
     || true
 ```
 
@@ -188,7 +198,7 @@ If you designate this server as an exit node, you can use it to enhance security
 You'll need to apply [extra configuration](https://tailscale.com/kb/1019/subnets?tab=linux#enable-ip-forwarding), though:
 
 ```bash
-cat | sudo tee /etc/sysctl.d/99-tailscale.conf <<EOF
+cat > /etc/sysctl.d/99-tailscale.conf <<EOF
 net.ipv4.ip_forward = 1
 net.ipv6.conf.all.forwarding = 1
 EOF

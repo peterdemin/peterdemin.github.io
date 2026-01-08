@@ -1,0 +1,63 @@
+[Unit]
+Description=A bloat-free feed reader
+Wants=network-online.target
+After=local-fs.target network-online.target
+
+[Service]
+Type=simple
+User=commafeed
+Group=commafeed
+WorkingDirectory=/home/commafeed
+ExecStart=/home/commafeed/commafeed
+SyslogIdentifier=commafeed
+Restart=always
+RestartSec=2
+
+# Baseline safety
+NoNewPrivileges=yes
+UMask=0077
+RemoveIPC=yes
+CapabilityBoundingSet=
+AmbientCapabilities=
+
+# Filesystem sandbox
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/home/commafeed/data
+
+# Stop it from seeing other processes' details
+ProtectProc=invisible
+ProcSubset=pid
+
+# Kernel / namespace / device isolation
+PrivateTmp=yes
+PrivateDevices=yes
+PrivateUsers=yes
+PrivateMounts=yes
+
+ProtectControlGroups=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectClock=yes
+ProtectHostname=yes
+
+LockPersonality=yes
+RestrictSUIDSGID=yes
+RestrictRealtime=yes
+RestrictNamespaces=yes
+MemoryDenyWriteExecute=yes
+
+# Syscall filtering
+SystemCallArchitectures=native
+SystemCallFilter=@system-service @network-io
+SystemCallErrorNumber=EPERM
+
+# Only allow the socket families it likely needs
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+# Optional resource limits
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target

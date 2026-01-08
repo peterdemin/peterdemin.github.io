@@ -4,10 +4,10 @@ set -eo pipefail
 
 PROJECT=demindev
 ACCOUNT=119300227062
-USERNAME=peter
+USERNAME=peterdemin
 PUBKEY=$(ssh-keygen -yf ~/.ssh/id_rsa)
-INSTANCE=test-demin-dev
-DOMAIN=test.demin.dev
+INSTANCE=demin-dev
+DOMAIN=demin.dev
 
 gcloud compute instances create $INSTANCE \
     --project=$PROJECT \
