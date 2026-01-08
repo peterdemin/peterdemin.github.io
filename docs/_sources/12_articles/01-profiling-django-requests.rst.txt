@@ -34,6 +34,6 @@ If ipython is not an option, cProfile.runctx can be used:
 References
 ----------
 
- * `gprof2dot <https://github.com/jrfonseca/gprof2dot>`_ - converter from pstats format to dot
- * `ipython <http://ipython.org/>`_ - powerful interactive shell
- * `cProfile.runctx <https://docs.python.org/2/library/profile.html#profile.runctx>`_ - built-in profiler
+* `gprof2dot <https://github.com/jrfonseca/gprof2dot>`_ - converter from pstats format to dot
+* `ipython <http://ipython.org/>`_ - powerful interactive shell
+* `cProfile.runctx <https://docs.python.org/2/library/profile.html#profile.runctx>`_ - built-in profiler
