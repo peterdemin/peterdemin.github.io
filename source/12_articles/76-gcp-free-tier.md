@@ -362,5 +362,9 @@ This setup provides me with these enjoyable, free, and open-source things:
 A similar experience is available from some companies, but having it hosted on my VM feels empowering.
 I wish more people played with such an internet presence.
 
-An honourable mention goes to [AlgoVPN](https://github.com/trailofbits/algo) - a set of Ansible scripts that simplify the setup of a personal WireGuard and IPsec VPN.
-This was the first GCP VM I launched automatically. Even though I switched to Tailscale for the VPN needs, it's a great project and a lot to learn from.
+## Honorable mentions
+
+1. [AlgoVPN](https://github.com/trailofbits/algo) - a set of Ansible scripts that simplify the setup of a personal WireGuard and IPsec VPN.
+   This was the first GCP VM I launched automatically.
+   Even though I switched to Tailscale for the VPN needs, it's a great project and a lot to learn from.
+2. [Oracle Cloud Free Tier](https://www.oracle.com/cloud/free/) offers Arm-based instances with 4 Ampere A1 cores and 24 GB RAM.

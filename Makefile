@@ -30,7 +30,15 @@ rss:
 build: autogen html rss counter_build race_build photos_build tree wordmix
 
 .PHONY: lightweight
-lightweight: autogen html tree wordmix
+lightweight: autogen html rss tree wordmix
+
+.PHONY: publish
+publish:
+	rsync -a demin.dev/var/www/html/.stfolder build/html/
+	rsync -a --delete build/html/ demin.dev/var/www/html
+
+.PHONY: p
+p: lightweight publish
 
 .PHONY: browser
 browser:
@@ -149,11 +157,11 @@ photos_build: $(PHOTOS_SUBDIRS)
 $(PHOTOS_SUBDIRS):
 	$(MAKE) -C $@
 
+## Prebuilt HTML:
+
 .PHONY: tree
 tree:
 	cp -f source/12_articles/61-tree.html build/html/12_articles/61-tree.html
-
-## WORDMIX
 
 .PHONY: wordmix
 wordmix:
