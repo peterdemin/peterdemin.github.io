@@ -533,7 +533,8 @@ modules:
 </div>
 <p>To allow ejabberd share the certificates with nginx, change the group ownership and permissions:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chgrp<span class="w"> </span>-R<span class="w"> </span>ejabberd<span class="w"> </span>/etc/letsencrypt
-chmod<span class="w"> </span>g+rx<span class="w"> </span>/etc/letsencrypt/archive
+chmod<span class="w"> </span>g+rx<span class="w"> </span>/etc/letsencrypt/<span class="o">{</span>archive,live<span class="o">}</span>
+chmod<span class="w"> </span>g+r<span class="w"> </span>/etc/letsencrypt/archive/demin.dev/privkey*.pem
 </pre></div>
 </div>
 <p>Start service and register the first user:</p>
