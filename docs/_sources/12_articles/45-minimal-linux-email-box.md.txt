@@ -29,14 +29,13 @@ Here, I explain the technical solution to getting a mailbox on your custom domai
 3. If your username is not the same as the desired email, add an alias to `/etc/aliases`:
 
    ```
-   postmaster:    peterdemin
    peter:    peterdemin
    ```
 
    Make sure to update the postfix alias database with the new config:
 
    ```bash
-   $ sudo newaliases
+   sudo newaliases
    ```
 
 4. Start the server:
@@ -85,6 +84,13 @@ All incoming emails are appended to this file:
 
 ```bash
 less /var/spool/mail/${USER}
+```
+
+To have a better terminal experience reading incoming emails,
+install and run `mutt`:
+
+```bash
+sudo apt install -y mutt
 ```
 
 ## Disable the mail server when you don't need it
