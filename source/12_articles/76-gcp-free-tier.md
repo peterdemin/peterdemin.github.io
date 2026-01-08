@@ -348,7 +348,8 @@ To allow ejabberd share the certificates with nginx, change the group ownership 
 
 ```bash
 chgrp -R ejabberd /etc/letsencrypt
-chmod g+rx /etc/letsencrypt/archive
+chmod g+rx /etc/letsencrypt/{archive,live}
+chmod g+r /etc/letsencrypt/archive/demin.dev/privkey*.pem
 ```
 
 Start service and register the first user:

@@ -2,5 +2,5 @@
 set -e
 certbot renew -q
 chgrp -R ejabberd /etc/letsencrypt
-chmod g+rx /etc/letsencrypt/archive
+chmod g+rx /etc/letsencrypt/archive /etc/letsencrypt/live
 chmod g+r /etc/letsencrypt/archive/demin.dev/privkey*.pem
