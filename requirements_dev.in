@@ -11,3 +11,8 @@ pandas
 matplotlib
 scikit-learn
 gcloud
+PyGithub
+black
+isort
+flake8
+pyright
