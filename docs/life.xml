@@ -1,5 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2026-01-06T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Jan 06, 2026</id><title>Journal</title><published>2026-01-06T00:00:00Z</published><updated>2026-01-06T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 06, 2026"/><content type="html"><![CDATA[<p>Added <a href="https://peter.demin.dev/12_articles/76-gcp-free-tier.html"></a></p>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2026-01-09T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Jan 09, 2026</id><title>Journal</title><published>2026-01-09T00:00:00Z</published><updated>2026-01-09T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 09, 2026"/><content type="html"><![CDATA[<p>Here's some food for thought.
+We got some nice green seedless grapes from Costco, but they were super tart.
+If you let unripe grapes sit on a dark shelf for a couple of days, they'll get sweeter.
+But they won't get more callories, because of the laws of conservation.
+The grape is sealed and its carbohydrates don't go anywhere.
+But my mind tricks me into thinking that sweet food provides more energy.</p>
+]]></content></entry><entry><id>Jan 06, 2026</id><title>Journal</title><published>2026-01-06T00:00:00Z</published><updated>2026-01-06T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 06, 2026"/><content type="html"><![CDATA[<p>Added <a href="https://peter.demin.dev/12_articles/76-gcp-free-tier.html"></a></p>
 ]]></content></entry><entry><id>Jan 03, 2026</id><title>Journal</title><published>2026-01-03T00:00:00Z</published><updated>2026-01-03T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 03, 2026"/><content type="html"><![CDATA[<p>After watching Mr. Robot I got curious about IPFS in general and Anna's Archive in particular.
 I found this <a href="https://software.annas-archive.li/AnnaArchivist/annas-archive/-/issues/305">gem</a> in Anna's Archive Git repo:</p>
 <blockquote>
@@ -511,17 +517,4 @@ Social contracts prevent expression of internal desires.</p>
 ]]></content></entry><entry><id>Aug 18, 2024</id><title>Journal</title><published>2024-08-18T00:00:00Z</published><updated>2024-08-18T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 18, 2024"/><content type="html"><![CDATA[<p>this tea bag summarizes my thoughts of food in the US. The brown dust resembles tea only in color. But that’s what Americans like. No sophistication, big quantities, low price.
 <img src="/16_life/images/lipton.jpeg" alt="Lipton" /></p>
 ]]></content></entry><entry><id>Aug 09, 2024</id><title>Journal</title><published>2024-08-09T00:00:00Z</published><updated>2024-08-09T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 09, 2024"/><content type="html"><![CDATA[<p>Added <a href="https://peter.demin.dev/12_articles/59-iced-water.html"></a></p>
-]]></content></entry><entry><id>Aug 07, 2024</id><title>Journal</title><published>2024-08-07T00:00:00Z</published><updated>2024-08-07T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Aug 07, 2024"/><content type="html"><![CDATA[<p>I was watching <a href="https://www.google.com/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://en.wikipedia.org/wiki/The_Expanse_(TV_series)">Expanse</a> and was fascinated by their handheld devices (phones?).
-I liked the way they wirelessly cast screen using two-fingers swipe up in the direction of the cast target.
-I also liked how they share message attachments.
-The operating systems they are running seem to provide consistent experience across devices, so I assume there's a tight integration.
-What I liked most is that attachments contained two kinds formats.
-One was a presentation layer, similar to a static HTML page.
-Another was data (like JSON, or CSV) that can be direcly imported to a database or Jupyter Notebook.
-Like one time a person sent a bunch of people profiles, and the other side reviewed them and imported to their contacts.
-Another time it was asteroid coordinates, that were presented as an interactive 3D model, but also could be imported into the navigational system.
-I wonder if we can build this today.
-Each attachment would be an archive with HTML file that pulls raw data from a JSON file sitting by its side.
-But also having a &quot;Download&quot; button that exposes the data file directly.
-Or maybe a single HTML file with all the small data and assets embedded, and large assets pulled from S3.</p>
 ]]></content></entry></feed>
