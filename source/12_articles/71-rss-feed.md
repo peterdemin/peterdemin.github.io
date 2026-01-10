@@ -165,6 +165,7 @@ ExecStart=/home/commafeed/commafeed
 SyslogIdentifier=commafeed
 Restart=always
 RestartSec=2
+Environment="COMMAFEED_HTTP_CLIENT_MAX_RESPONSE_SIZE=10M"
 
 # Baseline safety
 NoNewPrivileges=yes
