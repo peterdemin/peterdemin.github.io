@@ -393,6 +393,7 @@ The hardened version, which won’t let CommaFeed process do any harm even if it
 <span class="na">SyslogIdentifier</span><span class="o">=</span><span class="s">commafeed</span>
 <span class="na">Restart</span><span class="o">=</span><span class="s">always</span>
 <span class="na">RestartSec</span><span class="o">=</span><span class="s">2</span>
+<span class="na">Environment</span><span class="o">=</span><span class="s">&quot;COMMAFEED_HTTP_CLIENT_MAX_RESPONSE_SIZE=10M&quot;</span>
 
 <span class="c1"># Baseline safety</span>
 <span class="na">NoNewPrivileges</span><span class="o">=</span><span class="s">yes</span>
