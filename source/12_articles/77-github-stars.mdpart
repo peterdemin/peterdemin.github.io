@@ -1,0 +1,920 @@
+`Jan 10, 2026` - [scottrogowski/code2flow](https://github.com/scottrogowski/code2flow) - Pretty good call graphs for dynamic languages
+
+`Dec 29, 2025` - [cockpit-project/cockpit-machines](https://github.com/cockpit-project/cockpit-machines) - Cockpit UI for virtual machines
+
+`Dec 27, 2025` - [dmacvicar/terraform-provider-libvirt](https://github.com/dmacvicar/terraform-provider-libvirt) - Terraform provider to provision infrastructure with Linux's KVM using libvirt
+
+`Dec 20, 2025` - [piercefreeman/autopg](https://github.com/piercefreeman/autopg) - 🐘 Auto-optimizations for Postgres
+
+`Dec 06, 2025` - [simulot/immich-go](https://github.com/simulot/immich-go) - An alternative to the immich-CLI command that doesn't depend on nodejs installation. It tries its best for importing google photos takeout archives.
+
+`Nov 09, 2025` - [opencloud-eu/opencloud](https://github.com/opencloud-eu/opencloud) - 🌤️ OpenCloud is the open source platform for file management, sharing and collaboration. Simple and sovereign.
+
+`Oct 23, 2025` - [allinurl/goaccess](https://github.com/allinurl/goaccess) - GoAccess is a real-time web log analyzer and interactive viewer that runs in a terminal in *nix systems or through your browser.
+
+`Oct 20, 2025` - [nathan-barry/nathan.rs](https://github.com/nathan-barry/nathan.rs) - My personal site using Hugo for static site generation. My pride and joy.
+
+`Oct 13, 2025` - [TheLastGimbus/GooglePhotosTakeoutHelper](https://github.com/TheLastGimbus/GooglePhotosTakeoutHelper) - Script that organizes the Google Takeout archive into one big chronological folder
+
+`Sep 12, 2025` - [PicoTrex/Awesome-Nano-Banana-images](https://github.com/PicoTrex/Awesome-Nano-Banana-images) - A curated collection of fun and creative examples generated with Nano Banana & Nano Banana Pro🍌, Gemini-2.5-flash-image based model. We also release Nano-consistent-150K openly to support the community's development of image generation and unified models(click to website to see our blog)
+
+`Sep 07, 2025` - [lingdojo/kana-dojo](https://github.com/lingdojo/kana-dojo) - Aesthetic, minimalist online platform for learning Japanese inspired by Monkeytype.
+
+`Jul 12, 2025` - [gw1urf/spigot](https://github.com/gw1urf/spigot) - A hierarchy of Markov Chain generated web pages.
+
+`Jul 07, 2025` - [permissionlesstech/bitchat](https://github.com/permissionlesstech/bitchat) - bluetooth mesh chat, IRC vibes
+
+`Jul 06, 2025` - [astral-sh/uv](https://github.com/astral-sh/uv) - An extremely fast Python package and project manager, written in Rust.
+
+`Jun 21, 2025` - [Automattic/harper](https://github.com/Automattic/harper) - Offline, privacy-first grammar checker. Fast, open-source, Rust-powered
+
+`Jun 15, 2025` - [nicopowa/ripples3](https://github.com/nicopowa/ripples3) - liquid code
+
+`Jun 10, 2025` - [pypiserver/pypiserver](https://github.com/pypiserver/pypiserver) - Minimal PyPI server for uploading & downloading packages with pip/easy_install
+
+`Jun 10, 2025` - [apple/container](https://github.com/apple/container) - A tool for creating and running Linux containers using lightweight virtual machines on a Mac. It is written in Swift, and optimized for Apple silicon. 
+
+`Jun 03, 2025` - [dosisod/refurb](https://github.com/dosisod/refurb) - A tool for refurbishing and modernizing Python codebases
+
+`May 23, 2025` - [kepano/defuddle](https://github.com/kepano/defuddle) - Extract the main content from web pages.
+
+`May 21, 2025` - [peterdemin/gdocsync](https://github.com/peterdemin/gdocsync) - Google Docs synchronization to a local filesystem
+
+`May 12, 2025` - [jaypyles/Scraperr](https://github.com/jaypyles/Scraperr) - Self-hosted webscraper.
+
+`May 07, 2025` - [astral-sh/ty](https://github.com/astral-sh/ty) - An extremely fast Python type checker and language server, written in Rust.
+
+`Apr 03, 2025` - [camel-ai/owl](https://github.com/camel-ai/owl) - 🦉 OWL: Optimized Workforce Learning for General Multi-Agent Assistance in Real-World Task Automation
+
+`Mar 27, 2025` - [medialab/xan](https://github.com/medialab/xan) - The CSV magician
+
+`Mar 24, 2025` - [karpathy/minGPT](https://github.com/karpathy/minGPT) - A minimal PyTorch re-implementation of the OpenAI GPT (Generative Pretrained Transformer) training
+
+`Mar 16, 2025` - [suitenumerique/docs](https://github.com/suitenumerique/docs) - A collaborative note taking, wiki and documentation platform that scales. Built with Django and React. 
+
+`Mar 12, 2025` - [ZachGoldberg/Startup-CTO-Handbook](https://github.com/ZachGoldberg/Startup-CTO-Handbook) - The Startup CTO's Handbook, a book covering leadership, management and technical topics for leaders of software engineering teams
+
+`Mar 09, 2025` - [antoniomika/sish](https://github.com/antoniomika/sish) - HTTP(S)/WS(S)/TCP Tunnels to localhost using only SSH.
+
+`Mar 02, 2025` - [fingerthief/recommendarr](https://github.com/fingerthief/recommendarr) - An LLM driven recommendation system based on Radarr and Sonarr library or watch history information
+
+`Feb 24, 2025` - [tmiland/pgbackup](https://github.com/tmiland/pgbackup) - Automated PostgreSQL Backup on Linux
+
+`Jan 26, 2025` - [sharingan-no-kakashi/orange-intelligence](https://github.com/sharingan-no-kakashi/orange-intelligence) - Orange intelligence
+
+`Jan 12, 2025` - [notify-rs/notify](https://github.com/notify-rs/notify) - 🔭 Cross-platform filesystem notification library for Rust. 
+
+`Jan 12, 2025` - [samuelcolvin/watchfiles](https://github.com/samuelcolvin/watchfiles) - Simple, modern and fast file watching and code reload for Python, written in Rust
+
+`Jan 03, 2025` - [allenporter/ical](https://github.com/allenporter/ical) - iCalendar rfc 2445 implementation
+
+`Dec 22, 2024` - [Eliran-Turgeman/Collecto](https://github.com/Eliran-Turgeman/Collecto) - Collecto is an open source & self-hosted forms backend.
+
+`Dec 21, 2024` - [malmeloo/FindMy.py](https://github.com/malmeloo/FindMy.py) - 🍏 + 🎯 + 🐍 = Query Apple's FindMy Network with Python!
+
+`Dec 19, 2024` - [konfig-dev/konfig](https://github.com/konfig-dev/konfig) - SDK & API Docs Generator. Sunset as of December 2024
+
+`Dec 19, 2024` - [changesets/changesets](https://github.com/changesets/changesets) - 🦋       A way to manage your versioning and changelogs with a focus on monorepos
+
+`Dec 09, 2024` - [pimalaya/himalaya](https://github.com/pimalaya/himalaya) - CLI to manage emails
+
+`Dec 06, 2024` - [trailbaseio/trailbase](https://github.com/trailbaseio/trailbase) - A blazingly fast, open-source application server with type-safe APIs, built-in WebAssembly runtime, realtime, auth, and admin UI built on Rust, SQLite & Wasmtime.
+
+`Nov 26, 2024` - [neuml/txtai](https://github.com/neuml/txtai) - 💡 All-in-one AI framework for semantic search, LLM orchestration and language model workflows
+
+`Nov 19, 2024` - [CoderCookE/vim-chatgpt](https://github.com/CoderCookE/vim-chatgpt) - Vim Plugin For ChatGPT
+
+`Nov 18, 2024` - [arkohut/pensieve](https://github.com/arkohut/pensieve) - A passive recording project allows you to have complete control over your data. Automatically take screenshots of all your screens, index them, and save them locally.
+
+`Nov 02, 2024` - [rbbydotdev/someday](https://github.com/rbbydotdev/someday) - Free to host calendar availability picker - open-source cal.com / calendly alternative built on Google-Apps-Script for Gmail users. Built with modern technologies like React, TypeScript, Shadcn/UI, and Vite.  https://someday-demo.vercel.app
+
+`Oct 18, 2024` - [joseph-roitman/pytest-snapshot](https://github.com/joseph-roitman/pytest-snapshot) - A plugin for snapshot testing with pytest.
+
+`Sep 28, 2024` - [xwmx/nb](https://github.com/xwmx/nb) - CLI and local web plain text note‑taking, bookmarking, and archiving with linking, tagging, filtering, search, Git versioning & syncing, Pandoc conversion, + more, in a single portable script.
+
+`Sep 24, 2024` - [ditrit/specimen](https://github.com/ditrit/specimen) - A data-driven testing library as well as a yaml data format.
+
+`Sep 23, 2024` - [praiskup/argparse-manpage](https://github.com/praiskup/argparse-manpage) - Automatically build man-pages for your Python project
+
+`Sep 13, 2024` - [peterdemin/i8t](https://github.com/peterdemin/i8t) - Introspection client library
+
+`Sep 12, 2024` - [smarlhens/python-boilerplate](https://github.com/smarlhens/python-boilerplate) - Python boilerplate using uv, pre-commit, prettier, pytest, GitHub Actions, mypy, ruff, bandit & docformatter.
+
+`Aug 19, 2024` - [wasi-master/13ft](https://github.com/wasi-master/13ft) - My own custom 12ft.io replacement
+
+`Aug 15, 2024` - [writefreely/writefreely](https://github.com/writefreely/writefreely) - A clean, Markdown-based publishing platform made for writers. Write together and build a community.
+
+`Jul 30, 2024` - [facebookresearch/sam2](https://github.com/facebookresearch/sam2) - The repository provides code for running inference with the Meta Segment Anything Model 2 (SAM 2), links for downloading the trained model checkpoints, and example notebooks that show how to use the model.
+
+`Jul 28, 2024` - [haltakov/simple-photo-gallery](https://github.com/haltakov/simple-photo-gallery) - Beautiful and simple photo galleries that help you tell your story. Free and open-source.
+
+`Jul 25, 2024` - [nylas/make-deb](https://github.com/nylas/make-deb) - Tool for building debian packages from your python projects
+
+`Jul 10, 2024` - [ironman5366/ai-murder-mystery-hackathon](https://github.com/ironman5366/ai-murder-mystery-hackathon) - The game is afoot
+
+`Jul 07, 2024` - [jarun/reader](https://github.com/jarun/reader) - Extract clean(er), readable text from web pages via Mercury Web Parser API.
+
+`Jul 01, 2024` - [mrusme/reader](https://github.com/mrusme/reader) - reader is for your command line what the “readability” view is for modern browsers: A lightweight tool offering better readability of web pages (and EML files!) on the CLI. (https://codeberg.org/mrus/reader)
+
+`Jul 01, 2024` - [danielmiessler/Fabric](https://github.com/danielmiessler/Fabric) - Fabric is an open-source framework for augmenting humans using AI. It provides a modular system for solving specific problems using a crowdsourced set of AI prompts that can be used anywhere.
+
+`Jun 26, 2024` - [arc42/arc42-template](https://github.com/arc42/arc42-template) - arc42 - the template for software architecture documentation and communication
+
+`Jun 26, 2024` - [karpathy/LLM101n](https://github.com/karpathy/LLM101n) - LLM101n: Let's build a Storyteller
+
+`Jun 12, 2024` - [hamcrest/PyHamcrest](https://github.com/hamcrest/PyHamcrest) - Hamcrest matchers for Python
+
+`May 21, 2024` - [tombonez/noTunes](https://github.com/tombonez/noTunes) - A simple macOS application that will prevent iTunes or Apple Music from launching.
+
+`Apr 30, 2024` - [RhinoSecurityLabs/cloudgoat](https://github.com/RhinoSecurityLabs/cloudgoat) - CloudGoat is Rhino Security Labs' "Vulnerable by Design" AWS deployment tool
+
+`Apr 11, 2024` - [hwayne/awesome-cold-showers](https://github.com/hwayne/awesome-cold-showers) - For when people get too hyped up about things
+
+`Apr 05, 2024` - [zoriya/Kyoo](https://github.com/zoriya/Kyoo) - A portable and vast media library solution.
+
+`Apr 03, 2024` - [AlexanderKoch-Koch/low_cost_robot](https://github.com/AlexanderKoch-Koch/low_cost_robot) - None
+
+`Apr 03, 2024` - [tsuru/tsuru](https://github.com/tsuru/tsuru) - Open source and extensible Platform as a Service (PaaS).
+
+`Apr 03, 2024` - [heyform/heyform](https://github.com/heyform/heyform) - Open-Source Form Builder
+
+`Apr 03, 2024` - [Websoft9/websoft9](https://github.com/Websoft9/websoft9) - Applications self-hosting and DevOps platform for running open source, web-based linux Panel of lite PaaS
+
+`Mar 27, 2024` - [airspeed-velocity/asv](https://github.com/airspeed-velocity/asv) - Airspeed Velocity: A simple Python benchmarking tool with web-based reporting
+
+`Mar 24, 2024` - [Nukesor/pueue](https://github.com/Nukesor/pueue) - :stars: Manage your shell commands.
+
+`Mar 24, 2024` - [pulsejet/memories](https://github.com/pulsejet/memories) - Fast, modern and advanced photo management suite. Runs as a Nextcloud app.
+
+`Mar 12, 2024` - [getsentry/responses](https://github.com/getsentry/responses) - A utility for mocking out the Python Requests library.
+
+`Feb 11, 2024` - [davidmerfield/blot](https://github.com/davidmerfield/blot) - Turns a folder into a website
+
+`Feb 06, 2024` - [convox/rack](https://github.com/convox/rack) - Private PaaS built on native AWS services for maximum privacy and minimum upkeep
+
+`Feb 01, 2024` - [quasilyte/go-ruleguard](https://github.com/quasilyte/go-ruleguard) - Define and run pattern-based custom linting rules.
+
+`Jan 12, 2024` - [ArchiveBox/ArchiveBox](https://github.com/ArchiveBox/ArchiveBox) - 🗃 Open source self-hosted web archiving. Takes URLs/browser history/bookmarks/Pocket/Pinboard/etc., saves HTML, JS, PDFs, media, and more...
+
+`Jan 07, 2024` - [grantjenks/blue](https://github.com/grantjenks/blue) - The slightly less uncompromising Python code formatter.
+
+`Jan 02, 2024` - [ish-app/ish](https://github.com/ish-app/ish) - Linux shell for iOS
+
+`Dec 14, 2023` - [almarklein/mypaas](https://github.com/almarklein/mypaas) - Run your own PaaS using Docker, Traefik, and great analytics
+
+`Dec 10, 2023` - [git-bug/git-bug](https://github.com/git-bug/git-bug) - Distributed, offline-first bug tracker embedded in git
+
+`Dec 10, 2023` - [tree-sitter/tree-sitter](https://github.com/tree-sitter/tree-sitter) - An incremental parsing system for programming tools
+
+`Dec 10, 2023` - [ast-grep/ast-grep](https://github.com/ast-grep/ast-grep) - ⚡A CLI tool for code structural search, lint and rewriting. Written in Rust
+
+`Dec 05, 2023` - [piku/piku](https://github.com/piku/piku) - The tiniest PaaS you've ever seen. Piku allows you to do git push deployments to your own servers.
+
+`Dec 05, 2023` - [uqfoundation/dill](https://github.com/uqfoundation/dill) - serialize all of Python
+
+`Dec 01, 2023` - [mardix/sailor](https://github.com/mardix/sailor) - Sailor is a tiny PaaS to install on your servers/VPS that uses git push to deploy micro-apps, micro-services, sites with SSL, on your own servers or VPS
+
+`Nov 30, 2023` - [notmahi/dobb-e](https://github.com/notmahi/dobb-e) - Dobb·E: An open-source, general framework for learning household robotic manipulation
+
+`Nov 20, 2023` - [avelino/awesome-go](https://github.com/avelino/awesome-go) - A curated list of awesome Go frameworks, libraries and software
+
+`Nov 20, 2023` - [vinta/awesome-python](https://github.com/vinta/awesome-python) - An opinionated list of awesome Python frameworks, libraries, software and resources.
+
+`Nov 06, 2023` - [kubero-dev/kubero](https://github.com/kubero-dev/kubero) - A free and self-hosted PaaS alternative to Heroku / Netlify / Coolify / Vercel / Dokku / Portainer running on Kubernetes
+
+`Nov 06, 2023` - [everywall/ladder](https://github.com/everywall/ladder) - Selfhosted alternative to 12ft.io. and 1ft.io bypass paywalls with a proxy ladder and remove CORS headers from any URL
+
+`Nov 01, 2023` - [mateusz-brainhub/awesome-cto-resources](https://github.com/mateusz-brainhub/awesome-cto-resources) - :bulb: A community-curated list of awesome resources to help you grow as a CTO
+
+`Oct 27, 2023` - [MagicStack/asyncpg](https://github.com/MagicStack/asyncpg) - A fast PostgreSQL Database Client Library for Python/asyncio.
+
+`Oct 18, 2023` - [microsoft/autogen](https://github.com/microsoft/autogen) - A programming framework for agentic AI
+
+`Oct 13, 2023` - [mdx-js/mdx](https://github.com/mdx-js/mdx) - Markdown for the component era
+
+`Sep 21, 2023` - [electric-sql/electric](https://github.com/electric-sql/electric) - Real-time sync for Postgres.
+
+`Sep 19, 2023` - [mwmbl/mwmbl](https://github.com/mwmbl/mwmbl) - An open source, non-profit web search engine
+
+`Sep 16, 2023` - [baudaux/exa-doc](https://github.com/baudaux/exa-doc) - exaequOS documentation
+
+`Sep 13, 2023` - [peterdemin/fact](https://github.com/peterdemin/fact) - Factual evaluation for Llama-2 summarization
+
+`Sep 11, 2023` - [streamlit/streamlit](https://github.com/streamlit/streamlit) - Streamlit — A faster way to build and share data apps.
+
+`Sep 11, 2023` - [toeverything/AFFiNE](https://github.com/toeverything/AFFiNE) - There can be more than Notion and Miro. AFFiNE(pronounced [ə‘fain]) is a next-gen knowledge base that brings planning, sorting and creating all together. Privacy first, open-source, customizable and ready to use. 
+
+`Sep 11, 2023` - [gittuf/gittuf](https://github.com/gittuf/gittuf) - A security layer for Git repositories
+
+`Sep 11, 2023` - [bitswired/lazycodr](https://github.com/bitswired/lazycodr) - A CLI tool to help lazy coders get the work done with AI (commit messages, pull requests ...). Because a LAZY programmer is a GREAT programmer 😜
+
+`Sep 11, 2023` - [Pythagora-io/gpt-pilot](https://github.com/Pythagora-io/gpt-pilot) - The first real AI developer
+
+`Sep 09, 2023` - [paramiko/paramiko](https://github.com/paramiko/paramiko) - The leading native Python SSHv2 protocol library.
+
+`Sep 09, 2023` - [fabric/patchwork](https://github.com/fabric/patchwork) - Common deployment/sysadmin operations, built on Fabric
+
+`Sep 08, 2023` - [voila-dashboards/voila](https://github.com/voila-dashboards/voila) - Voilà turns Jupyter notebooks into standalone web applications
+
+`Sep 07, 2023` - [adamchainz/flake8-logging](https://github.com/adamchainz/flake8-logging) - A Flake8 plugin that checks for issues using the standard library logging module.
+
+`Sep 07, 2023` - [stanfordnlp/dspy](https://github.com/stanfordnlp/dspy) - DSPy: The framework for programming—not prompting—language models
+
+`Sep 06, 2023` - [fabric/fabric](https://github.com/fabric/fabric) - Simple, Pythonic remote execution and deployment.
+
+`Sep 04, 2023` - [errata-ai/vale](https://github.com/errata-ai/vale) - :pencil: A markup-aware linter for prose built with speed and extensibility in mind.
+
+`Sep 03, 2023` - [peterdemin/peterdemin.github.io](https://github.com/peterdemin/peterdemin.github.io) - Peter Demin
+
+`Sep 03, 2023` - [nateshmbhat/pyttsx3](https://github.com/nateshmbhat/pyttsx3) - Offline Text To Speech synthesis for python
+
+`Sep 02, 2023` - [AdrianKrebs/datalens](https://github.com/AdrianKrebs/datalens) - An experiment to automate job search with LLMs
+
+`Sep 01, 2023` - [learning-at-home/hivemind](https://github.com/learning-at-home/hivemind) - Decentralized deep learning in PyTorch. Built to train models on thousands of volunteers across the world.
+
+`Aug 31, 2023` - [ydataai/ydata-synthetic](https://github.com/ydataai/ydata-synthetic) - Synthetic data generators for tabular and time-series data
+
+`Aug 31, 2023` - [bigscience-workshop/petals](https://github.com/bigscience-workshop/petals) - 🌸 Run LLMs at home, BitTorrent-style. Fine-tuning and inference up to 10x faster than offloading
+
+`Aug 23, 2023` - [roboflow/inference](https://github.com/roboflow/inference) - Turn any computer or edge device into a command center for your computer vision projects.
+
+`Aug 23, 2023` - [innovatorved/whisper.api](https://github.com/innovatorved/whisper.api) - This project provides an API with user level access support to transcribe speech to text using a finetuned and processed Whisper ASR model.
+
+`Aug 19, 2023` - [rivet-dev/rivet](https://github.com/rivet-dev/rivet) - Rivet Actors are long-lived, in-memory processes. It's what you reach for when you hit the limitations of HTTP, databases, or queues.
+
+`Aug 16, 2023` - [gitwonk/gitwonk](https://github.com/gitwonk/gitwonk) - The open source GitBook, Confluence, and Archbee alternative. Write technical docs like never before 🐙
+
+`Aug 16, 2023` - [GyulyVGC/sniffnet](https://github.com/GyulyVGC/sniffnet) - Comfortably monitor your Internet traffic 🕵️‍♂️
+
+`Aug 10, 2023` - [toeverything/blocksuite](https://github.com/toeverything/blocksuite) - 🧩 Content editing tech stack for the web - BlockSuite is a toolkit for building editors and collaborative applications.
+
+`Aug 08, 2023` - [choldgraf/nbclean](https://github.com/choldgraf/nbclean) - A collection of tools to preprocess, modify, and otherwise clean up Jupyter Notebooks
+
+`Aug 08, 2023` - [AppImage/AppImageKit](https://github.com/AppImage/AppImageKit) - Package desktop applications as AppImages that run on common Linux-based operating systems, such as RHEL, CentOS, openSUSE, SLED, Ubuntu, Fedora, debian and derivatives. Join #AppImage on irc.libera.chat
+
+`Aug 05, 2023` - [ajaxorg/ace](https://github.com/ajaxorg/ace) - Ace (Ajax.org Cloud9 Editor)
+
+`Jul 29, 2023` - [oobabooga/text-generation-webui](https://github.com/oobabooga/text-generation-webui) - The definitive Web UI for local AI, with powerful features and easy setup.
+
+`Jul 29, 2023` - [liltom-eth/llama2-webui](https://github.com/liltom-eth/llama2-webui) - Run any Llama 2 locally with gradio UI on GPU or CPU from anywhere (Linux/Windows/Mac). Use `llama2-wrapper` as your local llama2 backend for Generative Agents/Apps.  
+
+`Jul 23, 2023` - [puremourning/vimspector](https://github.com/puremourning/vimspector) - vimspector - A multi-language debugging system for Vim
+
+`Jul 19, 2023` - [dabeaz-course/python-mastery](https://github.com/dabeaz-course/python-mastery) - Advanced Python Mastery (course by @dabeaz)
+
+`Jul 11, 2023` - [hocus-dev/hocus](https://github.com/hocus-dev/hocus) - 🪄 Spin up ready-to-code, disposable dev environments on your own servers. Self-hosted alternative to Gitpod and Github Codespaces.
+
+`Jul 11, 2023` - [immich-app/immich](https://github.com/immich-app/immich) - High performance self-hosted photo and video management solution.
+
+`Jul 10, 2023` - [apache/hamilton](https://github.com/apache/hamilton) - Apache Hamilton helps data scientists and engineers define testable, modular, self-documenting dataflows, that encode lineage/tracing and metadata. Runs and scales everywhere python does.
+
+`Jul 01, 2023` - [LemmyNet/lemmy](https://github.com/LemmyNet/lemmy) - 🐀 A link aggregator and forum for the fediverse
+
+`Jun 22, 2023` - [mindsdb/mindsdb](https://github.com/mindsdb/mindsdb) - Federated Query Engine for AI - The only MCP Server you'll ever need
+
+`Jun 21, 2023` - [cloud-custodian/cloud-custodian](https://github.com/cloud-custodian/cloud-custodian) - Rules engine for cloud security, cost optimization, and governance, DSL in yaml for policies to query, filter, and take actions on resources
+
+`Jun 21, 2023` - [pallets/jinja](https://github.com/pallets/jinja) - A very fast and expressive template engine.
+
+`Jun 21, 2023` - [pynamodb/PynamoDB](https://github.com/pynamodb/PynamoDB) - A pythonic interface to Amazon's DynamoDB
+
+`Jun 20, 2023` - [actions/setup-python](https://github.com/actions/setup-python) - Set up your GitHub Actions workflow with a specific version of Python
+
+`Jun 20, 2023` - [authlib/authlib](https://github.com/authlib/authlib) - The ultimate Python library in building OAuth, OpenID Connect clients and servers. JWS, JWE, JWK, JWA, JWT included.
+
+`Jun 17, 2023` - [steven-tey/novel](https://github.com/steven-tey/novel) - Notion-style WYSIWYG editor with AI-powered autocompletion.
+
+`Jun 12, 2023` - [getmoto/py-partiql-parser](https://github.com/getmoto/py-partiql-parser) - Python Parser for PartiQL
+
+`Jun 12, 2023` - [getmoto/moto](https://github.com/getmoto/moto) - A library that allows you to easily mock out tests based on AWS infrastructure.
+
+`Jun 02, 2023` - [PromtEngineer/localGPT](https://github.com/PromtEngineer/localGPT) - Chat with your documents on your local device using GPT models. No data leaves your device and 100% private. 
+
+`May 30, 2023` - [bigcapitalhq/bigcapital](https://github.com/bigcapitalhq/bigcapital) - 💵 Bigcapital is financial accounting with intelligent reporting for faster decision-making, an open-source alternative to Quickbooks, Xero, etc.
+
+`May 24, 2023` - [huggingface/transformers](https://github.com/huggingface/transformers) - 🤗 Transformers: the model-definition framework for state-of-the-art machine learning models in text, vision, audio, and multimodal models, for both inference and training. 
+
+`May 18, 2023` - [astral-sh/ruff](https://github.com/astral-sh/ruff) - An extremely fast Python linter and code formatter, written in Rust.
+
+`May 16, 2023` - [hat-open/hat-syslog](https://github.com/hat-open/hat-syslog) - Syslog Server and tools
+
+`May 15, 2023` - [nbQA-dev/nbQA](https://github.com/nbQA-dev/nbQA) - Run ruff, isort, pyupgrade, mypy, pylint, flake8, and more on Jupyter Notebooks
+
+`May 05, 2023` - [protocolbuffers/protobuf](https://github.com/protocolbuffers/protobuf) - Protocol Buffers - Google's data interchange format
+
+`May 03, 2023` - [logseq/logseq](https://github.com/logseq/logseq) - A privacy-first, open-source platform for knowledge management and collaboration. Download link:  http://github.com/logseq/logseq/releases. roadmap: https://discuss.logseq.com/t/logseq-product-roadmap/34267
+
+`Apr 29, 2023` - [Milkdown/milkdown](https://github.com/Milkdown/milkdown) - 🍼 Plugin driven WYSIWYG  markdown editor framework.
+
+`Apr 29, 2023` - [emwalker/digraph](https://github.com/emwalker/digraph) - Organize the world
+
+`Apr 21, 2023` - [griptape-ai/griptape](https://github.com/griptape-ai/griptape) - Modular Python framework for AI agents and workflows with chain-of-thought reasoning, tools, and memory. 
+
+`Apr 21, 2023` - [Significant-Gravitas/AutoGPT](https://github.com/Significant-Gravitas/AutoGPT) - AutoGPT is the vision of accessible AI for everyone, to use and to build on. Our mission is to provide the tools, so that you can focus on what matters.
+
+`Apr 20, 2023` - [reworkd/AgentGPT](https://github.com/reworkd/AgentGPT) - 🤖 Assemble, configure, and deploy autonomous AI Agents in your browser.
+
+`Apr 15, 2023` - [TomWright/mermaid-server](https://github.com/TomWright/mermaid-server) - Go implementation of a HTTP server to allow remote generation of mermaid-js diagrams without any pre-requisites installed locally.
+
+`Apr 15, 2023` - [Avik-Jain/100-Days-Of-ML-Code](https://github.com/Avik-Jain/100-Days-Of-ML-Code) - 100 Days of ML Coding
+
+`Apr 08, 2023` - [0xTheProDev/fastapi-clean-example](https://github.com/0xTheProDev/fastapi-clean-example) - Clean Architecture Example using FastAPI framework
+
+`Mar 29, 2023` - [fafrd/aquarium](https://github.com/fafrd/aquarium) - AI-controlled Linux Containers
+
+`Mar 23, 2023` - [evidence-dev/evidence](https://github.com/evidence-dev/evidence) - Business intelligence as code: build fast, interactive data visualizations in SQL and markdown
+
+`Mar 22, 2023` - [fauxpilot/fauxpilot](https://github.com/fauxpilot/fauxpilot) - FauxPilot - an open-source alternative to GitHub Copilot server
+
+`Mar 20, 2023` - [npiv/chatblade](https://github.com/npiv/chatblade) - A CLI Swiss Army Knife for ChatGPT
+
+`Mar 18, 2023` - [cdk8s-team/cdk8s](https://github.com/cdk8s-team/cdk8s) - Define Kubernetes native apps and abstractions using object-oriented programming
+
+`Mar 18, 2023` - [nektos/act](https://github.com/nektos/act) - Run your GitHub Actions locally 🚀
+
+`Mar 18, 2023` - [evansd/whitenoise](https://github.com/evansd/whitenoise) - Radically simplified static file serving for Python web apps
+
+`Mar 18, 2023` - [pulp/pulpcore](https://github.com/pulp/pulpcore) - Pulp 3 pulpcore package https://pypi.org/project/pulpcore/
+
+`Mar 18, 2023` - [yizhongw/self-instruct](https://github.com/yizhongw/self-instruct) - Aligning pretrained language models with instruction data generated by themselves.
+
+`Mar 18, 2023` - [caltechads/deployfish](https://github.com/caltechads/deployfish) - Manage your whole application lifecycle in Amazon AWS ECS.
+
+`Mar 18, 2023` - [caltechads/django-sphinx-hosting](https://github.com/caltechads/django-sphinx-hosting) - Reusable Django app for hosting Sphinx documentation privately.
+
+`Mar 17, 2023` - [cvlab-columbia/viper](https://github.com/cvlab-columbia/viper) - Code for the paper "ViperGPT: Visual Inference via Python Execution for Reasoning"
+
+`Mar 17, 2023` - [gilesknap/mciwb](https://github.com/gilesknap/mciwb) - Minecraft Interactive world builder
+
+`Mar 17, 2023` - [mpoon/gpt-repository-loader](https://github.com/mpoon/gpt-repository-loader) - Convert code repos into an LLM prompt-friendly format. Mostly built by GPT-4.
+
+`Mar 15, 2023` - [ansible/ansible](https://github.com/ansible/ansible) - Ansible is a radically simple IT automation platform that makes your applications and systems easier to deploy and maintain. Automate everything from code deployment to network configuration to cloud management, in a language that approaches plain English, using SSH, with no agents to install on remote systems. https://docs.ansible.com.
+
+`Mar 15, 2023` - [langflow-ai/langflow](https://github.com/langflow-ai/langflow) - Langflow is a powerful tool for building and deploying AI-powered agents and workflows.
+
+`Mar 08, 2023` - [dense-analysis/ale](https://github.com/dense-analysis/ale) - Check syntax in Vim/Neovim asynchronously and fix files, with Language Server Protocol (LSP) support
+
+`Mar 02, 2023` - [messense/nh3](https://github.com/messense/nh3) - Python binding to Ammonia HTML sanitizer Rust crate
+
+`Mar 02, 2023` - [rust-ammonia/ammonia](https://github.com/rust-ammonia/ammonia) - Repair and secure untrusted HTML
+
+`Mar 02, 2023` - [lepture/shibuya](https://github.com/lepture/shibuya) - A responsive, good looking with modern design documentation theme for Sphinx, with great supports for many sphinx extensions.
+
+`Feb 28, 2023` - [robbie-cahill/tunnelmole-client](https://github.com/robbie-cahill/tunnelmole-client) - Tunnelmole - Connect to local servers from anywhere
+
+`Feb 25, 2023` - [altercation/vim-colors-solarized](https://github.com/altercation/vim-colors-solarized) - precision colorscheme for the vim text editor
+
+`Feb 18, 2023` - [jazzband/pip-tools](https://github.com/jazzband/pip-tools) - A set of tools to keep your pinned Python dependencies fresh.
+
+`Feb 18, 2023` - [pyca/cryptography](https://github.com/pyca/cryptography) - cryptography is a package designed to expose cryptographic primitives and recipes to Python developers.
+
+`Feb 12, 2023` - [salesforce/CodeGen](https://github.com/salesforce/CodeGen) - CodeGen is a family of open-source model for program synthesis. Trained on TPU-v4. Competitive with OpenAI Codex.
+
+`Feb 09, 2023` - [obi1kenobi/trustfall](https://github.com/obi1kenobi/trustfall) - A query engine for any combination of data sources. Query your files and APIs as if they were databases!
+
+`Jan 20, 2023` - [KanHarI/gpt-commit-summarizer](https://github.com/KanHarI/gpt-commit-summarizer) - None
+
+`Jan 19, 2023` - [langchain-ai/langchain](https://github.com/langchain-ai/langchain) - 🦜🔗 The platform for reliable agents.
+
+`Jan 18, 2023` - [RafaelCosman/gpt-generated-textbooks](https://github.com/RafaelCosman/gpt-generated-textbooks) - Code to generate textbooks using GPT as well as several fully-generated examples
+
+`Jan 13, 2023` - [florinpop17/app-ideas](https://github.com/florinpop17/app-ideas) - A Collection of application ideas which can be used to improve your coding skills.
+
+`Jan 12, 2023` - [beaker-project/beaker](https://github.com/beaker-project/beaker) - Hardware integration testing system and lab automation for Fedora and RHEL
+
+`Jan 09, 2023` - [arxanas/git-branchless](https://github.com/arxanas/git-branchless) - High-velocity, monorepo-scale workflow for Git
+
+`Jan 06, 2023` - [typesense/typesense](https://github.com/typesense/typesense) - Open Source alternative to Algolia + Pinecone and an Easier-to-Use alternative to ElasticSearch ⚡ 🔍 ✨ Fast, typo tolerant, in-memory fuzzy Search Engine for building delightful search experiences
+
+`Jan 06, 2023` - [xyflow/xyflow](https://github.com/xyflow/xyflow) - React Flow | Svelte Flow - Powerful open source libraries for building node-based UIs with React (https://reactflow.dev) or Svelte (https://svelteflow.dev). Ready out-of-the-box and infinitely customizable.
+
+`Jan 05, 2023` - [Zooz/predator](https://github.com/Zooz/predator) - A powerful open-source platform for load testing APIs. 
+
+`Jan 05, 2023` - [cider-security-research/cicd-goat](https://github.com/cider-security-research/cicd-goat) - A deliberately vulnerable CI/CD environment. Learn CI/CD security through multiple challenges.
+
+`Jan 05, 2023` - [juanfont/headscale](https://github.com/juanfont/headscale) - An open source, self-hosted implementation of the Tailscale control server
+
+`Jan 05, 2023` - [watchexec/cargo-watch](https://github.com/watchexec/cargo-watch) - Watches over your Cargo project's source.
+
+`Jan 05, 2023` - [python/cpython](https://github.com/python/cpython) - The Python programming language
+
+`Dec 30, 2022` - [peterdemin/imgchkr](https://github.com/peterdemin/imgchkr) - Image checker service
+
+`Dec 10, 2022` - [ossillate-inc/packj](https://github.com/ossillate-inc/packj) - Packj stops :zap: Solarwinds-, ESLint-, and PyTorch-like attacks by flagging malicious/vulnerable open-source dependencies ("weak links") in your software supply-chain
+
+`Dec 10, 2022` - [R9295/panoptisch](https://github.com/R9295/panoptisch) - A recursive dependency scanner for Python projects
+
+`Dec 10, 2022` - [f/awesome-chatgpt-prompts](https://github.com/f/awesome-chatgpt-prompts) - Share, discover, and collect prompts from the community. Free and open source — self-host for your organization with complete privacy.
+
+`Dec 06, 2022` - [commitizen-tools/commitizen](https://github.com/commitizen-tools/commitizen) - Create committing rules for projects :rocket: auto bump versions :arrow_up: and auto changelog generation :open_file_folder: 
+
+`Dec 04, 2022` - [peterdemin/chcode](https://github.com/peterdemin/chcode) - Command-line utility to change Python source code
+
+`Dec 04, 2022` - [peterdemin/openai-cli](https://github.com/peterdemin/openai-cli) - Command-line client for OpenAI APIs
+
+`Nov 23, 2022` - [maligree/python-ast-explorer](https://github.com/maligree/python-ast-explorer) - The code behind python-ast-explorer.com
+
+`Nov 23, 2022` - [berkerpeksag/astor](https://github.com/berkerpeksag/astor) - Python AST read/write
+
+`Nov 21, 2022` - [hchasestevens/astpath](https://github.com/hchasestevens/astpath) - A command-line search utility for Python ASTs using XPath syntax.
+
+`Nov 17, 2022` - [mattkohl/docker-flask-celery-redis](https://github.com/mattkohl/docker-flask-celery-redis) - Docker-Compose template for orchestrating a Flask app with a Celery queue using Redis
+
+`Nov 17, 2022` - [python-validators/validators](https://github.com/python-validators/validators) - Python Data Validation for Humans™.
+
+`Nov 17, 2022` - [ahupp/python-magic](https://github.com/ahupp/python-magic) - A python wrapper for libmagic
+
+`Nov 06, 2022` - [uselotus/lotus](https://github.com/uselotus/lotus) - Open Source Pricing & Packaging Infrastructure
+
+`Oct 31, 2022` - [openai/whisper](https://github.com/openai/whisper) - Robust Speech Recognition via Large-Scale Weak Supervision
+
+`Oct 28, 2022` - [saltstack/pip-tools-compile-impersonate](https://github.com/saltstack/pip-tools-compile-impersonate) - Pre-commit pip-compile wrapper capabable of "impersonating" platforms
+
+`Oct 26, 2022` - [adamchainz/django-upgrade](https://github.com/adamchainz/django-upgrade) - Automatically upgrade your Django projects.
+
+`Oct 24, 2022` - [valeriansaliou/sonic](https://github.com/valeriansaliou/sonic) - 🦔 Fast, lightweight & schema-less search backend. An alternative to Elasticsearch that runs on a few MBs of RAM.
+
+`Oct 23, 2022` - [avitorio/outstatic](https://github.com/avitorio/outstatic) - Outstatic - A static CMS for Next.js
+
+`Oct 01, 2022` - [peterdemin/git-form-saver](https://github.com/peterdemin/git-form-saver) - HTTP server that saves all POSTed forms to a git repo
+
+`Sep 30, 2022` - [marshmallow-code/marshmallow](https://github.com/marshmallow-code/marshmallow) - A lightweight library for converting complex objects to and from simple Python datatypes.
+
+`Sep 29, 2022` - [storj/storj](https://github.com/storj/storj) - Ongoing Storj v3 development. Decentralized cloud object storage that is affordable, easy to use, private, and secure.
+
+`Sep 26, 2022` - [nextcloud/photos](https://github.com/nextcloud/photos) - 📸 Your memories under your control
+
+`Sep 25, 2022` - [vulhub/vulhub](https://github.com/vulhub/vulhub) - Pre-Built Vulnerable Environments Based on Docker-Compose
+
+`Sep 15, 2022` - [peterdemin/gcpfwup](https://github.com/peterdemin/gcpfwup) - Google Cloud Firewall Updater
+
+`Sep 06, 2022` - [wakatime/wakaq](https://github.com/wakatime/wakaq) - Background task queue for Python backed by Redis, a super minimal Celery
+
+`Aug 24, 2022` - [PostHog/posthog](https://github.com/PostHog/posthog) - 🦔 PostHog is an all-in-one developer platform for building successful products. We offer product analytics, web analytics, session replay, error tracking, feature flags, experimentation, surveys, data warehouse, a CDP, and an AI product assistant to help debug your code, ship features faster, and keep all your usage and customer data in one stack.
+
+`Aug 12, 2022` - [faster-cpython/ideas](https://github.com/faster-cpython/ideas) - None
+
+`Aug 12, 2022` - [google/grumpy](https://github.com/google/grumpy) - Grumpy is a Python to Go source code transcompiler and runtime.
+
+`Jul 28, 2022` - [neoclide/coc.nvim](https://github.com/neoclide/coc.nvim) - Nodejs extension host for vim & neovim, load extensions like VSCode and host language servers.
+
+`Jul 12, 2022` - [argoproj/argo-cd](https://github.com/argoproj/argo-cd) - Declarative Continuous Deployment for Kubernetes
+
+`Jul 10, 2022` - [pi-hole/FTL](https://github.com/pi-hole/FTL) - The Pi-hole FTL engine
+
+`Jun 08, 2022` - [getumbrel/umbrel](https://github.com/getumbrel/umbrel) - A beautiful home server OS for self-hosting with an app store. Buy a pre-built Umbrel Home with umbrelOS, or install on a Raspberry Pi or any x86 system.
+
+`May 22, 2022` - [miguelrochefort/awesome-adaptive-cards](https://github.com/miguelrochefort/awesome-adaptive-cards) - A curated list of awesome Adaptive Cards projects.
+
+`May 19, 2022` - [osmoscraft/osmosnote](https://github.com/osmoscraft/osmosnote) - The knowledge IDE
+
+`May 19, 2022` - [Readarr/Readarr](https://github.com/Readarr/Readarr) - Book Manager and Automation (Sonarr for Ebooks)
+
+`May 16, 2022` - [janeczku/calibre-web](https://github.com/janeczku/calibre-web) - :books: Web app for browsing, reading and downloading eBooks stored in a Calibre database
+
+`May 08, 2022` - [microsoft/Web-Dev-For-Beginners](https://github.com/microsoft/Web-Dev-For-Beginners) - 24 Lessons, 12 Weeks, Get Started as a Web Developer
+
+`Apr 24, 2022` - [dry-python/returns](https://github.com/dry-python/returns) - Make your functions return something meaningful, typed, and safe!
+
+`Apr 23, 2022` - [thesephist/polyx](https://github.com/thesephist/polyx) - Productivity suite written from scratch in Ink on the backend and Torus on the web
+
+`Apr 22, 2022` - [thebjorn/pydeps](https://github.com/thebjorn/pydeps) - Python Module Dependency graphs
+
+`Apr 21, 2022` - [bloomberg/memray](https://github.com/bloomberg/memray) - Memray is a memory profiler for Python
+
+`Mar 31, 2022` - [TheAlgorithms/Python](https://github.com/TheAlgorithms/Python) - All Algorithms implemented in Python
+
+`Mar 29, 2022` - [beetbox/beets](https://github.com/beetbox/beets) - music library manager and MusicBrainz tagger
+
+`Mar 28, 2022` - [ultrabug/uhashring](https://github.com/ultrabug/uhashring) - Full featured consistent hashing python library compatible with ketama
+
+`Mar 23, 2022` - [numba/numba](https://github.com/numba/numba) - NumPy aware dynamic Python compiler using LLVM
+
+`Mar 20, 2022` - [chatwoot/chatwoot](https://github.com/chatwoot/chatwoot) - Open-source live-chat, email support, omni-channel desk. An alternative to Intercom, Zendesk, Salesforce Service Cloud etc. 🔥💬
+
+`Mar 18, 2022` - [trailofbits/algo](https://github.com/trailofbits/algo) - Set up a personal VPN in the cloud
+
+`Mar 13, 2022` - [winfsp/hubfs](https://github.com/winfsp/hubfs) - File system for GitHub & GitLab
+
+`Mar 07, 2022` - [stephenou/fruitionsite](https://github.com/stephenou/fruitionsite) - Build your website with Notion for free
+
+`Mar 02, 2022` - [afroisalreadyinu/miniboss](https://github.com/afroisalreadyinu/miniboss) - The most versatile way to manage containers locally
+
+`Mar 02, 2022` - [gildas-lormeau/SingleFile](https://github.com/gildas-lormeau/SingleFile) - Web Extension for saving a faithful copy of a complete web page in a single HTML file
+
+`Feb 19, 2022` - [jj-vcs/jj](https://github.com/jj-vcs/jj) - A Git-compatible VCS that is both simple and powerful
+
+`Feb 16, 2022` - [Budibase/budibase](https://github.com/Budibase/budibase) - Create business apps and automate workflows in minutes. Supports PostgreSQL, MySQL, MariaDB, MSSQL, MongoDB, Rest API, Docker, K8s, and more 🚀 No code / Low code platform..
+
+`Feb 10, 2022` - [jordansissel/fpm](https://github.com/jordansissel/fpm) - Effing package management! Build packages for multiple platforms (deb, rpm, etc) with great ease and sanity.
+
+`Feb 09, 2022` - [geldata/gel-python](https://github.com/geldata/gel-python) - The official Python client library for Gel
+
+`Feb 09, 2022` - [janvarev/Irene-Voice-Assistant](https://github.com/janvarev/Irene-Voice-Assistant) - Ирина - русский голосовой ассистент для работы оффлайн. Поддерживает скиллы через плагины.
+
+`Feb 08, 2022` - [spotify/annoy](https://github.com/spotify/annoy) - Approximate Nearest Neighbors in C++/Python optimized for memory usage and loading/saving to disk
+
+`Feb 06, 2022` - [pyutils/line_profiler](https://github.com/pyutils/line_profiler) - Line-by-line profiling for Python
+
+`Feb 04, 2022` - [tomlockwood/dn](https://github.com/tomlockwood/dn) - Daily notes command line tool
+
+`Feb 04, 2022` - [Athou/commafeed](https://github.com/Athou/commafeed) - Google Reader inspired self-hosted personal RSS reader.
+
+`Jan 28, 2022` - [giampaolo/psutil](https://github.com/giampaolo/psutil) - Cross-platform lib for process and system monitoring in Python
+
+`Jan 27, 2022` - [withfig/autocomplete](https://github.com/withfig/autocomplete) - IDE-style autocomplete for your existing terminal & shell
+
+`Jan 24, 2022` - [rust-lang/crates.io-index](https://github.com/rust-lang/crates.io-index) - Registry index for crates.io
+
+`Jan 22, 2022` - [pymorphy2/pymorphy2](https://github.com/pymorphy2/pymorphy2) - Morphological analyzer / inflection engine for Russian and Ukrainian languages.
+
+`Jan 19, 2022` - [dbader/schedule](https://github.com/dbader/schedule) - Python job scheduling for humans.
+
+`Jan 16, 2022` - [rmcelreath/stat_rethinking_2022](https://github.com/rmcelreath/stat_rethinking_2022) - Statistical Rethinking course winter 2022
+
+`Jan 15, 2022` - [0x111/telegram-rss-bot](https://github.com/0x111/telegram-rss-bot) - RSS bot for telegram written in Go
+
+`Jan 07, 2022` - [Shogan/kube-chaos](https://github.com/Shogan/kube-chaos) - A chaos engineering style game where you seek out and destroy Kubernetes pods, twinstick shmup style.
+
+`Jan 04, 2022` - [Martiusweb/asynctest](https://github.com/Martiusweb/asynctest) - Enhance the standard unittest package with features for testing asyncio libraries
+
+`Jan 03, 2022` - [mitsuhiko/minijinja](https://github.com/mitsuhiko/minijinja) - MiniJinja is a powerful but minimal dependency template engine for Rust compatible with Jinja/Jinja2
+
+`Jan 01, 2022` - [garak92/librechromecast](https://github.com/garak92/librechromecast) - FOSS application for casting media to chromecast devices
+
+`Dec 22, 2021` - [matrix-org/synapse](https://github.com/matrix-org/synapse) - Synapse: Matrix homeserver written in Python/Twisted.
+
+`Dec 21, 2021` - [nicksnyder/go-i18n](https://github.com/nicksnyder/go-i18n) - Translate your Go program into multiple languages.
+
+`Dec 21, 2021` - [projectfluent/fluent](https://github.com/projectfluent/fluent) - Fluent — planning, spec and documentation
+
+`Oct 16, 2021` - [GitJournal/GitJournal](https://github.com/GitJournal/GitJournal) - Mobile first Note Taking integrated with Git
+
+`Oct 15, 2021` - [swarm-game/swarm](https://github.com/swarm-game/swarm) - Resource gathering + programming game
+
+`Oct 05, 2021` - [python/typeshed](https://github.com/python/typeshed) - Collection of library stubs for Python, with static types
+
+`Oct 04, 2021` - [akaihola/darker](https://github.com/akaihola/darker) - Apply black reformatting to Python files only in regions changed since a given commit. For a practical usage example, see the blog post at https://dev.to/akaihola/improving-python-code-incrementally-3f7a
+
+`Jul 06, 2021` - [pymedusa/Medusa](https://github.com/pymedusa/Medusa) - Automatic Video Library Manager for TV Shows. It watches for new episodes of your favorite shows, and when they are posted it does its magic.
+
+`Jun 21, 2021` - [indygreg/PyOxidizer](https://github.com/indygreg/PyOxidizer) - A modern Python application packaging and distribution tool
+
+`Jun 17, 2021` - [WeblateOrg/wlc](https://github.com/WeblateOrg/wlc) - Weblate command line client
+
+`Jun 09, 2021` - [pyconll/pyconll](https://github.com/pyconll/pyconll) - A minimal, pure Python library to interface with CoNLL-U format files.
+
+`May 25, 2021` - [vhive-serverless/vHive](https://github.com/vhive-serverless/vHive) - vHive: Open-source framework for serverless experimentation
+
+`May 21, 2021` - [matthewwithanm/python-markdownify](https://github.com/matthewwithanm/python-markdownify) - Convert HTML to Markdown
+
+`May 17, 2021` - [HandBrake/HandBrake](https://github.com/HandBrake/HandBrake) - HandBrake's development repository 
+
+`May 16, 2021` - [zulip/zulip](https://github.com/zulip/zulip) - Zulip server and web application. Open-source team chat that helps teams stay productive and focused.
+
+`May 14, 2021` - [bermi/Python-Inflector](https://github.com/bermi/Python-Inflector) - Inflects English and Spanish nouns. Similar to Rails inflector but for Python
+
+`May 13, 2021` - [ggteixeira/Plural-Generator](https://github.com/ggteixeira/Plural-Generator) - Linguistic algorithm which main goal is to generate plurals for Brazilian Portuguese.
+
+`May 13, 2021` - [majoal0/pluralize-ptbr](https://github.com/majoal0/pluralize-ptbr) - Obtenha o plural de palavras no singular em português brasileiro 🇧🇷
+
+`May 10, 2021` - [locustio/locust](https://github.com/locustio/locust) - Write scalable load tests in plain Python 🚗💨
+
+`May 02, 2021` - [osmoscraft/osmosfeed](https://github.com/osmoscraft/osmosfeed) - Turn GitHub into an RSS reader
+
+`May 02, 2021` - [WeblateOrg/weblate](https://github.com/WeblateOrg/weblate) - Web based localization tool with tight version control integration.
+
+`Apr 25, 2021` - [dainiusjocas/lucene-grep](https://github.com/dainiusjocas/lucene-grep) - Grep-like utility based on Lucene Monitor compiled with GraalVM native-image
+
+`Apr 21, 2021` - [pycontribs/mk](https://github.com/pycontribs/mk) - mk ease contributing to any open source repository by exposing most common actions you can run. Inspired by make, tox and other cool tools!
+
+`Apr 20, 2021` - [spotify/luigi](https://github.com/spotify/luigi) - Luigi is a Python module that helps you build complex pipelines of batch jobs. It handles dependency resolution, workflow management, visualization etc. It also comes with Hadoop support built in. 
+
+`Apr 19, 2021` - [Parquery/icontract](https://github.com/Parquery/icontract) - Design-by-contract in Python3 with informative violation messages and inheritance
+
+`Apr 14, 2021` - [sourcery-ai/sourcery](https://github.com/sourcery-ai/sourcery) - Instant AI code reviews
+
+`Apr 08, 2021` - [jameslittle230/stork](https://github.com/jameslittle230/stork) - 🔎 Impossibly fast web search, made for static sites.
+
+`Apr 08, 2021` - [gruns/icecream](https://github.com/gruns/icecream) - 🍦 Never use print() to debug again.
+
+`Apr 04, 2021` - [liuliu/dflat](https://github.com/liuliu/dflat) - Structured Data Store for Mobile
+
+`Mar 30, 2021` - [caprover/caprover](https://github.com/caprover/caprover) - Scalable PaaS (automated Docker+nginx) - aka Heroku on Steroids
+
+`Mar 25, 2021` - [raimon49/pip-licenses](https://github.com/raimon49/pip-licenses) - Dump the license list of packages installed with pip.
+
+`Mar 25, 2021` - [django-otp/django-otp](https://github.com/django-otp/django-otp) - A pluggable framework for adding two-factor authentication to Django using one-time passwords.
+
+`Mar 19, 2021` - [python-control/python-control](https://github.com/python-control/python-control) -  The Python Control Systems Library is a Python module that implements basic operations for analysis and design of feedback control systems.
+
+`Mar 15, 2021` - [DarthSim/overmind](https://github.com/DarthSim/overmind) - Process manager for Procfile-based applications and tmux
+
+`Mar 10, 2021` - [izimobil/polib](https://github.com/izimobil/polib) - Pure python library to manipulate, create, modify gettext files (pot, po and mo files).
+
+`Feb 22, 2021` - [slackapi/bolt-python](https://github.com/slackapi/bolt-python) - A framework to build Slack apps using Python
+
+`Feb 18, 2021` - [Textualize/rich](https://github.com/Textualize/rich) - Rich is a Python library for rich text and beautiful formatting in the terminal.
+
+`Feb 17, 2021` - [gotcha/ipdb](https://github.com/gotcha/ipdb) - Integration of IPython pdb
+
+`Feb 16, 2021` - [pre-commit/pre-commit-hooks](https://github.com/pre-commit/pre-commit-hooks) - Some out-of-the-box hooks for pre-commit
+
+`Feb 11, 2021` - [django-wiki/django-wiki](https://github.com/django-wiki/django-wiki) - A wiki system with complex functionality for simple integration and a superb interface. Store your knowledge with style: Use django models.
+
+`Feb 10, 2021` - [donnemartin/system-design-primer](https://github.com/donnemartin/system-design-primer) - Learn how to design large-scale systems. Prep for the system design interview.  Includes Anki flashcards.
+
+`Feb 08, 2021` - [wilsonzlin/minify-html](https://github.com/wilsonzlin/minify-html) - Extremely fast and smart HTML + JS + CSS minifier, available for Rust, Deno, Java, Node.js, Python, Ruby, and WASM
+
+`Feb 07, 2021` - [backstage/backstage](https://github.com/backstage/backstage) - Backstage is an open framework for building developer portals
+
+`Feb 07, 2021` - [joelparkerhenderson/architecture-decision-record](https://github.com/joelparkerhenderson/architecture-decision-record) - Architecture decision record (ADR) examples for software planning, IT leadership, and template documentation
+
+`Feb 02, 2021` - [chaimleib/intervaltree](https://github.com/chaimleib/intervaltree) - A mutable, self-balancing interval tree. Queries may be by point, by range overlap, or by range containment. 
+
+`Feb 01, 2021` - [abhivaikar/howtheytest](https://github.com/abhivaikar/howtheytest) - A collection of public resources about how software companies test their software
+
+`Jan 31, 2021` - [great-expectations/great_expectations](https://github.com/great-expectations/great_expectations) - Always know what to expect from your data.
+
+`Jan 29, 2021` - [jlevy/the-art-of-command-line](https://github.com/jlevy/the-art-of-command-line) - Master the command line, in one page
+
+`Jan 29, 2021` - [RickSayd/navigating-system-design](https://github.com/RickSayd/navigating-system-design) - None
+
+`Jan 14, 2021` - [jaraco/inflect](https://github.com/jaraco/inflect) - Correctly generate plurals, ordinals, indefinite articles; convert numbers to words
+
+`Jan 12, 2021` - [Tinche/aiofiles](https://github.com/Tinche/aiofiles) - File support for asyncio
+
+`Jan 08, 2021` - [xonsh/xonsh](https://github.com/xonsh/xonsh) - 🐚 Python-powered shell. Full-featured and cross-platform.
+
+`Jan 06, 2021` - [kivy/kivy](https://github.com/kivy/kivy) - Open source UI framework written in Python, running on Windows, Linux, macOS, Android and iOS
+
+`Jan 05, 2021` - [DMarby/picsum-photos](https://github.com/DMarby/picsum-photos) - Lorem Ipsum... but for photos.
+
+`Dec 24, 2020` - [zulip/zulint](https://github.com/zulip/zulint) - A lightweight linting framework designed for complex applications using a mix of third-party linters and custom rules.
+
+`Dec 17, 2020` - [mitsuhiko/struckdown](https://github.com/mitsuhiko/struckdown) - An experimental markdown processing system
+
+`Dec 13, 2020` - [garnaat/kappa](https://github.com/garnaat/kappa) - What precedes Lambda
+
+`Dec 07, 2020` - [meeb/django-distill](https://github.com/meeb/django-distill) - Minimal configuration static site generator for Django
+
+`Nov 20, 2020` - [artipie/artipie](https://github.com/artipie/artipie) - Binary Artifact Management Tool
+
+`Nov 15, 2020` - [boramalper/pydis](https://github.com/boramalper/pydis) - A redis clone in Python 3 to disprove some falsehoods about performance.
+
+`Oct 15, 2020` - [ory/keto](https://github.com/ory/keto) - The most scalable and customizable permission server on the market. Fix your slow or broken permission system with Google's proven "Zanzibar" approach. Supports ACL, RBAC, and more. Written in Go, cloud native, headless, API-first. Available as a service on Ory Network and for self-hosters.
+
+`Oct 09, 2020` - [magic-wormhole/magic-wormhole-mailbox-server](https://github.com/magic-wormhole/magic-wormhole-mailbox-server) - the rendezvous/mailbox server for magic-wormhole clients
+
+`Oct 07, 2020` - [wemake-services/wemake-python-package](https://github.com/wemake-services/wemake-python-package) - Bleeding edge cookiecutter template to create new python packages
+
+`Oct 07, 2020` - [VeryApt/django-phone-field](https://github.com/VeryApt/django-phone-field) - Lightweight model and form field for phone numbers in Django
+
+`Oct 02, 2020` - [valohai/django-allauth-2fa](https://github.com/valohai/django-allauth-2fa) - Two-factor authentication for Django Allauth
+
+`Oct 01, 2020` - [FactoryBoy/factory_boy](https://github.com/FactoryBoy/factory_boy) - A test fixtures replacement for Python
+
+`Sep 29, 2020` - [life4/flakehell](https://github.com/life4/flakehell) - Flake8 wrapper to make it nice, legacy-friendly, configurable.
+
+`Sep 28, 2020` - [checkcheckzz/system-design-interview](https://github.com/checkcheckzz/system-design-interview) - System design interview for IT companies
+
+`Sep 25, 2020` - [cjolowicz/hypermodern-python](https://github.com/cjolowicz/hypermodern-python) - Hypermodern Python
+
+`Sep 24, 2020` - [darrenburns/ward](https://github.com/darrenburns/ward) - Ward is a modern test framework for Python with a focus on productivity and readability.
+
+`Sep 23, 2020` - [aio-libs/aiojobs](https://github.com/aio-libs/aiojobs) - Jobs scheduler for managing background task (asyncio)
+
+`Sep 23, 2020` - [home-assistant-libs/pychromecast](https://github.com/home-assistant-libs/pychromecast) - Library for Python 3 to communicate with the Google Chromecast.
+
+`Sep 17, 2020` - [skeeto/endlessh](https://github.com/skeeto/endlessh) - SSH tarpit that slowly sends an endless banner
+
+`Sep 17, 2020` - [aaugustin/django-sesame](https://github.com/aaugustin/django-sesame) - "Magic Links" - URLs with authentication tokens for one-click login
+
+`Sep 08, 2020` - [n8n-io/n8n](https://github.com/n8n-io/n8n) - Fair-code workflow automation platform with native AI capabilities. Combine visual building with custom code, self-host or cloud, 400+ integrations.
+
+`Aug 27, 2020` - [Dogfalo/materialize](https://github.com/Dogfalo/materialize) - Materialize, a CSS Framework based on Material Design
+
+`Aug 27, 2020` - [sass/libsass-python](https://github.com/sass/libsass-python) - A straightforward binding of libsass for Python.  Compile Sass/SCSS in Python with no Ruby stack at all!
+
+`Aug 26, 2020` - [vouch/vouch-proxy](https://github.com/vouch/vouch-proxy) - an SSO and OAuth / OIDC login solution for Nginx using the auth_request module
+
+`Aug 20, 2020` - [adobe/brackets](https://github.com/adobe/brackets) - An open source code editor for the web, written in JavaScript, HTML and CSS.
+
+`Aug 20, 2020` - [python-poetry/poetry](https://github.com/python-poetry/poetry) - Python packaging and dependency management made easy
+
+`Aug 20, 2020` - [danielgtaylor/python-betterproto](https://github.com/danielgtaylor/python-betterproto) - Clean, modern, Python 3.6+ code generator & library for Protobuf 3 and async gRPC
+
+`Aug 20, 2020` - [python/mypy](https://github.com/python/mypy) - Optional static typing for Python
+
+`Aug 20, 2020` - [seddonym/import-linter](https://github.com/seddonym/import-linter) - Lint your Python architecture.
+
+`Aug 19, 2020` - [linkedin/iris](https://github.com/linkedin/iris) - Iris is a highly configurable and flexible service for paging and messaging.
+
+`Aug 01, 2020` - [Kinto/kinto](https://github.com/Kinto/kinto) - A generic JSON document store with sharing and synchronisation capabilities.
+
+`Jul 31, 2020` - [celery/celery](https://github.com/celery/celery) - Distributed Task Queue (development branch)
+
+`Jul 26, 2020` - [kautukkundan/Awesome-Profile-README-templates](https://github.com/kautukkundan/Awesome-Profile-README-templates) - A collection of awesome readme templates to display on your profile
+
+`Jul 23, 2020` - [prestodb/presto](https://github.com/prestodb/presto) - The official home of the Presto distributed SQL query engine for big data
+
+`Jul 22, 2020` - [jhaals/yopass](https://github.com/jhaals/yopass) - Secure sharing of secrets, passwords and files 
+
+`Jul 16, 2020` - [nipunn1313/mypy-protobuf](https://github.com/nipunn1313/mypy-protobuf) - open source tools to generate mypy stubs from protobufs
+
+`Jul 09, 2020` - [foambubble/foam](https://github.com/foambubble/foam) - A personal knowledge management and sharing system for VSCode
+
+`Jul 09, 2020` - [ajaymerchia/git-castle](https://github.com/ajaymerchia/git-castle) - A platform-agnostic, lightweight tool to manage secrets with git.
+
+`Jul 06, 2020` - [cody-moveworks/talon](https://github.com/cody-moveworks/talon) - None
+
+`Jun 30, 2020` - [danjac/localhub](https://github.com/danjac/localhub) - None
+
+`Jun 23, 2020` - [pschanely/CrossHair](https://github.com/pschanely/CrossHair) - An analysis tool for Python that blurs the line between testing and type systems.
+
+`May 18, 2020` - [peter-evans/create-pull-request](https://github.com/peter-evans/create-pull-request) - A GitHub action to create a pull request for changes to your repository in the actions workspace
+
+`May 01, 2020` - [mitmproxy/mitmproxy](https://github.com/mitmproxy/mitmproxy) - An interactive TLS-capable intercepting HTTP proxy for penetration testers and software developers.
+
+`Apr 21, 2020` - [maxchehab/phelia](https://github.com/maxchehab/phelia) - ⚡ A reactive Slack application framework.
+
+`Apr 12, 2020` - [GitDiaryBot/GitDiaryBot](https://github.com/GitDiaryBot/GitDiaryBot) - Multi-tenant diary bot using plain text files and git for synchronization
+
+`Mar 20, 2020` - [urbit/urbit](https://github.com/urbit/urbit) - An operating function
+
+`Mar 19, 2020` - [sindresorhus/awesome](https://github.com/sindresorhus/awesome) - 😎 Awesome lists about all kinds of interesting topics
+
+`Feb 09, 2020` - [markdown-it/markdown-it](https://github.com/markdown-it/markdown-it) - Markdown parser, done right. 100% CommonMark support, extensions, syntax plugins & high speed
+
+`Feb 07, 2020` - [maruos/maruos](https://github.com/maruos/maruos) - Your phone is your PC.
+
+`Feb 03, 2020` - [keepassxreboot/keepassxc](https://github.com/keepassxreboot/keepassxc) - KeePassXC is a cross-platform community-driven port of the Windows application “KeePass Password Safe”.
+
+`Feb 02, 2020` - [mgschwan/VRWorkout](https://github.com/mgschwan/VRWorkout) - High-intensity virtual reality workout game
+
+`Jan 11, 2020` - [python-telegram-bot/python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot) - We have made you a wrapper you can't refuse
+
+`Dec 13, 2019` - [kiwicom/the-zoo](https://github.com/kiwicom/the-zoo) - 🐒 A service registry for humans
+
+`Dec 10, 2019` - [aio-libs/aiohttp](https://github.com/aio-libs/aiohttp) - Asynchronous HTTP client/server framework for asyncio and Python
+
+`Nov 18, 2019` - [evildmp/BrachioGraph](https://github.com/evildmp/BrachioGraph) - BrachioGraph is an ultra-cheap (total cost of materials: €14) plotter that can be built with minimal skills.
+
+`Nov 09, 2019` - [malthe/pq](https://github.com/malthe/pq) - A PostgreSQL job queueing system
+
+`Oct 29, 2019` - [amandasaurus/django-template-i18n-lint](https://github.com/amandasaurus/django-template-i18n-lint) - Lint tool to find non-trans/blocktrans text in django templates
+
+`Oct 23, 2019` - [aquametalabs/aquameta](https://github.com/aquametalabs/aquameta) - Web development platform built entirely in PostgreSQL
+
+`Oct 04, 2019` - [mahmoud/glom](https://github.com/mahmoud/glom) - ☄️ Python's nested data operator (and CLI), for all your declarative restructuring needs. Got data? Glom it! ☄️
+
+`Sep 27, 2019` - [gliderlabs/herokuish](https://github.com/gliderlabs/herokuish) - Utility for emulating Heroku build and runtime tasks in containers
+
+`Sep 27, 2019` - [cruft/cruft](https://github.com/cruft/cruft) - Allows you to maintain all the necessary cruft for packaging and building projects separate from the code you intentionally write. Built on-top of, and fully compatible with, CookieCutter.
+
+`Aug 13, 2019` - [uber/hypothesis-gufunc](https://github.com/uber/hypothesis-gufunc) - Extension to hypothesis for testing numpy general universal functions
+
+`Aug 02, 2019` - [jendrikseipp/vulture](https://github.com/jendrikseipp/vulture) - Find dead Python code
+
+`Jul 26, 2019` - [penguinolog/sqlalchemy_jsonfield](https://github.com/penguinolog/sqlalchemy_jsonfield) - SQLALchemy JSONField implementation for storing dicts at SQL independently from JSON type support
+
+`Jul 10, 2019` - [vlang/v](https://github.com/vlang/v) - Simple, fast, safe, compiled language for developing maintainable software. Compiles itself in <1s with zero library dependencies. Supports automatic C => V translation. https://vlang.io
+
+`Jul 10, 2019` - [robinhood/faust](https://github.com/robinhood/faust) - Python Stream Processing
+
+`Jul 10, 2019` - [pyjokes/pyjokes](https://github.com/pyjokes/pyjokes) - One line jokes for programmers (jokes as a service)
+
+`Jul 03, 2019` - [google/pinject](https://github.com/google/pinject) - A pythonic dependency injection library.
+
+`Jun 27, 2019` - [thombashi/pytablewriter](https://github.com/thombashi/pytablewriter) - pytablewriter is a Python library to write a table in various formats: AsciiDoc / CSV / Elasticsearch / HTML / JavaScript / JSON / LaTeX / LDJSON / LTSV / Markdown / MediaWiki / NumPy / Excel / Pandas / Python / reStructuredText / SQLite / TOML / TSV.
+
+`Jun 20, 2019` - [asottile/add-trailing-comma](https://github.com/asottile/add-trailing-comma) - A tool (and pre-commit hook) to automatically add trailing commas to calls and literals.
+
+`Jun 16, 2019` - [ygzgxyz/awesome-sphinxdoc](https://github.com/ygzgxyz/awesome-sphinxdoc) - Awesome Sphinxdoc is a curated collection of valuable resources for Sphinx
+
+`May 09, 2019` - [python-attrs/attrs](https://github.com/python-attrs/attrs) - Python Classes Without Boilerplate
+
+`Apr 29, 2019` - [vsoch/watchme](https://github.com/vsoch/watchme) - Reproducible watchers for research
+
+`Apr 06, 2019` - [citybound/citybound](https://github.com/citybound/citybound) - A work-in-progress, open-source, multi-player city simulation game.
+
+`Mar 25, 2019` - [google/pytype](https://github.com/google/pytype) - A static type analyzer for Python code
+
+`Mar 25, 2019` - [microsoft/pyright](https://github.com/microsoft/pyright) - Static Type Checker for Python
+
+`Mar 19, 2019` - [tonsky/FiraCode](https://github.com/tonsky/FiraCode) - Free monospaced font with programming ligatures
+
+`Feb 22, 2019` - [inAudible-NG/tables](https://github.com/inAudible-NG/tables) - Plugin for RainbowCrack (http://project-rainbowcrack.com/)
+
+`Feb 09, 2019` - [voronianski/react-star-rating-component](https://github.com/voronianski/react-star-rating-component) - Basic React component for star (or any other icon based) rating elements
+
+`Feb 07, 2019` - [eiva/vue-flask](https://github.com/eiva/vue-flask) - Another "starter kit" for my "small experiments": vue + flask in one folder for eazy prototyping.
+
+`Jan 31, 2019` - [pre-commit/pre-commit](https://github.com/pre-commit/pre-commit) - A framework for managing and maintaining multi-language pre-commit hooks.
+
+`Jan 28, 2019` - [noamraph/tqdm](https://github.com/noamraph/tqdm) - Add a progress meter to your loops in a second
+
+`Jan 26, 2019` - [trimstray/linux-hardening-checklist](https://github.com/trimstray/linux-hardening-checklist) - Simple checklist to help you deploying the most important areas of the GNU/Linux production systems - work in progress.
+
+`Jan 26, 2019` - [trimstray/the-practical-linux-hardening-guide](https://github.com/trimstray/the-practical-linux-hardening-guide) - This guide details creating a secure Linux production system. OpenSCAP (C2S/CIS, STIG).
+
+`Jan 18, 2019` - [guardrailsio/awesome-python-security](https://github.com/guardrailsio/awesome-python-security) - Awesome Python Security resources 🕶🐍🔐
+
+`Jan 04, 2019` - [wagtail/wagtail](https://github.com/wagtail/wagtail) - A Django content management system focused on flexibility and user experience
+
+`Dec 19, 2018` - [opsmop/opsmop](https://github.com/opsmop/opsmop) - DISCONTINUED: permanent copy of fork lives at github.com/mpdehaan/opsmop
+
+`Dec 03, 2018` - [pypa/pipx](https://github.com/pypa/pipx) - Install and Run Python Applications in Isolated Environments
+
+`Nov 28, 2018` - [heynickc/awesome-ddd](https://github.com/heynickc/awesome-ddd) - A curated list of Domain-Driven Design (DDD), Command Query Responsibility Segregation (CQRS), Event Sourcing, and Event Storming resources
+
+`Nov 26, 2018` - [jlhutch/pylru](https://github.com/jlhutch/pylru) - A least recently used (LRU) cache for Python
+
+`Nov 17, 2018` - [mherrmann/fbs](https://github.com/mherrmann/fbs) - Create Python GUIs with Qt in minutes
+
+`Nov 06, 2018` - [reisepass/email-verifier](https://github.com/reisepass/email-verifier) - SOCKS proxy enabled Email Verifier
+
+`Nov 02, 2018` - [secdev/scapy](https://github.com/secdev/scapy) - Scapy: the Python-based interactive packet manipulation program & library.
+
+`Oct 09, 2018` - [dropbox/stone](https://github.com/dropbox/stone) - The Official API Spec Language for Dropbox API V2
+
+`Sep 30, 2018` - [un33k/python-slugify](https://github.com/un33k/python-slugify) - Returns unicode slugs
+
+`Sep 12, 2018` - [kibitzr/kibitzr-sentry](https://github.com/kibitzr/kibitzr-sentry) - Send errors from Kibitzr checks to Sentry.
+
+`Sep 10, 2018` - [ycm-core/YouCompleteMe](https://github.com/ycm-core/YouCompleteMe) - A code-completion engine for Vim
+
+`Aug 27, 2018` - [glideapps/quicktype](https://github.com/glideapps/quicktype) - Generate types and converters from JSON, Schema, and GraphQL
+
+`Aug 23, 2018` - [coala/coala](https://github.com/coala/coala) - coala provides a unified command-line interface for linting and fixing all your code, regardless of the programming languages you use.
+
+`Aug 23, 2018` - [SystemsApproach/book](https://github.com/SystemsApproach/book) - Computer Networks: A Systems Approach -- Textbook
+
+`Jun 28, 2018` - [tox-dev/tox](https://github.com/tox-dev/tox) - Command line driven CI frontend and development task automation tool.
+
+`Jun 25, 2018` - [pex-tool/pex](https://github.com/pex-tool/pex) - A tool for generating .pex (Python EXecutable) files, lock files and venvs.
+
+`Jun 13, 2018` - [behave/behave](https://github.com/behave/behave) - BDD, Python style.
+
+`Jun 13, 2018` - [r1chardj0n3s/parse](https://github.com/r1chardj0n3s/parse) - Parse strings using a specification based on the Python format() syntax.
+
+`Jun 13, 2018` - [wntrblm/nox](https://github.com/wntrblm/nox) - Flexible test automation for Python
+
+`Jun 13, 2018` - [psincraian/pepy](https://github.com/psincraian/pepy) - pepy is a site to get statistics information about any Python package.
+
+`Jun 05, 2018` - [applegrew/django-select2](https://github.com/applegrew/django-select2) - This is a Django integration for Select2
+
+`Apr 21, 2018` - [sphinx-doc/alabaster](https://github.com/sphinx-doc/alabaster) - Lightweight, configurable Sphinx theme
+
+`Apr 16, 2018` - [tox-dev/tox-travis](https://github.com/tox-dev/tox-travis) - Seamless integration of tox into Travis CI
+
+`Mar 27, 2018` - [Miserlou/Zappa](https://github.com/Miserlou/Zappa) - Serverless Python
+
+`Mar 17, 2018` - [pew-org/pew](https://github.com/pew-org/pew) - A tool to manage multiple virtual environments written in pure python
+
+`Mar 06, 2018` - [awesome-selfhosted/awesome-selfhosted](https://github.com/awesome-selfhosted/awesome-selfhosted) - A list of Free Software network services and web applications which can be hosted on your own servers
+
+`Feb 26, 2018` - [lyft/confidant](https://github.com/lyft/confidant) - Confidant: your secret keeper. https://lyft.github.io/confidant
+
+`Feb 25, 2018` - [crazyguitar/pysheeet](https://github.com/crazyguitar/pysheeet) - Python Cheat Sheet
+
+`Jan 25, 2018` - [rscarvalho/pyregex](https://github.com/rscarvalho/pyregex) - pyregex is a Python Regular Expression Online Tester
+
+`Jan 17, 2018` - [google/yapf](https://github.com/google/yapf) - A formatter for Python files
+
+`Jan 13, 2018` - [peterdemin/pip-compile-multi](https://github.com/peterdemin/pip-compile-multi) - Python dependency locking for complex projects
+
+`Dec 22, 2017` - [peterdemin/spotimover](https://github.com/peterdemin/spotimover) - Move Spotify library between accounts
+
+`Dec 17, 2017` - [josiahcarlson/parse-crontab](https://github.com/josiahcarlson/parse-crontab) - Parse and use crontab schedules in Python
+
+`Nov 24, 2017` - [rgalanakis/hostthedocs](https://github.com/rgalanakis/hostthedocs) - A simple host for static documentation.
+
+`Sep 23, 2017` - [altercation/solarized](https://github.com/altercation/solarized) - precision color scheme for multiple applications (terminal, vim, etc.) with both dark/light modes
+
+`Aug 17, 2017` - [LordAmit/Brightness](https://github.com/LordAmit/Brightness) - Using Brightness Controller, you can control brightness of both primary and external displays in Linux. Check it out!
+
+`May 30, 2017` - [node-red/node-red](https://github.com/node-red/node-red) - Low-code programming for event-driven applications
+
+`May 18, 2017` - [huginn/huginn](https://github.com/huginn/huginn) - Create agents that monitor and act on your behalf.  Your agents are standing by!
+
+`May 04, 2017` - [wroberts/pytimeparse](https://github.com/wroberts/pytimeparse) - A small Python module to parse various kinds of time expressions.
+
+`May 01, 2017` - [psf/cachecontrol](https://github.com/psf/cachecontrol) - The httplib2 caching algorithms packaged up for use with requests.
+
+`Apr 05, 2017` - [kibitzr/kibitzr](https://github.com/kibitzr/kibitzr) - Personal Web Assistant
+
+`Mar 29, 2017` - [pyeve/cerberus](https://github.com/pyeve/cerberus) - Lightweight, extensible data validation library for Python
+
+`Sep 26, 2016` - [yudai/gotty](https://github.com/yudai/gotty) - Share your terminal as a web application
+
+`Jul 24, 2016` - [failsafe-lib/failsafe](https://github.com/failsafe-lib/failsafe) - Fault tolerance and resilience patterns for the JVM
+
+`Jun 06, 2016` - [zzzeek/sqlalchemy](https://github.com/zzzeek/sqlalchemy) - THIS IS NOT THE OFFICIAL REPO - PLEASE SUBMIT PRs ETC AT: http://github.com/sqlalchemy/sqlalchemy
+
+`Feb 05, 2016` - [jrfonseca/gprof2dot](https://github.com/jrfonseca/gprof2dot) - Converts profiling output to a dot graph.
+
+`Dec 31, 2015` - [what-studio/profiling](https://github.com/what-studio/profiling) - Was an interactive continuous Python profiler.
+
+`Aug 03, 2015` - [martinblech/xmltodict](https://github.com/martinblech/xmltodict) - Python module that makes working with XML feel like you are working with JSON
+
