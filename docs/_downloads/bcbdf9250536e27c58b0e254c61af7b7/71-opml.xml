@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <opml version="1.0">
   <head>
-    <dateCreated>Sun, 11 Jan 2026 00:34:49 GMT</dateCreated>
+    <dateCreated>Sun, 11 Jan 2026 00:46:00 GMT</dateCreated>
     <title>peterdemin subscriptions in CommaFeed</title>
   </head>
   <body>
     <outline text="Personal" title="Personal">
       <outline text="Nathan Barry" type="rss" title="Nathan Barry" xmlUrl="https://nathan.rs/posts/index.xml" htmlUrl="https://nathan.rs/posts/" />
+      <outline text="Lu’s blog" type="rss" title="Lu’s blog" xmlUrl="https://uvdn7.github.io/feed.xml" htmlUrl="/feed.xml" />
       <outline text="Matt Rickard" type="rss" title="Matt Rickard" xmlUrl="https://matt-rickard.com/rss" htmlUrl="https://mattrickard.com/rss" />
       <outline text="Posts on Max Woolf's Blog" type="rss" title="Posts on Max Woolf's Blog" xmlUrl="https://minimaxir.com/post/index.xml" htmlUrl="https://minimaxir.com/post/" />
       <outline text="Jascha’s blog" type="rss" title="Jascha’s blog" xmlUrl="https://sohl-dickstein.github.io/feed.xml" htmlUrl="http://sohl-dickstein.github.io/feed.xml" />
@@ -58,7 +59,6 @@
       <outline text="dbsmasher corner" type="rss" title="dbsmasher corner" xmlUrl="https://blog.dbsmasher.com/feed.xml" htmlUrl="https://blog.dbsmasher.com/feed.xml" />
       <outline text="Kevin Cox's Blog" type="rss" title="Kevin Cox's Blog" xmlUrl="https://kevincox.ca/feed.atom" htmlUrl="https://kevincox.ca/feed.atom" />
       <outline text="uninformativ.de (en)" type="rss" title="uninformativ.de (en)" xmlUrl="https://www.uninformativ.de/blog/feeds/en.atom" htmlUrl="https://www.uninformativ.de/blog/feeds/en.atom" />
-      <outline text="Lu's blog" type="rss" title="Lu's blog" xmlUrl="https://blog.the-pans.com/rss/" />
       <outline text="Shtetl-Optimized" type="rss" title="Shtetl-Optimized" xmlUrl="https://scottaaronson.blog/?feed=rss2" htmlUrl="https://scottaaronson.blog" />
     </outline>
   </body>
