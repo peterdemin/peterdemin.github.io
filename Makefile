@@ -18,6 +18,10 @@ help:
 clean: counter_clean
 	rm -rf build _docs docs
 
+.PHONY: changelog
+changelog:
+	python3 gen_changelog.py
+
 .PHONY: autogen
 autogen:
 	python3 gen_life.py > source/life_gd.rst

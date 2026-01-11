@@ -13,7 +13,7 @@ from typing import Dict, Iterable, List, Optional
 SOURCE_DIR = "source"
 LIFE_DIR = os.path.join(SOURCE_DIR, "16_life")
 NOTES_DIR = os.path.join(SOURCE_DIR, "17_notes")
-STARS_FILE = os.path.join(SOURCE_DIR, "12_articles", "77-github-stars.md")
+STARS_FILE = os.path.join(SOURCE_DIR, "12_articles", "77-github-stars.mdpart")
 ARTICLES_DIR = os.path.join(SOURCE_DIR, "12_articles")
 RE_DATE = re.compile(r"^(\d{4}-\d{2}-\d{2}) .*$")
 RE_ADD = re.compile(r"^A\t(.+)$")
@@ -64,7 +64,6 @@ class AnnotatedLifeLine:
 
     text: str
     date: Optional[datetime.datetime]
-    lineno: int = 0
 
 
 def parse_git_log(*dirs: str) -> Dict[datetime.datetime, List[str]]:
@@ -115,13 +114,12 @@ def generate_life_records(
             )
     with open(STARS_FILE, "rt", encoding="utf-8") as fobj:
         for line in fobj:
-            if line:
-                if date := maybe_parse_date(line):
-                    yield LifeRecord(
-                        text=line,
-                        date=date,
-                        life_path=find_life_file(date),
-                    )
+            if date := maybe_parse_date(line):
+                yield LifeRecord(
+                    text=line,
+                    date=date,
+                    life_path=find_life_file(date),
+                )
 
 
 def iter_life_files() -> Iterable[str]:
@@ -133,22 +131,22 @@ def iter_life_files() -> Iterable[str]:
 def find_life_file(date: datetime.datetime) -> str:
     """Find a 16_life/??_<date>.md file that matches the passed date."""
     for file_format in ("%Y-%m.md", "%Y.md"):
-        name = date.strftime(file_format)
-        matching_files = glob.glob(os.path.join(LIFE_DIR, name))
+        matching_files = glob.glob(os.path.join(LIFE_DIR, date.strftime(file_format)))
         if matching_files:
             return matching_files[0]
-    return ""
+    return os.path.join(LIFE_DIR, date.strftime("%Y-%m.md"))
 
 
 def parse_life_file(file_path: str) -> List[AnnotatedLifeLine]:
     """Parses life file at a given path and returns a list of annotated lines."""
+    if not os.path.exists(file_path):
+        return []
     annotated_lines = []
     with open(file_path, "rt", encoding="utf-8") as fobj:
-        for idx, line in enumerate(fobj):
+        for line in fobj:
             text = line.rstrip()
             annotated_lines.append(
                 AnnotatedLifeLine(
-                    lineno=idx,
                     text=text,
                     date=maybe_parse_date(line),
                 )
@@ -178,6 +176,9 @@ def insert_life_record(
         pos = len(annotated_lines)
         if pos > 0:
             inserted_text = "\n" + inserted_text
+    if annotated_lines[pos].text == new_record.text:
+        # Skip duplicates
+        return
     annotated_lines.insert(
         pos,
         AnnotatedLifeLine(text=inserted_text, date=new_record.date),
