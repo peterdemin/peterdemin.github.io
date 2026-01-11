@@ -328,7 +328,7 @@ It’s available on the profile page.</p>
 <p>Here’s how I do it:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;https://feed.demin.dev/rest/feed/export?apiKey=</span><span class="nv">$COMMAFEED_API_KEY</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>source/12_articles/71-opml.xml<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="p">|</span><span class="w"> </span>./opml2md.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="p">|</span><span class="w"> </span>python<span class="w"> </span>opml2md.py<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>&gt;<span class="w"> </span>source/12_articles/71-subscriptions.mdpart
 </pre></div>
 </div>
