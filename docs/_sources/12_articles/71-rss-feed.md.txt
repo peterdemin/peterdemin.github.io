@@ -61,7 +61,7 @@ Nginx has a section dedicated to proxy pass `feed` subdomain to a localhost port
 :language: nginx
 ```
 
-Configure TLS certificates (using certbot, for example.)
+Configure TLS certificates (using certbot, for example).
 
 ```bash
 ln -sf /etc/nginx/sites-available/commafeed /etc/nginx/sites-enabled/commafeed
@@ -69,11 +69,11 @@ ln -sf /etc/nginx/sites-available/commafeed /etc/nginx/sites-enabled/commafeed
 
 ## User registration
 
-CommaFeed comes with a an `admin` account with password `admin`.
+CommaFeed comes with an `admin` account with password `admin`.
 
-Once you have the service running, you got to be quick to log in to it before any hackers do.
+Once you have the service running, you've got to be quick to log in to it before any hackers do.
 Open the CommaFeed Web UI in your browser (in my case, https://feed.demin.dev) and log in as `admin:admin`.
-The open Profile/User management, and create an account for yourself (and maybe delete admin account for good).
+Open the Profile/User management, and create an account for yourself (and maybe delete the admin account for good).
 
 ## Backup
 
