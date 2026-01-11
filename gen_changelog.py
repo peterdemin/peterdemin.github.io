@@ -13,6 +13,7 @@ from typing import Dict, Iterable, List, Optional
 SOURCE_DIR = "source"
 LIFE_DIR = os.path.join(SOURCE_DIR, "16_life")
 NOTES_DIR = os.path.join(SOURCE_DIR, "17_notes")
+STARS_FILE = os.path.join(SOURCE_DIR, "12_articles", "77-github-stars.md")
 ARTICLES_DIR = os.path.join(SOURCE_DIR, "12_articles")
 RE_DATE = re.compile(r"^(\d{4}-\d{2}-\d{2}) .*$")
 RE_ADD = re.compile(r"^A\t(.+)$")
@@ -32,6 +33,15 @@ ALLOWED_EXTS = {".md", ".rst"}
 
 @dataclass
 class LifeRecord:
+    """A single line of life file."""
+
+    text: str
+    date: datetime.datetime
+    life_path: str
+
+
+@dataclass
+class InterlinkRecord:
     """Information for matching and formatting life record."""
 
     life_path: str
@@ -42,6 +52,8 @@ class LifeRecord:
     def text(self) -> str:
         """Serialize life record as a string."""
         links = [f"[](/{f})" for f in self.file_paths]
+        if not links:
+            return ""
         formatted_date = self.date.strftime(LIFE_DATE_FMT)
         return f"`{formatted_date}` - Added {', '.join(links)}"
 
@@ -75,8 +87,8 @@ def parse_git_log(*dirs: str) -> Dict[datetime.datetime, List[str]]:
 
 def generate_life_records(
     files_by_date: Dict[datetime.datetime, List[str]]
-) -> Iterable[LifeRecord]:
-    """Compose life records linking to notes created by date."""
+) -> Iterable[InterlinkRecord | LifeRecord]:
+    """Compose life records linking to notes by creation date."""
     life_lines = []
     for file_name in iter_life_files():
         with open(file_name, "rt", encoding="utf-8") as fobj:
@@ -92,27 +104,39 @@ def generate_life_records(
         life_path = find_life_file(day)
         for path in file_paths:
             if path in all_life_content:
-                # At least one record from that day is already present, skip whole day.
+                # At least one record from that day is already present,
+                # skip the whole day.
                 break
         else:
-            yield LifeRecord(
+            yield InterlinkRecord(
                 life_path=life_path,
                 date=day,
                 file_paths=file_paths,
             )
+    with open(STARS_FILE, "rt", encoding="utf-8") as fobj:
+        for line in fobj:
+            if line:
+                if date := maybe_parse_date(line):
+                    yield LifeRecord(
+                        text=line,
+                        date=date,
+                        life_path=find_life_file(date),
+                    )
 
 
-def iter_life_files() -> list[str]:
-    """Find all 16_life/NN-YYYY-MM.md files."""
-    return glob.glob(os.path.join(LIFE_DIR, "??-????-??.md"))
+def iter_life_files() -> Iterable[str]:
+    """Find all 16_life/YYYY-MM.md and 16_life/YYYY.md files."""
+    yield from glob.glob(os.path.join(LIFE_DIR, "????-??.md"))
+    yield from glob.glob(os.path.join(LIFE_DIR, "????.md"))
 
 
 def find_life_file(date: datetime.datetime) -> str:
     """Find a 16_life/??_<date>.md file that matches the passed date."""
-    suffix = date.strftime("%Y-%m.md")
-    matching_files = glob.glob(os.path.join(LIFE_DIR, f"??-{suffix}"))
-    if matching_files:
-        return matching_files[0]
+    for file_format in ("%Y-%m.md", "%Y.md"):
+        name = date.strftime(file_format)
+        matching_files = glob.glob(os.path.join(LIFE_DIR, name))
+        if matching_files:
+            return matching_files[0]
     return ""
 
 
@@ -140,7 +164,8 @@ def maybe_parse_date(text: str) -> Optional[datetime.datetime]:
 
 
 def insert_life_record(
-    annotated_lines: List[AnnotatedLifeLine], new_record: LifeRecord
+    annotated_lines: List[AnnotatedLifeLine],
+    new_record: InterlinkRecord | LifeRecord,
 ) -> None:
     """Inserts life record into annotated lines list at the appropriate position."""
     inserted_text = new_record.text
@@ -171,7 +196,7 @@ def main():
     """Updates 16_life files with links to 12_articles and 17_notes files."""
     by_life_file = {}
     for life_record in generate_life_records(parse_git_log(ARTICLES_DIR, NOTES_DIR)):
-        if life_record.file_paths:
+        if life_record.text:
             by_life_file.setdefault(life_record.life_path, []).append(life_record)
     for life_path, life_records in by_life_file.items():
         annotated_lines = parse_life_file(life_path)
