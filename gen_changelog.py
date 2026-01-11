@@ -116,7 +116,7 @@ def generate_life_records(
         for line in fobj:
             if date := maybe_parse_date(line):
                 yield LifeRecord(
-                    text=line,
+                    text=line.rstrip(),
                     date=date,
                     life_path=find_life_file(date),
                 )
@@ -176,7 +176,7 @@ def insert_life_record(
         pos = len(annotated_lines)
         if pos > 0:
             inserted_text = "\n" + inserted_text
-    if annotated_lines[pos].text == new_record.text:
+    if pos < len(annotated_lines) and annotated_lines[pos].text == new_record.text:
         # Skip duplicates
         return
     annotated_lines.insert(
