@@ -244,8 +244,8 @@
 <p>I run a <a class="reference external" href="https://github.com/Athou/commafeed">CommaFeed</a> instance on a free-tier Google Cloud Platform virtual machine.
 It’s a Google Reader-inspired self-hosted personal RSS reader.</p>
 <p>I’m not using Docker, in part because the VM has only 0.25 CPU and, in part, because I like simple things.</p>
-<section id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
 <p>CommaFeed service runs under a SystemD Unit using a separate system user with a home directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">useradd</span> <span class="o">-</span><span class="n">rms</span> <span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">nologin</span> <span class="n">commafeed</span>
 <span class="n">sudo</span> <span class="o">-</span><span class="n">u</span> <span class="n">commafeed</span> <span class="n">wget</span> <span class="o">-</span><span class="n">O</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">commafeed</span><span class="o">/</span><span class="n">commafeed</span> \
@@ -255,24 +255,9 @@ It’s a Google Reader-inspired self-hosted personal RSS reader.</p>
 </div>
 <p>(Check the <a class="reference external" href="https://github.com/Athou/commafeed/releases/latest">releases page</a> to get the latest native binary for your operating system).</p>
 </section>
-<section id="reverse-proxy">
-<h2>Reverse proxy<a class="headerlink" href="#reverse-proxy" title="Link to this heading">#</a></h2>
-<p>Nginx has a section dedicated to proxy pass <code class="docutils literal notranslate"><span class="pre">feed</span></code> subdomain to a localhost port:</p>
-<p><code class="docutils literal notranslate"><span class="pre">/etc/nginx/sites-available/default</span></code>:</p>
-<div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">server</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kn">server_name</span><span class="w"> </span><span class="s">feed.demin.dev</span><span class="p">;</span>
-<span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://127.0.0.1:8082</span><span class="p">;</span>
-<span class="w">      </span><span class="kn">proxy_set_header</span><span class="w">  </span><span class="s">X-Forwarded-Proto</span><span class="w"> </span><span class="s">https</span><span class="p">;</span>
-<span class="w">      </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$http_host</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Make sure you configure TLS certificates, using certbot, for example.</p>
-</section>
 <section id="systemd-unit">
 <h2>SystemD Unit<a class="headerlink" href="#systemd-unit" title="Link to this heading">#</a></h2>
+<p>Create a Systemd Unit:</p>
 <p><code class="docutils literal notranslate"><span class="pre">/etc/systemd/system/commafeed.service</span></code>:</p>
 <div class="highlight-systemd notranslate"><div class="highlight"><pre><span></span><span class="k">[Unit]</span>
 <span class="na">Description</span><span class="o">=</span><span class="s">A bloat-free feed reader</span>
@@ -291,28 +276,62 @@ It’s a Google Reader-inspired self-hosted personal RSS reader.</p>
 </pre></div>
 </div>
 <p>(Check out the hardened version below.)</p>
-</section>
-<section id="user-registration">
-<h2>User registration<a class="headerlink" href="#user-registration" title="Link to this heading">#</a></h2>
-<p>By default, CommaFeed doesn’t allow user registration, which is sensible for a public, self-hosted service.
-To add a user for yourself, launch it with registration enabled:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>-u<span class="w"> </span>commafeed<span class="w"> </span>/bin/sh<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;cd ~commafeed; COMMAFEED_USERS_ALLOW_REGISTRATIONS=true ./commafeed&#39;</span>
-</pre></div>
-</div>
-<p>Then open the CommaFeed Web UI in your browser (in my case, https://feed.demin.dev) and create an account.
-Now stop the service (By pressing Ctrl+C), and launch it through the SystemD Unit:</p>
+<p>To launch the Commafeed service, run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
 sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>commafeed.service
 sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>commafeed.service
 </pre></div>
 </div>
 </section>
+<section id="reverse-proxy">
+<h2>Reverse proxy<a class="headerlink" href="#reverse-proxy" title="Link to this heading">#</a></h2>
+<p>Nginx has a section dedicated to proxy pass <code class="docutils literal notranslate"><span class="pre">feed</span></code> subdomain to a localhost port:</p>
+<p><code class="docutils literal notranslate"><span class="pre">/etc/nginx/sites-available/commafeed</span></code>:</p>
+<div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">server</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kn">server_name</span><span class="w"> </span><span class="s">feed.demin.dev</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://127.0.0.1:8082</span><span class="p">;</span>
+<span class="w">      </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-Proto</span><span class="w"> </span><span class="s">https</span><span class="p">;</span>
+<span class="w">      </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$http_host</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/ws</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://127.0.0.1:8082</span><span class="p">;</span>
+<span class="w">      </span><span class="kn">proxy_http_version</span><span class="w"> </span><span class="mi">1</span><span class="s">.1</span><span class="p">;</span>
+<span class="w">      </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Upgrade</span><span class="w"> </span><span class="nv">$http_upgrade</span><span class="p">;</span>
+<span class="w">      </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Connection</span><span class="w"> </span><span class="s">&quot;upgrade&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Configure TLS certificates (using certbot, for example.)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ln<span class="w"> </span>-sf<span class="w"> </span>/etc/nginx/sites-available/commafeed<span class="w"> </span>/etc/nginx/sites-enabled/commafeed
+</pre></div>
+</div>
+</section>
+<section id="user-registration">
+<h2>User registration<a class="headerlink" href="#user-registration" title="Link to this heading">#</a></h2>
+<p>CommaFeed comes with a an <code class="docutils literal notranslate"><span class="pre">admin</span></code> account with password <code class="docutils literal notranslate"><span class="pre">admin</span></code>.</p>
+<p>Once you have the service running, you got to be quick to log in to it before any hackers do.
+Open the CommaFeed Web UI in your browser (in my case, https://feed.demin.dev) and log in as <code class="docutils literal notranslate"><span class="pre">admin:admin</span></code>.
+The open Profile/User management, and create an account for yourself (and maybe delete admin account for good).</p>
+</section>
 <section id="backup">
 <h2>Backup<a class="headerlink" href="#backup" title="Link to this heading">#</a></h2>
 <p>I wouldn’t want to lose the extensive library of feeds I aggregated over many years.
 My solution is to export the <a class="reference download internal" download="" href="../_downloads/bcbdf9250536e27c58b0e254c61af7b7/71-opml.xml"><span class="xref download myst">OPML file</span></a> whenever I think about how I don’t want to lose it.
-That’s a standard format that is easy to inspect and migrate to another service.
-I wish CommaFeed maintained a copy of this file in its data directory so I can back it up.</p>
+That’s a standard format that is easy to inspect and migrate to another service.</p>
+<p>CommaFeed provides a REST API for the export.
+You’ll need to generate an API key to use it.
+It’s available on the profile page.</p>
+<p>Export your OPML file via the <a class="reference external" href="https://www.commafeed.com/api-documentation/#/Feeds/get_rest_feed_export">REST API</a>
+(append <code class="docutils literal notranslate"><span class="pre">?apiKey=&lt;your</span> <span class="pre">key&gt;</span></code> at the end of the URL).</p>
+<p>Here’s how I do it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;https://feed.demin.dev/rest/feed/export?apiKey=</span><span class="nv">$COMMAFEED_API_KEY</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>source/12_articles/71-opml.xml<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="p">|</span><span class="w"> </span>./gen_subscriptions.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>&gt;<span class="w"> </span>source/12_articles/71-subscriptions.mdpart
+</pre></div>
+</div>
 </section>
 <section id="the-treasure">
 <h2>The treasure<a class="headerlink" href="#the-treasure" title="Link to this heading">#</a></h2>
@@ -322,16 +341,19 @@ I wish CommaFeed maintained a copy of this file in its data directory so I can b
 <li><p><a class="reference external" href="https://nesbitt.io/feed.xml">Andrew Nesbitt</a></p></li>
 <li><p><a class="reference external" href="https://lucumr.pocoo.org/feed.atom">Armin Ronacher’s Thoughts and Writings</a></p></li>
 <li><p><a class="reference external" href="https://johnthenerd.com/blog/index.xml">Blogs on John’s Website</a></p></li>
-<li><p><a class="reference external" href="https://cerebralab.com/feed.xml">Cerebralab - Blog</a></p></li>
+<li><p><a class="reference external" href="https://chriskiehl.com/rss.xml">chriskiehl.com</a></p></li>
+<li><p><a class="reference external" href="https://codahale.com/atom.xml">codahale.com</a></p></li>
 <li><p><a class="reference external" href="https://alinpanaitiu.com/index.xml">Copper • A blog about conductive layers</a></p></li>
 <li><p><a class="reference external" href="https://danluu.com/atom.xml">Dan Luu</a></p></li>
 <li><p><a class="reference external" href="https://mcfunley.com/feed.xml">Dan McKinley</a></p></li>
+<li><p><a class="reference external" href="https://blog.dbsmasher.com/feed.xml">dbsmasher corner</a></p></li>
 <li><p><a class="reference external" href="https://hynek.me/index.xml">Hynek Schlawack</a></p></li>
 <li><p><a class="reference external" href="https://lethain.com/feeds.xml">Irrational Exuberance</a></p></li>
 <li><p><a class="reference external" href="https://cep.dev/posts/index.xml">Jack</a></p></li>
 <li><p><a class="reference external" href="https://www.rubick.com/rss.xml">Jade Rubick</a></p></li>
 <li><p><a class="reference external" href="https://jamieadams.click/index.xml">Jamie Adams</a></p></li>
 <li><p><a class="reference external" href="https://sohl-dickstein.github.io/feed.xml">Jascha’s blog</a></p></li>
+<li><p><a class="reference external" href="https://journal.stuffwithstuff.com/rss.xml">journal.stuffwithstuff.com</a></p></li>
 <li><p><a class="reference external" href="https://kevincox.ca/feed.atom">Kevin Cox’s Blog</a></p></li>
 <li><p><a class="reference external" href="https://kk.org/feed">Kevin Kelly</a></p></li>
 <li><p><a class="reference external" href="https://kobzol.github.io/feed.xml">Kobzol’s blog</a></p></li>
@@ -341,37 +363,33 @@ I wish CommaFeed maintained a copy of this file in its data directory so I can b
 <li><p><a class="reference external" href="https://maurycyz.com/index.xml">Maurycy’s blog</a></p></li>
 <li><p><a class="reference external" href="https://max.engineer/feed.rss">Max Chernyak</a></p></li>
 <li><p><a class="reference external" href="https://mertbulan.com/feed.xml">Mert Bulan</a></p></li>
+<li><p><a class="reference external" href="https://www.morling.dev/blog/index.xml">morling.dev – Blog</a></p></li>
 <li><p><a class="reference external" href="https://blog.davidv.dev/rss.xml">Mumbling about computers</a></p></li>
 <li><p><a class="reference external" href="https://nathan.rs/posts/index.xml">Nathan Barry</a></p></li>
 <li><p><a class="reference external" href="https://nicolaiarocci.com/index.xml">Nicola Iarocci</a></p></li>
-<li><p><a class="reference external" href="https://peter.demin.dev/life.xml">Peter Demin</a> (that’s me!)</p></li>
+<li><p><a class="reference external" href="https://joshs.bearblog.dev/feed/">people, ideas, machines</a></p></li>
+<li><p><a class="reference external" href="https://peter.demin.dev/life.xml?x=1">Peter Demin</a></p></li>
+<li><p><a class="reference external" href="https://phiresky.github.io/blog/rss">phiresky’s blog</a></p></li>
 <li><p><a class="reference external" href="https://minimaxir.com/post/index.xml">Posts on Max Woolf’s Blog</a></p></li>
 <li><p><a class="reference external" href="https://laplab.me/posts/index.xml">Posts on Nikita Lapkov</a></p></li>
+<li><p><a class="reference external" href="https://functional.computer/feed.xml">samir : coffee → nonsense</a></p></li>
+<li><p><a class="reference external" href="https://www.seangoedecke.com/rss.xml">seangoedecke.com RSS feed</a></p></li>
 <li><p><a class="reference external" href="https://scottaaronson.blog/?feed=rss2">Shtetl-Optimized</a></p></li>
+<li><p><a class="reference external" href="https://sobolevn.me/feed.xml">sobolevn’s personal blog</a></p></li>
 <li><p><a class="reference external" href="https://specbranch.com/index.xml">Speculative Branches</a></p></li>
 <li><p><a class="reference external" href="http://blog.cleancoder.com/atom.xml">The Clean Code Blog</a></p></li>
 <li><p><a class="reference external" href="https://feedpress.me/TheTechnium">The Technium (Kevin Kelly)</a></p></li>
+<li><p><a class="reference external" href="https://jyn.dev/atom.xml">the website of jyn</a></p></li>
+<li><p><a class="reference external" href="https://thesephist.com/index.xml">thesephist</a></p></li>
 <li><p><a class="reference external" href="https://hynek.me/til/index.xml">Today Hynek Learned on Hynek Schlawack</a></p></li>
+<li><p><a class="reference external" href="https://tonsky.me/atom.xml">tonsky.me</a></p></li>
 <li><p><a class="reference external" href="https://trekhleb.dev/rss.xml">Trekhleb.dev RSS Feed</a></p></li>
 <li><p><a class="reference external" href="https://entropicthoughts.com/feed">Two-Wrongs</a></p></li>
+<li><p><a class="reference external" href="https://www.uninformativ.de/blog/feeds/en.atom">uninformativ.de (en)</a></p></li>
 <li><p><a class="reference external" href="https://vsupalov.com/index.xml">Vladislav Supalov</a></p></li>
 <li><p><a class="reference external" href="https://wilw.dev/rss.xml">Will Webberley’s Blog</a></p></li>
 <li><p><a class="reference external" href="https://christine.website/blog.rss">Xe’s Blog</a></p></li>
 <li><p><a class="reference external" href="https://www.yegor256.com/rss.xml">Yegor Bugayenko</a></p></li>
-<li><p><a class="reference external" href="https://chriskiehl.com/rss.xml">chriskiehl.com</a></p></li>
-<li><p><a class="reference external" href="https://codahale.com/atom.xml">codahale.com</a></p></li>
-<li><p><a class="reference external" href="https://blog.dbsmasher.com/feed.xml">dbsmasher corner</a></p></li>
-<li><p><a class="reference external" href="https://journal.stuffwithstuff.com/rss.xml">journal.stuffwithstuff.com</a></p></li>
-<li><p><a class="reference external" href="https://www.morling.dev/blog/index.xml">morling.dev – Blog</a></p></li>
-<li><p><a class="reference external" href="https://joshs.bearblog.dev/feed/">people, ideas, machines</a></p></li>
-<li><p><a class="reference external" href="https://phiresky.github.io/blog/rss">phiresky’s blog</a></p></li>
-<li><p><a class="reference external" href="https://functional.computer/feed.xml">samir : coffee → nonsense</a></p></li>
-<li><p><a class="reference external" href="https://www.seangoedecke.com/rss.xml">seangoedecke.com RSS feed</a></p></li>
-<li><p><a class="reference external" href="https://sobolevn.me/feed.xml">sobolevn’s personal blog</a></p></li>
-<li><p><a class="reference external" href="https://jyn.dev/atom.xml">the website of jyn</a></p></li>
-<li><p><a class="reference external" href="https://thesephist.com/index.xml">thesephist</a></p></li>
-<li><p><a class="reference external" href="https://tonsky.me/atom.xml">tonsky.me</a></p></li>
-<li><p><a class="reference external" href="https://www.uninformativ.de/blog/feeds/en.atom">uninformativ.de (en)</a></p></li>
 <li><p><a class="reference external" href="https://xn--gckvb8fzb.com/index.xml">マリウス</a></p></li>
 </ul>
 </section>
@@ -495,9 +513,9 @@ The hardened version, which won’t let CommaFeed process do any harm even if it
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reverse-proxy">Reverse proxy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#systemd-unit">SystemD Unit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reverse-proxy">Reverse proxy</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#user-registration">User registration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backup">Backup</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-treasure">The treasure</a></li>
