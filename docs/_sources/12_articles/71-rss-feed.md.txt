@@ -111,3 +111,11 @@ The hardened version, which won't let CommaFeed process do any harm even if it g
 ```{literalinclude} ../../etc/systemd/system/commafeed.service
 :language: systemd
 ```
+
+## OPML to Markdown script
+
+`opml2md.py`:
+
+```{literalinclude} ../../opml2md.py
+:language: python
+```
