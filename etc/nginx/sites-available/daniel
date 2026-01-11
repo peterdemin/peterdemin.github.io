@@ -1,0 +1,8 @@
+server {
+    server_name daniel.demin.dev;
+    root /var/www/daniel;
+    index index.html index.htm;
+    location / {
+        try_files $uri $uri/ =404; # Serve static files, or return 404 if not found
+    }
+}

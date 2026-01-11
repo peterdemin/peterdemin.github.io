@@ -58,8 +58,8 @@ if [ ! -e /usr/bin/certbot ]; then
     /opt/certbot/bin/python3 -m pip install certbot certbot-nginx
     ln -s /opt/certbot/bin/certbot /usr/bin/certbot
 fi
+find /etc/nginx/sites-available/ -type f -exec ln -sf "{}" /etc/nginx/sites-enabled/ \;
 rm /etc/nginx/sites-enabled/default
-ln -sf /etc/nginx/sites-available/demin-dev /etc/nginx/sites-enabled/demin-dev
 /opt/certbot/bin/certbot --agree-tos --nginx -m $EMAIL
 chmod u+x /etc/cron.weekly/certbot-renew
 systemctl restart nginx.service
@@ -69,8 +69,7 @@ sudo -u commafeed \
     wget -O /home/commafeed/commafeed \
         https://github.com/Athou/commafeed/releases/download/5.12.1/commafeed-5.12.1-h2-linux-x86_64-runner
 chmod +x /home/commafeed/commafeed
-echo "Register an account at https://feed.demin.dev/ and Press Ctrl+C to stop the service"
-sudo -u commafeed /bin/sh -c 'cd ~commafeed; COMMAFEED_USERS_ALLOW_REGISTRATIONS=true ./commafeed' || true
+echo "Log in to https://feed.demin.dev/ as admin:admin and set up an account"
 
 systemctl enable commafeed.service
 systemctl start commafeed.service

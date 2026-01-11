@@ -2,34 +2,3 @@ server {
     server_name www.demin.dev demin.dev conference.demin.dev pubsub.demin.dev;
     return 301 https://peter.demin.dev;
 }
-
-server {
-    server_name feed.demin.dev;
-    location / {
-      proxy_pass http://127.0.0.1:8082;
-      proxy_set_header X-Forwarded-Proto https;
-      proxy_set_header Host $http_host;
-    }
-}
-
-server {
-    server_name api.demin.dev;
-    location / {
-      proxy_pass http://bus;
-      proxy_set_header X-Forwarded-Proto https;
-      proxy_set_header Host $http_host;
-    }
-}
-
-upstream bus {
-    server unix:/tmp/bus.sock;
-}
-
-server {
-    server_name daniel.demin.dev;
-    root /var/www/daniel;
-    index index.html index.htm;
-    location / {
-        try_files $uri $uri/ =404; # Serve static files, or return 404 if not found
-    }
-}

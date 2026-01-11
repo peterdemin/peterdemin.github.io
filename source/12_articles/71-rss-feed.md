@@ -5,7 +5,7 @@ It's a Google Reader-inspired self-hosted personal RSS reader.
 
 I'm not using Docker, in part because the VM has only 0.25 CPU and, in part, because I like simple things.
 
-## Setup
+## Installation
 
 CommaFeed service runs under a SystemD Unit using a separate system user with a home directory:
 
@@ -18,26 +18,9 @@ sudo chmod +x /home/commafeed/commafeed
 
 (Check the [releases page](https://github.com/Athou/commafeed/releases/latest) to get the latest native binary for your operating system).
 
-## Reverse proxy
-
-Nginx has a section dedicated to proxy pass `feed` subdomain to a localhost port:
-
-`/etc/nginx/sites-available/default`:
-
-```nginx
-server {
-    server_name feed.demin.dev;
-    location / {
-      proxy_pass http://127.0.0.1:8082;
-      proxy_set_header  X-Forwarded-Proto https;
-      proxy_set_header Host $http_host;
-    }
-}
-```
-
-Make sure you configure TLS certificates, using certbot, for example.
-
 ## SystemD Unit
+
+Create a Systemd Unit:
 
 `/etc/systemd/system/commafeed.service`:
 
@@ -60,17 +43,7 @@ WantedBy=multi-user.target
 
 (Check out the hardened version below.)
 
-## User registration
-
-By default, CommaFeed doesn't allow user registration, which is sensible for a public, self-hosted service.
-To add a user for yourself, launch it with registration enabled:
-
-```bash
-sudo -u commafeed /bin/sh -c 'cd ~commafeed; COMMAFEED_USERS_ALLOW_REGISTRATIONS=true ./commafeed'
-```
-
-Then open the CommaFeed Web UI in your browser (in my case, https://feed.demin.dev) and create an account.
-Now stop the service (By pressing Ctrl+C), and launch it through the SystemD Unit:
+To launch the Commafeed service, run:
 
 ```bash
 sudo systemctl daemon-reload
@@ -78,141 +51,63 @@ sudo systemctl enable commafeed.service
 sudo systemctl start commafeed.service
 ```
 
+## Reverse proxy
+
+Nginx has a section dedicated to proxy pass `feed` subdomain to a localhost port:
+
+`/etc/nginx/sites-available/commafeed`:
+
+```{literalinclude} ../../etc/nginx/sites-available/commafeed
+:language: nginx
+```
+
+Configure TLS certificates (using certbot, for example.)
+
+```bash
+ln -sf /etc/nginx/sites-available/commafeed /etc/nginx/sites-enabled/commafeed
+```
+
+## User registration
+
+CommaFeed comes with a an `admin` account with password `admin`.
+
+Once you have the service running, you got to be quick to log in to it before any hackers do.
+Open the CommaFeed Web UI in your browser (in my case, https://feed.demin.dev) and log in as `admin:admin`.
+The open Profile/User management, and create an account for yourself (and maybe delete admin account for good).
+
 ## Backup
 
 I wouldn't want to lose the extensive library of feeds I aggregated over many years.
 My solution is to export the [OPML file](./71-opml.xml) whenever I think about how I don't want to lose it.
 That's a standard format that is easy to inspect and migrate to another service.
-I wish CommaFeed maintained a copy of this file in its data directory so I can back it up.
+
+CommaFeed provides a REST API for the export.
+You'll need to generate an API key to use it.
+It's available on the profile page.
+
+Export your OPML file via the [REST API](https://www.commafeed.com/api-documentation/#/Feeds/get_rest_feed_export)
+(append `?apiKey=<your key>` at the end of the URL).
+
+Here's how I do it:
+
+```{literalinclude} ../../export_opml.sh
+:language: bash
+:start-at: curl
+```
 
 ## The treasure
 
 Here's the list of feeds from the OPML file in alphabetical order:
 
-- [Adam Johnson](https://adamj.eu/tech/atom.xml)
-- [Andrew Nesbitt](https://nesbitt.io/feed.xml)
-- [Armin Ronacher's Thoughts and Writings](https://lucumr.pocoo.org/feed.atom)
-- [Blogs on John's Website](https://johnthenerd.com/blog/index.xml)
-- [Cerebralab - Blog](https://cerebralab.com/feed.xml)
-- [Copper • A blog about conductive layers](https://alinpanaitiu.com/index.xml)
-- [Dan Luu](https://danluu.com/atom.xml)
-- [Dan McKinley](https://mcfunley.com/feed.xml)
-- [Hynek Schlawack](https://hynek.me/index.xml)
-- [Irrational Exuberance](https://lethain.com/feeds.xml)
-- [Jack](https://cep.dev/posts/index.xml)
-- [Jade Rubick](https://www.rubick.com/rss.xml)
-- [Jamie Adams](https://jamieadams.click/index.xml)
-- [Jascha’s blog](https://sohl-dickstein.github.io/feed.xml)
-- [Kevin Cox's Blog](https://kevincox.ca/feed.atom)
-- [Kevin Kelly](https://kk.org/feed)
-- [Kobzol’s blog](https://kobzol.github.io/feed.xml)
-- [Lu's blog](https://blog.the-pans.com/rss/)
-- [Martin Fowler](https://martinfowler.com/feed.atom)
-- [Matt Rickard](https://matt-rickard.com/rss)
-- [Maurycy's blog](https://maurycyz.com/index.xml)
-- [Max Chernyak](https://max.engineer/feed.rss)
-- [Mert Bulan](https://mertbulan.com/feed.xml)
-- [Mumbling about computers](https://blog.davidv.dev/rss.xml)
-- [Nathan Barry](https://nathan.rs/posts/index.xml)
-- [Nicola Iarocci](https://nicolaiarocci.com/index.xml)
-- [Peter Demin](https://peter.demin.dev/life.xml) (that's me!)
-- [Posts on Max Woolf's Blog](https://minimaxir.com/post/index.xml)
-- [Posts on Nikita Lapkov](https://laplab.me/posts/index.xml)
-- [Shtetl-Optimized](https://scottaaronson.blog/?feed=rss2)
-- [Speculative Branches](https://specbranch.com/index.xml)
-- [The Clean Code Blog](http://blog.cleancoder.com/atom.xml)
-- [The Technium (Kevin Kelly)](https://feedpress.me/TheTechnium)
-- [Today Hynek Learned on Hynek Schlawack](https://hynek.me/til/index.xml)
-- [Trekhleb.dev RSS Feed](https://trekhleb.dev/rss.xml)
-- [Two-Wrongs](https://entropicthoughts.com/feed)
-- [Vladislav Supalov](https://vsupalov.com/index.xml)
-- [Will Webberley's Blog](https://wilw.dev/rss.xml)
-- [Xe's Blog](https://christine.website/blog.rss)
-- [Yegor Bugayenko](https://www.yegor256.com/rss.xml)
-- [chriskiehl.com](https://chriskiehl.com/rss.xml)
-- [codahale.com](https://codahale.com/atom.xml)
-- [dbsmasher corner](https://blog.dbsmasher.com/feed.xml)
-- [journal.stuffwithstuff.com](https://journal.stuffwithstuff.com/rss.xml)
-- [morling.dev -- Blog](https://www.morling.dev/blog/index.xml)
-- [people, ideas, machines](https://joshs.bearblog.dev/feed/)
-- [phiresky's blog](https://phiresky.github.io/blog/rss)
-- [samir : coffee → nonsense](https://functional.computer/feed.xml)
-- [seangoedecke.com RSS feed](https://www.seangoedecke.com/rss.xml)
-- [sobolevn’s personal blog](https://sobolevn.me/feed.xml)
-- [the website of jyn](https://jyn.dev/atom.xml)
-- [thesephist](https://thesephist.com/index.xml)
-- [tonsky.me](https://tonsky.me/atom.xml)
-- [uninformativ.de (en)](https://www.uninformativ.de/blog/feeds/en.atom)
-- [マリウス](https://xn--gckvb8fzb.com/index.xml)
+```{include} ./71-subscriptions.mdpart
+:language: md
+```
 
 ## Hardened SystemD Unit
 
 As a usual best practice, we should apply the principle of least privilege.
 The hardened version, which won't let CommaFeed process do any harm even if it gets hacked:
 
-```systemd
-[Unit]
-Description=A bloat-free feed reader
-Wants=network-online.target
-After=local-fs.target network-online.target
-
-[Service]
-Type=simple
-User=commafeed
-Group=commafeed
-WorkingDirectory=/home/commafeed
-ExecStart=/home/commafeed/commafeed
-SyslogIdentifier=commafeed
-Restart=always
-RestartSec=2
-Environment="COMMAFEED_HTTP_CLIENT_MAX_RESPONSE_SIZE=10M"
-
-# Baseline safety
-NoNewPrivileges=yes
-UMask=0077
-RemoveIPC=yes
-CapabilityBoundingSet=
-AmbientCapabilities=
-
-# Filesystem sandbox
-ProtectSystem=strict
-ProtectHome=read-only
-ReadWritePaths=/home/commafeed/data
-
-# Stop it from seeing other processes' details
-ProtectProc=invisible
-ProcSubset=pid
-
-# Kernel / namespace / device isolation
-PrivateTmp=yes
-PrivateDevices=yes
-PrivateUsers=yes
-PrivateMounts=yes
-
-ProtectControlGroups=yes
-ProtectKernelTunables=yes
-ProtectKernelModules=yes
-ProtectKernelLogs=yes
-ProtectClock=yes
-ProtectHostname=yes
-
-LockPersonality=yes
-RestrictSUIDSGID=yes
-RestrictRealtime=yes
-RestrictNamespaces=yes
-MemoryDenyWriteExecute=yes
-
-# Syscall filtering
-SystemCallArchitectures=native
-SystemCallFilter=@system-service @network-io
-SystemCallErrorNumber=EPERM
-
-# Only allow the socket families it likely needs
-RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
-
-# Optional resource limits
-LimitNOFILE=4096
-
-[Install]
-WantedBy=multi-user.target
+```{literalinclude} ../../etc/systemd/system/commafeed.service
+:language: systemd
 ```
