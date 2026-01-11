@@ -112,8 +112,8 @@ def iter_life_lines() -> Iterable[AnnotatedLifeLine]:
 
 
 def iter_life_files() -> list[str]:
-    """Find all 16_life/NN-YYYY-MM.md files."""
-    return sorted(glob.glob(os.path.join(LIFE_DIR, "??-????-??.md")))
+    """Find all 16_life/YYYY-MM.md files."""
+    return sorted(glob.glob(os.path.join(LIFE_DIR, "????-??.md")))
 
 
 def parse_life_file(file_path: str) -> Iterable[AnnotatedLifeLine]:
