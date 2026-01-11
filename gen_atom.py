@@ -93,16 +93,25 @@ def aggregate_life_records(
 
 def wrap_feed_items(records: Iterable[MultilineLifeRecord]) -> Iterable[FeedItem]:
     """Wrap life records in FeedItems with stable IDs"""
+
     cur_date: datetime.datetime | None = None
-    day_count = 0
+    day_records: list[MultilineLifeRecord] = []
+
+    def make_feed_items() -> list[FeedItem]:
+        day_items = [
+            FeedItem(stable_id=f"{rec.short_date}_{i}", record=rec)
+            for i, rec in enumerate(day_records[::-1])
+        ]
+        return day_items[::-1]
+
     for record in records:
         if record.date == cur_date:
-            day_count += 1
+            day_records.append(record)
         else:
-            day_count = 0
-        suffix = f"_{day_count}" if day_count else ""
-        yield FeedItem(stable_id=f"{record.short_date}{suffix}", record=record)
+            yield from make_feed_items()
+            day_records = [record]
         cur_date = record.date
+    yield from make_feed_items()
 
 
 def iter_life_lines() -> Iterable[AnnotatedLifeLine]:
@@ -113,7 +122,10 @@ def iter_life_lines() -> Iterable[AnnotatedLifeLine]:
 
 def iter_life_files() -> list[str]:
     """Find all 16_life/YYYY-MM.md files."""
-    return sorted(glob.glob(os.path.join(LIFE_DIR, "????-??.md")))
+    return sorted(
+        glob.glob(os.path.join(LIFE_DIR, "????-??.md"))
+        + glob.glob(os.path.join(LIFE_DIR, "????.md"))
+    )
 
 
 def parse_life_file(file_path: str) -> Iterable[AnnotatedLifeLine]:
@@ -138,9 +150,9 @@ def maybe_parse_date(text: str) -> Optional[datetime.datetime]:
 def render_internal_link(self, tokens, idx, options, env):
     href = tokens[idx].attrs["href"]
     if href.endswith(".md"):
-        href = href[:-2] + 'html'
+        href = href[:-2] + "html"
     if href.endswith(".rst"):
-        href = href[:-3] + 'html'
+        href = href[:-3] + "html"
     if href.startswith("/"):
         href = BASE_URL + href
     tokens[idx].attrs["href"] = href
