@@ -60,21 +60,17 @@ extlinks = {
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "pydata_sphinx_theme"
+html_theme = "shibuya"
 html_theme_options = {
-    "navbar_start": ["navbar-logo"],
-    "navbar_center": [],
-    "navbar_end": [],
-    "use_edit_page_button": True,
+    "page_layout": "compact",
 }
 html_context = {
-    "display_github": True, # Integrate GitHub
-    "github_user": "peterdemin", # Username
-    "github_repo": "peterdemin.github.io", # Repo name
-    "github_version": "master", # Version
-    "doc_path": "source", # Path in the checkout to the docs root
+    "source_type": "github",
+    "source_user": "peterdemin",
+    "source_repo": "peterdemin.github.io",
+    "source_version": "master",
+    "source_docs_path": "/source/",
 }
-
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
