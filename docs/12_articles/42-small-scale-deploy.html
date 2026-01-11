@@ -1,246 +1,169 @@
-
 <!DOCTYPE html>
-
-
-<html lang="en" data-content_root="../" >
-
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <title>Small-scale Deployment Options &#8212; Peter Demin</title>
-  
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
-  </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
-  
-  <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+<html lang="en" data-accent-color="violet" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Small-scale Deployment Options - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Mutable types in Pydantic default values" href="43-pydantic-mutable-defaults.html" /><link rel="prev" title="Questions for a hiring manager" href="41-questions-for-hiring-manager.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=44020203" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=86f57b9a" />
-  
-  <!-- So that users can add custom icons -->
-  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
-
-    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/42-small-scale-deploy';</script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Mutable types in Pydantic default values" href="43-pydantic-mutable-defaults.html" />
-    <link rel="prev" title="Questions for a hiring manager" href="41-questions-for-hiring-manager.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="Small-scale Deployment Options"/>
+    <meta name="twitter:card" content="summary"/>
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
-  
-  
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
-  
-  <dialog id="pst-search-dialog">
-    
-<form class="bd-search d-flex align-items-center"
-      action="../search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         placeholder="Search the docs ..."
-         aria-label="Search the docs ..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
-</div>
-
-  
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-<div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
-    <span class="fa-solid fa-bars"></span>
-  </button>
-  
-  
-  <div class="col-lg-3 navbar-header-items__start">
-    
-      <div class="navbar-item">
-
-  
-    
-  
-
-<a class="navbar-brand logo" href="../index.html">
-  
-  
-  
-  
-  
-  
-    <p class="title logo__title">Peter Demin</p>
-  
-</a></div>
-    
-  </div>
-  
-  <div class="col-lg-9 navbar-header-items">
-    
-    
-    <div class="navbar-header-items__end">
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
       
-        <div class="navbar-item navbar-persistent--container">
-          
-
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button>
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
         </div>
-      
-      
+      </button>
     </div>
-    
   </div>
-  
-  
-    <div class="navbar-persistent--mobile">
-
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button>
-    </div>
-  
-
-  
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
-      <span class="fa-solid fa-outdent"></span>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
     </button>
-  
-</div>
-
-    </header>
-  
-
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
-      
-      
-      
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
-        
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#development-experience-aspects-in-consideration">Development Experience Aspects in Consideration</a></li>
+<li><a class="reference internal" href="#options-overview">Options Overview</a></li>
+<li><a class="reference internal" href="#compartmentalization">Compartmentalization</a></li>
+<li><a class="reference internal" href="#git-push">Git Push</a></li>
+<li><a class="reference internal" href="#git-pull">Git Pull</a></li>
+<li><a class="reference internal" href="#rsync">Rsync</a></li>
+<li><a class="reference internal" href="#custom-tar-balls">Custom Tar Balls</a></li>
+<li><a class="reference internal" href="#runtime-specific-packages">Runtime-specific Packages</a></li>
+<li><a class="reference internal" href="#os-specific-packages">OS-specific Packages</a></li>
+<li><a class="reference internal" href="#docker-containers">Docker Containers</a></li>
+<li><a class="reference internal" href="#virtual-machines">Virtual Machines</a></li>
+<li><a class="reference internal" href="#deep-dive-into-custom-tar-balls">Deep Dive into Custom Tar Balls</a></li>
+</ul>
+</div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
+  data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </span>
+  <span class="flex-grow px-2 break-all">
     
     
+      <span>peterdemin.github.io</span>
     
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-<nav class="bd-docs-nav bd-links"
-     aria-label="Section Navigation">
-  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"></div>
-</nav></div>
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <iconify-icon icon="lucide:star"></iconify-icon>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <iconify-icon icon="lucide:git-fork"></iconify-icon>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/peterdemin/peterdemin.github.io/blob/master/source/12_articles/42-small-scale-deploy.md">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
     </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
-  </div>
-
-
-      </div>
-      
-      <main id="main-content" class="bd-main" role="main">
-        
-        
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article d-print-none">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item">
-
-<nav aria-label="Breadcrumb" class="d-print-none">
-  <ul class="bd-breadcrumbs">
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
     
-    <li class="breadcrumb-item breadcrumb-home">
-      <a href="../index.html" class="nav-link" aria-label="Home">
-        <i class="fa-solid fa-home"></i>
-      </a>
-    </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Small-scale Deployment Options</span></li>
-  </ul>
-</nav>
-</div>
-      
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
     </div>
-  
-  
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Small-scale Deployment Options</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
 </div>
-</div>
-              
-              
-              
-                
-<div id="searchbox"></div>
-                <article class="bd-article">
-                  
-  <section id="small-scale-deployment-options">
-<h1>Small-scale Deployment Options<a class="headerlink" href="#small-scale-deployment-options" title="Link to this heading">#</a></h1>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/42-small-scale-deploy.md.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/42-small-scale-deploy.md.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/42-small-scale-deploy.md.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:markdown"></iconify-icon>
+            <span>View as Markdown</span></a><a role="menuitem" href="https://chatgpt.com/?hints=search&q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/42-small-scale-deploy.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:openai"></iconify-icon>
+          <span>Open in ChatGPT</span>
+        </a><a role="menuitem" href="https://claude.ai/new?q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/42-small-scale-deploy.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:claude"></iconify-icon>
+          <span>Open in Claude</span>
+        </a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="small-scale-deployment-options">
+<h1>Small-scale Deployment Options<a class="headerlink" href="#small-scale-deployment-options" title="Link to this heading">¶</a></h1>
 <p>The common best practice these days for deploying software seems to be a Kubernetes cluster with CI/CD pipeline attached.
 While reasonable and battle-proof for an enterprise, this solution could carry a heavy overhead for small scale.
 Small as in a single-server on-premise deployments.
@@ -248,7 +171,7 @@ The development team consists of one or a few engineers, who have direct access 
 For the sake of examples I’ll use a Python service.
 But the same process should be portable to other languages.</p>
 <section id="development-experience-aspects-in-consideration">
-<h2>Development Experience Aspects in Consideration<a class="headerlink" href="#development-experience-aspects-in-consideration" title="Link to this heading">#</a></h2>
+<h2>Development Experience Aspects in Consideration<a class="headerlink" href="#development-experience-aspects-in-consideration" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>End-to-end time for the deployment of the new version.
 End-to-end meaning from changes saved to a file locally, to startup in prod.</p></li>
@@ -258,7 +181,7 @@ End-to-end meaning from changes saved to a file locally, to startup in prod.</p>
 </ul>
 </section>
 <section id="options-overview">
-<h2>Options Overview<a class="headerlink" href="#options-overview" title="Link to this heading">#</a></h2>
+<h2>Options Overview<a class="headerlink" href="#options-overview" title="Link to this heading">¶</a></h2>
 <div class="graphviz"><img src="../_images/graphviz-253d8f314839c880a58b25468fcf8ae40351981f.png" alt="digraph services {
 edge [color=&quot;#808080&quot;, arrowsize=.6, penwidth=3, minlen=3];
 node [shape=box, fontname=&quot;DIN Next, sans-serif&quot;, style=&quot;rounded,filled&quot;, penwidth=5, fillcolor=&quot;#8010d0&quot;, color=&quot;#f0f0f0&quot;, fontcolor=white,  margin=&quot;0.35&quot; fontweight=bold]
@@ -282,7 +205,7 @@ bgcolor=&quot;#f0f0f0&quot;;
 }" class="graphviz" /></div>
 </section>
 <section id="compartmentalization">
-<h2>Compartmentalization<a class="headerlink" href="#compartmentalization" title="Link to this heading">#</a></h2>
+<h2>Compartmentalization<a class="headerlink" href="#compartmentalization" title="Link to this heading">¶</a></h2>
 <p>We can divide the deployment system into following loosely coupled components:</p>
 <ol class="arabic simple">
 <li><p>User interface. Could be git hooks, CLI, web page.</p></li>
@@ -294,7 +217,7 @@ bgcolor=&quot;#f0f0f0&quot;;
 </ol>
 </section>
 <section id="git-push">
-<h2>Git Push<a class="headerlink" href="#git-push" title="Link to this heading">#</a></h2>
+<h2>Git Push<a class="headerlink" href="#git-push" title="Link to this heading">¶</a></h2>
 <p>Heroku-like open-source self-hosted single-node PaaS projects:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/mardix/sailor">Sailor</a></p></li>
@@ -311,12 +234,12 @@ bgcolor=&quot;#f0f0f0&quot;;
 </ul>
 </section>
 <section id="git-pull">
-<h2>Git Pull<a class="headerlink" href="#git-pull" title="Link to this heading">#</a></h2>
+<h2>Git Pull<a class="headerlink" href="#git-pull" title="Link to this heading">¶</a></h2>
 <p>In a high-level, the git pull approach means having a code repo cloned to the prod server.
 The deployment is basically running this script:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>pull
-sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>my.service
-</pre></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">git<span class="w"> </span>pull
+</span><span data-line="2">sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>my.service
+</span></pre></div>
 </div>
 <ul class="simple">
 <li><p>End-to-end time for the deployment of the new version: <strong>very low</strong>, only incremental changes need to be transfered on network.</p></li>
@@ -332,7 +255,7 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class=
 </ul>
 </section>
 <section id="rsync">
-<h2>Rsync<a class="headerlink" href="#rsync" title="Link to this heading">#</a></h2>
+<h2>Rsync<a class="headerlink" href="#rsync" title="Link to this heading">¶</a></h2>
 <p>Similar to git pull with core aspects being almost the same.</p>
 <p>Upsides:</p>
 <ul class="simple">
@@ -345,7 +268,7 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class=
 </ul>
 </section>
 <section id="custom-tar-balls">
-<h2>Custom Tar Balls<a class="headerlink" href="#custom-tar-balls" title="Link to this heading">#</a></h2>
+<h2>Custom Tar Balls<a class="headerlink" href="#custom-tar-balls" title="Link to this heading">¶</a></h2>
 <p>This mode adds a few steps to the deployment process - building the deployment artifacts (my.tar.gz), and unpacking on the server.</p>
 <ul class="simple">
 <li><p>End-to-end time for the deployment of the new version: <strong>medium</strong>, the whole project is transfered for each deployment.</p></li>
@@ -361,7 +284,7 @@ While every aspect is simple, customization adds up to overall project complexit
 </ul>
 </section>
 <section id="runtime-specific-packages">
-<h2>Runtime-specific Packages<a class="headerlink" href="#runtime-specific-packages" title="Link to this heading">#</a></h2>
+<h2>Runtime-specific Packages<a class="headerlink" href="#runtime-specific-packages" title="Link to this heading">¶</a></h2>
 <p>A twist on the custom tar balls, using Python wheels, or what have you.</p>
 <p>Downsides:</p>
 <ul class="simple">
@@ -369,21 +292,21 @@ While every aspect is simple, customization adds up to overall project complexit
 </ul>
 </section>
 <section id="os-specific-packages">
-<h2>OS-specific Packages<a class="headerlink" href="#os-specific-packages" title="Link to this heading">#</a></h2>
+<h2>OS-specific Packages<a class="headerlink" href="#os-specific-packages" title="Link to this heading">¶</a></h2>
 <p>A twist on runtime-specific packages, but building .deb or .rpm artifacts.
 The build stage is more involved, but the OS provides a standard way of performing common operations, addressing the downsides of custom tar balls approach.</p>
 </section>
 <section id="docker-containers">
-<h2>Docker Containers<a class="headerlink" href="#docker-containers" title="Link to this heading">#</a></h2>
+<h2>Docker Containers<a class="headerlink" href="#docker-containers" title="Link to this heading">¶</a></h2>
 <p>Streamlines common operations, but requires docker runtime, and makes it somewhat harder to hack on the software in production.
 Docker registry is optional, and can be replaced by running <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">save</span></code> and <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">load</span></code> commands.</p>
 </section>
 <section id="virtual-machines">
-<h2>Virtual Machines<a class="headerlink" href="#virtual-machines" title="Link to this heading">#</a></h2>
+<h2>Virtual Machines<a class="headerlink" href="#virtual-machines" title="Link to this heading">¶</a></h2>
 <p>A spin on the docker containers, providing higher level of isolation, but incuring significant overhead in performance, build times, and memory usage.</p>
 </section>
 <section id="deep-dive-into-custom-tar-balls">
-<h2>Deep Dive into Custom Tar Balls<a class="headerlink" href="#deep-dive-into-custom-tar-balls" title="Link to this heading">#</a></h2>
+<h2>Deep Dive into Custom Tar Balls<a class="headerlink" href="#deep-dive-into-custom-tar-balls" title="Link to this heading">¶</a></h2>
 <p>The main downside is the version management and all the custom tooling required to be built and learned to run the process.
 This can be circumvented by creating a general-purpose well-documented tooling.</p>
 <p>The tool has support following deployment aspects:</p>
@@ -400,148 +323,53 @@ The common approach is some form of a manifest file, that contains a list of glo
 </section>
 </section>
 
-
-                </article>
-              
-              
-              
-              
-              
-                <footer class="prev-next-footer d-print-none">
-                  
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="41-questions-for-hiring-manager.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Questions for a hiring manager</p>
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="41-questions-for-hiring-manager.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Questions for a hiring manager</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="43-pydantic-mutable-defaults.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Mutable types in Pydantic default values</div>
       </div>
+      <i class="i-lucide chevron-right"></i>
     </a>
-    <a class="right-next"
-       href="43-pydantic-mutable-defaults.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Mutable types in Pydantic default values</p>
+  </div></div>
+        
       </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
-</div>
-                </footer>
-              
-            </div>
-            
-            
-              
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-<div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#development-experience-aspects-in-consideration">Development Experience Aspects in Consideration</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#options-overview">Options Overview</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compartmentalization">Compartmentalization</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#git-push">Git Push</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#git-pull">Git Pull</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rsync">Rsync</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-tar-balls">Custom Tar Balls</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#runtime-specific-packages">Runtime-specific Packages</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#os-specific-packages">OS-specific Packages</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-containers">Docker Containers</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-machines">Virtual Machines</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-dive-into-custom-tar-balls">Deep Dive into Custom Tar Balls</a></li>
-</ul>
-  </nav></div>
-
-  <div class="sidebar-secondary-item">
-
-  
-  <div class="tocsection editthispage">
-    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/12_articles/42-small-scale-deploy.md">
-      <i class="fa-solid fa-pencil"></i>
-      
-      
-        
-          Edit on GitHub
-        
-      
-    </a>
-  </div>
-</div>
-
-  <div class="sidebar-secondary-item">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/12_articles/42-small-scale-deploy.md.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div></div>
-
-</div></div>
-              
-            
-          </div>
-          <footer class="bd-footer-content">
-            
-          </footer>
-        
-      </main>
     </div>
-  </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2022, Peter Demin</p>
   
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
-
-  <footer class="bd-footer">
-<div class="bd-footer__inner bd-page-width">
-  
-    <div class="footer-items__start">
-      
-        <div class="footer-item">
-
-  <p class="copyright">
+  <p>
+    Made with
     
-      © Copyright 2022, Peter Demin.
-      <br/>
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
     
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
   </p>
 </div>
-      
-        <div class="footer-item">
-
-  <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
-    <br/>
-  </p>
-</div>
-      
+      <div class="sy-foot-socials"></div>
     </div>
-  
-  
-  
-    <div class="footer-items__end">
-      
-        <div class="footer-item">
-<p class="theme-version">
-  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
-</p></div>
-      
-    </div>
-  
-</div>
-
-  </footer>
-  </body>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/shibuya.js?v=cac61aee"></script></body>
 </html>

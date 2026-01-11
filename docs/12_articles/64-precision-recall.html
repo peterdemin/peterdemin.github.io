@@ -1,285 +1,206 @@
-
 <!DOCTYPE html>
-
-
-<html lang="en" data-content_root="../" >
-
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <title>Precision-Recall &#8212; Peter Demin</title>
-  
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
-  </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
-  
-  <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+<html lang="en" data-accent-color="violet" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Precision-Recall - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Solarized Dark Theme for Firefox Reader View" href="65-firefox-reader-solarized-dark.html" /><link rel="prev" title="100 questions for Washington state in Aug 2024" href="63-100q-open.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=44020203" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=86f57b9a" />
-  
-  <!-- So that users can add custom icons -->
-  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
-
-    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/64-precision-recall';</script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Solarized Dark Theme for Firefox Reader View" href="65-firefox-reader-solarized-dark.html" />
-    <link rel="prev" title="100 questions for Washington state in Aug 2024" href="63-100q-open.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="Precision-Recall"/>
+    <meta name="twitter:card" content="summary"/>
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
-  
-  
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
-  
-  <dialog id="pst-search-dialog">
-    
-<form class="bd-search d-flex align-items-center"
-      action="../search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         placeholder="Search the docs ..."
-         aria-label="Search the docs ..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
-</div>
-
-  
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-<div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
-    <span class="fa-solid fa-bars"></span>
-  </button>
-  
-  
-  <div class="col-lg-3 navbar-header-items__start">
-    
-      <div class="navbar-item">
-
-  
-    
-  
-
-<a class="navbar-brand logo" href="../index.html">
-  
-  
-  
-  
-  
-  
-    <p class="title logo__title">Peter Demin</p>
-  
-</a></div>
-    
-  </div>
-  
-  <div class="col-lg-9 navbar-header-items">
-    
-    
-    <div class="navbar-header-items__end">
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
       
-        <div class="navbar-item navbar-persistent--container">
-          
-
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button>
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
         </div>
-      
-      
+      </button>
     </div>
-    
   </div>
-  
-  
-    <div class="navbar-persistent--mobile">
-
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button>
-    </div>
-  
-
-  
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
-      <span class="fa-solid fa-outdent"></span>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
     </button>
-  
-</div>
-
-    </header>
-  
-
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
-      
-      
-      
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
-        
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#background">Background</a></li>
+<li><a class="reference internal" href="#first-well-load-a-small-toy-dataset">First, we&#8217;ll load a small toy dataset</a></li>
+<li><a class="reference internal" href="#mess-it-up">Mess it up</a></li>
+<li><a class="reference internal" href="#split-to-train-and-test-data">Split to train and test data</a></li>
+<li><a class="reference internal" href="#boom-weve-got-a-binary-classifier-model">Boom, we&#8217;ve got a binary classifier model</a></li>
+<li><a class="reference internal" href="#lets-build-some-curves">Let&#8217;s build some curves</a></li>
+<li><a class="reference internal" href="#lets-get-under-the-hood">Let&#8217;s get under the hood</a></li>
+<li><a class="reference internal" href="#precision-recall-and-threshold">Precision, recall, and threshold</a></li>
+<li><a class="reference internal" href="#english-please">English, please</a></li>
+<li><a class="reference internal" href="#computation-details">Computation details</a></li>
+<li><a class="reference internal" href="#lets-take-a-look">Let&#8217;s take a look</a></li>
+</ul>
+</div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
+  data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </span>
+  <span class="flex-grow px-2 break-all">
     
     
+      <span>peterdemin.github.io</span>
     
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-<nav class="bd-docs-nav bd-links"
-     aria-label="Section Navigation">
-  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"></div>
-</nav></div>
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <iconify-icon icon="lucide:star"></iconify-icon>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <iconify-icon icon="lucide:git-fork"></iconify-icon>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/peterdemin/peterdemin.github.io/blob/master/source/12_articles/64-precision-recall.rst">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
     </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
-  </div>
-
-
-      </div>
-      
-      <main id="main-content" class="bd-main" role="main">
-        
-        
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article d-print-none">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item">
-
-<nav aria-label="Breadcrumb" class="d-print-none">
-  <ul class="bd-breadcrumbs">
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
     
-    <li class="breadcrumb-item breadcrumb-home">
-      <a href="../index.html" class="nav-link" aria-label="Home">
-        <i class="fa-solid fa-home"></i>
-      </a>
-    </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Precision-Recall</span></li>
-  </ul>
-</nav>
-</div>
-      
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
     </div>
-  
-  
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Precision-Recall</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
 </div>
-</div>
-              
-              
-              
-                
-<div id="searchbox"></div>
-                <article class="bd-article">
-                  
-  <section id="precision-recall">
-<h1>Precision-Recall<a class="headerlink" href="#precision-recall" title="Link to this heading">#</a></h1>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/64-precision-recall.rst.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/64-precision-recall.rst.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/64-precision-recall.rst.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:code-slash"></iconify-icon>
+            <span>View Source</span></a><a role="menuitem" href="https://chatgpt.com/?hints=search&q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/64-precision-recall.rst.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:openai"></iconify-icon>
+          <span>Open in ChatGPT</span>
+        </a><a role="menuitem" href="https://claude.ai/new?q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/64-precision-recall.rst.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:claude"></iconify-icon>
+          <span>Open in Claude</span>
+        </a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="precision-recall">
+<h1>Precision-Recall<a class="headerlink" href="#precision-recall" title="Link to this heading">¶</a></h1>
 <section id="background">
-<h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
+<h2>Background<a class="headerlink" href="#background" title="Link to this heading">¶</a></h2>
 <p>I’m familiarizing myself with basic ML concept of Precision-Recall curve
 to build intuition around it.</p>
 <p>My source:
 <a class="reference external" href="https://scikit-learn.org/dev/auto_examples/model_selection/plot_precision_recall.html">https://scikit-learn.org/dev/auto_examples/model_selection/plot_precision_recall.html</a></p>
 </section>
 <section id="first-well-load-a-small-toy-dataset">
-<h2>First, we’ll load a small toy dataset<a class="headerlink" href="#first-well-load-a-small-toy-dataset" title="Link to this heading">#</a></h2>
+<h2>First, we’ll load a small toy dataset<a class="headerlink" href="#first-well-load-a-small-toy-dataset" title="Link to this heading">¶</a></h2>
 <p>Following the SciKit doc, we’ll use Iris (flower, not part of an eye, or
 godess).</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import numpy as np
-from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
-from sklearn.metrics._ranking import precision_recall_curve
-import pandas
-from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import StandardScaler
-from sklearn.svm import LinearSVC
-from sklearn.metrics import PrecisionRecallDisplay
-
-random_state = np.random.RandomState(3)
-
-X, y = load_iris(return_X_y=True)
-</pre></div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">import numpy as np
+</span><span data-line="2">from sklearn.datasets import load_iris
+</span><span data-line="3">from sklearn.model_selection import train_test_split
+</span><span data-line="4">from sklearn.metrics._ranking import precision_recall_curve
+</span><span data-line="5">import pandas
+</span><span data-line="6">from sklearn.pipeline import make_pipeline
+</span><span data-line="7">from sklearn.preprocessing import StandardScaler
+</span><span data-line="8">from sklearn.svm import LinearSVC
+</span><span data-line="9">from sklearn.metrics import PrecisionRecallDisplay
+</span><span data-line="10">
+</span><span data-line="11">random_state = np.random.RandomState(3)
+</span><span data-line="12">
+</span><span data-line="13">X, y = load_iris(return_X_y=True)
+</span></pre></div>
 </div>
 </section>
 <section id="mess-it-up">
-<h2>Mess it up<a class="headerlink" href="#mess-it-up" title="Link to this heading">#</a></h2>
+<h2>Mess it up<a class="headerlink" href="#mess-it-up" title="Link to this heading">¶</a></h2>
 <p>The dataset has 150 records, 4 floating-point flower properties (like
 length) for X, and specific flower species label for Y (0, 1, 2). There
 are 310 Iris species, but this small dataset has only 3. So, it’s kinda
 multilabel. We don’t need that, for precision-recall we need something
 binary. So we trim both X and Y to only keep records for <code class="docutils literal notranslate"><span class="pre">Y=0</span></code> aka
 False and <code class="docutils literal notranslate"><span class="pre">1</span></code> aka True.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X, y = X[y&lt;2], y[y&lt;2]
-pandas.DataFrame(X)
-</pre></div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">X, y = X[y&lt;2], y[y&lt;2]
+</span><span data-line="2">pandas.DataFrame(X)
+</span></pre></div>
 </div>
 <div>
 <style scoped>
@@ -386,24 +307,24 @@ pandas.DataFrame(X)
   </tbody>
 </table>
 <p>100 rows × 4 columns</p>
-</div><div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>y
-</pre></div>
+</div><div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">y
+</span></pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
-       <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
-       <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
-       <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
-       <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-</pre></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+</span><span data-line="2">       <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+</span><span data-line="3">       <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
+</span><span data-line="4">       <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
+</span><span data-line="5">       <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+</span></pre></div>
 </div>
 <p>It’s good that it’s binary now, but it’s too easy. If we train a model
 on this data now, it will have 100% accuracy, so precision and recall
 will look stupied. So, we add noisy features, a whole lot, 100 times
 more noise than signal. That will make model to sweat.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X = np.concatenate([X, random_state.randn(X.shape[0], 100 * X.shape[1])], axis=1)
-
-pandas.DataFrame(X)
-</pre></div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">X = np.concatenate([X, random_state.randn(X.shape[0], 100 * X.shape[1])], axis=1)
+</span><span data-line="2">
+</span><span data-line="3">pandas.DataFrame(X)
+</span></pre></div>
 </div>
 <div>
 <style scoped>
@@ -716,29 +637,29 @@ pandas.DataFrame(X)
 <p>100 rows × 404 columns</p>
 </div></section>
 <section id="split-to-train-and-test-data">
-<h2>Split to train and test data<a class="headerlink" href="#split-to-train-and-test-data" title="Link to this heading">#</a></h2>
+<h2>Split to train and test data<a class="headerlink" href="#split-to-train-and-test-data" title="Link to this heading">¶</a></h2>
 <p>Because we’re such great data scientists, we can’t even think about
 testing the model on training data even for educational purposes.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=random_state)
-</pre></div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=random_state)
+</span></pre></div>
 </div>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>classifier = make_pipeline(StandardScaler(), LinearSVC(random_state=random_state))
-classifier.fit(X_train, y_train);
-</pre></div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">classifier = make_pipeline(StandardScaler(), LinearSVC(random_state=random_state))
+</span><span data-line="2">classifier.fit(X_train, y_train);
+</span></pre></div>
 </div>
 </section>
 <section id="boom-weve-got-a-binary-classifier-model">
-<h2>Boom, we’ve got a binary classifier model<a class="headerlink" href="#boom-weve-got-a-binary-classifier-model" title="Link to this heading">#</a></h2>
+<h2>Boom, we’ve got a binary classifier model<a class="headerlink" href="#boom-weve-got-a-binary-classifier-model" title="Link to this heading">¶</a></h2>
 <p>We trained it to predict the likelyhood of smoking pile of garbage being
 Iris flower of species number 1. For whatever <code class="docutils literal notranslate"><span class="pre">4</span> <span class="pre">+</span> <span class="pre">40800</span></code> floats we
 throw in, the model returns a <em>score</em> of how likely the label is 1.
 Let’s take a look at the test output.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>y_score = classifier.decision_function(X_test)
-pandas.DataFrame.from_dict({
-    &#39;$Y_{score}$&#39;: y_score,
-    &#39;$Y_{true}$&#39;: y_test,
-}).plot();
-</pre></div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">y_score = classifier.decision_function(X_test)
+</span><span data-line="2">pandas.DataFrame.from_dict({
+</span><span data-line="3">    &#39;$Y_{score}$&#39;: y_score,
+</span><span data-line="4">    &#39;$Y_{true}$&#39;: y_test,
+</span><span data-line="5">}).plot();
+</span></pre></div>
 </div>
 <img alt="../_images/12.64_11_0.png" src="../_images/12.64_11_0.png" />
 <p>Note how <span class="math notranslate nohighlight">\(Y_{score}\)</span> values are small signed floating point
@@ -748,17 +669,17 @@ input having labeled as 1, but not in statistical terms. Let’s say,
 there is a correlation. Ok, that might be not the best way to present
 this data. How about we plot only scores, and paint it red for label 1
 and blue for label 0.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pandas.DataFrame.from_dict({
-    &#39;$Y_{score}$&#39;: y_score,
-    &#39;$Y_{true}$&#39;: y_test,
-}).reset_index().plot(
-    kind=&#39;scatter&#39;,
-    x=&#39;index&#39;,
-    y=&#39;$Y_{score}$&#39;,
-    c=&#39;$Y_{true}$&#39;,
-    colormap=&#39;bwr&#39;,
-);
-</pre></div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">pandas.DataFrame.from_dict({
+</span><span data-line="2">    &#39;$Y_{score}$&#39;: y_score,
+</span><span data-line="3">    &#39;$Y_{true}$&#39;: y_test,
+</span><span data-line="4">}).reset_index().plot(
+</span><span data-line="5">    kind=&#39;scatter&#39;,
+</span><span data-line="6">    x=&#39;index&#39;,
+</span><span data-line="7">    y=&#39;$Y_{score}$&#39;,
+</span><span data-line="8">    c=&#39;$Y_{true}$&#39;,
+</span><span data-line="9">    colormap=&#39;bwr&#39;,
+</span><span data-line="10">);
+</span></pre></div>
 </div>
 <img alt="../_images/12.64_13_0.png" src="../_images/12.64_13_0.png" />
 <p>That easier on the eye. We can see that dots at the top are red, dots at
@@ -768,13 +689,13 @@ With the threshold, we’ll be able to say, okay, everything above this
 magical number has label 1.</p>
 </section>
 <section id="lets-build-some-curves">
-<h2>Let’s build some curves<a class="headerlink" href="#lets-build-some-curves" title="Link to this heading">#</a></h2>
+<h2>Let’s build some curves<a class="headerlink" href="#lets-build-some-curves" title="Link to this heading">¶</a></h2>
 <p>Scikit learn provides handy implementation for drawing the P/R curve,
 let’s take a look, so we know what good looks like.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>display = PrecisionRecallDisplay.from_predictions(
-    y_test, y_score, name=&quot;LinearSVC&quot;, plot_chance_level=True
-).ax_.set_title(&quot;2-class Precision-Recall curve&quot;)
-</pre></div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">display = PrecisionRecallDisplay.from_predictions(
+</span><span data-line="2">    y_test, y_score, name=&quot;LinearSVC&quot;, plot_chance_level=True
+</span><span data-line="3">).ax_.set_title(&quot;2-class Precision-Recall curve&quot;)
+</span></pre></div>
 </div>
 <img alt="../_images/12.64_15_0.png" src="../_images/12.64_15_0.png" />
 <p>Beautiful, it’s like a staircase that mostly goes down, except half of
@@ -782,24 +703,24 @@ the time it goes up. Definitely tells me a lot about the quality of this
 model (it doesn’t).</p>
 </section>
 <section id="lets-get-under-the-hood">
-<h2>Let’s get under the hood<a class="headerlink" href="#lets-get-under-the-hood" title="Link to this heading">#</a></h2>
+<h2>Let’s get under the hood<a class="headerlink" href="#lets-get-under-the-hood" title="Link to this heading">¶</a></h2>
 <p>First, we’ll sort the “true” labels (y_test) and the predicted scores
 (y_score) together by score.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>score_indices = np.argsort(y_score)
-sy_score = y_score[score_indices]
-sy_test = y_test[score_indices]
-pandas.DataFrame.from_dict({&#39;$Y_{true}$&#39;: sy_test, &#39;$Y_{score}$&#39;: sy_score}).plot();
-</pre></div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">score_indices = np.argsort(y_score)
+</span><span data-line="2">sy_score = y_score[score_indices]
+</span><span data-line="3">sy_test = y_test[score_indices]
+</span><span data-line="4">pandas.DataFrame.from_dict({&#39;$Y_{true}$&#39;: sy_test, &#39;$Y_{score}$&#39;: sy_score}).plot();
+</span></pre></div>
 </div>
 <img alt="../_images/12.64_17_0.png" src="../_images/12.64_17_0.png" />
 <p>Looks good, very organized. Y_score grows monotonically through its
 range, while y_true jumps up and down like crazy. But if we squeeze hard
 enough, we’ll see that we have more 1’s on the right side. Actually,
 let’s do that color trick again.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>(pandas.DataFrame.from_dict({&#39;$Y_{score}$&#39;: sy_score, &#39;$Y_{true}$&#39;: sy_test})
-       .reset_index()
-       .plot(kind=&#39;scatter&#39;, x=&#39;index&#39;, y=&#39;$Y_{score}$&#39;, c=&#39;$Y_{true}$&#39;, colormap=&#39;bwr&#39;));
-</pre></div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">(pandas.DataFrame.from_dict({&#39;$Y_{score}$&#39;: sy_score, &#39;$Y_{true}$&#39;: sy_test})
+</span><span data-line="2">       .reset_index()
+</span><span data-line="3">       .plot(kind=&#39;scatter&#39;, x=&#39;index&#39;, y=&#39;$Y_{score}$&#39;, c=&#39;$Y_{true}$&#39;, colormap=&#39;bwr&#39;));
+</span></pre></div>
 </div>
 <img alt="../_images/12.64_19_0.png" src="../_images/12.64_19_0.png" />
 <p>Nice, good job. We can eye-ball that the right threshold for y_score is
@@ -807,7 +728,7 @@ around 0, maybe 0.1. The P/R curve will help us pick the right number
 for we are the professionals and never eye-ball shit.</p>
 </section>
 <section id="precision-recall-and-threshold">
-<h2>Precision, recall, and threshold<a class="headerlink" href="#precision-recall-and-threshold" title="Link to this heading">#</a></h2>
+<h2>Precision, recall, and threshold<a class="headerlink" href="#precision-recall-and-threshold" title="Link to this heading">¶</a></h2>
 <p>Let’s use this handy function from scikit to compute precision, recall,
 and threshold. It takes <code class="docutils literal notranslate"><span class="pre">y_test</span></code> as <code class="docutils literal notranslate"><span class="pre">y_true</span></code> - the true test labels
 from the dataset, and <code class="docutils literal notranslate"><span class="pre">y_score</span></code> - the predicted score. It returns
@@ -836,7 +757,7 @@ of true positives divided by total number of true labels.</p></li>
 </ul>
 </section>
 <section id="english-please">
-<h2>English, please<a class="headerlink" href="#english-please" title="Link to this heading">#</a></h2>
+<h2>English, please<a class="headerlink" href="#english-please" title="Link to this heading">¶</a></h2>
 <p>We want to find a <em>threshold</em> such that any <code class="docutils literal notranslate"><span class="pre">y_score</span></code> above it means
 the label is 1. We saw that the prediction is not always accurate and
 the data is noisy, so we need to have a number. The number will tell us
@@ -862,7 +783,7 @@ nothing, never make mistakes. The recall is zero, though, as nothing is
 ever found.</p>
 </section>
 <section id="computation-details">
-<h2>Computation details<a class="headerlink" href="#computation-details" title="Link to this heading">#</a></h2>
+<h2>Computation details<a class="headerlink" href="#computation-details" title="Link to this heading">¶</a></h2>
 <p>We want is to calculate precision and recall for every possible score.
 But we can’t cover all possible numbers. Luckily, we don’t need to.
 Because our evaluation dataset is finite, and between the adjacent
@@ -897,23 +818,23 @@ score threshold is at the highest, and we haven’t observed any true
 positives, the recall is zero. At the end, when score threshold is at
 the lowest score, the recall is the number of <em>true positives</em> divided
 by the total number of points with label 1.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>precisions, recalls, thresholds = precision_recall_curve(y_test, y_score)
-thresholds = np.append(thresholds, float(&#39;nan&#39;))
-precisions.shape, recalls.shape, thresholds.shape
-</pre></div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">precisions, recalls, thresholds = precision_recall_curve(y_test, y_score)
+</span><span data-line="2">thresholds = np.append(thresholds, float(&#39;nan&#39;))
+</span><span data-line="3">precisions.shape, recalls.shape, thresholds.shape
+</span></pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">((</span><span class="mi">51</span><span class="p">,),</span> <span class="p">(</span><span class="mi">51</span><span class="p">,),</span> <span class="p">(</span><span class="mi">51</span><span class="p">,))</span>
-</pre></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="p">((</span><span class="mi">51</span><span class="p">,),</span> <span class="p">(</span><span class="mi">51</span><span class="p">,),</span> <span class="p">(</span><span class="mi">51</span><span class="p">,))</span>
+</span></pre></div>
 </div>
 </section>
 <section id="lets-take-a-look">
-<h2>Let’s take a look<a class="headerlink" href="#lets-take-a-look" title="Link to this heading">#</a></h2>
+<h2>Let’s take a look<a class="headerlink" href="#lets-take-a-look" title="Link to this heading">¶</a></h2>
 <p>Okay, that was all good knowledge, thank you very much, but can you show
 me some examples? How about we plot these 3 sequences against each
 other?</p>
 <p>First, all three lines on the same chart.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pandas.DataFrame.from_dict({&#39;$Precision$&#39;: precisions, &#39;$Recall$&#39;: recalls, &#39;$Threshold$&#39;: thresholds}).plot();
-</pre></div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">pandas.DataFrame.from_dict({&#39;$Precision$&#39;: precisions, &#39;$Recall$&#39;: recalls, &#39;$Threshold$&#39;: thresholds}).plot();
+</span></pre></div>
 </div>
 <img alt="../_images/12.64_23_0.png" src="../_images/12.64_23_0.png" />
 <p>Magnificient! But not very helpful. We see that the threshold are just
@@ -922,16 +843,16 @@ the precision starts somewhere around 0.5 and goes up (and sometimes
 down) to 1.0.</p>
 <p>How about we put recall as the X axis, and plot precision and thresholds
 as Y.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pandas.DataFrame.from_dict({&#39;$Precision$&#39;: precisions, &#39;$Recall$&#39;: recalls, &#39;$Threshold$&#39;: thresholds}).plot(x=&#39;$Recall$&#39;);
-</pre></div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">pandas.DataFrame.from_dict({&#39;$Precision$&#39;: precisions, &#39;$Recall$&#39;: recalls, &#39;$Threshold$&#39;: thresholds}).plot(x=&#39;$Recall$&#39;);
+</span></pre></div>
 </div>
 <img alt="../_images/12.64_25_0.png" src="../_images/12.64_25_0.png" />
 <p>Yeah, that’s very close to what scikit plotted for us above. The steps
 are not as pronounced, but that’s fine.</p>
 <p>How about we go crazy and plot both precision and recall against the
 threshold?</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pandas.DataFrame.from_dict({&#39;$Precision$&#39;: precisions, &#39;$Recall$&#39;: recalls, &#39;$Threshold$&#39;: thresholds}).plot(x=&#39;$Threshold$&#39;);
-</pre></div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">pandas.DataFrame.from_dict({&#39;$Precision$&#39;: precisions, &#39;$Recall$&#39;: recalls, &#39;$Threshold$&#39;: thresholds}).plot(x=&#39;$Threshold$&#39;);
+</span></pre></div>
 </div>
 <img alt="../_images/12.64_27_0.png" src="../_images/12.64_27_0.png" />
 <p>The lines cross! What a coincedence (it’s not). Funny, that the
@@ -947,147 +868,54 @@ actually 1.</p>
 </section>
 </section>
 
-
-                </article>
-              
-              
-              
-              
-              
-                <footer class="prev-next-footer d-print-none">
-                  
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="63-100q-open.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">100 questions for Washington state in Aug 2024</p>
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="63-100q-open.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">100 questions for Washington state in Aug 2024</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="65-firefox-reader-solarized-dark.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Solarized Dark Theme for Firefox Reader View</div>
       </div>
+      <i class="i-lucide chevron-right"></i>
     </a>
-    <a class="right-next"
-       href="65-firefox-reader-solarized-dark.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Solarized Dark Theme for Firefox Reader View</p>
+  </div></div>
+        
       </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
-</div>
-                </footer>
-              
-            </div>
-            
-            
-              
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-<div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-well-load-a-small-toy-dataset">First, we’ll load a small toy dataset</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mess-it-up">Mess it up</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#split-to-train-and-test-data">Split to train and test data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boom-weve-got-a-binary-classifier-model">Boom, we’ve got a binary classifier model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lets-build-some-curves">Let’s build some curves</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lets-get-under-the-hood">Let’s get under the hood</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-recall-and-threshold">Precision, recall, and threshold</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#english-please">English, please</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computation-details">Computation details</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lets-take-a-look">Let’s take a look</a></li>
-</ul>
-  </nav></div>
-
-  <div class="sidebar-secondary-item">
-
-  
-  <div class="tocsection editthispage">
-    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/12_articles/64-precision-recall.rst">
-      <i class="fa-solid fa-pencil"></i>
-      
-      
-        
-          Edit on GitHub
-        
-      
-    </a>
-  </div>
-</div>
-
-  <div class="sidebar-secondary-item">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/12_articles/64-precision-recall.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div></div>
-
-</div></div>
-              
-            
-          </div>
-          <footer class="bd-footer-content">
-            
-          </footer>
-        
-      </main>
     </div>
-  </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2022, Peter Demin</p>
   
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
-
-  <footer class="bd-footer">
-<div class="bd-footer__inner bd-page-width">
-  
-    <div class="footer-items__start">
-      
-        <div class="footer-item">
-
-  <p class="copyright">
+  <p>
+    Made with
     
-      © Copyright 2022, Peter Demin.
-      <br/>
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
     
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
   </p>
 </div>
-      
-        <div class="footer-item">
-
-  <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
-    <br/>
-  </p>
-</div>
-      
+      <div class="sy-foot-socials"></div>
     </div>
-  
-  
-  
-    <div class="footer-items__end">
-      
-        <div class="footer-item">
-<p class="theme-version">
-  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
-</p></div>
-      
-    </div>
-  
-</div>
-
-  </footer>
-  </body>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/shibuya.js?v=cac61aee"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script></body>
 </html>

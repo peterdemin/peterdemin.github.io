@@ -1,0 +1,62 @@
+`Oct 31, 2025` - Added [](/17_notes/31-cyberiad.md)
+My next book is going to be "Material World" by Ed Conway, [refered by Mert Bulan](https://mertbulan.com/2025/10/05/my-2025-q3-highlights-favorite-books-and-movies/).
+And after that I'm thinking about "We" by Yevgeny Zamyatin, which was referenced at the end of the Cyberiad.
+
+`Oct 30, 2025` - something more amazing than $0.99 bananas? It’s $0.49 bananas, of course. Same day, no delivery fee. How are they doing it?
+
+`Oct 23, 2025` - [allinurl/goaccess](https://github.com/allinurl/goaccess) - GoAccess is a real-time web log analyzer and interactive viewer that runs in a terminal in *nix systems or through your browser.
+
+`Oct 23, 2025` - Added [](/12_articles/75-replaced-by-AI.md)
+
+`Oct 20, 2025` - [nathan-barry/nathan.rs](https://github.com/nathan-barry/nathan.rs) - My personal site using Hugo for static site generation. My pride and joy.
+
+`Oct 20, 2025` - there’s something inconceivable about same-day delivery for a bunch of bananas for $0.99 with no delivery fee.
+
+`Oct 17, 2025` - At our reception, you’ll be treated to stale, lukewarm coffee and stone-hard bagels accompanied by jams featuring half the periodic table.
+
+`Oct 13, 2025` - [TheLastGimbus/GooglePhotosTakeoutHelper](https://github.com/TheLastGimbus/GooglePhotosTakeoutHelper) - Script that organizes the Google Takeout archive into one big chronological folder
+
+`Oct 12, 2025` - Careless carsales.
+
+`Oct 09, 2025` - I recently learned about Gen Z emojis:
+
+| Emoji                         | Gen Z Meaning                             |
+| ----------------------------- | ----------------------------------------- |
+| 💀 (skull)                    | I'm dying (laughing)                      |
+| 🤡 (clown face)               | You're a clown                            |
+| 😭 (loudly crying)            | Overwhelmed joy / cute overload           |
+| 😅 (grinning face with sweat) | Stressed but okay / sarcastic             |
+| 👍 (thumbs up)                | Passive-aggressive sure / OK              |
+| 🙏 (folded hands)             | Thank you or please / hope so             |
+| 🔥 (fire)                     | Lit / very good / attractive              |
+| 👀 (eyes)                     | I’m watching / tell me more               |
+| 🙃 (upside-down face)         | This is terrible / FML                    |
+| ⏳ (hourglass)                | Hot / attractive                          |
+| 🙂 (slightly smiling)         | Ironic / awkward smile                    |
+| 😲 (shocked combo)            | Shocked / wow                             |
+| 😚 (kissing face)             | Sounds good / ohhh                        |
+| ❤️  (heart)                    | Softening tone — doesn't always mean love |
+| 🤪 (zany face)                | Goofy / weird / silly mood                |
+
+And here's a new addition, that I find more interesting:
+
+👾 (space invader) means "Maybe" because maybe aliens exist.
+
+`Oct 09, 2025` - László Krasznahorkai won the 2025 Nobel prize in literature.
+I've never heard about this author, and never bothered with Nobel prize winners before.
+But this time I thought I take a look.
+The award is honoring Krasznahorkai "for his compelling and visionary oeuvre that, in the midst of apocalyptic terror, reaffirms the power of art."
+You don't find visionary oeuvre lying around every day, so I had to check, and it means "a book" in this case.
+Somewhat devour feculence moment for me.
+
+Here's an excerpt from NPR:
+
+> Satantango, Krasznahorkai's first novel, came out in 1985. It's about a pair of swindlers and a nearly abandoned collective farm. The book was made into a seven-hour movie in 1994. And The Melancholy of Resistance, which is one sentence that runs over 300 pages, is about a strange, ghostly circus appearing in a small town with a giant, dead stuffed whale.
+
+Wow, wow, wow, hold on, what? Okay, I guess, that clarifies a couple moments for me. Mainly, should I ever check again on Nobel prize winners in literature.
+
+`Oct 8, 2025` - Stanislaw Lem explaining ChatGPT in "The Cyberiad":
+
+— What exactly is this Adviser supposed to do?
+
+— It should answer every question, solve every problem, give absolutely the best advice and, in a word, put the greatest wisdom entirely at my disposal.

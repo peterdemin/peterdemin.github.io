@@ -1,0 +1,21 @@
+`Dec 22, 2017` - [peterdemin/spotimover](https://github.com/peterdemin/spotimover) - Move Spotify library between accounts
+
+`Dec 17, 2017` - [josiahcarlson/parse-crontab](https://github.com/josiahcarlson/parse-crontab) - Parse and use crontab schedules in Python
+
+`Nov 24, 2017` - [rgalanakis/hostthedocs](https://github.com/rgalanakis/hostthedocs) - A simple host for static documentation.
+
+`Sep 23, 2017` - [altercation/solarized](https://github.com/altercation/solarized) - precision color scheme for multiple applications (terminal, vim, etc.) with both dark/light modes
+
+`Aug 17, 2017` - [LordAmit/Brightness](https://github.com/LordAmit/Brightness) - Using Brightness Controller, you can control brightness of both primary and external displays in Linux. Check it out!
+
+`May 30, 2017` - [node-red/node-red](https://github.com/node-red/node-red) - Low-code programming for event-driven applications
+
+`May 18, 2017` - [huginn/huginn](https://github.com/huginn/huginn) - Create agents that monitor and act on your behalf.  Your agents are standing by!
+
+`May 04, 2017` - [wroberts/pytimeparse](https://github.com/wroberts/pytimeparse) - A small Python module to parse various kinds of time expressions.
+
+`May 01, 2017` - [psf/cachecontrol](https://github.com/psf/cachecontrol) - The httplib2 caching algorithms packaged up for use with requests.
+
+`Apr 05, 2017` - [kibitzr/kibitzr](https://github.com/kibitzr/kibitzr) - Personal Web Assistant
+
+`Mar 29, 2017` - [pyeve/cerberus](https://github.com/pyeve/cerberus) - Lightweight, extensible data validation library for Python

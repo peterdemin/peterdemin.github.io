@@ -1,277 +1,198 @@
-
 <!DOCTYPE html>
-
-
-<html lang="en" data-content_root="../" >
-
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <title>Macy’s stock seasonality &#8212; Peter Demin</title>
-  
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
-  </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
-  
-  <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+<html lang="en" data-accent-color="violet" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Macy’s stock seasonality - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Tree Clip" href="61-tree.html" /><link rel="prev" title="Cooling Water with Ice" href="59-iced-water.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=44020203" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=86f57b9a" />
-  
-  <!-- So that users can add custom icons -->
-  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
-
-    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '12_articles/60-M';</script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Tree Clip" href="61-tree.html" />
-    <link rel="prev" title="Cooling Water with Ice" href="59-iced-water.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="Macy’s stock seasonality"/>
+    <meta name="twitter:card" content="summary"/>
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
-  
-  
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
-  
-  <dialog id="pst-search-dialog">
-    
-<form class="bd-search d-flex align-items-center"
-      action="../search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         placeholder="Search the docs ..."
-         aria-label="Search the docs ..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
-</div>
-
-  
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-<div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
-    <span class="fa-solid fa-bars"></span>
-  </button>
-  
-  
-  <div class="col-lg-3 navbar-header-items__start">
-    
-      <div class="navbar-item">
-
-  
-    
-  
-
-<a class="navbar-brand logo" href="../index.html">
-  
-  
-  
-  
-  
-  
-    <p class="title logo__title">Peter Demin</p>
-  
-</a></div>
-    
-  </div>
-  
-  <div class="col-lg-9 navbar-header-items">
-    
-    
-    <div class="navbar-header-items__end">
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
       
-        <div class="navbar-item navbar-persistent--container">
-          
-
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button>
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
         </div>
-      
-      
+      </button>
     </div>
-    
   </div>
-  
-  
-    <div class="navbar-persistent--mobile">
-
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button>
-    </div>
-  
-
-  
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
-      <span class="fa-solid fa-outdent"></span>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
     </button>
-  
-</div>
-
-    </header>
-  
-
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
-      
-      
-      
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
-        
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#background">Background</a></li>
+<li><a class="reference internal" href="#imports-constants">Imports &amp; Constants</a></li>
+<li><a class="reference internal" href="#download-s-p-500-stock-prices-history-as-a-csv-and-parse-the-date">Download S&amp;P 500 stock prices history as a CSV and parse the date</a></li>
+<li><a class="reference internal" href="#download-the-target-stock-m-prices-history-and-parse-the-date">Download the target stock (M) prices history and parse the date</a></li>
+<li><a class="reference internal" href="#merge-the-two-datasets-using-date">Merge the two datasets using date</a></li>
+<li><a class="reference internal" href="#square-up-the-data">Square up the data</a></li>
+<li><a class="reference internal" href="#plot">Plot</a></li>
+<li><a class="reference internal" href="#download-the-m-prices-history-with-1-minute-precision">Download the M prices history with 1-minute precision</a></li>
+<li><a class="reference internal" href="#hypothesis-1">Hypothesis 1</a></li>
+<li><a class="reference internal" href="#hypothesis-2">Hypothesis 2</a></li>
+</ul>
+</div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
+  data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </span>
+  <span class="flex-grow px-2 break-all">
     
     
+      <span>peterdemin.github.io</span>
     
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-<nav class="bd-docs-nav bd-links"
-     aria-label="Section Navigation">
-  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"></div>
-</nav></div>
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <iconify-icon icon="lucide:star"></iconify-icon>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <iconify-icon icon="lucide:git-fork"></iconify-icon>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/peterdemin/peterdemin.github.io/blob/master/source/12_articles/60-M.rst">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
     </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
-  </div>
-
-
-      </div>
-      
-      <main id="main-content" class="bd-main" role="main">
-        
-        
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article d-print-none">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item">
-
-<nav aria-label="Breadcrumb" class="d-print-none">
-  <ul class="bd-breadcrumbs">
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
     
-    <li class="breadcrumb-item breadcrumb-home">
-      <a href="../index.html" class="nav-link" aria-label="Home">
-        <i class="fa-solid fa-home"></i>
-      </a>
-    </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Macy’s stock seasonality</span></li>
-  </ul>
-</nav>
-</div>
-      
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
     </div>
-  
-  
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Macy’s stock seasonality</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
 </div>
-</div>
-              
-              
-              
-                
-<div id="searchbox"></div>
-                <article class="bd-article">
-                  
-  <section id="macy-s-stock-seasonality">
-<h1>Macy’s stock seasonality<a class="headerlink" href="#macy-s-stock-seasonality" title="Link to this heading">#</a></h1>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/60-M.rst.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/60-M.rst.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/60-M.rst.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:code-slash"></iconify-icon>
+            <span>View Source</span></a><a role="menuitem" href="https://chatgpt.com/?hints=search&q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/60-M.rst.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:openai"></iconify-icon>
+          <span>Open in ChatGPT</span>
+        </a><a role="menuitem" href="https://claude.ai/new?q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/60-M.rst.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:claude"></iconify-icon>
+          <span>Open in Claude</span>
+        </a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="macy-s-stock-seasonality">
+<h1>Macy’s stock seasonality<a class="headerlink" href="#macy-s-stock-seasonality" title="Link to this heading">¶</a></h1>
 <section id="background">
-<h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
+<h2>Background<a class="headerlink" href="#background" title="Link to this heading">¶</a></h2>
 <p>I noticed that in the last few years, Macy’s stock has been growing around the Thanksgiving season, which aligns with makes sense, since that’s where Americans buy their presents.
 I wanted to do a little more math than just eye-balling the chart.
 Below is an export from Jupyter Notebook that I used to analyze daily stock prices for Macy’s in the range from October to December from 2015 to 2023.</p>
 </section>
 <section id="imports-constants">
-<h2>Imports &amp; Constants<a class="headerlink" href="#imports-constants" title="Link to this heading">#</a></h2>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import pandas
-import matplotlib.pyplot as plt
-</pre></div>
+<h2>Imports &amp; Constants<a class="headerlink" href="#imports-constants" title="Link to this heading">¶</a></h2>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">import pandas
+</span><span data-line="2">import matplotlib.pyplot as plt
+</span></pre></div>
 </div>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Inclusive range for dicing
-YEARS = (2015, 2023)
-MONTHS = (10, 12)
-</pre></div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"># Inclusive range for dicing
+</span><span data-line="2">YEARS = (2015, 2023)
+</span><span data-line="3">MONTHS = (10, 12)
+</span></pre></div>
 </div>
 </section>
 <section id="download-s-p-500-stock-prices-history-as-a-csv-and-parse-the-date">
-<h2>Download S&amp;P 500 stock prices history as a CSV and parse the date<a class="headerlink" href="#download-s-p-500-stock-prices-history-as-a-csv-and-parse-the-date" title="Link to this heading">#</a></h2>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># https://www.nasdaq.com/market-activity/index/spx/historical?page=102&amp;rows_per_page=25&amp;timeline=y10
-spx = pandas.read_csv(&#39;60-SPX.csv&#39;)
-spx = spx.reindex(index=spx.index[::-1])
-spx = spx.reset_index(drop=True)
-del spx[&#39;Open&#39;]
-del spx[&#39;Close/Last&#39;]
-spx[&#39;Year&#39;] = spx[&#39;Date&#39;].str.split(&#39;/&#39;, expand=True)[2].astype(int)
-spx[&#39;Month&#39;] = spx[&#39;Date&#39;].str.split(&#39;/&#39;, expand=True)[0].astype(int)
-spx[&#39;Day&#39;] = spx[&#39;Date&#39;].str.split(&#39;/&#39;, expand=True)[1].astype(int)
-spx
-</pre></div>
+<h2>Download S&amp;P 500 stock prices history as a CSV and parse the date<a class="headerlink" href="#download-s-p-500-stock-prices-history-as-a-csv-and-parse-the-date" title="Link to this heading">¶</a></h2>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"># https://www.nasdaq.com/market-activity/index/spx/historical?page=102&amp;rows_per_page=25&amp;timeline=y10
+</span><span data-line="2">spx = pandas.read_csv(&#39;60-SPX.csv&#39;)
+</span><span data-line="3">spx = spx.reindex(index=spx.index[::-1])
+</span><span data-line="4">spx = spx.reset_index(drop=True)
+</span><span data-line="5">del spx[&#39;Open&#39;]
+</span><span data-line="6">del spx[&#39;Close/Last&#39;]
+</span><span data-line="7">spx[&#39;Year&#39;] = spx[&#39;Date&#39;].str.split(&#39;/&#39;, expand=True)[2].astype(int)
+</span><span data-line="8">spx[&#39;Month&#39;] = spx[&#39;Date&#39;].str.split(&#39;/&#39;, expand=True)[0].astype(int)
+</span><span data-line="9">spx[&#39;Day&#39;] = spx[&#39;Date&#39;].str.split(&#39;/&#39;, expand=True)[1].astype(int)
+</span><span data-line="10">spx
+</span></pre></div>
 </div>
 <div>
 <style scoped>
@@ -404,32 +325,32 @@ spx
 <p>2528 rows × 6 columns</p>
 </div></section>
 <section id="download-the-target-stock-m-prices-history-and-parse-the-date">
-<h2>Download the target stock (M) prices history and parse the date<a class="headerlink" href="#download-the-target-stock-m-prices-history-and-parse-the-date" title="Link to this heading">#</a></h2>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># https://finance.yahoo.com/quote/M/history/
-prices = pandas.read_csv(&#39;60-M.csv&#39;)
-
-del prices[&#39;Open&#39;]
-del prices[&#39;Close&#39;]
-del prices[&#39;Adj Close&#39;]
-del prices[&#39;Volume&#39;]
-prices[&#39;Year&#39;] = prices[&#39;Date&#39;].str.split(&#39;-&#39;, expand=True)[0].astype(int)
-prices[&#39;Month&#39;] = prices[&#39;Date&#39;].str.split(&#39;-&#39;, expand=True)[1].astype(int)
-prices[&#39;Day&#39;] = prices[&#39;Date&#39;].str.split(&#39;-&#39;, expand=True)[2].astype(int)
-</pre></div>
+<h2>Download the target stock (M) prices history and parse the date<a class="headerlink" href="#download-the-target-stock-m-prices-history-and-parse-the-date" title="Link to this heading">¶</a></h2>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"># https://finance.yahoo.com/quote/M/history/
+</span><span data-line="2">prices = pandas.read_csv(&#39;60-M.csv&#39;)
+</span><span data-line="3">
+</span><span data-line="4">del prices[&#39;Open&#39;]
+</span><span data-line="5">del prices[&#39;Close&#39;]
+</span><span data-line="6">del prices[&#39;Adj Close&#39;]
+</span><span data-line="7">del prices[&#39;Volume&#39;]
+</span><span data-line="8">prices[&#39;Year&#39;] = prices[&#39;Date&#39;].str.split(&#39;-&#39;, expand=True)[0].astype(int)
+</span><span data-line="9">prices[&#39;Month&#39;] = prices[&#39;Date&#39;].str.split(&#39;-&#39;, expand=True)[1].astype(int)
+</span><span data-line="10">prices[&#39;Day&#39;] = prices[&#39;Date&#39;].str.split(&#39;-&#39;, expand=True)[2].astype(int)
+</span></pre></div>
 </div>
 </section>
 <section id="merge-the-two-datasets-using-date">
-<h2>Merge the two datasets using date<a class="headerlink" href="#merge-the-two-datasets-using-date" title="Link to this heading">#</a></h2>
+<h2>Merge the two datasets using date<a class="headerlink" href="#merge-the-two-datasets-using-date" title="Link to this heading">¶</a></h2>
 <p>Discard any rows with incomplete data</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df = pandas.merge(spx, prices, on=[&#39;Year&#39;, &#39;Month&#39;, &#39;Day&#39;], how=&#39;inner&#39;, suffixes=(&#39;Spx&#39;, &#39;Stock&#39;))
-df = df[(YEARS[0] &lt;= df.Year) &amp; (df.Year &lt;= YEARS[1]) &amp; (MONTHS[0] &lt;= df.Month) &amp; (df.Month &lt;= MONTHS[1])]
-df[&#39;didx&#39;] = [
-    d
-    for year in range(YEARS[0], YEARS[1] + 1)
-    for d in range((df.Year == year).sum())
-]
-df.describe()
-</pre></div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">df = pandas.merge(spx, prices, on=[&#39;Year&#39;, &#39;Month&#39;, &#39;Day&#39;], how=&#39;inner&#39;, suffixes=(&#39;Spx&#39;, &#39;Stock&#39;))
+</span><span data-line="2">df = df[(YEARS[0] &lt;= df.Year) &amp; (df.Year &lt;= YEARS[1]) &amp; (MONTHS[0] &lt;= df.Month) &amp; (df.Month &lt;= MONTHS[1])]
+</span><span data-line="3">df[&#39;didx&#39;] = [
+</span><span data-line="4">    d
+</span><span data-line="5">    for year in range(YEARS[0], YEARS[1] + 1)
+</span><span data-line="6">    for d in range((df.Year == year).sum())
+</span><span data-line="7">]
+</span><span data-line="8">df.describe()
+</span></pre></div>
 </div>
 <div>
 <style scoped>
@@ -552,18 +473,18 @@ df.describe()
 </table>
 </div></section>
 <section id="square-up-the-data">
-<h2>Square up the data<a class="headerlink" href="#square-up-the-data" title="Link to this heading">#</a></h2>
+<h2>Square up the data<a class="headerlink" href="#square-up-the-data" title="Link to this heading">¶</a></h2>
 <p>We want to plot several years on the same chart, so let’s trim the
 excess. For all the covered years find the smallest last day index.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>years = list(range(min(df.Year), max(df.Year) + 1))
-max_didx = min(max(df[df.Year==year].didx) for year in years)
-min_didx = max(min(df[df.Year==year].didx) for year in years)
-didxs = list(range(min_didx, max_didx + 1))
-</pre></div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">years = list(range(min(df.Year), max(df.Year) + 1))
+</span><span data-line="2">max_didx = min(max(df[df.Year==year].didx) for year in years)
+</span><span data-line="3">min_didx = max(min(df[df.Year==year].didx) for year in years)
+</span><span data-line="4">didxs = list(range(min_didx, max_didx + 1))
+</span></pre></div>
 </div>
 </section>
 <section id="plot">
-<h2>Plot<a class="headerlink" href="#plot" title="Link to this heading">#</a></h2>
+<h2>Plot<a class="headerlink" href="#plot" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>The stock price deviations for the selected months range over the
 selected years.</p></li>
@@ -573,44 +494,44 @@ selected years.</p></li>
 <p>Note that we plot percentage changes of the stock from the first day of
 the season. On day one all prices are at 0%, and then for each year they
 deviate.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def convert_to_season(df, y, years, didxs):
-    base = dict(zip(df.Year[df.didx==0], y[df.didx==0]))
-    return pandas.DataFrame(
-        [
-            [
-                (y[(df.Year==year) &amp; (df.didx==didx)].iloc[0] - base[year]) * 100 / base[year]
-                for year in years
-            ]
-            for didx in didxs
-        ],
-        columns=map(str, years)
-    )
-
-stock_seasons = convert_to_season(df, df.LowStock, years, didxs)
-spx_seasons = convert_to_season(df, df.LowSpx, years, didxs)
-stock_seasons.plot()
-spx_seasons.plot()
-(stock_seasons - spx_seasons).plot();
-</pre></div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">def convert_to_season(df, y, years, didxs):
+</span><span data-line="2">    base = dict(zip(df.Year[df.didx==0], y[df.didx==0]))
+</span><span data-line="3">    return pandas.DataFrame(
+</span><span data-line="4">        [
+</span><span data-line="5">            [
+</span><span data-line="6">                (y[(df.Year==year) &amp; (df.didx==didx)].iloc[0] - base[year]) * 100 / base[year]
+</span><span data-line="7">                for year in years
+</span><span data-line="8">            ]
+</span><span data-line="9">            for didx in didxs
+</span><span data-line="10">        ],
+</span><span data-line="11">        columns=map(str, years)
+</span><span data-line="12">    )
+</span><span data-line="13">
+</span><span data-line="14">stock_seasons = convert_to_season(df, df.LowStock, years, didxs)
+</span><span data-line="15">spx_seasons = convert_to_season(df, df.LowSpx, years, didxs)
+</span><span data-line="16">stock_seasons.plot()
+</span><span data-line="17">spx_seasons.plot()
+</span><span data-line="18">(stock_seasons - spx_seasons).plot();
+</span></pre></div>
 </div>
 <img alt="../_images/12.60.0.png" src="../_images/12.60.0.png" />
 <img alt="../_images/12.60.1.png" src="../_images/12.60.1.png" />
 <img alt="../_images/12.60.2.png" src="../_images/12.60.2.png" />
 </section>
 <section id="download-the-m-prices-history-with-1-minute-precision">
-<h2>Download the M prices history with 1-minute precision<a class="headerlink" href="#download-the-m-prices-history-with-1-minute-precision" title="Link to this heading">#</a></h2>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># https://lime.co/market-data-source/#i5z6wk
-prices = pandas.read_csv(&#39;60-M-1m.csv&#39;, delimiter=&#39;;&#39;)
-
-for column in (&#39;ticker&#39;, &#39;open&#39;, &#39;high&#39;, &#39;low&#39;, &#39;volume&#39;):
-    del prices[column]
-prices[&#39;Year&#39;] = prices[&#39;date&#39;].str.split(&#39;/&#39;, expand=True)[2].astype(int)
-prices[&#39;Month&#39;] = prices[&#39;date&#39;].str.split(&#39;/&#39;, expand=True)[0].astype(int)
-prices[&#39;Day&#39;] = prices[&#39;date&#39;].str.split(&#39;/&#39;, expand=True)[1].astype(int)
-prices[&#39;Hour&#39;] = prices[&#39;time&#39;].str.split(&#39;:&#39;, expand=True)[0].astype(int)
-prices[&#39;Minute&#39;] = prices[&#39;time&#39;].str.split(&#39;:&#39;, expand=True)[1].astype(int)
-prices
-</pre></div>
+<h2>Download the M prices history with 1-minute precision<a class="headerlink" href="#download-the-m-prices-history-with-1-minute-precision" title="Link to this heading">¶</a></h2>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"># https://lime.co/market-data-source/#i5z6wk
+</span><span data-line="2">prices = pandas.read_csv(&#39;60-M-1m.csv&#39;, delimiter=&#39;;&#39;)
+</span><span data-line="3">
+</span><span data-line="4">for column in (&#39;ticker&#39;, &#39;open&#39;, &#39;high&#39;, &#39;low&#39;, &#39;volume&#39;):
+</span><span data-line="5">    del prices[column]
+</span><span data-line="6">prices[&#39;Year&#39;] = prices[&#39;date&#39;].str.split(&#39;/&#39;, expand=True)[2].astype(int)
+</span><span data-line="7">prices[&#39;Month&#39;] = prices[&#39;date&#39;].str.split(&#39;/&#39;, expand=True)[0].astype(int)
+</span><span data-line="8">prices[&#39;Day&#39;] = prices[&#39;date&#39;].str.split(&#39;/&#39;, expand=True)[1].astype(int)
+</span><span data-line="9">prices[&#39;Hour&#39;] = prices[&#39;time&#39;].str.split(&#39;:&#39;, expand=True)[0].astype(int)
+</span><span data-line="10">prices[&#39;Minute&#39;] = prices[&#39;time&#39;].str.split(&#39;:&#39;, expand=True)[1].astype(int)
+</span><span data-line="11">prices
+</span></pre></div>
 </div>
 <div>
 <style scoped>
@@ -767,30 +688,30 @@ prices
 <p>31731 rows × 8 columns</p>
 </div></section>
 <section id="hypothesis-1">
-<h2>Hypothesis 1<a class="headerlink" href="#hypothesis-1" title="Link to this heading">#</a></h2>
+<h2>Hypothesis 1<a class="headerlink" href="#hypothesis-1" title="Link to this heading">¶</a></h2>
 <p>When Macy’s stock spikes in the morning by at least 20c, it slides down
 in the evening by at least 10c.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def analyze_day(date: str, df: list[float]) -&gt; tuple:
-    open_price = df[(df.Hour==6) &amp; (df.Minute==30)].close.iloc[0]
-    morning_spike = max(df[df.Hour &lt;= 6].close)
-    day_decline = min(df[(df.Hour &gt;= 8) &amp; (df.Hour &lt;= 11)].close)
-    return open_price, morning_spike, day_decline, (morning_spike - open_price), (morning_spike - day_decline)
-
-data = []
-for date in set(prices[&#39;date&#39;]):
-    data.append([date, *analyze_day(date, prices[prices.date == date])])
-# Spike-decline
-sd = pandas.DataFrame(data, columns=(&#39;date&#39;, &#39;open_price&#39;, &#39;morning_spike&#39;, &#39;day_decline&#39;, &#39;spike&#39;, &#39;decline&#39;))
-</pre></div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">def analyze_day(date: str, df: list[float]) -&gt; tuple:
+</span><span data-line="2">    open_price = df[(df.Hour==6) &amp; (df.Minute==30)].close.iloc[0]
+</span><span data-line="3">    morning_spike = max(df[df.Hour &lt;= 6].close)
+</span><span data-line="4">    day_decline = min(df[(df.Hour &gt;= 8) &amp; (df.Hour &lt;= 11)].close)
+</span><span data-line="5">    return open_price, morning_spike, day_decline, (morning_spike - open_price), (morning_spike - day_decline)
+</span><span data-line="6">
+</span><span data-line="7">data = []
+</span><span data-line="8">for date in set(prices[&#39;date&#39;]):
+</span><span data-line="9">    data.append([date, *analyze_day(date, prices[prices.date == date])])
+</span><span data-line="10"># Spike-decline
+</span><span data-line="11">sd = pandas.DataFrame(data, columns=(&#39;date&#39;, &#39;open_price&#39;, &#39;morning_spike&#39;, &#39;day_decline&#39;, &#39;spike&#39;, &#39;decline&#39;))
+</span></pre></div>
 </div>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>len(sd[(sd.spike &gt; 0.2)]), len(sd[(sd.spike &gt; 0.2) &amp; (sd.decline &gt; 0.1)])
-</pre></div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">len(sd[(sd.spike &gt; 0.2)]), len(sd[(sd.spike &gt; 0.2) &amp; (sd.decline &gt; 0.1)])
+</span></pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
-</pre></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+</span></pre></div>
 </div>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sd[(sd.spike &gt; 0.2) &amp; (sd.decline &gt; 0.1)][:5]
-</pre></div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">sd[(sd.spike &gt; 0.2) &amp; (sd.decline &gt; 0.1)][:5]
+</span></pre></div>
 </div>
 <div>
 <style scoped>
@@ -866,200 +787,107 @@ sd = pandas.DataFrame(data, columns=(&#39;date&#39;, &#39;open_price&#39;, &#39;
     </tr>
   </tbody>
 </table>
-</div><div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
-
-positive_days = sd[(sd.spike &gt; 0.2) &amp; (sd.decline &gt; 0.1)]
-negative_days = sd[(sd.spike &gt; 0.2) &amp; (sd.decline &lt;= 0.1)]
-</pre></div>
+</div><div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">import matplotlib.pyplot as plt
+</span><span data-line="2">
+</span><span data-line="3">positive_days = sd[(sd.spike &gt; 0.2) &amp; (sd.decline &gt; 0.1)]
+</span><span data-line="4">negative_days = sd[(sd.spike &gt; 0.2) &amp; (sd.decline &lt;= 0.1)]
+</span></pre></div>
 </div>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def plot_samples(days, prices, count=5):
-    fig, axes = plt.subplots(nrows=count, ncols=1, figsize=(10, 10))
-
-    for i in range(count):
-        day = days.iloc[i]
-        date = day.date
-        prices[prices.date == date].close.plot(ax=axes[i])
-        axes[i].axhline(y=day.morning_spike, color=&#39;red&#39;, linestyle=&#39;--&#39;)
-        axes[i].axhline(y=day.day_decline, color=&#39;green&#39;, linestyle=&#39;--&#39;)
-
-plot_samples(positive_days, prices)
-</pre></div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">def plot_samples(days, prices, count=5):
+</span><span data-line="2">    fig, axes = plt.subplots(nrows=count, ncols=1, figsize=(10, 10))
+</span><span data-line="3">
+</span><span data-line="4">    for i in range(count):
+</span><span data-line="5">        day = days.iloc[i]
+</span><span data-line="6">        date = day.date
+</span><span data-line="7">        prices[prices.date == date].close.plot(ax=axes[i])
+</span><span data-line="8">        axes[i].axhline(y=day.morning_spike, color=&#39;red&#39;, linestyle=&#39;--&#39;)
+</span><span data-line="9">        axes[i].axhline(y=day.day_decline, color=&#39;green&#39;, linestyle=&#39;--&#39;)
+</span><span data-line="10">
+</span><span data-line="11">plot_samples(positive_days, prices)
+</span></pre></div>
 </div>
 <img alt="../_images/12.60.3.png" src="../_images/12.60.3.png" />
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot_samples(negative_days, prices)
-</pre></div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">plot_samples(negative_days, prices)
+</span></pre></div>
 </div>
 <img alt="../_images/12.60.4.png" src="../_images/12.60.4.png" />
 </section>
 <section id="hypothesis-2">
-<h2>Hypothesis 2<a class="headerlink" href="#hypothesis-2" title="Link to this heading">#</a></h2>
+<h2>Hypothesis 2<a class="headerlink" href="#hypothesis-2" title="Link to this heading">¶</a></h2>
 <p>If you sell at high point before 11 AM, you can buy back by the end of
 day at least 10c lower price.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def analyze_day(date: str, df: list[float]) -&gt; tuple:
-    prices = list(df.close)
-    open_price = prices[0]
-    high_price = max(df[df.Hour &lt;= 8].close)
-    close_price = prices[-1]
-    open_delta = high_price - open_price
-    close_delta = high_price - close_price
-    day_delta = close_price - open_price
-    return [high_price - close_price, close_price - open_price]
-
-data = []
-for date in set(prices[&#39;date&#39;]):
-    data.append([date, *analyze_day(date, prices[prices.date == date])])
-chart = pandas.DataFrame(data, columns=(&#39;date&#39;, &#39;play&#39;, &#39;nothing&#39;))
-chart.plot()
-len(chart[chart.play - 0.2 &gt; chart.nothing]) / len(chart)
-</pre></div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">def analyze_day(date: str, df: list[float]) -&gt; tuple:
+</span><span data-line="2">    prices = list(df.close)
+</span><span data-line="3">    open_price = prices[0]
+</span><span data-line="4">    high_price = max(df[df.Hour &lt;= 8].close)
+</span><span data-line="5">    close_price = prices[-1]
+</span><span data-line="6">    open_delta = high_price - open_price
+</span><span data-line="7">    close_delta = high_price - close_price
+</span><span data-line="8">    day_delta = close_price - open_price
+</span><span data-line="9">    return [high_price - close_price, close_price - open_price]
+</span><span data-line="10">
+</span><span data-line="11">data = []
+</span><span data-line="12">for date in set(prices[&#39;date&#39;]):
+</span><span data-line="13">    data.append([date, *analyze_day(date, prices[prices.date == date])])
+</span><span data-line="14">chart = pandas.DataFrame(data, columns=(&#39;date&#39;, &#39;play&#39;, &#39;nothing&#39;))
+</span><span data-line="15">chart.plot()
+</span><span data-line="16">len(chart[chart.play - 0.2 &gt; chart.nothing]) / len(chart)
+</span></pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.524390243902439</span>
-</pre></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="mf">0.524390243902439</span>
+</span></pre></div>
 </div>
 <img alt="../_images/12.60.5.png" src="../_images/12.60.5.png" />
 </section>
 </section>
 
-
-                </article>
-              
-              
-              
-              
-              
-                <footer class="prev-next-footer d-print-none">
-                  
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="59-iced-water.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Cooling Water with Ice</p>
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="59-iced-water.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Cooling Water with Ice</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="61-tree.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Tree Clip</div>
       </div>
+      <i class="i-lucide chevron-right"></i>
     </a>
-    <a class="right-next"
-       href="61-tree.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Tree Clip</p>
+  </div></div>
+        
       </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
-</div>
-                </footer>
-              
-            </div>
-            
-            
-              
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-<div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imports-constants">Imports &amp; Constants</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-s-p-500-stock-prices-history-as-a-csv-and-parse-the-date">Download S&amp;P 500 stock prices history as a CSV and parse the date</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-the-target-stock-m-prices-history-and-parse-the-date">Download the target stock (M) prices history and parse the date</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merge-the-two-datasets-using-date">Merge the two datasets using date</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#square-up-the-data">Square up the data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot">Plot</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-the-m-prices-history-with-1-minute-precision">Download the M prices history with 1-minute precision</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hypothesis-1">Hypothesis 1</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hypothesis-2">Hypothesis 2</a></li>
-</ul>
-  </nav></div>
-
-  <div class="sidebar-secondary-item">
-
-  
-  <div class="tocsection editthispage">
-    <a href="https://github.com/peterdemin/peterdemin.github.io/edit/master/source/12_articles/60-M.rst">
-      <i class="fa-solid fa-pencil"></i>
-      
-      
-        
-          Edit on GitHub
-        
-      
-    </a>
-  </div>
-</div>
-
-  <div class="sidebar-secondary-item">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/12_articles/60-M.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div></div>
-
-</div></div>
-              
-            
-          </div>
-          <footer class="bd-footer-content">
-            
-          </footer>
-        
-      </main>
     </div>
-  </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2022, Peter Demin</p>
   
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
-
-  <footer class="bd-footer">
-<div class="bd-footer__inner bd-page-width">
-  
-    <div class="footer-items__start">
-      
-        <div class="footer-item">
-
-  <p class="copyright">
+  <p>
+    Made with
     
-      © Copyright 2022, Peter Demin.
-      <br/>
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
     
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
   </p>
 </div>
-      
-        <div class="footer-item">
-
-  <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
-    <br/>
-  </p>
-</div>
-      
+      <div class="sy-foot-socials"></div>
     </div>
-  
-  
-  
-    <div class="footer-items__end">
-      
-        <div class="footer-item">
-<p class="theme-version">
-  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
-</p></div>
-      
-    </div>
-  
-</div>
-
-  </footer>
-  </body>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/shibuya.js?v=cac61aee"></script></body>
 </html>

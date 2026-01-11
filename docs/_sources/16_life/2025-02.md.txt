@@ -1,0 +1,49 @@
+`Feb 28, 2025` - Cool sketching video: https://www.youtube.com/watch?v=uFyc3orK6cs
+
+`Feb 24, 2025` - [tmiland/pgbackup](https://github.com/tmiland/pgbackup) - Automated PostgreSQL Backup on Linux
+
+`Feb 14, 2025` - TIL Talos Group of Cisco has 64 open-source repos on GitHub: https://github.com/Cisco-Talos.
+Most prominent is [ClamAV](https://github.com/Cisco-Talos/clamav) - the [only](https://en.wikipedia.org/wiki/Comparison_of_antivirus_software) open source anti-virus toolkit.
+Of course it wasn't originated inside of Cisco.
+And it wasn't even the first acquisition.
+And Talos Group is kinda independent company under Cisco umbrella (based in Maryland, by the way).
+But still, I find this to be a cool piece of trivia.
+
+`Feb 13, 2025` - Sad [resignation letter](https://marcan.st/2025/02/resigning-as-asahi-linux-project-lead/) from Asahi Linux maintainer.
+I've never used or heard about Asahi Linux before.
+Or never cared about running Linux on Apple hardware, since MacOS is close enough to Linux for my uses.
+But the letter clicked with me of a few topics.
+
+One is, [hell is other people](https://en.wikipedia.org/wiki/Hell_Is_Other_People), including OSS.
+I love open-source, and most of my hobby projects are public.
+But not many of them see much external contribution.
+The most joy I get is when I'm heads-down working on them, not when I try to align with strangers.
+
+Another is [Conway's Law](https://en.wikipedia.org/wiki/Conway%27s_law):
+
+> [O]rganizations which design systems (in the broad sense used here) are constrained to produce designs which are copies of the communication structures of these organizations.
+
+I see open-source as a great organizational structure to run software projects.
+But it's still prone to the problems, that any human community has.
+I still wonder, though, can open-source projects governance be tweaked in ways, to solve it?..
+
+`Feb 13, 2025` - This is gold:
+
+> [Rational ignorance](https://en.wikipedia.org/wiki/Rational_ignorance) is refraining from acquiring knowledge when the supposed cost of educating oneself on an issue exceeds the expected potential benefit that the knowledge would provide.
+
+I've done it to so many topics, and had hard time explaining why exactly even to myself.
+Religion, politics, Android development, serverless, etc.
+So many things where I see the low value without having putting 1% effort into study.
+Of course, there are things that I ignore out of laziness and arrogance as well. But that's off-topic.
+
+`Feb 12, 2025` - The topic that comes up from time to time is how frustrating the visa/greencard situation is.
+People wait for years or decades for a process that's purpose is to wait.
+The system is run by people who are citizens and have no empathy to the people who are their customers.
+In fact, I don't think they're considering their applicants as customers at all.
+The system is a poorly masked adversarial filter.
+
+Another adversarial filter I and many people in my social circle interact with a lot is technical interviews for software engineers.
+I'm not gonna say anything new regarding how frustrating and annoying the common process is.
+What's interesting, though, is that being on the other side, interviewing other people, I get zero motivation to tweak the process to get feedback.
+
+`Feb 12, 2025` - ```.: not enough arguments```

@@ -1,0 +1,24 @@
+`Apr 30, 2025` - This [article about AI cheating in tech interviews](https://newsletter.pragmaticengineer.com/p/tech-hiring-inflection-point)
+made be think how tech sector *remote-possible* in 2000s, *remote-friendly* in 2010s, then *remote-ubiquitous* in 2020s.
+The rise of AI-based products for cheating in the remote interviews driven by the demand moves us into a new era of *remote-fraudulent* starting around 2025.
+
+`Apr 27, 2025` - overwheLLMed. Courtesy of https://worksonmymachine.substack.com/p/the-coming-knowledge-work-supply
+
+`Apr 27, 2025` - I keep catching myself at the thought of inevitable decline.
+Am I at my peak? Or am I past it? Is it only downhill ahead?
+I think I can't find a breaking point because there's so many aspects to be considered.
+Like cognitive decline, that starts at twenty one, but is balanced out by growing pattern matching library.
+The shrinking breadth of opportunities, countered by accumulated wealth.
+
+`Apr 26, 2025` - Three rules of the playground:
+
+1. No dying.
+2. No breaking bones.
+3. No fighting.
+
+`Apr 03, 2025` - [camel-ai/owl](https://github.com/camel-ai/owl) - 🦉 OWL: Optimized Workforce Learning for General Multi-Agent Assistance in Real-World Task Automation
+
+`Apr 03, 2025` - Added [](/12_articles/71-rss-feed.md)
+
+`Apr 02, 2025` - TIL about [Happy Eyeballs](https://en.wikipedia.org/wiki/Happy_Eyeballs) - the weirdest name for trying to connect to IPv4 and IPv6 addresses simultaneously to reduce the request time in case one of them is not accessible.
+They call it an "algorithm", and it has dedicated libraries, like [aiohappyeyeballs](https://github.com/aio-libs/aiohappyeyeballs) 👏

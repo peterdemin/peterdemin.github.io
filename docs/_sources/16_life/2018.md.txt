@@ -1,0 +1,73 @@
+`Dec 19, 2018` - [opsmop/opsmop](https://github.com/opsmop/opsmop) - DISCONTINUED: permanent copy of fork lives at github.com/mpdehaan/opsmop
+
+`Dec 03, 2018` - [pypa/pipx](https://github.com/pypa/pipx) - Install and Run Python Applications in Isolated Environments
+
+`Nov 28, 2018` - [heynickc/awesome-ddd](https://github.com/heynickc/awesome-ddd) - A curated list of Domain-Driven Design (DDD), Command Query Responsibility Segregation (CQRS), Event Sourcing, and Event Storming resources
+
+`Nov 26, 2018` - [jlhutch/pylru](https://github.com/jlhutch/pylru) - A least recently used (LRU) cache for Python
+
+`Nov 17, 2018` - [mherrmann/fbs](https://github.com/mherrmann/fbs) - Create Python GUIs with Qt in minutes
+
+`Nov 06, 2018` - [reisepass/email-verifier](https://github.com/reisepass/email-verifier) - SOCKS proxy enabled Email Verifier
+
+`Nov 02, 2018` - [secdev/scapy](https://github.com/secdev/scapy) - Scapy: the Python-based interactive packet manipulation program & library.
+
+`Oct 09, 2018` - [dropbox/stone](https://github.com/dropbox/stone) - The Official API Spec Language for Dropbox API V2
+
+`Sep 30, 2018` - [un33k/python-slugify](https://github.com/un33k/python-slugify) - Returns unicode slugs
+
+`Sep 12, 2018` - [kibitzr/kibitzr-sentry](https://github.com/kibitzr/kibitzr-sentry) - Send errors from Kibitzr checks to Sentry.
+
+`Sep 10, 2018` - [ycm-core/YouCompleteMe](https://github.com/ycm-core/YouCompleteMe) - A code-completion engine for Vim
+
+`Aug 27, 2018` - [glideapps/quicktype](https://github.com/glideapps/quicktype) - Generate types and converters from JSON, Schema, and GraphQL
+`Aug 23, 2018` - [SystemsApproach/book](https://github.com/SystemsApproach/book) - Computer Networks: A Systems Approach -- Textbook
+
+`Aug 23, 2018` - [coala/coala](https://github.com/coala/coala) - coala provides a unified command-line interface for linting and fixing all your code, regardless of the programming languages you use.
+
+`Aug 23, 2018` - [SystemsApproach/book](https://github.com/SystemsApproach/book) - Computer Networks: A Systems Approach -- Textbook
+
+
+`Aug 23, 2018` - [coala/coala](https://github.com/coala/coala) - coala provides a unified command-line interface for linting and fixing all your code, regardless of the programming languages you use.
+
+`Jun 28, 2018` - [tox-dev/tox](https://github.com/tox-dev/tox) - Command line driven CI frontend and development task automation tool.
+
+`Jun 25, 2018` - [pex-tool/pex](https://github.com/pex-tool/pex) - A tool for generating .pex (Python EXecutable) files, lock files and venvs.
+`Jun 13, 2018` - [psincraian/pepy](https://github.com/psincraian/pepy) - pepy is a site to get statistics information about any Python package.
+
+`Jun 13, 2018` - [wntrblm/nox](https://github.com/wntrblm/nox) - Flexible test automation for Python
+
+`Jun 13, 2018` - [r1chardj0n3s/parse](https://github.com/r1chardj0n3s/parse) - Parse strings using a specification based on the Python format() syntax.
+
+`Jun 13, 2018` - [behave/behave](https://github.com/behave/behave) - BDD, Python style.
+
+`Jun 13, 2018` - [psincraian/pepy](https://github.com/psincraian/pepy) - pepy is a site to get statistics information about any Python package.
+
+`Jun 13, 2018` - [wntrblm/nox](https://github.com/wntrblm/nox) - Flexible test automation for Python
+
+`Jun 13, 2018` - [r1chardj0n3s/parse](https://github.com/r1chardj0n3s/parse) - Parse strings using a specification based on the Python format() syntax.
+
+
+`Jun 13, 2018` - [behave/behave](https://github.com/behave/behave) - BDD, Python style.
+
+`Jun 05, 2018` - [applegrew/django-select2](https://github.com/applegrew/django-select2) - This is a Django integration for Select2
+
+`Apr 21, 2018` - [sphinx-doc/alabaster](https://github.com/sphinx-doc/alabaster) - Lightweight, configurable Sphinx theme
+
+`Apr 16, 2018` - [tox-dev/tox-travis](https://github.com/tox-dev/tox-travis) - Seamless integration of tox into Travis CI
+
+`Mar 27, 2018` - [Miserlou/Zappa](https://github.com/Miserlou/Zappa) - Serverless Python
+
+`Mar 17, 2018` - [pew-org/pew](https://github.com/pew-org/pew) - A tool to manage multiple virtual environments written in pure python
+
+`Mar 06, 2018` - [awesome-selfhosted/awesome-selfhosted](https://github.com/awesome-selfhosted/awesome-selfhosted) - A list of Free Software network services and web applications which can be hosted on your own servers
+
+`Feb 26, 2018` - [lyft/confidant](https://github.com/lyft/confidant) - Confidant: your secret keeper. https://lyft.github.io/confidant
+
+`Feb 25, 2018` - [crazyguitar/pysheeet](https://github.com/crazyguitar/pysheeet) - Python Cheat Sheet
+
+`Jan 25, 2018` - [rscarvalho/pyregex](https://github.com/rscarvalho/pyregex) - pyregex is a Python Regular Expression Online Tester
+
+`Jan 17, 2018` - [google/yapf](https://github.com/google/yapf) - A formatter for Python files
+
+`Jan 13, 2018` - [peterdemin/pip-compile-multi](https://github.com/peterdemin/pip-compile-multi) - Python dependency locking for complex projects

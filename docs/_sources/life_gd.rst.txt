@@ -3,205 +3,280 @@
 
 -----
 
-.. include:: 16_life/43-2026-01.md
+.. include:: 16_life/2026-01.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/42-2025-12.md
+.. include:: 16_life/2025-12.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/41-2025-11.md
+.. include:: 16_life/2025-11.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/40-2025-10.md
+.. include:: 16_life/2025-10.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/39-2025-09.md
+.. include:: 16_life/2025-09.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/38-2025-08.md
+.. include:: 16_life/2025-08.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/37-2025-06.md
+.. include:: 16_life/2025-07.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/36-2025-05.md
+.. include:: 16_life/2025-06.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/35-2025-04.md
+.. include:: 16_life/2025-05.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/34-2025-03.md
+.. include:: 16_life/2025-04.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/33-2025-02.md
+.. include:: 16_life/2025-03.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/32-2025-01.md
+.. include:: 16_life/2025-02.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/31-2024-12.md
+.. include:: 16_life/2025-01.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/30-2024-11.md
+.. include:: 16_life/2024-12.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/29-2024-10.md
+.. include:: 16_life/2024-11.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/28-2024-09.md
+.. include:: 16_life/2024-10.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/27-2024-08.md
+.. include:: 16_life/2024-09.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/26-2024-07.md
+.. include:: 16_life/2024-08.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/25-2024-06.md
+.. include:: 16_life/2024-07.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/24-2024-05.md
+.. include:: 16_life/2024-06.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/23-2024-04.md
+.. include:: 16_life/2024-05.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/22-2024-03.md
+.. include:: 16_life/2024-04.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/21-2024-02.md
+.. include:: 16_life/2024-03.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/20-2024-01.md
+.. include:: 16_life/2024-02.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/19-2023-12.md
+.. include:: 16_life/2024-01.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/18-2023-10.md
+.. include:: 16_life/2023-12.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/17-2023-09.md
+.. include:: 16_life/2023-11.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/16-2023-08.md
+.. include:: 16_life/2023-10.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/15-2023-07.md
+.. include:: 16_life/2023-09.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/14-2023-06.md
+.. include:: 16_life/2023-08.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/13-2023-05.md
+.. include:: 16_life/2023-07.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/12-2023-03.md
+.. include:: 16_life/2023-06.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/11-2023-02.md
+.. include:: 16_life/2023-05.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/10-2023-01.md
+.. include:: 16_life/2023-04.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/07-2022-11.md
+.. include:: 16_life/2023-03.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/06-2022-10.md
+.. include:: 16_life/2023-02.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/05-2022-09.md
+.. include:: 16_life/2023-01.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/04-2022-08.md
+.. include:: 16_life/2022-12.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/03-2022-07.md
+.. include:: 16_life/2022-11.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/02-2022-06.md
+.. include:: 16_life/2022-10.md
    :parser: myst_parser.sphinx_
 
 -----
 
-.. include:: 16_life/01-2022-05.md
+.. include:: 16_life/2022-09.md
+   :parser: myst_parser.sphinx_
+
+-----
+
+.. include:: 16_life/2022-08.md
+   :parser: myst_parser.sphinx_
+
+-----
+
+.. include:: 16_life/2022-07.md
+   :parser: myst_parser.sphinx_
+
+-----
+
+.. include:: 16_life/2022-06.md
+   :parser: myst_parser.sphinx_
+
+-----
+
+.. include:: 16_life/2022-05.md
+   :parser: myst_parser.sphinx_
+
+-----
+
+.. include:: 16_life/2022-04.md
+   :parser: myst_parser.sphinx_
+
+-----
+
+.. include:: 16_life/2022-03.md
+   :parser: myst_parser.sphinx_
+
+-----
+
+.. include:: 16_life/2022-02.md
+   :parser: myst_parser.sphinx_
+
+-----
+
+.. include:: 16_life/2022-01.md
+   :parser: myst_parser.sphinx_
+
+-----
+
+.. include:: 16_life/2021.md
+   :parser: myst_parser.sphinx_
+
+-----
+
+.. include:: 16_life/2020.md
+   :parser: myst_parser.sphinx_
+
+-----
+
+.. include:: 16_life/2019.md
+   :parser: myst_parser.sphinx_
+
+-----
+
+.. include:: 16_life/2018.md
+   :parser: myst_parser.sphinx_
+
+-----
+
+.. include:: 16_life/2017.md
+   :parser: myst_parser.sphinx_
+
+-----
+
+.. include:: 16_life/2016.md
+   :parser: myst_parser.sphinx_
+
+-----
+
+.. include:: 16_life/2015.md
    :parser: myst_parser.sphinx_

@@ -1,0 +1,28 @@
+`Mar 27, 2024` - [airspeed-velocity/asv](https://github.com/airspeed-velocity/asv) - Airspeed Velocity: A simple Python benchmarking tool with web-based reporting
+
+`Mar 27, 2024` - a burst of birth force to warm a worm worm.
+
+`Mar 24, 2024` - [pulsejet/memories](https://github.com/pulsejet/memories) - Fast, modern and advanced photo management suite. Runs as a Nextcloud app.
+
+`Mar 24, 2024` - [Nukesor/pueue](https://github.com/Nukesor/pueue) - :stars: Manage your shell commands.
+
+`Mar 24, 2024` - [pulsejet/memories](https://github.com/pulsejet/memories) - Fast, modern and advanced photo management suite. Runs as a Nextcloud app.
+
+`Mar 24, 2024` - [Nukesor/pueue](https://github.com/Nukesor/pueue) - :stars: Manage your shell commands.
+
+`Mar 18, 2024` - You won't learn how to declutter until you get too much shit you don't need.
+
+`Mar 16, 2024` - Added [](/12_articles/53-meaning-of-life.md)
+
+`Mar 15, 2024` - [The Grug Brained Developer](https://grugbrain.dev) - A layman's guide to thinking like the self-aware smol brained
+
+`Mar 14, 2024` - [Alan Watts - Myth of Myself](https://www.youtube.com/watch?v=o716PpldJgc) - A layman's guide to thinking like the self-aware smol brained
+
+`Mar 12, 2024` - [getsentry/responses](https://github.com/getsentry/responses) - A utility for mocking out the Python Requests library.
+
+`Mar 09, 2024` - My favorite quote from Dune:
+
+«Where is Alia?» she asked.
+
+«Out doing what any good Fremen child should be doing in such times,» Paul said.
+«She’s killing enemy wounded and marking their bodies for the water-recovery teams.»

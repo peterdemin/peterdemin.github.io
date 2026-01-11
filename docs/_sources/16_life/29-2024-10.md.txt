@@ -1,2 +1,0 @@
-`Oct 15, 2024` - My new favourite: `> ls -Allah`
-

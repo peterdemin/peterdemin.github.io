@@ -1,0 +1,3 @@
+`Dec 31, 2015` - [what-studio/profiling](https://github.com/what-studio/profiling) - Was an interactive continuous Python profiler.
+
+`Aug 03, 2015` - [martinblech/xmltodict](https://github.com/martinblech/xmltodict) - Python module that makes working with XML feel like you are working with JSON
