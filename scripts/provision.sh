@@ -70,7 +70,6 @@ sudo -u commafeed \
         https://github.com/Athou/commafeed/releases/download/5.12.1/commafeed-5.12.1-h2-linux-x86_64-runner
 chmod +x /home/commafeed/commafeed
 echo "Log in to https://feed.demin.dev/ as admin:admin and set up an account"
-
 systemctl enable commafeed.service
 systemctl start commafeed.service
 

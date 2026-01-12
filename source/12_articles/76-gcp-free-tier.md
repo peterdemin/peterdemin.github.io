@@ -360,9 +360,43 @@ read -rsp "Enter password for account $NAME: " password
 sudo -u ejabberd ejabberdctl register $NAME $DOMAIN $password
 ```
 
+## Memory usage
+
+After a few days of running this VM, I checked the usage:
+
+```
+MiB Mem :    964.6 total,    223.1 free,    708.9 used,    198.4 buff/cache
+MiB Swap:      0.0 total,      0.0 free,      0.0 used.    255.7 avail Mem
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+   3539 commafe+  20   0   33.4g 145.7m  39.5m S   0.0  15.1   3:02.86 /home/commafeed/commafeed
+    577 ejabberd  20   0 2210.3m 114.0m  44.2m S   0.0  11.8   2:58.31 /usr/lib/erlang/erts-15.2.7/bin/beam.smp -K true -P 250+
+    601 root      20   0 1289.2m  58.6m   8.7m S   0.3   6.1   9:21.26 /usr/sbin/tailscaled --state=/var/lib/tailscale/tailsca+
+    782 syncthi+  31  11 1306.1m  36.3m  10.5m S   0.0   3.8   5:03.28 /usr/bin/syncthing serve --no-browser --no-restart
+  15217 bus       20   0 1202.7m  28.7m   3.8m S   1.7   3.0   0:00.45 ./bus -unix /tmp/bus.sock -socket-mode 666
+   6716 root      20   0  208.1m  27.1m  25.8m S   0.0   2.8   0:15.75 /usr/lib/systemd/systemd-journald
+    578 root      20   0   37.6m  15.4m   1.7m S   0.0   1.6   0:00.54 /usr/bin/python3 /usr/bin/networkd-dispatcher --run-sta+
+    616 root      20   0  115.2m  14.8m   1.7m S   0.0   1.5   0:00.21 /usr/bin/python3 /usr/share/unattended-upgrades/unatten+
+    591 syncthi+  20   0 1271.5m  13.9m   4.1m S   0.0   1.4   0:01.02 /usr/bin/syncthing serve --no-browser --no-restart
+  15277 root      20   0   19.2m  12.3m  10.1m S   0.0   1.3   0:00.02 sshd-session: peterdemin [priv]
+  15248 peterde+  20   0   21.5m  11.9m   9.8m S   0.0   1.2   0:00.11 /usr/lib/systemd/systemd --user
+      1 root      20   0   23.5m  10.5m   5.9m S   0.0   1.1   0:09.52 /usr/lib/systemd/systemd --system --deserialize=70
+```
+
+It's pretty tight, at 73% RAM utilization some sys admins would give me a side eye.
+The resident memory for the Java-based CommaFeed is at the top of the list, followed by Ejabberd and Tailscale.
+But it doesn't run out of memory - the following command doesn't return any results:
+
+```bash
+sudo journalctl -k | grep -i oom
+```
+
+I have more memory left, than my biggest consumer takes.
+And getting some services restarted by OOM killer every once in a while is fine with me.
+
 ## Conclusion
 
-This setup provides me with these enjoyable, free, and open-source things:
+This setup provides me a sovereign setup with these enjoyable, free, and open-source things:
 
 1. Email and XMPP accounts: `peter@demin.dev`.
 2. Static website at `peter.demin.dev`.
@@ -377,5 +411,7 @@ I wish more people played with such an internet presence.
 
 1. [AlgoVPN](https://github.com/trailofbits/algo) - a set of Ansible scripts that simplify the setup of a personal WireGuard and IPsec VPN.
    This was the first GCP VM I launched automatically.
-   Even though I switched to Tailscale for the VPN needs, it's a great project and a lot to learn from.
+   Even though I switched to Tailscale for the VPN needs, it's a great project and has a lot to learn from.
 2. [Oracle Cloud Free Tier](https://www.oracle.com/cloud/free/) offers Arm-based instances with 4 Ampere A1 cores and 24 GB RAM.
+3. [YUNoHost](https://yunohost.org/) partially supports this setup through a Web-based experience which is more inviting for terminal-averse audience. My priority was scriptable automation with no overhead.
+4. [Sandstorm](https://sandstorm.org/) is a security-focused alternative, that introduces its own package format and uses system resources to provide container-like isolation.
