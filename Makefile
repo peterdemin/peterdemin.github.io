@@ -126,7 +126,7 @@ bus-linux: bus-test
 .PHONY: bus
 bus: bus-linux
 	scp -r bus $(APIHOST):
-	ssh $(APIHOST) 'sudo ./bus/deploy.sh'
+	ssh $(APIHOST) 'sudo ./bus/install.sh && sudo ./bus/deploy.sh'
 
 ## COUNTER
 
