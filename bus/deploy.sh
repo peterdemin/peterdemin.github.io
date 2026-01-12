@@ -2,16 +2,12 @@
 
 set -exo pipefail
 
-TARGET_DIR="/home/bus/bus"
+TARGET_DIR="/opt/bus/"
 
-if test -d "${TARGET_DIR}"
-then
-    rm -rf "${TARGET_DIR}.bak"
-    mv "${TARGET_DIR}" "${TARGET_DIR}.bak"
-fi
-mv bus ~bus/
-chown -R bus:bus "${TARGET_DIR}"
+mkdir -p "${TARGET_DIR}"
+sudo install -o root -g root -m 0755 bus/bus "${TARGET_DIR}/bus"
 
 systemctl daemon-reload
-systemctl restart bus.service
-systemctl status bus.service
+systemctl stop bus-api.service
+systemctl restart bus-api.socket
+systemctl status bus-api.service || true

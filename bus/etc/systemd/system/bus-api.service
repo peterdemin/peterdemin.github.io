@@ -1,0 +1,26 @@
+[Unit]
+Description=Bus stop schedule API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=bus
+Group=bus
+WorkingDirectory=/opt/bus/
+ExecStart=/opt/bus/bus
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+RestrictSUIDSGID=yes
+CapabilityBoundingSet=
+AmbientCapabilities=
+SystemCallArchitectures=native
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6

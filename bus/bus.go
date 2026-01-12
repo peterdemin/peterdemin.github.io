@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"flag"
+	"fmt"
 	"io"
 	"log"
 	"net"
@@ -199,11 +200,45 @@ func withCORS(next http.Handler) http.Handler {
 	})
 }
 
+func systemdListener() (net.Listener, error) {
+	// Verify SystemD socket activation works:
+	lp := os.Getenv("LISTEN_PID")
+	lf := os.Getenv("LISTEN_FDS")
+	if lp == "" || lf == "" {
+		return nil, fmt.Errorf("not socket-activated: LISTEN_PID/LISTEN_FDS missing")
+	}
+	pid, err := strconv.Atoi(lp)
+	if err != nil || pid != os.Getpid() {
+		return nil, fmt.Errorf("LISTEN_PID=%q does not match pid=%d", lp, os.Getpid())
+	}
+	n, err := strconv.Atoi(lf)
+	if err != nil || n < 1 {
+		return nil, fmt.Errorf("LISTEN_FDS=%q invalid", lf)
+	}
+	if n != 1 {
+		return nil, fmt.Errorf("expected exactly 1 listening fd, got %d", n)
+	}
+	_ = os.Unsetenv("LISTEN_PID")
+	_ = os.Unsetenv("LISTEN_FDS")
+	_ = os.Unsetenv("LISTEN_FDNAMES")
+
+	// systemd hands us the first FD at 3
+	f := os.NewFile(uintptr(3), "systemd-listener")
+	if f == nil {
+		return nil, fmt.Errorf("failed to open fd 3")
+	}
+	// net.FileListener dup's the FD internally; close our *os.File handle afterwards.
+	ln, err := net.FileListener(f)
+	_ = f.Close()
+	if err != nil {
+		return nil, fmt.Errorf("net.FileListener(fd=3): %w", err)
+	}
+	return ln, nil
+}
+
 func main() {
 	var (
-		addr       = flag.String("addr", ":8080", "TCP listen address (ignored if -unix is set)")
-		unixPath   = flag.String("unix", "", "UNIX domain socket path (e.g. /tmp/bus.sock). If set, overrides -addr")
-		socketMode = flag.String("socket-mode", "0660", "File mode (octal) for the UNIX socket, e.g. 0660")
+		addr = flag.String("addr", "", "TCP listen address, instead of SystemD socket activation")
 	)
 	flag.Parse()
 
@@ -226,8 +261,7 @@ func main() {
 	defer stop()
 
 	// Serve on TCP or UNIX socket
-	if *unixPath == "" {
-		// TCP
+	if *addr != "" {
 		srv.Addr = *addr
 		log.Printf("listening on %s (tcp)", *addr)
 		go func() {
@@ -236,34 +270,15 @@ func main() {
 			}
 		}()
 	} else {
-		// UNIX domain socket
-		// Remove stale socket, if present
-		_ = os.Remove(*unixPath)
-
-		ln, err := net.Listen("unix", *unixPath)
+		// SystemD activation socket
+		ln, err := systemdListener()
 		if err != nil {
-			log.Fatalf("listen unix %s: %v", *unixPath, err)
+			log.Fatalf("listen unix: %v", err)
 		}
-		defer func() {
-			_ = os.Remove(*unixPath)
-		}()
-
-		// Parse octal perm string
-		perm64, err := strconv.ParseUint(*socketMode, 8, 32)
-		if err != nil {
-			_ = ln.Close()
-			log.Fatalf("invalid -socket-mode %q: %v", *socketMode, err)
-		}
-		if err := os.Chmod(*unixPath, os.FileMode(perm64)); err != nil {
-			_ = ln.Close()
-			log.Fatalf("chmod %s: %v", *unixPath, err)
-		}
-
-		log.Printf("listening on %s (unix, mode %s)", *unixPath, *socketMode)
-
+		log.Printf("listening on SystemD activation socket")
 		go func() {
 			if err := srv.Serve(ln); err != nil && err != http.ErrServerClosed {
-				log.Fatalf("Serve(unix): %v", err)
+				log.Fatalf("Serve(socket): %v", err)
 			}
 		}()
 	}

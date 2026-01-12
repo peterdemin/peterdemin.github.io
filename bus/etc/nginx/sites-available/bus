@@ -1,13 +1,9 @@
 upstream bus {
-    server unix:/tmp/bus.sock;
+    server unix:/run/bus/bus.sock;
 }
 
 server {
-    server_name XXX;
-
-    listen [::]:443 ssl; # managed by Certbot
-    listen 443 ssl http2;
-
+    server_name api.demin.dev;
     location / {
       proxy_pass http://bus;
       proxy_set_header  X-Forwarded-Proto https;
