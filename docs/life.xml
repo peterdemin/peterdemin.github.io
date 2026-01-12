@@ -1,5 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2026-01-11T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Jan 11, 2026_0</id><title>Journal</title><published>2026-01-11T00:00:00Z</published><updated>2026-01-11T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 11, 2026"/><content type="html"><![CDATA[<p>Added <a href="https://peter.demin.dev/12_articles/78-solarized-shibuya.html">Solarized colors for Shibuya theme</a></p>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2026-01-12T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Jan 12, 2026_0</id><title>Journal</title><published>2026-01-12T00:00:00Z</published><updated>2026-01-12T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 12, 2026"/><content type="html"><![CDATA[<p>I got curious if smartphone notifications can be possibly implemented in a privacy-preserving fashion (and to what extent).
+My reading list: <a href="https://unifiedpush.org/news/20250513_push_security_privacy/">UnifiedPush - Push notifications, security and privacy</a></p>
+]]></content></entry><entry><id>Jan 11, 2026_0</id><title>Journal</title><published>2026-01-11T00:00:00Z</published><updated>2026-01-11T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 11, 2026"/><content type="html"><![CDATA[<p>Added <a href="https://peter.demin.dev/12_articles/78-solarized-shibuya.html">Solarized colors for Shibuya theme</a></p>
 ]]></content></entry><entry><id>Jan 10, 2026_2</id><title>Journal</title><published>2026-01-10T00:00:00Z</published><updated>2026-01-10T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 10, 2026"/><content type="html"><![CDATA[<p>Going through my old GitHub stars, I rediscovered <a href="https://shibuya.lepture.com/">Shibuya</a> theme, courtesy of <a href="https://lepture.com/">Hsiaoming Yang</a>.
 The main reason to switch is pydata theme shipping 1.4 MB of fontawesome for no good reason.
 Also, I love how minimal the theme looks, leaving more space for the content.
@@ -369,12 +371,4 @@ Religion, politics, Android development, serverless, etc.
 So many things where I see the low value without having putting 1% effort into study.
 Of course, there are things that I ignore out of laziness and arrogance as well. But that's off-topic.</p>
 </blockquote>
-]]></content></entry><entry><id>Feb 12, 2025_1</id><title>Journal</title><published>2025-02-12T00:00:00Z</published><updated>2025-02-12T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Feb 12, 2025"/><content type="html"><![CDATA[<p>The topic that comes up from time to time is how frustrating the visa/greencard situation is.
-People wait for years or decades for a process that's purpose is to wait.
-The system is run by people who are citizens and have no empathy to the people who are their customers.
-In fact, I don't think they're considering their applicants as customers at all.
-The system is a poorly masked adversarial filter.
-Another adversarial filter I and many people in my social circle interact with a lot is technical interviews for software engineers.
-I'm not gonna say anything new regarding how frustrating and annoying the common process is.
-What's interesting, though, is that being on the other side, interviewing other people, I get zero motivation to tweak the process to get feedback.</p>
 ]]></content></entry></feed>

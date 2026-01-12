@@ -1,3 +1,6 @@
+`Jan 12, 2026` - I got curious if smartphone notifications can be possibly implemented in a privacy-preserving fashion (and to what extent).
+My reading list: [UnifiedPush - Push notifications, security and privacy](https://unifiedpush.org/news/20250513_push_security_privacy/)
+
 `Jan 11, 2026` - Added [](/12_articles/78-solarized-shibuya.md)
 
 `Jan 10, 2026` - Going through my old GitHub stars, I rediscovered [Shibuya](https://shibuya.lepture.com/) theme, courtesy of [Hsiaoming Yang](https://lepture.com/).
