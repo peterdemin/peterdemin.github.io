@@ -59,7 +59,7 @@ gcloud compute firewall-rules create jabber \
     --priority=1000 \
     --network=default \
     --action=ALLOW \
-    --rules=tcp:5222,tcp:5223,tcp:5269,tcp:5443,tcp:5280,tcp:1883,udp:5478 \
+    --rules=tcp:5222,tcp:5223,tcp:5269,tcp:5443,tcp:1883,udp:3478 \
     --source-ranges=0.0.0.0/0 \
     --target-tags=jabber-server \
     || true

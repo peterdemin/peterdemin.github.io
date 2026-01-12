@@ -70,12 +70,6 @@ relayhost =
 # /etc/postfix/sasl.
 cyrus_sasl_config_path = /etc/postfix/sasl
 
-# SMTP server RSA key and certificate in PEM format
-smtpd_tls_key_file = /etc/ssl/private/ssl-cert-snakeoil.key
-smtpd_tls_cert_file = /etc/ssl/certs/ssl-cert-snakeoil.pem
-# SMTP Server security level: none|may|encrypt
-smtpd_tls_security_level = may
-
 # List of CAs for SMTP Client to trust
 # Prefer this over _CApath when smtp is running chrooted
 smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
@@ -83,6 +77,25 @@ smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
 smtp_tls_security_level = may
 # SMTP Client TLS session cache
 smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
-smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
+smtpd_relay_restrictions = permit_mynetworks defer_unauth_destination
 myhostname = mail.demin.dev
 inet_interfaces = all
+
+# Inbound-only posture
+smtpd_sasl_auth_enable = no
+
+smtpd_recipient_restrictions =
+    permit_mynetworks,
+    reject_unauth_destination
+
+# Disable outbound delivery attempts
+default_transport = error:outbound mail disabled
+relay_transport   = error:outbound mail disabled
+
+# SMTP server RSA key and certificate in PEM format
+smtpd_tls_key_file = /etc/ssl/private/ssl-cert-snakeoil.key
+smtpd_tls_cert_file = /etc/ssl/certs/ssl-cert-snakeoil.pem
+# # Use Let's Encrypt for inbound TLS
+# smtpd_tls_cert_file = /etc/letsencrypt/live/demin.dev/fullchain.pem
+# smtpd_tls_key_file  = /etc/letsencrypt/live/demin.dev/privkey.pem
+smtpd_tls_security_level = may
