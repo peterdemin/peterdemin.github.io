@@ -114,12 +114,14 @@ def generate_life_records(
             )
     with open(STARS_FILE, "rt", encoding="utf-8") as fobj:
         for line in fobj:
+            text = line.rstrip()
             if date := maybe_parse_date(line):
-                yield LifeRecord(
-                    text=line.rstrip(),
-                    date=date,
-                    life_path=find_life_file(date),
-                )
+                if text not in all_life_content:
+                    yield LifeRecord(
+                        text=text,
+                        date=date,
+                        life_path=find_life_file(date),
+                    )
 
 
 def iter_life_files() -> Iterable[str]:
