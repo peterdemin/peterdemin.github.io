@@ -1,3 +1,5 @@
+`Jan 11, 2026` - Added [](/12_articles/78-solarized-shibuya.md)
+
 `Jan 10, 2026` - Going through my old GitHub stars, I rediscovered [Shibuya](https://shibuya.lepture.com/) theme, courtesy of [Hsiaoming Yang](https://lepture.com/).
 The main reason to switch is pydata theme shipping 1.4 MB of fontawesome for no good reason.
 Also, I love how minimal the theme looks, leaving more space for the content.
