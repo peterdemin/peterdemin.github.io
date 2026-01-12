@@ -53,11 +53,6 @@ My open-source projects
 * `Backgammon counter <counter/>`_ - Small 11ty + tailwind web page, mostly built by GPT-4.
 * `Cursor racing game <race/>`_ - built by GPT o1 preview.
 
-My side gig
------------
-
-Selling puppies at `French bulldogs DMV <https://www.frenchbulldogsdmv.com/>`_
-
 Projects that did not
 ---------------------
 
