@@ -147,16 +147,25 @@ def maybe_parse_date(text: str) -> Optional[datetime.datetime]:
     return None
 
 
+def parse_title(path: str) -> str:
+    source_path = os.path.join(SOURCE_DIR, path[1:])
+    with open(source_path, 'rt', encoding='utf-8') as fobj:
+        return next(fobj).rstrip().lstrip('# ')
+
+
 def render_internal_link(self, tokens, idx, options, env):
-    href = tokens[idx].attrs["href"]
+    href = path = tokens[idx].attrs["href"]
     if href.endswith(".md"):
         href = href[:-2] + "html"
     if href.endswith(".rst"):
         href = href[:-3] + "html"
+    content = ''
     if href.startswith("/"):
         href = BASE_URL + href
+        if tokens[idx].content == '':
+            content = parse_title(path)
     tokens[idx].attrs["href"] = href
-    return self.renderToken(tokens, idx, options, env)
+    return self.renderToken(tokens, idx, options, env) + content
 
 
 def build_atom_feed(
