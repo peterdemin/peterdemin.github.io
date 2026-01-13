@@ -1,5 +1,31 @@
 <?xml version='1.0' encoding='utf-8'?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2026-01-12T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Jan 12, 2026_0</id><title>Journal</title><published>2026-01-12T00:00:00Z</published><updated>2026-01-12T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 12, 2026"/><content type="html"><![CDATA[<p>I got curious if smartphone notifications can be possibly implemented in a privacy-preserving fashion (and to what extent).
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2026-01-12T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Jan 12, 2026_1</id><title>Journal</title><published>2026-01-12T00:00:00Z</published><updated>2026-01-12T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 12, 2026"/><content type="html"><![CDATA[<p>It's been almost eleven years since creation of &quot;<a href="https://peps.python.org/pep-0492/">PEP 492</a> – Coroutines with async and await syntax&quot; by Yury Selivanov.
+I've been writing asynchronous Python on and off for about a decade, and still async/await is the most complex part of the Python for me.
+Recently I wrote a synchronous generator, yielding results from asynchronous iterable. What a ride!
+Back in the days of the PEP 492, Yury was working on EdgeDB, a wrapper layer around PostgreSQL.
+In a way, he still is, but it's called <a href="https://www.geldata.com">Gel</a>, and is a part of Vercel (but the page title still says EdgeDB, lol).
+Let's what are the people working on PEP 492 are up to:</p>
+<ul>
+<li><a href="https://gvanrossum.github.io">Guido van Rossum</a> - the creator and benevolent dictator of Python. Retired from Dropbox in 2019, just to join Microsoft as a Distinguished Engineer in 2020.</li>
+<li><a href="https://vstinner.readthedocs.io">Victor Stinner</a> - one of the performance-focused Python core contributors. These days his good work is paid by IBM through RedHat.</li>
+<li><a href="https://www.linkedin.com/in/elprans/">Elvis Pranskevichus</a> - Yury's buddy, working with him in Vercel.</li>
+<li><a href="https://www.linkedin.com/in/andrew-svetlov/">Andrew Svetlov</a> - aiohttp maintainer, works as a VP of Engineering at Apolo.US, which at the first glance looks the same as a hundred other AI startups.</li>
+<li><a href="https://lukasz.langa.pl">Łukasz Langa</a> - ex-Facebook core Python developer, author of Black, and release manager. Moved to a mid-sized Polish town, and doesn't show up much.</li>
+<li><a href="https://www.csse.canterbury.ac.nz/greg.ewing/">Greg Ewing</a> - the winner of the ugliest homepage award.</li>
+<li><a href="https://gitlab.com/yaseppochi">Stephen J. Turnbull</a> - seemingly, a Mailman (The GNU Mailing List manager) maintainer.</li>
+<li><a href="https://snarky.ca">Brett Cannon</a> - Principal Software Engineer at Microsoft in Canada and Python core developer.</li>
+<li><a href="https://www.curiousefficiency.org">Alyssa Coghlan</a> - Nicholas at the time of the PEP, CPython core and packaging developer, supported by an Australian bank. Surprisingly, not working on uv.
+The rest of the people I never heard about:</li>
+<li>Steven D’Aprano - the only guy who got <a href="https://discuss.python.org/t/suspending-a-core-developer-for-conduct-issues/25278">suspended</a> from being a Core Developer for public misconduct.</li>
+<li>Paul Moore</li>
+<li>Nathaniel Smith</li>
+<li>Ethan Furman</li>
+<li>Stefan Behnel</li>
+<li>Paul Sokolovsky</li>
+<li>Victor Petrovykh</li>
+<li>Jim J. Jewett</li>
+</ul>
+]]></content></entry><entry><id>Jan 12, 2026_0</id><title>Journal</title><published>2026-01-12T00:00:00Z</published><updated>2026-01-12T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 12, 2026"/><content type="html"><![CDATA[<p>I got curious if smartphone notifications can be possibly implemented in a privacy-preserving fashion (and to what extent).
 My reading list: <a href="https://unifiedpush.org/news/20250513_push_security_privacy/">UnifiedPush - Push notifications, security and privacy</a></p>
 ]]></content></entry><entry><id>Jan 11, 2026_0</id><title>Journal</title><published>2026-01-11T00:00:00Z</published><updated>2026-01-11T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 11, 2026"/><content type="html"><![CDATA[<p>Added <a href="https://peter.demin.dev/12_articles/78-solarized-shibuya.html">Solarized colors for Shibuya theme</a></p>
 ]]></content></entry><entry><id>Jan 10, 2026_2</id><title>Journal</title><published>2026-01-10T00:00:00Z</published><updated>2026-01-10T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 10, 2026"/><content type="html"><![CDATA[<p>Going through my old GitHub stars, I rediscovered <a href="https://shibuya.lepture.com/">Shibuya</a> theme, courtesy of <a href="https://lepture.com/">Hsiaoming Yang</a>.
@@ -362,13 +388,5 @@ Another is <a href="https://en.wikipedia.org/wiki/Conway%27s_law">Conway's Law</
 I see open-source as a great organizational structure to run software projects.
 But it's still prone to the problems, that any human community has.
 I still wonder, though, can open-source projects governance be tweaked in ways, to solve it?..</p>
-</blockquote>
-]]></content></entry><entry><id>Feb 13, 2025_0</id><title>Journal</title><published>2025-02-13T00:00:00Z</published><updated>2025-02-13T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Feb 13, 2025"/><content type="html"><![CDATA[<p>This is gold:</p>
-<blockquote>
-<p><a href="https://en.wikipedia.org/wiki/Rational_ignorance">Rational ignorance</a> is refraining from acquiring knowledge when the supposed cost of educating oneself on an issue exceeds the expected potential benefit that the knowledge would provide.
-I've done it to so many topics, and had hard time explaining why exactly even to myself.
-Religion, politics, Android development, serverless, etc.
-So many things where I see the low value without having putting 1% effort into study.
-Of course, there are things that I ignore out of laziness and arrogance as well. But that's off-topic.</p>
 </blockquote>
 ]]></content></entry></feed>
