@@ -38,13 +38,19 @@ Here, I explain the technical solution to getting a mailbox on your custom domai
    sudo newaliases
    ```
 
-4. Start the server:
+4. Set domain name in `/etc/mailname`:
+
+   ```
+   demin.dev
+   ```
+
+5. Start the server:
 
    ```bash
    sudo systemctl start postfix
    ```
 
-5. Verify the mail daemon listens on port `25`:
+6. Verify the mail daemon listens on port `25`:
 
    ```bash
    $ sudo lsof -Pni:25
@@ -90,8 +96,30 @@ To have a better terminal experience reading incoming emails,
 install and run `mutt`:
 
 ```bash
-sudo apt install -y mutt
+sudo apt install -y mutt w3m
 ```
+
+Configure mutt to use w3m for rendering HTML in `~/.muttrc`:
+
+```
+auto_view text/html
+alternative_order text/plain text/html
+```
+
+Sometimes inbound emails don't have a plain-text representation,
+and HTML comes in quoted-printable encoding so that long lines are broken
+with extra equal signs prepended for continuation.
+This makes it hard to click on links.
+
+The w3m renderer hides the links altogether, so it's not helpful either.
+The solution is to save the email as a file and read it with `less`:
+
+Inside mutt:
+- press `v` to list attachments.
+- press Enter to open the HTML (usually it's the first one).
+- press s and save the HTML as `mail.html`.
+- exit mutt (`q`).
+- view decoded file with `less mail.html`.
 
 ## Disable the mail server when you don't need it
 

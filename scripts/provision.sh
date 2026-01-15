@@ -27,6 +27,7 @@ apt-get install -y      \
     ejabberd            \
     postfix             \
     mutt                \
+    w3m                 \
     syncthing
 
 # Copy custom configs:
