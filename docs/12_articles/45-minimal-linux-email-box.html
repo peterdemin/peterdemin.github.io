@@ -192,6 +192,11 @@ Here, I explain the technical solution to getting a mailbox on your custom domai
 </span></pre></div>
 </div>
 </li>
+<li><p>Set domain name in <code class="docutils literal notranslate"><span class="pre">/etc/mailname</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">demin</span><span class="o">.</span><span class="n">dev</span>
+</span></pre></div>
+</div>
+</li>
 <li><p>Start the server:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>postfix
 </span></pre></div>
@@ -247,9 +252,28 @@ And the IP address of the machine running the mail agent is <code class="docutil
 </div>
 <p>To have a better terminal experience reading incoming emails,
 install and run <code class="docutils literal notranslate"><span class="pre">mutt</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>mutt
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>mutt<span class="w"> </span>w3m
 </span></pre></div>
 </div>
+<p>Configure mutt to use w3m for rendering HTML in <code class="docutils literal notranslate"><span class="pre">~/.muttrc</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">auto_view</span> <span class="n">text</span><span class="o">/</span><span class="n">html</span>
+</span><span data-line="2"><span class="n">alternative_order</span> <span class="n">text</span><span class="o">/</span><span class="n">plain</span> <span class="n">text</span><span class="o">/</span><span class="n">html</span>
+</span></pre></div>
+</div>
+<p>Sometimes inbound emails don’t have a plain-text representation,
+and HTML comes in quoted-printable encoding so that long lines are broken
+with extra equal signs prepended for continuation.
+This makes it hard to click on links.</p>
+<p>The w3m renderer hides the links altogether, so it’s not helpful either.
+The solution is to save the email as a file and read it with <code class="docutils literal notranslate"><span class="pre">less</span></code>:</p>
+<p>Inside mutt:</p>
+<ul class="simple">
+<li><p>press <code class="docutils literal notranslate"><span class="pre">v</span></code> to list attachments.</p></li>
+<li><p>press Enter to open the HTML (usually it’s the first one).</p></li>
+<li><p>press s and save the HTML as <code class="docutils literal notranslate"><span class="pre">mail.html</span></code>.</p></li>
+<li><p>exit mutt (<code class="docutils literal notranslate"><span class="pre">q</span></code>).</p></li>
+<li><p>view decoded file with <code class="docutils literal notranslate"><span class="pre">less</span> <span class="pre">mail.html</span></code>.</p></li>
+</ul>
 </section>
 <section id="disable-the-mail-server-when-you-don-t-need-it">
 <h2>Disable the mail server when you don’t need it<a class="headerlink" href="#disable-the-mail-server-when-you-don-t-need-it" title="Link to this heading">¶</a></h2>
