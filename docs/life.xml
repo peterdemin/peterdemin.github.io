@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2026-01-12T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Jan 12, 2026_1</id><title>Journal</title><published>2026-01-12T00:00:00Z</published><updated>2026-01-12T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 12, 2026"/><content type="html"><![CDATA[<p>It's been almost eleven years since the creation of &quot;<a href="https://peps.python.org/pep-0492/">PEP 492</a> – Coroutines with async and await syntax&quot; by Yury Selivanov.
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2026-01-15T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Jan 15, 2026_0</id><title>Journal</title><published>2026-01-15T00:00:00Z</published><updated>2026-01-15T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 15, 2026"/><content type="html"><![CDATA[<p><a href="https://github.com/hnpwd/hnpwd.github.io">hnpwd/hnpwd.github.io</a> - HN personal website directory and OPML</p>
+]]></content></entry><entry><id>Jan 12, 2026_1</id><title>Journal</title><published>2026-01-12T00:00:00Z</published><updated>2026-01-12T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 12, 2026"/><content type="html"><![CDATA[<p>It's been almost eleven years since the creation of &quot;<a href="https://peps.python.org/pep-0492/">PEP 492</a> – Coroutines with async and await syntax&quot; by Yury Selivanov.
 I've been writing asynchronous Python on and off for about a decade, and still, async/await is the most complex part of Python for me.
 Recently, I wrote a synchronous generator that yields results from an asynchronous iterable. What a ride!
 Back in the days of the PEP 492, Yury was working on EdgeDB, a wrapper layer around PostgreSQL.
@@ -353,7 +354,7 @@ Which translates roughly to costs of implementation.
 That business people use to weight against the projected profits over the lifetime of the project (in years).
 Also, weighted against the potential return from other projects that team can do instead.
 I've never seen profits enter the picture for engineering planning, os it's often a kind of a dark area, of why is the deadline needs to be at this particular date.</p>
-]]></content></entry><entry><id>Mar 02, 2025_0</id><title>Journal</title><published>2025-03-02T00:00:00Z</published><updated>2025-03-02T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 02, 2025"/><content type="html"><![CDATA[<p><a href="https://github.com/fingerthief/recommendarr">fingerthief/recommendarr</a> - An LLM driven recommendation system based on Radarr and Sonarr library or watch history information</p>
+]]></content></entry><entry><id>Mar 02, 2025_0</id><title>Journal</title><published>2025-03-02T00:00:00Z</published><updated>2025-03-02T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 02, 2025"/><content type="html"><![CDATA[<p><a href="https://github.com/TannerMidd/recommendarr">TannerMidd/recommendarr</a> - An LLM driven recommendation system based on Radarr and Sonarr library or watch history information</p>
 ]]></content></entry><entry><id>Mar 01, 2025_1</id><title>Journal</title><published>2025-03-01T00:00:00Z</published><updated>2025-03-01T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 01, 2025"/><content type="html"><![CDATA[<p>Added <a href="https://peter.demin.dev/17_notes/30-top_asked_meta_facebook_interview_questions_for_2025.html">Top Asked Meta (Facebook) Interview Questions for 2025</a></p>
 ]]></content></entry><entry><id>Mar 01, 2025_0</id><title>Journal</title><published>2025-03-01T00:00:00Z</published><updated>2025-03-01T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 01, 2025"/><content type="html"><![CDATA[<p>Some questions should never be asked because they won't be answered.
 Not because the answer is unknown, but because it's not in the person's interest to provide an honest one.
@@ -374,19 +375,4 @@ Of course it wasn't originated inside of Cisco.
 And it wasn't even the first acquisition.
 And Talos Group is kinda independent company under Cisco umbrella (based in Maryland, by the way).
 But still, I find this to be a cool piece of trivia.</p>
-]]></content></entry><entry><id>Feb 13, 2025_1</id><title>Journal</title><published>2025-02-13T00:00:00Z</published><updated>2025-02-13T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Feb 13, 2025"/><content type="html"><![CDATA[<p>Sad <a href="https://marcan.st/2025/02/resigning-as-asahi-linux-project-lead/">resignation letter</a> from Asahi Linux maintainer.
-I've never used or heard about Asahi Linux before.
-Or never cared about running Linux on Apple hardware, since MacOS is close enough to Linux for my uses.
-But the letter clicked with me of a few topics.
-One is, <a href="https://en.wikipedia.org/wiki/Hell_Is_Other_People">hell is other people</a>, including OSS.
-I love open-source, and most of my hobby projects are public.
-But not many of them see much external contribution.
-The most joy I get is when I'm heads-down working on them, not when I try to align with strangers.
-Another is <a href="https://en.wikipedia.org/wiki/Conway%27s_law">Conway's Law</a>:</p>
-<blockquote>
-<p>[O]rganizations which design systems (in the broad sense used here) are constrained to produce designs which are copies of the communication structures of these organizations.
-I see open-source as a great organizational structure to run software projects.
-But it's still prone to the problems, that any human community has.
-I still wonder, though, can open-source projects governance be tweaked in ways, to solve it?..</p>
-</blockquote>
 ]]></content></entry></feed>

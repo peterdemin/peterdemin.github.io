@@ -1,3 +1,5 @@
+`Jan 15, 2026` - [hnpwd/hnpwd.github.io](https://github.com/hnpwd/hnpwd.github.io) - HN personal website directory and OPML
+
 `Jan 12, 2026` - It's been almost eleven years since the creation of "[PEP 492](https://peps.python.org/pep-0492/) – Coroutines with async and await syntax" by Yury Selivanov.
 I've been writing asynchronous Python on and off for about a decade, and still, async/await is the most complex part of Python for me.
 Recently, I wrote a synchronous generator that yields results from an asynchronous iterable. What a ride!

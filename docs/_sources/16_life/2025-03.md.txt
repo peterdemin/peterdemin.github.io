@@ -93,7 +93,7 @@ Also, weighted against the potential return from other projects that team can do
 
 I've never seen profits enter the picture for engineering planning, os it's often a kind of a dark area, of why is the deadline needs to be at this particular date.
 
-`Mar 02, 2025` - [fingerthief/recommendarr](https://github.com/fingerthief/recommendarr) - An LLM driven recommendation system based on Radarr and Sonarr library or watch history information
+`Mar 02, 2025` - [TannerMidd/recommendarr](https://github.com/TannerMidd/recommendarr) - An LLM driven recommendation system based on Radarr and Sonarr library or watch history information
 
 `Mar 01, 2025` - Added [](/17_notes/30-top_asked_meta_facebook_interview_questions_for_2025.md)
 
