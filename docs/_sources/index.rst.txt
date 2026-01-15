@@ -4,7 +4,7 @@
 I live in the US and work as a Senior Software Engineer. 
 Previously, I lived in Russia and Belarus, working for Yandex and EPAM in the same position.
 
-I write about Python, vim, git, and software engineering in general.
+I write about Python, vim, git, self-hosting, and software engineering in general.
 I'm trying to keep a :ref:`public journal <life>` about technical and non-technical topics,
 `subscribe via RSS <https://peter.demin.dev/life.xml>`_.
 
