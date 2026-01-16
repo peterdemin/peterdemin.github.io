@@ -68,7 +68,7 @@ systemctl restart nginx.service
 # Commafeed
 sudo -u commafeed \
     wget -O /home/commafeed/commafeed \
-        https://github.com/Athou/commafeed/releases/download/5.12.1/commafeed-5.12.1-h2-linux-x86_64-runner
+        https://github.com/Athou/commafeed/releases/download/6.0.0/commafeed-6.0.0-h2-linux-x86_64-runner
 chmod +x /home/commafeed/commafeed
 echo "Log in to https://feed.demin.dev/ as admin:admin and set up an account"
 systemctl enable commafeed.service
