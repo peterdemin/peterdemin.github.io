@@ -1,3 +1,8 @@
+`Jan 15, 2026` - I've been using Sentry for almost all of my carreer, but yesterday I received an email about Sentry asking for write permissions to my repos to create pull requests made by an LLM.
+I didn't enjoy overall enshittification of Sentry interface over the past few years.
+But this is it. That's the last drop. I'm looking for a replacement.
+Preferrably something self-hosted with a low CPU/RAM usage.
+
 `Jan 15, 2026` - [hnpwd/hnpwd.github.io](https://github.com/hnpwd/hnpwd.github.io) - HN personal website directory and OPML
 
 `Jan 12, 2026` - It's been almost eleven years since the creation of "[PEP 492](https://peps.python.org/pep-0492/) – Coroutines with async and await syntax" by Yury Selivanov.
