@@ -237,7 +237,7 @@ At which point I can sign in, create a project and copy the DSN URL to plug into
 </span><span data-line="5"><span class="c1"># Docs: https://www.bugsink.com/docs/single-server-production/</span>
 </span><span data-line="6">
 </span><span data-line="7"><span class="nv">HOST</span><span class="o">=</span>bugsink.demin.dev
-</span><span data-line="8"><span class="nv">EMAIL</span><span class="o">=</span>peter@demin.dev<span class="w">   </span><span class="c1"># used for Let&#39;s Encrypt via certbot (recommended)</span>
+</span><span data-line="8"><span class="nv">EMAIL</span><span class="o">=</span>peter@demin.dev
 </span><span data-line="9">
 </span><span data-line="10"><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$EUID</span><span class="w"> </span>-ne<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
 </span><span data-line="11"><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;ERROR: Run this script as root (sudo -i).&quot;</span>
@@ -318,8 +318,8 @@ At which point I can sign in, create a project and copy the DSN URL to plug into
 </span><span data-line="86"><span class="s">WorkingDirectory=/home/bugsink</span>
 </span><span data-line="87"><span class="s">ExecStart=/home/bugsink/venv/bin/gunicorn \\</span>
 </span><span data-line="88"><span class="s">    --bind=&quot;127.0.0.1:8000&quot; \\</span>
-</span><span data-line="89"><span class="s">    --workers=2 \\</span>
-</span><span data-line="90"><span class="s">    --timeout=6 \\</span>
+</span><span data-line="89"><span class="s">    --workers=1 \\</span>
+</span><span data-line="90"><span class="s">    --timeout=60 \\</span>
 </span><span data-line="91"><span class="s">    --access-logfile - \\</span>
 </span><span data-line="92"><span class="s">    --max-requests=1000 \\</span>
 </span><span data-line="93"><span class="s">    --max-requests-jitter=100 \\</span>
@@ -335,7 +335,7 @@ At which point I can sign in, create a project and copy the DSN URL to plug into
 </span><span data-line="103">systemctl<span class="w"> </span>daemon-reload
 </span><span data-line="104">systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>gunicorn.service
 </span><span data-line="105">
-</span><span data-line="106">log<span class="w"> </span><span class="s2">&quot;10) nginx: initial HTTP config on :80 (needed for certbot domain validation)&quot;</span>
+</span><span data-line="106">log<span class="w"> </span><span class="s2">&quot;9) nginx&quot;</span>
 </span><span data-line="107">rm<span class="w"> </span>-f<span class="w"> </span>/etc/nginx/sites-enabled/default<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
 </span><span data-line="108">
 </span><span data-line="109">cat<span class="w"> </span>&gt;/etc/nginx/sites-available/bugsink<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
@@ -356,60 +356,59 @@ At which point I can sign in, create a project and copy the DSN URL to plug into
 </span><span data-line="124">
 </span><span data-line="125">ln<span class="w"> </span>-sf<span class="w"> </span>/etc/nginx/sites-available/bugsink<span class="w"> </span>/etc/nginx/sites-enabled/bugsink
 </span><span data-line="126">service<span class="w"> </span>nginx<span class="w"> </span>configtest
-</span><span data-line="127">systemctl<span class="w"> </span>restart<span class="w"> </span>nginx
+</span><span data-line="127">systemctl<span class="w"> </span>restart<span class="w"> </span>nginx.service
 </span><span data-line="128">
-</span><span data-line="129">log<span class="w"> </span><span class="s2">&quot;11) SSL via certbot (snap), then final nginx hardening config&quot;</span>
-</span><span data-line="130"><span class="c1"># Install certbot as snap + symlink</span>
-</span><span data-line="131"><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span>-e<span class="w"> </span>/usr/bin/certbot<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-</span><span data-line="132"><span class="w">    </span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>/opt/certbot/
-</span><span data-line="133"><span class="w">    </span>/opt/certbot/bin/python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>certbot<span class="w"> </span>certbot-nginx
-</span><span data-line="134"><span class="w">    </span>ln<span class="w"> </span>-s<span class="w"> </span>/opt/certbot/bin/certbot<span class="w"> </span>/usr/bin/certbot
-</span><span data-line="135"><span class="k">fi</span>
-</span><span data-line="136">/opt/certbot/bin/certbot<span class="w"> </span>--agree-tos<span class="w"> </span>--nginx<span class="w"> </span>-m<span class="w"> </span><span class="nv">$EMAIL</span>
-</span><span data-line="137"><span class="c1"># TODO:</span>
-</span><span data-line="138"><span class="c1"># chmod u+x /etc/cron.weekly/certbot-renew</span>
-</span><span data-line="139">service<span class="w"> </span>nginx<span class="w"> </span>configtest
-</span><span data-line="140">systemctl<span class="w"> </span>restart<span class="w"> </span>nginx.service
-</span><span data-line="141">
-</span><span data-line="142">log<span class="w"> </span><span class="s2">&quot;12) systemd: snappea.service&quot;</span>
-</span><span data-line="143">cat<span class="w"> </span>&gt;/etc/systemd/system/snappea.service<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
-</span><span data-line="144"><span class="s">[Unit]</span>
-</span><span data-line="145"><span class="s">Description=snappea daemon</span>
-</span><span data-line="146">
-</span><span data-line="147"><span class="s">[Service]</span>
-</span><span data-line="148"><span class="s">Restart=always</span>
-</span><span data-line="149"><span class="s">User=bugsink</span>
-</span><span data-line="150"><span class="s">Group=bugsink</span>
-</span><span data-line="151"><span class="s">Environment=&quot;PYTHONUNBUFFERED=1&quot;</span>
-</span><span data-line="152"><span class="s">WorkingDirectory=/home/bugsink</span>
-</span><span data-line="153"><span class="s">ExecStart=/home/bugsink/venv/bin/bugsink-runsnappea</span>
-</span><span data-line="154"><span class="s">KillMode=mixed</span>
-</span><span data-line="155"><span class="s">TimeoutStopSec=5</span>
-</span><span data-line="156"><span class="s">RuntimeMaxSec=1d</span>
-</span><span data-line="157">
-</span><span data-line="158"><span class="s">[Install]</span>
-</span><span data-line="159"><span class="s">WantedBy=multi-user.target</span>
-</span><span data-line="160"><span class="s">EOF</span>
-</span><span data-line="161">
-</span><span data-line="162">systemctl<span class="w"> </span>daemon-reload
-</span><span data-line="163">systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>snappea.service
-</span><span data-line="164">
-</span><span data-line="165">log<span class="w"> </span><span class="s2">&quot;13) Optional: verify snappea picks up a task&quot;</span>
-</span><span data-line="166">run_as_bugsink<span class="w"> </span><span class="s2">&quot;. venv/bin/activate &amp;&amp; bugsink-manage checksnappea&quot;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
-</span><span data-line="167">
-</span><span data-line="168"><span class="c1"># Remove Google cruft in background</span>
-</span><span data-line="169">screen<span class="w"> </span>-dm<span class="w"> </span>/bin/sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;apt remove --allow-change-held-packages -y google-cloud-cli google-cloud-cli-anthoscli google-guest-agent google-osconfig-agent&quot;</span>
-</span><span data-line="170">
-</span><span data-line="171"><span class="nb">echo</span>
-</span><span data-line="172">log<span class="w"> </span><span class="s2">&quot;DONE. Memory usage:&quot;</span>
-</span><span data-line="173">free<span class="w"> </span>-h
-</span><span data-line="174"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Open: https://</span><span class="si">${</span><span class="nv">HOST</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span data-line="175"><span class="nb">echo</span>
-</span><span data-line="176"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Useful checks:&quot;</span>
-</span><span data-line="177"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  systemctl status gunicorn.service&quot;</span>
-</span><span data-line="178"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  systemctl status snappea.service&quot;</span>
-</span><span data-line="179"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  journalctl -u snappea.service&quot;</span>
-</span><span data-line="180"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  tail -n 200 /var/log/nginx/bugsink.error.log&quot;</span>
+</span><span data-line="129">log<span class="w"> </span><span class="s2">&quot;10) SSL via certbot&quot;</span>
+</span><span data-line="130"><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span>-e<span class="w"> </span>/usr/bin/certbot<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+</span><span data-line="131"><span class="w">    </span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>/opt/certbot/
+</span><span data-line="132"><span class="w">    </span>/opt/certbot/bin/python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>certbot<span class="w"> </span>certbot-nginx
+</span><span data-line="133"><span class="w">    </span>ln<span class="w"> </span>-s<span class="w"> </span>/opt/certbot/bin/certbot<span class="w"> </span>/usr/bin/certbot
+</span><span data-line="134"><span class="k">fi</span>
+</span><span data-line="135">/opt/certbot/bin/certbot<span class="w"> </span>--agree-tos<span class="w"> </span>--nginx<span class="w"> </span>-m<span class="w"> </span><span class="nv">$EMAIL</span>
+</span><span data-line="136">install<span class="w"> </span>-m<span class="w"> </span><span class="m">0744</span><span class="w"> </span>/dev/stdin<span class="w"> </span>/etc/cron.weekly/certbot-renew<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+</span><span data-line="137"><span class="s">#!/bin/sh</span>
+</span><span data-line="138"><span class="s">certbot renew -q</span>
+</span><span data-line="139"><span class="s">EOF</span>
+</span><span data-line="140">
+</span><span data-line="141">service<span class="w"> </span>nginx<span class="w"> </span>configtest
+</span><span data-line="142">systemctl<span class="w"> </span>restart<span class="w"> </span>nginx.service
+</span><span data-line="143">
+</span><span data-line="144">log<span class="w"> </span><span class="s2">&quot;11) systemd: snappea.service&quot;</span>
+</span><span data-line="145">cat<span class="w"> </span>&gt;/etc/systemd/system/snappea.service<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+</span><span data-line="146"><span class="s">[Unit]</span>
+</span><span data-line="147"><span class="s">Description=snappea daemon</span>
+</span><span data-line="148">
+</span><span data-line="149"><span class="s">[Service]</span>
+</span><span data-line="150"><span class="s">Restart=always</span>
+</span><span data-line="151"><span class="s">User=bugsink</span>
+</span><span data-line="152"><span class="s">Group=bugsink</span>
+</span><span data-line="153"><span class="s">Environment=&quot;PYTHONUNBUFFERED=1&quot;</span>
+</span><span data-line="154"><span class="s">WorkingDirectory=/home/bugsink</span>
+</span><span data-line="155"><span class="s">ExecStart=/home/bugsink/venv/bin/bugsink-runsnappea</span>
+</span><span data-line="156"><span class="s">KillMode=mixed</span>
+</span><span data-line="157"><span class="s">TimeoutStopSec=5</span>
+</span><span data-line="158"><span class="s">RuntimeMaxSec=1d</span>
+</span><span data-line="159">
+</span><span data-line="160"><span class="s">[Install]</span>
+</span><span data-line="161"><span class="s">WantedBy=multi-user.target</span>
+</span><span data-line="162"><span class="s">EOF</span>
+</span><span data-line="163">
+</span><span data-line="164">systemctl<span class="w"> </span>daemon-reload
+</span><span data-line="165">systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>snappea.service
+</span><span data-line="166">
+</span><span data-line="167"><span class="c1"># Remove Google cruft in background</span>
+</span><span data-line="168">screen<span class="w"> </span>-dm<span class="w"> </span>/bin/sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;apt remove --allow-change-held-packages -y google-cloud-cli google-cloud-cli-anthoscli google-guest-agent google-osconfig-agent&quot;</span>
+</span><span data-line="169">
+</span><span data-line="170"><span class="nb">echo</span>
+</span><span data-line="171">log<span class="w"> </span><span class="s2">&quot;DONE. Memory usage:&quot;</span>
+</span><span data-line="172">free<span class="w"> </span>-h
+</span><span data-line="173"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Open: https://</span><span class="si">${</span><span class="nv">HOST</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span data-line="174"><span class="nb">echo</span>
+</span><span data-line="175"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Useful checks:&quot;</span>
+</span><span data-line="176"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  systemctl status gunicorn.service&quot;</span>
+</span><span data-line="177"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  systemctl status snappea.service&quot;</span>
+</span><span data-line="178"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  journalctl -u snappea.service&quot;</span>
+</span><span data-line="179"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  tail -n 200 /var/log/nginx/bugsink.error.log&quot;</span>
 </span></pre></div>
 </div>
 <p>Once you’re done playing with it, here’s how you can destroy the VM:</p>
