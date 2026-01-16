@@ -1,5 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2026-01-15T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Jan 15, 2026_2</id><title>Journal</title><published>2026-01-15T00:00:00Z</published><updated>2026-01-15T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 15, 2026"/><content type="html"><![CDATA[<p>Added <a href="https://peter.demin.dev/12_articles/79-bugsink-gcp.html">Install Bugsink on Google Cloud Platform</a></p>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2026-01-16T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Jan 16, 2026_0</id><title>Journal</title><published>2026-01-16T00:00:00Z</published><updated>2026-01-16T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 16, 2026"/><content type="html"><![CDATA[<p>I got into this trap twice, so I guess, I might be not alone.
+I review someone else's code, and I get a strong feeling it was AI-generated.
+Because no human could possibly produce this kind of well-documented, type-annotated mindless slop.
+I feel offended for author being careless and pushing through slop without control.
+I ask the author whether they reviewed the generated code themselves before pushing it.
+They tell me they didn't use AI.
+They wrote the code themselves.</p>
+]]></content></entry><entry><id>Jan 15, 2026_2</id><title>Journal</title><published>2026-01-15T00:00:00Z</published><updated>2026-01-15T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 15, 2026"/><content type="html"><![CDATA[<p>Added <a href="https://peter.demin.dev/12_articles/79-bugsink-gcp.html">Install Bugsink on Google Cloud Platform</a></p>
 ]]></content></entry><entry><id>Jan 15, 2026_1</id><title>Journal</title><published>2026-01-15T00:00:00Z</published><updated>2026-01-15T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 15, 2026"/><content type="html"><![CDATA[<p>I've been using <a href="https://sentry.io/welcome/">Sentry</a> for almost all of my career, but yesterday I received an email about Sentry asking for write permissions to my repos to create pull requests made by an LLM.
 I didn't enjoy overall enshittification of Sentry interface over the past few years.
 But this is it. That's the last drop. I'm looking for a replacement.
@@ -372,5 +379,4 @@ Even you ask someone, what do they think of you, you're not going to get an hone
 Because any negativity in the opinion may backfire in the future.
 So, here we are, in a bright shiny world, where everyone is super happy about everyone else.
 Except that half of marrieages end in divorce, people get laid of every year, and 90% of startups fail.</p>
-]]></content></entry><entry><id>Feb 28, 2025_0</id><title>Journal</title><published>2025-02-28T00:00:00Z</published><updated>2025-02-28T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Feb 28, 2025"/><content type="html"><![CDATA[<p>Cool sketching video: https://www.youtube.com/watch?v=uFyc3orK6cs</p>
 ]]></content></entry></feed>
