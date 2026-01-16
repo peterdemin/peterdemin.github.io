@@ -5,7 +5,7 @@ set -euo pipefail
 # Docs: https://www.bugsink.com/docs/single-server-production/
 
 HOST=bugsink.demin.dev
-EMAIL=peter@demin.dev   # used for Let's Encrypt via certbot (recommended)
+EMAIL=peter@demin.dev
 
 if [[ $EUID -ne 0 ]]; then
   echo "ERROR: Run this script as root (sudo -i)."
@@ -86,8 +86,8 @@ Environment="PYTHONUNBUFFERED=1"
 WorkingDirectory=/home/bugsink
 ExecStart=/home/bugsink/venv/bin/gunicorn \\
     --bind="127.0.0.1:8000" \\
-    --workers=2 \\
-    --timeout=6 \\
+    --workers=1 \\
+    --timeout=60 \\
     --access-logfile - \\
     --max-requests=1000 \\
     --max-requests-jitter=100 \\
@@ -103,7 +103,7 @@ EOF
 systemctl daemon-reload
 systemctl enable --now gunicorn.service
 
-log "10) nginx: initial HTTP config on :80 (needed for certbot domain validation)"
+log "9) nginx"
 rm -f /etc/nginx/sites-enabled/default || true
 
 cat >/etc/nginx/sites-available/bugsink <<EOF
@@ -124,22 +124,24 @@ EOF
 
 ln -sf /etc/nginx/sites-available/bugsink /etc/nginx/sites-enabled/bugsink
 service nginx configtest
-systemctl restart nginx
+systemctl restart nginx.service
 
-log "11) SSL via certbot (snap), then final nginx hardening config"
-# Install certbot as snap + symlink
+log "10) SSL via certbot"
 if [ ! -e /usr/bin/certbot ]; then
     python3 -m venv /opt/certbot/
     /opt/certbot/bin/python3 -m pip install certbot certbot-nginx
     ln -s /opt/certbot/bin/certbot /usr/bin/certbot
 fi
 /opt/certbot/bin/certbot --agree-tos --nginx -m $EMAIL
-# TODO:
-# chmod u+x /etc/cron.weekly/certbot-renew
+install -m 0744 /dev/stdin /etc/cron.weekly/certbot-renew <<'EOF'
+#!/bin/sh
+certbot renew -q
+EOF
+
 service nginx configtest
 systemctl restart nginx.service
 
-log "12) systemd: snappea.service"
+log "11) systemd: snappea.service"
 cat >/etc/systemd/system/snappea.service <<'EOF'
 [Unit]
 Description=snappea daemon
@@ -161,9 +163,6 @@ EOF
 
 systemctl daemon-reload
 systemctl enable --now snappea.service
-
-log "13) Optional: verify snappea picks up a task"
-run_as_bugsink ". venv/bin/activate && bugsink-manage checksnappea" || true
 
 # Remove Google cruft in background
 screen -dm /bin/sh -c "apt remove --allow-change-held-packages -y google-cloud-cli google-cloud-cli-anthoscli google-guest-agent google-osconfig-agent"
