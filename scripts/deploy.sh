@@ -6,7 +6,7 @@ IP=$1
 NAME=peter
 DOMAIN=demin.dev
 
-scp -rC cert/provision.sh etc "${IP}:"
+scp -rC scripts/provision.sh etc "${IP}:"
 ssh "${IP}" -- "chmod +x provision.sh && sudo ./provision.sh"
 
 read -rsp "Enter password for jabber account $NAME: " PASSWORD
