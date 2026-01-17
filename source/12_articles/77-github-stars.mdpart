@@ -1,3 +1,5 @@
+`Jan 16, 2026` - [bugsink/bugsink](https://github.com/bugsink/bugsink) - Self-hosted Error Tracking
+
 `Jan 15, 2026` - [hnpwd/hnpwd.github.io](https://github.com/hnpwd/hnpwd.github.io) - HN personal website directory and OPML
 
 `Jan 10, 2026` - [scottrogowski/code2flow](https://github.com/scottrogowski/code2flow) - Pretty good call graphs for dynamic languages
@@ -34,7 +36,7 @@
 
 `Jun 10, 2025` - [pypiserver/pypiserver](https://github.com/pypiserver/pypiserver) - Minimal PyPI server for uploading & downloading packages with pip/easy_install
 
-`Jun 10, 2025` - [apple/container](https://github.com/apple/container) - A tool for creating and running Linux containers using lightweight virtual machines on a Mac. It is written in Swift, and optimized for Apple silicon. 
+`Jun 10, 2025` - [apple/container](https://github.com/apple/container) - A tool for creating and running Linux containers using lightweight virtual machines on a Mac. It is written in Swift, and optimized for Apple silicon.
 
 `Jun 03, 2025` - [dosisod/refurb](https://github.com/dosisod/refurb) - A tool for refurbishing and modernizing Python codebases
 
@@ -52,7 +54,7 @@
 
 `Mar 24, 2025` - [karpathy/minGPT](https://github.com/karpathy/minGPT) - A minimal PyTorch re-implementation of the OpenAI GPT (Generative Pretrained Transformer) training
 
-`Mar 16, 2025` - [suitenumerique/docs](https://github.com/suitenumerique/docs) - A collaborative note taking, wiki and documentation platform that scales. Built with Django and React. 
+`Mar 16, 2025` - [suitenumerique/docs](https://github.com/suitenumerique/docs) - A collaborative note taking, wiki and documentation platform that scales. Built with Django and React.
 
 `Mar 12, 2025` - [ZachGoldberg/Startup-CTO-Handbook](https://github.com/ZachGoldberg/Startup-CTO-Handbook) - The Startup CTO's Handbook, a book covering leadership, management and technical topics for leaders of software engineering teams
 
@@ -64,7 +66,7 @@
 
 `Jan 26, 2025` - [sharingan-no-kakashi/orange-intelligence](https://github.com/sharingan-no-kakashi/orange-intelligence) - Orange intelligence
 
-`Jan 12, 2025` - [notify-rs/notify](https://github.com/notify-rs/notify) - 🔭 Cross-platform filesystem notification library for Rust. 
+`Jan 12, 2025` - [notify-rs/notify](https://github.com/notify-rs/notify) - 🔭 Cross-platform filesystem notification library for Rust.
 
 `Jan 12, 2025` - [samuelcolvin/watchfiles](https://github.com/samuelcolvin/watchfiles) - Simple, modern and fast file watching and code reload for Python, written in Rust
 
@@ -134,7 +136,7 @@
 
 `Apr 05, 2024` - [zoriya/Kyoo](https://github.com/zoriya/Kyoo) - A portable and vast media library solution.
 
-`Apr 03, 2024` - [AlexanderKoch-Koch/low_cost_robot](https://github.com/AlexanderKoch-Koch/low_cost_robot) - None
+`Apr 03, 2024` - [AlexanderKoch-Koch/low_cost_robot](https://github.com/AlexanderKoch-Koch/low_cost_robot)
 
 `Apr 03, 2024` - [tsuru/tsuru](https://github.com/tsuru/tsuru) - Open source and extensible Platform as a Service (PaaS).
 
@@ -204,7 +206,7 @@
 
 `Sep 11, 2023` - [streamlit/streamlit](https://github.com/streamlit/streamlit) - Streamlit — A faster way to build and share data apps.
 
-`Sep 11, 2023` - [toeverything/AFFiNE](https://github.com/toeverything/AFFiNE) - There can be more than Notion and Miro. AFFiNE(pronounced [ə‘fain]) is a next-gen knowledge base that brings planning, sorting and creating all together. Privacy first, open-source, customizable and ready to use. 
+`Sep 11, 2023` - [toeverything/AFFiNE](https://github.com/toeverything/AFFiNE) - There can be more than Notion and Miro. AFFiNE(pronounced [ə‘fain]) is a next-gen knowledge base that brings planning, sorting and creating all together. Privacy first, open-source, customizable and ready to use.
 
 `Sep 11, 2023` - [gittuf/gittuf](https://github.com/gittuf/gittuf) - A security layer for Git repositories
 
@@ -258,7 +260,7 @@
 
 `Jul 29, 2023` - [oobabooga/text-generation-webui](https://github.com/oobabooga/text-generation-webui) - The definitive Web UI for local AI, with powerful features and easy setup.
 
-`Jul 29, 2023` - [liltom-eth/llama2-webui](https://github.com/liltom-eth/llama2-webui) - Run any Llama 2 locally with gradio UI on GPU or CPU from anywhere (Linux/Windows/Mac). Use `llama2-wrapper` as your local llama2 backend for Generative Agents/Apps.  
+`Jul 29, 2023` - [liltom-eth/llama2-webui](https://github.com/liltom-eth/llama2-webui) - Run any Llama 2 locally with gradio UI on GPU or CPU from anywhere (Linux/Windows/Mac). Use `llama2-wrapper` as your local llama2 backend for Generative Agents/Apps.
 
 `Jul 23, 2023` - [puremourning/vimspector](https://github.com/puremourning/vimspector) - vimspector - A multi-language debugging system for Vim
 
@@ -290,11 +292,11 @@
 
 `Jun 12, 2023` - [getmoto/moto](https://github.com/getmoto/moto) - A library that allows you to easily mock out tests based on AWS infrastructure.
 
-`Jun 02, 2023` - [PromtEngineer/localGPT](https://github.com/PromtEngineer/localGPT) - Chat with your documents on your local device using GPT models. No data leaves your device and 100% private. 
+`Jun 02, 2023` - [PromtEngineer/localGPT](https://github.com/PromtEngineer/localGPT) - Chat with your documents on your local device using GPT models. No data leaves your device and 100% private.
 
 `May 30, 2023` - [bigcapitalhq/bigcapital](https://github.com/bigcapitalhq/bigcapital) - 💵 Bigcapital is financial accounting with intelligent reporting for faster decision-making, an open-source alternative to Quickbooks, Xero, etc.
 
-`May 24, 2023` - [huggingface/transformers](https://github.com/huggingface/transformers) - 🤗 Transformers: the model-definition framework for state-of-the-art machine learning models in text, vision, audio, and multimodal models, for both inference and training. 
+`May 24, 2023` - [huggingface/transformers](https://github.com/huggingface/transformers) - 🤗 Transformers: the model-definition framework for state-of-the-art machine learning models in text, vision, audio, and multimodal models, for both inference and training.
 
 `May 18, 2023` - [astral-sh/ruff](https://github.com/astral-sh/ruff) - An extremely fast Python linter and code formatter, written in Rust.
 
@@ -310,7 +312,7 @@
 
 `Apr 29, 2023` - [emwalker/digraph](https://github.com/emwalker/digraph) - Organize the world
 
-`Apr 21, 2023` - [griptape-ai/griptape](https://github.com/griptape-ai/griptape) - Modular Python framework for AI agents and workflows with chain-of-thought reasoning, tools, and memory. 
+`Apr 21, 2023` - [griptape-ai/griptape](https://github.com/griptape-ai/griptape) - Modular Python framework for AI agents and workflows with chain-of-thought reasoning, tools, and memory.
 
 `Apr 21, 2023` - [Significant-Gravitas/AutoGPT](https://github.com/Significant-Gravitas/AutoGPT) - AutoGPT is the vision of accessible AI for everyone, to use and to build on. Our mission is to provide the tools, so that you can focus on what matters.
 
@@ -374,7 +376,7 @@
 
 `Feb 09, 2023` - [obi1kenobi/trustfall](https://github.com/obi1kenobi/trustfall) - A query engine for any combination of data sources. Query your files and APIs as if they were databases!
 
-`Jan 20, 2023` - [KanHarI/gpt-commit-summarizer](https://github.com/KanHarI/gpt-commit-summarizer) - None
+`Jan 20, 2023` - [KanHarI/gpt-commit-summarizer](https://github.com/KanHarI/gpt-commit-summarizer)
 
 `Jan 19, 2023` - [langchain-ai/langchain](https://github.com/langchain-ai/langchain) - 🦜🔗 The platform for reliable agents.
 
@@ -390,7 +392,7 @@
 
 `Jan 06, 2023` - [xyflow/xyflow](https://github.com/xyflow/xyflow) - React Flow | Svelte Flow - Powerful open source libraries for building node-based UIs with React (https://reactflow.dev) or Svelte (https://svelteflow.dev). Ready out-of-the-box and infinitely customizable.
 
-`Jan 05, 2023` - [Zooz/predator](https://github.com/Zooz/predator) - A powerful open-source platform for load testing APIs. 
+`Jan 05, 2023` - [Zooz/predator](https://github.com/Zooz/predator) - A powerful open-source platform for load testing APIs.
 
 `Jan 05, 2023` - [cider-security-research/cicd-goat](https://github.com/cider-security-research/cicd-goat) - A deliberately vulnerable CI/CD environment. Learn CI/CD security through multiple challenges.
 
@@ -408,7 +410,7 @@
 
 `Dec 10, 2022` - [f/awesome-chatgpt-prompts](https://github.com/f/awesome-chatgpt-prompts) - Share, discover, and collect prompts from the community. Free and open source — self-host for your organization with complete privacy.
 
-`Dec 06, 2022` - [commitizen-tools/commitizen](https://github.com/commitizen-tools/commitizen) - Create committing rules for projects :rocket: auto bump versions :arrow_up: and auto changelog generation :open_file_folder: 
+`Dec 06, 2022` - [commitizen-tools/commitizen](https://github.com/commitizen-tools/commitizen) - Create committing rules for projects :rocket: auto bump versions :arrow_up: and auto changelog generation :open_file_folder:
 
 `Dec 04, 2022` - [peterdemin/chcode](https://github.com/peterdemin/chcode) - Command-line utility to change Python source code
 
@@ -454,7 +456,7 @@
 
 `Aug 24, 2022` - [PostHog/posthog](https://github.com/PostHog/posthog) - 🦔 PostHog is an all-in-one developer platform for building successful products. We offer product analytics, web analytics, session replay, error tracking, feature flags, experimentation, surveys, data warehouse, a CDP, and an AI product assistant to help debug your code, ship features faster, and keep all your usage and customer data in one stack.
 
-`Aug 12, 2022` - [faster-cpython/ideas](https://github.com/faster-cpython/ideas) - None
+`Aug 12, 2022` - [faster-cpython/ideas](https://github.com/faster-cpython/ideas)
 
 `Aug 12, 2022` - [google/grumpy](https://github.com/google/grumpy) - Grumpy is a Python to Go source code transcompiler and runtime.
 
@@ -570,7 +572,7 @@
 
 `May 21, 2021` - [matthewwithanm/python-markdownify](https://github.com/matthewwithanm/python-markdownify) - Convert HTML to Markdown
 
-`May 17, 2021` - [HandBrake/HandBrake](https://github.com/HandBrake/HandBrake) - HandBrake's development repository 
+`May 17, 2021` - [HandBrake/HandBrake](https://github.com/HandBrake/HandBrake) - HandBrake's development repository
 
 `May 16, 2021` - [zulip/zulip](https://github.com/zulip/zulip) - Zulip server and web application. Open-source team chat that helps teams stay productive and focused.
 
@@ -590,7 +592,7 @@
 
 `Apr 21, 2021` - [pycontribs/mk](https://github.com/pycontribs/mk) - mk ease contributing to any open source repository by exposing most common actions you can run. Inspired by make, tox and other cool tools!
 
-`Apr 20, 2021` - [spotify/luigi](https://github.com/spotify/luigi) - Luigi is a Python module that helps you build complex pipelines of batch jobs. It handles dependency resolution, workflow management, visualization etc. It also comes with Hadoop support built in. 
+`Apr 20, 2021` - [spotify/luigi](https://github.com/spotify/luigi) - Luigi is a Python module that helps you build complex pipelines of batch jobs. It handles dependency resolution, workflow management, visualization etc. It also comes with Hadoop support built in.
 
 `Apr 19, 2021` - [Parquery/icontract](https://github.com/Parquery/icontract) - Design-by-contract in Python3 with informative violation messages and inheritance
 
@@ -608,7 +610,7 @@
 
 `Mar 25, 2021` - [django-otp/django-otp](https://github.com/django-otp/django-otp) - A pluggable framework for adding two-factor authentication to Django using one-time passwords.
 
-`Mar 19, 2021` - [python-control/python-control](https://github.com/python-control/python-control) -  The Python Control Systems Library is a Python module that implements basic operations for analysis and design of feedback control systems.
+`Mar 19, 2021` - [python-control/python-control](https://github.com/python-control/python-control) - The Python Control Systems Library is a Python module that implements basic operations for analysis and design of feedback control systems.
 
 `Mar 15, 2021` - [DarthSim/overmind](https://github.com/DarthSim/overmind) - Process manager for Procfile-based applications and tmux
 
@@ -632,7 +634,7 @@
 
 `Feb 07, 2021` - [joelparkerhenderson/architecture-decision-record](https://github.com/joelparkerhenderson/architecture-decision-record) - Architecture decision record (ADR) examples for software planning, IT leadership, and template documentation
 
-`Feb 02, 2021` - [chaimleib/intervaltree](https://github.com/chaimleib/intervaltree) - A mutable, self-balancing interval tree. Queries may be by point, by range overlap, or by range containment. 
+`Feb 02, 2021` - [chaimleib/intervaltree](https://github.com/chaimleib/intervaltree) - A mutable, self-balancing interval tree. Queries may be by point, by range overlap, or by range containment.
 
 `Feb 01, 2021` - [abhivaikar/howtheytest](https://github.com/abhivaikar/howtheytest) - A collection of public resources about how software companies test their software
 
@@ -640,7 +642,7 @@
 
 `Jan 29, 2021` - [jlevy/the-art-of-command-line](https://github.com/jlevy/the-art-of-command-line) - Master the command line, in one page
 
-`Jan 29, 2021` - [RickSayd/navigating-system-design](https://github.com/RickSayd/navigating-system-design) - None
+`Jan 29, 2021` - [RickSayd/navigating-system-design](https://github.com/RickSayd/navigating-system-design)
 
 `Jan 14, 2021` - [jaraco/inflect](https://github.com/jaraco/inflect) - Correctly generate plurals, ordinals, indefinite articles; convert numbers to words
 
@@ -720,7 +722,7 @@
 
 `Jul 23, 2020` - [prestodb/presto](https://github.com/prestodb/presto) - The official home of the Presto distributed SQL query engine for big data
 
-`Jul 22, 2020` - [jhaals/yopass](https://github.com/jhaals/yopass) - Secure sharing of secrets, passwords and files 
+`Jul 22, 2020` - [jhaals/yopass](https://github.com/jhaals/yopass) - Secure sharing of secrets, passwords and files
 
 `Jul 16, 2020` - [nipunn1313/mypy-protobuf](https://github.com/nipunn1313/mypy-protobuf) - open source tools to generate mypy stubs from protobufs
 
@@ -728,9 +730,9 @@
 
 `Jul 09, 2020` - [ajaymerchia/git-castle](https://github.com/ajaymerchia/git-castle) - A platform-agnostic, lightweight tool to manage secrets with git.
 
-`Jul 06, 2020` - [cody-moveworks/talon](https://github.com/cody-moveworks/talon) - None
+`Jul 06, 2020` - [cody-moveworks/talon](https://github.com/cody-moveworks/talon)
 
-`Jun 30, 2020` - [danjac/localhub](https://github.com/danjac/localhub) - None
+`Jun 30, 2020` - [danjac/localhub](https://github.com/danjac/localhub)
 
 `Jun 23, 2020` - [pschanely/CrossHair](https://github.com/pschanely/CrossHair) - An analysis tool for Python that blurs the line between testing and type systems.
 

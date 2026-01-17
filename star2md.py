@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-import sys
 import datetime
 import json
+import sys
 from dataclasses import dataclass
 from typing import Iterable, TextIO
 
@@ -23,16 +23,17 @@ def iter_stars(fin: TextIO) -> Iterable[Star]:
             full_name=star["repo"]["full_name"],
             html_url=star["repo"]["html_url"],
             private=star["repo"]["private"],
-            description=star["repo"]["description"],
+            description=(star["repo"]["description"] or "").strip(),
             login=star["repo"]["owner"]["login"],
             starred_at=datetime.datetime.fromisoformat(star["starred_at"]),
         )
 
 
 def format_star(star: Star) -> str:
+    description = f' - {star.description}' if star.description else ''
     return (
         f"`{star.starred_at.strftime('%b %d, %Y')}` - "
-        f"[{star.full_name}]({star.html_url}) - {star.description}\n"
+        f"[{star.full_name}]({star.html_url}){description}\n"
     )
 
 
