@@ -263,152 +263,283 @@ At which point I can sign in, create a project and copy the DSN URL to plug into
 </span><span data-line="31">
 </span><span data-line="32">apt-mark<span class="w"> </span>hold<span class="w"> </span>google-cloud-cli<span class="w"> </span>google-cloud-cli-anthoscli<span class="w"> </span>google-guest-agent<span class="w"> </span>google-osconfig-agent
 </span><span data-line="33">
-</span><span data-line="34">log<span class="w"> </span><span class="s2">&quot;1) System packages: python3/pip/venv + nginx + curl&quot;</span>
-</span><span data-line="35"><span class="nb">export</span><span class="w"> </span><span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive
-</span><span data-line="36">apt<span class="w"> </span>update
-</span><span data-line="37">apt<span class="w"> </span>-y<span class="w"> </span>upgrade
-</span><span data-line="38">apt<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>python3<span class="w"> </span>python3-pip<span class="w"> </span>python3-venv<span class="w"> </span>nginx<span class="w"> </span>curl
-</span><span data-line="39">
-</span><span data-line="40">log<span class="w"> </span><span class="s2">&quot;2) Create non-root user: bugsink (if missing)&quot;</span>
-</span><span data-line="41"><span class="k">if</span><span class="w"> </span>!<span class="w"> </span>id<span class="w"> </span>-u<span class="w"> </span>bugsink<span class="w"> </span>&gt;/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-</span><span data-line="42"><span class="w">  </span>adduser<span class="w"> </span>bugsink<span class="w"> </span>--disabled-password<span class="w"> </span>--gecos<span class="w"> </span><span class="s2">&quot;&quot;</span>
-</span><span data-line="43"><span class="k">fi</span>
-</span><span data-line="44">
-</span><span data-line="45">log<span class="w"> </span><span class="s2">&quot;3) Create/activate venv and install/upgrade Bugsink&quot;</span>
-</span><span data-line="46">run_as_bugsink<span class="w"> </span><span class="s1">&#39;python3 -m venv venv&#39;</span>
-</span><span data-line="47">run_as_bugsink<span class="w"> </span><span class="s1">&#39;. venv/bin/activate &amp;&amp; python3 -m pip install --upgrade pip&#39;</span>
-</span><span data-line="48">run_as_bugsink<span class="w"> </span><span class="s1">&#39;. venv/bin/activate &amp;&amp; python3 -m pip install --upgrade bugsink&#39;</span>
-</span><span data-line="49">run_as_bugsink<span class="w"> </span><span class="s1">&#39;. venv/bin/activate &amp;&amp; bugsink-show-version&#39;</span>
-</span><span data-line="50">
-</span><span data-line="51">log<span class="w"> </span><span class="s2">&quot;4) Generate production config: bugsink_conf.py (template=singleserver)&quot;</span>
-</span><span data-line="52"><span class="c1"># If config exists, we keep it (idempotent-ish)</span>
-</span><span data-line="53"><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>!<span class="w"> </span>-f<span class="w"> </span>/home/bugsink/bugsink_conf.py<span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-</span><span data-line="54"><span class="w">  </span>run_as_bugsink<span class="w"> </span><span class="s2">&quot;. venv/bin/activate &amp;&amp; bugsink-create-conf --template=singleserver --host=&#39;</span><span class="si">${</span><span class="nv">HOST</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
-</span><span data-line="55"><span class="k">else</span>
-</span><span data-line="56"><span class="w">  </span>log<span class="w"> </span><span class="s2">&quot;   /home/bugsink/bugsink_conf.py already exists; leaving it unchanged.&quot;</span>
+</span><span data-line="34">mkdir<span class="w"> </span>-p<span class="w"> </span>/etc/apt/keyrings
+</span><span data-line="35">curl<span class="w"> </span>-fsSL<span class="w"> </span>https://pkgs.tailscale.com/stable/debian/trixie.noarmor.gpg<span class="w"> </span>&gt;<span class="w"> </span>/usr/share/keyrings/tailscale-archive-keyring.gpg
+</span><span data-line="36">curl<span class="w"> </span>-fsSL<span class="w"> </span>https://pkgs.tailscale.com/stable/debian/trixie.tailscale-keyring.list<span class="w"> </span>&gt;<span class="w"> </span>/etc/apt/sources.list.d/tailscale.list
+</span><span data-line="37">
+</span><span data-line="38">log<span class="w"> </span><span class="s2">&quot;Install packages&quot;</span>
+</span><span data-line="39"><span class="nb">export</span><span class="w"> </span><span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive
+</span><span data-line="40">apt<span class="w"> </span>update
+</span><span data-line="41">apt<span class="w"> </span>-y<span class="w"> </span>upgrade
+</span><span data-line="42">apt<span class="w"> </span>-y<span class="w"> </span>install<span class="w">      </span><span class="se">\</span>
+</span><span data-line="43"><span class="w">    </span>python3<span class="w">         </span><span class="se">\</span>
+</span><span data-line="44"><span class="w">    </span>python3-pip<span class="w">     </span><span class="se">\</span>
+</span><span data-line="45"><span class="w">    </span>python3-venv<span class="w">    </span><span class="se">\</span>
+</span><span data-line="46"><span class="w">    </span>nginx<span class="w">           </span><span class="se">\</span>
+</span><span data-line="47"><span class="w">    </span>curl<span class="w">            </span><span class="se">\</span>
+</span><span data-line="48"><span class="w">    </span>tailscale
+</span><span data-line="49">
+</span><span data-line="50">log<span class="w"> </span><span class="s2">&quot;Login to tailscale&quot;</span>
+</span><span data-line="51"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Log in to your Tailscale account to add a new instance. Then disable SSH access&quot;</span>
+</span><span data-line="52">tailscale<span class="w"> </span>login
+</span><span data-line="53">
+</span><span data-line="54">log<span class="w"> </span><span class="s2">&quot;Create non-root user: bugsink (if missing)&quot;</span>
+</span><span data-line="55"><span class="k">if</span><span class="w"> </span>!<span class="w"> </span>id<span class="w"> </span>-u<span class="w"> </span>bugsink<span class="w"> </span>&gt;/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+</span><span data-line="56"><span class="w">  </span>adduser<span class="w"> </span>bugsink<span class="w"> </span>--disabled-password<span class="w"> </span>--gecos<span class="w"> </span><span class="s2">&quot;&quot;</span>
 </span><span data-line="57"><span class="k">fi</span>
 </span><span data-line="58">
-</span><span data-line="59">log<span class="w"> </span><span class="s2">&quot;5) Initialize DBs (migrate main + snappea queue DB)&quot;</span>
-</span><span data-line="60">run_as_bugsink<span class="w"> </span><span class="s2">&quot;. venv/bin/activate &amp;&amp; bugsink-manage migrate&quot;</span>
-</span><span data-line="61">run_as_bugsink<span class="w"> </span><span class="s2">&quot;. venv/bin/activate &amp;&amp; bugsink-manage migrate snappea --database=snappea&quot;</span>
-</span><span data-line="62">
-</span><span data-line="63">log<span class="w"> </span><span class="s2">&quot;6) Create the superuser&quot;</span>
-</span><span data-line="64"><span class="nb">echo</span>
-</span><span data-line="65"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&gt;&gt;&gt; You will now be prompted to create the Bugsink superuser (per the docs).&quot;</span>
-</span><span data-line="66"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&gt;&gt;&gt; Use an email address as username if you like.&quot;</span>
-</span><span data-line="67"><span class="nb">echo</span>
-</span><span data-line="68">run_as_bugsink<span class="w"> </span><span class="s2">&quot;. venv/bin/activate &amp;&amp; bugsink-manage createsuperuser&quot;</span>
-</span><span data-line="69">
-</span><span data-line="70">log<span class="w"> </span><span class="s2">&quot;7) Sanity checks&quot;</span>
-</span><span data-line="71">run_as_bugsink<span class="w"> </span><span class="s2">&quot;. venv/bin/activate &amp;&amp; bugsink-manage check_migrations&quot;</span>
-</span><span data-line="72">run_as_bugsink<span class="w"> </span><span class="s2">&quot;. venv/bin/activate &amp;&amp; bugsink-manage check --deploy --fail-level WARNING&quot;</span>
-</span><span data-line="73">
-</span><span data-line="74">log<span class="w"> </span><span class="s2">&quot;8) systemd: gunicorn.service&quot;</span>
-</span><span data-line="75">cat<span class="w"> </span>&gt;/etc/systemd/system/gunicorn.service<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
-</span><span data-line="76"><span class="s">[Unit]</span>
-</span><span data-line="77"><span class="s">Description=gunicorn daemon</span>
-</span><span data-line="78"><span class="s">After=network.target</span>
-</span><span data-line="79">
-</span><span data-line="80"><span class="s">[Service]</span>
-</span><span data-line="81"><span class="s">Restart=always</span>
-</span><span data-line="82"><span class="s">Type=notify</span>
-</span><span data-line="83"><span class="s">User=bugsink</span>
-</span><span data-line="84"><span class="s">Group=bugsink</span>
-</span><span data-line="85"><span class="s">Environment=&quot;PYTHONUNBUFFERED=1&quot;</span>
-</span><span data-line="86"><span class="s">WorkingDirectory=/home/bugsink</span>
-</span><span data-line="87"><span class="s">ExecStart=/home/bugsink/venv/bin/gunicorn \\</span>
-</span><span data-line="88"><span class="s">    --bind=&quot;127.0.0.1:8000&quot; \\</span>
-</span><span data-line="89"><span class="s">    --workers=1 \\</span>
-</span><span data-line="90"><span class="s">    --timeout=60 \\</span>
-</span><span data-line="91"><span class="s">    --access-logfile - \\</span>
-</span><span data-line="92"><span class="s">    --max-requests=1000 \\</span>
-</span><span data-line="93"><span class="s">    --max-requests-jitter=100 \\</span>
-</span><span data-line="94"><span class="s">    bugsink.wsgi</span>
-</span><span data-line="95"><span class="s">ExecReload=/bin/kill -s HUP \$MAINPID</span>
-</span><span data-line="96"><span class="s">KillMode=mixed</span>
-</span><span data-line="97"><span class="s">TimeoutStopSec=5</span>
-</span><span data-line="98">
-</span><span data-line="99"><span class="s">[Install]</span>
-</span><span data-line="100"><span class="s">WantedBy=multi-user.target</span>
-</span><span data-line="101"><span class="s">EOF</span>
+</span><span data-line="59">log<span class="w"> </span><span class="s2">&quot;Create/activate venv and install/upgrade Bugsink&quot;</span>
+</span><span data-line="60">run_as_bugsink<span class="w"> </span><span class="s1">&#39;python3 -m venv venv&#39;</span>
+</span><span data-line="61">run_as_bugsink<span class="w"> </span><span class="s1">&#39;. venv/bin/activate &amp;&amp; python3 -m pip install --upgrade pip&#39;</span>
+</span><span data-line="62">run_as_bugsink<span class="w"> </span><span class="s1">&#39;. venv/bin/activate &amp;&amp; python3 -m pip install --upgrade bugsink&#39;</span>
+</span><span data-line="63">run_as_bugsink<span class="w"> </span><span class="s1">&#39;. venv/bin/activate &amp;&amp; bugsink-show-version&#39;</span>
+</span><span data-line="64">
+</span><span data-line="65">log<span class="w"> </span><span class="s2">&quot;Generate production config: bugsink_conf.py (template=singleserver)&quot;</span>
+</span><span data-line="66"><span class="c1"># If config exists, we keep it (idempotent-ish)</span>
+</span><span data-line="67"><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>!<span class="w"> </span>-f<span class="w"> </span>/home/bugsink/bugsink_conf.py<span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+</span><span data-line="68"><span class="w">  </span>run_as_bugsink<span class="w"> </span><span class="s2">&quot;. venv/bin/activate &amp;&amp; bugsink-create-conf --template=singleserver --host=&#39;</span><span class="si">${</span><span class="nv">HOST</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+</span><span data-line="69"><span class="k">else</span>
+</span><span data-line="70"><span class="w">  </span>log<span class="w"> </span><span class="s2">&quot;   /home/bugsink/bugsink_conf.py already exists; leaving it unchanged.&quot;</span>
+</span><span data-line="71"><span class="k">fi</span>
+</span><span data-line="72">
+</span><span data-line="73">log<span class="w"> </span><span class="s2">&quot;Initialize DBs (migrate main + snappea queue DB)&quot;</span>
+</span><span data-line="74">run_as_bugsink<span class="w"> </span><span class="s2">&quot;. venv/bin/activate &amp;&amp; bugsink-manage migrate&quot;</span>
+</span><span data-line="75">run_as_bugsink<span class="w"> </span><span class="s2">&quot;. venv/bin/activate &amp;&amp; bugsink-manage migrate snappea --database=snappea&quot;</span>
+</span><span data-line="76">
+</span><span data-line="77">log<span class="w"> </span><span class="s2">&quot;Create the superuser&quot;</span>
+</span><span data-line="78"><span class="nb">echo</span>
+</span><span data-line="79"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&gt;&gt;&gt; You will now be prompted to create the Bugsink superuser (per the docs).&quot;</span>
+</span><span data-line="80"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&gt;&gt;&gt; Use an email address as username if you like.&quot;</span>
+</span><span data-line="81"><span class="nb">echo</span>
+</span><span data-line="82">run_as_bugsink<span class="w"> </span><span class="s2">&quot;. venv/bin/activate &amp;&amp; bugsink-manage createsuperuser&quot;</span>
+</span><span data-line="83">
+</span><span data-line="84">log<span class="w"> </span><span class="s2">&quot;Sanity checks&quot;</span>
+</span><span data-line="85">run_as_bugsink<span class="w"> </span><span class="s2">&quot;. venv/bin/activate &amp;&amp; bugsink-manage check_migrations&quot;</span>
+</span><span data-line="86">run_as_bugsink<span class="w"> </span><span class="s2">&quot;. venv/bin/activate &amp;&amp; bugsink-manage check --deploy --fail-level WARNING&quot;</span>
+</span><span data-line="87">
+</span><span data-line="88">log<span class="w"> </span><span class="s2">&quot;systemd: gunicorn.service&quot;</span>
+</span><span data-line="89">cat<span class="w"> </span>&gt;/etc/systemd/system/gunicorn.service<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+</span><span data-line="90"><span class="s">[Unit]</span>
+</span><span data-line="91"><span class="s">Description=gunicorn daemon</span>
+</span><span data-line="92"><span class="s">After=network-online.target</span>
+</span><span data-line="93"><span class="s">Wants=network-online.target</span>
+</span><span data-line="94">
+</span><span data-line="95"><span class="s">[Service]</span>
+</span><span data-line="96"><span class="s">Type=notify</span>
+</span><span data-line="97"><span class="s">User=bugsink</span>
+</span><span data-line="98"><span class="s">Group=bugsink</span>
+</span><span data-line="99"><span class="s">Environment=&quot;PYTHONUNBUFFERED=1&quot;</span>
+</span><span data-line="100"><span class="s">WorkingDirectory=/home/bugsink</span>
+</span><span data-line="101"><span class="s">UMask=0077</span>
 </span><span data-line="102">
-</span><span data-line="103">systemctl<span class="w"> </span>daemon-reload
-</span><span data-line="104">systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>gunicorn.service
-</span><span data-line="105">
-</span><span data-line="106">log<span class="w"> </span><span class="s2">&quot;9) nginx&quot;</span>
-</span><span data-line="107">rm<span class="w"> </span>-f<span class="w"> </span>/etc/nginx/sites-enabled/default<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
-</span><span data-line="108">
-</span><span data-line="109">cat<span class="w"> </span>&gt;/etc/nginx/sites-available/bugsink<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
-</span><span data-line="110"><span class="s">server {</span>
-</span><span data-line="111"><span class="s">    server_name ${HOST};</span>
-</span><span data-line="112"><span class="s">    client_max_body_size 20M;</span>
-</span><span data-line="113"><span class="s">    access_log /var/log/nginx/bugsink.access.log;</span>
-</span><span data-line="114"><span class="s">    error_log /var/log/nginx/bugsink.error.log;</span>
-</span><span data-line="115"><span class="s">    location / {</span>
-</span><span data-line="116"><span class="s">        proxy_pass http://127.0.0.1:8000;</span>
-</span><span data-line="117"><span class="s">        proxy_set_header Host \$host;</span>
-</span><span data-line="118"><span class="s">        proxy_set_header X-Real-IP \$remote_addr;</span>
-</span><span data-line="119"><span class="s">        proxy_set_header X-Forwarded-Proto \$scheme;</span>
-</span><span data-line="120"><span class="s">        add_header Strict-Transport-Security &quot;max-age=31536000; preload&quot; always;</span>
-</span><span data-line="121"><span class="s">    }</span>
-</span><span data-line="122"><span class="s">}</span>
-</span><span data-line="123"><span class="s">EOF</span>
-</span><span data-line="124">
-</span><span data-line="125">ln<span class="w"> </span>-sf<span class="w"> </span>/etc/nginx/sites-available/bugsink<span class="w"> </span>/etc/nginx/sites-enabled/bugsink
-</span><span data-line="126">service<span class="w"> </span>nginx<span class="w"> </span>configtest
-</span><span data-line="127">systemctl<span class="w"> </span>restart<span class="w"> </span>nginx.service
+</span><span data-line="103"><span class="s">ExecStart=/home/bugsink/venv/bin/gunicorn \\</span>
+</span><span data-line="104"><span class="s">    --bind=&quot;127.0.0.1:8000&quot; \\</span>
+</span><span data-line="105"><span class="s">    --workers=1 \\</span>
+</span><span data-line="106"><span class="s">    --timeout=60 \\</span>
+</span><span data-line="107"><span class="s">    --access-logfile - \\</span>
+</span><span data-line="108"><span class="s">    --max-requests=1000 \\</span>
+</span><span data-line="109"><span class="s">    --max-requests-jitter=100 \\</span>
+</span><span data-line="110"><span class="s">    bugsink.wsgi</span>
+</span><span data-line="111"><span class="s">ExecReload=/bin/kill -s HUP \$MAINPID</span>
+</span><span data-line="112"><span class="s">Restart=on-failure</span>
+</span><span data-line="113"><span class="s">RestartSec=3s</span>
+</span><span data-line="114"><span class="s">KillMode=mixed</span>
+</span><span data-line="115"><span class="s">TimeoutStartSec=30s</span>
+</span><span data-line="116"><span class="s">TimeoutStopSec=10s</span>
+</span><span data-line="117">
+</span><span data-line="118"><span class="s"># ---- Hardening Controls ----</span>
+</span><span data-line="119">
+</span><span data-line="120"><span class="s"># Prevent privilege escalation</span>
+</span><span data-line="121"><span class="s">NoNewPrivileges=yes</span>
+</span><span data-line="122">
+</span><span data-line="123"><span class="s"># Isolate filesystem</span>
+</span><span data-line="124"><span class="s">PrivateTmp=yes</span>
+</span><span data-line="125"><span class="s">PrivateDevices=yes</span>
+</span><span data-line="126"><span class="s">ProtectSystem=strict</span>
+</span><span data-line="127"><span class="s">ProtectHome=read-only</span>
 </span><span data-line="128">
-</span><span data-line="129">log<span class="w"> </span><span class="s2">&quot;10) SSL via certbot&quot;</span>
-</span><span data-line="130"><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span>-e<span class="w"> </span>/usr/bin/certbot<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-</span><span data-line="131"><span class="w">    </span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>/opt/certbot/
-</span><span data-line="132"><span class="w">    </span>/opt/certbot/bin/python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>certbot<span class="w"> </span>certbot-nginx
-</span><span data-line="133"><span class="w">    </span>ln<span class="w"> </span>-s<span class="w"> </span>/opt/certbot/bin/certbot<span class="w"> </span>/usr/bin/certbot
-</span><span data-line="134"><span class="k">fi</span>
-</span><span data-line="135">/opt/certbot/bin/certbot<span class="w"> </span>--agree-tos<span class="w"> </span>--nginx<span class="w"> </span>-m<span class="w"> </span><span class="nv">$EMAIL</span>
-</span><span data-line="136">install<span class="w"> </span>-m<span class="w"> </span><span class="m">0744</span><span class="w"> </span>/dev/stdin<span class="w"> </span>/etc/cron.weekly/certbot-renew<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
-</span><span data-line="137"><span class="s">#!/bin/sh</span>
-</span><span data-line="138"><span class="s">certbot renew -q</span>
-</span><span data-line="139"><span class="s">EOF</span>
-</span><span data-line="140">
-</span><span data-line="141">service<span class="w"> </span>nginx<span class="w"> </span>configtest
-</span><span data-line="142">systemctl<span class="w"> </span>restart<span class="w"> </span>nginx.service
-</span><span data-line="143">
-</span><span data-line="144">log<span class="w"> </span><span class="s2">&quot;11) systemd: snappea.service&quot;</span>
-</span><span data-line="145">cat<span class="w"> </span>&gt;/etc/systemd/system/snappea.service<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
-</span><span data-line="146"><span class="s">[Unit]</span>
-</span><span data-line="147"><span class="s">Description=snappea daemon</span>
-</span><span data-line="148">
-</span><span data-line="149"><span class="s">[Service]</span>
-</span><span data-line="150"><span class="s">Restart=always</span>
-</span><span data-line="151"><span class="s">User=bugsink</span>
-</span><span data-line="152"><span class="s">Group=bugsink</span>
-</span><span data-line="153"><span class="s">Environment=&quot;PYTHONUNBUFFERED=1&quot;</span>
-</span><span data-line="154"><span class="s">WorkingDirectory=/home/bugsink</span>
-</span><span data-line="155"><span class="s">ExecStart=/home/bugsink/venv/bin/bugsink-runsnappea</span>
-</span><span data-line="156"><span class="s">KillMode=mixed</span>
-</span><span data-line="157"><span class="s">TimeoutStopSec=5</span>
-</span><span data-line="158"><span class="s">RuntimeMaxSec=1d</span>
+</span><span data-line="129"><span class="s"># Allow writes only where needed</span>
+</span><span data-line="130"><span class="s">ReadWritePaths=/home/bugsink</span>
+</span><span data-line="131">
+</span><span data-line="132"><span class="s"># Kernel surface reduction</span>
+</span><span data-line="133"><span class="s">ProtectKernelTunables=yes</span>
+</span><span data-line="134"><span class="s">ProtectKernelModules=yes</span>
+</span><span data-line="135"><span class="s">ProtectControlGroups=yes</span>
+</span><span data-line="136">
+</span><span data-line="137"><span class="s"># Process namespace cleanup</span>
+</span><span data-line="138"><span class="s">ProtectProc=invisible</span>
+</span><span data-line="139"><span class="s">ProcSubset=pid</span>
+</span><span data-line="140"><span class="s">RemoveIPC=yes</span>
+</span><span data-line="141">
+</span><span data-line="142"><span class="s"># Capabilities cleanup</span>
+</span><span data-line="143"><span class="s">CapabilityBoundingSet=</span>
+</span><span data-line="144"><span class="s">AmbientCapabilities=</span>
+</span><span data-line="145">
+</span><span data-line="146"><span class="s"># Syscall restrictions</span>
+</span><span data-line="147"><span class="s">SystemCallArchitectures=native</span>
+</span><span data-line="148"><span class="s">SystemCallFilter=@system-service @network-io</span>
+</span><span data-line="149"><span class="s">SystemCallErrorNumber=EPERM</span>
+</span><span data-line="150">
+</span><span data-line="151"><span class="s"># Network controls</span>
+</span><span data-line="152"><span class="s">IPAddressDeny=any</span>
+</span><span data-line="153"><span class="s">IPAddressAllow=127.0.0.1/8</span>
+</span><span data-line="154"><span class="s">IPAddressAllow=::1/128</span>
+</span><span data-line="155">
+</span><span data-line="156"><span class="s"># Limits</span>
+</span><span data-line="157"><span class="s">TasksMax=200</span>
+</span><span data-line="158"><span class="s">LimitNOFILE=65536</span>
 </span><span data-line="159">
-</span><span data-line="160"><span class="s">[Install]</span>
-</span><span data-line="161"><span class="s">WantedBy=multi-user.target</span>
-</span><span data-line="162"><span class="s">EOF</span>
+</span><span data-line="160"><span class="s"># Logging</span>
+</span><span data-line="161"><span class="s">StandardOutput=journal</span>
+</span><span data-line="162"><span class="s">StandardError=journal</span>
 </span><span data-line="163">
-</span><span data-line="164">systemctl<span class="w"> </span>daemon-reload
-</span><span data-line="165">systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>snappea.service
-</span><span data-line="166">
-</span><span data-line="167"><span class="c1"># Remove Google cruft in background</span>
-</span><span data-line="168">screen<span class="w"> </span>-dm<span class="w"> </span>/bin/sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;apt remove --allow-change-held-packages -y google-cloud-cli google-cloud-cli-anthoscli google-guest-agent google-osconfig-agent&quot;</span>
-</span><span data-line="169">
-</span><span data-line="170"><span class="nb">echo</span>
-</span><span data-line="171">log<span class="w"> </span><span class="s2">&quot;DONE. Memory usage:&quot;</span>
-</span><span data-line="172">free<span class="w"> </span>-h
-</span><span data-line="173"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Open: https://</span><span class="si">${</span><span class="nv">HOST</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span data-line="174"><span class="nb">echo</span>
-</span><span data-line="175"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Useful checks:&quot;</span>
-</span><span data-line="176"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  systemctl status gunicorn.service&quot;</span>
-</span><span data-line="177"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  systemctl status snappea.service&quot;</span>
-</span><span data-line="178"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  journalctl -u snappea.service&quot;</span>
-</span><span data-line="179"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  tail -n 200 /var/log/nginx/bugsink.error.log&quot;</span>
+</span><span data-line="164"><span class="s">[Install]</span>
+</span><span data-line="165"><span class="s">WantedBy=multi-user.target</span>
+</span><span data-line="166"><span class="s">EOF</span>
+</span><span data-line="167">
+</span><span data-line="168">systemctl<span class="w"> </span>daemon-reload
+</span><span data-line="169">systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>gunicorn.service
+</span><span data-line="170">
+</span><span data-line="171">log<span class="w"> </span><span class="s2">&quot;nginx&quot;</span>
+</span><span data-line="172">rm<span class="w"> </span>-f<span class="w"> </span>/etc/nginx/sites-enabled/default<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+</span><span data-line="173">
+</span><span data-line="174">cat<span class="w"> </span>&gt;/etc/nginx/sites-available/bugsink<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+</span><span data-line="175"><span class="s">upstream bugsink_upstream {</span>
+</span><span data-line="176"><span class="s">  server 127.0.0.1:8000;</span>
+</span><span data-line="177"><span class="s">  keepalive 32;</span>
+</span><span data-line="178"><span class="s">}</span>
+</span><span data-line="179">
+</span><span data-line="180"><span class="s">limit_req_zone \$binary_remote_addr zone=bugsink_req:10m rate=10r/s;</span>
+</span><span data-line="181"><span class="s">limit_conn_zone \$binary_remote_addr zone=bugsink_conn:10m;</span>
+</span><span data-line="182">
+</span><span data-line="183"><span class="s">server {</span>
+</span><span data-line="184"><span class="s">    server_name ${HOST};</span>
+</span><span data-line="185"><span class="s">    client_max_body_size 20M;</span>
+</span><span data-line="186"><span class="s">    access_log /var/log/nginx/bugsink.access.log;</span>
+</span><span data-line="187"><span class="s">    error_log /var/log/nginx/bugsink.error.log;</span>
+</span><span data-line="188"><span class="s">    limit_conn bugsink_conn 30;</span>
+</span><span data-line="189"><span class="s">    limit_req zone=bugsink_req burst=20 nodelay;</span>
+</span><span data-line="190">
+</span><span data-line="191"><span class="s">    location / {</span>
+</span><span data-line="192"><span class="s">        proxy_pass http://127.0.0.1:8000;</span>
+</span><span data-line="193"><span class="s">        proxy_set_header Host \$host;</span>
+</span><span data-line="194"><span class="s">        proxy_set_header X-Real-IP \$remote_addr;</span>
+</span><span data-line="195"><span class="s">        proxy_set_header X-Forwarded-Proto \$scheme;</span>
+</span><span data-line="196"><span class="s">        add_header Strict-Transport-Security &quot;max-age=31536000; preload&quot; always;</span>
+</span><span data-line="197"><span class="s">        proxy_redirect off;</span>
+</span><span data-line="198"><span class="s">    }</span>
+</span><span data-line="199"><span class="s">}</span>
+</span><span data-line="200"><span class="s">EOF</span>
+</span><span data-line="201">
+</span><span data-line="202">ln<span class="w"> </span>-sf<span class="w"> </span>/etc/nginx/sites-available/bugsink<span class="w"> </span>/etc/nginx/sites-enabled/bugsink
+</span><span data-line="203">service<span class="w"> </span>nginx<span class="w"> </span>configtest
+</span><span data-line="204">systemctl<span class="w"> </span>restart<span class="w"> </span>nginx.service
+</span><span data-line="205">
+</span><span data-line="206">log<span class="w"> </span><span class="s2">&quot;SSL via certbot&quot;</span>
+</span><span data-line="207"><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span>-e<span class="w"> </span>/usr/bin/certbot<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+</span><span data-line="208"><span class="w">    </span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>/opt/certbot/
+</span><span data-line="209"><span class="w">    </span>/opt/certbot/bin/python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>certbot<span class="w"> </span>certbot-nginx
+</span><span data-line="210"><span class="w">    </span>ln<span class="w"> </span>-s<span class="w"> </span>/opt/certbot/bin/certbot<span class="w"> </span>/usr/bin/certbot
+</span><span data-line="211"><span class="k">fi</span>
+</span><span data-line="212">/opt/certbot/bin/certbot<span class="w"> </span>--agree-tos<span class="w"> </span>--nginx<span class="w"> </span>-m<span class="w"> </span><span class="nv">$EMAIL</span>
+</span><span data-line="213">install<span class="w"> </span>-m<span class="w"> </span><span class="m">0744</span><span class="w"> </span>/dev/stdin<span class="w"> </span>/etc/cron.weekly/certbot-renew<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+</span><span data-line="214"><span class="s">#!/bin/sh</span>
+</span><span data-line="215"><span class="s">certbot renew -q</span>
+</span><span data-line="216"><span class="s">EOF</span>
+</span><span data-line="217">
+</span><span data-line="218">service<span class="w"> </span>nginx<span class="w"> </span>configtest
+</span><span data-line="219">systemctl<span class="w"> </span>restart<span class="w"> </span>nginx.service
+</span><span data-line="220">
+</span><span data-line="221">log<span class="w"> </span><span class="s2">&quot;systemd: snappea.service&quot;</span>
+</span><span data-line="222">cat<span class="w"> </span>&gt;/etc/systemd/system/snappea.service<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+</span><span data-line="223"><span class="s">[Unit]</span>
+</span><span data-line="224"><span class="s">Description=Bugsink snappea worker</span>
+</span><span data-line="225"><span class="s">After=network-online.target</span>
+</span><span data-line="226"><span class="s">Wants=network-online.target</span>
+</span><span data-line="227">
+</span><span data-line="228"><span class="s">[Service]</span>
+</span><span data-line="229"><span class="s">Type=simple</span>
+</span><span data-line="230"><span class="s">User=bugsink</span>
+</span><span data-line="231"><span class="s">Group=bugsink</span>
+</span><span data-line="232"><span class="s">WorkingDirectory=/home/bugsink</span>
+</span><span data-line="233">
+</span><span data-line="234"><span class="s">Environment=&quot;PYTHONUNBUFFERED=1&quot;</span>
+</span><span data-line="235"><span class="s">Environment=&quot;PHONEHOME=False&quot;</span>
+</span><span data-line="236"><span class="s">UMask=0077</span>
+</span><span data-line="237">
+</span><span data-line="238"><span class="s">ExecStart=/home/bugsink/venv/bin/bugsink-runsnappea</span>
+</span><span data-line="239">
+</span><span data-line="240"><span class="s">Restart=on-failure</span>
+</span><span data-line="241"><span class="s">RestartSec=3s</span>
+</span><span data-line="242"><span class="s">KillMode=mixed</span>
+</span><span data-line="243"><span class="s">TimeoutStartSec=30s</span>
+</span><span data-line="244"><span class="s">TimeoutStopSec=10s</span>
+</span><span data-line="245"><span class="s">RuntimeMaxSec=1d</span>
+</span><span data-line="246">
+</span><span data-line="247"><span class="s"># Hardening: privileges</span>
+</span><span data-line="248"><span class="s">NoNewPrivileges=yes</span>
+</span><span data-line="249"><span class="s">CapabilityBoundingSet=</span>
+</span><span data-line="250"><span class="s">AmbientCapabilities=</span>
+</span><span data-line="251"><span class="s">RestrictSUIDSGID=yes</span>
+</span><span data-line="252"><span class="s">RestrictRealtime=yes</span>
+</span><span data-line="253"><span class="s">LockPersonality=yes</span>
+</span><span data-line="254">
+</span><span data-line="255"><span class="s"># Hardening: filesystem</span>
+</span><span data-line="256"><span class="s">PrivateTmp=yes</span>
+</span><span data-line="257"><span class="s">PrivateDevices=yes</span>
+</span><span data-line="258"><span class="s">ProtectSystem=strict</span>
+</span><span data-line="259"><span class="s">ProtectHome=read-only</span>
+</span><span data-line="260">
+</span><span data-line="261"><span class="s"># Allow writes only where Bugsink needs them.</span>
+</span><span data-line="262"><span class="s">ReadWritePaths=/home/bugsink</span>
+</span><span data-line="263">
+</span><span data-line="264"><span class="s"># Hardening: kernel + proc</span>
+</span><span data-line="265"><span class="s">ProtectKernelTunables=yes</span>
+</span><span data-line="266"><span class="s">ProtectKernelModules=yes</span>
+</span><span data-line="267"><span class="s">ProtectControlGroups=yes</span>
+</span><span data-line="268"><span class="s">ProtectClock=yes</span>
+</span><span data-line="269"><span class="s">ProtectHostname=yes</span>
+</span><span data-line="270"><span class="s">ProtectProc=invisible</span>
+</span><span data-line="271"><span class="s">ProcSubset=pid</span>
+</span><span data-line="272"><span class="s">RemoveIPC=yes</span>
+</span><span data-line="273">
+</span><span data-line="274"><span class="s"># Hardening: syscalls</span>
+</span><span data-line="275"><span class="s">SystemCallArchitectures=native</span>
+</span><span data-line="276"><span class="s">SystemCallFilter=@system-service @network-io</span>
+</span><span data-line="277"><span class="s">SystemCallErrorNumber=EPERM</span>
+</span><span data-line="278">
+</span><span data-line="279"><span class="s"># Network controls</span>
+</span><span data-line="280"><span class="s">IPAddressDeny=any</span>
+</span><span data-line="281"><span class="s">IPAddressAllow=127.0.0.1/8</span>
+</span><span data-line="282"><span class="s">IPAddressAllow=::1/128</span>
+</span><span data-line="283">
+</span><span data-line="284"><span class="s"># Resource limits</span>
+</span><span data-line="285"><span class="s">TasksMax=200</span>
+</span><span data-line="286"><span class="s">LimitNOFILE=65536</span>
+</span><span data-line="287">
+</span><span data-line="288"><span class="s">StandardOutput=journal</span>
+</span><span data-line="289"><span class="s">StandardError=journal</span>
+</span><span data-line="290">
+</span><span data-line="291"><span class="s">[Install]</span>
+</span><span data-line="292"><span class="s">WantedBy=multi-user.target</span>
+</span><span data-line="293"><span class="s">EOF</span>
+</span><span data-line="294">
+</span><span data-line="295">systemctl<span class="w"> </span>daemon-reload
+</span><span data-line="296">systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>snappea.service
+</span><span data-line="297">
+</span><span data-line="298"><span class="c1"># Remove Google cruft in background</span>
+</span><span data-line="299">screen<span class="w"> </span>-dm<span class="w"> </span>/bin/sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;apt remove --allow-change-held-packages -y google-cloud-cli google-cloud-cli-anthoscli google-guest-agent google-osconfig-agent&quot;</span>
+</span><span data-line="300">
+</span><span data-line="301"><span class="nb">echo</span>
+</span><span data-line="302">log<span class="w"> </span><span class="s2">&quot;DONE. Memory usage:&quot;</span>
+</span><span data-line="303">free<span class="w"> </span>-h
+</span><span data-line="304"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Open: https://</span><span class="si">${</span><span class="nv">HOST</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span data-line="305"><span class="nb">echo</span>
+</span><span data-line="306"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Useful checks:&quot;</span>
+</span><span data-line="307"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  systemctl status gunicorn.service&quot;</span>
+</span><span data-line="308"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  systemctl status snappea.service&quot;</span>
+</span><span data-line="309"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  journalctl -u snappea.service&quot;</span>
+</span><span data-line="310"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  tail -n 200 /var/log/nginx/bugsink.error.log&quot;</span>
 </span></pre></div>
 </div>
 <p>Once you’re done playing with it, here’s how you can destroy the VM:</p>
