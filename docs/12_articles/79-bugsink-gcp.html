@@ -189,44 +189,43 @@ At which point I can sign in, create a project and copy the DSN URL to plug into
 </span><span data-line="21"><span class="w">    </span>--maintenance-policy<span class="o">=</span>MIGRATE<span class="w"> </span><span class="se">\</span>
 </span><span data-line="22"><span class="w">    </span>--provisioning-model<span class="o">=</span>STANDARD<span class="w"> </span><span class="se">\</span>
 </span><span data-line="23"><span class="w">    </span>--service-account<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">ACCOUNT</span><span class="si">}</span><span class="s2">-compute@developer.gserviceaccount.com&quot;</span><span class="w"> </span><span class="se">\</span>
-</span><span data-line="24"><span class="w">    </span>--scopes<span class="o">=</span>https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/trace.append<span class="w"> </span><span class="se">\</span>
-</span><span data-line="25"><span class="w">    </span>--create-disk<span class="o">=</span>auto-delete<span class="o">=</span>yes,boot<span class="o">=</span>yes,device-name<span class="o">=</span><span class="nv">$INSTANCE</span>,image<span class="o">=</span>projects/debian-cloud/global/images/debian-13-trixie-v20251014,mode<span class="o">=</span>rw,size<span class="o">=</span><span class="m">10</span>,type<span class="o">=</span>pd-standard<span class="w"> </span><span class="se">\</span>
-</span><span data-line="26"><span class="w">    </span>--no-shielded-secure-boot<span class="w"> </span><span class="se">\</span>
-</span><span data-line="27"><span class="w">    </span>--shielded-vtpm<span class="w"> </span><span class="se">\</span>
-</span><span data-line="28"><span class="w">    </span>--shielded-integrity-monitoring<span class="w"> </span><span class="se">\</span>
-</span><span data-line="29"><span class="w">    </span>--labels<span class="o">=</span>goog-ec-src<span class="o">=</span>vm_add-gcloud<span class="w"> </span><span class="se">\</span>
-</span><span data-line="30"><span class="w">    </span>--reservation-affinity<span class="o">=</span>any
-</span><span data-line="31">
-</span><span data-line="32"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Attempting to set up firewall rules, it&#39;s okay to fail if they already exist&quot;</span>
-</span><span data-line="33">
-</span><span data-line="34">gcloud<span class="w"> </span>compute<span class="w"> </span>firewall-rules<span class="w"> </span>create<span class="w"> </span>default-allow-http<span class="w"> </span><span class="se">\</span>
-</span><span data-line="35"><span class="w">    </span>--project<span class="o">=</span><span class="nv">$PROJECT</span><span class="w"> </span><span class="se">\</span>
-</span><span data-line="36"><span class="w">    </span>--direction<span class="o">=</span>INGRESS<span class="w"> </span><span class="se">\</span>
-</span><span data-line="37"><span class="w">    </span>--priority<span class="o">=</span><span class="m">1000</span><span class="w"> </span><span class="se">\</span>
-</span><span data-line="38"><span class="w">    </span>--network<span class="o">=</span>default<span class="w"> </span><span class="se">\</span>
-</span><span data-line="39"><span class="w">    </span>--action<span class="o">=</span>ALLOW<span class="w"> </span><span class="se">\</span>
-</span><span data-line="40"><span class="w">    </span>--rules<span class="o">=</span>tcp:80<span class="w"> </span><span class="se">\</span>
-</span><span data-line="41"><span class="w">    </span>--source-ranges<span class="o">=</span><span class="m">0</span>.0.0.0/0<span class="w"> </span><span class="se">\</span>
-</span><span data-line="42"><span class="w">    </span>--target-tags<span class="o">=</span>http-server<span class="w"> </span><span class="se">\</span>
-</span><span data-line="43"><span class="w">    </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
-</span><span data-line="44">gcloud<span class="w"> </span>compute<span class="w"> </span>firewall-rules<span class="w"> </span>create<span class="w"> </span>default-allow-https<span class="w"> </span><span class="se">\</span>
-</span><span data-line="45"><span class="w">    </span>--project<span class="o">=</span><span class="nv">$PROJECT</span><span class="w"> </span><span class="se">\</span>
-</span><span data-line="46"><span class="w">    </span>--direction<span class="o">=</span>INGRESS<span class="w"> </span><span class="se">\</span>
-</span><span data-line="47"><span class="w">    </span>--priority<span class="o">=</span><span class="m">1000</span><span class="w"> </span><span class="se">\</span>
-</span><span data-line="48"><span class="w">    </span>--network<span class="o">=</span>default<span class="w"> </span><span class="se">\</span>
-</span><span data-line="49"><span class="w">    </span>--action<span class="o">=</span>ALLOW<span class="w"> </span><span class="se">\</span>
-</span><span data-line="50"><span class="w">    </span>--rules<span class="o">=</span>tcp:443<span class="w"> </span><span class="se">\</span>
-</span><span data-line="51"><span class="w">    </span>--source-ranges<span class="o">=</span><span class="m">0</span>.0.0.0/0<span class="w"> </span><span class="se">\</span>
-</span><span data-line="52"><span class="w">    </span>--target-tags<span class="o">=</span>https-server<span class="w"> </span><span class="se">\</span>
-</span><span data-line="53"><span class="w">    </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
-</span><span data-line="54">
-</span><span data-line="55"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Update DNS to point bugsink subdomain to the EXTERNAL IP address&quot;</span>
-</span><span data-line="56">
-</span><span data-line="57">ssh-keygen<span class="w"> </span>-R<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
-</span><span data-line="58"><span class="k">until</span><span class="w"> </span>ssh<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span><span class="s1">&#39;echo up&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>sleep<span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
-</span><span data-line="59">
-</span><span data-line="60">scp<span class="w"> </span>-rC<span class="w"> </span>scripts/provision_bugsink.sh<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">DOMAIN</span><span class="si">}</span><span class="s2">:&quot;</span>
-</span><span data-line="61">ssh<span class="w"> </span>-t<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--<span class="w"> </span><span class="s2">&quot;chmod +x provision_bugsink.sh &amp;&amp; sudo ./provision_bugsink.sh&quot;</span>
+</span><span data-line="24"><span class="w">    </span>--create-disk<span class="o">=</span>auto-delete<span class="o">=</span>yes,boot<span class="o">=</span>yes,device-name<span class="o">=</span><span class="nv">$INSTANCE</span>,image<span class="o">=</span>projects/debian-cloud/global/images/debian-13-trixie-v20251014,mode<span class="o">=</span>rw,size<span class="o">=</span><span class="m">10</span>,type<span class="o">=</span>pd-standard<span class="w"> </span><span class="se">\</span>
+</span><span data-line="25"><span class="w">    </span>--no-shielded-secure-boot<span class="w"> </span><span class="se">\</span>
+</span><span data-line="26"><span class="w">    </span>--shielded-vtpm<span class="w"> </span><span class="se">\</span>
+</span><span data-line="27"><span class="w">    </span>--shielded-integrity-monitoring<span class="w"> </span><span class="se">\</span>
+</span><span data-line="28"><span class="w">    </span>--labels<span class="o">=</span>goog-ec-src<span class="o">=</span>vm_add-gcloud<span class="w"> </span><span class="se">\</span>
+</span><span data-line="29"><span class="w">    </span>--reservation-affinity<span class="o">=</span>any
+</span><span data-line="30">
+</span><span data-line="31"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Attempting to set up firewall rules, it&#39;s okay to fail if they already exist&quot;</span>
+</span><span data-line="32">
+</span><span data-line="33">gcloud<span class="w"> </span>compute<span class="w"> </span>firewall-rules<span class="w"> </span>create<span class="w"> </span>default-allow-http<span class="w"> </span><span class="se">\</span>
+</span><span data-line="34"><span class="w">    </span>--project<span class="o">=</span><span class="nv">$PROJECT</span><span class="w"> </span><span class="se">\</span>
+</span><span data-line="35"><span class="w">    </span>--direction<span class="o">=</span>INGRESS<span class="w"> </span><span class="se">\</span>
+</span><span data-line="36"><span class="w">    </span>--priority<span class="o">=</span><span class="m">1000</span><span class="w"> </span><span class="se">\</span>
+</span><span data-line="37"><span class="w">    </span>--network<span class="o">=</span>default<span class="w"> </span><span class="se">\</span>
+</span><span data-line="38"><span class="w">    </span>--action<span class="o">=</span>ALLOW<span class="w"> </span><span class="se">\</span>
+</span><span data-line="39"><span class="w">    </span>--rules<span class="o">=</span>tcp:80<span class="w"> </span><span class="se">\</span>
+</span><span data-line="40"><span class="w">    </span>--source-ranges<span class="o">=</span><span class="m">0</span>.0.0.0/0<span class="w"> </span><span class="se">\</span>
+</span><span data-line="41"><span class="w">    </span>--target-tags<span class="o">=</span>http-server<span class="w"> </span><span class="se">\</span>
+</span><span data-line="42"><span class="w">    </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+</span><span data-line="43">gcloud<span class="w"> </span>compute<span class="w"> </span>firewall-rules<span class="w"> </span>create<span class="w"> </span>default-allow-https<span class="w"> </span><span class="se">\</span>
+</span><span data-line="44"><span class="w">    </span>--project<span class="o">=</span><span class="nv">$PROJECT</span><span class="w"> </span><span class="se">\</span>
+</span><span data-line="45"><span class="w">    </span>--direction<span class="o">=</span>INGRESS<span class="w"> </span><span class="se">\</span>
+</span><span data-line="46"><span class="w">    </span>--priority<span class="o">=</span><span class="m">1000</span><span class="w"> </span><span class="se">\</span>
+</span><span data-line="47"><span class="w">    </span>--network<span class="o">=</span>default<span class="w"> </span><span class="se">\</span>
+</span><span data-line="48"><span class="w">    </span>--action<span class="o">=</span>ALLOW<span class="w"> </span><span class="se">\</span>
+</span><span data-line="49"><span class="w">    </span>--rules<span class="o">=</span>tcp:443<span class="w"> </span><span class="se">\</span>
+</span><span data-line="50"><span class="w">    </span>--source-ranges<span class="o">=</span><span class="m">0</span>.0.0.0/0<span class="w"> </span><span class="se">\</span>
+</span><span data-line="51"><span class="w">    </span>--target-tags<span class="o">=</span>https-server<span class="w"> </span><span class="se">\</span>
+</span><span data-line="52"><span class="w">    </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+</span><span data-line="53">
+</span><span data-line="54"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Update DNS to point bugsink subdomain to the EXTERNAL IP address&quot;</span>
+</span><span data-line="55">
+</span><span data-line="56">ssh-keygen<span class="w"> </span>-R<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+</span><span data-line="57"><span class="k">until</span><span class="w"> </span>ssh<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span><span class="s1">&#39;echo up&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>sleep<span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
+</span><span data-line="58">
+</span><span data-line="59">scp<span class="w"> </span>-rC<span class="w"> </span>scripts/provision_bugsink.sh<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">DOMAIN</span><span class="si">}</span><span class="s2">:&quot;</span>
+</span><span data-line="60">ssh<span class="w"> </span>-t<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--<span class="w"> </span><span class="s2">&quot;chmod +x provision_bugsink.sh &amp;&amp; sudo ./provision_bugsink.sh&quot;</span>
 </span></pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">scripts/provision_bugsink.sh</span></code>:</p>
