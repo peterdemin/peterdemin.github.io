@@ -214,13 +214,12 @@ I’m using the domain name demin.dev, and my user name is peter:</p>
 </span><span data-line="17"><span class="w">    </span>--maintenance-policy<span class="o">=</span>MIGRATE<span class="w"> </span><span class="se">\</span>
 </span><span data-line="18"><span class="w">    </span>--provisioning-model<span class="o">=</span>STANDARD<span class="w"> </span><span class="se">\</span>
 </span><span data-line="19"><span class="w">    </span>--service-account<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">ACCOUNT</span><span class="si">}</span><span class="s2">-compute@developer.gserviceaccount.com&quot;</span><span class="w"> </span><span class="se">\</span>
-</span><span data-line="20"><span class="w">    </span>--scopes<span class="o">=</span>https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/trace.append<span class="w"> </span><span class="se">\</span>
-</span><span data-line="21"><span class="w">    </span>--create-disk<span class="o">=</span>auto-delete<span class="o">=</span>yes,boot<span class="o">=</span>yes,device-name<span class="o">=</span><span class="nv">$INSTANCE</span>,image<span class="o">=</span>projects/debian-cloud/global/images/debian-13-trixie-v20251014,mode<span class="o">=</span>rw,size<span class="o">=</span><span class="m">10</span>,type<span class="o">=</span>pd-standard<span class="w"> </span><span class="se">\</span>
-</span><span data-line="22"><span class="w">    </span>--no-shielded-secure-boot<span class="w"> </span><span class="se">\</span>
-</span><span data-line="23"><span class="w">    </span>--shielded-vtpm<span class="w"> </span><span class="se">\</span>
-</span><span data-line="24"><span class="w">    </span>--shielded-integrity-monitoring<span class="w"> </span><span class="se">\</span>
-</span><span data-line="25"><span class="w">    </span>--labels<span class="o">=</span>goog-ec-src<span class="o">=</span>vm_add-gcloud<span class="w"> </span><span class="se">\</span>
-</span><span data-line="26"><span class="w">    </span>--reservation-affinity<span class="o">=</span>any
+</span><span data-line="20"><span class="w">    </span>--create-disk<span class="o">=</span>auto-delete<span class="o">=</span>yes,boot<span class="o">=</span>yes,device-name<span class="o">=</span><span class="nv">$INSTANCE</span>,image<span class="o">=</span>projects/debian-cloud/global/images/debian-13-trixie-v20251014,mode<span class="o">=</span>rw,size<span class="o">=</span><span class="m">10</span>,type<span class="o">=</span>pd-standard<span class="w"> </span><span class="se">\</span>
+</span><span data-line="21"><span class="w">    </span>--no-shielded-secure-boot<span class="w"> </span><span class="se">\</span>
+</span><span data-line="22"><span class="w">    </span>--shielded-vtpm<span class="w"> </span><span class="se">\</span>
+</span><span data-line="23"><span class="w">    </span>--shielded-integrity-monitoring<span class="w"> </span><span class="se">\</span>
+</span><span data-line="24"><span class="w">    </span>--labels<span class="o">=</span>goog-ec-src<span class="o">=</span>vm_add-gcloud<span class="w"> </span><span class="se">\</span>
+</span><span data-line="25"><span class="w">    </span>--reservation-affinity<span class="o">=</span>any
 </span></pre></div>
 </div>
 <p>I’m using the latest stable Debian release that happens to be <a class="reference external" href="https://www.debian.org/releases/trixie/">13 Trixie</a>.
