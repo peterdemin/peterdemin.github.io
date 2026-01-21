@@ -54,7 +54,6 @@ gcloud compute instances create $INSTANCE \
     --maintenance-policy=MIGRATE \
     --provisioning-model=STANDARD \
     --service-account="${ACCOUNT}-compute@developer.gserviceaccount.com" \
-    --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/trace.append \
     --create-disk=auto-delete=yes,boot=yes,device-name=$INSTANCE,image=projects/debian-cloud/global/images/debian-13-trixie-v20251014,mode=rw,size=10,type=pd-standard \
     --no-shielded-secure-boot \
     --shielded-vtpm \
