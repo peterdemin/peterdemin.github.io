@@ -72,3 +72,15 @@ Projects that might
    :glob:
 
    15_projects/*
+
+
+.. raw:: html
+
+    <map name="webring-long">
+        <area alt="A previous track button" title="Previous!" href="https://ring.acab.dev/prev/WMSVdZiZli" coords="9,8,31,25" shape="rect">
+        <area alt="A shuffle button!" title="Surprise me~" href="https://ring.acab.dev/rand/WMSVdZiZli" coords="34,8,56,25" shape="rect">
+        <area alt="A next track button" title="Next!" href="https://ring.acab.dev/next/WMSVdZiZli" coords="59,8,81,25" shape="rect">
+        <area alt="A glider!" title="So, what is this webring thing about again?" href="https://ring.acab.dev/" coords="244,7,266,28" shape="rect">
+        <area alt="A hidden passage lies in front of the reader. Will they click?" href="https://ring.acab.dev/egg" coords="231,13,239,19" shape="rect">
+    </map>
+    <img style='image-rendering:pixelated;' usemap="#webring-long" src="https://ring.acab.dev/img/webring_long.gif">
