@@ -1,3 +1,11 @@
+`Jan 22, 2026` - Here is a metaphor for how big tech companies operate, that comes to my mind over and over, and seems to apply to many situations.
+Small a company operates as a chess master, the pieces move in a tight choreography, and even when it's not clear for each separate pawn, there is a big picture, and it makes sense at the end.
+As the company grows, at the point when no one knows the number of teams in the org, not to mention names of the people, there ain't no chess master at the helm.
+Each piece is moved by a number of people that rarely communicate and have different goals.
+Coordination between pieces is eventual and minimal.
+There's a lot of effort exerted and amount of motion is dizzying.
+Yet, rarely substantial improvements are achieved, and never efficiently.
+
 `Jan 21, 2026` - Exploring Radicle landed me on [Swarm](https://www.ethswarm.org). I'm concerned with eth- prefix in their domain name, and a mention of blockchain and web3 on the main page. But I like how they managed to build some community and ecosystem around this project. The fun fact: instead of regular documentation, they have [The Book of Swarm](https://www.ethswarm.org/the-book-of-swarm-2.pdf) of 272 pages. I wonder how much of it is AI slop, though.
 
 On the note of automatic distribution of 4KB chunks through the network, I wonder how long before DMCA watchdogs start sending their letters to all owners of a chunk of a copyrighted content.
