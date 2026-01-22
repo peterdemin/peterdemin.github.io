@@ -1,3 +1,17 @@
+`Jan 21, 2026` - This looks like a trend, and I don't know how I feel about it:
+- HN post "[Ask HN: Share your personal website](https://news.ycombinator.com/item?id=46618714)" got 947 points and 2382 comments. The repo received 100+ pull requests in 7 days.
+- Its predecessor from 2023 "[Ask HN: Could you share your personal blog here?](https://news.ycombinator.com/item?id=46618714)" got 1014 points and 1940 comments.
+- The scrape of that post [started](https://blog.kagi.com/small-web) [Kagi Small Web](https://kagi.com/smallweb/) - a random blog browser, powered by a [GitHub repo](https://github.com/kagisearch/smallweb).
+- [RSS.Social](https://rss.social) - feed syndicator from Kagi's repo that presents this post in HN/Lobsters style.
+
+This seems to be a viable way for individual bloggers to get discoverability they miss by not being on a "big" social media platform.
+For me, Kagi Small Web is a fun doomscroller-kind time killer.
+When I tried importing the OPML file into my [RSS feed reader](/12_articles/71-rss-feed.md), I noticed that uniform format and unfiltered stream of content is not engaging at all. Most of the posts don't click with me. But when the presentation changes with every post, I spend more time exploring the content.
+
+Can't say that I discovered anything interesting to subscribe to, though.
+But that might be an effect of informational overflow.
+Which is supported by my observation of myself skimming quickly through a list of 10+ unread posts, while indulging fully when I only have a couple.
+
 `Jan 20, 2026` - Something up my alley: [SelfCI](https://app.radicle.xyz/nodes/radicle.dpc.pw/rad%3Az2tDzYbAXxTQEKTGFVwiJPajkbeDU) - a minimalistic local-first Unix-philosophy-abiding CI.
 
 `Jan 20, 2026` - I'm gonna explore this old-school [Hacker Webring](https://ring.acab.dev) that I discovered through [Morten Linderud](https://linderud.dev) that was linked on [Lobsters](https://lobste.rs) that doesn't require an introduction, but somehow evaded my attention for fourteen years.
