@@ -62,6 +62,7 @@ data-aria-dark="Switch to auto color mode">
 <li><a class="reference internal" href="#rust">Rust</a></li>
 <li><a class="reference internal" href="#heartwood">Heartwood</a></li>
 <li><a class="reference internal" href="#rad">rad</a></li>
+<li><a class="reference internal" href="#migrate-a-repo">Migrate a repo</a></li>
 </ul>
 </div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
   data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
@@ -315,6 +316,65 @@ Let’s try again:</p>
 </span><span data-line="13">z6MktaNvN1KVFMkSRAiN4qK5yvX1zuEEaseeX5sffhzPZRZW	rad://z3gqcJUoA1n9HaHKufZs5FCSGazv5/z6MktaNvN1KVFMkSRAiN4qK5yvX1zuEEaseeX5sffhzPZRZW (push)
 </span></pre></div>
 </div>
+</section>
+<section id="migrate-a-repo">
+<h2>Migrate a repo<a class="headerlink" href="#migrate-a-repo" title="Link to this heading">¶</a></h2>
+<p>Let’s add an existing repo to the radicle network.
+I’ll use this website’s repo as an example.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">$<span class="w"> </span>rad<span class="w"> </span>init
+</span><span data-line="2">
+</span><span data-line="3">Initializing<span class="w"> </span>radicle<span class="w"> </span>👾<span class="w"> </span>repository<span class="w"> </span><span class="k">in</span><span class="w"> </span>/Users/peterdemin/peterdemin.github.io..
+</span><span data-line="4">
+</span><span data-line="5">✓<span class="w"> </span>Name<span class="w"> </span>peter.demin.dev
+</span><span data-line="6">✓<span class="w"> </span>Description<span class="w"> </span>Peter<span class="w"> </span>Demin
+</span><span data-line="7">✓<span class="w"> </span>Default<span class="w"> </span>branch<span class="w"> </span>master
+</span><span data-line="8">✓<span class="w"> </span>Visibility<span class="w"> </span>public
+</span><span data-line="9">✓<span class="w"> </span>Repository<span class="w"> </span>peter.demin.dev<span class="w"> </span>created.
+</span><span data-line="10">
+</span><span data-line="11">Your<span class="w"> </span>Repository<span class="w"> </span>ID<span class="w"> </span><span class="o">(</span>RID<span class="o">)</span><span class="w"> </span>is<span class="w"> </span>rad:zb9rTT3zoR5aD1svmWYW25yc5kVe.
+</span><span data-line="12">You<span class="w"> </span>can<span class="w"> </span>show<span class="w"> </span>it<span class="w"> </span>any<span class="w"> </span><span class="nb">time</span><span class="w"> </span>by<span class="w"> </span>running<span class="w"> </span><span class="sb">`</span>rad<span class="w"> </span>.<span class="sb">`</span><span class="w"> </span>from<span class="w"> </span>this<span class="w"> </span>directory.
+</span><span data-line="13">
+</span><span data-line="14">✓<span class="w"> </span>Repository<span class="w"> </span>successfully<span class="w"> </span>announced<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>network.
+</span><span data-line="15">
+</span><span data-line="16">Your<span class="w"> </span>repository<span class="w"> </span>has<span class="w"> </span>been<span class="w"> </span>announced<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>network<span class="w"> </span>and<span class="w"> </span>is<span class="w"> </span>now<span class="w"> </span>discoverable<span class="w"> </span>by<span class="w"> </span>peers.
+</span><span data-line="17">You<span class="w"> </span>can<span class="w"> </span>check<span class="w"> </span><span class="k">for</span><span class="w"> </span>any<span class="w"> </span>nodes<span class="w"> </span>that<span class="w"> </span>have<span class="w"> </span>replicated<span class="w"> </span>your<span class="w"> </span>repository<span class="w"> </span>by<span class="w"> </span>running<span class="w"> </span><span class="sb">`</span>rad<span class="w"> </span>sync<span class="w"> </span>status<span class="sb">`</span>.
+</span><span data-line="18">
+</span><span data-line="19">To<span class="w"> </span>push<span class="w"> </span>changes,<span class="w"> </span>run<span class="w"> </span><span class="sb">`</span>git<span class="w"> </span>push<span class="w"> </span>rad<span class="w"> </span>master<span class="sb">`</span>.
+</span></pre></div>
+</div>
+<p>While it was running, it showed a countdown of announcements, and if I’m not mistaken, the repo was announced to four peers.
+Let’s see if they are gonna show up in remotes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">$ git remote -v
+</span><span data-line="2">origin	git@github.com:peterdemin/peterdemin.github.io.git (fetch)
+</span><span data-line="3">origin	git@github.com:peterdemin/peterdemin.github.io.git (push)
+</span><span data-line="4">rad	rad://zb9rTT3zoR5aD1svmWYW25yc5kVe (fetch)
+</span><span data-line="5">rad	rad://zb9rTT3zoR5aD1svmWYW25yc5kVe/z6Mkno75gzNU1Y59EL9rj8nUVveBUj3kBLteVUwPvpKmx9Qi (push)
+</span></pre></div>
+</div>
+<p>Hmm… Nope, there’s just one. And it’s <code class="docutils literal notranslate"><span class="pre">&lt;this</span> <span class="pre">repo</span> <span class="pre">ID&gt;/&lt;this</span> <span class="pre">node</span> <span class="pre">ID&gt;</span></code>.
+Looks like my only upstream is myself.
+But you know what, there’s this magic sync command, let’s try that.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">$<span class="w"> </span>rad<span class="w"> </span>sync<span class="w"> </span>--inventory
+</span><span data-line="2">✓<span class="w"> </span>Announcing<span class="w"> </span>inventory<span class="w"> </span>to<span class="w"> </span><span class="m">8</span><span class="w"> </span>peers..
+</span></pre></div>
+</div>
+<p>I’m sure pretty good at announcing inventory. Who knew, I’m a natural.
+Fine, let’s try the other one:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">$<span class="w"> </span>rad<span class="w"> </span>sync<span class="w"> </span>status
+</span><span data-line="2">✗<span class="w"> </span>Hint:
+</span><span data-line="3"><span class="w">   </span>?<span class="w"> </span>…<span class="w"> </span>Status:
+</span><span data-line="4"><span class="w">       </span>✓<span class="w"> </span>…<span class="w"> </span><span class="k">in</span><span class="w"> </span>sync<span class="w">          </span>✗<span class="w"> </span>…<span class="w"> </span>out<span class="w"> </span>of<span class="w"> </span>sync
+</span><span data-line="5"><span class="w">       </span>!<span class="w"> </span>…<span class="w"> </span>not<span class="w"> </span>announced<span class="w">    </span>•<span class="w"> </span>…<span class="w"> </span>unknown
+</span></pre></div>
+</div>
+<p>Huh, I could’ve sworn, I saw something about replication and announcements.
+How about we push things a little:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>rad<span class="w"> </span>master
+</span><span data-line="2">Everything<span class="w"> </span>up-to-date
+</span></pre></div>
+</div>
+<p>Wow, immediately returning up-to-date response.
+Maybe, because it’s pushing to itself?..</p>
 </section>
 </section>
 

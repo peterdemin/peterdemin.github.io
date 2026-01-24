@@ -186,3 +186,72 @@ z6MksFqXN3Yhqk8pTJdUGLwATkRfQvwZXPqR2qMEhbS9wzpT	rad://z3gqcJUoA1n9HaHKufZs5FCSG
 z6MktaNvN1KVFMkSRAiN4qK5yvX1zuEEaseeX5sffhzPZRZW	rad://z3gqcJUoA1n9HaHKufZs5FCSGazv5/z6MktaNvN1KVFMkSRAiN4qK5yvX1zuEEaseeX5sffhzPZRZW (fetch)
 z6MktaNvN1KVFMkSRAiN4qK5yvX1zuEEaseeX5sffhzPZRZW	rad://z3gqcJUoA1n9HaHKufZs5FCSGazv5/z6MktaNvN1KVFMkSRAiN4qK5yvX1zuEEaseeX5sffhzPZRZW (push)
 ```
+
+## Migrate a repo
+
+Let's add an existing repo to the radicle network.
+I'll use this website's repo as an example.
+
+```bash
+$ rad init
+
+Initializing radicle 👾 repository in /Users/peterdemin/peterdemin.github.io..
+
+✓ Name peter.demin.dev
+✓ Description Peter Demin
+✓ Default branch master
+✓ Visibility public
+✓ Repository peter.demin.dev created.
+
+Your Repository ID (RID) is rad:zb9rTT3zoR5aD1svmWYW25yc5kVe.
+You can show it any time by running `rad .` from this directory.
+
+✓ Repository successfully announced to the network.
+
+Your repository has been announced to the network and is now discoverable by peers.
+You can check for any nodes that have replicated your repository by running `rad sync status`.
+
+To push changes, run `git push rad master`.
+```
+
+While it was running, it showed a countdown of announcements, and if I'm not mistaken, the repo was announced to four peers.
+Let's see if they are gonna show up in remotes:
+
+```
+$ git remote -v
+origin	git@github.com:peterdemin/peterdemin.github.io.git (fetch)
+origin	git@github.com:peterdemin/peterdemin.github.io.git (push)
+rad	rad://zb9rTT3zoR5aD1svmWYW25yc5kVe (fetch)
+rad	rad://zb9rTT3zoR5aD1svmWYW25yc5kVe/z6Mkno75gzNU1Y59EL9rj8nUVveBUj3kBLteVUwPvpKmx9Qi (push)
+```
+
+Hmm... Nope, there's just one. And it's `<this repo ID>/<this node ID>`.
+Looks like my only upstream is myself.
+But you know what, there's this magic sync command, let's try that.
+
+```bash
+$ rad sync --inventory
+✓ Announcing inventory to 8 peers..
+```
+
+I'm sure pretty good at announcing inventory. Who knew, I'm a natural.
+Fine, let's try the other one:
+
+```bash
+$ rad sync status
+✗ Hint:
+   ? … Status:
+       ✓ … in sync          ✗ … out of sync
+       ! … not announced    • … unknown
+```
+
+Huh, I could've sworn, I saw something about replication and announcements.
+How about we push things a little:
+
+```bash
+$ git push rad master
+Everything up-to-date
+```
+
+Wow, immediately returning up-to-date response.
+Maybe, because it's pushing to itself?..
