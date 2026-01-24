@@ -59,7 +59,7 @@ When a person's goal is to prove they're right, solution is out of the picture.
 
 `Dec 09, 2024` - TIL that Listerine mouthwash is bad for teeth. Because it's acidic, duh, I've been using it for years, looking at the self-ad of killing 99.9% of germs and not considering the pH. Some non-acidic mouthwashes, like Act, don't have this problem.
 
-`Dec 06, 2024` - [trailbaseio/trailbase](https://github.com/trailbaseio/trailbase) - A blazingly fast, open-source application server with type-safe APIs, built-in WebAssembly runtime, realtime, auth, and admin UI built on Rust, SQLite & Wasmtime.
+`Dec 06, 2024` - [trailbaseio/trailbase](https://github.com/trailbaseio/trailbase) - An open, sub-millisecond, single-executable Firebase alternative with type-safe APIs, built-in WebAssembly runtime, realtime subscriptions, auth, and admin UI built on Rust, SQLite & Wasmtime.
 
 `Dec 06, 2024` - Does it sound harsh to you if I say that half of the US population has an IQ below average?
 

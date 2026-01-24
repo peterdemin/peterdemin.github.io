@@ -1,3 +1,9 @@
+`Jan 22, 2026` - [kagisearch/smallweb](https://github.com/kagisearch/smallweb) - Kagi Small Web
+
+`Jan 22, 2026` - [susam/mintotp](https://github.com/susam/mintotp) - Minimal TOTP generator in 20 lines of Python
+
+`Jan 22, 2026` - [cpg314/ltapiserv-rs](https://github.com/cpg314/ltapiserv-rs) - Server implementation of the LanguageTool API for offline grammar and spell checking, based on nlprule and symspell. And a small graphical command-line client.
+
 `Jan 22, 2026` - For *years* I had these lines in my `~/.vimrc`:
 
 ```
@@ -31,6 +37,10 @@ Coordination between pieces is eventual and minimal.
 There's a lot of effort exerted, and the amount of motion is dizzying.
 Yet, rarely are substantial improvements achieved, and never efficiently.
 
+`Jan 21, 2026` - [SeanHeelan/anamnesis-release](https://github.com/SeanHeelan/anamnesis-release) - Automatic Exploit Generation with LLMs
+
+`Jan 21, 2026` - [anthropics/original_performance_takehome](https://github.com/anthropics/original_performance_takehome) - Anthropic's original performance take-home, now open for you to try!
+
 `Jan 21, 2026` - Exploring Radicle landed me on [Swarm](https://www.ethswarm.org). I'm concerned with the eth- prefix in their domain name, and a mention of blockchain and web3 on the main page. But I like how they managed to build some community and ecosystem around this project. Fun fact: instead of regular documentation, they have [The Book of Swarm](https://www.ethswarm.org/the-book-of-swarm-2.pdf) of 272 pages. I wonder how much of it is AI slop, though.
 
 On the note of automatic distribution of 4KB chunks through the network, I wonder how long before DMCA watchdogs start sending their letters to all owners of a chunk of a copyrighted content.
@@ -50,6 +60,8 @@ Can't say that I discovered anything interesting to subscribe to, though.
 But that might be an effect of informational overflow.
 Which is supported by my observation of myself skimming quickly through a list of 10+ unread posts, while indulging fully when I only have a couple.
 
+`Jan 20, 2026` - [markqvist/Reticulum](https://github.com/markqvist/Reticulum) - The cryptography-based networking stack for building unstoppable networks with LoRa, Packet Radio, WiFi and everything in between.
+
 `Jan 20, 2026` - Something up my alley: [SelfCI](https://app.radicle.xyz/nodes/radicle.dpc.pw/rad%3Az2tDzYbAXxTQEKTGFVwiJPajkbeDU) - a minimalistic local-first Unix-philosophy-abiding CI.
 
 `Jan 20, 2026` - I'm gonna explore this old-school [Hacker Webring](https://ring.acab.dev) that I discovered through [Morten Linderud](https://linderud.dev) that was linked on [Lobsters](https://lobste.rs) that doesn't require an introduction, but somehow evaded my attention for fourteen years.
@@ -65,6 +77,8 @@ I feel offended for author being careless and pushing through slop without contr
 I ask the author whether they reviewed the generated code themselves before pushing it.
 They tell me they didn't use AI.
 They wrote the code themselves.
+
+`Jan 15, 2026` - [hnpwd/hnpwd](https://github.com/hnpwd/hnpwd) - HN personal website directory and OPML
 
 `Jan 15, 2026` - Added [](/12_articles/79-bugsink-gcp.md)
 

@@ -35,4 +35,4 @@ I published this as [gdocsync](https://github.com/peterdemin/gdocsync). The proj
 
 `Jul 10, 2023` - [apache/hamilton](https://github.com/apache/hamilton) - Apache Hamilton helps data scientists and engineers define testable, modular, self-documenting dataflows, that encode lineage/tracing and metadata. Runs and scales everywhere python does.
 
-`Jul 01, 2023` - [LemmyNet/lemmy](https://github.com/LemmyNet/lemmy) - 🐀 A link aggregator and forum for the fediverse
+`Jul 01, 2023` - [LemmyNet/lemmy](https://github.com/LemmyNet/lemmy) - 🐀 A decentralised discussion platform for communities.
