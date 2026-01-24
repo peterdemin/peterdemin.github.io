@@ -1,6 +1,18 @@
+`Jan 22, 2026` - [cpg314/ltapiserv-rs](https://github.com/cpg314/ltapiserv-rs) - Server implementation of the LanguageTool API for offline grammar and spell checking, based on nlprule and symspell. And a small graphical command-line client.
+
+`Jan 22, 2026` - [susam/mintotp](https://github.com/susam/mintotp) - Minimal TOTP generator in 20 lines of Python
+
+`Jan 22, 2026` - [kagisearch/smallweb](https://github.com/kagisearch/smallweb) - Kagi Small Web
+
+`Jan 21, 2026` - [anthropics/original_performance_takehome](https://github.com/anthropics/original_performance_takehome) - Anthropic's original performance take-home, now open for you to try!
+
+`Jan 21, 2026` - [SeanHeelan/anamnesis-release](https://github.com/SeanHeelan/anamnesis-release) - Automatic Exploit Generation with LLMs
+
+`Jan 20, 2026` - [markqvist/Reticulum](https://github.com/markqvist/Reticulum) - The cryptography-based networking stack for building unstoppable networks with LoRa, Packet Radio, WiFi and everything in between.
+
 `Jan 16, 2026` - [bugsink/bugsink](https://github.com/bugsink/bugsink) - Self-hosted Error Tracking
 
-`Jan 15, 2026` - [hnpwd/hnpwd.github.io](https://github.com/hnpwd/hnpwd.github.io) - HN personal website directory and OPML
+`Jan 15, 2026` - [hnpwd/hnpwd](https://github.com/hnpwd/hnpwd) - HN personal website directory and OPML
 
 `Jan 10, 2026` - [scottrogowski/code2flow](https://github.com/scottrogowski/code2flow) - Pretty good call graphs for dynamic languages
 
@@ -22,7 +34,7 @@
 
 `Sep 12, 2025` - [PicoTrex/Awesome-Nano-Banana-images](https://github.com/PicoTrex/Awesome-Nano-Banana-images) - A curated collection of fun and creative examples generated with Nano Banana & Nano Banana Pro🍌, Gemini-2.5-flash-image based model. We also release Nano-consistent-150K openly to support the community's development of image generation and unified models(click to website to see our blog)
 
-`Sep 07, 2025` - [lingdojo/kana-dojo](https://github.com/lingdojo/kana-dojo) - Aesthetic, minimalist online platform for learning Japanese inspired by Monkeytype.
+`Sep 07, 2025` - [lingdojo/kana-dojo](https://github.com/lingdojo/kana-dojo) - Aesthetic, minimalist platform for learning Japanese inspired by Duolingo and Monkeytype.
 
 `Jul 12, 2025` - [gw1urf/spigot](https://github.com/gw1urf/spigot) - A hierarchy of Markov Chain generated web pages.
 
@@ -82,7 +94,7 @@
 
 `Dec 09, 2024` - [pimalaya/himalaya](https://github.com/pimalaya/himalaya) - CLI to manage emails
 
-`Dec 06, 2024` - [trailbaseio/trailbase](https://github.com/trailbaseio/trailbase) - A blazingly fast, open-source application server with type-safe APIs, built-in WebAssembly runtime, realtime, auth, and admin UI built on Rust, SQLite & Wasmtime.
+`Dec 06, 2024` - [trailbaseio/trailbase](https://github.com/trailbaseio/trailbase) - An open, sub-millisecond, single-executable Firebase alternative with type-safe APIs, built-in WebAssembly runtime, realtime subscriptions, auth, and admin UI built on Rust, SQLite & Wasmtime.
 
 `Nov 26, 2024` - [neuml/txtai](https://github.com/neuml/txtai) - 💡 All-in-one AI framework for semantic search, LLM orchestration and language model workflows
 
@@ -272,7 +284,7 @@
 
 `Jul 10, 2023` - [apache/hamilton](https://github.com/apache/hamilton) - Apache Hamilton helps data scientists and engineers define testable, modular, self-documenting dataflows, that encode lineage/tracing and metadata. Runs and scales everywhere python does.
 
-`Jul 01, 2023` - [LemmyNet/lemmy](https://github.com/LemmyNet/lemmy) - 🐀 A link aggregator and forum for the fediverse
+`Jul 01, 2023` - [LemmyNet/lemmy](https://github.com/LemmyNet/lemmy) - 🐀 A decentralised discussion platform for communities.
 
 `Jun 22, 2023` - [mindsdb/mindsdb](https://github.com/mindsdb/mindsdb) - Federated Query Engine for AI - The only MCP Server you'll ever need
 
@@ -825,8 +837,6 @@
 `Jan 18, 2019` - [guardrailsio/awesome-python-security](https://github.com/guardrailsio/awesome-python-security) - Awesome Python Security resources 🕶🐍🔐
 
 `Jan 04, 2019` - [wagtail/wagtail](https://github.com/wagtail/wagtail) - A Django content management system focused on flexibility and user experience
-
-`Dec 19, 2018` - [opsmop/opsmop](https://github.com/opsmop/opsmop) - DISCONTINUED: permanent copy of fork lives at github.com/mpdehaan/opsmop
 
 `Dec 03, 2018` - [pypa/pipx](https://github.com/pypa/pipx) - Install and Run Python Applications in Isolated Environments
 
