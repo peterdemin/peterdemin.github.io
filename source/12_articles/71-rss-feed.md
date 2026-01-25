@@ -100,7 +100,6 @@ Here's how I do it:
 Here's the list of feeds from the OPML file in alphabetical order:
 
 ```{include} ./71-subscriptions.mdpart
-:parser: md
 ```
 
 ## Hardened SystemD Unit
