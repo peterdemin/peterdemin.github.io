@@ -118,3 +118,60 @@ The hardened version, which won't let CommaFeed process do any harm even if it g
 ```{literalinclude} ../../opml2md.py
 :language: python
 ```
+
+## Building from source
+
+The 6.0.0 version had a bug that broke scrolling posts on Safari, the author fixed the issue promptly but wasn't eager to publish a new release.
+I figured I can use keyboard to scroll up and down until one day that stopped working as well.
+So then I thought, let's see if the new version fixes the issue.
+I didn't want to bother Jérémie with the release, so I decided to build it myself.
+
+I've never built standalone Java programs (or used maven for that matter) and the README was a bit shallow on how to build it from source, so I vibed a builder script, that runs in a VM with Vagrant.
+
+`Vagrantfile`:
+```ruby
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+    config.vm.box = "debian/trixie64"
+    config.vm.network "private_network", ip: "192.168.56.57"
+    config.vm.synced_folder "./", "/vagrant", type: "virtiofs"
+    config.vm.provider :libvirt do |libvirt|
+      libvirt.driver = "kvm"
+      libvirt.uri = 'qemu:///system'
+      libvirt.cpus = 4
+      libvirt.memory = "16384"
+      libvirt.memorybacking :access, :mode => "shared"
+    end
+    config.vm.provision "shell", path: "build.sh"
+end
+```
+
+`build.sh`:
+```bash
+#!/bin/bash
+
+set -eo pipefail
+
+sudo apt-get update
+sudo apt-get install -y git maven build-essential zlib1g-dev curl zip unzip
+curl -s "https://get.sdkman.io" | bash
+source "/root/.sdkman/bin/sdkman-init.sh"
+sdk install java 25-graal
+sdk use java 25-graal
+test -d commafeed || git clone https://github.com/Athou/commafeed.git
+cd commafeed
+export NODE_OPTIONS="--max-old-space-size=6144"
+mvn -DskipTests -Pnative -Ph2 clean package -Dquarkus.native.native-image-xmx=14g
+sudo cp commafeed-server/target/commafeed-*-h2-linux-x86_64-runner /vagrant/commafeed
+```
+
+Note the setting of 6 GB RAM for NodeJS and 14 GB for Java.
+I kept doubling it until it stopped running out of memory.
+
+The resulting binary is 163 MB, same as in the official release.
+
+For what it worth, I deployed it and reloaded the page, but the bug is still there.
+Whoops... But at least I'm running my own build now.
+And it works in Firefox just fine.
