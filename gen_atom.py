@@ -3,6 +3,7 @@
 import datetime
 import glob
 import os
+import posixpath
 import re
 from dataclasses import dataclass
 from typing import Iterable, Optional
@@ -149,23 +150,31 @@ def maybe_parse_date(text: str) -> Optional[datetime.datetime]:
 
 def parse_title(path: str) -> str:
     source_path = os.path.join(SOURCE_DIR, path[1:])
-    with open(source_path, 'rt', encoding='utf-8') as fobj:
-        return next(fobj).rstrip().lstrip('# ')
+    with open(source_path, "rt", encoding="utf-8") as fobj:
+        return next(fobj).rstrip().lstrip("# ")
 
 
-def render_internal_link(self, tokens, idx, options, env):
+def render_internal_link(self, tokens, idx, options, env) -> str:
     href = path = tokens[idx].attrs["href"]
-    if href.endswith(".md"):
-        href = href[:-2] + "html"
-    if href.endswith(".rst"):
-        href = href[:-3] + "html"
-    content = ''
+    content = ""
     if href.startswith("/"):
-        href = BASE_URL + href
-        if tokens[idx].content == '':
+        root, ext = posixpath.splitext(href)
+        if ext in (".rst", ".md"):
+            href = root + ".html"
+        tokens[idx].attrs["href"] = BASE_URL + href
+        if tokens[idx].content == "":
             content = parse_title(path)
-    tokens[idx].attrs["href"] = href
     return self.renderToken(tokens, idx, options, env) + content
+
+
+def render_internal_image(self, tokens, idx, options, env) -> str:
+    src = path = tokens[idx].attrs["src"]
+    if src.startswith("/"):
+        if "/images/" in src:
+            src = posixpath.join("/_images", posixpath.basename(path))
+        src = BASE_URL + src
+    tokens[idx].attrs["src"] = src
+    return self.renderToken(tokens, idx, options, env)
 
 
 def build_atom_feed(
@@ -201,6 +210,7 @@ def build_atom_feed(
 
     md = MarkdownIt()
     md.add_render_rule("link_open", render_internal_link)
+    md.add_render_rule("image", render_internal_image)
     for it in items[:max_items]:
         entry = ET.SubElement(feed, q("entry"))
         ET.SubElement(entry, q("id")).text = it.stable_id
