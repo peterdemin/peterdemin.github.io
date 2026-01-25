@@ -58,7 +58,7 @@ Now guess, what:
 Just a quick reminder, make sure you don't forget that nothing good comes easy.
 Update `~/.zshrc`, open a fresh terminal.
 
-## rad
+## Set up first node
 
 First, we gotta create an identity:
 
@@ -187,7 +187,7 @@ z6MktaNvN1KVFMkSRAiN4qK5yvX1zuEEaseeX5sffhzPZRZW	rad://z3gqcJUoA1n9HaHKufZs5FCSG
 z6MktaNvN1KVFMkSRAiN4qK5yvX1zuEEaseeX5sffhzPZRZW	rad://z3gqcJUoA1n9HaHKufZs5FCSGazv5/z6MktaNvN1KVFMkSRAiN4qK5yvX1zuEEaseeX5sffhzPZRZW (push)
 ```
 
-## Migrate a repo
+## Publish a repo
 
 Let's add an existing repo to the radicle network.
 I'll use this website's repo as an example.
@@ -255,3 +255,125 @@ Everything up-to-date
 
 Wow, immediately returning up-to-date response.
 Maybe, because it's pushing to itself?..
+
+## Set up another node
+
+At this point, the peer node of radicle network is up and running, announcing it's presence, and serving a repo.
+
+Let's see how we can use this network to get the repo from another node.
+
+I repeated the setup on a Debian Trixie VM using Vagrant:
+
+`Vagrantfile`:
+```
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+    config.vm.box = "debian/trixie64"
+    config.vm.network "private_network", ip: "192.168.56.57"
+    config.vm.synced_folder "./", "/vagrant", type: "virtiofs"
+    config.vm.provider :libvirt do |libvirt|
+      libvirt.memory = "4096"
+      libvirt.driver = "kvm"
+      libvirt.uri = 'qemu:///system'
+      libvirt.cpus = 4
+      libvirt.numa_nodes = [{ :cpus => "0-3", :memory => 8192, :memAccess => "shared" }]
+      libvirt.memorybacking :access, :mode => "shared"
+    end
+    config.vm.provision "shell", path: "build-radicle.sh"
+end
+```
+
+Provisining script in `build-radicle.sh`:
+```bash
+#!/bin/bash
+
+set -eo pipefail
+
+sudo apt-get update
+sudo apt-get install -y rustup build-essential git
+rustup toolchain install stable
+git clone https://seed.radicle.xyz/z3gqcJUoA1n9HaHKufZs5FCSGazv5.git heartwood
+cd heartwood
+cargo install --path crates/radicle-cli --force --locked --root ~/.radicle
+cargo install --path crates/radicle-node --force --locked --root ~/.radicle
+cargo install --path crates/radicle-remote-helper --force --locked --root ~/.radicle
+sudo cp ~/.radicle/bin/* /usr/bin/
+```
+
+Create a node identifier:
+```
+$ rad auth
+
+Initializing your radicle 👾 identity
+
+✓ Enter your alias: demin.dev
+✓ Enter a passphrase: ********
+✓ Creating your Ed25519 keypair...
+✓ Your Radicle DID is did:key:z6MkpA56z2R7powZHMdCJ6PsecwMgTnmVCXtn3h1LiPBtrMd. This identifies your device. Run `rad self` to show it at all times.
+✓ You're all set.
+
+To create a Radicle repository, run `rad init` from a Git repository with at least one commit.
+To clone a repository, run `rad clone <rid>`. For example, `rad clone rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5` clones the Radicle 'heartwood' repository.
+To get a list of all commands, run `rad`.
+
+$ rad node start
+✓ Node started (105073)
+To stay in sync with the network, leave the node running in the background.
+To learn more, run `rad node --help`.
+
+$ rad clone rad:zb9rTT3zoR5aD1svmWYW25yc5kVe
+✓ Seeding policy updated for rad:zb9rTT3zoR5aD1svmWYW25yc5kVe with scope 'all'
+Fetching rad:zb9rTT3zoR5aD1svmWYW25yc5kVe from the network, found 2 potential seed(s).
+✗ Target not met: could not fetch from [z6Mkmqogy2qEM2ummccUthFEaaHvyYmYBYh3dbe9W4ebScxo, z6MkrLMMsiPWUcNPHcRajuMi9mDfYckSoJyPwwnknocNYPm7], and required 1 more seed(s)
+! Warning: Failed to fetch from 2 seed(s).
+! Warning: z6Mkmqogy2qEM2ummccUthFEaaHvyYmYBYh3dbe9W4ebScxo: an I/O error occurred during the fetch handshake (error reading from stream: channel timed out)
+! Warning: z6MkrLMMsiPWUcNPHcRajuMi9mDfYckSoJyPwwnknocNYPm7: Could not connect. No addresses known.
+✗ Error: no seeds found for rad:zb9rTT3zoR5aD1svmWYW25yc5kVe
+```
+
+Whoops! Looks like my first peer node is not as peer as the two servers owned by Radicle team...
+
+```
+$ rad node status
+✓ Node is running with Node ID z6MkpA56z2R7powZHMdCJ6PsecwMgTnmVCXtn3h1LiPBtrMd and not configured to listen for inbound connections.
+
+╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Node ID                                            Address                          ?   ⤭   Since            │
+├──────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ z6Mkr5ad8ZN5tyJygyp7wgujJLSykAvXznQyUtV3kh8CsTyd   radicle.qmooku.com:8776          ✓   ↗   32.933 second(s) │
+│ z6MkwfrBy9mKTfcVELcV4wc6zfN379FPMnAqsxnwt4j2TdQ2   radicle.jarg.io:8776             ✓   ↗   28.933 second(s) │
+│ z6MkmWBnyEnoQSWEuvukXPPzPtQNPoBZ66c4aRVz2d39Escp   rad.daidalos.xyz:8776            ✓   ↗   29.933 second(s) │
+│ z6Mkmqogy2qEM2ummccUthFEaaHvyYmYBYh3dbe9W4ebScxo   rosa.radicle.xyz:8776            ✓   ↗   40.933 second(s) │
+│ z6MkrNbURE9T9GQ3CpAYHGyXfEvSqMe6SczFDwHddt1jcabR   rad.glyphs.tech:7114             !   ↗                    │
+│ z6MkrLMMsiPWUcNPHcRajuMi9mDfYckSoJyPwwnknocNYPm7   irisradi…c6s5lfid.onion:8776     ✗   ↗   6.933 second(s)  │
+│ z6MkidNH5DAvU3woJsXdFwfSTVT32iYQCAYep8emjCqVJyz5   radicle-seed.29051830.xyz:8776   ✓   ↗   32.933 second(s) │
+│ z6MkmNgM276APif8WG2sp9bS82rJwg9JCpdk3xv53kTc9KYj   radicle.schuppentier.org:8776    !   ↗                    │
+│ z6Mkh3MbEZxUvVrCDJ2rJ23V33ptNgJTjm3ChumQSewJb454   pool.net.eu.org:8776             ✓   ↗   27.933 second(s) │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+✗ Hint:
+   ? … Status:
+       ✓ … connected    ✗ … disconnected
+       ! … attempted    • … initial
+   ⤭ … Link Direction:
+       ↘ … inbound      ↗ … outbound
+
+2026-01-24T22:12:08.105Z INFO  service  Received command Seeds(rad:zb9rTT3zoR5aD1svmWYW25yc5kVe)
+2026-01-24T22:12:08.107Z INFO  service  Received command QueryState(..)
+2026-01-24T22:12:08.107Z INFO  service  Received command Fetch(rad:zb9rTT3zoR5aD1svmWYW25yc5kVe, z6Mkmqogy2qEM2ummccUthFEaaHvyYmYBYh3dbe9W4ebScxo)
+2026-01-24T22:12:15.169Z WARN  wire     Failed to establish connection to irisradizskwweumpydlj4oammoshkxxjur3ztcmo7cou5emc6s5lfid.onion:8776: no configuration found for .onion addresses
+2026-01-24T22:12:15.169Z INFO  service  Disconnected from z6MkrLMMsiPWUcNPHcRajuMi9mDfYckSoJyPwwnknocNYPm7 (no configuration found for .onion addresses)
+2026-01-24T22:12:17.111Z WARN  service  Fetch failed for rad:zb9rTT3zoR5aD1svmWYW25yc5kVe from z6Mkmqogy2qEM2ummccUthFEaaHvyYmYBYh3dbe9W4ebScxo: an I/O error occurred during the fetch handshake (error reading from stream: channel timed out)
+2026-01-24T22:12:17.112Z INFO  service  Received command QueryState(..)
+2026-01-24T22:12:21.888Z INFO  service  Received command ListenAddrs
+2026-01-24T22:12:21.888Z INFO  service  Received command QueryState(..)
+2026-01-24T22:12:21.889Z INFO  service  Received command QueryState(..)
+```
+
+I'm not an expert, but by matching the hashes to hosts, I see that `rad clone` command attempted to clone my repo from `rosa.radicle.xyz:8776` and `iris.radicle.xyz` node served through `.onion` address.
+The error print `channel timed out`, while it should have been more like `repo not found`.
+
+Decentralize my ass.
+
+## Push repo from the first node to the second
