@@ -61,8 +61,10 @@ data-aria-dark="Switch to auto color mode">
     <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
 <li><a class="reference internal" href="#rust">Rust</a></li>
 <li><a class="reference internal" href="#heartwood">Heartwood</a></li>
-<li><a class="reference internal" href="#rad">rad</a></li>
-<li><a class="reference internal" href="#migrate-a-repo">Migrate a repo</a></li>
+<li><a class="reference internal" href="#set-up-first-node">Set up first node</a></li>
+<li><a class="reference internal" href="#publish-a-repo">Publish a repo</a></li>
+<li><a class="reference internal" href="#set-up-another-node">Set up another node</a></li>
+<li><a class="reference internal" href="#push-repo-from-the-first-node-to-the-second">Push repo from the first node to the second</a></li>
 </ul>
 </div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
   data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
@@ -205,8 +207,8 @@ Now guess, what:</p>
 <p>Just a quick reminder, make sure you don’t forget that nothing good comes easy.
 Update <code class="docutils literal notranslate"><span class="pre">~/.zshrc</span></code>, open a fresh terminal.</p>
 </section>
-<section id="rad">
-<h2>rad<a class="headerlink" href="#rad" title="Link to this heading">¶</a></h2>
+<section id="set-up-first-node">
+<h2>Set up first node<a class="headerlink" href="#set-up-first-node" title="Link to this heading">¶</a></h2>
 <p>First, we gotta create an identity:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">rad<span class="w"> </span>auth
 </span></pre></div>
@@ -317,8 +319,8 @@ Let’s try again:</p>
 </span></pre></div>
 </div>
 </section>
-<section id="migrate-a-repo">
-<h2>Migrate a repo<a class="headerlink" href="#migrate-a-repo" title="Link to this heading">¶</a></h2>
+<section id="publish-a-repo">
+<h2>Publish a repo<a class="headerlink" href="#publish-a-repo" title="Link to this heading">¶</a></h2>
 <p>Let’s add an existing repo to the radicle network.
 I’ll use this website’s repo as an example.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">$<span class="w"> </span>rad<span class="w"> </span>init
@@ -375,6 +377,120 @@ How about we push things a little:</p>
 </div>
 <p>Wow, immediately returning up-to-date response.
 Maybe, because it’s pushing to itself?..</p>
+</section>
+<section id="set-up-another-node">
+<h2>Set up another node<a class="headerlink" href="#set-up-another-node" title="Link to this heading">¶</a></h2>
+<p>At this point, the peer node of radicle network is up and running, announcing it’s presence, and serving a repo.</p>
+<p>Let’s see how we can use this network to get the repo from another node.</p>
+<p>I repeated the setup on a Debian Trixie VM using Vagrant:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Vagrantfile</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># -*- mode: ruby -*-</span>
+</span><span data-line="2"><span class="c1"># vi: set ft=ruby :</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="n">Vagrant</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s2">&quot;2&quot;</span><span class="p">)</span> <span class="n">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+</span><span data-line="5">    <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span> <span class="o">=</span> <span class="s2">&quot;debian/trixie64&quot;</span>
+</span><span data-line="6">    <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">network</span> <span class="s2">&quot;private_network&quot;</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="s2">&quot;192.168.56.57&quot;</span>
+</span><span data-line="7">    <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">synced_folder</span> <span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="s2">&quot;/vagrant&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">:</span> <span class="s2">&quot;virtiofs&quot;</span>
+</span><span data-line="8">    <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provider</span> <span class="p">:</span><span class="n">libvirt</span> <span class="n">do</span> <span class="o">|</span><span class="n">libvirt</span><span class="o">|</span>
+</span><span data-line="9">      <span class="n">libvirt</span><span class="o">.</span><span class="n">memory</span> <span class="o">=</span> <span class="s2">&quot;4096&quot;</span>
+</span><span data-line="10">      <span class="n">libvirt</span><span class="o">.</span><span class="n">driver</span> <span class="o">=</span> <span class="s2">&quot;kvm&quot;</span>
+</span><span data-line="11">      <span class="n">libvirt</span><span class="o">.</span><span class="n">uri</span> <span class="o">=</span> <span class="s1">&#39;qemu:///system&#39;</span>
+</span><span data-line="12">      <span class="n">libvirt</span><span class="o">.</span><span class="n">cpus</span> <span class="o">=</span> <span class="mi">4</span>
+</span><span data-line="13">      <span class="n">libvirt</span><span class="o">.</span><span class="n">numa_nodes</span> <span class="o">=</span> <span class="p">[{</span> <span class="p">:</span><span class="n">cpus</span> <span class="o">=&gt;</span> <span class="s2">&quot;0-3&quot;</span><span class="p">,</span> <span class="p">:</span><span class="n">memory</span> <span class="o">=&gt;</span> <span class="mi">8192</span><span class="p">,</span> <span class="p">:</span><span class="n">memAccess</span> <span class="o">=&gt;</span> <span class="s2">&quot;shared&quot;</span> <span class="p">}]</span>
+</span><span data-line="14">      <span class="n">libvirt</span><span class="o">.</span><span class="n">memorybacking</span> <span class="p">:</span><span class="n">access</span><span class="p">,</span> <span class="p">:</span><span class="n">mode</span> <span class="o">=&gt;</span> <span class="s2">&quot;shared&quot;</span>
+</span><span data-line="15">    <span class="n">end</span>
+</span><span data-line="16">    <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span> <span class="s2">&quot;shell&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="s2">&quot;build-radicle.sh&quot;</span>
+</span><span data-line="17"><span class="n">end</span>
+</span></pre></div>
+</div>
+<p>Provisining script in <code class="docutils literal notranslate"><span class="pre">build-radicle.sh</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="ch">#!/bin/bash</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="nb">set</span><span class="w"> </span>-eo<span class="w"> </span>pipefail
+</span><span data-line="4">
+</span><span data-line="5">sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+</span><span data-line="6">sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>rustup<span class="w"> </span>build-essential<span class="w"> </span>git
+</span><span data-line="7">rustup<span class="w"> </span>toolchain<span class="w"> </span>install<span class="w"> </span>stable
+</span><span data-line="8">git<span class="w"> </span>clone<span class="w"> </span>https://seed.radicle.xyz/z3gqcJUoA1n9HaHKufZs5FCSGazv5.git<span class="w"> </span>heartwood
+</span><span data-line="9"><span class="nb">cd</span><span class="w"> </span>heartwood
+</span><span data-line="10">cargo<span class="w"> </span>install<span class="w"> </span>--path<span class="w"> </span>crates/radicle-cli<span class="w"> </span>--force<span class="w"> </span>--locked<span class="w"> </span>--root<span class="w"> </span>~/.radicle
+</span><span data-line="11">cargo<span class="w"> </span>install<span class="w"> </span>--path<span class="w"> </span>crates/radicle-node<span class="w"> </span>--force<span class="w"> </span>--locked<span class="w"> </span>--root<span class="w"> </span>~/.radicle
+</span><span data-line="12">cargo<span class="w"> </span>install<span class="w"> </span>--path<span class="w"> </span>crates/radicle-remote-helper<span class="w"> </span>--force<span class="w"> </span>--locked<span class="w"> </span>--root<span class="w"> </span>~/.radicle
+</span><span data-line="13">sudo<span class="w"> </span>cp<span class="w"> </span>~/.radicle/bin/*<span class="w"> </span>/usr/bin/
+</span></pre></div>
+</div>
+<p>Create a node identifier:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">$ rad auth
+</span><span data-line="2">
+</span><span data-line="3">Initializing your radicle 👾 identity
+</span><span data-line="4">
+</span><span data-line="5">✓ Enter your alias: demin.dev
+</span><span data-line="6">✓ Enter a passphrase: ********
+</span><span data-line="7">✓ Creating your Ed25519 keypair...
+</span><span data-line="8">✓ Your Radicle DID is did:key:z6MkpA56z2R7powZHMdCJ6PsecwMgTnmVCXtn3h1LiPBtrMd. This identifies your device. Run `rad self` to show it at all times.
+</span><span data-line="9">✓ You&#39;re all set.
+</span><span data-line="10">
+</span><span data-line="11">To create a Radicle repository, run `rad init` from a Git repository with at least one commit.
+</span><span data-line="12">To clone a repository, run `rad clone &lt;rid&gt;`. For example, `rad clone rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5` clones the Radicle &#39;heartwood&#39; repository.
+</span><span data-line="13">To get a list of all commands, run `rad`.
+</span><span data-line="14">
+</span><span data-line="15">$ rad node start
+</span><span data-line="16">✓ Node started (105073)
+</span><span data-line="17">To stay in sync with the network, leave the node running in the background.
+</span><span data-line="18">To learn more, run `rad node --help`.
+</span><span data-line="19">
+</span><span data-line="20">$ rad clone rad:zb9rTT3zoR5aD1svmWYW25yc5kVe
+</span><span data-line="21">✓ Seeding policy updated for rad:zb9rTT3zoR5aD1svmWYW25yc5kVe with scope &#39;all&#39;
+</span><span data-line="22">Fetching rad:zb9rTT3zoR5aD1svmWYW25yc5kVe from the network, found 2 potential seed(s).
+</span><span data-line="23">✗ Target not met: could not fetch from [z6Mkmqogy2qEM2ummccUthFEaaHvyYmYBYh3dbe9W4ebScxo, z6MkrLMMsiPWUcNPHcRajuMi9mDfYckSoJyPwwnknocNYPm7], and required 1 more seed(s)
+</span><span data-line="24">! Warning: Failed to fetch from 2 seed(s).
+</span><span data-line="25">! Warning: z6Mkmqogy2qEM2ummccUthFEaaHvyYmYBYh3dbe9W4ebScxo: an I/O error occurred during the fetch handshake (error reading from stream: channel timed out)
+</span><span data-line="26">! Warning: z6MkrLMMsiPWUcNPHcRajuMi9mDfYckSoJyPwwnknocNYPm7: Could not connect. No addresses known.
+</span><span data-line="27">✗ Error: no seeds found for rad:zb9rTT3zoR5aD1svmWYW25yc5kVe
+</span></pre></div>
+</div>
+<p>Whoops! Looks like my first peer node is not as peer as the two servers owned by Radicle team…</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">$ rad node status
+</span><span data-line="2">✓ Node is running with Node ID z6MkpA56z2R7powZHMdCJ6PsecwMgTnmVCXtn3h1LiPBtrMd and not configured to listen for inbound connections.
+</span><span data-line="3">
+</span><span data-line="4">╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+</span><span data-line="5">│ Node ID                                            Address                          ?   ⤭   Since            │
+</span><span data-line="6">├──────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+</span><span data-line="7">│ z6Mkr5ad8ZN5tyJygyp7wgujJLSykAvXznQyUtV3kh8CsTyd   radicle.qmooku.com:8776          ✓   ↗   32.933 second(s) │
+</span><span data-line="8">│ z6MkwfrBy9mKTfcVELcV4wc6zfN379FPMnAqsxnwt4j2TdQ2   radicle.jarg.io:8776             ✓   ↗   28.933 second(s) │
+</span><span data-line="9">│ z6MkmWBnyEnoQSWEuvukXPPzPtQNPoBZ66c4aRVz2d39Escp   rad.daidalos.xyz:8776            ✓   ↗   29.933 second(s) │
+</span><span data-line="10">│ z6Mkmqogy2qEM2ummccUthFEaaHvyYmYBYh3dbe9W4ebScxo   rosa.radicle.xyz:8776            ✓   ↗   40.933 second(s) │
+</span><span data-line="11">│ z6MkrNbURE9T9GQ3CpAYHGyXfEvSqMe6SczFDwHddt1jcabR   rad.glyphs.tech:7114             !   ↗                    │
+</span><span data-line="12">│ z6MkrLMMsiPWUcNPHcRajuMi9mDfYckSoJyPwwnknocNYPm7   irisradi…c6s5lfid.onion:8776     ✗   ↗   6.933 second(s)  │
+</span><span data-line="13">│ z6MkidNH5DAvU3woJsXdFwfSTVT32iYQCAYep8emjCqVJyz5   radicle-seed.29051830.xyz:8776   ✓   ↗   32.933 second(s) │
+</span><span data-line="14">│ z6MkmNgM276APif8WG2sp9bS82rJwg9JCpdk3xv53kTc9KYj   radicle.schuppentier.org:8776    !   ↗                    │
+</span><span data-line="15">│ z6Mkh3MbEZxUvVrCDJ2rJ23V33ptNgJTjm3ChumQSewJb454   pool.net.eu.org:8776             ✓   ↗   27.933 second(s) │
+</span><span data-line="16">╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+</span><span data-line="17">✗ Hint:
+</span><span data-line="18">   ? … Status:
+</span><span data-line="19">       ✓ … connected    ✗ … disconnected
+</span><span data-line="20">       ! … attempted    • … initial
+</span><span data-line="21">   ⤭ … Link Direction:
+</span><span data-line="22">       ↘ … inbound      ↗ … outbound
+</span><span data-line="23">
+</span><span data-line="24">2026-01-24T22:12:08.105Z INFO  service  Received command Seeds(rad:zb9rTT3zoR5aD1svmWYW25yc5kVe)
+</span><span data-line="25">2026-01-24T22:12:08.107Z INFO  service  Received command QueryState(..)
+</span><span data-line="26">2026-01-24T22:12:08.107Z INFO  service  Received command Fetch(rad:zb9rTT3zoR5aD1svmWYW25yc5kVe, z6Mkmqogy2qEM2ummccUthFEaaHvyYmYBYh3dbe9W4ebScxo)
+</span><span data-line="27">2026-01-24T22:12:15.169Z WARN  wire     Failed to establish connection to irisradizskwweumpydlj4oammoshkxxjur3ztcmo7cou5emc6s5lfid.onion:8776: no configuration found for .onion addresses
+</span><span data-line="28">2026-01-24T22:12:15.169Z INFO  service  Disconnected from z6MkrLMMsiPWUcNPHcRajuMi9mDfYckSoJyPwwnknocNYPm7 (no configuration found for .onion addresses)
+</span><span data-line="29">2026-01-24T22:12:17.111Z WARN  service  Fetch failed for rad:zb9rTT3zoR5aD1svmWYW25yc5kVe from z6Mkmqogy2qEM2ummccUthFEaaHvyYmYBYh3dbe9W4ebScxo: an I/O error occurred during the fetch handshake (error reading from stream: channel timed out)
+</span><span data-line="30">2026-01-24T22:12:17.112Z INFO  service  Received command QueryState(..)
+</span><span data-line="31">2026-01-24T22:12:21.888Z INFO  service  Received command ListenAddrs
+</span><span data-line="32">2026-01-24T22:12:21.888Z INFO  service  Received command QueryState(..)
+</span><span data-line="33">2026-01-24T22:12:21.889Z INFO  service  Received command QueryState(..)
+</span></pre></div>
+</div>
+<p>I’m not an expert, but by matching the hashes to hosts, I see that <code class="docutils literal notranslate"><span class="pre">rad</span> <span class="pre">clone</span></code> command attempted to clone my repo from <code class="docutils literal notranslate"><span class="pre">rosa.radicle.xyz:8776</span></code> and <code class="docutils literal notranslate"><span class="pre">iris.radicle.xyz</span></code> node served through <code class="docutils literal notranslate"><span class="pre">.onion</span></code> address.
+The error print <code class="docutils literal notranslate"><span class="pre">channel</span> <span class="pre">timed</span> <span class="pre">out</span></code>, while it should have been more like <code class="docutils literal notranslate"><span class="pre">repo</span> <span class="pre">not</span> <span class="pre">found</span></code>.</p>
+<p>Decentralize my ass.</p>
+</section>
+<section id="push-repo-from-the-first-node-to-the-second">
+<h2>Push repo from the first node to the second<a class="headerlink" href="#push-repo-from-the-first-node-to-the-second" title="Link to this heading">¶</a></h2>
 </section>
 </section>
 
