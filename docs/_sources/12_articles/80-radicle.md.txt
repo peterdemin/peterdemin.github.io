@@ -1,4 +1,4 @@
-# Set up Radicle on MacOS
+# My Radicle Journey
 
 [Radicle](https://radicle.xyz) is an open source, peer-to-peer code collaboration stack built on Git.
 Unlike centralized code hosting platforms, there is no single entity controlling the network.
@@ -376,4 +376,42 @@ The error print `channel timed out`, while it should have been more like `repo n
 
 Decentralize my ass.
 
-## Push repo from the first node to the second
+Rad has an option to force cloning from a particular node:
+
+```bash
+$ rad seed rad:zb9rTT3zoR5aD1svmWYW25yc5kVe --from z6Mkno75gzNU1Y59EL9rj8nUVveBUj3kBLteVUwPvpKmx9Qi
+✓ Seeding policy exists for rad:zb9rTT3zoR5aD1svmWYW25yc5kVe with scope 'all'
+Fetching rad:zb9rTT3zoR5aD1svmWYW25yc5kVe from the network, found 1 potential seed(s).
+✗ Target not met: could not fetch from [z6Mkno75gzNU1Y59EL9rj8nUVveBUj3kBLteVUwPvpKmx9Qi], and required 1 more seed(s)
+```
+
+No dice, I can't fetch from my laptop.
+
+## Parting thoughts
+
+I poked around for a few hours trying to figure out how to synchronize code between my two radicle nodes, and ultimately failed.
+I tried to get a better understanding of the system by reading the [user guide](https://radicle.xyz/guides/user), but the page has too much unrelated information and not enough answers.
+
+I feel like giving up on radicle.
+
+Nothing good comes easy, but sometimes nothing comes at all.
+Ah, well, at least I poked cargo a bit, that was fun.
+
+Going through the troubles of setting up decentralized forge made we question the premise.
+What is missing from the existing `tailscale+git+ssh` combination to make decentralized collaboration possible.
+
+Create a decentralized replica of a repo:
+
+```bash
+ssh server.tail1234.ts.net 'git init --bare repo'
+git remote add server server.tail1234.ts.net:repo
+git push server master
+```
+
+The identity, authentication, and authorization already covered by `ssh`.
+Access provided by `tailscale`.
+Content synchronization done by `git`.
+What else do you want? Collaboration through issues and patches?
+Don't put those in git, they don't belong in version control system.
+Run a mailing list, a forum, an XMPP chat room, or a Zulip instance.
+Run Gerrit, or one of many alternatives for code reviews.

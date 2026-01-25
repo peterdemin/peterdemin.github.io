@@ -2,7 +2,7 @@
 <html lang="en" data-accent-color="violet" data-content_root="../">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Set up Radicle on MacOS - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Decentralizing the Practice of Architecture at Xapo Bank" href="../17_notes/01_xapo.html" /><link rel="prev" title="Install Bugsink on Google Cloud Platform" href="79-bugsink-gcp.html" /><script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>My Radicle Journey - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Decentralizing the Practice of Architecture at Xapo Bank" href="../17_notes/01_xapo.html" /><link rel="prev" title="Install Bugsink on Google Cloud Platform" href="79-bugsink-gcp.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
@@ -20,7 +20,7 @@
   --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
 }
 </style>
-    <meta property="og:type" content="website"/><meta property="og:title" content="Set up Radicle on MacOS"/>
+    <meta property="og:type" content="website"/><meta property="og:title" content="My Radicle Journey"/>
     <meta name="twitter:card" content="summary"/>
   </head>
 <body><div class="sy-head">
@@ -64,7 +64,7 @@ data-aria-dark="Switch to auto color mode">
 <li><a class="reference internal" href="#set-up-first-node">Set up first node</a></li>
 <li><a class="reference internal" href="#publish-a-repo">Publish a repo</a></li>
 <li><a class="reference internal" href="#set-up-another-node">Set up another node</a></li>
-<li><a class="reference internal" href="#push-repo-from-the-first-node-to-the-second">Push repo from the first node to the second</a></li>
+<li><a class="reference internal" href="#parting-thoughts">Parting thoughts</a></li>
 </ul>
 </div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
   data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
@@ -107,7 +107,7 @@ data-aria-dark="Switch to auto color mode">
         <span>/</span>
         <meta itemprop="position" content="1" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <strong itemprop="name">Set up Radicle on MacOS</strong>
+        <strong itemprop="name">My Radicle Journey</strong>
         <meta itemprop="position" content="2" />
       </li></ol>
     <div class="xl:hidden ml-1">
@@ -156,8 +156,8 @@ data-aria-dark="Switch to auto color mode">
     </div>
   </div>
 </div><article class="yue" role="main">
-          <section id="set-up-radicle-on-macos">
-<h1>Set up Radicle on MacOS<a class="headerlink" href="#set-up-radicle-on-macos" title="Link to this heading">¶</a></h1>
+          <section id="my-radicle-journey">
+<h1>My Radicle Journey<a class="headerlink" href="#my-radicle-journey" title="Link to this heading">¶</a></h1>
 <p><a class="reference external" href="https://radicle.xyz">Radicle</a> is an open source, peer-to-peer code collaboration stack built on Git.
 Unlike centralized code hosting platforms, there is no single entity controlling the network.
 Repositories are replicated across peers in a decentralized manner, and users are in full control of their data and workflow.</p>
@@ -488,9 +488,37 @@ Maybe, because it’s pushing to itself?..</p>
 <p>I’m not an expert, but by matching the hashes to hosts, I see that <code class="docutils literal notranslate"><span class="pre">rad</span> <span class="pre">clone</span></code> command attempted to clone my repo from <code class="docutils literal notranslate"><span class="pre">rosa.radicle.xyz:8776</span></code> and <code class="docutils literal notranslate"><span class="pre">iris.radicle.xyz</span></code> node served through <code class="docutils literal notranslate"><span class="pre">.onion</span></code> address.
 The error print <code class="docutils literal notranslate"><span class="pre">channel</span> <span class="pre">timed</span> <span class="pre">out</span></code>, while it should have been more like <code class="docutils literal notranslate"><span class="pre">repo</span> <span class="pre">not</span> <span class="pre">found</span></code>.</p>
 <p>Decentralize my ass.</p>
+<p>Rad has an option to force cloning from a particular node:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">$<span class="w"> </span>rad<span class="w"> </span>seed<span class="w"> </span>rad:zb9rTT3zoR5aD1svmWYW25yc5kVe<span class="w"> </span>--from<span class="w"> </span>z6Mkno75gzNU1Y59EL9rj8nUVveBUj3kBLteVUwPvpKmx9Qi
+</span><span data-line="2">✓<span class="w"> </span>Seeding<span class="w"> </span>policy<span class="w"> </span>exists<span class="w"> </span><span class="k">for</span><span class="w"> </span>rad:zb9rTT3zoR5aD1svmWYW25yc5kVe<span class="w"> </span>with<span class="w"> </span>scope<span class="w"> </span><span class="s1">&#39;all&#39;</span>
+</span><span data-line="3">Fetching<span class="w"> </span>rad:zb9rTT3zoR5aD1svmWYW25yc5kVe<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>network,<span class="w"> </span>found<span class="w"> </span><span class="m">1</span><span class="w"> </span>potential<span class="w"> </span>seed<span class="o">(</span>s<span class="o">)</span>.
+</span><span data-line="4">✗<span class="w"> </span>Target<span class="w"> </span>not<span class="w"> </span>met:<span class="w"> </span>could<span class="w"> </span>not<span class="w"> </span>fetch<span class="w"> </span>from<span class="w"> </span><span class="o">[</span>z6Mkno75gzNU1Y59EL9rj8nUVveBUj3kBLteVUwPvpKmx9Qi<span class="o">]</span>,<span class="w"> </span>and<span class="w"> </span>required<span class="w"> </span><span class="m">1</span><span class="w"> </span>more<span class="w"> </span>seed<span class="o">(</span>s<span class="o">)</span>
+</span></pre></div>
+</div>
+<p>No dice, I can’t fetch from my laptop.</p>
 </section>
-<section id="push-repo-from-the-first-node-to-the-second">
-<h2>Push repo from the first node to the second<a class="headerlink" href="#push-repo-from-the-first-node-to-the-second" title="Link to this heading">¶</a></h2>
+<section id="parting-thoughts">
+<h2>Parting thoughts<a class="headerlink" href="#parting-thoughts" title="Link to this heading">¶</a></h2>
+<p>I poked around for a few hours trying to figure out how to synchronize code between my two radicle nodes, and ultimately failed.
+I tried to get a better understanding of the system by reading the <a class="reference external" href="https://radicle.xyz/guides/user">user guide</a>, but the page has too much unrelated information and not enough answers.</p>
+<p>I feel like giving up on radicle.</p>
+<p>Nothing good comes easy, but sometimes nothing comes at all.
+Ah, well, at least I poked cargo a bit, that was fun.</p>
+<p>Going through the troubles of setting up decentralized forge made we question the premise.
+What is missing from the existing <code class="docutils literal notranslate"><span class="pre">tailscale+git+ssh</span></code> combination to make decentralized collaboration possible.</p>
+<p>Create a decentralized replica of a repo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">ssh<span class="w"> </span>server.tail1234.ts.net<span class="w"> </span><span class="s1">&#39;git init --bare repo&#39;</span>
+</span><span data-line="2">git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>server<span class="w"> </span>server.tail1234.ts.net:repo
+</span><span data-line="3">git<span class="w"> </span>push<span class="w"> </span>server<span class="w"> </span>master
+</span></pre></div>
+</div>
+<p>The identity, authentication, and authorization already covered by <code class="docutils literal notranslate"><span class="pre">ssh</span></code>.
+Access provided by <code class="docutils literal notranslate"><span class="pre">tailscale</span></code>.
+Content synchronization done by <code class="docutils literal notranslate"><span class="pre">git</span></code>.
+What else do you want? Collaboration through issues and patches?
+Don’t put those in git, they don’t belong in version control system.
+Run a mailing list, a forum, an XMPP chat room, or a Zulip instance.
+Run Gerrit, or one of many alternatives for code reviews.</p>
 </section>
 </section>
 
