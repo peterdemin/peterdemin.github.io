@@ -172,6 +172,6 @@ I kept doubling it until it stopped running out of memory.
 
 The resulting binary is 163 MB, same as in the official release.
 
-For what it worth, I deployed it and reloaded the page, but the bug is still there.
+For what it worth, I deployed it and reloaded the page, but [the bug is still there](https://github.com/Athou/commafeed/issues/2030).
 Whoops... But at least I'm running my own build now.
 And it works in Firefox just fine.
