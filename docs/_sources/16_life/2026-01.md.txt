@@ -13,6 +13,8 @@ Copy'n'Paste the HTML to a file, open it and send to printer.
 
 ![Pavlova cake recipe](/16_life/images/pavlova-cake.png)
 
+`Jan 23, 2026` - Added [](/12_articles/80-radicle.md)
+
 `Jan 22, 2026` - [kagisearch/smallweb](https://github.com/kagisearch/smallweb) - Kagi Small Web
 
 `Jan 22, 2026` - [susam/mintotp](https://github.com/susam/mintotp) - Minimal TOTP generator in 20 lines of Python

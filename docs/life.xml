@@ -11,6 +11,7 @@ Make it an HTML page with printer-friendly styles.
 Copy'n'Paste the HTML to a file, open it and send to printer.
 <img src="/16_life/images/pavlova-cake.png" alt="Pavlova cake recipe" /></p>
 </blockquote>
+]]></content></entry><entry><id>Jan 23, 2026_0</id><title>Journal</title><published>2026-01-23T00:00:00Z</published><updated>2026-01-23T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 23, 2026"/><content type="html"><![CDATA[<p>Added <a href="https://peter.demin.dev/12_articles/80-radicle.html">My Radicle Journey</a></p>
 ]]></content></entry><entry><id>Jan 22, 2026_4</id><title>Journal</title><published>2026-01-22T00:00:00Z</published><updated>2026-01-22T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 22, 2026"/><content type="html"><![CDATA[<p><a href="https://github.com/kagisearch/smallweb">kagisearch/smallweb</a> - Kagi Small Web</p>
 ]]></content></entry><entry><id>Jan 22, 2026_3</id><title>Journal</title><published>2026-01-22T00:00:00Z</published><updated>2026-01-22T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 22, 2026"/><content type="html"><![CDATA[<p><a href="https://github.com/susam/mintotp">susam/mintotp</a> - Minimal TOTP generator in 20 lines of Python</p>
 ]]></content></entry><entry><id>Jan 22, 2026_2</id><title>Journal</title><published>2026-01-22T00:00:00Z</published><updated>2026-01-22T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 22, 2026"/><content type="html"><![CDATA[<p><a href="https://github.com/cpg314/ltapiserv-rs">cpg314/ltapiserv-rs</a> - Server implementation of the LanguageTool API for offline grammar and spell checking, based on nlprule and symspell. And a small graphical command-line client.</p>
@@ -375,5 +376,4 @@ To illustrate the time improvement in this example with an equation:</p>
 T_{10} &amp;= 0.9 \times \frac{1}{10} + 0.1 \times 1 = 0.19 \approx \frac{1}{5}
 </code></pre>
 <p>To put the units, it means that a task that a single worker completes in one hour, ten workers will do in 11 minutes and 24 seconds.</p>
-]]></content></entry><entry><id>Mar 28, 2025_0</id><title>Journal</title><published>2025-03-28T00:00:00Z</published><updated>2025-03-28T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Mar 28, 2025"/><content type="html"><![CDATA[<p>Imaging having to learn jQuery in 2025. How does it make you feel?</p>
 ]]></content></entry></feed>
