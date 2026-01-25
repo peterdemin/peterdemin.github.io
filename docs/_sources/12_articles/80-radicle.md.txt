@@ -419,6 +419,8 @@ Or maybe consider [Fossil](https://www2.fossil-scm.org/home/doc/trunk/www/index.
 
 To add another maintainer, share your server through Tailscale, and add their public key to authorized keys.
 
+For redundancy, add as many mirrors as you want with `git clone --mirror`.
+
 There's many ways to shave a cat and it doesn't matter which one you pick.
 Sometimes, it's best to use GitHub, and maybe that's why most big projects do.
 Sure, GitHub is proprietary, centralized, governed by an organization with values that might not align with yours.
