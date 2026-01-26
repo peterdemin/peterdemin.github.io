@@ -1,3 +1,5 @@
+`Jan 25, 2026` - [blacksky-algorithms/rsky](https://github.com/blacksky-algorithms/rsky) - An AT Protocol implementation prioritizing community safety and self-governance, written in Rust.
+
 `Jan 24, 2026` - Reading about radicle made me repeatedly question its purpose.
 I liked how it uses PKI for identity, and made me think of a minimal implementation of a Web UI for issues and code review.
 The idea is to host a forge as a static website.
