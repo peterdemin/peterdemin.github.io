@@ -30,6 +30,16 @@ autogen:
 rss:
 	python3 gen_atom.py > build/html/life.xml
 
+.PHONY: stars
+stars:
+	gh api --paginate \
+		users/peterdemin/starred \
+		--header 'Accept: application/vnd.github.star+json' \
+		| jq .               \
+		| tee source/12_articles/77-gh-stars.json \
+		| python star2md.py  \
+		> source/12_articles/77-github-stars.mdpart
+
 .PHONY: build
 build: autogen html rss counter_build race_build photos_build tree wordmix
 
