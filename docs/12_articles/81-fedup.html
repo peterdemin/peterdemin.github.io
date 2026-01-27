@@ -2,7 +2,7 @@
 <html lang="en" data-accent-color="violet" data-content_root="../">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Decentralizing the Practice of Architecture at Xapo Bank - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Scaling the Practice of Architecture, Conversationally" href="02_advice_process.html" /><link rel="prev" title="FedUp - Minimal Federated CDN" href="../12_articles/81-fedup.html" /><script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>FedUp - Minimal Federated CDN - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Decentralizing the Practice of Architecture at Xapo Bank" href="../17_notes/01_xapo.html" /><link rel="prev" title="My Radicle Journey" href="80-radicle.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
@@ -20,7 +20,7 @@
   --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
 }
 </style>
-    <meta property="og:type" content="website"/><meta property="og:title" content="Decentralizing the Practice of Architecture at Xapo Bank"/>
+    <meta property="og:type" content="website"/><meta property="og:title" content="FedUp - Minimal Federated CDN"/>
     <meta name="twitter:card" content="summary"/>
   </head>
 <body><div class="sy-head">
@@ -59,8 +59,14 @@ data-aria-dark="Switch to auto color mode">
       <i class="i-lucide close"></i>
     </button>
     <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
-<li><a class="reference internal" href="#notes">Notes</a></li>
-<li><a class="reference internal" href="#links-to-follow">Links to follow:</a></li>
+<li><a class="reference internal" href="#high-level">High-level</a></li>
+<li><a class="reference internal" href="#less-high-level">Less-high level</a></li>
+<li><a class="reference internal" href="#low-level">Low level</a><ul>
+<li><a class="reference internal" href="#node-initialization">Node initialization</a></li>
+<li><a class="reference internal" href="#cluster-membership">Cluster membership</a></li>
+<li><a class="reference internal" href="#https-certificates">HTTPS certificates</a></li>
+</ul>
+</li>
 </ul>
 </div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
   data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
@@ -84,7 +90,7 @@ data-aria-dark="Switch to auto color mode">
     </span>
   </span>
 </a><div class="edit-this-page">
-  <a href="https://github.com/peterdemin/peterdemin.github.io/blob/master/source/17_notes/01_xapo.md">Edit this page</a>
+  <a href="https://github.com/peterdemin/peterdemin.github.io/blob/master/source/12_articles/81-fedup.md">Edit this page</a>
 </div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
     </div>
   </aside>
@@ -103,7 +109,7 @@ data-aria-dark="Switch to auto color mode">
         <span>/</span>
         <meta itemprop="position" content="1" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <strong itemprop="name">Decentralizing the Practice of Architecture at Xapo Bank</strong>
+        <strong itemprop="name">FedUp - Minimal Federated CDN</strong>
         <meta itemprop="position" content="2" />
       </li></ol>
     <div class="xl:hidden ml-1">
@@ -121,7 +127,7 @@ data-aria-dark="Switch to auto color mode">
     <button
       type="button"
       class="js-copy px-3 py-1 inline-flex items-center gap-1"
-      data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/17_notes/01_xapo.md.txt"
+      data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/81-fedup.md.txt"
     >
       <i class="i-lucide" data-icon="copy"></i>
       <span>Copy page</span>
@@ -135,51 +141,90 @@ data-aria-dark="Switch to auto color mode">
     <div role="presentation">
       <div class="flex flex-col" role="group">
         <button class="js-copy" type="button" role="menuitem"
-          data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/17_notes/01_xapo.md.txt">
+          data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/81-fedup.md.txt">
           <span class="iconify-icon">
             <i class="i-lucide" data-icon="copy"></i>
           </span>
           <span>Copy page</span>
         </button>
-        <a role="menuitem" href="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/17_notes/01_xapo.md.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:markdown"></iconify-icon>
-            <span>View as Markdown</span></a><a role="menuitem" href="https://chatgpt.com/?hints=search&q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/17_notes/01_xapo.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+        <a role="menuitem" href="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/81-fedup.md.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:markdown"></iconify-icon>
+            <span>View as Markdown</span></a><a role="menuitem" href="https://chatgpt.com/?hints=search&q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/81-fedup.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
           <iconify-icon icon="bi:openai"></iconify-icon>
           <span>Open in ChatGPT</span>
-        </a><a role="menuitem" href="https://claude.ai/new?q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/17_notes/01_xapo.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+        </a><a role="menuitem" href="https://claude.ai/new?q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/81-fedup.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
           <iconify-icon icon="bi:claude"></iconify-icon>
           <span>Open in Claude</span>
         </a></div>
     </div>
   </div>
 </div><article class="yue" role="main">
-          <section id="decentralizing-the-practice-of-architecture-at-xapo-bank">
-<h1>Decentralizing the Practice of Architecture at Xapo Bank<a class="headerlink" href="#decentralizing-the-practice-of-architecture-at-xapo-bank" title="Link to this heading">¶</a></h1>
-<p>Article: <a class="reference external" href="https://martinfowler.com/articles/xapo-architecture-experience.html">https://martinfowler.com/articles/xapo-architecture-experience.html</a></p>
-<section id="notes">
-<h2>Notes<a class="headerlink" href="#notes" title="Link to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>Company had horizontal teams, separating architects from engineers.</p></li>
-<li><p>This caused big number of handoffs and slow/broken feedback loops.</p></li>
-<li><p>They changed the org structure to vertical teams aligned with the core products.</p></li>
-<li><p>They implemented few processes targeting faster decision making and broader knowledge sharing.  Namely:</p>
-<ul>
-<li><p>Architecture Decision Records (ADR).</p></li>
-<li><p>Domain-Driven Design (DDD).</p></li>
-<li><p>Architecture Advisory Forum (AAF) and Architectural Advice Process (AAP).</p></li>
-</ul>
-</li>
-<li><p>They used ticket tracker (Jira) to host ADRs and measure their progress through statuses: drafted, proposed, accepted, and adopted.</p></li>
-<li><p>ADRs linked to development stories and tasks.</p></li>
-<li><p>They allowed decisions to be taken without consensus.</p></li>
-<li><p>They provided a safe environment to make mistakes and re-evaluate past decisions.</p></li>
-</ul>
+          <section id="fedup-minimal-federated-cdn">
+<h1>FedUp - Minimal Federated CDN<a class="headerlink" href="#fedup-minimal-federated-cdn" title="Link to this heading">¶</a></h1>
+<section id="high-level">
+<h2>High-level<a class="headerlink" href="#high-level" title="Link to this heading">¶</a></h2>
+<p>FedUp is a federated CDN that operates within clusters of peers.
+Each peer serves content for every peer in the cluster.
+Cluster membership is defined by peers of the cluster.</p>
+<p>User pushes their content to peer node they own, which we’ll call <em>hub</em>.
+<em>Hub</em> distributes the content to all other peers, that we’ll call <em>spokes</em>.</p>
 </section>
-<section id="links-to-follow">
-<h2>Links to follow:<a class="headerlink" href="#links-to-follow" title="Link to this heading">¶</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://martinfowler.com/articles/scaling-architecture-conversationally.html">Scaling the Practice of Architecture, Conversationally</a> (<a class="reference internal" href="02_advice_process.html"><span class="std std-doc">My notes</span></a>)</p></li>
-<li><p><a class="reference external" href="https://medium.com/&#64;cat-mo/how-to-use-spikes-as-a-foundation-for-adrs-92bc1617617b">How to use spikes as a foundation for ADRs</a> (<a class="reference internal" href="04_spikes.html"><span class="std std-doc">My notes</span></a>)</p></li>
-</ul>
+<section id="less-high-level">
+<h2>Less-high level<a class="headerlink" href="#less-high-level" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Users install <code class="docutils literal notranslate"><span class="pre">fedup</span></code> binary on their machine.</p></li>
+<li><p>Configure <code class="docutils literal notranslate"><span class="pre">fedup</span></code> with cluster ID, machine’s IP address, and domain name.</p></li>
+<li><p>Cluster ID can be existing or a new one.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fedup</span></code> joins the cluster.</p></li>
+<li><p>Each machine in the cluster serves content from all other machines in the cluster.</p></li>
+<li><p>Content distribution is done through direct <code class="docutils literal notranslate"><span class="pre">git+ssh</span></code> connections.</p></li>
+<li><p>Each user has a private key that allows them to push changes to their own machine (hub).</p></li>
+<li><p>The hub distributes the changes to all other machines (spokes).</p></li>
+<li><p>Cluster membership is decided through a quorum of users of the cluster.</p></li>
+<li><p>Users point their DNS record to their hub and all the spokes of the cluster.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fedup</span></code> configures each machine’s nginx to serve content for every domain from respective directory.</p></li>
+</ol>
+</section>
+<section id="low-level">
+<h2>Low level<a class="headerlink" href="#low-level" title="Link to this heading">¶</a></h2>
+<section id="node-initialization">
+<h3>Node initialization<a class="headerlink" href="#node-initialization" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">fedup</span></code> has following functions:</p>
+<ol class="arabic simple">
+<li><p>Create hub user account and generate a hub’s private key.</p></li>
+<li><p>Initialize a bare git repo and configure post-receive hook that calls back to <code class="docutils literal notranslate"><span class="pre">fedup</span></code>.</p></li>
+<li><p>Add owner’s public key to authorized keys for this user.</p></li>
+</ol>
+</section>
+<section id="cluster-membership">
+<h3>Cluster membership<a class="headerlink" href="#cluster-membership" title="Link to this heading">¶</a></h3>
+<p>Cluster ID is defined as a concatenation of peer domains using “<code class="docutils literal notranslate"><span class="pre">:</span></code>” as a separator,
+for example: <code class="docutils literal notranslate"><span class="pre">alice.com:bob.me:peter.demin.dev</span></code>.
+The order of peers doesn’t matter, neither is completeness of the list.
+But at least one of the peers must be reachable.
+Each domain points to public IP addresses of all peers in the cluster.</p>
+<p>To join a cluster, a new node announce (through magic) its credentials to all peers.
+Announcement includes:</p>
+<ol class="arabic simple">
+<li><p>Domain.</p></li>
+<li><p>Public IP address.</p></li>
+<li><p>Public Key.</p></li>
+</ol>
+<p>Each peer accepts the new node (through magic).</p>
+<p>Accepting a peer means:</p>
+<ol class="arabic simple">
+<li><p>Create a new user account.</p></li>
+<li><p>Initialize a bare git repo, and configure a post-receive hook that updates the HTML contents.</p></li>
+<li><p>Add peer’s public key to the authorized keys for this user account.</p></li>
+</ol>
+<p>Once accepted, hub can push content to this spoke for replication.
+Domain’s owner can add a new spoke to his DNS records.</p>
+</section>
+<section id="https-certificates">
+<h3>HTTPS certificates<a class="headerlink" href="#https-certificates" title="Link to this heading">¶</a></h3>
+<p>Hub issues the certificates using DNS-01 challenge, and copies them to spokes.
+If using Let’s Encrypt this is either manual, or requires a Domain provider with API access.</p>
+<p>Copying certificates to spokes poses some security risk, but not more than trusting spokes to serve hub’s content.</p>
+</section>
 </section>
 </section>
 
@@ -191,16 +236,16 @@ data-aria-dark="Switch to auto color mode">
   <span>Back to top</span>
 </button>
         <div class="navigation flex print:hidden"><div class="navigation-prev">
-    <a href="../12_articles/81-fedup.html">
+    <a href="80-radicle.html">
       <i class="i-lucide chevron-left"></i>
       <div class="page-info">
-        <span>Previous</span><div class="title">FedUp - Minimal Federated CDN</div></div>
+        <span>Previous</span><div class="title">My Radicle Journey</div></div>
     </a>
   </div><div class="navigation-next">
-    <a href="02_advice_process.html">
+    <a href="../17_notes/01_xapo.html">
       <div class="page-info">
         <span>Next</span>
-        <div class="title">Scaling the Practice of Architecture, Conversationally</div>
+        <div class="title">Decentralizing the Practice of Architecture at Xapo Bank</div>
       </div>
       <i class="i-lucide chevron-right"></i>
     </a>
