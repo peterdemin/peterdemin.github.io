@@ -67,6 +67,7 @@ data-aria-dark="Switch to auto color mode">
 <li><a class="reference internal" href="#https-certificates">HTTPS certificates</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#wiggle-room">Wiggle room</a></li>
 </ul>
 </div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
   data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
@@ -188,10 +189,10 @@ Cluster membership is defined by peers of the cluster.</p>
 <h2>Low level<a class="headerlink" href="#low-level" title="Link to this heading">¶</a></h2>
 <section id="node-initialization">
 <h3>Node initialization<a class="headerlink" href="#node-initialization" title="Link to this heading">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">fedup</span></code> has following functions:</p>
+<p><code class="docutils literal notranslate"><span class="pre">fedup</span></code> initialization has following steps:</p>
 <ol class="arabic simple">
 <li><p>Create hub user account and generate a hub’s private key.</p></li>
-<li><p>Initialize a bare git repo and configure post-receive hook that calls back to <code class="docutils literal notranslate"><span class="pre">fedup</span></code>.</p></li>
+<li><p>Initialize a bare git repo and configure post-receive hook that calls back to <code class="docutils literal notranslate"><span class="pre">fedup</span> <span class="pre">distribute</span></code>.</p></li>
 <li><p>Add owner’s public key to authorized keys for this user.</p></li>
 </ol>
 </section>
@@ -213,7 +214,7 @@ Announcement includes:</p>
 <p>Accepting a peer means:</p>
 <ol class="arabic simple">
 <li><p>Create a new user account.</p></li>
-<li><p>Initialize a bare git repo, and configure a post-receive hook that updates the HTML contents.</p></li>
+<li><p>Initialize a bare git repo, and configure a post-receive hook that updates the HTML contents through <code class="docutils literal notranslate"><span class="pre">fedup</span> <span class="pre">deploy</span></code>.</p></li>
 <li><p>Add peer’s public key to the authorized keys for this user account.</p></li>
 </ol>
 <p>Once accepted, hub can push content to this spoke for replication.
@@ -223,8 +224,22 @@ Domain’s owner can add a new spoke to his DNS records.</p>
 <h3>HTTPS certificates<a class="headerlink" href="#https-certificates" title="Link to this heading">¶</a></h3>
 <p>Hub issues the certificates using DNS-01 challenge, and copies them to spokes.
 If using Let’s Encrypt this is either manual, or requires a Domain provider with API access.</p>
+<p>Or we figure out how to perform HTTP-01 with a short pause to distribute <code class="docutils literal notranslate"><span class="pre">.well-known/acme-challenge</span></code>.</p>
 <p>Copying certificates to spokes poses some security risk, but not more than trusting spokes to serve hub’s content.</p>
 </section>
+</section>
+<section id="wiggle-room">
+<h2>Wiggle room<a class="headerlink" href="#wiggle-room" title="Link to this heading">¶</a></h2>
+<p>I used specific products such as nginx, git, and Let’s Encrypt as examples, each part can be replaced.</p>
+<p>It doesn’t matter if content is served through Caddy, and files copied through <code class="docutils literal notranslate"><span class="pre">rsync</span></code>.</p>
+<p>The essence of this setup is that cluster users trust each other to run their peer node faithfully.
+If the trust is broken, a bad node can be unfederated by deleting a directory and removing IP address from hub’s DNS records.
+If a node is compromised, the blast radius is three-fold:</p>
+<ol class="arabic simple">
+<li><p>The websites served through the IP address of the compromised node contain malicious content.</p></li>
+<li><p>All nodes that replicate content from compromised node, serve malicious content of the compromised website’s domain.</p></li>
+<li><p>SSL certificate is compromised.</p></li>
+</ol>
 </section>
 </section>
 
