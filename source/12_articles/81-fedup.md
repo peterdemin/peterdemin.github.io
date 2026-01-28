@@ -74,9 +74,18 @@ I used specific products such as nginx, git, and Let's Encrypt as examples, each
 
 It doesn't matter if content is served through Caddy, and files copied through `rsync`.
 
+Public IP addresses for SSH connections can be substituted with a VPN network.
+
 The essence of this setup is that cluster users trust each other to run their peer node faithfully.
 If the trust is broken, a bad node can be unfederated by deleting a directory and removing IP address from hub's DNS records.
+
+## Security
+
 If a node is compromised, the blast radius is three-fold:
-1. The websites served through the IP address of the compromised node contain malicious content.
-2. All nodes that replicate content from compromised node, serve malicious content of the compromised website's domain.
+1. Peer websites served through the IP address of the compromised node contain malicious content.
+2. All nodes that replicate content from compromised node, serve malicious content for the compromised website.
 3. SSL certificate is compromised.
+
+`fedup` can put some measures in-place to mitigate the risk.
+1. Regular HTTPS checks of random pages hosted by peers to ensure the exact much with original.
+2. Post-receive checks for malware fingerprints in the new content.
