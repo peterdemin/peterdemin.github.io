@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=4da4e5d0" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=51f15f49" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -68,6 +68,7 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 <li><a class="reference internal" href="#wiggle-room">Wiggle room</a></li>
+<li><a class="reference internal" href="#security">Security</a></li>
 </ul>
 </div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
   data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
@@ -232,13 +233,22 @@ If using Let’s Encrypt this is either manual, or requires a Domain provider wi
 <h2>Wiggle room<a class="headerlink" href="#wiggle-room" title="Link to this heading">¶</a></h2>
 <p>I used specific products such as nginx, git, and Let’s Encrypt as examples, each part can be replaced.</p>
 <p>It doesn’t matter if content is served through Caddy, and files copied through <code class="docutils literal notranslate"><span class="pre">rsync</span></code>.</p>
+<p>Public IP addresses for SSH connections can be substituted with a VPN network.</p>
 <p>The essence of this setup is that cluster users trust each other to run their peer node faithfully.
-If the trust is broken, a bad node can be unfederated by deleting a directory and removing IP address from hub’s DNS records.
-If a node is compromised, the blast radius is three-fold:</p>
+If the trust is broken, a bad node can be unfederated by deleting a directory and removing IP address from hub’s DNS records.</p>
+</section>
+<section id="security">
+<h2>Security<a class="headerlink" href="#security" title="Link to this heading">¶</a></h2>
+<p>If a node is compromised, the blast radius is three-fold:</p>
 <ol class="arabic simple">
-<li><p>The websites served through the IP address of the compromised node contain malicious content.</p></li>
-<li><p>All nodes that replicate content from compromised node, serve malicious content of the compromised website’s domain.</p></li>
+<li><p>Peer websites served through the IP address of the compromised node contain malicious content.</p></li>
+<li><p>All nodes that replicate content from compromised node, serve malicious content for the compromised website.</p></li>
 <li><p>SSL certificate is compromised.</p></li>
+</ol>
+<p><code class="docutils literal notranslate"><span class="pre">fedup</span></code> can put some measures in-place to mitigate the risk.</p>
+<ol class="arabic simple">
+<li><p>Regular HTTPS checks of random pages hosted by peers to ensure the exact much with original.</p></li>
+<li><p>Post-receive checks for malware fingerprints in the new content.</p></li>
 </ol>
 </section>
 </section>
