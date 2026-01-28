@@ -27,10 +27,10 @@ User pushes their content to peer node they own, which we'll call *hub*.
 
 ### Node initialization
 
-`fedup` has following functions:
+`fedup` initialization has following steps:
 
 1. Create hub user account and generate a hub's private key.
-2. Initialize a bare git repo and configure post-receive hook that calls back to `fedup`.
+2. Initialize a bare git repo and configure post-receive hook that calls back to `fedup distribute`.
 3. Add owner's public key to authorized keys for this user.
 
 ### Cluster membership
@@ -53,7 +53,7 @@ Each peer accepts the new node (through magic).
 Accepting a peer means:
 
 1. Create a new user account.
-2. Initialize a bare git repo, and configure a post-receive hook that updates the HTML contents.
+2. Initialize a bare git repo, and configure a post-receive hook that updates the HTML contents through `fedup deploy`.
 3. Add peer's public key to the authorized keys for this user account.
 
 Once accepted, hub can push content to this spoke for replication.
@@ -64,4 +64,19 @@ Domain's owner can add a new spoke to his DNS records.
 Hub issues the certificates using DNS-01 challenge, and copies them to spokes.
 If using Let's Encrypt this is either manual, or requires a Domain provider with API access.
 
+Or we figure out how to perform HTTP-01 with a short pause to distribute `.well-known/acme-challenge`.
+
 Copying certificates to spokes poses some security risk, but not more than trusting spokes to serve hub's content.
+
+## Wiggle room
+
+I used specific products such as nginx, git, and Let's Encrypt as examples, each part can be replaced.
+
+It doesn't matter if content is served through Caddy, and files copied through `rsync`.
+
+The essence of this setup is that cluster users trust each other to run their peer node faithfully.
+If the trust is broken, a bad node can be unfederated by deleting a directory and removing IP address from hub's DNS records.
+If a node is compromised, the blast radius is three-fold:
+1. The websites served through the IP address of the compromised node contain malicious content.
+2. All nodes that replicate content from compromised node, serve malicious content of the compromised website's domain.
+3. SSL certificate is compromised.
