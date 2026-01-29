@@ -236,9 +236,10 @@ test -f ~builder/.ssh/id_ed25519 || sudo -u builder -s /bin/bash -c ‘ssh-keyge
 echo “Copy public key to serving host:”
 sudo -u builder -s /bin/bash -c ‘ssh-keygen -yf ~builder/.ssh/id_ed25519’
 echo</p>
-<p>sudo -u builder -s /bin/bash -c ‘git config –global user.email “builder&#64;demin.dev”’
-sudo -u builder -s /bin/bash -c ‘git config –global user.name “Builder Bot”’
-sudo -u builder -s /bin/bash -c ‘git config –global init.defaultBranch master’</p>
+<p>sudo -u builder /bin/bash -c ‘git config –global user.email “builder&#64;demin.dev”’
+sudo -u builder /bin/bash -c ‘git config –global user.name “Builder Bot”’
+sudo -u builder /bin/bash -c ‘git config –global init.defaultBranch master’
+sudo -u builder /bin/bash -c ‘ssh-keyscan -t ed25519 demin-dev.tail13c89.ts.net &gt; ~/.ssh/known_hosts’</p>
 <p>install -o builder -g builder -m 0700 -d ~builder/worktree
 install -m 0755 /dev/stdin ~builder/repo.git/hooks/post-receive &lt;&lt;’EOF’
 #!/usr/bin/env bash
