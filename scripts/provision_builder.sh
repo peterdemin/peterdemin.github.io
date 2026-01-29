@@ -40,6 +40,7 @@ echo
 
 sudo -u builder -s /bin/bash -c 'git config --global user.email "builder@demin.dev"'
 sudo -u builder -s /bin/bash -c 'git config --global user.name "Builder Bot"'
+sudo -u builder -s /bin/bash -c 'git config --global init.defaultBranch master'
 
 install -o builder -g builder -m 0700 -d ~builder/worktree
 install -m 0755 /dev/stdin ~builder/repo.git/hooks/post-receive <<'EOF'
