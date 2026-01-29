@@ -223,7 +223,6 @@ mkdir -p /etc/apt/keyrings <br />
 &amp;&amp; tailscale up <br />
 )</p>
 <p>id builder || useradd -rms /usr/bin/git-shell builder
-chown builder:builder ~builder
 install -o builder -g builder -m 0700 -d ~builder/.ssh
 install -o builder -g builder -m 0700 -d /var/www/site
 install -o builder -g builder -m 0600 /dev/stdin ~builder/.ssh/authorized_keys &lt;&lt;’EOF’
@@ -269,6 +268,8 @@ git –git-dir=”$HOME/pages.git” –work-tree . commit -m “Build pages”
 git –git-dir=”$HOME/pages.git” –work-tree . push origin master
 EOF</p>
 <p>And that’s how I cut my website publish time from 5 minutes down to 10 seconds.</p>
+<p>Setting up the serving host is similar, except that instead of building it just needs to check out.</p>
+<p><code class="docutils literal notranslate"><span class="pre">provision_pages.sh</span></code>:</p>
 </section>
 
         </article>
