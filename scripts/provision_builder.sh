@@ -1,6 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
+apt-get update
 apt-get install -y      \
     curl                \
     build-essential     \
@@ -8,20 +9,20 @@ apt-get install -y      \
     python3-venv        \
     python-is-python3   \
     graphviz            \
+    nodejs              \
     rsync
 
-curl -sL https://deb.nodesource.com/setup_16.x | bash -
+tailscale status || ( \
+    mkdir -p /etc/apt/keyrings \
+    && curl -fsSL https://pkgs.tailscale.com/stable/debian/trixie.noarmor.gpg > /usr/share/keyrings/tailscale-archive-keyring.gpg \
+    && curl -fsSL https://pkgs.tailscale.com/stable/debian/trixie.tailscale-keyring.list > /etc/apt/sources.list.d/tailscale.list \
+    && apt-get update \
+    && apt-get install -y tailscale \
+    && tailscale login \
+    && tailscale up \
+)
 
-# mkdir -p /etc/apt/keyrings
-# curl -fsSL https://pkgs.tailscale.com/stable/debian/trixie.noarmor.gpg > /usr/share/keyrings/tailscale-archive-keyring.gpg
-# curl -fsSL https://pkgs.tailscale.com/stable/debian/trixie.tailscale-keyring.list > /etc/apt/sources.list.d/tailscale.list
-apt-get update
-# apt-get install -y tailscale
-apt-get install -y nodejs
-# tailscale login
-# tailscale up
-
-id builder || useradd -rs /usr/bin/git-shell builder
+id builder || useradd -rms /usr/bin/git-shell builder
 chown builder:builder ~builder
 install -o builder -g builder -m 0700 -d ~builder/.ssh
 install -o builder -g builder -m 0700 -d /var/www/site
