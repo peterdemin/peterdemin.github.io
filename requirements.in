@@ -1,9 +1,7 @@
 sphinx
 myst-parser
-pydata-sphinx-theme
 sphinx-design
 graphviz
-gdocsync
 simple-photo-gallery
 setuptools
 shibuya
