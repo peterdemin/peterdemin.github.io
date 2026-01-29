@@ -50,10 +50,9 @@ LIVE_DIR="/var/www/site"
 BRANCH="master"
 BRANCH_REF="refs/heads/$BRANCH"
 
-read OLDREV NEWREV REFNAME
-echo "OLDREV $OLDREV NEWREV $NEWREV REFNAME $REFNAME"
+read oldrev newrev REFNAME
 if [[ "$REFNAME" != "$BRANCH_REF" ]]; then
-  echo "Ignoring push to $REFNAME (only deploys $BRANCH)"
+  echo "Ignoring push to $REFNAME (only deploys $BRANCH_REF)"
   exit 0
 fi
 
@@ -66,7 +65,8 @@ which pip-sync && make sync || make install
 # make build
 make html
 
-git --git-dir="$HOME/pages.git" -C "$WORK_TREE/build/html" add .
-git --git-dir="$HOME/pages.git" -C "$WORK_TREE/build/html" commit -m "Build pages"
-git --git-dir="$HOME/pages.git" -C "$WORK_TREE/build/html" push origin master
+cd build/html
+git --git-dir="$HOME/pages.git" add .
+git --git-dir="$HOME/pages.git" commit -m "Build pages"
+git --git-dir="$HOME/pages.git" push origin master
 EOF
