@@ -47,7 +47,8 @@ Upon creation (`vagrant up`) it immediately runs the provisioning script that se
 The script is reentrant, because I had to iterate a bit to polish all the kinks.
 
 `provision_builder.sh`:
-```{include} ../../scripts/provision_builder.sh
+```{literalinclude} ../../scripts/provision_builder.sh
+:language: bash
 ```
 
 And that's how I cut my website publish time from 5 minutes down to 10 seconds.
@@ -55,7 +56,8 @@ And that's how I cut my website publish time from 5 minutes down to 10 seconds.
 Setting up the serving host is similar, except that instead of building it just needs to check out.
 
 `provision_pages.sh`:
-```{include} ../../scripts/provision_mirror.sh
+```{literalinclude} ../../scripts/provision_mirror.sh
+:language: bash
 ```
 
 I added a flag to nginx to serve static precompressed gzip files to save CPU on the serving side.
