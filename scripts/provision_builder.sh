@@ -64,7 +64,7 @@ git --git-dir="$HOME/repo.git" --work-tree="$WORK_TREE" checkout -f $BRANCH
 
 cd "$WORK_TREE"
 . $HOME/venv/bin/activate
-which pip-sync && make sync || make install
+which pip-sync && pip-sync requirements.txt || make install
 make p compress
 
 cd build/html
