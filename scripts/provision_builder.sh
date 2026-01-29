@@ -38,6 +38,9 @@ echo "Copy public key to serving host:"
 sudo -u builder -s /bin/bash -c 'ssh-keygen -yf ~builder/.ssh/id_ed25519'
 echo
 
+sudo -u builder -s /bin/bash -c 'git config --global user.email "builder@demin.dev"'
+sudo -u builder -s /bin/bash -c 'git config --global user.name "Builder Bot"'
+
 install -o builder -g builder -m 0700 -d ~builder/worktree
 install -m 0755 /dev/stdin ~builder/repo.git/hooks/post-receive <<'EOF'
 #!/usr/bin/env bash
