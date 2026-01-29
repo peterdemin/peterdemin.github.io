@@ -59,8 +59,8 @@ git --git-dir="$GIT_DIR" --work-tree="$WORK_TREE" checkout -f $BRANCH
 echo "==> Building"
 cd "$WORK_TREE"
 which pip-sync && make sync || make install
-make build
-# make html
+# make build
+make html
 
 SRC="$WORK_TREE/build/html"
 if [[ ! -d "$SRC" ]]; then
