@@ -57,3 +57,5 @@ Setting up the serving host is similar, except that instead of building it just 
 `provision_pages.sh`:
 ```{include} ../../scripts/provision_mirror.sh
 ```
+
+I added a flag to nginx to serve static precompressed gzip files to save CPU on the serving side.

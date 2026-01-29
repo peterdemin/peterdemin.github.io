@@ -296,6 +296,7 @@ EOF
 ln -fs /etc/nginx/sites-available/pages /etc/nginx/sites-enabled/pages
 certbot –agree-tos –nginx -m peter&#64;demin.dev –non-interactive -d pages.demin.dev
 systemctl restart nginx.service</p>
+<p>I added a flag to nginx to serve static precompressed gzip files to save CPU on the serving side.</p>
 </section>
 
         </article>
