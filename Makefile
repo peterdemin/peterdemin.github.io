@@ -74,7 +74,7 @@ jot:
 
 .PHONY: install
 install: counter_install
-	pip install -r requirements.txt
+	which pip-sync && pip-sync requirements.txt || pip install -r requirements.txt
 
 .PHONY: install_dev
 install_dev:

@@ -6,3 +6,4 @@ simple-photo-gallery
 setuptools
 shibuya
 pip-tools
+lxml
