@@ -60,13 +60,13 @@ if [[ "$REFNAME" != "$BRANCH_REF" ]]; then
   exit 0
 fi
 
-. $HOME/venv/bin/activate
 git --git-dir="$HOME/repo.git" --work-tree="$WORK_TREE" checkout -f $BRANCH
 
 cd "$WORK_TREE"
+. $HOME/venv/bin/activate
 which pip-sync && make sync || make install
 # make build
-make html
+make p compress
 
 cd build/html
 git --git-dir="$HOME/pages.git" --work-tree . add -A .

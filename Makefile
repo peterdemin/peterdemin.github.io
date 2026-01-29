@@ -54,6 +54,10 @@ publish:
 .PHONY: p
 p: lightweight publish
 
+.PHONY: compress
+compress:
+	find build/html -name '*.css' -o -name '*.js' -o -name '*.html' -o -name '*.txt' | xargs gzip -fnk
+
 .PHONY: browser
 browser:
 	open build/html/index.html

@@ -30,15 +30,6 @@ black==26.1.0
     # via -r requirements_dev.in
 bleach[css]==6.3.0
     # via nbconvert
-build==1.4.0
-    # via pip-tools
-click==8.3.1
-    # via
-    #   black
-    #   gdocsync
-    #   heic-to-jpg
-    #   pip-compile-multi
-    #   pip-tools
 comm==0.2.3
     # via
     #   ipykernel
@@ -246,8 +237,6 @@ pexpect==4.9.0
     # via ipython
 pip-compile-multi==3.2.2
     # via -r requirements_dev.in
-pip-tools==7.5.2
-    # via pip-compile-multi
 platformdirs==4.5.1
     # via
     #   black
@@ -294,10 +283,6 @@ pyparsing==3.3.2
     # via
     #   httplib2
     #   matplotlib
-pyproject-hooks==1.2.0
-    # via
-    #   build
-    #   pip-tools
 pyright==1.1.408
     # via -r requirements_dev.in
 python-dateutil==2.9.0.post0
@@ -414,13 +399,9 @@ webencodings==0.5.1
     #   tinycss2
 websocket-client==1.9.0
     # via jupyter-server
-wheel==0.46.3
-    # via pip-tools
 widgetsnbextension==4.0.15
     # via ipywidgets
 xmltodict==1.0.2
     # via jc
 
 # The following packages are considered to be unsafe in a requirements file:
-pip==25.3
-    # via pip-tools
