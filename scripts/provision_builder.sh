@@ -32,8 +32,9 @@ install -m 0755 /dev/stdin ~builder/repo.git/hooks/post-receive <<'EOF'
 #!/usr/bin/env bash
 set -euo pipefail
 
-GIT_DIR="/home/builder/repo.git"
-WORK_TREE="/home/builder/worktree"
+HOME=/home/builder
+GIT_DIR="$HOME/repo.git"
+WORK_TREE="$HOME/worktree"
 LIVE_DIR="/var/www/site"
 
 BRANCH="master"
@@ -47,7 +48,7 @@ if [[ "$REFNAME" != "$BRANCH_REF" ]]; then
 fi
 
 echo "==> Checking out $NEWREV to $WORK_TREE"
-. venv/bin/activate
+. $HOME/venv/bin/activate
 mkdir -p "$WORK_TREE"
 git --git-dir="$GIT_DIR" --work-tree="$WORK_TREE" checkout -f $BRANCH
 
