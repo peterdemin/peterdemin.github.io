@@ -30,10 +30,9 @@ install -m 0755 /dev/stdin ~builder/repo.git/hooks/post-receive <<'EOF'
 #!/usr/bin/env bash
 set -euo pipefail
 
-GIT_DIR="~builder/repo.git"
-WORK_TREE="~builder/worktree"
+GIT_DIR="/home/builder/repo.git"
+WORK_TREE="/home/builder/worktree"
 LIVE_DIR="/www/data/site"
-RELEASES_DIR="/www/data/.releases"
 
 BRANCH="master"
 BRANCH_REF="refs/heads/$BRANCH"
@@ -46,7 +45,7 @@ fi
 
 echo "==> Checking out $newrev to $WORK_TREE"
 mkdir -p "$WORK_TREE"
-git --git-dir="$GIT_DIR" --work-tree="$WORK_TREE" checkout -f $BRANCH
+git --git-dir="$GIT_DIR" --work-tree="$WORK_TREE" checkout -f $newrev
 
 echo "==> Building"
 cd "$WORK_TREE"
@@ -58,6 +57,6 @@ if [[ ! -d "$SRC" ]]; then
   exit 1
 fi
 
-echo "==> Rsync to staging: $STAGE"
+echo "==> Rsync to live"
 rsync -a --delete --checksum "$SRC"/ "$LIVE_DIR"/
 EOF
