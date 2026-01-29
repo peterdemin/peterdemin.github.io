@@ -1,0 +1,21 @@
+.caption {
+    display: none;
+}
+
+html.light {
+  --sy-c-background: #fdf6e3;
+  --sy-c-foot-background: #fdf6e3;
+  --sy-c-text: #657b83;
+  --sy-c-bold: #607070;
+  --sy-c-link: #268bd2;
+  --sy-c-heading: #93a1a1;
+}
+
+html.dark {
+  --sy-c-background: #002b36;
+  --sy-c-foot-background: #002b36;
+  --sy-c-text: #839496;
+  --sy-c-bold: #90a0a0;
+  --sy-c-link: #268bd2;
+  --sy-c-heading: #93a1a1;
+}

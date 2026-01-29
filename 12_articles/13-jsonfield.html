@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Two-faced JSONField - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="DIY Bank balance aggregation" href="14-kibitzr-banks.html" /><link rel="prev" title="How to clean up stale git branches" href="12-git-branch-cleanup.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=51f15f49" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="Two-faced JSONField"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
+  data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </span>
+  <span class="flex-grow px-2 break-all">
+    
+    
+      <span>peterdemin.github.io</span>
+    
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <iconify-icon icon="lucide:star"></iconify-icon>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <iconify-icon icon="lucide:git-fork"></iconify-icon>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/peterdemin/peterdemin.github.io/blob/master/source/12_articles/13-jsonfield.md">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
+    
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Two-faced JSONField</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/13-jsonfield.md.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/13-jsonfield.md.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/13-jsonfield.md.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:markdown"></iconify-icon>
+            <span>View as Markdown</span></a><a role="menuitem" href="https://chatgpt.com/?hints=search&q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/13-jsonfield.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:openai"></iconify-icon>
+          <span>Open in ChatGPT</span>
+        </a><a role="menuitem" href="https://claude.ai/new?q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/13-jsonfield.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:claude"></iconify-icon>
+          <span>Open in Claude</span>
+        </a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="two-faced-jsonfield">
+<h1>Two-faced JSONField<a class="headerlink" href="#two-faced-jsonfield" title="Link to this heading">¶</a></h1>
+<p>My team develops a rather complex Django service, that uses
+<code class="docutils literal notranslate"><span class="pre">django-jsonfield</span></code> in multiple places for some while.</p>
+<p>Recently we added a new feature - sending invitation emails.
+It was rather simple task, because we took magnificient <code class="docutils literal notranslate"><span class="pre">django-post-office</span></code>.
+Everything went fine, until we realized that unit tests for models,
+that has JSONFields started to fail with cryptic errors.</p>
+<p>Turned out, that <code class="docutils literal notranslate"><span class="pre">django-post-office</span></code> depends on <code class="docutils literal notranslate"><span class="pre">jsonfield</span></code> package.
+And this package is slightly different from the one we already use.
+They conflict, because both packages install into <code class="docutils literal notranslate"><span class="pre">jsonfield</span></code> directory.
+They have exactly the same public interface and are interchangeble in most cases.
+And <code class="docutils literal notranslate"><span class="pre">pip</span></code> does nothing to handle or detect this conflict and mixes both
+packages into single directory producing unpredictable Frankenshtein.</p>
+<p>I dug a little summary on them:</p>
+<ol class="arabic simple">
+<li><p>Maintainer: Dan Koch
+Source: https://github.com/dmkoch/django-jsonfield
+Current Version: 2.0.2
+PyPI: https://pypi.python.org/pypi/jsonfield</p></li>
+<li><p>Maintainer: Matthew Schinckel
+Source: https://bitbucket.org/schinckel/django-jsonfield
+Current version: 1.0.1
+PyPI: https://pypi.python.org/pypi/django-jsonfield</p></li>
+</ol>
+<p>Post office uses the first one, by Dan Koch. It perfectly fulfills their needs.
+But it doesn’t work correctly with <code class="docutils literal notranslate"><span class="pre">django.utils.model_to_dict</span></code> - it
+returns dumped JSON string representation, instead of object.</p>
+<p>Here is the code responsible for this [mis]behavior:</p>
+<p>https://github.com/dmkoch/django-jsonfield/blob/master/jsonfield/fields.py#L110</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="k">def</span><span class="w"> </span><span class="nf">value_from_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">dump</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+</span><span data-line="2">    <span class="n">value</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">JSONFieldBase</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">value_from_object</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</span><span data-line="3">    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">null</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="4">        <span class="k">return</span> <span class="kc">None</span>
+</span><span data-line="5">    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dumps_for_display</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">if</span> <span class="n">dump</span> <span class="k">else</span> <span class="n">value</span>
+</span></pre></div>
+</div>
+<p>It dumps value by default, while model_to_dict expects it
+to return value unchanged.</p>
+<p>JSONField by Matthew Schinckel doesn’t override <code class="docutils literal notranslate"><span class="pre">value_from_object</span></code>
+and works as Django expects.</p>
+<p>Once we discovered the full story we had three options:</p>
+<ol class="arabic simple">
+<li><p>Switch from <code class="docutils literal notranslate"><span class="pre">django-post-office</span></code> to another library
+that doesn’t have dependency conflicts.</p></li>
+<li><p>Extract email sending to separate service and remove dependency conflict.</p></li>
+<li><p>Inherit Koch’s jsonfield and override problematic method.</p></li>
+</ol>
+<p>I went with option 3.
+At the same time I opened a PR to <code class="docutils literal notranslate"><span class="pre">django-post-office</span></code>
+to switch to the one and true <code class="docutils literal notranslate"><span class="pre">django-jsonfield</span></code>.</p>
+</section>
+
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="12-git-branch-cleanup.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">How to clean up stale git branches</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="14-kibitzr-banks.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">DIY Bank balance aggregation</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2022, Peter Demin</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/shibuya.js?v=cac61aee"></script></body>
+</html>

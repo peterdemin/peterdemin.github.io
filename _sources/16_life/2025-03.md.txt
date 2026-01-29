@@ -1,0 +1,110 @@
+`Mar 30, 2025` - TIL about [Amdahl's Law](https://en.wikipedia.org/wiki/Amdahl%27s_law).
+
+The wikipedia article has this nice chart:
+
+![Amdahl's Law](/16_life/images/AmdahlsLaw.svg)
+
+Somewhat counter-intuitively, for the case when 90% (9/10th) of the task can be parallelized, splitting it into 10 workers, would not result in 10 times speed improvement.
+It won't even be 9 times.
+The overall time of the task completion will only get faster by 5 times.
+
+Wait, what?! We had this massively parallelizable task, 90%. Seems like the rest is peanuts.
+We divide 90% of the task between 10 workers, it gets done 10 times faster, right?
+Right, but, the remaining sequential 10% still take the same amount of time.
+90% of original task time divided by 10 is 9%.
+The new proportion of parallel work is only ~47%, less than a half.
+
+To illustrate the time improvement in this example with an equation:
+
+```{math}
+T_{1} &= 0.9 \times \frac{1}{1} + 0.1 \times 1 = 1
+
+T_{10} &= 0.9 \times \frac{1}{10} + 0.1 \times 1 = 0.19 \approx \frac{1}{5}
+```
+
+To put the units, it means that a task that a single worker completes in one hour, ten workers will do in 11 minutes and 24 seconds.
+
+`Mar 28, 2025` - Imaging having to learn jQuery in 2025. How does it make you feel?
+
+`Mar 27, 2025` - [medialab/xan](https://github.com/medialab/xan) - The CSV magician
+
+`Mar 24, 2025` - [karpathy/minGPT](https://github.com/karpathy/minGPT) - A minimal PyTorch re-implementation of the OpenAI GPT (Generative Pretrained Transformer) training
+
+`Mar 21, 2025` - In the meantime, in the LG headquarters:
+- How's our extended reality department performing?
+- Ah, not great. The market doesn't grow as much as we thought.
+- I see. What about air conditioning?
+- What about it?
+- Is it good?
+- Yeah, HVAC is great, no problems there.
+- Okay, let's do that instead.
+- Instead of XR?
+- Yeah, screw it. The future is in HVAC. Really promising direction.
+- Sure, I'll dissolve the XR department by the end of week.
+
+`Mar 16, 2025` - [suitenumerique/docs](https://github.com/suitenumerique/docs) - A collaborative note taking, wiki and documentation platform that scales. Built with Django and React.
+
+`Mar 15, 2025` - In times when the life feels like too much, I remind myself of the words of my high school literature teacher.
+When hearing complaints from the students about how big the home assignments are and how they don't have enough time to prepare for all the subjects, she always said: "You'll take rest in afterlife."
+For some students it sounded harsh, for other like a joke, but for all not much of an actionable advice.
+It took me many years to understand that the idea is sound.
+The life stops when you lay down in the coffin.
+Until then, the purpose of life is to live it.
+The more you do, the more capable you become of doing more.
+On the other hand, the mind at rest weakens rapidly.
+Humans adapt to good fast, and from the body's perspective concerving energy is good.
+Optimizing for minimum effort to get maximum pleasure.
+Which is in contrast with a notion of productive life.
+One has push themselves out of the comfort zone to achieve the greatness.
+Taking rest is a step back rather then a mere pause.
+
+
+`Mar 14, 2025` - Reading [CTO Handbook](https://zachgoldberg.com/ctohandbook/) made me realize, that if I had a great startup idea and the right people around me, I would do things that I've never done before, many of which I deliberately chose not to do. I would also do a few nice things, but mostly the other kind.
+
+`Mar 14, 2025` -
+Some people, aspire for greater things, and manage to build their way to the goal.
+Other people are happy with what they got, maybe incrementally improve situation over time, or stay in the same place and enjoy themselves.
+And some people say: "Oh, if I had this and that, I would achieve great things, build something amazing."
+Naturally, they never do, because that would put them in the first group.
+I'd say this is some kind of a mental block, that doesn't let them to join one of the other groups.
+It makes them pathologically unhappy, leading them to put the blame on external forces, government, society, status, people, anything except for their own mindset.
+People who are messed up in the head and capable of action belong in the nuthouse.
+Messed up in the head but incapable of action - society burden.
+This is not a person's property, it only applies to some aspects and only within some timeframe.
+
+`Mar 12, 2025` - [ZachGoldberg/Startup-CTO-Handbook](https://github.com/ZachGoldberg/Startup-CTO-Handbook) - The Startup CTO's Handbook, a book covering leadership, management and technical topics for leaders of software engineering teams
+
+`Mar 10, 2025` - Added [](/12_articles/70-options-design.md)
+
+`Mar 09, 2025` - [antoniomika/sish](https://github.com/antoniomika/sish) - HTTP(S)/WS(S)/TCP Tunnels to localhost using only SSH.
+
+`Mar 05, 2025` - Something extremely important if you want to make a point. And absolutely insignificant for all other purposes. "Technicality".
+
+`Mar 03, 2025` - A week-long vacation definitely helps with the unexplainable dreadful feelings.
+The best (and only) solution to work-related stress is to not work.
+
+`Mar 03, 2025` - I think Sean Goedecke is onto something in his post "[Knowing where your engineer salary comes from](https://www.seangoedecke.com/where-the-money-comes-from/)".
+While the post is inline with his recurring cornerstone of a mature-pragmattic-staff-engineer, he touches on a topic of different lenses to look onto a software project.
+Engineers focus on problem complexity (and solution simplicity), performance, architecture and whatnot.
+The bridge to business people is effort estimate in man hours.
+Which translates roughly to costs of implementation.
+That business people use to weight against the projected profits over the lifetime of the project (in years).
+Also, weighted against the potential return from other projects that team can do instead.
+
+I've never seen profits enter the picture for engineering planning, os it's often a kind of a dark area, of why is the deadline needs to be at this particular date.
+
+`Mar 02, 2025` - [TannerMidd/recommendarr](https://github.com/TannerMidd/recommendarr) - An LLM driven recommendation system based on Radarr and Sonarr library or watch history information
+
+`Mar 01, 2025` - Added [](/17_notes/30-top_asked_meta_facebook_interview_questions_for_2025.md)
+
+`Mar 01, 2025` - Some questions should never be asked because they won't be answered.
+Not because the answer is unknown, but because it's not in the person's interest to provide an honest one.
+This comes up a lot for opinion seeking.
+Person's opinion about the topic influences other people's opinion about this person.
+If a candidate is not super enthused about a company, they don't get a job.
+If project manager says that their project is not the best opportunity of a lifetime and super bomb that changes everything, they will be in trouble.
+So you can't ask them. Because their hands are tied. Their opinion belongs to their superiors, or public.
+Even you ask someone, what do they think of you, you're not going to get an honest opinion.
+Because any negativity in the opinion may backfire in the future.
+So, here we are, in a bright shiny world, where everyone is super happy about everyone else.
+Except that half of marrieages end in divorce, people get laid of every year, and 90% of startups fail.

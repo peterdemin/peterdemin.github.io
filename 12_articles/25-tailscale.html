@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Personal VPN: a tale of Tailscale and Headscale - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Climbr" href="26-climbing-website.html" /><link rel="prev" title="ChatGPT will replace recruiters" href="24-ChatGPT-recruiting.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=51f15f49" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="Personal VPN: a tale of Tailscale and Headscale"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#background">Background</a></li>
+<li><a class="reference internal" href="#installing-tailscale">Installing Tailscale</a></li>
+<li><a class="reference internal" href="#installing-headscale">Installing Headscale</a></li>
+<li><a class="reference internal" href="#installing-nix">Installing Nix</a></li>
+<li><a class="reference internal" href="#back-to-installing-headscale">Back to installing Headscale</a></li>
+<li><a class="reference internal" href="#back-to-installing-tailscale">Back to installing Tailscale</a></li>
+<li><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
+  data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </span>
+  <span class="flex-grow px-2 break-all">
+    
+    
+      <span>peterdemin.github.io</span>
+    
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <iconify-icon icon="lucide:star"></iconify-icon>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <iconify-icon icon="lucide:git-fork"></iconify-icon>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/peterdemin/peterdemin.github.io/blob/master/source/12_articles/25-tailscale.md">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
+    
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Personal VPN: a tale of Tailscale and Headscale</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/25-tailscale.md.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/25-tailscale.md.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/25-tailscale.md.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:markdown"></iconify-icon>
+            <span>View as Markdown</span></a><a role="menuitem" href="https://chatgpt.com/?hints=search&q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/25-tailscale.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:openai"></iconify-icon>
+          <span>Open in ChatGPT</span>
+        </a><a role="menuitem" href="https://claude.ai/new?q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/25-tailscale.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:claude"></iconify-icon>
+          <span>Open in Claude</span>
+        </a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="personal-vpn-a-tale-of-tailscale-and-headscale">
+<h1>Personal VPN: a tale of Tailscale and Headscale<a class="headerlink" href="#personal-vpn-a-tale-of-tailscale-and-headscale" title="Link to this heading">¶</a></h1>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Link to this heading">¶</a></h2>
+<p>I’ve been using different types of VPNs for many years for several reasons:</p>
+<ol class="arabic simple">
+<li><p>Public WiFi security.</p></li>
+<li><p>Geo-IP block sidestepping.</p></li>
+<li><p>Secure access to remote devices.</p></li>
+</ol>
+<p>My current tools of choice:</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://nordvpn.com/">NordVPN</a> - paid service with good reliability and UI.</p></li>
+<li><p><a class="reference external" href="https://github.com/trailofbits/algo">Algo</a> - set of scripts automating secure VPN server creation.</p></li>
+</ol>
+<p>I was recently scrolling my GitHub feed and discovered
+<a class="reference external" href="https://github.com/juanfont/headscale">headscale</a> - an open-source alternative
+to the proprietary Tailscale control center for personal self-hosted use.
+Which made me curious enough to finally try <a class="reference external" href="https://tailscale.com/">Tailscale</a> itself.</p>
+</section>
+<section id="installing-tailscale">
+<h2>Installing Tailscale<a class="headerlink" href="#installing-tailscale" title="Link to this heading">¶</a></h2>
+<p>I quickly registered using my Google account and added two devices - all in about five minutes - impressive!</p>
+<p>Tailscale tracks Google account and IP addresses to provide network connectivity,
+which is extremely user-friendly, but leaves a weird feeling of half-way private solution.
+So, naturally, the next step is to replace the third-party proprietary control center with a self-hosted open-source alternative.</p>
+</section>
+<section id="installing-headscale">
+<h2>Installing Headscale<a class="headerlink" href="#installing-headscale" title="Link to this heading">¶</a></h2>
+<p>Headscale provides binary releases (current version is <a class="reference external" href="https://github.com/juanfont/headscale/releases/tag/v0.17.1">0.17.1</a>)
+but I’m not too fond of the experience of downloading and upgrading from GitHub releases, so I thought I better build it from sources.</p>
+<p>I cloned the repo:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">juanfont</span><span class="o">/</span><span class="n">headscale</span><span class="o">.</span><span class="n">git</span>
+</span><span data-line="2"><span class="n">cd</span> <span class="n">headscale</span>
+</span></pre></div>
+</div>
+<p>And quickly realized that the build instructions assume I’m an experienced <a class="reference external" href="https://nixos.org/">Nix</a> user.</p>
+</section>
+<section id="installing-nix">
+<h2>Installing Nix<a class="headerlink" href="#installing-nix" title="Link to this heading">¶</a></h2>
+<p>I’ve heard good things about Nix (mostly from <a class="reference external" href="https://xeiaso.net/blog">Xe’s blog</a>), so I thought it’s a good opportunity to poke it.</p>
+<p>I fruitlessly searched for a way to install the Nix build system as an Ubuntu package, but it seems that running shell scripts from the internet with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> is the only supported way to install it right now.
+I hesitated a bit, but not for too long, and gave it a try:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">sh</span> <span class="o">&lt;</span><span class="p">(</span><span class="n">curl</span> <span class="o">-</span><span class="n">L</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">nixos</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">nix</span><span class="o">/</span><span class="n">install</span><span class="p">)</span> <span class="o">--</span><span class="n">daemon</span>
+</span></pre></div>
+</div>
+<p>The installation script is friendly and does an excellent job establishing trust with the user.</p>
+<p>The next step was to set up a development environment for the headscale.</p>
+<p>Headscale’s README mentions running <code class="docutils literal notranslate"><span class="pre">nix</span> <span class="pre">develop</span></code>, which seems sensible and harmless.
+But, turns out, on the (default?) installation, it won’t work.</p>
+<p>Instead, I had to activate two experimental features:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">nix</span> <span class="n">develop</span> <span class="o">--</span><span class="n">extra</span><span class="o">-</span><span class="n">experimental</span><span class="o">-</span><span class="n">features</span> <span class="n">nix</span><span class="o">-</span><span class="n">command</span> <span class="o">--</span><span class="n">extra</span><span class="o">-</span><span class="n">experimental</span><span class="o">-</span><span class="n">features</span> <span class="n">flakes</span>
+</span></pre></div>
+</div>
+<p>Once it finished, I proceeded to <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">build</span></code> which expectedly failed with the same error, so here’s the build command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">nix</span> <span class="n">build</span> <span class="o">--</span><span class="n">extra</span><span class="o">-</span><span class="n">experimental</span><span class="o">-</span><span class="n">features</span> <span class="n">nix</span><span class="o">-</span><span class="n">command</span> <span class="o">--</span><span class="n">extra</span><span class="o">-</span><span class="n">experimental</span><span class="o">-</span><span class="n">features</span> <span class="n">flakes</span>
+</span></pre></div>
+</div>
+<p>After a few minutes of running tests, it finished with no other output.
+I noticed a new <code class="docutils literal notranslate"><span class="pre">result</span></code> symlink in the repo directory. Inside I found the binaries:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">$ tree result/
+</span><span data-line="2">result/
+</span><span data-line="3">└── bin
+</span><span data-line="4">    └── headscale
+</span><span data-line="5">
+</span><span data-line="6">1 directory, 1 file
+</span><span data-line="7">
+</span><span data-line="8">$ ll -h result/bin/*
+</span><span data-line="9">-r-xr-xr-x 1 root root 25M Dec 31  1969 result/bin/headscale*
+</span><span data-line="10">
+</span><span data-line="11">$ sha256sum result/bin/headscale
+</span><span data-line="12">273e4c4cd13c5903d8dd5611a8f6a43434b34e58c01a6682341370418b0fb837  result/bin/headscale
+</span></pre></div>
+</div>
+<p>SHA sum doesn’t match the one from the official release (<code class="docutils literal notranslate"><span class="pre">e8d3d74b040bd2e3e9f049d95e4f4b759160518a1cf682ec0bb76f2fed7d77cf</span></code>), but whatever.</p>
+</section>
+<section id="back-to-installing-headscale">
+<h2>Back to installing Headscale<a class="headerlink" href="#back-to-installing-headscale" title="Link to this heading">¶</a></h2>
+<p>Let’s see what it does:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">$ result/bin/headscale --help
+</span><span data-line="2">
+</span><span data-line="3">headscale is an open-source implementation of the Tailscale control server
+</span><span data-line="4">
+</span><span data-line="5">https://github.com/juanfont/headscale
+</span><span data-line="6">
+</span><span data-line="7">Usage:
+</span><span data-line="8">  headscale [command]
+</span><span data-line="9">
+</span><span data-line="10">Available Commands:
+</span><span data-line="11">  apikeys     Handle the Api keys in Headscale
+</span><span data-line="12">  completion  Generate the autocompletion script for the specified shell
+</span><span data-line="13">  debug       debug and testing commands
+</span><span data-line="14">  generate    Generate commands
+</span><span data-line="15">  help        Help about any command
+</span><span data-line="16">  mockoidc    Runs a mock OIDC server for testing
+</span><span data-line="17">  namespaces  Manage the namespaces of Headscale
+</span><span data-line="18">  nodes       Manage the nodes of Headscale
+</span><span data-line="19">  preauthkeys Handle the preauthkeys in Headscale
+</span><span data-line="20">  routes      Manage the routes of Headscale
+</span><span data-line="21">  serve       Launches the headscale server
+</span><span data-line="22">  version     Print the version.
+</span><span data-line="23">
+</span><span data-line="24">Flags:
+</span><span data-line="25">  -c, --config string   config file (default is /etc/headscale/config.yaml)
+</span><span data-line="26">      --force           Disable prompts and forces the execution
+</span><span data-line="27">  -h, --help            help for headscale
+</span><span data-line="28">  -o, --output string   Output format. Empty for human-readable, &#39;json&#39;, &#39;json-line&#39; or &#39;yaml&#39;
+</span><span data-line="29">
+</span><span data-line="30">Use &quot;headscale [command] --help&quot; for more information about a command.
+</span><span data-line="31">
+</span><span data-line="32">$ result/bin/headscale version
+</span><span data-line="33">v422d124
+</span><span data-line="34">
+</span><span data-line="35">$ result/bin/headscale help
+</span><span data-line="36">2023-01-06T20:23:04-05:00 WRN Failed to read configuration from disk error=&quot;Config File \&quot;config\&quot; Not Found in \&quot;[/etc/headscale ~/.headscale ~/headscale]\&quot;&quot;
+</span><span data-line="37">2023-01-06T20:23:04-05:00 FTL github.com/juanfont/headscale/cmd/headscale/cli/root.go:43 &gt; Error loading config error=&quot;fatal error reading config file: Config File \&quot;config\&quot; Not Found in \&quot;[/etc/headscale ~/.headscale ~/headscale]\&quot;&quot;
+</span></pre></div>
+</div>
+<p>Seems functional. I uploaded the binary to a cloud VM to set it as an external login server.
+I uploaded my binary to the server, and… bummer! It can’t run on Ubuntu 20.04 VM!</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">$ ./headscale
+</span><span data-line="2">-bash: ./headscale: No such file or directory
+</span></pre></div>
+</div>
+<p>I have no idea what’s wrong there. The file is undoubtedly present and even starts with <code class="docutils literal notranslate"><span class="pre">ELF</span></code> magic bytes. But it’s missing when I try to run it…
+Screw this. I downloaded the official binaries:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">juanfont</span><span class="o">/</span><span class="n">headscale</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="n">download</span><span class="o">/</span><span class="n">v0</span><span class="mf">.17.1</span><span class="o">/</span><span class="n">headscale_0</span><span class="mf">.17.1</span><span class="n">_linux_amd64</span>
+</span><span data-line="2"><span class="n">sudo</span> <span class="n">mv</span> <span class="n">headscale_0</span><span class="mf">.17.1</span><span class="n">_linux_amd64</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">headscale</span>
+</span><span data-line="3"><span class="n">sudo</span> <span class="n">chmod</span> <span class="mi">555</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">headscale</span>
+</span><span data-line="4"><span class="n">sudo</span> <span class="n">chown</span> <span class="n">headscale</span><span class="p">:</span><span class="n">headscale</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">headscale</span>
+</span></pre></div>
+</div>
+<p>That fixed the “No such file or directory” issue.</p>
+<p>In the middle of the headscale README, I found a link to <a class="reference external" href="https://github.com/juanfont/headscale/blob/main/docs/running-headscale-linux.md">docs</a>.
+Following the docs, I added:</p>
+<ol class="arabic simple">
+<li><p>Config.</p></li>
+<li><p>Separate user.</p></li>
+<li><p>Systemd unit.</p></li>
+<li><p>CNAME DNS record.</p></li>
+<li><p>Nginx pass-through configuration.</p></li>
+<li><p>Expanded Let’s encrypt’s certificate.</p></li>
+</ol>
+<p>The service successfully launched.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">$ sudo systemctl status headscale
+</span><span data-line="2">● headscale.service - headscale controller
+</span><span data-line="3">     Loaded: loaded (/etc/systemd/system/headscale.service; enabled; vendor preset: enabled)
+</span><span data-line="4">     Active: active (running) since Sat 2023-01-07 03:29:51 UTC; 23h ago
+</span><span data-line="5">   Main PID: 727153 (headscale)
+</span><span data-line="6">      Tasks: 9 (limit: 1151)
+</span><span data-line="7">     Memory: 21.2M
+</span><span data-line="8">     CGroup: /system.slice/headscale.service
+</span><span data-line="9">             └─727153 /usr/local/bin/headscale serve
+</span></pre></div>
+</div>
+<p>Nice! Where do I go from here? Let’s connect my Tailscale to the new headscale.
+There’s not much documentation on how it should look for the end user.
+I figured I needed to create an authentication key on the server:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">$ headscale --namespace net preauthkeys create --reusable --expiration 24h
+</span><span data-line="2">21c91befde206632883d0049cf3b81296dc1586a9b21e265
+</span></pre></div>
+</div>
+<p>I copied the key and tried to use it to authenticate my laptop:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">tailscale</span> <span class="n">up</span> <span class="o">--</span><span class="n">login</span><span class="o">-</span><span class="n">server</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">headscale</span><span class="o">.</span><span class="n">demin</span><span class="o">.</span><span class="n">dev</span> <span class="o">--</span><span class="n">authkey</span> <span class="mi">21</span><span class="n">c91befde206632883d0049cf3b81296dc1586a9b21e265</span> <span class="o">--</span><span class="n">force</span><span class="o">-</span><span class="n">reauth</span>
+</span></pre></div>
+</div>
+<p>The command disabled the existing Tailscale connection and hanged for a few minutes until I stopped it.
+Hmm… Not really what I was looking for. The headscale log on the server didn’t show anything useful.
+I tried <code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">http://127.0.0.1:8080</span></code>, which returned an empty 200 response.</p>
+<p>At this point, I realized that headscale is not at the stage where I want to entrust it with my private VPN.</p>
+</section>
+<section id="back-to-installing-tailscale">
+<h2>Back to installing Tailscale<a class="headerlink" href="#back-to-installing-tailscale" title="Link to this heading">¶</a></h2>
+<p>The free Tailscale account experience is an absolute delight.
+I added my cloud VM to the same account using <code class="docutils literal notranslate"><span class="pre">tailscale</span> <span class="pre">up</span></code> in a minute (after adding Tailscale’s repo following <a class="reference external" href="https://tailscale.com/kb/1039/install-ubuntu-2004/">these instructions</a>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">tailscale</span>
+</span><span data-line="2"><span class="n">sudo</span> <span class="n">tailscale</span> <span class="n">up</span>
+</span></pre></div>
+</div>
+<p>And it immediately got access to my home server using a nice ts.net domain name.
+I switched to this solution instead of a combination of Google Cloud Firewall Updater (<a class="reference external" href="https://github.com/peterdemin/gcpfwup">gcpfwup</a>) and ssh tunnel.</p>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">¶</a></h2>
+<p>Tailscale revolutionized the virtual private network setup.
+At least for a personal self-hosted home server setup.</p>
+<p>On the other hand, headscale’s user experience could be better at the moment (as of January 2023, version 0.17.1).</p>
+</section>
+</section>
+
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="24-ChatGPT-recruiting.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">ChatGPT will replace recruiters</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="26-climbing-website.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Climbr</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2022, Peter Demin</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/shibuya.js?v=cac61aee"></script></body>
+</html>

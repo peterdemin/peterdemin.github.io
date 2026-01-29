@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Small-scale Deployment Options - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Mutable types in Pydantic default values" href="43-pydantic-mutable-defaults.html" /><link rel="prev" title="Questions for a hiring manager" href="41-questions-for-hiring-manager.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=51f15f49" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="Small-scale Deployment Options"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#development-experience-aspects-in-consideration">Development Experience Aspects in Consideration</a></li>
+<li><a class="reference internal" href="#options-overview">Options Overview</a></li>
+<li><a class="reference internal" href="#compartmentalization">Compartmentalization</a></li>
+<li><a class="reference internal" href="#git-push">Git Push</a></li>
+<li><a class="reference internal" href="#git-pull">Git Pull</a></li>
+<li><a class="reference internal" href="#rsync">Rsync</a></li>
+<li><a class="reference internal" href="#custom-tar-balls">Custom Tar Balls</a></li>
+<li><a class="reference internal" href="#runtime-specific-packages">Runtime-specific Packages</a></li>
+<li><a class="reference internal" href="#os-specific-packages">OS-specific Packages</a></li>
+<li><a class="reference internal" href="#docker-containers">Docker Containers</a></li>
+<li><a class="reference internal" href="#virtual-machines">Virtual Machines</a></li>
+<li><a class="reference internal" href="#deep-dive-into-custom-tar-balls">Deep Dive into Custom Tar Balls</a></li>
+</ul>
+</div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
+  data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </span>
+  <span class="flex-grow px-2 break-all">
+    
+    
+      <span>peterdemin.github.io</span>
+    
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <iconify-icon icon="lucide:star"></iconify-icon>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <iconify-icon icon="lucide:git-fork"></iconify-icon>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/peterdemin/peterdemin.github.io/blob/master/source/12_articles/42-small-scale-deploy.md">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
+    
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Small-scale Deployment Options</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/42-small-scale-deploy.md.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/42-small-scale-deploy.md.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/42-small-scale-deploy.md.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:markdown"></iconify-icon>
+            <span>View as Markdown</span></a><a role="menuitem" href="https://chatgpt.com/?hints=search&q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/42-small-scale-deploy.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:openai"></iconify-icon>
+          <span>Open in ChatGPT</span>
+        </a><a role="menuitem" href="https://claude.ai/new?q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/42-small-scale-deploy.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:claude"></iconify-icon>
+          <span>Open in Claude</span>
+        </a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="small-scale-deployment-options">
+<h1>Small-scale Deployment Options<a class="headerlink" href="#small-scale-deployment-options" title="Link to this heading">¶</a></h1>
+<p>The common best practice these days for deploying software seems to be a Kubernetes cluster with CI/CD pipeline attached.
+While reasonable and battle-proof for an enterprise, this solution could carry a heavy overhead for small scale.
+Small as in a single-server on-premise deployments.
+The development team consists of one or a few engineers, who have direct access to the production server(s) and are responsible for all aspects of the project.
+For the sake of examples I’ll use a Python service.
+But the same process should be portable to other languages.</p>
+<section id="development-experience-aspects-in-consideration">
+<h2>Development Experience Aspects in Consideration<a class="headerlink" href="#development-experience-aspects-in-consideration" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>End-to-end time for the deployment of the new version.
+End-to-end meaning from changes saved to a file locally, to startup in prod.</p></li>
+<li><p>Total time for a rollback to previous version.</p></li>
+<li><p>Ability to deploy manually, side-stepping CI/CD.</p></li>
+<li><p>Complexity of bootstrapping a new deployment environment.</p></li>
+</ul>
+</section>
+<section id="options-overview">
+<h2>Options Overview<a class="headerlink" href="#options-overview" title="Link to this heading">¶</a></h2>
+<div class="graphviz"><img src="../_images/graphviz-253d8f314839c880a58b25468fcf8ae40351981f.png" alt="digraph services {
+edge [color=&quot;#808080&quot;, arrowsize=.6, penwidth=3, minlen=3];
+node [shape=box, fontname=&quot;DIN Next, sans-serif&quot;, style=&quot;rounded,filled&quot;, penwidth=5, fillcolor=&quot;#8010d0&quot;, color=&quot;#f0f0f0&quot;, fontcolor=white,  margin=&quot;0.35&quot; fontweight=bold]
+bgcolor=&quot;#f0f0f0&quot;;
+
+&quot;Has Artifacts&quot; -&gt; &quot;OS-level packages&quot; [ label=&quot; yes &quot; ]
+&quot;OS-level packages&quot; -&gt; &quot;.deb, .rpm&quot; [ label=&quot; yes &quot; ]
+&quot;OS-level packages&quot; -&gt; &quot;Has Containerization&quot; [ label=&quot; no &quot; ]
+&quot;Has Containerization&quot; -&gt; &quot;Docker&quot; [ label=&quot; yes &quot; ]
+&quot;Has Containerization&quot; -&gt; &quot;.tar.gz, .whl, .pex&quot; [ label=&quot; no &quot; ]
+&quot;Docker&quot; -&gt; &quot;Private Image Store&quot;
+&quot;Docker&quot; -&gt; &quot;Rsync Image to Target&quot;
+
+&quot;Has Artifacts&quot; -&gt; &quot;Using Git&quot; [ label=&quot; no &quot; ]
+&quot;Using Git&quot; -&gt; &quot;Has Network Access to Target&quot; [ label=&quot; yes &quot; ]
+&quot;Has Network Access to Target&quot; -&gt; &quot;Git Push&quot; [ label=&quot; yes &quot; ]
+&quot;Has Network Access to Target&quot; -&gt; &quot;Git Pull&quot; [ label=&quot; no &quot; ]
+&quot;Using Git&quot; -&gt; &quot;Rsync&quot; [ label=&quot; no &quot; ]
+&quot;Git Push&quot; -&gt; &quot;Dokku&quot;
+&quot;Git Push&quot; -&gt; &quot;Sailor&quot;
+}" class="graphviz" /></div>
+</section>
+<section id="compartmentalization">
+<h2>Compartmentalization<a class="headerlink" href="#compartmentalization" title="Link to this heading">¶</a></h2>
+<p>We can divide the deployment system into following loosely coupled components:</p>
+<ol class="arabic simple">
+<li><p>User interface. Could be git hooks, CLI, web page.</p></li>
+<li><p>Build/installation system. GitHub Actions, Dockerfile, Makefile, buildpacks, custom convention.</p></li>
+<li><p>Support for HTTP services. Nginx, Apache (joking), Caddy, Traefik. Optional SSL through Let’s Encrypt.</p></li>
+<li><p>Tailscale (optional). Because I love it.</p></li>
+<li><p>Process orchestration. Systemd, uWSGI, Supervisord.</p></li>
+<li><p>Monitoring: logs, health metrics.</p></li>
+</ol>
+</section>
+<section id="git-push">
+<h2>Git Push<a class="headerlink" href="#git-push" title="Link to this heading">¶</a></h2>
+<p>Heroku-like open-source self-hosted single-node PaaS projects:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/mardix/sailor">Sailor</a></p></li>
+<li><p><a class="reference external" href="https://dokku.com/">Dokku</a></p></li>
+</ul>
+<p>The pros of this approach are:</p>
+<ul class="simple">
+<li><p>On the client-side, the deployment is just a quick <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code> command.</p></li>
+<li><p>The project is built on the host where it’s run, so no headache around OS-level binary dependencies compatibility.</p></li>
+<li><p>End-to-end time for the deployment of the new version: <strong>very low</strong>, only incremental changes need to be transfered on network.</p></li>
+<li><p>Total time for a rollback to previous version: <strong>very low</strong>, local git checkout doesn’t incure any network costs.</p></li>
+<li><p>Ability to deploy manually, side-stepping CI/CD: <strong>hard</strong>, only committed and pushed version can be deployed.</p></li>
+<li><p>Complexity of bootstrapping a new deployment environment: <strong>low</strong>, could be a shell script.</p></li>
+</ul>
+</section>
+<section id="git-pull">
+<h2>Git Pull<a class="headerlink" href="#git-pull" title="Link to this heading">¶</a></h2>
+<p>In a high-level, the git pull approach means having a code repo cloned to the prod server.
+The deployment is basically running this script:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">git<span class="w"> </span>pull
+</span><span data-line="2">sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>my.service
+</span></pre></div>
+</div>
+<ul class="simple">
+<li><p>End-to-end time for the deployment of the new version: <strong>very low</strong>, only incremental changes need to be transfered on network.</p></li>
+<li><p>Total time for a rollback to previous version: <strong>very low</strong>, local git checkout doesn’t incure any network costs.</p></li>
+<li><p>Ability to deploy manually, side-stepping CI/CD: <strong>easy</strong>, given the developer has SSH access to the server.</p></li>
+<li><p>Complexity of bootstrapping a new deployment environment: <strong>very low</strong>, could be a shell script.</p></li>
+</ul>
+<p>The downsides of this approach:</p>
+<ul class="simple">
+<li><p>Production server has to have development tools installed, that wouldn’t otherwise be needed.</p></li>
+<li><p>Server has to have network access and store the credentials for the source code repo.</p></li>
+<li><p>Production server stores files that are not needed during runtime, such as test files and assets.</p></li>
+</ul>
+</section>
+<section id="rsync">
+<h2>Rsync<a class="headerlink" href="#rsync" title="Link to this heading">¶</a></h2>
+<p>Similar to git pull with core aspects being almost the same.</p>
+<p>Upsides:</p>
+<ul class="simple">
+<li><p>Production server doesn’t need git or direct access to the code repo.</p></li>
+<li><p>rsync command can be set to avoid sending unnecessary files.</p></li>
+</ul>
+<p>Downsides:</p>
+<ul class="simple">
+<li><p>Risk of not sending the required files.</p></li>
+</ul>
+</section>
+<section id="custom-tar-balls">
+<h2>Custom Tar Balls<a class="headerlink" href="#custom-tar-balls" title="Link to this heading">¶</a></h2>
+<p>This mode adds a few steps to the deployment process - building the deployment artifacts (my.tar.gz), and unpacking on the server.</p>
+<ul class="simple">
+<li><p>End-to-end time for the deployment of the new version: <strong>medium</strong>, the whole project is transfered for each deployment.</p></li>
+<li><p>Total time for a rollback to previous version: <strong>very low</strong>, the previous version can be kept on the server for a quick switch.</p></li>
+<li><p>Ability to deploy manually, side-stepping CI/CD: <strong>easy</strong>, given the build script is independent from CI/CD environment.</p></li>
+<li><p>Complexity of bootstrapping a new deployment environment: <strong>low</strong>, could be a shell script, but has to include version switching.</p></li>
+</ul>
+<p>Downsides:</p>
+<ul class="simple">
+<li><p>Considerable amount of bicycle reinvention.
+Tar balls need to have a custom versioning scheme, and a way to activate target version.
+While every aspect is simple, customization adds up to overall project complexity and increases new engineer onboarding time.</p></li>
+</ul>
+</section>
+<section id="runtime-specific-packages">
+<h2>Runtime-specific Packages<a class="headerlink" href="#runtime-specific-packages" title="Link to this heading">¶</a></h2>
+<p>A twist on the custom tar balls, using Python wheels, or what have you.</p>
+<p>Downsides:</p>
+<ul class="simple">
+<li><p>Different deployment for each language runtime.</p></li>
+</ul>
+</section>
+<section id="os-specific-packages">
+<h2>OS-specific Packages<a class="headerlink" href="#os-specific-packages" title="Link to this heading">¶</a></h2>
+<p>A twist on runtime-specific packages, but building .deb or .rpm artifacts.
+The build stage is more involved, but the OS provides a standard way of performing common operations, addressing the downsides of custom tar balls approach.</p>
+</section>
+<section id="docker-containers">
+<h2>Docker Containers<a class="headerlink" href="#docker-containers" title="Link to this heading">¶</a></h2>
+<p>Streamlines common operations, but requires docker runtime, and makes it somewhat harder to hack on the software in production.
+Docker registry is optional, and can be replaced by running <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">save</span></code> and <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">load</span></code> commands.</p>
+</section>
+<section id="virtual-machines">
+<h2>Virtual Machines<a class="headerlink" href="#virtual-machines" title="Link to this heading">¶</a></h2>
+<p>A spin on the docker containers, providing higher level of isolation, but incuring significant overhead in performance, build times, and memory usage.</p>
+</section>
+<section id="deep-dive-into-custom-tar-balls">
+<h2>Deep Dive into Custom Tar Balls<a class="headerlink" href="#deep-dive-into-custom-tar-balls" title="Link to this heading">¶</a></h2>
+<p>The main downside is the version management and all the custom tooling required to be built and learned to run the process.
+This can be circumvented by creating a general-purpose well-documented tooling.</p>
+<p>The tool has support following deployment aspects:</p>
+<ol class="arabic simple">
+<li><p>Deployment artifact creation.
+The common approach is some form of a manifest file, that contains a list of glob patterns to match the runtime files.</p></li>
+<li><p>Transfer of the artifact to the target server.</p></li>
+<li><p>Artifact installation.</p></li>
+<li><p>Version management and switching (activation/roll back).</p></li>
+<li><p>Runtime dependency management.</p></li>
+<li><p>Initial server bootstrapping.</p></li>
+</ol>
+<p>TBD</p>
+</section>
+</section>
+
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="41-questions-for-hiring-manager.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Questions for a hiring manager</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="43-pydantic-mutable-defaults.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Mutable types in Pydantic default values</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2022, Peter Demin</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/shibuya.js?v=cac61aee"></script></body>
+</html>

@@ -1,0 +1,38 @@
+`Feb 25, 2024` - GPT4 illustration for a paragraph from a book I'm reading:
+
+![Rock profile](/16_life/images/muaddib.jpg)
+
+{attribution="Muad'Dib by Frank Herbert."}
+> The faraway rock profile was like an ancient battleship of the seas outlined by stars. The long swish of it lifted on an invisible wave with syllables of boomerang antennae, funnels arcing back, a pi-shaped up-thrusting at the stern.
+
+`Feb 23, 2024` - GPT4 prompt to use shell:
+
+> Act as a Linux terminal. Generate bash commands to accomplish a task.
+> Do not explain, and do not provide instructions. Only generate the shell code to accomplish the task.
+> The task is:
+
+Example task:
+
+> Add this public key to authorized SSH keys for user "WubbaLubbaDubDub":
+> ssh-rsa AAAAB...
+
+`Feb 15, 2024` - Встретить дорогого гостя с распростёртыми ногами.
+
+`Feb 12, 2024` - More ripped than 90% of software engineers. Better at programming than 90% peeps in the gym. Top 1% at making up uplifting ratings. Dan Luu explained it nicely in [95%-ile isn't that good](https://danluu.com/p95-skill/).
+
+`Feb 11, 2024` - [davidmerfield/blot](https://github.com/davidmerfield/blot) - Turns a folder into a website
+
+`Feb 11, 2024` - I thought of Walgreens as a pharmacy. But turns out they sell cigars and booze. Умом Россию не понять.
+
+`Feb 08, 2024` - Random list of life challenges to put current setbacks in perspective:
+
+- Getting COVID as a single parent without any family support.
+- Losing the only source of income while being a head of household and paying mortgage.
+- Bereave a parent while being overseas.
+- Fighting opiate additiction caused by pain medication.
+
+`Feb 06, 2024` - [convox/rack](https://github.com/convox/rack) - Private PaaS built on native AWS services for maximum privacy and minimum upkeep
+
+`Feb 01, 2024` - [quasilyte/go-ruleguard](https://github.com/quasilyte/go-ruleguard) - Define and run pattern-based custom linting rules.
+
+`Feb 01, 2024` - Added [](/12_articles/52-git-aliases.md)

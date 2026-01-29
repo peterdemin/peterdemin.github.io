@@ -1,0 +1,154 @@
+`May 30, 2022` ·
+TIL that The Onion posts an article with the same title: "‘No Way To Prevent This,’ Says Only Nation Where This Regularly Happens" after every mass shouting.
+And ironically it does nothing to prevent this.
+
+---
+
+`May 29, 2022` · we went to Rocky Gap State Park's campground for the Memorial Day. Met few nice folks, hiked a few miles, rented a canoe for a family ride on a lake, went star watching, had a lot of meat with beer.
+Whether was great except for a short rain on the first day when we had to setup the camp. We built a short zip line from 3 truck straps, which was more fun during building than riding.
+
+I’m still a bit confused by US style camps, which have too much convenience to my taste, that doesn’t let enjoy the nature to its fullest.
+
+---
+
+`May 25, 2022` · Individual [car] companies, to me? It's a distinction without a difference.
+
+— [No Sudden Move](https://en.wikipedia.org/wiki/No_Sudden_Move)
+
+---
+
+`May 24, 2022` · When director of engineering rolls up the sleeves and refactors complicated piece of code, be double-vigilant in PR review.
+
+Software engineering skills wear out pretty quickly if not practiced daily.
+No matter how good the person is in non-individual-contributor capacity, it doesn't make them good with source code.
+
+---
+
+`May 23, 2022` ·
+I want to experiment with hosting .deb (.rpm?) packages on GitHub pages.
+
+So far, I found these two tutorials:
+* https://assafmo.github.io/2019/05/02/ppa-repo-hosted-on-github.html
+* https://pmateusz.github.io/linux/2017/06/30/linux-secure-apt-repository.html
+
+Would be nice to automate the index update and GPG signing through GitHub Actions.
+
+Packages, that I'm most interested in hosting:
+* Kibitzr
+* Arr family: Radarr, Sonarr, Lidarr.
+
+---
+
+`May 22, 2022` - [miguelrochefort/awesome-adaptive-cards](https://github.com/miguelrochefort/awesome-adaptive-cards) - A curated list of awesome Adaptive Cards projects.
+
+`May 22, 2022` ·
+Both individuals and the larger society have agreed to a set of interlocking delicate systems that are simultaneously highly effective and spectacularly vulnerable to disruption.
+
+— [Johnny Sanphillippo](https://www.granolashotgun.com/granolashotguncom/hp5pmb0n95ut9hyeatewotgd2n1ebr)
+
+---
+
+`May 20, 2022` · Jotted a quick note [](../12_articles/15-on-delegation).
+
+---
+
+`May 19, 2022` - [Readarr/Readarr](https://github.com/Readarr/Readarr) - Book Manager and Automation (Sonarr for Ebooks)
+
+`May 19, 2022` - [osmoscraft/osmosnote](https://github.com/osmoscraft/osmosnote) - The knowledge IDE
+
+`May 19, 2022` - [Readarr/Readarr](https://github.com/Readarr/Readarr) - Book Manager and Automation (Sonarr for Ebooks)
+
+`May 19, 2022` - [osmoscraft/osmosnote](https://github.com/osmoscraft/osmosnote) - The knowledge IDE
+
+`May 17, 2022` · Notes on stress management.
+
+Stress management is management of body and mind. Stress is an integral part of human biology. Without stress hormones we would simple die.
+
+1. Survival kit: sleep, eat, exercise.
+2. Sleep: 7-9 hours a day. Consistent schedule for work days and weekend. Reduce screen time before sleep. Keep phone outside of bedroom.
+3. Food: three colors of vegetables and fruits. 3 meals a day. Standard servings - no overeating.
+4. Exercise: stretch every now and then. Brisk walks for 30 minutes.
+5. Don’t need to start doing everything at once. Build good habits one step at a time. Lifestyle change feels like a hard work.
+6. Avoid quick fixes: pills, drinks, energy bars, phone apps, gadgets, books, movies. Those only increase the number of things to keep track of. And the relief is only temporary.
+7. Write down the goals, not just say it.
+8. Note what causes stress, make a list of situations.
+9. Practice simple meditation several times a day. Focus on breath and do a body scan.
+10. Relax muscles while sitting, one group at a time. Neck, shoulders, arms, back, legs and feet.
+11. Hang out with friends to feel social connection.
+
+Sources:
+* [Beating Stress is Easier Than You Think | Annika Sörensen | TEDxSanJuanIsland](https://youtu.be/zDlz5N6DXuE)
+* [3 Stress-Management Techniques for Front Line Workers](https://youtu.be/i-pazYyLSWQ)
+
+---
+
+`May 16, 2022` - [janeczku/calibre-web](https://github.com/janeczku/calibre-web) - :books: Web app for browsing, reading and downloading eBooks stored in a Calibre database
+
+`May 12, 2022` · The first XKCD comic mentioned in [Software Engineering at Google](https://abseil.io/resources/swe-book):
+
+[![Workflow](/16_life/images/xkcd_workflow.png)](https://xkcd.com/1172/)
+
+---
+
+`May 10, 2022` · I just tried to explain gender transformation to my kids in popular Soviet song:
+
+> Я был когда-то странной игрушкой безымянной.
+
+Protagonist is a male (animal), but he was a toy in the past.
+But toy's gender is feminine.
+Which makes a weird mix of two genders in one sentence separated by the time.
+
+The opposite example blew their minds:
+
+> Я была когда-то странным утюгом безымянным.
+
+---
+
+`May 7, 2022` · Weird and disturbing fantasy from The Simpsons S33.E19 "Girls Just Shauna Have Fun"
+
+![Simpsons](/16_life/images/simpsons-dream.jpeg)
+
+---
+
+`May 6, 2022` ·
+Here are some of my favorite quotes from songs.
+I catch myself reciting this one during tough debug sessions:
+
+    Goddamn machinery
+    Why don't you speak to me?
+        -- "The Axe" by Thom Yorke
+
+
+And this I love for the structure of the sentence:
+
+    When I am king
+    You will be first against the wall
+    With your opinion
+    Which is of no consequence at all
+        -- "Paranoid Android" by Radiohead
+
+
+This one is for "broken pipe" and "Socket closed":
+
+    Communication breakdown, it's always the same
+    Havin' a nervous breakdown, a-drive me insane
+        -- "Communication Breakdown" by Led Zeppelin
+
+---
+
+`May 5, 2022` ·
+Surprisingly, zero intersection on most used self-hosted apps
+with [this guy](https://noted.lol/what-are-your-most-used-self-hosted-applications/).
+
+---
+
+`May 3, 2022` ·
+I need to do something meaningful with my life or I’ll be wasting it.
+
+---
+
+`May 2, 2022` ·
+TIL that US schools close in observance of the Islamic holiday Eid al-Fitr, a festive celebration marking the end of Ramadan, a month of fasting observed by Muslims worldwide.
+But they call it Quarterly grading/planning. Maybe to not stir the masses.
+
+`May 08, 2022` - [microsoft/Web-Dev-For-Beginners](https://github.com/microsoft/Web-Dev-For-Beginners) - 24 Lessons, 12 Weeks, Get Started as a Web Developer

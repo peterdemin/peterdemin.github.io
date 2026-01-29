@@ -1,0 +1,200 @@
+`Jan 26, 2026` - I got excited about ForgeFed, and want to see what is Forgejo is up to.
+Naturally, they host the code in Forgejo itself, confusingly named codeberg.
+Here's what I saw when opened the repo:
+
+![Codeberg 502](/16_life/images/codeberg-down.png)
+
+Maybe, this is not the best day for the federated code forge community...
+
+`Jan 25, 2026` - [blacksky-algorithms/rsky](https://github.com/blacksky-algorithms/rsky) - An AT Protocol implementation prioritizing community safety and self-governance, written in Rust.
+
+`Jan 24, 2026` - Reading about radicle made me repeatedly question its purpose.
+I liked how it uses PKI for identity, and made me think of a minimal implementation of a Web UI for issues and code review.
+The idea is to host a forge as a static website.
+Users would put their private key into the browser's local storage (so it never leaves the machine) and use it for signing messages.
+The server would use SSH authorized keys for both accepting git pushes and issues/code review comments.
+Messages would be stored as markdown files, and server would incrementally rebuild the HTML on submission.
+The discussions could live in the same repo under a separate path or branch, or in a separate repo.
+This way developers could interact through git by adding or changing the message files, or through the web interface.
+
+`Jan 24, 2026` - I discovered a neat application for AI.
+My wife asked me to look up a recipe online as she was cooking.
+The problem with online recipies is that there's plenty, differing in minor ways.
+They are most likely poorly formatted and riddled with ads.
+
+ChatGPT to the rescue, here's my prompt:
+
+> I need a complete recipe for Pavlova cake with weights in grams.
+> I need it nicely formatted for printing on a single page.
+> Make it an HTML page with printer-friendly styles.
+
+Copy'n'Paste the HTML to a file, open it and send to printer.
+
+![Pavlova cake recipe](/16_life/images/pavlova-cake.png)
+
+`Jan 23, 2026` - Added [](/12_articles/80-radicle.md)
+
+`Jan 22, 2026` - [kagisearch/smallweb](https://github.com/kagisearch/smallweb) - Kagi Small Web
+
+`Jan 22, 2026` - [susam/mintotp](https://github.com/susam/mintotp) - Minimal TOTP generator in 20 lines of Python
+
+`Jan 22, 2026` - [cpg314/ltapiserv-rs](https://github.com/cpg314/ltapiserv-rs) - Server implementation of the LanguageTool API for offline grammar and spell checking, based on nlprule and symspell. And a small graphical command-line client.
+
+`Jan 22, 2026` - For *years* I had these lines in my `~/.vimrc`:
+
+```
+set background=dark
+" set background=light
+```
+
+I would go and move the comment to the other line whenever I needed to switch to another mode.
+Until today, I discovered this [jewel from Vinit Kumar](https://vinitkumar.me/current-vim-setup/):
+
+```vim
+function! ChangeBackground()
+  if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
+    set background=dark
+  else
+    set background=light
+  endif
+endfunction
+call ChangeBackground()
+```
+
+It detects the current Appearance setting and picks the corresponding Solarized theme.
+
+Thank you, Vinit! And thanks to [hnpwd](https://github.com/hnpwd/hnpwd.github.io) for connecting me with Vinit!
+
+`Jan 22, 2026` - Here is a metaphor for how big tech companies operate that comes to mind over and over and seems to apply to many situations.
+A small company operates like a chess master: the pieces move in a tight choreography, and even when it's not clear for each separate pawn, there is a big picture, and it makes sense at the end.
+As the company grows, when no one knows how many teams are in the org, not to mention the names of the people, there ain't no chess master at the helm.
+Each piece is moved by a number of people who rarely communicate and have different goals.
+Coordination between pieces is eventual and minimal.
+There's a lot of effort exerted, and the amount of motion is dizzying.
+Yet, rarely are substantial improvements achieved, and never efficiently.
+
+`Jan 21, 2026` - [SeanHeelan/anamnesis-release](https://github.com/SeanHeelan/anamnesis-release) - Automatic Exploit Generation with LLMs
+
+`Jan 21, 2026` - [anthropics/original_performance_takehome](https://github.com/anthropics/original_performance_takehome) - Anthropic's original performance take-home, now open for you to try!
+
+`Jan 21, 2026` - Exploring Radicle landed me on [Swarm](https://www.ethswarm.org). I'm concerned with the eth- prefix in their domain name, and a mention of blockchain and web3 on the main page. But I like how they managed to build some community and ecosystem around this project. Fun fact: instead of regular documentation, they have [The Book of Swarm](https://www.ethswarm.org/the-book-of-swarm-2.pdf) of 272 pages. I wonder how much of it is AI slop, though.
+
+On the note of automatic distribution of 4KB chunks through the network, I wonder how long before DMCA watchdogs start sending their letters to all owners of a chunk of a copyrighted content.
+With IPFS and BitTorrent node owner at least controls what content to store and serve.
+
+`Jan 21, 2026` - This looks like a trend, and I don't know how I feel about it:
+- HN post "[Ask HN: Share your personal website](https://news.ycombinator.com/item?id=46618714)" got 947 points and 2382 comments. The repo received 100+ pull requests in 7 days.
+- Its predecessor from 2023 "[Ask HN: Could you share your personal blog here?](https://news.ycombinator.com/item?id=46618714)" got 1014 points and 1940 comments.
+- The scrape of that post [started](https://blog.kagi.com/small-web) [Kagi Small Web](https://kagi.com/smallweb/) - a random blog browser, powered by a [GitHub repo](https://github.com/kagisearch/smallweb).
+- [RSS.Social](https://rss.social) - feed syndicator from Kagi's repo that presents this post in HN/Lobsters style.
+
+This seems to be a viable way for individual bloggers to get the discoverability they miss by not being on a "big" social media platform.
+For me, Kagi Small Web is a fun doomscroller-kind time killer.
+When I tried importing the OPML file into my [RSS feed reader](/12_articles/71-rss-feed.md), I noticed that a uniform format and an unfiltered stream of content is not engaging at all. Most of the posts don't click with me. But when the presentation changes with every post, I spend more time exploring the content.
+
+Can't say that I discovered anything interesting to subscribe to, though.
+But that might be an effect of informational overflow.
+Which is supported by my observation of myself skimming quickly through a list of 10+ unread posts, while indulging fully when I only have a couple.
+
+`Jan 20, 2026` - [markqvist/Reticulum](https://github.com/markqvist/Reticulum) - The cryptography-based networking stack for building unstoppable networks with LoRa, Packet Radio, WiFi and everything in between.
+
+`Jan 20, 2026` - Something up my alley: [SelfCI](https://app.radicle.xyz/nodes/radicle.dpc.pw/rad%3Az2tDzYbAXxTQEKTGFVwiJPajkbeDU) - a minimalistic local-first Unix-philosophy-abiding CI.
+
+`Jan 20, 2026` - I'm gonna explore this old-school [Hacker Webring](https://ring.acab.dev) that I discovered through [Morten Linderud](https://linderud.dev) that was linked on [Lobsters](https://lobste.rs) that doesn't require an introduction, but somehow evaded my attention for fourteen years.
+
+`Jan 17, 2026` - Added a <a rel="me" href="https://mastodon.social/@peterdemin">Mastodon</a> account to join [Lurk.org](https://post.lurk.org/@320x200/115905835562819283) community following a link from permacomputing@conference.macaw.me XMPP channel.
+
+`Jan 16, 2026` - [bugsink/bugsink](https://github.com/bugsink/bugsink) - Self-hosted Error Tracking
+
+`Jan 16, 2026` - I got into this trap twice, so I guess I might not be alone.
+I review someone else's code, and I get a strong feeling it was AI-generated.
+Because no human could possibly produce this kind of well-documented, type-annotated mindless slop.
+I feel offended for author being careless and pushing through slop without control.
+I ask the author whether they reviewed the generated code themselves before pushing it.
+They tell me they didn't use AI.
+They wrote the code themselves.
+
+`Jan 15, 2026` - [hnpwd/hnpwd](https://github.com/hnpwd/hnpwd) - HN personal website directory and OPML
+
+`Jan 15, 2026` - Added [](/12_articles/79-bugsink-gcp.md)
+
+`Jan 15, 2026` - I've been using [Sentry](https://sentry.io/welcome/) for almost all of my career, but yesterday I received an email about Sentry asking for write permissions to my repos to create pull requests made by an LLM.
+I didn't enjoy the overall enshittification of the Sentry functionality over the past few years.
+But this is it. That's the last drop. I'm looking for a replacement.
+Preferably something self-hosted with a low CPU/RAM usage.
+
+`Jan 15, 2026` - [hnpwd/hnpwd.github.io](https://github.com/hnpwd/hnpwd.github.io) - HN personal website directory and OPML
+
+`Jan 12, 2026` - It's been almost eleven years since the creation of "[PEP 492](https://peps.python.org/pep-0492/) – Coroutines with async and await syntax" by Yury Selivanov.
+I've been writing asynchronous Python on and off for about a decade, and still, async/await is the most complex part of Python for me.
+Recently, I wrote a synchronous generator that yields results from an asynchronous iterable. What a ride!
+Back in the days of the PEP 492, Yury was working on EdgeDB, a wrapper layer around PostgreSQL.
+In a way, he still is, but it's called [Gel](https://www.geldata.com), and is a part of Vercel (but the page title still says EdgeDB, lol).
+
+Let's see what the people working on PEP 492 are up to:
+- [Guido van Rossum](https://gvanrossum.github.io) - the creator and benevolent dictator of Python. Retired from Dropbox in 2019, just to join Microsoft as a Distinguished Engineer in 2020.
+- [Victor Stinner](https://vstinner.readthedocs.io) - one of the performance-focused Python core contributors. These days, his good work is paid for by IBM through Red Hat.
+- [Elvis Pranskevichus](https://www.linkedin.com/in/elprans/) - Yury's buddy, working with him in Vercel.
+- [Andrew Svetlov](https://www.linkedin.com/in/andrew-svetlov/) - aiohttp maintainer, works as a VP of Engineering at Apolo.US, which at first glance looks the same as a hundred other AI startups.
+- [Łukasz Langa](https://lukasz.langa.pl) - ex-Facebook core Python developer, author of Black, and release manager. Moved to a mid-sized Polish town, and doesn't show up much.
+- [Greg Ewing](https://www.csse.canterbury.ac.nz/greg.ewing/) - the winner of the ugliest homepage award.
+- [Stephen J. Turnbull](https://gitlab.com/yaseppochi) - seemingly, a Mailman (The GNU Mailing List manager) maintainer.
+- [Brett Cannon](https://snarky.ca) - Principal Software Engineer at Microsoft in Canada and Python core developer.
+- [Alyssa Coghlan](https://www.curiousefficiency.org) - Nicholas, at the time of the PEP, CPython core and packaging developer, supported by an Australian bank. Surprisingly, not working on `uv`.
+
+The rest of the people I never heard about:
+- [Paul Moore](https://github.com/pfmoore) - core developer of Python and pip.
+- [Nathaniel Smith](https://vorpus.org/) - a scientist, doing science stuff, but somehow deep in the Python community.
+- [Stefan Behnel](https://www.behnel.de/) - core developer of Python, maintainer of Cython and lxml.
+- [Paul Sokolovsky](https://github.com/pfalcon) - author of a minimalistic Python dialect and a web framework written in that dialect.
+- [Victor Petrovykh](https://github.com/vpetrovykh) - another member of the EdgeDB mafia.
+- Steven D’Aprano - the only guy who got [suspended](https://discuss.python.org/t/suspending-a-core-developer-for-conduct-issues/25278) from being a Core Developer for public misconduct.
+- Ethan Furman
+- Jim J. Jewett
+
+`Jan 12, 2026` - I got curious if smartphone notifications can be possibly implemented in a privacy-preserving fashion (and to what extent).
+My reading list: [UnifiedPush - Push notifications, security and privacy](https://unifiedpush.org/news/20250513_push_security_privacy/)
+
+`Jan 11, 2026` - Added [](/12_articles/78-solarized-shibuya.md)
+
+`Jan 10, 2026` - Going through my old GitHub stars, I rediscovered [Shibuya](https://shibuya.lepture.com/) theme, courtesy of [Hsiaoming Yang](https://lepture.com/).
+The main reason to switch is pydata theme shipping 1.4 MB of fontawesome for no good reason.
+Also, I love how minimal the theme looks, leaving more space for the content.
+I wish it [supported Solarized color scheme](https://github.com/lepture/shibuya/issues/105).
+
+`Jan 10, 2026` - [scottrogowski/code2flow](https://github.com/scottrogowski/code2flow) - Pretty good call graphs for dynamic languages
+
+`Jan 10, 2026` - Added [](/12_articles/77-github-stars.md)
+
+`Jan 09, 2026` - Mildly interesting idea: use GitHub CLI to export repos I starred and inject this information into my public journal.
+
+```bash
+gh api --paginate users/peterdemin/starred --header 'Accept: application/vnd.github.star+json' | jq . > gh-stars.json
+```
+
+`Jan 09, 2026` - Here's some food for thought.
+We got some nice green seedless grapes from Costco, but they were super tart.
+If you let unripe grapes sit on a dark shelf for a couple of days, they'll get sweeter.
+But they won't get more callories, because of the laws of conservation.
+The grape is sealed and its carbohydrates don't go anywhere.
+But my mind tricks me into thinking that sweet food provides more energy.
+
+`Jan 06, 2026` - Added [](/12_articles/76-gcp-free-tier.md)
+
+`Jan 03, 2026` - After watching Mr. Robot I got curious about IPFS in general and Anna's Archive in particular.
+I found this [gem](https://software.annas-archive.li/AnnaArchivist/annas-archive/-/issues/305) in Anna's Archive Git repo:
+
+> Here is an extreme case for most, but very real for Anna's Archive, Libgen or Z-Library operators.
+>
+> - If you are under heavy police pressure from a surveillance government like the US, you are better off using a Live USB and a VPN with killswitch enabled when connecting to your server(s), avoid DNS leaks to Google or your ISP, and so on.
+> - Consider using a disposable device for it. Canvas fingerprinting is a real thing.
+> - Consider using a disposable disk for it and be prepared to dump it away. Disk forensics is also a thing.
+> - Proton suite is unsafe and a honeypot, please do not use it. Tuta is a much better option.
+> - Tor is slow, overhyped, flagged by tons of web firewalls, and not useful for pirating. Your traffic will stand out like a bright red light. I would strongly discourage using it for clearnet browsing. Hosting and browsing onion services is fine.
+> - You will need to connect with people on platforms like Signal or Telegram, where you need to use a phone number to register. Services like https://hstock.org and https://sms-activate.org do help a lot. If you use yours and police request your data, you are fucked.
+> - Do not expect services to encrypt your data, do it yourself. E2EE is a fairytale unless you actually set it up.
+>
+> Get cryptocurrency in an anonymous way, and start using it!
+
+I feel something romantic about this level of paranoia.
+Luckily, neiter I nor anyone I've ever met had to apply any of these technics.

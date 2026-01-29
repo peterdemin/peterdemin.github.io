@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Git form saver - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Checkpoint framework" href="07-checkpoint-framework.html" /><link rel="prev" title="MySeverance.com" href="05-myseverance.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=51f15f49" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="Git form saver"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#what-is-git-form-saver">What is Git form saver</a></li>
+<li><a class="reference internal" href="#when-to-use-git-form-saver">When to use Git form saver</a></li>
+<li><a class="reference internal" href="#security-features">Security features</a><ul>
+<li><a class="reference internal" href="#git-ssh-authentication">Git SSH authentication</a></li>
+<li><a class="reference internal" href="#mandatory-token">Mandatory token</a></li>
+<li><a class="reference internal" href="#secret">Secret</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#demo-server">Demo server</a><ul>
+<li><a class="reference internal" href="#security-token-generation">Security token generation</a></li>
+<li><a class="reference internal" href="#save-text-to-any-file">Save text to any file</a></li>
+</ul>
+</li>
+</ul>
+</div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
+  data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </span>
+  <span class="flex-grow px-2 break-all">
+    
+    
+      <span>peterdemin.github.io</span>
+    
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <iconify-icon icon="lucide:star"></iconify-icon>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <iconify-icon icon="lucide:git-fork"></iconify-icon>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/peterdemin/peterdemin.github.io/blob/master/source/14_ideas/06-git-form-saver.rst">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
+    
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Git form saver</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/14_ideas/06-git-form-saver.rst.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/14_ideas/06-git-form-saver.rst.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/14_ideas/06-git-form-saver.rst.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:code-slash"></iconify-icon>
+            <span>View Source</span></a><a role="menuitem" href="https://chatgpt.com/?hints=search&q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/14_ideas/06-git-form-saver.rst.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:openai"></iconify-icon>
+          <span>Open in ChatGPT</span>
+        </a><a role="menuitem" href="https://claude.ai/new?q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/14_ideas/06-git-form-saver.rst.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:claude"></iconify-icon>
+          <span>Open in Claude</span>
+        </a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="git-form-saver">
+<span id="id1"></span><h1>Git form saver<a class="headerlink" href="#git-form-saver" title="Link to this heading">¶</a></h1>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#what-is-git-form-saver" id="id2">What is Git form saver</a></p></li>
+<li><p><a class="reference internal" href="#when-to-use-git-form-saver" id="id3">When to use Git form saver</a></p></li>
+<li><p><a class="reference internal" href="#security-features" id="id4">Security features</a></p>
+<ul>
+<li><p><a class="reference internal" href="#git-ssh-authentication" id="id5">Git SSH authentication</a></p></li>
+<li><p><a class="reference internal" href="#mandatory-token" id="id6">Mandatory token</a></p></li>
+<li><p><a class="reference internal" href="#secret" id="id7">Secret</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#demo-server" id="id8">Demo server</a></p>
+<ul>
+<li><p><a class="reference internal" href="#security-token-generation" id="id9">Security token generation</a></p></li>
+<li><p><a class="reference internal" href="#save-text-to-any-file" id="id10">Save text to any file</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="what-is-git-form-saver">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">What is Git form saver</a><a class="headerlink" href="#what-is-git-form-saver" title="Link to this heading">¶</a></h2>
+<p>Git form saver is an HTTP API that pushes HTML forms to git repositories.</p>
+<p>In a nutshell, API does the following:</p>
+<ul class="simple">
+<li><p>Accept HTTP POST request.</p></li>
+<li><p>Clone git repository passed in <code class="docutils literal notranslate"><span class="pre">repo</span></code> parameter.</p></li>
+<li><p>Format the passed form fields using chosen <code class="docutils literal notranslate"><span class="pre">formatter</span></code>.</p></li>
+<li><p>Append formatted data to a file passed in <code class="docutils literal notranslate"><span class="pre">file</span></code> parameter.</p></li>
+<li><p>Push changes back to git repository.</p></li>
+</ul>
+</section>
+<section id="when-to-use-git-form-saver">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">When to use Git form saver</a><a class="headerlink" href="#when-to-use-git-form-saver" title="Link to this heading">¶</a></h2>
+<p>Git form saver is useful when you want to allow appending data to specific file in a git repo through HTML form submission.</p>
+<p><strong>Use-cases</strong></p>
+<ul>
+<li><p>In public environment:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Collect anonymous comments.</p></li>
+<li><p>Publish comments on statically-generated websites.</p></li>
+<li><p>A replacement for a database for simple data models.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>In protected environment:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Collect usage statistics from internal commandline tools.</p></li>
+<li><p>Simple plain-text file journaling without git access (mobile).</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="security-features">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Security features</a><a class="headerlink" href="#security-features" title="Link to this heading">¶</a></h2>
+<p>Git form saver supports limiting user actions in 3 ways:</p>
+<ol class="arabic simple">
+<li><p>Git form saver uses SSH with <strong>private key authentication</strong>
+for all interactions with git repositories.
+It can only access repositories that allowed its public key.</p></li>
+<li><p><strong>Mandatory token</strong> — Git form saver appends form submissions
+only to the files, that contain a cryptographically secure
+Java Web Token (JWT) at the beginning of the file.</p></li>
+<li><p>For protected environments, form owner can optionally set up <strong>secret</strong> value,
+required for the token verification.</p></li>
+</ol>
+<section id="git-ssh-authentication">
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">Git SSH authentication</a><a class="headerlink" href="#git-ssh-authentication" title="Link to this heading">¶</a></h3>
+<p>Each git form saver instance can have a unique private key used for all
+git interactions. The same private key is used for generating the JWT.
+Private key never leaves the server and is hidden from target
+git repository and form owners.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On GitHub, you can either add Git form saver’s public SSH key to your account,
+or create a separate GitHub account and add as a collaborator to your repo.</p>
+</div>
+</section>
+<section id="mandatory-token">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">Mandatory token</a><a class="headerlink" href="#mandatory-token" title="Link to this heading">¶</a></h3>
+<p>To enable Git form saver to append forms to a file, you need to generate
+a security token, and save it in the target file.
+Security token encodes repository URL and file path (with optional secret)
+using Git form saver’s private key.
+Long unique token ensures, that Git form saver can access only
+specific files inside the repository.</p>
+<p>The token is different for each repository and for each file inside the repository.</p>
+</section>
+<section id="secret">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">Secret</a><a class="headerlink" href="#secret" title="Link to this heading">¶</a></h3>
+<p>For protected environments, as internal networks, or mobile applications,
+security token can include additional <code class="docutils literal notranslate"><span class="pre">secret</span></code> value.
+Only form submissions, that include this <code class="docutils literal notranslate"><span class="pre">secret</span></code> value will be permitted.</p>
+</section>
+</section>
+<section id="demo-server">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Demo server</a><a class="headerlink" href="#demo-server" title="Link to this heading">¶</a></h2>
+<p>To allow demo instance to access your repository,
+you need to add its SSH public key to the target git repository.</p>
+<p>If your repository is on GitHub, you can just
+add a special <cite>GitHub account &lt;https://github.com/git-form-saver&gt;</cite> as collaborator.</p>
+<p>Otherwise, add this public key to your repo for read and write access:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><span data-line="1">ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDAgnNh5XUOJItYkNrO0bSl0tNrOmbBNpD0Nl7Wo5JdoHEBZ9ksQIqdCiLwsqp/jdr9YCUiDKfMv6i3NCrFoYcD2u1x4p7bepKJ2bMaQRiDbzBGgI102lPjNSmiv7HxPDFdrJYtagWZGn0CCvVyK5jW1QV2w9CzQDJXlRI78DmhQnSJkVsE0cGNDvHXcWRi17MBAbcfx1+UOejHQsfP3NEVhS3QnPImS6cYk5hg+OO/ABnRsvCJCqoKpjvtQNSqLiYCZDuiOW7xvkC9zUw4ixAOjcuZvvqWYzFRypJSVscqCTW0aYWk5wadWw6lIbJP44zwp3cCtZ0qz9XZ9IYtLDarYpGERLQPplYBW+F6A7tirLx8OpALKDsXE4q5evgBWJofuWpfBl1tmkp2qySGnrmGsJYY6jFhGruvqGnZZzawU+NN51UBEP23sgZF7dozslgBR8D8fJJqhe/NEt1wtmXYfUYDJJg4KaqIER9sgSJKYwHhB2v37oby1n/j0S6Ti2M= gitformsaver@instance-1
+</span></pre></div>
+</div>
+<section id="security-token-generation">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">Security token generation</a><a class="headerlink" href="#security-token-generation" title="Link to this heading">¶</a></h3>
+<p>Use this form to generate a security token for your repo:</p>
+<script>
+function generateToken(event, form) {
+    event.preventDefault();
+    const formInputs = form.getElementsByTagName("input");
+    let formData = new FormData();
+    for (let input of formInputs) {
+        formData.append(input.name, input.value);
+    }
+    fetch(
+        form.action,
+        {
+            method: form.method,
+            body: formData
+        }
+    )
+    .then(response => response.text)
+    .then(text => console.log(data))
+    .catch(error => console.log(error.message));
+}
+</script>
+
+<form action="https://gitformsaver.demin.dev/token" method="POST" onsubmit="generateToken(event, this)">
+  <div>
+    <label for="repo">Enter repository URL:</label>
+    <input name="repo" value="git@github.com:user/repo.git" />
+  </div>
+  <div>
+    <label for="file">File path:</label>
+    <input name="file" value="file.txt" />
+  </div>
+  <div>
+    <label for="secret">Secret (optional):</label>
+    <input name="secret" value="" />
+  </div>
+  <div>
+    <button>Generate token</button>
+  </div>
+</form>
+
+<div id="token" /><p>The token must be manually saved to the target file
+somewhere in the beginning (first 2 KiB).</p>
+</section>
+<section id="save-text-to-any-file">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">Save text to any file</a><a class="headerlink" href="#save-text-to-any-file" title="Link to this heading">¶</a></h3>
+<p>Once the preparations are done, you can submit this form.
+The text will be appended to the target file, after a little delay.</p>
+<form action="https://gitformsaver.demin.dev/" method="POST">
+  <div>
+    <label for="repo">Repository URL</label>
+    <input name="repo" value="git@github.com:user/repo.git" />
+  </div>
+  <div>
+    <label for="file">File path inside of the repository</label>
+    <input name="file" value="README.md" />
+  </div>
+  <div>
+    <label for="text">Text</label>
+    <input name="text" id="text" value="Text" />
+  </div>
+  <div>
+    <label for="redirect">Redirect target after submission</label>
+    <input name="redirect" value="https://gitformsaver.github.io" />
+  </div>
+  <div>
+    <button>Send</button>
+  </div>
+</form></section>
+</section>
+</section>
+
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="05-myseverance.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">MySeverance.com</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="07-checkpoint-framework.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Checkpoint framework</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2022, Peter Demin</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/shibuya.js?v=cac61aee"></script></body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>DIY Bank balance aggregation - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="On delegation" href="15-on-delegation.html" /><link rel="prev" title="Two-faced JSONField" href="13-jsonfield.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=51f15f49" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="DIY Bank balance aggregation"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
+  data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </span>
+  <span class="flex-grow px-2 break-all">
+    
+    
+      <span>peterdemin.github.io</span>
+    
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <iconify-icon icon="lucide:star"></iconify-icon>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <iconify-icon icon="lucide:git-fork"></iconify-icon>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/peterdemin/peterdemin.github.io/blob/master/source/12_articles/14-kibitzr-banks.md">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
+    
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">DIY Bank balance aggregation</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/14-kibitzr-banks.md.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/14-kibitzr-banks.md.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/14-kibitzr-banks.md.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:markdown"></iconify-icon>
+            <span>View as Markdown</span></a><a role="menuitem" href="https://chatgpt.com/?hints=search&q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/14-kibitzr-banks.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:openai"></iconify-icon>
+          <span>Open in ChatGPT</span>
+        </a><a role="menuitem" href="https://claude.ai/new?q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/14-kibitzr-banks.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:claude"></iconify-icon>
+          <span>Open in Claude</span>
+        </a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="diy-bank-balance-aggregation">
+<h1>DIY Bank balance aggregation<a class="headerlink" href="#diy-bank-balance-aggregation" title="Link to this heading">¶</a></h1>
+<p>I like to know what my credit card balance is.
+And I don’t want to visit all online bank accounts every day.
+So I automated this process.
+In a secure and reusable way.</p>
+<p>I built my solution on top of <a class="reference external" href="https://kibitzr.github.io/">Kibitzr</a> - self-hosted web scrapper.
+It logs into online bank accounts and extracts balances.
+Kibitzr has a <a class="reference external" href="https://github.com/kibitzr/recipes/tree/master/banks">curated snippets collection</a>.
+So I picked the snippets for my banks and mashed them into one file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="nt">checks</span><span class="p">:</span>
+</span><span data-line="2"><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bofa</span>
+</span><span data-line="3"><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://www.bankofamerica.com/</span>
+</span><span data-line="4"><span class="w">    </span><span class="nt">form</span><span class="p">:</span>
+</span><span data-line="5"><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">onlineid1</span>
+</span><span data-line="6"><span class="w">        </span><span class="nt">creds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keyring.bofa.username</span>
+</span><span data-line="7"><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">passcode1</span>
+</span><span data-line="8"><span class="w">        </span><span class="nt">creds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keyring.bofa.password</span>
+</span><span data-line="9"><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hp-sign-in-btn</span>
+</span><span data-line="10"><span class="w">        </span><span class="nt">click</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span data-line="11"><span class="w">    </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+</span><span data-line="12"><span class="w">    </span><span class="nt">transform</span><span class="p">:</span>
+</span><span data-line="13"><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">css-all</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.balancevalue</span>
+</span><span data-line="14"><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+</span><span data-line="15"><span class="w">    </span><span class="nt">notify</span><span class="p">:</span>
+</span><span data-line="16"><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">stash</span><span class="p">:</span>
+</span><span data-line="17"><span class="w">          </span><span class="nt">bofa_checking</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">lines.0</span><span class="nv"> </span><span class="s">}}&quot;</span><span class="w"> </span>
+</span><span data-line="18"><span class="w">          </span><span class="nt">bofa_savings</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">lines.1</span><span class="nv"> </span><span class="s">}}&quot;</span><span class="w"> </span>
+</span><span data-line="19"><span class="w">          </span><span class="nt">bofa_credit</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">lines.2</span><span class="nv"> </span><span class="s">}}&quot;</span><span class="w"> </span>
+</span><span data-line="20"><span class="w">    </span><span class="nt">period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3 hours</span>
+</span><span data-line="21">
+</span><span data-line="22"><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">discover</span>
+</span><span data-line="23"><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://www.discover.com/</span>
+</span><span data-line="24"><span class="w">    </span><span class="nt">form</span><span class="p">:</span>
+</span><span data-line="25"><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">userid</span>
+</span><span data-line="26"><span class="w">        </span><span class="nt">creds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keyring.discover.username</span>
+</span><span data-line="27"><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password</span>
+</span><span data-line="28"><span class="w">        </span><span class="nt">creds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keyring.discover.password</span>
+</span><span data-line="29"><span class="w">    </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+</span><span data-line="30"><span class="w">    </span><span class="nt">transform</span><span class="p">:</span>
+</span><span data-line="31"><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">css</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.current-balance</span>
+</span><span data-line="32"><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+</span><span data-line="33"><span class="w">    </span><span class="nt">notify</span><span class="p">:</span>
+</span><span data-line="34"><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">stash</span><span class="p">:</span>
+</span><span data-line="35"><span class="w">          </span><span class="nt">discover</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${{</span><span class="nv"> </span><span class="s">content</span><span class="nv"> </span><span class="s">}}&quot;</span><span class="w"> </span>
+</span><span data-line="36"><span class="w">    </span><span class="nt">period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3h</span>
+</span><span data-line="37">
+</span><span data-line="38"><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">amex</span>
+</span><span data-line="39"><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://global.americanexpress.com/dashboard</span>
+</span><span data-line="40"><span class="w">    </span><span class="nt">form</span><span class="p">:</span>
+</span><span data-line="41"><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lilo_username</span>
+</span><span data-line="42"><span class="w">          </span><span class="nt">creds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keyring.amex.username</span>
+</span><span data-line="43"><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lilo_password</span>
+</span><span data-line="44"><span class="w">          </span><span class="nt">creds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keyring.amex.password</span>
+</span><span data-line="45"><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lilo_formsubmit</span>
+</span><span data-line="46"><span class="w">          </span><span class="nt">click</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span data-line="47"><span class="w">    </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+</span><span data-line="48"><span class="w">    </span><span class="nt">transform</span><span class="p">:</span>
+</span><span data-line="49"><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">xpath</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;//*[@id=&quot;root&quot;]/div[1]//section//li[2]/div/div[2]/span&#39;</span>
+</span><span data-line="50"><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+</span><span data-line="51"><span class="w">    </span><span class="nt">notify</span><span class="p">:</span>
+</span><span data-line="52"><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">stash</span><span class="p">:</span>
+</span><span data-line="53"><span class="w">          </span><span class="nt">amex</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">content</span><span class="nv"> </span><span class="s">}}&quot;</span><span class="w"> </span>
+</span><span data-line="54"><span class="w">    </span><span class="nt">period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3h</span>
+</span><span data-line="55">
+</span><span data-line="56"><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">summary</span>
+</span><span data-line="57"><span class="w">    </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo dummy</span>
+</span><span data-line="58"><span class="w">    </span><span class="nt">transform</span><span class="p">:</span>
+</span><span data-line="59"><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">jinja</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+</span><span data-line="60"><span class="w">          </span><span class="no">{%- set bofa = stash.bofa_credit | float -%} </span>
+</span><span data-line="61"><span class="w">          </span><span class="no">{%- set discover = stash.discover | float -%} </span>
+</span><span data-line="62"><span class="w">          </span><span class="no">{%- set amex = stash.amex | float -%} </span>
+</span><span data-line="63"><span class="w">          </span><span class="no">{%- set checking = stash.bofa_checking | float -%} </span>
+</span><span data-line="64"><span class="w">          </span><span class="no">{%- set savings = stash.bofa_savings | float -%} </span>
+</span><span data-line="65"><span class="w">          </span><span class="no">{%- set credits = bofa + discover + amex -%} </span>
+</span><span data-line="66"><span class="w">          </span><span class="no">{%- set total = -bofa - discover - amex + checking + savings -%} </span>
+</span><span data-line="67"><span class="w">          </span><span class="no">```text</span>
+</span><span data-line="68"><span class="w">          </span><span class="no">checking     {{ &#39;%10s&#39; % stash.bofa_checking }}</span>
+</span><span data-line="69"><span class="w">          </span><span class="no">savings      {{ &#39;%10s&#39; % stash.bofa_savings }}</span>
+</span><span data-line="70"><span class="w">          </span><span class="no">credit cards:</span>
+</span><span data-line="71"><span class="w">              </span><span class="no">bofa     {{ &#39;%10s&#39; % stash.bofa_credit }}</span>
+</span><span data-line="72"><span class="w">              </span><span class="no">discover {{ &#39;%10s&#39; % stash.discover }}</span>
+</span><span data-line="73"><span class="w">              </span><span class="no">amex     {{ &#39;%10s&#39; % stash.amex }}</span>
+</span><span data-line="74"><span class="w">              </span><span class="no">*total*  {{ &#39;%10s&#39; % credits | dollars }}</span>
+</span><span data-line="75"><span class="w">          </span><span class="no">-----------------------</span>
+</span><span data-line="76"><span class="w">          </span><span class="no">balance      {{ &#39;%10s&#39; % total | dollars }}</span>
+</span><span data-line="77"><span class="w">          </span><span class="no">```</span>
+</span><span data-line="78"><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">changes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">new</span><span class="w"> </span>
+</span><span data-line="79"><span class="w">    </span><span class="nt">notify</span><span class="p">:</span>
+</span><span data-line="80"><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">telegram</span>
+</span><span data-line="81"><span class="w">    </span><span class="nt">period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3 hours</span>
+</span></pre></div>
+</div>
+<p>Let me explain how it works.
+There are 3 scrapping checks defined in this file: BofA, Discover, AmEx.
+Each check opens one bank account, scrapes balance value, and saves it to stash.
+Stash is a Kibitzr’s persistent key-value storage.
+In other words, it’s a place where you can put data for later use.</p>
+<p>The fourth check does the aggregation of all balances into one template and sends it
+to my Telegram account. (Actually, it sends it to me and my wife private group).</p>
+<p>All scrapping checks are alike, so I will break down the first one.</p>
+<ol class="arabic">
+<li><p>Check declares its name:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BofA</span>
+</span></pre></div>
+</div>
+</li>
+<li><p>Opens Firefox browser to open bank’s home page:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://www.bankofamerica.com/</span>
+</span></pre></div>
+</div>
+</li>
+<li><p>Fills the form picking values from secure Operating System’s keyring:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="w">  </span><span class="nt">form</span><span class="p">:</span>
+</span><span data-line="2"><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">onlineId1</span>
+</span><span data-line="3"><span class="w">      </span><span class="nt">creds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keyring.bofa.username</span>
+</span><span data-line="4"><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">passcode1</span>
+</span><span data-line="5"><span class="w">      </span><span class="nt">creds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keyring.bofa.password</span>
+</span><span data-line="6"><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hp-sign-in-btn</span>
+</span><span data-line="7"><span class="w">      </span><span class="nt">click</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span></pre></div>
+</div>
+</li>
+<li><p>Waits for 5 seconds to let the dynamic dashboard load:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="w">  </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+</span></pre></div>
+</div>
+</li>
+<li><p>Extracts text from all HTML elements having CSS class <code class="docutils literal notranslate"><span class="pre">.balanceValue</span></code> assigned.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="w">  </span><span class="nt">transform</span><span class="p">:</span>
+</span><span data-line="2"><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">css-all</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.balanceValue</span>
+</span><span data-line="3"><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+</span></pre></div>
+</div>
+</li>
+<li><p>I have 3 accounts in Bank of America: checking, savings, and credit.
+They always go in this order, so I stash their values under corresponding keys:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="w">  </span><span class="nt">notify</span><span class="p">:</span>
+</span><span data-line="2"><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">stash</span><span class="p">:</span>
+</span><span data-line="3"><span class="w">        </span><span class="nt">bofa_checking</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">lines.0</span><span class="nv"> </span><span class="s">}}&quot;</span>
+</span><span data-line="4"><span class="w">        </span><span class="nt">bofa_savings</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">lines.1</span><span class="nv"> </span><span class="s">}}&quot;</span>
+</span><span data-line="5"><span class="w">        </span><span class="nt">bofa_credit</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">lines.2</span><span class="nv"> </span><span class="s">}}&quot;</span>
+</span></pre></div>
+</div>
+</li>
+<li><p>This task runs every 3 hours:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="w">  </span><span class="nt">period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3 hours</span>
+</span></pre></div>
+</div>
+</li>
+</ol>
+<p>Other 2 scrapping checks do the same thing for other banks.
+After their execution I have all the data I need to create a report:</p>
+<ol class="arabic">
+<li><p>I called aggregation check Summary:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Summary</span>
+</span></pre></div>
+</div>
+</li>
+<li><p>It uses dummy bash fetcher. Because Kibitzr requires something to act as a fetcher.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo dummy</span>
+</span></pre></div>
+</div>
+</li>
+<li><p>Jinja template does all the heavy lifting.
+It looks scary at first sight. But on closer look, it’s simple assigning and arithmetic.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="w"> </span><span class="nt">transform</span><span class="p">:</span>
+</span><span data-line="2"><span class="w">   </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">jinja</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+</span><span data-line="3"><span class="w">       </span><span class="no">{%- set bofa = stash.bofa_credit | float -%} </span>
+</span><span data-line="4"><span class="w">       </span><span class="no">{%- set discover = stash.discover | float -%} </span>
+</span><span data-line="5"><span class="w">       </span><span class="no">{%- set amex = stash.amex | float -%} </span>
+</span><span data-line="6"><span class="w">       </span><span class="no">{%- set checking = stash.bofa_checking | float -%} </span>
+</span><span data-line="7"><span class="w">       </span><span class="no">{%- set savings = stash.bofa_savings | float -%} </span>
+</span><span data-line="8"><span class="w">       </span><span class="no">{%- set credits = bofa + discover + amex -%} </span>
+</span><span data-line="9"><span class="w">       </span><span class="no">{%- set total = -bofa - discover - amex + checking + savings -%} </span>
+</span><span data-line="10"><span class="w">       </span><span class="no">```text</span>
+</span><span data-line="11"><span class="w">       </span><span class="no">checking     {{ &#39;%10s&#39; % stash.bofa_checking }}</span>
+</span><span data-line="12"><span class="w">       </span><span class="no">savings      {{ &#39;%10s&#39; % stash.bofa_savings }}</span>
+</span><span data-line="13"><span class="w">       </span><span class="no">credit cards:</span>
+</span><span data-line="14"><span class="w">           </span><span class="no">bofa     {{ &#39;%10s&#39; % stash.bofa_credit }}</span>
+</span><span data-line="15"><span class="w">           </span><span class="no">discover {{ &#39;%10s&#39; % stash.discover }}</span>
+</span><span data-line="16"><span class="w">           </span><span class="no">amex     {{ &#39;%10s&#39; % stash.amex }}</span>
+</span><span data-line="17"><span class="w">           </span><span class="no">*total*  {{ &#39;%10s&#39; % credits | dollars }}</span>
+</span><span data-line="18"><span class="w">       </span><span class="no">-----------------------</span>
+</span><span data-line="19"><span class="w">       </span><span class="no">balance      {{ &#39;%10s&#39; % total | dollars }}</span>
+</span><span data-line="20"><span class="w">       </span><span class="no">```</span>
+</span><span data-line="21"><span class="w">   </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">changes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">new</span><span class="w"> </span>
+</span></pre></div>
+</div>
+</li>
+<li><p>Finally, Kibitzr sends a shiny report through Telegram:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="w">  </span><span class="nt">notify</span><span class="p">:</span>
+</span><span data-line="2"><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">telegram</span>
+</span></pre></div>
+</div>
+</li>
+</ol>
+<p>Then I saved my telegram bot credentials in <code class="docutils literal notranslate"><span class="pre">kibitzr-creds.yml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="nt">telegram</span><span class="p">:</span>
+</span><span data-line="2"><span class="w">    </span><span class="nt">token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">341530401:AABCRg_snz1554qkslIS8tMnNfWT3p5P80X</span>
+</span><span data-line="3"><span class="w">    </span><span class="nt">chat</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">926461341</span>
+</span></pre></div>
+</div>
+<p>I can’t say that I composed the whole thing from the first attempt.
+But after some tweaking and poking, I’ve got a working configuration,
+that sends me notifications like this one:</p>
+<p><img alt="Balance report" src="../_images/balance.png" /></p>
+</section>
+
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="13-jsonfield.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Two-faced JSONField</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="15-on-delegation.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">On delegation</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2022, Peter Demin</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/shibuya.js?v=cac61aee"></script></body>
+</html>

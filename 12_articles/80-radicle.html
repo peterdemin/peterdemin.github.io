@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>My Radicle Journey - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="FedUp - Minimal Federated CDN" href="81-fedup.html" /><link rel="prev" title="Install Bugsink on Google Cloud Platform" href="79-bugsink-gcp.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=51f15f49" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="My Radicle Journey"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#rust">Rust</a></li>
+<li><a class="reference internal" href="#heartwood">Heartwood</a></li>
+<li><a class="reference internal" href="#set-up-first-node">Set up first node</a></li>
+<li><a class="reference internal" href="#publish-a-repo">Publish a repo</a></li>
+<li><a class="reference internal" href="#set-up-another-node">Set up another node</a></li>
+<li><a class="reference internal" href="#parting-thoughts">Parting thoughts</a></li>
+</ul>
+</div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
+  data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </span>
+  <span class="flex-grow px-2 break-all">
+    
+    
+      <span>peterdemin.github.io</span>
+    
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <iconify-icon icon="lucide:star"></iconify-icon>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <iconify-icon icon="lucide:git-fork"></iconify-icon>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/peterdemin/peterdemin.github.io/blob/master/source/12_articles/80-radicle.md">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
+    
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">My Radicle Journey</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/80-radicle.md.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/80-radicle.md.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/80-radicle.md.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:markdown"></iconify-icon>
+            <span>View as Markdown</span></a><a role="menuitem" href="https://chatgpt.com/?hints=search&q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/80-radicle.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:openai"></iconify-icon>
+          <span>Open in ChatGPT</span>
+        </a><a role="menuitem" href="https://claude.ai/new?q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/80-radicle.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:claude"></iconify-icon>
+          <span>Open in Claude</span>
+        </a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="my-radicle-journey">
+<h1>My Radicle Journey<a class="headerlink" href="#my-radicle-journey" title="Link to this heading">¶</a></h1>
+<p><a class="reference external" href="https://radicle.xyz">Radicle</a> is an open source, peer-to-peer code collaboration stack built on Git.
+Unlike centralized code hosting platforms, there is no single entity controlling the network.
+Repositories are replicated across peers in a decentralized manner, and users are in full control of their data and workflow.</p>
+<p>We will initialize Radicle on MacOS building it from source.</p>
+<section id="rust">
+<h2>Rust<a class="headerlink" href="#rust" title="Link to this heading">¶</a></h2>
+<p>Radicle is written in Rust, so first we need that.
+The recommended approach is to manage Rust toolchain installation through rustup.
+How do you get rustup? Of course, you can do <code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">|</span> <span class="pre">bash</span></code>, but I manage most of software on my macbook through brew, so I’ll use that.
+Note, however, that you should never install Rust through brew directly, as this is a recipe for disaster.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">brew<span class="w"> </span>install<span class="w"> </span>rustup
+</span></pre></div>
+</div>
+<p>Nothing good comes easy, we gotta update <code class="docutils literal notranslate"><span class="pre">PATH</span></code> manually:</p>
+<blockquote>
+<div><p>Please note that Rust tools like rustc and cargo are not available via $PATH by default in this rustup distribution.
+You might want to add $(brew –prefix rustup)/bin to $PATH to make them easier to access.</p>
+</div></blockquote>
+<p>Add this line to <code class="docutils literal notranslate"><span class="pre">~/.zshrc</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/opt/homebrew/opt/rustup/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+</span></pre></div>
+</div>
+<p>Open a fresh terminal to load <code class="docutils literal notranslate"><span class="pre">~/.zshrc</span></code> and install stable toolchain:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">rustup<span class="w"> </span>toolchain<span class="w"> </span>install<span class="w"> </span>stable
+</span><span data-line="2">cargo<span class="w"> </span>--version
+</span><span data-line="3">cargo<span class="w"> </span><span class="m">1</span>.93.0<span class="w"> </span><span class="o">(</span>083ac5135<span class="w"> </span><span class="m">2025</span>-12-15<span class="o">)</span>
+</span></pre></div>
+</div>
+</section>
+<section id="heartwood">
+<h2>Heartwood<a class="headerlink" href="#heartwood" title="Link to this heading">¶</a></h2>
+<p>Let’s get the source code for radicle.
+We’ll use one of the official seed servers.
+Apparently, the repo name is <code class="docutils literal notranslate"><span class="pre">z3gqcJUoA1n9HaHKufZs5FCSGazv5</span></code>, but we’ll call it <a class="reference external" href="https://app.radicle.xyz/nodes/seed.radicle.xyz/rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5">heartwood</a> to make life easier (because it’s Radicle.)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">git<span class="w"> </span>clone<span class="w"> </span>https://seed.radicle.xyz/z3gqcJUoA1n9HaHKufZs5FCSGazv5.git<span class="w"> </span>heartwood
+</span><span data-line="2"><span class="nb">cd</span><span class="w"> </span>heartwood
+</span><span data-line="3">cargo<span class="w"> </span>install<span class="w"> </span>--path<span class="w"> </span>crates/radicle-cli<span class="w"> </span>--force<span class="w"> </span>--locked<span class="w"> </span>--root<span class="w"> </span>~/.radicle
+</span><span data-line="4">cargo<span class="w"> </span>install<span class="w"> </span>--path<span class="w"> </span>crates/radicle-node<span class="w"> </span>--force<span class="w"> </span>--locked<span class="w"> </span>--root<span class="w"> </span>~/.radicle
+</span><span data-line="5">cargo<span class="w"> </span>install<span class="w"> </span>--path<span class="w"> </span>crates/radicle-remote-helper<span class="w"> </span>--force<span class="w"> </span>--locked<span class="w"> </span>--root<span class="w"> </span>~/.radicle
+</span></pre></div>
+</div>
+<p>It will happily download and install whole bunch of dependencies, including <code class="docutils literal notranslate"><span class="pre">cargo</span></code> itself, which is okay, I guess, but also super confusing.
+Now guess, what:</p>
+<blockquote>
+<div><p>warning: be sure to add <code class="docutils literal notranslate"><span class="pre">$HOME/.radicle/bin</span></code> to your PATH to be able to run the installed binaries</p>
+</div></blockquote>
+<p>Just a quick reminder, make sure you don’t forget that nothing good comes easy.
+Update <code class="docutils literal notranslate"><span class="pre">~/.zshrc</span></code>, open a fresh terminal.</p>
+</section>
+<section id="set-up-first-node">
+<h2>Set up first node<a class="headerlink" href="#set-up-first-node" title="Link to this heading">¶</a></h2>
+<p>First, we gotta create an identity:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">rad<span class="w"> </span>auth
+</span></pre></div>
+</div>
+<p>Follow the interactive wizard to complete the setup.
+I just pressed Return repeatedly to pick the default option.</p>
+<p>I wonder if it’s possible and/or wise to use the same key for radicle and ssh.
+But I’ll use separate ones for now.</p>
+<p>You <em>might</em> think that you’re all set and can clone your first repo, but let me remind you, nothing good comes easy.
+First, we gotta start the node.
+On a proper Linux, we’d be using SystemD Unit to run a daemon.
+But we’re on MacOS.
+So, let’s just YOLO it for now and figure the long-term solution later:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">rad<span class="w"> </span>node<span class="w"> </span>start
+</span></pre></div>
+</div>
+<p>The command launches a server in the background.
+And now you <em>might</em> think you’re ready to go.
+Since we have <code class="docutils literal notranslate"><span class="pre">rad</span></code> setup, we no longer need that silly HTTPS git repo of heartwood.
+Let’s replace it with a decentralized copy:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="nb">cd</span><span class="w"> </span>..
+</span><span data-line="2">rm<span class="w"> </span>-rf<span class="w"> </span>heartwood
+</span><span data-line="3">rad<span class="w"> </span>clone<span class="w"> </span>rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5<span class="w"> </span>heartwood
+</span></pre></div>
+</div>
+<p>I don’t know about you, maybe it’s a bad luck, but for me the result of <code class="docutils literal notranslate"><span class="pre">rad</span> <span class="pre">clone</span></code> is:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">✓<span class="w"> </span>Seeding<span class="w"> </span>policy<span class="w"> </span>updated<span class="w"> </span><span class="k">for</span><span class="w"> </span>rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5<span class="w"> </span>with<span class="w"> </span>scope<span class="w"> </span><span class="s1">&#39;all&#39;</span>
+</span><span data-line="2">Fetching<span class="w"> </span>rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>network,<span class="w"> </span>found<span class="w"> </span><span class="m">18</span><span class="w"> </span>potential<span class="w"> </span>seed<span class="o">(</span>s<span class="o">)</span>.
+</span><span data-line="3">✗<span class="w"> </span><span class="m">0</span><span class="w"> </span>of<span class="w"> </span><span class="m">2</span><span class="w"> </span>preferred<span class="w"> </span>seeds,<span class="w"> </span>and<span class="w"> </span><span class="m">0</span><span class="w"> </span>of<span class="w"> </span>at<span class="w"> </span>least<span class="w"> </span><span class="m">1</span><span class="w"> </span>total<span class="w"> </span>seeds…<span class="w"> </span><span class="o">[</span>fetch<span class="w"> </span>z6Mkmqo…4ebScxo@rosa.radicle.xyz:8776<span class="o">]</span><span class="w"> </span>&lt;canceled&gt;
+</span><span data-line="4">✗<span class="w"> </span>Error:<span class="w"> </span>fetch:<span class="w"> </span>timed<span class="w"> </span>out<span class="w"> </span>reading<span class="w"> </span>from<span class="w"> </span>control<span class="w"> </span>socket
+</span></pre></div>
+</div>
+<p>Let’s see what’s going on with the node:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">rad node status
+</span><span data-line="2">✓ Node is running with Node ID z6Mkno75gzNU1Y59EL9rj8nUVveBUj3kBLteVUwPvpKmx9Qi and not configured to listen for inbound connections.
+</span><span data-line="3">
+</span><span data-line="4">╭───────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+</span><span data-line="5">│ Node ID                                            Address                        ?   ⤭   Since           │
+</span><span data-line="6">├───────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+</span><span data-line="7">│ z6Mkgytt3PK7AUpgPjsmwFQ5KfLbUuz68nfwsfPHcgdXCneY   git.jappie.dev:8776            ✓   ↗   6.58 minute(s)  │
+</span><span data-line="8">│ z6MkrLMMsiPWUcNPHcRajuMi9mDfYckSoJyPwwnknocNYPm7   irisradi…c6s5lfid.onion:8776   ✗   ↗   2.37 minute(s)  │
+</span><span data-line="9">│ z6Mkq3tQJ6eGxUbAs5tq9zLnfjBxsaba8fTkJZn6mF6uxyCg   demo.radicle.garden:7005       ✓   ↗   10.82 minute(s) │
+</span><span data-line="10">│ z6MkwfrBy9mKTfcVELcV4wc6zfN379FPMnAqsxnwt4j2TdQ2   radicle.jarg.io:8776           ✓   ↗   8.35 minute(s)  │
+</span><span data-line="11">│ z6Mkmqogy2qEM2ummccUthFEaaHvyYmYBYh3dbe9W4ebScxo   rosa.radicle.xyz:8776          ✓   ↗   10.97 minute(s) │
+</span><span data-line="12">│ z6Mkhchm3ofFVSfFb4qNvvedWidgunPSz8YukMB3EiGYRZMR   demo.radicle.garden:7015       ✓   ↗   10.82 minute(s) │
+</span><span data-line="13">│ z6MkgoE3HwG1TX9YScP71eJKVDGYCbtEdAjwm5QkAgxkGXu5   radicle.aziis98.com:8776       ✓   ↗   10.75 minute(s) │
+</span><span data-line="14">│ z6MkqxWYd3U9YN1sD3frLE93sKfjFPCzvUsJEh1UTKRRPf2A   demo.radicle.garden:7027       ✓   ↗   9.58 minute(s)  │
+</span><span data-line="15">│ z6Mkeqfa5JWDhS7kqVJvc8avpEbBbGVHhWjpXj1EgE9uHMWp   seed.radicle.xeppaka.cz:8776   ✓   ↗   10.82 minute(s) │
+</span><span data-line="16">╰───────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+</span><span data-line="17">✗ Hint:
+</span><span data-line="18">   ? … Status:
+</span><span data-line="19">       ✓ … connected    ✗ … disconnected
+</span><span data-line="20">       ! … attempted    • … initial
+</span><span data-line="21">   ⤭ … Link Direction:
+</span><span data-line="22">       ↘ … inbound      ↗ … outbound
+</span><span data-line="23">
+</span><span data-line="24">2026-01-23T21:43:24.330-08:00 INFO  wire     Peer z6Mkeqfa5JWDhS7kqVJvc8avpEbBbGVHhWjpXj1EgE9uHMWp fetched rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5 from us successfully
+</span><span data-line="25">2026-01-23T21:44:50.642-08:00 WARN  wire     Failed to establish connection to irisradizskwweumpydlj4oammoshkxxjur3ztcmo7cou5emc6s5lfid.onion:8776: no configuration found for .onion addresses
+</span><span data-line="26">2026-01-23T21:44:50.644-08:00 INFO  service  Disconnected from z6MkrLMMsiPWUcNPHcRajuMi9mDfYckSoJyPwwnknocNYPm7 (no configuration found for .onion addresses)
+</span><span data-line="27">2026-01-23T21:44:54.817-08:00 INFO  service  Disconnected from z6Mkf3h4S5akszuqqbmckmsSekbUgJEe1nmBxuRJP53bJAqe (connection reset)
+</span><span data-line="28">2026-01-23T21:44:55.883-08:00 INFO  service  Connected to z6Mkgytt3PK7AUpgPjsmwFQ5KfLbUuz68nfwsfPHcgdXCneY (git.jappie.dev:8776) (Outbound)
+</span><span data-line="29">2026-01-23T21:49:08.664-08:00 WARN  wire     Failed to establish connection to irisradizskwweumpydlj4oammoshkxxjur3ztcmo7cou5emc6s5lfid.onion:8776: no configuration found for .onion addresses
+</span><span data-line="30">2026-01-23T21:49:08.664-08:00 INFO  service  Disconnected from z6MkrLMMsiPWUcNPHcRajuMi9mDfYckSoJyPwwnknocNYPm7 (no configuration found for .onion addresses)
+</span><span data-line="31">2026-01-23T21:51:30.633-08:00 INFO  service  Received command ListenAddrs
+</span><span data-line="32">2026-01-23T21:51:30.634-08:00 INFO  service  Received command QueryState(..)
+</span><span data-line="33">2026-01-23T21:51:30.634-08:00 INFO  service  Received command QueryState(..)
+</span></pre></div>
+</div>
+<p>Okay, seems healthy.
+I guess, there was some initial setup done on the first run.
+Let’s try again:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">$ rad clone rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5 heartwood
+</span><span data-line="2">✓ Creating checkout in ./heartwood..
+</span><span data-line="3">✓ Remote z6MksFqXN3Yhqk8pTJdUGLwATkRfQvwZXPqR2qMEhbS9wzpT added
+</span><span data-line="4">✓ Remote-tracking branch z6MksFqXN3Yhqk8pTJdUGLwATkRfQvwZXPqR2qMEhbS9wzpT/master created for z6MksFqXN3Yhqk8pTJdUGLwATkRfQvwZXPqR2qMEhbS9wzpT
+</span><span data-line="5">✓ Remote z6MktaNvN1KVFMkSRAiN4qK5yvX1zuEEaseeX5sffhzPZRZW added
+</span><span data-line="6">✓ Remote-tracking branch z6MktaNvN1KVFMkSRAiN4qK5yvX1zuEEaseeX5sffhzPZRZW/master created for z6MktaNvN1KVFMkSRAiN4qK5yvX1zuEEaseeX5sffhzPZRZW
+</span><span data-line="7">✓ Remote z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM added
+</span><span data-line="8">✓ Remote-tracking branch z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM/master created for z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM
+</span><span data-line="9">✓ Remote z6MkgFq6z5fkF2hioLLSNu1zP2qEL1aHXHZzGH1FLFGAnBGz added
+</span><span data-line="10">✓ Remote-tracking branch z6MkgFq6z5fkF2hioLLSNu1zP2qEL1aHXHZzGH1FLFGAnBGz/master created for z6MkgFq6z5fkF2hioLLSNu1zP2qEL1aHXHZzGH1FLFGAnBGz
+</span><span data-line="11">✓ Remote lorenz@z6MkkPvBfjP4bQmco5Dm7UGsX2ruDBieEHi8n9DVJWX5sTEz added
+</span><span data-line="12">✓ Remote-tracking branch lorenz@z6MkkPvBfjP4bQmco5Dm7UGsX2ruDBieEHi8n9DVJWX5sTEz/master created for z6MkkPvBfjP4bQmco5Dm7UGsX2ruDBieEHi8n9DVJWX5sTEz
+</span><span data-line="13">✓ Repository successfully cloned under /Users/peterdemin/heartwood/
+</span><span data-line="14">╭────────────────────────────────────╮
+</span><span data-line="15">│ heartwood                          │
+</span><span data-line="16">│ Radicle Heartwood Protocol &amp; Stack │
+</span><span data-line="17">│ 133 issues · 15 patches            │
+</span><span data-line="18">╰────────────────────────────────────╯
+</span><span data-line="19">Run `cd ./heartwood` to go to the repository directory.
+</span></pre></div>
+</div>
+<p>Nice, it even explained to me how to change directory.</p>
+<p>If you’re wondering what was that remote-tracking output, it actually configured all those remotes in the git repo, using <code class="docutils literal notranslate"><span class="pre">rad://</span></code> protocol.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">heartwood $ git remote -v
+</span><span data-line="2">lorenz@z6MkkPvBfjP4bQmco5Dm7UGsX2ruDBieEHi8n9DVJWX5sTEz	rad://z3gqcJUoA1n9HaHKufZs5FCSGazv5/z6MkkPvBfjP4bQmco5Dm7UGsX2ruDBieEHi8n9DVJWX5sTEz (fetch)
+</span><span data-line="3">lorenz@z6MkkPvBfjP4bQmco5Dm7UGsX2ruDBieEHi8n9DVJWX5sTEz	rad://z3gqcJUoA1n9HaHKufZs5FCSGazv5/z6MkkPvBfjP4bQmco5Dm7UGsX2ruDBieEHi8n9DVJWX5sTEz (push)
+</span><span data-line="4">rad	rad://z3gqcJUoA1n9HaHKufZs5FCSGazv5 (fetch)
+</span><span data-line="5">rad	rad://z3gqcJUoA1n9HaHKufZs5FCSGazv5/z6Mkno75gzNU1Y59EL9rj8nUVveBUj3kBLteVUwPvpKmx9Qi (push)
+</span><span data-line="6">z6MkgFq6z5fkF2hioLLSNu1zP2qEL1aHXHZzGH1FLFGAnBGz	rad://z3gqcJUoA1n9HaHKufZs5FCSGazv5/z6MkgFq6z5fkF2hioLLSNu1zP2qEL1aHXHZzGH1FLFGAnBGz (fetch)
+</span><span data-line="7">z6MkgFq6z5fkF2hioLLSNu1zP2qEL1aHXHZzGH1FLFGAnBGz	rad://z3gqcJUoA1n9HaHKufZs5FCSGazv5/z6MkgFq6z5fkF2hioLLSNu1zP2qEL1aHXHZzGH1FLFGAnBGz (push)
+</span><span data-line="8">z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM	rad://z3gqcJUoA1n9HaHKufZs5FCSGazv5/z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM (fetch)
+</span><span data-line="9">z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM	rad://z3gqcJUoA1n9HaHKufZs5FCSGazv5/z6MkireRatUThvd3qzfKht1S44wpm4FEWSSa4PRMTSQZ3voM (push)
+</span><span data-line="10">z6MksFqXN3Yhqk8pTJdUGLwATkRfQvwZXPqR2qMEhbS9wzpT	rad://z3gqcJUoA1n9HaHKufZs5FCSGazv5/z6MksFqXN3Yhqk8pTJdUGLwATkRfQvwZXPqR2qMEhbS9wzpT (fetch)
+</span><span data-line="11">z6MksFqXN3Yhqk8pTJdUGLwATkRfQvwZXPqR2qMEhbS9wzpT	rad://z3gqcJUoA1n9HaHKufZs5FCSGazv5/z6MksFqXN3Yhqk8pTJdUGLwATkRfQvwZXPqR2qMEhbS9wzpT (push)
+</span><span data-line="12">z6MktaNvN1KVFMkSRAiN4qK5yvX1zuEEaseeX5sffhzPZRZW	rad://z3gqcJUoA1n9HaHKufZs5FCSGazv5/z6MktaNvN1KVFMkSRAiN4qK5yvX1zuEEaseeX5sffhzPZRZW (fetch)
+</span><span data-line="13">z6MktaNvN1KVFMkSRAiN4qK5yvX1zuEEaseeX5sffhzPZRZW	rad://z3gqcJUoA1n9HaHKufZs5FCSGazv5/z6MktaNvN1KVFMkSRAiN4qK5yvX1zuEEaseeX5sffhzPZRZW (push)
+</span></pre></div>
+</div>
+</section>
+<section id="publish-a-repo">
+<h2>Publish a repo<a class="headerlink" href="#publish-a-repo" title="Link to this heading">¶</a></h2>
+<p>Let’s add an existing repo to the radicle network.
+I’ll use this website’s repo as an example.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">$<span class="w"> </span>rad<span class="w"> </span>init
+</span><span data-line="2">
+</span><span data-line="3">Initializing<span class="w"> </span>radicle<span class="w"> </span>👾<span class="w"> </span>repository<span class="w"> </span><span class="k">in</span><span class="w"> </span>/Users/peterdemin/peterdemin.github.io..
+</span><span data-line="4">
+</span><span data-line="5">✓<span class="w"> </span>Name<span class="w"> </span>peter.demin.dev
+</span><span data-line="6">✓<span class="w"> </span>Description<span class="w"> </span>Peter<span class="w"> </span>Demin
+</span><span data-line="7">✓<span class="w"> </span>Default<span class="w"> </span>branch<span class="w"> </span>master
+</span><span data-line="8">✓<span class="w"> </span>Visibility<span class="w"> </span>public
+</span><span data-line="9">✓<span class="w"> </span>Repository<span class="w"> </span>peter.demin.dev<span class="w"> </span>created.
+</span><span data-line="10">
+</span><span data-line="11">Your<span class="w"> </span>Repository<span class="w"> </span>ID<span class="w"> </span><span class="o">(</span>RID<span class="o">)</span><span class="w"> </span>is<span class="w"> </span>rad:zb9rTT3zoR5aD1svmWYW25yc5kVe.
+</span><span data-line="12">You<span class="w"> </span>can<span class="w"> </span>show<span class="w"> </span>it<span class="w"> </span>any<span class="w"> </span><span class="nb">time</span><span class="w"> </span>by<span class="w"> </span>running<span class="w"> </span><span class="sb">`</span>rad<span class="w"> </span>.<span class="sb">`</span><span class="w"> </span>from<span class="w"> </span>this<span class="w"> </span>directory.
+</span><span data-line="13">
+</span><span data-line="14">✓<span class="w"> </span>Repository<span class="w"> </span>successfully<span class="w"> </span>announced<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>network.
+</span><span data-line="15">
+</span><span data-line="16">Your<span class="w"> </span>repository<span class="w"> </span>has<span class="w"> </span>been<span class="w"> </span>announced<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>network<span class="w"> </span>and<span class="w"> </span>is<span class="w"> </span>now<span class="w"> </span>discoverable<span class="w"> </span>by<span class="w"> </span>peers.
+</span><span data-line="17">You<span class="w"> </span>can<span class="w"> </span>check<span class="w"> </span><span class="k">for</span><span class="w"> </span>any<span class="w"> </span>nodes<span class="w"> </span>that<span class="w"> </span>have<span class="w"> </span>replicated<span class="w"> </span>your<span class="w"> </span>repository<span class="w"> </span>by<span class="w"> </span>running<span class="w"> </span><span class="sb">`</span>rad<span class="w"> </span>sync<span class="w"> </span>status<span class="sb">`</span>.
+</span><span data-line="18">
+</span><span data-line="19">To<span class="w"> </span>push<span class="w"> </span>changes,<span class="w"> </span>run<span class="w"> </span><span class="sb">`</span>git<span class="w"> </span>push<span class="w"> </span>rad<span class="w"> </span>master<span class="sb">`</span>.
+</span></pre></div>
+</div>
+<p>While it was running, it showed a countdown of announcements, and if I’m not mistaken, the repo was announced to four peers.
+Let’s see if they are gonna show up in remotes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">$ git remote -v
+</span><span data-line="2">origin	git@github.com:peterdemin/peterdemin.github.io.git (fetch)
+</span><span data-line="3">origin	git@github.com:peterdemin/peterdemin.github.io.git (push)
+</span><span data-line="4">rad	rad://zb9rTT3zoR5aD1svmWYW25yc5kVe (fetch)
+</span><span data-line="5">rad	rad://zb9rTT3zoR5aD1svmWYW25yc5kVe/z6Mkno75gzNU1Y59EL9rj8nUVveBUj3kBLteVUwPvpKmx9Qi (push)
+</span></pre></div>
+</div>
+<p>Hmm… Nope, there’s just one. And it’s <code class="docutils literal notranslate"><span class="pre">&lt;this</span> <span class="pre">repo</span> <span class="pre">ID&gt;/&lt;this</span> <span class="pre">node</span> <span class="pre">ID&gt;</span></code>.
+Looks like my only upstream is myself.
+But you know what, there’s this magic sync command, let’s try that.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">$<span class="w"> </span>rad<span class="w"> </span>sync<span class="w"> </span>--inventory
+</span><span data-line="2">✓<span class="w"> </span>Announcing<span class="w"> </span>inventory<span class="w"> </span>to<span class="w"> </span><span class="m">8</span><span class="w"> </span>peers..
+</span></pre></div>
+</div>
+<p>I’m sure pretty good at announcing inventory. Who knew, I’m a natural.
+Fine, let’s try the other one:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">$<span class="w"> </span>rad<span class="w"> </span>sync<span class="w"> </span>status
+</span><span data-line="2">✗<span class="w"> </span>Hint:
+</span><span data-line="3"><span class="w">   </span>?<span class="w"> </span>…<span class="w"> </span>Status:
+</span><span data-line="4"><span class="w">       </span>✓<span class="w"> </span>…<span class="w"> </span><span class="k">in</span><span class="w"> </span>sync<span class="w">          </span>✗<span class="w"> </span>…<span class="w"> </span>out<span class="w"> </span>of<span class="w"> </span>sync
+</span><span data-line="5"><span class="w">       </span>!<span class="w"> </span>…<span class="w"> </span>not<span class="w"> </span>announced<span class="w">    </span>•<span class="w"> </span>…<span class="w"> </span>unknown
+</span></pre></div>
+</div>
+<p>Huh, I could’ve sworn, I saw something about replication and announcements.
+How about we push things a little:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>rad<span class="w"> </span>master
+</span><span data-line="2">Everything<span class="w"> </span>up-to-date
+</span></pre></div>
+</div>
+<p>Wow, immediately returning up-to-date response.
+Maybe, because it’s pushing to itself?..</p>
+</section>
+<section id="set-up-another-node">
+<h2>Set up another node<a class="headerlink" href="#set-up-another-node" title="Link to this heading">¶</a></h2>
+<p>At this point, the peer node of radicle network is up and running, announcing it’s presence, and serving a repo.</p>
+<p>Let’s see how we can use this network to get the repo from another node.</p>
+<p>I repeated the setup on a Debian Trixie VM using Vagrant:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Vagrantfile</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># -*- mode: ruby -*-</span>
+</span><span data-line="2"><span class="c1"># vi: set ft=ruby :</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="n">Vagrant</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s2">&quot;2&quot;</span><span class="p">)</span> <span class="n">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+</span><span data-line="5">    <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span> <span class="o">=</span> <span class="s2">&quot;debian/trixie64&quot;</span>
+</span><span data-line="6">    <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">network</span> <span class="s2">&quot;private_network&quot;</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="s2">&quot;192.168.56.57&quot;</span>
+</span><span data-line="7">    <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">synced_folder</span> <span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="s2">&quot;/vagrant&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">:</span> <span class="s2">&quot;virtiofs&quot;</span>
+</span><span data-line="8">    <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provider</span> <span class="p">:</span><span class="n">libvirt</span> <span class="n">do</span> <span class="o">|</span><span class="n">libvirt</span><span class="o">|</span>
+</span><span data-line="9">      <span class="n">libvirt</span><span class="o">.</span><span class="n">memory</span> <span class="o">=</span> <span class="s2">&quot;4096&quot;</span>
+</span><span data-line="10">      <span class="n">libvirt</span><span class="o">.</span><span class="n">driver</span> <span class="o">=</span> <span class="s2">&quot;kvm&quot;</span>
+</span><span data-line="11">      <span class="n">libvirt</span><span class="o">.</span><span class="n">uri</span> <span class="o">=</span> <span class="s1">&#39;qemu:///system&#39;</span>
+</span><span data-line="12">      <span class="n">libvirt</span><span class="o">.</span><span class="n">cpus</span> <span class="o">=</span> <span class="mi">4</span>
+</span><span data-line="13">      <span class="n">libvirt</span><span class="o">.</span><span class="n">numa_nodes</span> <span class="o">=</span> <span class="p">[{</span> <span class="p">:</span><span class="n">cpus</span> <span class="o">=&gt;</span> <span class="s2">&quot;0-3&quot;</span><span class="p">,</span> <span class="p">:</span><span class="n">memory</span> <span class="o">=&gt;</span> <span class="mi">8192</span><span class="p">,</span> <span class="p">:</span><span class="n">memAccess</span> <span class="o">=&gt;</span> <span class="s2">&quot;shared&quot;</span> <span class="p">}]</span>
+</span><span data-line="14">      <span class="n">libvirt</span><span class="o">.</span><span class="n">memorybacking</span> <span class="p">:</span><span class="n">access</span><span class="p">,</span> <span class="p">:</span><span class="n">mode</span> <span class="o">=&gt;</span> <span class="s2">&quot;shared&quot;</span>
+</span><span data-line="15">    <span class="n">end</span>
+</span><span data-line="16">    <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span> <span class="s2">&quot;shell&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="s2">&quot;build-radicle.sh&quot;</span>
+</span><span data-line="17"><span class="n">end</span>
+</span></pre></div>
+</div>
+<p>Provisining script in <code class="docutils literal notranslate"><span class="pre">build-radicle.sh</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="ch">#!/bin/bash</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="nb">set</span><span class="w"> </span>-eo<span class="w"> </span>pipefail
+</span><span data-line="4">
+</span><span data-line="5">sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+</span><span data-line="6">sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>rustup<span class="w"> </span>build-essential<span class="w"> </span>git
+</span><span data-line="7">rustup<span class="w"> </span>toolchain<span class="w"> </span>install<span class="w"> </span>stable
+</span><span data-line="8">git<span class="w"> </span>clone<span class="w"> </span>https://seed.radicle.xyz/z3gqcJUoA1n9HaHKufZs5FCSGazv5.git<span class="w"> </span>heartwood
+</span><span data-line="9"><span class="nb">cd</span><span class="w"> </span>heartwood
+</span><span data-line="10">cargo<span class="w"> </span>install<span class="w"> </span>--path<span class="w"> </span>crates/radicle-cli<span class="w"> </span>--force<span class="w"> </span>--locked<span class="w"> </span>--root<span class="w"> </span>~/.radicle
+</span><span data-line="11">cargo<span class="w"> </span>install<span class="w"> </span>--path<span class="w"> </span>crates/radicle-node<span class="w"> </span>--force<span class="w"> </span>--locked<span class="w"> </span>--root<span class="w"> </span>~/.radicle
+</span><span data-line="12">cargo<span class="w"> </span>install<span class="w"> </span>--path<span class="w"> </span>crates/radicle-remote-helper<span class="w"> </span>--force<span class="w"> </span>--locked<span class="w"> </span>--root<span class="w"> </span>~/.radicle
+</span><span data-line="13">sudo<span class="w"> </span>cp<span class="w"> </span>~/.radicle/bin/*<span class="w"> </span>/usr/bin/
+</span></pre></div>
+</div>
+<p>Create a node identifier:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">$ rad auth
+</span><span data-line="2">
+</span><span data-line="3">Initializing your radicle 👾 identity
+</span><span data-line="4">
+</span><span data-line="5">✓ Enter your alias: demin.dev
+</span><span data-line="6">✓ Enter a passphrase: ********
+</span><span data-line="7">✓ Creating your Ed25519 keypair...
+</span><span data-line="8">✓ Your Radicle DID is did:key:z6MkpA56z2R7powZHMdCJ6PsecwMgTnmVCXtn3h1LiPBtrMd. This identifies your device. Run `rad self` to show it at all times.
+</span><span data-line="9">✓ You&#39;re all set.
+</span><span data-line="10">
+</span><span data-line="11">To create a Radicle repository, run `rad init` from a Git repository with at least one commit.
+</span><span data-line="12">To clone a repository, run `rad clone &lt;rid&gt;`. For example, `rad clone rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5` clones the Radicle &#39;heartwood&#39; repository.
+</span><span data-line="13">To get a list of all commands, run `rad`.
+</span><span data-line="14">
+</span><span data-line="15">$ rad node start
+</span><span data-line="16">✓ Node started (105073)
+</span><span data-line="17">To stay in sync with the network, leave the node running in the background.
+</span><span data-line="18">To learn more, run `rad node --help`.
+</span><span data-line="19">
+</span><span data-line="20">$ rad clone rad:zb9rTT3zoR5aD1svmWYW25yc5kVe
+</span><span data-line="21">✓ Seeding policy updated for rad:zb9rTT3zoR5aD1svmWYW25yc5kVe with scope &#39;all&#39;
+</span><span data-line="22">Fetching rad:zb9rTT3zoR5aD1svmWYW25yc5kVe from the network, found 2 potential seed(s).
+</span><span data-line="23">✗ Target not met: could not fetch from [z6Mkmqogy2qEM2ummccUthFEaaHvyYmYBYh3dbe9W4ebScxo, z6MkrLMMsiPWUcNPHcRajuMi9mDfYckSoJyPwwnknocNYPm7], and required 1 more seed(s)
+</span><span data-line="24">! Warning: Failed to fetch from 2 seed(s).
+</span><span data-line="25">! Warning: z6Mkmqogy2qEM2ummccUthFEaaHvyYmYBYh3dbe9W4ebScxo: an I/O error occurred during the fetch handshake (error reading from stream: channel timed out)
+</span><span data-line="26">! Warning: z6MkrLMMsiPWUcNPHcRajuMi9mDfYckSoJyPwwnknocNYPm7: Could not connect. No addresses known.
+</span><span data-line="27">✗ Error: no seeds found for rad:zb9rTT3zoR5aD1svmWYW25yc5kVe
+</span></pre></div>
+</div>
+<p>Whoops! Looks like my first peer node is not as peer as the two servers owned by Radicle team…</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">$ rad node status
+</span><span data-line="2">✓ Node is running with Node ID z6MkpA56z2R7powZHMdCJ6PsecwMgTnmVCXtn3h1LiPBtrMd and not configured to listen for inbound connections.
+</span><span data-line="3">
+</span><span data-line="4">╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+</span><span data-line="5">│ Node ID                                            Address                          ?   ⤭   Since            │
+</span><span data-line="6">├──────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+</span><span data-line="7">│ z6Mkr5ad8ZN5tyJygyp7wgujJLSykAvXznQyUtV3kh8CsTyd   radicle.qmooku.com:8776          ✓   ↗   32.933 second(s) │
+</span><span data-line="8">│ z6MkwfrBy9mKTfcVELcV4wc6zfN379FPMnAqsxnwt4j2TdQ2   radicle.jarg.io:8776             ✓   ↗   28.933 second(s) │
+</span><span data-line="9">│ z6MkmWBnyEnoQSWEuvukXPPzPtQNPoBZ66c4aRVz2d39Escp   rad.daidalos.xyz:8776            ✓   ↗   29.933 second(s) │
+</span><span data-line="10">│ z6Mkmqogy2qEM2ummccUthFEaaHvyYmYBYh3dbe9W4ebScxo   rosa.radicle.xyz:8776            ✓   ↗   40.933 second(s) │
+</span><span data-line="11">│ z6MkrNbURE9T9GQ3CpAYHGyXfEvSqMe6SczFDwHddt1jcabR   rad.glyphs.tech:7114             !   ↗                    │
+</span><span data-line="12">│ z6MkrLMMsiPWUcNPHcRajuMi9mDfYckSoJyPwwnknocNYPm7   irisradi…c6s5lfid.onion:8776     ✗   ↗   6.933 second(s)  │
+</span><span data-line="13">│ z6MkidNH5DAvU3woJsXdFwfSTVT32iYQCAYep8emjCqVJyz5   radicle-seed.29051830.xyz:8776   ✓   ↗   32.933 second(s) │
+</span><span data-line="14">│ z6MkmNgM276APif8WG2sp9bS82rJwg9JCpdk3xv53kTc9KYj   radicle.schuppentier.org:8776    !   ↗                    │
+</span><span data-line="15">│ z6Mkh3MbEZxUvVrCDJ2rJ23V33ptNgJTjm3ChumQSewJb454   pool.net.eu.org:8776             ✓   ↗   27.933 second(s) │
+</span><span data-line="16">╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+</span><span data-line="17">✗ Hint:
+</span><span data-line="18">   ? … Status:
+</span><span data-line="19">       ✓ … connected    ✗ … disconnected
+</span><span data-line="20">       ! … attempted    • … initial
+</span><span data-line="21">   ⤭ … Link Direction:
+</span><span data-line="22">       ↘ … inbound      ↗ … outbound
+</span><span data-line="23">
+</span><span data-line="24">2026-01-24T22:12:08.105Z INFO  service  Received command Seeds(rad:zb9rTT3zoR5aD1svmWYW25yc5kVe)
+</span><span data-line="25">2026-01-24T22:12:08.107Z INFO  service  Received command QueryState(..)
+</span><span data-line="26">2026-01-24T22:12:08.107Z INFO  service  Received command Fetch(rad:zb9rTT3zoR5aD1svmWYW25yc5kVe, z6Mkmqogy2qEM2ummccUthFEaaHvyYmYBYh3dbe9W4ebScxo)
+</span><span data-line="27">2026-01-24T22:12:15.169Z WARN  wire     Failed to establish connection to irisradizskwweumpydlj4oammoshkxxjur3ztcmo7cou5emc6s5lfid.onion:8776: no configuration found for .onion addresses
+</span><span data-line="28">2026-01-24T22:12:15.169Z INFO  service  Disconnected from z6MkrLMMsiPWUcNPHcRajuMi9mDfYckSoJyPwwnknocNYPm7 (no configuration found for .onion addresses)
+</span><span data-line="29">2026-01-24T22:12:17.111Z WARN  service  Fetch failed for rad:zb9rTT3zoR5aD1svmWYW25yc5kVe from z6Mkmqogy2qEM2ummccUthFEaaHvyYmYBYh3dbe9W4ebScxo: an I/O error occurred during the fetch handshake (error reading from stream: channel timed out)
+</span><span data-line="30">2026-01-24T22:12:17.112Z INFO  service  Received command QueryState(..)
+</span><span data-line="31">2026-01-24T22:12:21.888Z INFO  service  Received command ListenAddrs
+</span><span data-line="32">2026-01-24T22:12:21.888Z INFO  service  Received command QueryState(..)
+</span><span data-line="33">2026-01-24T22:12:21.889Z INFO  service  Received command QueryState(..)
+</span></pre></div>
+</div>
+<p>I’m not an expert, but by matching the hashes to hosts, I see that <code class="docutils literal notranslate"><span class="pre">rad</span> <span class="pre">clone</span></code> command attempted to clone my repo from <code class="docutils literal notranslate"><span class="pre">rosa.radicle.xyz:8776</span></code> and <code class="docutils literal notranslate"><span class="pre">iris.radicle.xyz</span></code> node served through <code class="docutils literal notranslate"><span class="pre">.onion</span></code> address.
+The error print <code class="docutils literal notranslate"><span class="pre">channel</span> <span class="pre">timed</span> <span class="pre">out</span></code>, while it should have been more like <code class="docutils literal notranslate"><span class="pre">repo</span> <span class="pre">not</span> <span class="pre">found</span></code>.</p>
+<p>Decentralize my ass.</p>
+<p>Rad has an option to force cloning from a particular node:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">$<span class="w"> </span>rad<span class="w"> </span>seed<span class="w"> </span>rad:zb9rTT3zoR5aD1svmWYW25yc5kVe<span class="w"> </span>--from<span class="w"> </span>z6Mkno75gzNU1Y59EL9rj8nUVveBUj3kBLteVUwPvpKmx9Qi
+</span><span data-line="2">✓<span class="w"> </span>Seeding<span class="w"> </span>policy<span class="w"> </span>exists<span class="w"> </span><span class="k">for</span><span class="w"> </span>rad:zb9rTT3zoR5aD1svmWYW25yc5kVe<span class="w"> </span>with<span class="w"> </span>scope<span class="w"> </span><span class="s1">&#39;all&#39;</span>
+</span><span data-line="3">Fetching<span class="w"> </span>rad:zb9rTT3zoR5aD1svmWYW25yc5kVe<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>network,<span class="w"> </span>found<span class="w"> </span><span class="m">1</span><span class="w"> </span>potential<span class="w"> </span>seed<span class="o">(</span>s<span class="o">)</span>.
+</span><span data-line="4">✗<span class="w"> </span>Target<span class="w"> </span>not<span class="w"> </span>met:<span class="w"> </span>could<span class="w"> </span>not<span class="w"> </span>fetch<span class="w"> </span>from<span class="w"> </span><span class="o">[</span>z6Mkno75gzNU1Y59EL9rj8nUVveBUj3kBLteVUwPvpKmx9Qi<span class="o">]</span>,<span class="w"> </span>and<span class="w"> </span>required<span class="w"> </span><span class="m">1</span><span class="w"> </span>more<span class="w"> </span>seed<span class="o">(</span>s<span class="o">)</span>
+</span></pre></div>
+</div>
+<p>No dice, I can’t fetch from my laptop.</p>
+</section>
+<section id="parting-thoughts">
+<h2>Parting thoughts<a class="headerlink" href="#parting-thoughts" title="Link to this heading">¶</a></h2>
+<p>I poked around for a few hours trying to figure out how to synchronize code between my two radicle nodes, and ultimately failed.
+I tried to get a better understanding of the system by reading the <a class="reference external" href="https://radicle.xyz/guides/user">user guide</a>, but the page has too much unrelated information and not enough answers.</p>
+<p>I feel like giving up on radicle.</p>
+<p>Nothing good comes easy, but sometimes nothing comes at all.
+Ah, well, at least I poked cargo a bit, that was fun.</p>
+<p>Going through the troubles of setting up decentralized forge made we question the premise.
+What is missing from the existing <code class="docutils literal notranslate"><span class="pre">tailscale+git+ssh</span></code> combination to make decentralized collaboration possible.</p>
+<p>Create a decentralized replica of a repo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">ssh<span class="w"> </span>server.tail1234.ts.net<span class="w"> </span><span class="s1">&#39;git init --bare repo&#39;</span>
+</span><span data-line="2">git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>server<span class="w"> </span>server.tail1234.ts.net:repo
+</span><span data-line="3">git<span class="w"> </span>push<span class="w"> </span>server<span class="w"> </span>master
+</span></pre></div>
+</div>
+<p>The identity, authentication, and authorization already covered by <code class="docutils literal notranslate"><span class="pre">ssh</span></code>.
+Access provided by <code class="docutils literal notranslate"><span class="pre">tailscale</span></code>.
+Content synchronization done by <code class="docutils literal notranslate"><span class="pre">git</span></code>.
+What else do you want? Collaboration through issues and patches?
+Don’t put those in git, they don’t belong in version control system.
+Run a mailing list, a forum, an XMPP chat room, or a Zulip instance.
+Run Gerrit, or one of many alternatives for code reviews.
+Or maybe consider <a class="reference external" href="https://www2.fossil-scm.org/home/doc/trunk/www/index.wiki">Fossil</a>.</p>
+<p>To add another maintainer, share your server through Tailscale, and add their public key to authorized keys.</p>
+<p>For redundancy, add as many mirrors as you want with <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">--mirror</span></code>.</p>
+<p>There’s many ways to shave a cat and it doesn’t matter which one you pick.
+Sometimes, it’s best to use GitHub, and maybe that’s why most big projects do.
+Sure, GitHub is proprietary, centralized, governed by an organization with values that might not align with yours.
+But does it really matter?</p>
+</section>
+</section>
+
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="79-bugsink-gcp.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Install Bugsink on Google Cloud Platform</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="81-fedup.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">FedUp - Minimal Federated CDN</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2022, Peter Demin</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/shibuya.js?v=cac61aee"></script></body>
+</html>

@@ -1,0 +1,81 @@
+`Aug 30, 2024` - Added [](/12_articles/62-100q.rst), [](/12_articles/63-100q-open.rst)
+
+`Aug 30, 2024` - Crazy man market analysis (close).
+
+1. I jinxed it for eBay, it dipped right after I called it stable.
+   ![EBAY](/16_life/images/ebay-2024-08-30.png)
+2. NVDA didn't dip a little bit, it dipped significantly.
+   ![NVDA](/16_life/images/nvda-2024-08-30.png)
+
+`Aug 30, 2024` - Crazy man market analysis (open).
+
+1. What's going on with MSFT? Nothing they're OpenAI's bitch now.
+2. NVDA dipped down, taking FSELX with it. The news show that they're going to come back strong soon.
+3. PDD is bonkers, random off-market jumper.
+4. Macy's stable, time to start stocking up (from MSFT, for example) for November.
+
+`Aug 26, 2024` - Added [](/12_articles/60-M.rst), [](/12_articles/61-tree.md)
+
+`Aug 26, 2024` - Crazy man market analysis.
+
+1. eBay gains popularity, as more people are willing to buy second-hand eletronics (read phones).
+   When most of the tech stock went down in July, eBay kept growing.
+   ![EBAY](/16_life/images/ebay-2024-08-26.png)
+2. Nvidia dipped a little bit on the overall growth trend.
+   ![NVDA](/16_life/images/nvda-2024-08-26.png)
+3. What the hell is this PDD company? It tanked a lot. It's last year has been very volatile.
+   ![PDD](/16_life/images/pdd-2024-08-26.png)
+4. Just look at this MRM shit. Closed at $2.48, opened at $7.01. Daytrading my ass.
+5. Macy's got a bad look from big guys and going down. Not all the way to the bottom just yet, let's take a look in 5 days.
+
+`Aug 24, 2024` - I like the idea how software systems are complex and complicated.
+Complex stands for inherent problem the software solves.
+Complications come from solving the problem in a wrong way.
+It could be using bad abstraction, over-engineering, inadequate team structure resulting in mixed component responsibilities.
+Software is meant to solve the complexity of the real world problem, but it always introduces unnecessary complications for maintainers.
+Complexity can't reduced, as it is inherent to the problem at hand, while complications constitute technical debt, that can and should be addressed but rarely is.
+The same thinking can be applied to life in general.
+The inherent conflict of life is that it's finite and energy consuming.
+Besides that, most of the struggles we go through are artificial complications.
+The worst examples of such struggles come up when complications take over complexity.
+People get caught in the minutiae of everyday life, chasing synthetic goals, imposed by other people who have no interest in their wellbeing.
+Governments create laws and procedures that are designed to prevent crime, but make everyones lifes harder.
+Rich people find ways to suck money from poor.
+Personal decisions must go through an approval of some external entity.
+Social contracts prevent expression of internal desires.
+
+`Aug 23, 2024` - A rare syndrome of unprepared food censorship
+
+![Lipton](/16_life/images/censored-fridge.jpeg)
+
+`Aug 19, 2024` - [wasi-master/13ft](https://github.com/wasi-master/13ft) - My own custom 12ft.io replacement
+
+`Aug 18, 2024` - this tea bag summarizes my thoughts of food in the US. The brown dust resembles tea only in color. But that’s what Americans like. No sophistication, big quantities, low price.
+
+![Lipton](/16_life/images/lipton.jpeg)
+
+`Aug 15, 2024` - [writefreely/writefreely](https://github.com/writefreely/writefreely) - A clean, Markdown-based publishing platform made for writers. Write together and build a community.
+
+`Aug 09, 2024` - Added [](/12_articles/59-iced-water.rst)
+
+`Aug 07, 2024` - I was watching [Expanse](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://en.wikipedia.org/wiki/The_Expanse_(TV_series)) and was fascinated by their handheld devices (phones?).
+I liked the way they wirelessly cast screen using two-fingers swipe up in the direction of the cast target.
+I also liked how they share message attachments.
+The operating systems they are running seem to provide consistent experience across devices, so I assume there's a tight integration.
+What I liked most is that attachments contained two kinds formats.
+One was a presentation layer, similar to a static HTML page.
+Another was data (like JSON, or CSV) that can be direcly imported to a database or Jupyter Notebook.
+Like one time a person sent a bunch of people profiles, and the other side reviewed them and imported to their contacts.
+Another time it was asteroid coordinates, that were presented as an interactive 3D model, but also could be imported into the navigational system.
+
+I wonder if we can build this today.
+Each attachment would be an archive with HTML file that pulls raw data from a JSON file sitting by its side.
+But also having a "Download" button that exposes the data file directly.
+Or maybe a single HTML file with all the small data and assets embedded, and large assets pulled from S3.
+
+`Aug 01, 2024` - I find this to be an interesting phenomena in driving.
+When there are two lanes and there's a merge ahead from the right lane.
+In the perfect world the merge is fair, the cars from the left and right lane alternate and both lanes go at the same speed.But what happens instead is some cars from the right lane merge early breaking the alternation order.
+Then the car from behind in the right lane goes ahead and merges before the early merger.
+And this breaks the pattern so that some cars from the right lane get into the left lane without a car between them.
+The result is that the right lane goes faster.

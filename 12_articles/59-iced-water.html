@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Cooling Water with Ice - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Macy’s stock seasonality" href="60-M.html" /><link rel="prev" title="It’s not cold in Russia" href="58-its-not-cold-in-russia.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=51f15f49" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="Cooling Water with Ice"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#tl-dr">TL;DR</a></li>
+<li><a class="reference internal" href="#background">Background</a></li>
+<li><a class="reference internal" href="#interactive-form">Interactive form</a></li>
+<li><a class="reference internal" href="#physics">Physics</a></li>
+<li><a class="reference internal" href="#assumptions">Assumptions</a></li>
+<li><a class="reference internal" href="#step-1-calculate-the-heat-energy-lost-by-the-water">Step 1: Calculate the heat energy lost by the water</a></li>
+<li><a class="reference internal" href="#step-2-calculate-the-amount-of-ice-needed">Step 2: Calculate the amount of ice needed</a></li>
+<li><a class="reference internal" href="#step-3-calculate-the-amount-of-time-needed">Step 3: Calculate the amount of time needed</a></li>
+<li><a class="reference internal" href="#calculation-flaws">Calculation flaws</a></li>
+</ul>
+</div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
+  data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </span>
+  <span class="flex-grow px-2 break-all">
+    
+    
+      <span>peterdemin.github.io</span>
+    
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <iconify-icon icon="lucide:star"></iconify-icon>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <iconify-icon icon="lucide:git-fork"></iconify-icon>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/peterdemin/peterdemin.github.io/blob/master/source/12_articles/59-iced-water.rst">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
+    
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Cooling Water with Ice</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/59-iced-water.rst.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/59-iced-water.rst.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/59-iced-water.rst.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:code-slash"></iconify-icon>
+            <span>View Source</span></a><a role="menuitem" href="https://chatgpt.com/?hints=search&q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/59-iced-water.rst.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:openai"></iconify-icon>
+          <span>Open in ChatGPT</span>
+        </a><a role="menuitem" href="https://claude.ai/new?q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/59-iced-water.rst.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:claude"></iconify-icon>
+          <span>Open in Claude</span>
+        </a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="cooling-water-with-ice">
+<h1>Cooling Water with Ice<a class="headerlink" href="#cooling-water-with-ice" title="Link to this heading">¶</a></h1>
+<section id="tl-dr">
+<h2>TL;DR<a class="headerlink" href="#tl-dr" title="Link to this heading">¶</a></h2>
+<p>One ice cube cools two ounces of water to just above freezing temperature.</p>
+<p>To cool <strong>12 oz</strong> of water from 20°C to just above freezing, approximately 88.9 grams of ice is needed.
+A standard ice cube (approximately 16 grams) can be used as an approximation, requiring about <strong>six ice cubes</strong>.</p>
+</section>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Link to this heading">¶</a></h2>
+<p>I have this lovely home water carbonation machine. It dispenses water in 6 oz increments, and 12 oz is my sweet spot.
+The effectiveness of water absorption of carbon dioxide depends on water temperature. The colder the better.
+The machine doesn’t cool the water itself and has little insulation in the water tank (which I think is a design flaw).
+My fridge produces ice cubes, though.
+Following is a school way of figuring out how much ice I must put into a tank for a glass of bubbly water.</p>
+</section>
+<section id="interactive-form">
+<h2>Interactive form<a class="headerlink" href="#interactive-form" title="Link to this heading">¶</a></h2>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 50px;
+    }
+    .slider-container {
+        margin-bottom: 20px;
+    }
+    .result {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+</style>
+<div class="slider-container">
+    <label for="waterAmount">Amount of water: <span id="waterAmountLabel">12</span> oz</label>
+    <input type="range" id="waterAmount" min="1" max="48" value="12" oninput="calculateIceCubes()">
+</div>
+<div class="slider-container">
+    <label for="roomTemperature">Room temperature: <span id="roomTemperatureLabel">72</span> °F</label>
+    <input type="range" id="roomTemperature" min="32" max="120" value="72" oninput="calculateIceCubes()">
+</div>
+<div class="slider-container">
+    <label for="iceCubeWeight">Ice cube weight: <span id="iceCubeWeightLabel">16</span> g</label>
+    <input type="range" id="iceCubeWeight" min="1" max="50" value="16" oninput="calculateIceCubes()">
+</div>
+<div class="result">
+    Number of ice cubes needed: <span id="iceCubesNeeded">6</span>
+</div>
+<div class="result">
+    Time needed: <span id="minutesNeeded">5</span> minutes
+</div>
+
+<script>
+    function calculateIceCubes() {
+        // Get values from sliders
+        const waterAmount = document.getElementById('waterAmount').value;
+        const roomTemperatureF = document.getElementById('roomTemperature').value;
+        const iceCubeWeight = document.getElementById('iceCubeWeight').value;
+        // Update labels
+        document.getElementById('waterAmountLabel').textContent = waterAmount;
+        document.getElementById('roomTemperatureLabel').textContent = roomTemperatureF;
+        document.getElementById('iceCubeWeightLabel').textContent = iceCubeWeight;
+        // Convert room temperature from Fahrenheit to Celsius
+        const roomTemperatureC = (roomTemperatureF - 32) * 5 / 9;
+        // Constants
+        const specificHeatWater = 4.18; // J/g°C
+        const latentHeatIce = 334; // J/g
+        const transitionRate = 60 * 100; // J/m
+        // Convert water amount from oz to grams (1 oz = 29.5735 mL, and water density is 1 g/mL)
+        const waterAmountGrams = waterAmount * 29.5735;
+        // Calculate the heat energy required to cool the water to just above freezing
+        const heatLost = waterAmountGrams * specificHeatWater * (roomTemperatureC - 0);
+        // Calculate the amount of ice needed
+        const iceNeededGrams = heatLost / latentHeatIce;
+        // Convert ice needed from grams to number of ice cubes
+        const iceCubesNeeded = Math.max(1, Math.round(iceNeededGrams / iceCubeWeight));
+        const minutesNeeded = Math.max(1, Math.round(heatLost / transitionRate));
+        // Update the result
+        document.getElementById('iceCubesNeeded').textContent = iceCubesNeeded;
+        document.getElementById('minutesNeeded').textContent = minutesNeeded;
+    }
+    // Initial calculation on page load
+    calculateIceCubes();
+</script></section>
+<section id="physics">
+<h2>Physics<a class="headerlink" href="#physics" title="Link to this heading">¶</a></h2>
+<p>To calculate the amount of ice needed to cool 12 oz (355 mL) of water from 20°C to 0°C, we’ll use the principle of energy conservation.
+The heat lost by the water must equal the heat gained by the ice.</p>
+</section>
+<section id="assumptions">
+<h2>Assumptions<a class="headerlink" href="#assumptions" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Ice melting point is 0°C.</p></li>
+<li><p>The specific heat capacity of water is 4.18 J/g°C.</p></li>
+<li><p>The latent heat of fusion for ice (the energy required to melt ice at 0°C) is 334 J/g.</p></li>
+<li><p>The density of water is 1 g/mL, so 355 mL of water is 355 grams.</p></li>
+</ol>
+</section>
+<section id="step-1-calculate-the-heat-energy-lost-by-the-water">
+<h2>Step 1: Calculate the heat energy lost by the water<a class="headerlink" href="#step-1-calculate-the-heat-energy-lost-by-the-water" title="Link to this heading">¶</a></h2>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[Q_{\text{water}} = m_{\text{water}} \times c_{\text{water}} \times \Delta T_{\text{water}}\]</div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(Q_{\text{water}}\)</span> is the heat lost by the water,</p></li>
+<li><p><span class="math notranslate nohighlight">\(m_{\text{water}} = 355 \, \text{g}\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(c_{\text{water}} = 4.18 \, \text{J/g°C}\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Delta T_{\text{water}} = 20 \, \text{°C} - 0 \, \text{°C} = 20 \, \text{°C}\)</span>.</p></li>
+</ul>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[Q_{\text{water}} = 355 \, \text{g} \times 4.18 \, \text{J/g°C} \times 20 \, \text{°C} = 29,678 \, \text{J}\]</div>
+</div>
+</section>
+<section id="step-2-calculate-the-amount-of-ice-needed">
+<h2>Step 2: Calculate the amount of ice needed<a class="headerlink" href="#step-2-calculate-the-amount-of-ice-needed" title="Link to this heading">¶</a></h2>
+<p>Since the ice will absorb heat and melt, the heat required to melt <span class="math notranslate nohighlight">\(m_{\text{ice}}\)</span> grams of ice is given by:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[Q_{\text{ice}} = m_{\text{ice}} \times L_{\text{fusion}}\]</div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(Q_{\text{ice}}\)</span> is the heat absorbed by the ice,</p></li>
+<li><p><span class="math notranslate nohighlight">\(L_{\text{fusion}} = 334 \, \text{J/g}\)</span> (latent heat of fusion).</p></li>
+</ul>
+<p>Since the heat lost by the water equals the heat gained by the ice:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[Q_{\text{water}} = Q_{\text{ice}}\]</div>
+</div>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[29,678 \, \text{J} = m_{\text{ice}} \times 334 \, \text{J/g}\]</div>
+</div>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[m_{\text{ice}} = \frac{29,678 \, \text{J}}{334 \, \text{J/g}} \approx 89 \, \text{g}\]</div>
+</div>
+<p>My ice cubes weigh 16 grams on average, so I need about six ice cubes.</p>
+</section>
+<section id="step-3-calculate-the-amount-of-time-needed">
+<h2>Step 3: Calculate the amount of time needed<a class="headerlink" href="#step-3-calculate-the-amount-of-time-needed" title="Link to this heading">¶</a></h2>
+<p>For a rough estimate, assuming the heat transfer rate <span class="math notranslate nohighlight">\(R\)</span> is about 100 W (100 J/s, a typical estimate for moderate convective conditions):</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[t = \frac{Q_{\text{ice}}}{R}\]</div>
+</div>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[t = \frac{29,678 \, \text{J}}{100 \, \text{J/g}} \approx 297 \text{seconds} \approx 5 \text{minutes}\]</div>
+</div>
+</section>
+<section id="calculation-flaws">
+<h2>Calculation flaws<a class="headerlink" href="#calculation-flaws" title="Link to this heading">¶</a></h2>
+<p>The formula above doesn’t take into consideration:</p>
+<ol class="arabic simple">
+<li><p>Room air warming up water as the ice melts.</p></li>
+<li><p>The volume of water increases from the melted ice. With 89 grams of molten ice, I need only 9 ounces of water to get 12 ounces of ice-cold water.</p></li>
+<li><p>The convection varies significantly as the water temperature changes.
+100 J/s might be true for room temperature, but it evidently takes more than 10 minutes for all ice cubes to melt completely.
+But this is fine, water is cold enough for carbonation purposes.</p></li>
+</ol>
+</section>
+</section>
+
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="58-its-not-cold-in-russia.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">It’s not cold in Russia</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="60-M.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Macy’s stock seasonality</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2022, Peter Demin</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/shibuya.js?v=cac61aee"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script></body>
+</html>

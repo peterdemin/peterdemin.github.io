@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Using GPIO on an industrial mini PC - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Session Authentication and Single-Page Applications" href="40-session-auth.html" /><link rel="prev" title="Book-Driven Development" href="38-book-driven-development.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=51f15f49" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="Using GPIO on an industrial mini PC"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#what-s-an-industrial-mini-pc">What&#8217;s an industrial mini PC</a></li>
+<li><a class="reference internal" href="#accessing-gpio-on-linux">Accessing GPIO on Linux</a></li>
+</ul>
+</div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
+  data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </span>
+  <span class="flex-grow px-2 break-all">
+    
+    
+      <span>peterdemin.github.io</span>
+    
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <iconify-icon icon="lucide:star"></iconify-icon>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <iconify-icon icon="lucide:git-fork"></iconify-icon>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/peterdemin/peterdemin.github.io/blob/master/source/12_articles/39-mini-pc-gpio.md">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
+    
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Using GPIO on an industrial mini PC</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/39-mini-pc-gpio.md.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/39-mini-pc-gpio.md.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/39-mini-pc-gpio.md.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:markdown"></iconify-icon>
+            <span>View as Markdown</span></a><a role="menuitem" href="https://chatgpt.com/?hints=search&q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/39-mini-pc-gpio.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:openai"></iconify-icon>
+          <span>Open in ChatGPT</span>
+        </a><a role="menuitem" href="https://claude.ai/new?q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/39-mini-pc-gpio.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:claude"></iconify-icon>
+          <span>Open in Claude</span>
+        </a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="using-gpio-on-an-industrial-mini-pc">
+<h1>Using GPIO on an industrial mini PC<a class="headerlink" href="#using-gpio-on-an-industrial-mini-pc" title="Link to this heading">¶</a></h1>
+<section id="what-s-an-industrial-mini-pc">
+<h2>What’s an industrial mini PC<a class="headerlink" href="#what-s-an-industrial-mini-pc" title="Link to this heading">¶</a></h2>
+<p><img alt="Mini PCs" src="../_images/39-mini-pcs.png" /></p>
+<p>There are many industrial mini PCs on the market.
+Their common features are:</p>
+<ul class="simple">
+<li><p>Rugged design:</p>
+<ul>
+<li><p>metal (aluminum) case.</p></li>
+<li><p>no fan and no vents.</p></li>
+</ul>
+</li>
+<li><p>Reliable hardware:</p>
+<ul>
+<li><p>x86 CPU.</p></li>
+<li><p>SSD.</p></li>
+</ul>
+</li>
+<li><p>Assortment of ports:</p>
+<ul>
+<li><p>COM</p></li>
+<li><p>VGA</p></li>
+<li><p>GPIO</p></li>
+<li><p>HDMI</p></li>
+<li><p>USB</p></li>
+<li><p>PS/2</p></li>
+<li><p>LAN</p></li>
+</ul>
+</li>
+<li><p>Built-in WiFi</p></li>
+</ul>
+<p>The fanless design makes them a good candidate for dusty environments.
+The common problem with them is the lack of documentation and support forums.</p>
+<p>I had a chance to work with this model: <a class="reference external" href="https://a.co/d/aC6lhQ5?tag=peterdemin-20">Kingdel mini PC</a> (paid link).
+It has an Intel CPU, Samsung SSD, and an array of GPIO ports.</p>
+</section>
+<section id="accessing-gpio-on-linux">
+<h2>Accessing GPIO on Linux<a class="headerlink" href="#accessing-gpio-on-linux" title="Link to this heading">¶</a></h2>
+<p>My OS of choice is Ubuntu 22.04, but the experience is similar for most Linux distributions.</p>
+<p>At first, it wasn’t clear how to use the GPIO ports, as most of the online GPIO documentation targets System-on-Chips (SoC) such as Arduino and Raspberry Pi.</p>
+<p>Modern Linux exposes GPIO through a Kernel driver that mounts <code class="docutils literal notranslate"><span class="pre">/dev/gpiochip[n]</span></code> character devices.
+The recommended utility to interact with it is <code class="docutils literal notranslate"><span class="pre">gpiod</span></code>.
+It provides a set of CLI to enumerate, read, and write GPIO values.</p>
+<p>In my case, there were no files starting with <code class="docutils literal notranslate"><span class="pre">/dev/gpio*</span></code> directory.
+Which meant that the Linux Kernel hadn’t loaded the driver for my hardware.</p>
+<p>Unlike SoC, mini PCs don’t integrate GPIO pins directly to the CPU.
+Instead, they’re using Super I/O chips.</p>
+<p>BIOS must provide access to GPIO. Mine is “American Megatrends Version 2.18.1263.
+The Advanced tab has a menu called “SIO MISC Configuration” with the description “WDT, CASE OPEN, GPIO, DEBUG…”
+Inside it, I had access to the Watch Dog Timer, 2 COM port modes (RS232, RS485, and RS422), and 8 GPIO settings.
+Each pin is named GPIO[n], where n is between 0 and 7.
+The Mode can be set in Input or Output.
+When set to Output, you can set Output value to either Low or High.
+Note that changes to GPIO pin states are not real-time, and you need to Save and Exit for the changes to reflect.
+Through several reboot cycles, I mapped all GPIO pins to their function.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><span data-line="1"> 1   2   3   4   5   6   7
+</span><span data-line="2">3V3  7   6   5   4  GND GND
+</span><span data-line="3">---------------------------
+</span><span data-line="4">3V3  3   2   1   0  12V  5V
+</span><span data-line="5"> 1   2   3   4   5   6   7
+</span></pre></div>
+</div>
+<p>In the diagram above, pins are numbered left-to-right as they appear on the back side of the mini PC.
+The top row has a 3.3V output, 4 GPIO pins, and two ground pins.
+The bottom row has a 3.3V output, 4 GPIO pins, 12V and 5V outputs.</p>
+<p>BIOS doesn’t say which SIO chip is used.
+There are many Super I/O chips, and figuring out which one you have could be problematic.
+In my case, I had to open the casing and read the markings on the big square chip sitting next to the GPIO pins.
+It said “iTE IT8786E-I”.</p>
+<p>Searching through <a class="reference external" href="https://github.com/torvalds/linux">Linux Kernel git repo</a>,
+I found mentions of the drivers for this chip:</p>
+<ol class="arabic">
+<li><p>gpio-it78.c</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="cm">/*</span>
+</span><span data-line="2"><span class="cm"> *  GPIO interface for IT87xx Super I/O chips</span>
+</span><span data-line="3"><span class="cm"> *</span>
+</span><span data-line="4"><span class="cm"> *  Author: Diego Elio Pettenò &lt;flameeyes@flameeyes.eu&gt;</span>
+</span><span data-line="5"><span class="cm"> *  Copyright (c) 2017 Google, Inc.</span>
+</span><span data-line="6"><span class="cm"> *</span>
+</span><span data-line="7"><span class="cm"> *  Based on it87_wdt.c     by Oliver Schuster</span>
+</span><span data-line="8"><span class="cm"> *           gpio-it8761e.c by Denis Turischev</span>
+</span><span data-line="9"><span class="cm"> *           gpio-stmpe.c   by Rabin Vincent</span>
+</span><span data-line="10"><span class="cm"> */</span>
+</span></pre></div>
+</div>
+</li>
+<li><p>Makefile</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><span data-line="1">obj-$(CONFIG_GPIO_IT87)                      += gpio-it87.o
+</span></pre></div>
+</div>
+</li>
+<li><p>Kconfig snippet:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><span data-line="1">config GPIO_IT87
+</span><span data-line="2">        tristate &quot;IT87xx GPIO support&quot;
+</span><span data-line="3">        help
+</span><span data-line="4">          Say yes here to support GPIO functionality of IT87xx Super I/O chips.
+</span><span data-line="5">
+</span><span data-line="6">          This driver is tested with ITE IT8728 and IT8732 Super I/O chips, and
+</span><span data-line="7">          supports the IT8761E, IT8613, IT8620E, and IT8628E Super I/O chips as
+</span><span data-line="8">          well.
+</span><span data-line="9">
+</span><span data-line="10">          To compile this driver as a module, choose M here: the module will
+</span><span data-line="11">          be called gpio_it87.
+</span></pre></div>
+</div>
+</li>
+<li><p>Kernel config shipped with Ubuntu 22.04 for Linux 5.15:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">$<span class="w"> </span>grep<span class="w"> </span>CONFIG_GPIO_IT87<span class="w"> </span>/boot/config-5.15.0-83-generic
+</span><span data-line="2"><span class="nv">CONFIG_GPIO_IT87</span><span class="o">=</span>m
+</span></pre></div>
+</div>
+<p>The letter <code class="docutils literal notranslate"><span class="pre">m</span></code> means that the module is not enabled by default.</p>
+</li>
+</ol>
+<p>Enabling the driver is done with the command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">sudo<span class="w"> </span>modprobe<span class="w"> </span>gpio_it87
+</span></pre></div>
+</div>
+<p>To make the change permanent, run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">sudo<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>gpio_it87<span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/modules
+</span></pre></div>
+</div>
+<p>I then discovered that Input/Output mode can be set only through BIOS, and the root user is required to set/get GPIO values.
+The biggest gotcha was that pin numbers in gpiolib do not match pin numbers in BIOS.</p>
+<p>I connected each pin to an LED on a breadboard and used the following script to discover their numbers:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">63</span><span class="k">)</span>
+</span><span data-line="2"><span class="k">do</span>
+</span><span data-line="3"><span class="w">    </span><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$i</span><span class="s2"> on &quot;</span>
+</span><span data-line="4"><span class="w">    </span>sudo<span class="w"> </span>gpioset<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$i</span><span class="s2">=1&quot;</span>
+</span><span data-line="5"><span class="w">    </span>sleep<span class="w"> </span><span class="m">1</span>
+</span><span data-line="6"><span class="w">    </span><span class="nb">echo</span><span class="w"> </span>off
+</span><span data-line="7"><span class="w">    </span>sudo<span class="w"> </span>gpioset<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$i</span><span class="s2">=0&quot;</span>
+</span><span data-line="8"><span class="k">done</span>
+</span></pre></div>
+</div>
+<p>The script iterates through all pins on chipset 0 and puts them into High for 1 second.
+(Before running the script, I assigned all GPIO pins to Output mode in the BIOS settings).</p>
+<p>Here are the line numbers for use in <code class="docutils literal notranslate"><span class="pre">gpioset</span></code> and <code class="docutils literal notranslate"><span class="pre">gpioget</span></code> commands:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><span data-line="1"> 1   2   3   4   5   6   7
+</span><span data-line="2">     28  11  2   0         
+</span><span data-line="3">---------------------------
+</span><span data-line="4">     23  22  34  33        
+</span><span data-line="5"> 1   2   3   4   5   6   7
+</span></pre></div>
+</div>
+<p>I rebooted to change pin modes to Input in BIOS and tried to get their values.</p>
+<p>Surprisingly, all pins returned High value when nothing was attached to it.
+Even if I supplied a pull-down option</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">$<span class="w"> </span>sudo<span class="w"> </span>gpioget<span class="w"> </span>-B<span class="w"> </span>pull-down<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+</span><span data-line="2"><span class="m">1</span>
+</span></pre></div>
+</div>
+<p>The solution was to add an external pull-down resistor. I tried 1K, 10K, and 100K.
+Only 1K resistor worked, driving the voltage on the input pin from 3.3V down to 0.3V, which is considered Low.</p>
+</section>
+</section>
+
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="38-book-driven-development.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Book-Driven Development</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="40-session-auth.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Session Authentication and Single-Page Applications</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2022, Peter Demin</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/shibuya.js?v=cac61aee"></script></body>
+</html>

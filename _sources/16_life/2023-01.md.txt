@@ -1,0 +1,45 @@
+`January 7, 2023` · My favourite Chipotle order: salad bowl, no rice, pinto beans, chicken, grilled veggies,  tomatoes, sour cream, shredded cheese, guac, and lettuce on top.
+It has nice balanced taste, healthy combination of ingredients, and sane number of calories.
+Chipotle offers some junk food options, but it's possible to pick just the good stuff.
+These days, it's my first choice in the shopping mall food courts.
+
+
+`Jan 20, 2023` - [KanHarI/gpt-commit-summarizer](https://github.com/KanHarI/gpt-commit-summarizer) - None
+
+`Jan 19, 2023` - [langchain-ai/langchain](https://github.com/langchain-ai/langchain) - 🦜🔗 The platform for reliable agents.
+
+`Jan 18, 2023` - [RafaelCosman/gpt-generated-textbooks](https://github.com/RafaelCosman/gpt-generated-textbooks) - Code to generate textbooks using GPT as well as several fully-generated examples
+
+`Jan 13, 2023` - [florinpop17/app-ideas](https://github.com/florinpop17/app-ideas) - A Collection of application ideas which can be used to improve your coding skills.
+
+`Jan 12, 2023` - [beaker-project/beaker](https://github.com/beaker-project/beaker) - Hardware integration testing system and lab automation for Fedora and RHEL
+
+`Jan 09, 2023` - [arxanas/git-branchless](https://github.com/arxanas/git-branchless) - High-velocity, monorepo-scale workflow for Git
+`Jan 06, 2023` - [xyflow/xyflow](https://github.com/xyflow/xyflow) - React Flow | Svelte Flow - Powerful open source libraries for building node-based UIs with React (https://reactflow.dev) or Svelte (https://svelteflow.dev). Ready out-of-the-box and infinitely customizable.
+
+`Jan 06, 2023` - [typesense/typesense](https://github.com/typesense/typesense) - Open Source alternative to Algolia + Pinecone and an Easier-to-Use alternative to ElasticSearch ⚡ 🔍 ✨ Fast, typo tolerant, in-memory fuzzy Search Engine for building delightful search experiences
+
+`Jan 06, 2023` - [xyflow/xyflow](https://github.com/xyflow/xyflow) - React Flow | Svelte Flow - Powerful open source libraries for building node-based UIs with React (https://reactflow.dev) or Svelte (https://svelteflow.dev). Ready out-of-the-box and infinitely customizable.
+
+
+`Jan 06, 2023` - [typesense/typesense](https://github.com/typesense/typesense) - Open Source alternative to Algolia + Pinecone and an Easier-to-Use alternative to ElasticSearch ⚡ 🔍 ✨ Fast, typo tolerant, in-memory fuzzy Search Engine for building delightful search experiences
+`Jan 05, 2023` - [python/cpython](https://github.com/python/cpython) - The Python programming language
+
+`Jan 05, 2023` - [watchexec/cargo-watch](https://github.com/watchexec/cargo-watch) - Watches over your Cargo project's source.
+
+`Jan 05, 2023` - [juanfont/headscale](https://github.com/juanfont/headscale) - An open source, self-hosted implementation of the Tailscale control server
+
+`Jan 05, 2023` - [cider-security-research/cicd-goat](https://github.com/cider-security-research/cicd-goat) - A deliberately vulnerable CI/CD environment. Learn CI/CD security through multiple challenges.
+
+`Jan 05, 2023` - [Zooz/predator](https://github.com/Zooz/predator) - A powerful open-source platform for load testing APIs.
+
+`Jan 05, 2023` - [python/cpython](https://github.com/python/cpython) - The Python programming language
+
+`Jan 05, 2023` - [watchexec/cargo-watch](https://github.com/watchexec/cargo-watch) - Watches over your Cargo project's source.
+
+`Jan 05, 2023` - [juanfont/headscale](https://github.com/juanfont/headscale) - An open source, self-hosted implementation of the Tailscale control server
+
+`Jan 05, 2023` - [cider-security-research/cicd-goat](https://github.com/cider-security-research/cicd-goat) - A deliberately vulnerable CI/CD environment. Learn CI/CD security through multiple challenges.
+
+
+`Jan 05, 2023` - [Zooz/predator](https://github.com/Zooz/predator) - A powerful open-source platform for load testing APIs.

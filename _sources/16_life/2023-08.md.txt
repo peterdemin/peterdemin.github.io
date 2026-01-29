@@ -1,0 +1,65 @@
+`Aug 31, 2023` - [bigscience-workshop/petals](https://github.com/bigscience-workshop/petals) - 🌸 Run LLMs at home, BitTorrent-style. Fine-tuning and inference up to 10x faster than offloading
+
+`Aug 31, 2023` - [ydataai/ydata-synthetic](https://github.com/ydataai/ydata-synthetic) - Synthetic data generators for tabular and time-series data
+
+`Aug 31, 2023` - [bigscience-workshop/petals](https://github.com/bigscience-workshop/petals) - 🌸 Run LLMs at home, BitTorrent-style. Fine-tuning and inference up to 10x faster than offloading
+
+`Aug 31, 2023` - [ydataai/ydata-synthetic](https://github.com/ydataai/ydata-synthetic) - Synthetic data generators for tabular and time-series data
+
+`Aug 30, 2023` - Notes for [](/17_notes/17-why_we_always_end_up_with_waterfall.md), [](/17_notes/18-robots_vs_programmers.md)
+
+`Aug 29, 2023` - Notes for [](/17_notes/15-gitlab_values_on_iteration.md), [](/17_notes/16-gitlab_s_directly_responsible_individuals.md)
+
+`Aug 29, 2023` - [](/12_articles/41-questions-for-hiring-manager.md)
+
+`Aug 23, 2023` - [innovatorved/whisper.api](https://github.com/innovatorved/whisper.api) - This project provides an API with user level access support to transcribe speech to text using a finetuned and processed Whisper ASR model.
+
+`Aug 23, 2023` - [roboflow/inference](https://github.com/roboflow/inference) - Turn any computer or edge device into a command center for your computer vision projects.
+
+`Aug 23, 2023` - [innovatorved/whisper.api](https://github.com/innovatorved/whisper.api) - This project provides an API with user level access support to transcribe speech to text using a finetuned and processed Whisper ASR model.
+
+`Aug 23, 2023` - [roboflow/inference](https://github.com/roboflow/inference) - Turn any computer or edge device into a command center for your computer vision projects.
+
+`Aug 19, 2023` - [rivet-dev/rivet](https://github.com/rivet-dev/rivet) - Rivet Actors are long-lived, in-memory processes. It's what you reach for when you hit the limitations of HTTP, databases, or queues.
+
+`Aug 19, 2023` - Notes for [](/17_notes/13-why_you_should_check_your_secrets_into_git.md), [](/17_notes/14-how_to_get_started_with_async.md)
+
+`Aug 18, 2023` - Notes for [](/17_notes/12-what_is_a_directly_responsible_individual.md)
+
+`Aug 17, 2023` - Notes for [](/17_notes/11-cognitive_load_is_what_matters.md)
+
+`Aug 16, 2023` - [GyulyVGC/sniffnet](https://github.com/GyulyVGC/sniffnet) - Comfortably monitor your Internet traffic 🕵️‍♂️
+
+`Aug 16, 2023` - [gitwonk/gitwonk](https://github.com/gitwonk/gitwonk) - The open source GitBook, Confluence, and Archbee alternative. Write technical docs like never before 🐙
+
+`Aug 16, 2023` - [GyulyVGC/sniffnet](https://github.com/GyulyVGC/sniffnet) - Comfortably monitor your Internet traffic 🕵️‍♂️
+
+`Aug 16, 2023` - [gitwonk/gitwonk](https://github.com/gitwonk/gitwonk) - The open source GitBook, Confluence, and Archbee alternative. Write technical docs like never before 🐙
+
+`Aug 16, 2023` - Notes for [](/17_notes/10-github_accelerator.rst)
+
+`Aug 15, 2023` - Notes for [](/17_notes/09-objective_driven_ai.md)
+
+`Aug 14, 2023` - Notes for [](/17_notes/07-how_a_startup_loses_its_spark.md), [](/17_notes/08-how_netflix_reinvented_hr.md)
+
+`Aug 13, 2023` - Notes for [](/17_notes/06-team_topologies.md)
+
+`Aug 11, 2023` - Notes for [](/17_notes/04_spikes.md)
+
+`Aug 10, 2023` - [toeverything/blocksuite](https://github.com/toeverything/blocksuite) - 🧩 Content editing tech stack for the web - BlockSuite is a toolkit for building editors and collaborative applications.
+
+`Aug 10, 2023` - Notes for [](/17_notes/02_advice_process.md)
+
+`Aug 10, 2023` - relative, related, relevant.
+
+`Aug 9, 2023` - Notes for [](/17_notes/01_xapo.md)
+`Aug 08, 2023` - [AppImage/AppImageKit](https://github.com/AppImage/AppImageKit) - Package desktop applications as AppImages that run on common Linux-based operating systems, such as RHEL, CentOS, openSUSE, SLED, Ubuntu, Fedora, debian and derivatives. Join #AppImage on irc.libera.chat
+
+`Aug 08, 2023` - [choldgraf/nbclean](https://github.com/choldgraf/nbclean) - A collection of tools to preprocess, modify, and otherwise clean up Jupyter Notebooks
+
+`Aug 08, 2023` - [AppImage/AppImageKit](https://github.com/AppImage/AppImageKit) - Package desktop applications as AppImages that run on common Linux-based operating systems, such as RHEL, CentOS, openSUSE, SLED, Ubuntu, Fedora, debian and derivatives. Join #AppImage on irc.libera.chat
+
+
+`Aug 08, 2023` - [choldgraf/nbclean](https://github.com/choldgraf/nbclean) - A collection of tools to preprocess, modify, and otherwise clean up Jupyter Notebooks
+
+`Aug 05, 2023` - [ajaxorg/ace](https://github.com/ajaxorg/ace) - Ace (Ajax.org Cloud9 Editor)

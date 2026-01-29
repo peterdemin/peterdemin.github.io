@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Mutable types in Pydantic default values - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Reaction to interview rejection emails" href="44-rejection-response.html" /><link rel="prev" title="Small-scale Deployment Options" href="42-small-scale-deploy.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=51f15f49" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="Mutable types in Pydantic default values"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#observation">Observation</a></li>
+<li><a class="reference internal" href="#investigation">Investigation</a></li>
+<li><a class="reference internal" href="#reflection">Reflection</a></li>
+<li><a class="reference internal" href="#recommendation">Recommendation</a></li>
+</ul>
+</div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
+  data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </span>
+  <span class="flex-grow px-2 break-all">
+    
+    
+      <span>peterdemin.github.io</span>
+    
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <iconify-icon icon="lucide:star"></iconify-icon>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <iconify-icon icon="lucide:git-fork"></iconify-icon>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/peterdemin/peterdemin.github.io/blob/master/source/12_articles/43-pydantic-mutable-defaults.md">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
+    
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Mutable types in Pydantic default values</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/43-pydantic-mutable-defaults.md.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/43-pydantic-mutable-defaults.md.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/43-pydantic-mutable-defaults.md.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:markdown"></iconify-icon>
+            <span>View as Markdown</span></a><a role="menuitem" href="https://chatgpt.com/?hints=search&q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/43-pydantic-mutable-defaults.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:openai"></iconify-icon>
+          <span>Open in ChatGPT</span>
+        </a><a role="menuitem" href="https://claude.ai/new?q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/43-pydantic-mutable-defaults.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:claude"></iconify-icon>
+          <span>Open in Claude</span>
+        </a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="mutable-types-in-pydantic-default-values">
+<h1>Mutable types in Pydantic default values<a class="headerlink" href="#mutable-types-in-pydantic-default-values" title="Link to this heading">¶</a></h1>
+<section id="observation">
+<h2>Observation<a class="headerlink" href="#observation" title="Link to this heading">¶</a></h2>
+<p>When going through FastAPI documentation, one thing caught my eye and raised a wave of butthurt from the past.</p>
+<p><a class="reference external" href="https://fastapi.tiangolo.com/tutorial/path-operation-configuration/#summary-and-description">Path Operation Configuration</a> chapter references Pydantic model.
+In the model, it defines a <code class="docutils literal notranslate"><span class="pre">tags</span></code> field with a default set to an empty <code class="docutils literal notranslate"><span class="pre">set()</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="k">class</span><span class="w"> </span><span class="nc">Item</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+</span><span data-line="4">    <span class="n">tags</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+</span></pre></div>
+</div>
+<p>In Python sets are mutable, and default values are initialized in-place during initial parsing.
+Which means, that the same <code class="docutils literal notranslate"><span class="pre">set</span></code> object will be used for all future instances of <code class="docutils literal notranslate"><span class="pre">Item</span></code>.</p>
+<p>Except, it won’t. A quick check to confirm it:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="k">class</span><span class="w"> </span><span class="nc">Item</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+</span><span data-line="4">   <span class="o">...</span><span class="p">:</span>     <span class="n">tags</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+</span><span data-line="5">   <span class="o">...</span><span class="p">:</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">item</span> <span class="o">=</span> <span class="n">Item</span><span class="p">()</span>
+</span><span data-line="8">
+</span><span data-line="9"><span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">item2</span> <span class="o">=</span> <span class="n">Item</span><span class="p">()</span>
+</span><span data-line="10">
+</span><span data-line="11"><span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">item</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+</span><span data-line="12">
+</span><span data-line="13"><span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">item2</span><span class="o">.</span><span class="n">tags</span>
+</span><span data-line="14"><span class="n">Out</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="nb">set</span><span class="p">()</span>
+</span></pre></div>
+</div>
+<p>How’s that possible? The answer is, of course, inside of Pydantic internals.</p>
+</section>
+<section id="investigation">
+<h2>Investigation<a class="headerlink" href="#investigation" title="Link to this heading">¶</a></h2>
+<p>Here’s the implementation of <a class="reference external" href="https://github.com/pydantic/pydantic/blob/v2.4.2/pydantic/fields.py#L493-L511">FieldInfo.get_default</a> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_factory</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="2">    <span class="k">return</span> <span class="n">_utils</span><span class="o">.</span><span class="n">smart_deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default</span><span class="p">)</span>
+</span><span data-line="3"><span class="k">elif</span> <span class="n">call_default_factory</span><span class="p">:</span>
+</span><span data-line="4">    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_factory</span><span class="p">()</span>
+</span><span data-line="5"><span class="k">else</span><span class="p">:</span>
+</span><span data-line="6">    <span class="k">return</span> <span class="kc">None</span>
+</span></pre></div>
+</div>
+<p>We can see, that unless explicitely overriden, a field uses <code class="docutils literal notranslate"><span class="pre">smart_deepcopy</span></code> to provide a default value for the new instance.</p>
+<p>And here’s what <a class="reference external" href="https://github.com/pydantic/pydantic/blob/v2.4.2/pydantic/_internal/_utils.py#L301-L317">smart_deepcopy</a> does:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="k">def</span><span class="w"> </span><span class="nf">smart_deepcopy</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Obj</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Obj</span><span class="p">:</span>
+</span><span data-line="2"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return type as is for immutable built-in types</span>
+</span><span data-line="3"><span class="sd">    Use obj.copy() for built-in empty collections</span>
+</span><span data-line="4"><span class="sd">    Use copy.deepcopy() for non-empty collections and unknown objects.</span>
+</span><span data-line="5"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span data-line="6">    <span class="n">obj_type</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__class__</span>
+</span><span data-line="7">    <span class="k">if</span> <span class="n">obj_type</span> <span class="ow">in</span> <span class="n">IMMUTABLE_NON_COLLECTIONS_TYPES</span><span class="p">:</span>
+</span><span data-line="8">        <span class="k">return</span> <span class="n">obj</span>  <span class="c1"># fastest case: obj is immutable and not collection therefore will not be copied anyway</span>
+</span><span data-line="9">    <span class="k">try</span><span class="p">:</span>
+</span><span data-line="10">        <span class="k">if</span> <span class="ow">not</span> <span class="n">obj</span> <span class="ow">and</span> <span class="n">obj_type</span> <span class="ow">in</span> <span class="n">BUILTIN_COLLECTIONS</span><span class="p">:</span>
+</span><span data-line="11">            <span class="c1"># faster way for empty collections, no need to copy its members</span>
+</span><span data-line="12">            <span class="k">return</span> <span class="n">obj</span> <span class="k">if</span> <span class="n">obj_type</span> <span class="ow">is</span> <span class="nb">tuple</span> <span class="k">else</span> <span class="n">obj</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># tuple doesn&#39;t have copy method</span>
+</span><span data-line="13">    <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">):</span>
+</span><span data-line="14">        <span class="c1"># do we really dare to catch ALL errors? Seems a bit risky</span>
+</span><span data-line="15">        <span class="k">pass</span>
+</span><span data-line="16">
+</span><span data-line="17">    <span class="k">return</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>  <span class="c1"># slowest way when we actually might need a deepcopy</span>
+</span></pre></div>
+</div>
+<p>It checks a set of known immutable types, that are safe for being defaults.
+And it has a set of builtin collections that can be copied fast when empty.
+And for all the rest it’s using <code class="docutils literal notranslate"><span class="pre">deepcopy</span></code>.</p>
+</section>
+<section id="reflection">
+<h2>Reflection<a class="headerlink" href="#reflection" title="Link to this heading">¶</a></h2>
+<p>Pydantic models have a different implicit way of handling default values.
+Unlike Python, Pydantic favors correctness over performance.
+Arguably, Pydantic’s behavior is more forgiving for beginners.
+If someone is just starting to learn Python by the way of building FastAPI backends,
+they might save themselves hard times debugging cross-request data leakage.</p>
+<p>As a down-side, they might learn a wrong lesson about default values in Python.
+Using mutable object as a default value for a function parameter is still a dangerous bug
+everywhere outside of Pydantic fields definition.</p>
+<p>And for the experienced Python developers, this means increased <a class="reference internal" href="../17_notes/11-cognitive_load_is_what_matters.html"><span class="std std-doc">intrinsic cognitive load</span></a> to distinguish implicit behavior inside and outside of Pydantic.</p>
+</section>
+<section id="recommendation">
+<h2>Recommendation<a class="headerlink" href="#recommendation" title="Link to this heading">¶</a></h2>
+<p>When using mutable objects as Pydantic fields’ default value, use <code class="docutils literal notranslate"><span class="pre">default_factory</span></code> to highlight the dynamic nature of the object, and make the handling explicit.
+Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="k">class</span><span class="w"> </span><span class="nc">Item</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+</span><span data-line="4">    <span class="n">tags</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">set</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</section>
+</section>
+
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="42-small-scale-deploy.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Small-scale Deployment Options</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="44-rejection-response.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Reaction to interview rejection emails</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2022, Peter Demin</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/shibuya.js?v=cac61aee"></script></body>
+</html>

@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Personal cloud VM on Google Cloud Platform free tier - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="My GitHub stars" href="77-github-stars.html" /><link rel="prev" title="To be replaced by AI is a choice" href="75-replaced-by-AI.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=51f15f49" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="Personal cloud VM on Google Cloud Platform free tier"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#install-gcloud-cli">Install GCloud CLI</a></li>
+<li><a class="reference internal" href="#create-a-vm">Create a VM</a></li>
+<li><a class="reference internal" href="#configure-firewall">Configure Firewall</a></li>
+<li><a class="reference internal" href="#provision">Provision</a><ul>
+<li><a class="reference internal" href="#clean-up-google-cruft">Clean up Google cruft</a></li>
+<li><a class="reference internal" href="#install-tailscale">Install Tailscale</a></li>
+<li><a class="reference internal" href="#folder-synchronization-with-syncthing">Folder synchronization with Syncthing</a></li>
+<li><a class="reference internal" href="#nginx-and-https">Nginx and HTTPS</a></li>
+<li><a class="reference internal" href="#ejabberd">Ejabberd</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#memory-usage">Memory usage</a></li>
+<li><a class="reference internal" href="#conclusion">Conclusion</a></li>
+<li><a class="reference internal" href="#honorable-mentions">Honorable mentions</a></li>
+</ul>
+</div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
+  data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </span>
+  <span class="flex-grow px-2 break-all">
+    
+    
+      <span>peterdemin.github.io</span>
+    
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <iconify-icon icon="lucide:star"></iconify-icon>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <iconify-icon icon="lucide:git-fork"></iconify-icon>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/peterdemin/peterdemin.github.io/blob/master/source/12_articles/76-gcp-free-tier.md">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
+    
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Personal cloud VM on Google Cloud Platform free tier</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/76-gcp-free-tier.md.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/76-gcp-free-tier.md.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/76-gcp-free-tier.md.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:markdown"></iconify-icon>
+            <span>View as Markdown</span></a><a role="menuitem" href="https://chatgpt.com/?hints=search&q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/76-gcp-free-tier.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:openai"></iconify-icon>
+          <span>Open in ChatGPT</span>
+        </a><a role="menuitem" href="https://claude.ai/new?q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/76-gcp-free-tier.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:claude"></iconify-icon>
+          <span>Open in Claude</span>
+        </a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="personal-cloud-vm-on-google-cloud-platform-free-tier">
+<h1>Personal cloud VM on Google Cloud Platform free tier<a class="headerlink" href="#personal-cloud-vm-on-google-cloud-platform-free-tier" title="Link to this heading">¶</a></h1>
+<p>Google Cloud Platform generously offers a tiny Virtual Machine instance for <a class="reference external" href="https://docs.cloud.google.com/free/docs/free-cloud-features#compute">free</a> per account.
+The <a class="reference external" href="https://docs.cloud.google.com/compute/docs/general-purpose-machines#e2-shared-core">e2-micro</a> is not exactly a power house: <code class="docutils literal notranslate"><span class="pre">0.25</span></code> CPU, <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">GB</span></code> RAM, and <code class="docutils literal notranslate"><span class="pre">30</span> <span class="pre">GB</span></code> HDD (not SSD).
+But don’t be discouraged, as you’ll see how much we can pack on it.</p>
+<p>Of course, everyone has an opinion on what should be hosted on a personal VM in the cloud, but here’s my take, and I hope someone finds something useful for their own.
+Also, a disclaimer, while the hosting part is free, a nice domain name is not.
+I used to use Google Domains, but they moved their business to Squarespace.
+I pay $12/year for demin.dev.</p>
+<p>My choice of services to run:</p>
+<ul class="simple">
+<li><p>VPN using <a class="reference external" href="https://tailscale.com/">tailscale</a>.</p></li>
+<li><p>Folder synchronization with <a class="reference external" href="https://syncthing.net/">syncthing</a>.</p></li>
+<li><p>Static website and reverse proxy using <a class="reference external" href="https://nginx.org/">nginx</a> and <a class="reference external" href="https://letsencrypt.org/">Let’s Encrypt</a>.</p></li>
+<li><p>XMPP server using <a class="reference external" href="https://www.ejabberd.im/">ejabberd</a>.</p></li>
+<li><p>Email server using <a class="reference external" href="https://www.postfix.org/">postfix</a>.</p></li>
+<li><p>RSS reader using <a class="reference external" href="https://github.com/Athou/commafeed">commafeed</a>.</p></li>
+</ul>
+<p>In the interest of efficiency, we won’t be using containerization or nested virtualization (sorry, no <a class="reference internal" href="51-self-hosted-paas.html"><span class="std std-doc">Docker PaaS</span></a> preaching here), which means extra fuss for installing each separate piece.
+But you’ll see that the setup follows the same steps across many parts, and it’s a good opportunity to learn Linux fundamentals: managing packages, users, configuration files, and SystemD units.</p>
+<section id="install-gcloud-cli">
+<h2>Install GCloud CLI<a class="headerlink" href="#install-gcloud-cli" title="Link to this heading">¶</a></h2>
+<p>I prefer scriptable solutions to clicking around in a Web UI, so we’ll be using <a class="reference external" href="https://docs.cloud.google.com/sdk/docs/install-sdk">Google Cloud command-line interface</a>.
+There are many ways to install <code class="docutils literal notranslate"><span class="pre">gcloud</span></code>, my favorite is to use <code class="docutils literal notranslate"><span class="pre">pip</span></code>.
+With a modern Python (3.12+ at the moment of writing), create a virtualenv and run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">gcloud</span></code>.</p>
+<p>After installation, authenticate the CLI under your Google account: <code class="docutils literal notranslate"><span class="pre">gcloud</span> <span class="pre">auth</span> <span class="pre">login</span></code>.</p>
+</section>
+<section id="create-a-vm">
+<h2>Create a VM<a class="headerlink" href="#create-a-vm" title="Link to this heading">¶</a></h2>
+<p>I extracted the parts that you most likely want to change as variables.
+I’m using the domain name demin.dev, and my user name is peter:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="nv">PROJECT</span><span class="o">=</span>demindev
+</span><span data-line="2"><span class="nv">ACCOUNT</span><span class="o">=</span><span class="m">763427644786</span>
+</span><span data-line="3"><span class="nv">USERNAME</span><span class="o">=</span>peter
+</span><span data-line="4"><span class="nv">PUBKEY</span><span class="o">=</span><span class="k">$(</span>ssh-keygen<span class="w"> </span>-yf<span class="w"> </span>~/.ssh/id_rsa<span class="k">)</span>
+</span><span data-line="5"><span class="nv">INSTANCE</span><span class="o">=</span>demin-dev
+</span><span data-line="6"><span class="nv">DOMAIN</span><span class="o">=</span>demin.dev
+</span><span data-line="7">
+</span><span data-line="8">gcloud<span class="w"> </span>compute<span class="w"> </span>instances<span class="w"> </span>create<span class="w"> </span><span class="nv">$INSTANCE</span><span class="w"> </span><span class="se">\</span>
+</span><span data-line="9"><span class="w">    </span>--project<span class="o">=</span><span class="nv">$PROJECT</span><span class="w"> </span><span class="se">\</span>
+</span><span data-line="10"><span class="w">    </span>--zone<span class="o">=</span>us-west1-c<span class="w"> </span><span class="se">\</span>
+</span><span data-line="11"><span class="w">    </span>--machine-type<span class="o">=</span>e2-micro<span class="w"> </span><span class="se">\</span>
+</span><span data-line="12"><span class="w">    </span>--network-interface<span class="o">=</span>network-tier<span class="o">=</span>STANDARD,stack-type<span class="o">=</span>IPV4_ONLY,subnet<span class="o">=</span>default<span class="w"> </span><span class="se">\</span>
+</span><span data-line="13"><span class="w">    </span>--tags<span class="o">=</span>http-server,https-server,jabber-server,smtp-server<span class="w"> </span><span class="se">\</span>
+</span><span data-line="14"><span class="w">    </span>--public-ptr<span class="w"> </span><span class="se">\</span>
+</span><span data-line="15"><span class="w">    </span>--public-ptr-domain<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">DOMAIN</span><span class="si">}</span><span class="s2">.&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span data-line="16"><span class="w">    </span>--metadata<span class="o">=</span><span class="s2">&quot;ssh-keys=</span><span class="si">${</span><span class="nv">USERNAME</span><span class="si">}</span><span class="s2">:</span><span class="si">${</span><span class="nv">PUBKEY</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span data-line="17"><span class="w">    </span>--maintenance-policy<span class="o">=</span>MIGRATE<span class="w"> </span><span class="se">\</span>
+</span><span data-line="18"><span class="w">    </span>--provisioning-model<span class="o">=</span>STANDARD<span class="w"> </span><span class="se">\</span>
+</span><span data-line="19"><span class="w">    </span>--service-account<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">ACCOUNT</span><span class="si">}</span><span class="s2">-compute@developer.gserviceaccount.com&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span data-line="20"><span class="w">    </span>--create-disk<span class="o">=</span>auto-delete<span class="o">=</span>yes,boot<span class="o">=</span>yes,device-name<span class="o">=</span><span class="nv">$INSTANCE</span>,image<span class="o">=</span>projects/debian-cloud/global/images/debian-13-trixie-v20251014,mode<span class="o">=</span>rw,size<span class="o">=</span><span class="m">10</span>,type<span class="o">=</span>pd-standard<span class="w"> </span><span class="se">\</span>
+</span><span data-line="21"><span class="w">    </span>--no-shielded-secure-boot<span class="w"> </span><span class="se">\</span>
+</span><span data-line="22"><span class="w">    </span>--shielded-vtpm<span class="w"> </span><span class="se">\</span>
+</span><span data-line="23"><span class="w">    </span>--shielded-integrity-monitoring<span class="w"> </span><span class="se">\</span>
+</span><span data-line="24"><span class="w">    </span>--labels<span class="o">=</span>goog-ec-src<span class="o">=</span>vm_add-gcloud<span class="w"> </span><span class="se">\</span>
+</span><span data-line="25"><span class="w">    </span>--reservation-affinity<span class="o">=</span>any
+</span></pre></div>
+</div>
+<p>I’m using the latest stable Debian release that happens to be <a class="reference external" href="https://www.debian.org/releases/trixie/">13 Trixie</a>.
+I’m a long-time Ubuntu fan, but Ubuntu Server is too heavy for the e2-micro size, while Debian offers a similar experience with less bloat.</p>
+<p>The command outputs something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">NAME</span>            <span class="n">ZONE</span>        <span class="n">MACHINE_TYPE</span>  <span class="n">PREEMPTIBLE</span>  <span class="n">INTERNAL_IP</span>  <span class="n">EXTERNAL_IP</span>   <span class="n">STATUS</span>
+</span><span data-line="2"><span class="n">demin</span><span class="o">-</span><span class="n">dev</span>       <span class="n">us</span><span class="o">-</span><span class="n">west1</span><span class="o">-</span><span class="n">c</span>  <span class="n">e2</span><span class="o">-</span><span class="n">micro</span>                   <span class="mf">10.138.0.4</span>   <span class="mf">35.212.175.9</span>  <span class="n">RUNNING</span>
+</span></pre></div>
+</div>
+<p>It’ll take a second to start the VM.
+Use this time to update the domain’s DNS settings with the new <code class="docutils literal notranslate"><span class="pre">EXTERNAL_IP</span></code>.
+Don’t worry about the address being “ephemeral”; in my experience, Google doesn’t change IP addresses of running VMs.
+On the contrary, it tends to reuse the same IPv4 address if you delete/recreate a VM.
+The jabber subdomains (conference.demin.dev and pubsub.demin.dev) can be <code class="docutils literal notranslate"><span class="pre">A</span></code> records with the same IP, or a <code class="docutils literal notranslate"><span class="pre">CNAME</span></code> record mapping to the domain.</p>
+</section>
+<section id="configure-firewall">
+<h2>Configure Firewall<a class="headerlink" href="#configure-firewall" title="Link to this heading">¶</a></h2>
+<p>Ensure Google Firewall has rules for HTTP/HTTPS, and Jabber:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">gcloud<span class="w"> </span>compute<span class="w"> </span>firewall-rules<span class="w"> </span>create<span class="w"> </span>default-allow-http<span class="w"> </span><span class="se">\</span>
+</span><span data-line="2"><span class="w">    </span>--project<span class="o">=</span><span class="nv">$PROJECT</span><span class="w"> </span><span class="se">\</span>
+</span><span data-line="3"><span class="w">    </span>--direction<span class="o">=</span>INGRESS<span class="w"> </span><span class="se">\</span>
+</span><span data-line="4"><span class="w">    </span>--priority<span class="o">=</span><span class="m">1000</span><span class="w"> </span><span class="se">\</span>
+</span><span data-line="5"><span class="w">    </span>--network<span class="o">=</span>default<span class="w"> </span><span class="se">\</span>
+</span><span data-line="6"><span class="w">    </span>--action<span class="o">=</span>ALLOW<span class="w"> </span><span class="se">\</span>
+</span><span data-line="7"><span class="w">    </span>--rules<span class="o">=</span>tcp:80<span class="w"> </span><span class="se">\</span>
+</span><span data-line="8"><span class="w">    </span>--source-ranges<span class="o">=</span><span class="m">0</span>.0.0.0/0<span class="w"> </span><span class="se">\</span>
+</span><span data-line="9"><span class="w">    </span>--target-tags<span class="o">=</span>http-server<span class="w"> </span><span class="se">\</span>
+</span><span data-line="10"><span class="w">    </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+</span><span data-line="11">gcloud<span class="w"> </span>compute<span class="w"> </span>firewall-rules<span class="w"> </span>create<span class="w"> </span>default-allow-https<span class="w"> </span><span class="se">\</span>
+</span><span data-line="12"><span class="w">    </span>--project<span class="o">=</span><span class="nv">$PROJECT</span><span class="w"> </span><span class="se">\</span>
+</span><span data-line="13"><span class="w">    </span>--direction<span class="o">=</span>INGRESS<span class="w"> </span><span class="se">\</span>
+</span><span data-line="14"><span class="w">    </span>--priority<span class="o">=</span><span class="m">1000</span><span class="w"> </span><span class="se">\</span>
+</span><span data-line="15"><span class="w">    </span>--network<span class="o">=</span>default<span class="w"> </span><span class="se">\</span>
+</span><span data-line="16"><span class="w">    </span>--action<span class="o">=</span>ALLOW<span class="w"> </span><span class="se">\</span>
+</span><span data-line="17"><span class="w">    </span>--rules<span class="o">=</span>tcp:443<span class="w"> </span><span class="se">\</span>
+</span><span data-line="18"><span class="w">    </span>--source-ranges<span class="o">=</span><span class="m">0</span>.0.0.0/0<span class="w"> </span><span class="se">\</span>
+</span><span data-line="19"><span class="w">    </span>--target-tags<span class="o">=</span>https-server<span class="w"> </span><span class="se">\</span>
+</span><span data-line="20"><span class="w">    </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+</span><span data-line="21">gcloud<span class="w"> </span>compute<span class="w"> </span>firewall-rules<span class="w"> </span>create<span class="w"> </span>jabber<span class="w"> </span><span class="se">\</span>
+</span><span data-line="22"><span class="w">    </span>--project<span class="o">=</span><span class="nv">$PROJECT</span><span class="w"> </span><span class="se">\</span>
+</span><span data-line="23"><span class="w">    </span>--direction<span class="o">=</span>INGRESS<span class="w"> </span><span class="se">\</span>
+</span><span data-line="24"><span class="w">    </span>--priority<span class="o">=</span><span class="m">1000</span><span class="w"> </span><span class="se">\</span>
+</span><span data-line="25"><span class="w">    </span>--network<span class="o">=</span>default<span class="w"> </span><span class="se">\</span>
+</span><span data-line="26"><span class="w">    </span>--action<span class="o">=</span>ALLOW<span class="w"> </span><span class="se">\</span>
+</span><span data-line="27"><span class="w">    </span>--rules<span class="o">=</span>tcp:5222,tcp:5223,tcp:5269,tcp:5443,tcp:5280,tcp:1883,udp:5478<span class="w"> </span><span class="se">\</span>
+</span><span data-line="28"><span class="w">    </span>--source-ranges<span class="o">=</span><span class="m">0</span>.0.0.0/0<span class="w"> </span><span class="se">\</span>
+</span><span data-line="29"><span class="w">    </span>--target-tags<span class="o">=</span>jabber-server<span class="w"> </span><span class="se">\</span>
+</span><span data-line="30"><span class="w">    </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+</span><span data-line="31">gcloud<span class="w"> </span>compute<span class="w"> </span>firewall-rules<span class="w"> </span>create<span class="w"> </span>smtp<span class="w"> </span><span class="se">\</span>
+</span><span data-line="32"><span class="w">    </span>--project<span class="o">=</span><span class="nv">$PROJECT</span><span class="w"> </span><span class="se">\</span>
+</span><span data-line="33"><span class="w">    </span>--direction<span class="o">=</span>INGRESS<span class="w"> </span><span class="se">\</span>
+</span><span data-line="34"><span class="w">    </span>--priority<span class="o">=</span><span class="m">1000</span><span class="w"> </span><span class="se">\</span>
+</span><span data-line="35"><span class="w">    </span>--network<span class="o">=</span>default<span class="w"> </span><span class="se">\</span>
+</span><span data-line="36"><span class="w">    </span>--action<span class="o">=</span>ALLOW<span class="w"> </span><span class="se">\</span>
+</span><span data-line="37"><span class="w">    </span>--rules<span class="o">=</span>tcp:25<span class="w"> </span><span class="se">\</span>
+</span><span data-line="38"><span class="w">    </span>--source-ranges<span class="o">=</span><span class="m">0</span>.0.0.0/0<span class="w"> </span><span class="se">\</span>
+</span><span data-line="39"><span class="w">    </span>--target-tags<span class="o">=</span>smtp-server<span class="w"> </span><span class="se">\</span>
+</span><span data-line="40"><span class="w">    </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+</span></pre></div>
+</div>
+</section>
+<section id="provision">
+<h2>Provision<a class="headerlink" href="#provision" title="Link to this heading">¶</a></h2>
+<p>Personally, I put all VM setup code in a shell script, so my workflow looks like this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">scp<span class="w"> </span>provision.sh<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">IP</span><span class="si">}</span><span class="s2">:&quot;</span>
+</span><span data-line="2">ssh<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">IP</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>--<span class="w"> </span><span class="s2">&quot;chmod +x provision.sh &amp;&amp; sudo ./provision.sh&quot;</span>
+</span></pre></div>
+</div>
+<p>For the sake of the guideline, I’ll split the steps, so it’s easier to follow and adjust.
+Log in to the instance and become root:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">ssh<span class="w"> </span><span class="nv">$IP</span>
+</span><span data-line="2">sudo<span class="w"> </span>su
+</span></pre></div>
+</div>
+<p>All further instructions assume you’re running as root on the VM.</p>
+<p>For the email server instructions, please refer to <a class="reference internal" href="45-minimal-linux-email-box.html"><span class="std std-doc">How to set up a receiving email server on a Linux machine</span></a>.
+The instructions for the RSS reader are in <a class="reference internal" href="71-rss-feed.html"><span class="std std-doc">My RSS feed reader setup</span></a>.</p>
+<section id="clean-up-google-cruft">
+<h3>Clean up Google cruft<a class="headerlink" href="#clean-up-google-cruft" title="Link to this heading">¶</a></h3>
+<p>Google preinstalls its CLI in the VM cloud images. I find it unnecessary and wasteful, clean up:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">apt<span class="w"> </span>remove<span class="w"> </span>-y<span class="w"> </span>google-cloud-cli<span class="w"> </span>google-cloud-cli-anthoscli<span class="w"> </span>google-guest-agent<span class="w"> </span>google-osconfig-agent
+</span><span data-line="2">apt<span class="w"> </span>autoremove
+</span></pre></div>
+</div>
+<p>This operation is crazy slow (about 10 minutes), mainly because Google decided to delete the package files one by one instead of in bulk.
+Keeping packages would most likely mean upgrading them, which takes the same crazy amount of time.</p>
+<p>If you don’t want to wait now, put these packages on hold, and get back to uninstalling later:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">apt-mark<span class="w"> </span>hold<span class="w"> </span>google-cloud-cli<span class="w"> </span>google-cloud-cli-anthoscli<span class="w"> </span>google-guest-agent<span class="w"> </span>google-osconfig-agent
+</span></pre></div>
+</div>
+</section>
+<section id="install-tailscale">
+<h3>Install Tailscale<a class="headerlink" href="#install-tailscale" title="Link to this heading">¶</a></h3>
+<p>I like to start with Tailscale because it lets me disable public SSH access to the instance as soon as possible.</p>
+<p>Add Tailscale’s Debian package repo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">mkdir<span class="w"> </span>-p<span class="w"> </span>/etc/apt/keyrings
+</span><span data-line="2">curl<span class="w"> </span>-fsSL<span class="w"> </span>https://pkgs.tailscale.com/stable/debian/trixie.noarmor.gpg<span class="w"> </span>&gt;<span class="w"> </span>/usr/share/keyrings/tailscale-archive-keyring.gpg
+</span><span data-line="3">curl<span class="w"> </span>-fsSL<span class="w"> </span>https://pkgs.tailscale.com/stable/debian/trixie.tailscale-keyring.list<span class="w"> </span>&gt;<span class="w"> </span>/etc/apt/sources.list.d/tailscale.list
+</span></pre></div>
+</div>
+<p>Refresh the packages list and install:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">apt-get<span class="w"> </span>update
+</span><span data-line="2">apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>tailscale
+</span></pre></div>
+</div>
+<p>Tailscale authentication is done by following the link from this command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">tailscale<span class="w"> </span>login
+</span></pre></div>
+</div>
+<p>Now you can log out of the SSH session, disable the default-allow-ssh firewall rule, and connect back to the Tailscale host, which would look something like <code class="docutils literal notranslate"><span class="pre">demin-dev.tail6f730.ts.net</span></code>.
+While at it, you should also disable RDP and internal traffic rules.</p>
+<p>If you designate this server as an exit node, you can use it to enhance security on public Wi-Fi.
+You’ll need to apply <a class="reference external" href="https://tailscale.com/kb/1019/subnets?tab=linux#enable-ip-forwarding">extra configuration</a>, though:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">cat<span class="w"> </span>&gt;<span class="w"> </span>/etc/sysctl.d/99-tailscale.conf<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+</span><span data-line="2"><span class="s">net.ipv4.ip_forward = 1</span>
+</span><span data-line="3"><span class="s">net.ipv6.conf.all.forwarding = 1</span>
+</span><span data-line="4"><span class="s">EOF</span>
+</span><span data-line="5">sysctl<span class="w"> </span>-p<span class="w"> </span>/etc/sysctl.d/99-tailscale.conf
+</span><span data-line="6">tailscale<span class="w"> </span>up<span class="w"> </span>--advertise-exit-node
+</span></pre></div>
+</div>
+<p>Then open <a class="reference external" href="https://tailscale.com">Tailscale</a> admin console, open the machine page, and choose Exit Node: Allowed under Routing Settings.</p>
+<p>To verify, enable the new Exit Node on your laptop and open <a class="reference external" href="https://whatismyipaddress.com/"></a>, it should show something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">ISP</span><span class="p">:</span>      <span class="n">Google</span> <span class="n">LLC</span>
+</span><span data-line="2"><span class="n">Services</span><span class="p">:</span> <span class="n">Data</span> <span class="n">Center</span><span class="o">/</span><span class="n">Transit</span>
+</span><span data-line="3"><span class="n">City</span><span class="p">:</span>     <span class="n">The</span> <span class="n">Dalles</span>
+</span><span data-line="4"><span class="n">Region</span><span class="p">:</span>   <span class="n">Oregon</span>
+</span><span data-line="5"><span class="n">Country</span><span class="p">:</span>  <span class="n">United</span> <span class="n">States</span>
+</span></pre></div>
+</div>
+</section>
+<section id="folder-synchronization-with-syncthing">
+<h3>Folder synchronization with Syncthing<a class="headerlink" href="#folder-synchronization-with-syncthing" title="Link to this heading">¶</a></h3>
+<p>The steps to install Syncthing from the package maintainer’s repo are similar:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">curl</span> <span class="o">-</span><span class="n">L</span> <span class="o">-</span><span class="n">o</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">keyrings</span><span class="o">/</span><span class="n">syncthing</span><span class="o">-</span><span class="n">archive</span><span class="o">-</span><span class="n">keyring</span><span class="o">.</span><span class="n">gpg</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">syncthing</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="n">release</span><span class="o">-</span><span class="n">key</span><span class="o">.</span><span class="n">gpg</span>
+</span><span data-line="2"><span class="n">echo</span> <span class="s2">&quot;deb [signed-by=/etc/apt/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing stable-v2&quot;</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">syncthing</span><span class="o">.</span><span class="n">list</span>
+</span><span data-line="3"><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
+</span><span data-line="4"><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">syncthing</span>
+</span></pre></div>
+</div>
+<p>Syncthing uses per-user SystemD units. Let’s make a separate system user for it and launch:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">useradd<span class="w"> </span>-rms<span class="w"> </span>/sbin/nologin<span class="w"> </span>syncthing
+</span><span data-line="2">systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>syncthing@syncthing.service
+</span><span data-line="3">systemctl<span class="w"> </span>start<span class="w"> </span>syncthing@syncthing.service
+</span></pre></div>
+</div>
+<p>Then you can open Web UI on port <code class="docutils literal notranslate"><span class="pre">8384</span></code> on the Tailscale’s host and finish the setup in the browser:</p>
+<p>https://demin-dev.tail6f730.ts.net:8384/</p>
+<p>One cool thing to do is to share <code class="docutils literal notranslate"><span class="pre">/var/www/html</span></code> with your laptop for a seamless website deployment experience.</p>
+</section>
+<section id="nginx-and-https">
+<h3>Nginx and HTTPS<a class="headerlink" href="#nginx-and-https" title="Link to this heading">¶</a></h3>
+<p>The domain needs TLS certificates to serve HTTPS and XMPP traffic.
+Certbot recommends using the snap package because they don’t have the time to support everyone who can’t figure out how to install Python.
+But it’s more efficient to install from pip. Here are the steps.</p>
+<p>First, let’s make sure we have nginx and Python installed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>nginx<span class="w"> </span>ca-certificates<span class="w"> </span>python3-venv<span class="w"> </span>python-is-python3
+</span></pre></div>
+</div>
+<p>Create a Python virtualenv for certbot and install it system-wide from the Python Package Index:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>/opt/certbot/
+</span><span data-line="2">/opt/certbot/bin/python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>certbot<span class="w"> </span>certbot-nginx
+</span><span data-line="3">ln<span class="w"> </span>-s<span class="w"> </span>/opt/certbot/bin/certbot<span class="w"> </span>/usr/bin/certbot
+</span></pre></div>
+</div>
+<p>This is not ideal, because we’re not using the system’s package manager.
+So it won’t get automatic updates for the certbot, and removing has to be done “manually”.
+For this particular case, it’s fine, though.
+In case you want to upgrade it later, run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">/opt/certbot/bin/python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>certbot<span class="w"> </span>certbot-nginx
+</span></pre></div>
+</div>
+<p>Let’s configure nginx.
+Add jabber subdomains here to include them in the TLS certificate, even though XMPP traffic will never use HTTP/HTTPS ports with them.
+Example <code class="docutils literal notranslate"><span class="pre">/etc/nginx/sites-available/default</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">server {
+</span><span data-line="2">    server_name demin.dev conference.demin.dev pubsub.demin.dev;
+</span><span data-line="3">    root /var/www/html;
+</span><span data-line="4">    index index.html index.htm;
+</span><span data-line="5">    location / {
+</span><span data-line="6">        # Serve static files, or return 404 if not found
+</span><span data-line="7">        try_files $uri $uri/ =404;
+</span><span data-line="8">    }
+</span><span data-line="9">}
+</span><span data-line="10">
+</span><span data-line="11">server {
+</span><span data-line="12">    server_name feed.demin.dev;
+</span><span data-line="13">    location / {
+</span><span data-line="14">      proxy_pass http://127.0.0.1:8082;
+</span><span data-line="15">      proxy_set_header  X-Forwarded-Proto https;
+</span><span data-line="16">      proxy_set_header Host $http_host;
+</span><span data-line="17">    }
+</span><span data-line="18">}
+</span></pre></div>
+</div>
+<p>Generate the certificates and set up automatic renewal as per <a class="reference external" href="https://eff-certbot.readthedocs.io/en/latest/using.html#setting-up-automated-renewal">official docs</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">certbot<span class="w"> </span>--agree-tos<span class="w"> </span>--nginx<span class="w"> </span>-m<span class="w"> </span><span class="nv">$EMAIL</span>
+</span><span data-line="2"><span class="nv">SLEEPTIME</span><span class="o">=</span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">&#39;BEGIN{srand(); print int(rand()*(3600+1))}&#39;</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;0 0,12 * * * root sleep </span><span class="nv">$SLEEPTIME</span><span class="s2"> &amp;&amp; certbot renew -q&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/crontab
+</span></pre></div>
+</div>
+<p>This command picks the subdomains from the nginx config and updates them to include the HTTPS-related details.</p>
+</section>
+<section id="ejabberd">
+<h3>Ejabberd<a class="headerlink" href="#ejabberd" title="Link to this heading">¶</a></h3>
+<p>I was inspired to set up an XMPP server after reading about <a class="reference external" href="https://xn--gckvb8fzb.com/run-your-own-instant-messaging-service-on-freebsd/">FreeBSD setup from マリウス</a>.
+There are a few differences with my setup, though.
+Using the default Mnesia database will cause frequent crashes due to running out of 1GB of memory, so we’ll switch to the second-easiest option: SQLite.</p>
+<p>Install ejabberd with SQLite support:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ejabberd<span class="w"> </span>sqlite3<span class="w"> </span>libsqlite3-dev<span class="w"> </span>erlang-p1-sqlite3
+</span></pre></div>
+</div>
+<p>Update <code class="docutils literal notranslate"><span class="pre">/etc/ejabberd/ejabberd.yml</span></code> to configure host, TLS, and database:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">hosts:
+</span><span data-line="2"><span class="w">  </span>-<span class="w"> </span>demin.dev
+</span><span data-line="3">
+</span><span data-line="4">certfiles:
+</span><span data-line="5"><span class="w">  </span><span class="c1"># - &quot;/etc/ejabberd/ejabberd.pem&quot;</span>
+</span><span data-line="6"><span class="w">  </span>-<span class="w"> </span>/etc/letsencrypt/live/demin.dev/fullchain.pem
+</span><span data-line="7"><span class="w">  </span>-<span class="w"> </span>/etc/letsencrypt/live/demin.dev/privkey.pem
+</span><span data-line="8">
+</span><span data-line="9">sql_type:<span class="w"> </span>sqlite
+</span><span data-line="10">sql_database:<span class="w"> </span><span class="s2">&quot;/var/lib/ejabberd/ejabberd.db&quot;</span>
+</span><span data-line="11">auth_method:<span class="w"> </span>sql
+</span><span data-line="12">default_db:<span class="w"> </span>sql
+</span><span data-line="13">
+</span><span data-line="14">...
+</span><span data-line="15">
+</span><span data-line="16">modules:
+</span><span data-line="17">
+</span><span data-line="18"><span class="w">  </span>...
+</span><span data-line="19">
+</span><span data-line="20"><span class="w">  </span>mod_mam:
+</span><span data-line="21"><span class="w">    </span>db_type:<span class="w"> </span>sql
+</span></pre></div>
+</div>
+<p>To allow ejabberd share the certificates with nginx, change the group ownership and permissions:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">chgrp<span class="w"> </span>-R<span class="w"> </span>ejabberd<span class="w"> </span>/etc/letsencrypt
+</span><span data-line="2">chmod<span class="w"> </span>g+rx<span class="w"> </span>/etc/letsencrypt/<span class="o">{</span>archive,live<span class="o">}</span>
+</span><span data-line="3">chmod<span class="w"> </span>g+r<span class="w"> </span>/etc/letsencrypt/archive/demin.dev/privkey*.pem
+</span></pre></div>
+</div>
+<p>Start service and register the first user:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">systemctl<span class="w"> </span>start<span class="w"> </span>ejabberd.service
+</span><span data-line="2"><span class="nb">read</span><span class="w"> </span>-rsp<span class="w"> </span><span class="s2">&quot;Enter password for account </span><span class="nv">$NAME</span><span class="s2">: &quot;</span><span class="w"> </span>password
+</span><span data-line="3">sudo<span class="w"> </span>-u<span class="w"> </span>ejabberd<span class="w"> </span>ejabberdctl<span class="w"> </span>register<span class="w"> </span><span class="nv">$NAME</span><span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span><span class="nv">$password</span>
+</span></pre></div>
+</div>
+</section>
+</section>
+<section id="memory-usage">
+<h2>Memory usage<a class="headerlink" href="#memory-usage" title="Link to this heading">¶</a></h2>
+<p>After a few days of running this VM, I checked the usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">MiB</span> <span class="n">Mem</span> <span class="p">:</span>    <span class="mf">964.6</span> <span class="n">total</span><span class="p">,</span>    <span class="mf">223.1</span> <span class="n">free</span><span class="p">,</span>    <span class="mf">708.9</span> <span class="n">used</span><span class="p">,</span>    <span class="mf">198.4</span> <span class="n">buff</span><span class="o">/</span><span class="n">cache</span>
+</span><span data-line="2"><span class="n">MiB</span> <span class="n">Swap</span><span class="p">:</span>      <span class="mf">0.0</span> <span class="n">total</span><span class="p">,</span>      <span class="mf">0.0</span> <span class="n">free</span><span class="p">,</span>      <span class="mf">0.0</span> <span class="n">used</span><span class="o">.</span>    <span class="mf">255.7</span> <span class="n">avail</span> <span class="n">Mem</span>
+</span><span data-line="3">
+</span><span data-line="4">    <span class="n">PID</span> <span class="n">USER</span>      <span class="n">PR</span>  <span class="n">NI</span>    <span class="n">VIRT</span>    <span class="n">RES</span>    <span class="n">SHR</span> <span class="n">S</span>  <span class="o">%</span><span class="n">CPU</span>  <span class="o">%</span><span class="n">MEM</span>     <span class="n">TIME</span><span class="o">+</span> <span class="n">COMMAND</span>
+</span><span data-line="5">   <span class="mi">3539</span> <span class="n">commafe</span><span class="o">+</span>  <span class="mi">20</span>   <span class="mi">0</span>   <span class="mf">33.4</span><span class="n">g</span> <span class="mf">145.7</span><span class="n">m</span>  <span class="mf">39.5</span><span class="n">m</span> <span class="n">S</span>   <span class="mf">0.0</span>  <span class="mf">15.1</span>   <span class="mi">3</span><span class="p">:</span><span class="mf">02.86</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">commafeed</span><span class="o">/</span><span class="n">commafeed</span>
+</span><span data-line="6">    <span class="mi">577</span> <span class="n">ejabberd</span>  <span class="mi">20</span>   <span class="mi">0</span> <span class="mf">2210.3</span><span class="n">m</span> <span class="mf">114.0</span><span class="n">m</span>  <span class="mf">44.2</span><span class="n">m</span> <span class="n">S</span>   <span class="mf">0.0</span>  <span class="mf">11.8</span>   <span class="mi">2</span><span class="p">:</span><span class="mf">58.31</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">erlang</span><span class="o">/</span><span class="n">erts</span><span class="o">-</span><span class="mf">15.2.7</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">beam</span><span class="o">.</span><span class="n">smp</span> <span class="o">-</span><span class="n">K</span> <span class="n">true</span> <span class="o">-</span><span class="n">P</span> <span class="mi">250</span><span class="o">+</span>
+</span><span data-line="7">    <span class="mi">601</span> <span class="n">root</span>      <span class="mi">20</span>   <span class="mi">0</span> <span class="mf">1289.2</span><span class="n">m</span>  <span class="mf">58.6</span><span class="n">m</span>   <span class="mf">8.7</span><span class="n">m</span> <span class="n">S</span>   <span class="mf">0.3</span>   <span class="mf">6.1</span>   <span class="mi">9</span><span class="p">:</span><span class="mf">21.26</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">tailscaled</span> <span class="o">--</span><span class="n">state</span><span class="o">=/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">tailscale</span><span class="o">/</span><span class="n">tailsca</span><span class="o">+</span>
+</span><span data-line="8">    <span class="mi">782</span> <span class="n">syncthi</span><span class="o">+</span>  <span class="mi">31</span>  <span class="mi">11</span> <span class="mf">1306.1</span><span class="n">m</span>  <span class="mf">36.3</span><span class="n">m</span>  <span class="mf">10.5</span><span class="n">m</span> <span class="n">S</span>   <span class="mf">0.0</span>   <span class="mf">3.8</span>   <span class="mi">5</span><span class="p">:</span><span class="mf">03.28</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">syncthing</span> <span class="n">serve</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">browser</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">restart</span>
+</span><span data-line="9">  <span class="mi">15217</span> <span class="n">bus</span>       <span class="mi">20</span>   <span class="mi">0</span> <span class="mf">1202.7</span><span class="n">m</span>  <span class="mf">28.7</span><span class="n">m</span>   <span class="mf">3.8</span><span class="n">m</span> <span class="n">S</span>   <span class="mf">1.7</span>   <span class="mf">3.0</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">00.45</span> <span class="o">./</span><span class="n">bus</span> <span class="o">-</span><span class="n">unix</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">bus</span><span class="o">.</span><span class="n">sock</span> <span class="o">-</span><span class="n">socket</span><span class="o">-</span><span class="n">mode</span> <span class="mi">666</span>
+</span><span data-line="10">   <span class="mi">6716</span> <span class="n">root</span>      <span class="mi">20</span>   <span class="mi">0</span>  <span class="mf">208.1</span><span class="n">m</span>  <span class="mf">27.1</span><span class="n">m</span>  <span class="mf">25.8</span><span class="n">m</span> <span class="n">S</span>   <span class="mf">0.0</span>   <span class="mf">2.8</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">15.75</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">systemd</span><span class="o">/</span><span class="n">systemd</span><span class="o">-</span><span class="n">journald</span>
+</span><span data-line="11">    <span class="mi">578</span> <span class="n">root</span>      <span class="mi">20</span>   <span class="mi">0</span>   <span class="mf">37.6</span><span class="n">m</span>  <span class="mf">15.4</span><span class="n">m</span>   <span class="mf">1.7</span><span class="n">m</span> <span class="n">S</span>   <span class="mf">0.0</span>   <span class="mf">1.6</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">00.54</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python3</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">networkd</span><span class="o">-</span><span class="n">dispatcher</span> <span class="o">--</span><span class="n">run</span><span class="o">-</span><span class="n">sta</span><span class="o">+</span>
+</span><span data-line="12">    <span class="mi">616</span> <span class="n">root</span>      <span class="mi">20</span>   <span class="mi">0</span>  <span class="mf">115.2</span><span class="n">m</span>  <span class="mf">14.8</span><span class="n">m</span>   <span class="mf">1.7</span><span class="n">m</span> <span class="n">S</span>   <span class="mf">0.0</span>   <span class="mf">1.5</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">00.21</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python3</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">unattended</span><span class="o">-</span><span class="n">upgrades</span><span class="o">/</span><span class="n">unatten</span><span class="o">+</span>
+</span><span data-line="13">    <span class="mi">591</span> <span class="n">syncthi</span><span class="o">+</span>  <span class="mi">20</span>   <span class="mi">0</span> <span class="mf">1271.5</span><span class="n">m</span>  <span class="mf">13.9</span><span class="n">m</span>   <span class="mf">4.1</span><span class="n">m</span> <span class="n">S</span>   <span class="mf">0.0</span>   <span class="mf">1.4</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">01.02</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">syncthing</span> <span class="n">serve</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">browser</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">restart</span>
+</span><span data-line="14">  <span class="mi">15277</span> <span class="n">root</span>      <span class="mi">20</span>   <span class="mi">0</span>   <span class="mf">19.2</span><span class="n">m</span>  <span class="mf">12.3</span><span class="n">m</span>  <span class="mf">10.1</span><span class="n">m</span> <span class="n">S</span>   <span class="mf">0.0</span>   <span class="mf">1.3</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">00.02</span> <span class="n">sshd</span><span class="o">-</span><span class="n">session</span><span class="p">:</span> <span class="n">peterdemin</span> <span class="p">[</span><span class="n">priv</span><span class="p">]</span>
+</span><span data-line="15">  <span class="mi">15248</span> <span class="n">peterde</span><span class="o">+</span>  <span class="mi">20</span>   <span class="mi">0</span>   <span class="mf">21.5</span><span class="n">m</span>  <span class="mf">11.9</span><span class="n">m</span>   <span class="mf">9.8</span><span class="n">m</span> <span class="n">S</span>   <span class="mf">0.0</span>   <span class="mf">1.2</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">00.11</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">systemd</span><span class="o">/</span><span class="n">systemd</span> <span class="o">--</span><span class="n">user</span>
+</span><span data-line="16">      <span class="mi">1</span> <span class="n">root</span>      <span class="mi">20</span>   <span class="mi">0</span>   <span class="mf">23.5</span><span class="n">m</span>  <span class="mf">10.5</span><span class="n">m</span>   <span class="mf">5.9</span><span class="n">m</span> <span class="n">S</span>   <span class="mf">0.0</span>   <span class="mf">1.1</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">09.52</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">systemd</span><span class="o">/</span><span class="n">systemd</span> <span class="o">--</span><span class="n">system</span> <span class="o">--</span><span class="n">deserialize</span><span class="o">=</span><span class="mi">70</span>
+</span></pre></div>
+</div>
+<p>It’s pretty tight, at 73% RAM utilization some sys admins would give me a side eye.
+The resident memory for the Java-based CommaFeed is at the top of the list, followed by Ejabberd and Tailscale.
+But it doesn’t run out of memory - the following command doesn’t return any results:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">sudo<span class="w"> </span>journalctl<span class="w"> </span>-k<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>oom
+</span></pre></div>
+</div>
+<p>I have more memory left, than my biggest consumer takes.
+And getting some services restarted by OOM killer every once in a while is fine with me.</p>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">¶</a></h2>
+<p>This setup provides me a sovereign setup with these enjoyable, free, and open-source things:</p>
+<ol class="arabic simple">
+<li><p>Email and XMPP accounts: <code class="docutils literal notranslate"><span class="pre">peter&#64;demin.dev</span></code>.</p></li>
+<li><p>Static website at <code class="docutils literal notranslate"><span class="pre">peter.demin.dev</span></code>.</p></li>
+<li><p>RSS reader at <code class="docutils literal notranslate"><span class="pre">feed.demin.dev</span></code>.</p></li>
+<li><p>VPN exit node, that makes me look like a Google Cloud server 🤪</p></li>
+<li><p>Cloud backup server (the unreliable kind, because there’s no redundancy).</p></li>
+</ol>
+<p>A similar experience is available from some companies, but having it hosted on my VM feels empowering.
+I wish more people played with such an internet presence.</p>
+</section>
+<section id="honorable-mentions">
+<h2>Honorable mentions<a class="headerlink" href="#honorable-mentions" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://github.com/trailofbits/algo">AlgoVPN</a> - a set of Ansible scripts that simplify the setup of a personal WireGuard and IPsec VPN.
+This was the first GCP VM I launched automatically.
+Even though I switched to Tailscale for the VPN needs, it’s a great project and has a lot to learn from.</p></li>
+<li><p><a class="reference external" href="https://www.oracle.com/cloud/free/">Oracle Cloud Free Tier</a> offers Arm-based instances with 4 Ampere A1 cores and 24 GB RAM.</p></li>
+<li><p><a class="reference external" href="https://yunohost.org/">YUNoHost</a> partially supports this setup through a Web-based experience which is more inviting for terminal-averse audience. My priority was scriptable automation with no overhead.</p></li>
+<li><p><a class="reference external" href="https://sandstorm.org/">Sandstorm</a> is a security-focused alternative, that introduces its own package format and uses system resources to provide container-like isolation.</p></li>
+</ol>
+</section>
+</section>
+
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="75-replaced-by-AI.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">To be replaced by AI is a choice</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="77-github-stars.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">My GitHub stars</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2022, Peter Demin</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/shibuya.js?v=cac61aee"></script></body>
+</html>

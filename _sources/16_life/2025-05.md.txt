@@ -1,0 +1,35 @@
+`May 25, 2025` - For many years, I thought that deep understanding of the system is the core part of the software enginnering job. My biggest value to the company is how I keep the product in my head and keep thinking about it even outside of working hours. This article suggests, that the deep understanding of the code is no longer necessary in the era of AI: <https://archive.ph/HVZRL>. Not sure I'm fully onboard with this idea, but I can see the appeal in the face of managers, who lost (or never had) their touch with reality of building software.
+
+`May 23, 2025` - [kepano/defuddle](https://github.com/kepano/defuddle) - Extract the main content from web pages.
+
+`May 21, 2025` - [peterdemin/gdocsync](https://github.com/peterdemin/gdocsync) - Google Docs synchronization to a local filesystem
+
+`May 14, 2025` - Added [](/12_articles/72-calendly.rst)
+
+`May 12, 2025` - [jaypyles/Scraperr](https://github.com/jaypyles/Scraperr) - Self-hosted webscraper.
+
+`May 12, 2025` - Loved this [HN comment](https://news.ycombinator.com/item?id=43967858):
+
+> How many spam calls does it take for you to presume spam?
+> How many linkedin autoreply ai comments does it take to presume all comments are ai?
+> How many emails before you immediately presume phishing?
+> How many rage baiting social posts do you need to see before you believe the entire site is composed of synthetic engagement?
+> How many tinder bots do you need to interact with before you feel the entire app is dead?
+> How many autodeny job application responses until you assume the next one is a ghost job posting?
+> How many interactions with greedy people does it take to presume that it's human nature?
+
+While spam emails seem to be solved (at least in Gmail), I never pick up calls from unknown numbers and immediately delete messages from people out of my contact list.
+One thing I'd like to add to the list, is:
+
+How many AI cheaters do you need to catch on the technical screening interview to incorporate a habit of doing IRL CAPTCHA challenges.
+
+`May 07, 2025` - [astral-sh/ty](https://github.com/astral-sh/ty) - An extremely fast Python type checker and language server, written in Rust.
+
+`May 03, 2025` - Utsav Mamoria in his article ["How to live an intellectually rich life"](https://utsavmamoria.substack.com/p/how-to-live-an-intellectually-rich) speaks about how ideas need to be diverse and abundant. The premise is that they would combine in unexpected ways to create new better ideas. However, the article being a combination of many stories and ideas doesn't have any meaningful narrative, just the sum of its parts, that don't really fit together.
+
+Reminds me of my friend who was working as IT support, while volunteering at the fire station and studying for a medical degree. He was very passionate about each of the three areas and expected to have them eventually click together, so he could create something on the intersection. But they never did.
+
+`May 03, 2025` - I found this weird satisfaction in making my financial goal to spend zero dollars in a day. It allows me to focus on the things that matter instead of mindlessly gazing at the available options of paid entertainment.
+
+`May 02, 2025` - [Bio Site](https://bio.site/peterdemin) <strike>bullshit</strike> compost.
+

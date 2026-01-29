@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Deployments from scratch - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=51f15f49" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="Deployments from scratch"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#deploy-object">Deploy object</a></li>
+<li><a class="reference internal" href="#desired-properties">Desired properties</a></li>
+<li><a class="reference internal" href="#non-goals">Non-goals</a></li>
+<li><a class="reference internal" href="#deployment-process-outline">Deployment process outline</a></li>
+<li><a class="reference internal" href="#off-topic-paas-like-deployments">Off-topic: PaaS-like deployments</a></li>
+<li><a class="reference internal" href="#build-artifact">1. Build Artifact</a></li>
+<li><a class="reference internal" href="#upload-artifact-to-server">2. Upload Artifact to Server</a></li>
+</ul>
+</div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
+  data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </span>
+  <span class="flex-grow px-2 break-all">
+    
+    
+      <span>peterdemin.github.io</span>
+    
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <iconify-icon icon="lucide:star"></iconify-icon>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <iconify-icon icon="lucide:git-fork"></iconify-icon>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/peterdemin/peterdemin.github.io/blob/master/source/13_drafts/48-deployments-from-scratch.md">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
+    
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Deployments from scratch</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/13_drafts/48-deployments-from-scratch.md.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/13_drafts/48-deployments-from-scratch.md.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/13_drafts/48-deployments-from-scratch.md.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:markdown"></iconify-icon>
+            <span>View as Markdown</span></a><a role="menuitem" href="https://chatgpt.com/?hints=search&q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/13_drafts/48-deployments-from-scratch.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:openai"></iconify-icon>
+          <span>Open in ChatGPT</span>
+        </a><a role="menuitem" href="https://claude.ai/new?q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/13_drafts/48-deployments-from-scratch.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:claude"></iconify-icon>
+          <span>Open in Claude</span>
+        </a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="deployments-from-scratch">
+<h1>Deployments from scratch<a class="headerlink" href="#deployments-from-scratch" title="Link to this heading">¶</a></h1>
+<p>In this article I attempt to think through software deployment from the first principles.
+It’s getting harder and harder each year to find any deployment strategy online that doesn’t
+involve having a Kubernetes cluster running inside of virtual machines in the cloud.</p>
+<p>I target a different use-case though.
+I have a single physical server in a single location, that needs to run a couple of services.
+I’m the only software developer on a team, and I don’t need to change the code much often.
+I want the set up to be simple, without extra moving parts.</p>
+<section id="deploy-object">
+<h2>Deploy object<a class="headerlink" href="#deploy-object" title="Link to this heading">¶</a></h2>
+<p>So what is this thing we’re deploying?
+It’s a handful of source code files, that are executed inside of their language runtime.
+Runtime comes with a set of third-party dependencies, of course.</p>
+<p>Alternatively, we could have a statically linked executable, that doesn’t require any runtime library.
+It’s objectively less number of moving parts, but the deployment process is still about the same.</p>
+</section>
+<section id="desired-properties">
+<h2>Desired properties<a class="headerlink" href="#desired-properties" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Transparency. Being able to SSH to the server and observe what’s going on.</p></li>
+<li><p>Simplicity. No unnecessary levels of abstractions, that introduce new failure modes.
+(Why does my code run locally, but breaks inside of container in production?)</p></li>
+<li><p>Speed. The size of the code is tiny, really. Deploying new version should be a matter of seconds.</p></li>
+<li><p>Reliability. We shouldn’t lose data even in case of a fatal hardware failure.</p></li>
+</ol>
+</section>
+<section id="non-goals">
+<h2>Non-goals<a class="headerlink" href="#non-goals" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Resource isolation. We run our software on our hardware, no need to isolate and compartmentalize for the sake of security.</p></li>
+<li><p>Granular permission control. All people who make changes to the software also have sudo permissions on the production server.</p></li>
+<li><p>Scalability. The usage is stable, bound by physical factors, and doesn’t spike.
+We don’t need to spin up 100 times more compute in a few minutes.
+The whole thing is handled by a single server.</p></li>
+<li><p>High availability. If something breaks, someone will come and fix it. Few days of downtime once in a decade is okay.</p></li>
+</ol>
+</section>
+<section id="deployment-process-outline">
+<h2>Deployment process outline<a class="headerlink" href="#deployment-process-outline" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Build an artifact.</p></li>
+<li><p>Upload it to the target server.</p></li>
+<li><p>Unpack (install) the new version.</p></li>
+<li><p>Stop the old version.</p></li>
+<li><p>Activate/start the new version.</p></li>
+</ol>
+</section>
+<section id="off-topic-paas-like-deployments">
+<h2>Off-topic: PaaS-like deployments<a class="headerlink" href="#off-topic-paas-like-deployments" title="Link to this heading">¶</a></h2>
+<p>Heroku workflow is different:</p>
+<ol class="arabic simple">
+<li><p>Push git repo to the deployment host.</p></li>
+<li><p>Post-receive hook triggers build using smart buildpacks.</p></li>
+<li><p>Launch new version.</p></li>
+<li><p>Drain old version.</p></li>
+</ol>
+<p>The pros of this approach are:</p>
+<ul class="simple">
+<li><p>On the client-side, the deployment is just a quick <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code> command.</p></li>
+<li><p>The project is built on the host where it’s run, so no headache around OS-level binary dependencies compatibility.</p></li>
+<li><p>All-in-one approach combines build server and runtime.</p></li>
+</ul>
+</section>
+<section id="build-artifact">
+<h2>1. Build Artifact<a class="headerlink" href="#build-artifact" title="Link to this heading">¶</a></h2>
+<ol class="arabic">
+<li><p>Executable.
+Artifact could contain a compiled binary, or a single script.
+The common idea is that we don’t want to deploy the whole source code repo with docs and tests.
+We only need the code that runs in the production.</p>
+<p>Python ecosystem provides tools, like <a class="reference external" href="https://pex.readthedocs.io%3E">pex</a>, that convert a Python package to a single executable binary file.
+But do we need to make our service a package?
+As it is customary with Django projects, the source code doesn’t follow the traditional package file structure and doesn’t have packaging meta data, such as <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file.
+The build artifact can be just a tar ball with all of the sources (excluding tests and docs.)</p>
+<p>The same with Javascript projects. Node modules directory may or may not be a part of the build artifact.</p>
+<p>Either way, we need some form of a manifest that defines which files to include into the artifact.
+The manifest can be project-specific, or convention-style, which requires less boilerplate in cases where all projects are under your control.</p>
+</li>
+<li><p>Entry point.
+A command to launch the executable, that can be put into a supervisor config of choice (Docker, SystemD, Upstart, what have you.)
+It could be just a path to the binary, or it might invoke a runtime (Python, NodeJS, etc.)</p></li>
+<li><p>Activation command.
+A script that promotes the chosen version to be the current, stops the old version if present, and starts the new one.
+Running activation script for the older version rolls back the deployment.</p></li>
+</ol>
+</section>
+<section id="upload-artifact-to-server">
+<h2>2. Upload Artifact to Server<a class="headerlink" href="#upload-artifact-to-server" title="Link to this heading">¶</a></h2>
+</section>
+</section>
+
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"></div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2022, Peter Demin</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/shibuya.js?v=cac61aee"></script></body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="./">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Peter Demin</title><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Profiling django requests" href="12_articles/01-profiling-django-requests.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=51f15f49" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="👋 Hi, I’m Peter"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="#">
+      
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#articles-and-notes">Articles and notes</a></li>
+<li><a class="reference internal" href="#notes-from-my-reading-list">Notes from my reading list</a></li>
+<li><a class="reference internal" href="#photos">Photos</a></li>
+<li><a class="reference internal" href="#my-open-source-projects">My open-source projects</a></li>
+<li><a class="reference internal" href="#projects-that-did-not">Projects that did not</a></li>
+<li><a class="reference internal" href="#projects-that-might">Projects that might</a></li>
+</ul>
+</div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
+  data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </span>
+  <span class="flex-grow px-2 break-all">
+    
+    
+      <span>peterdemin.github.io</span>
+    
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <iconify-icon icon="lucide:star"></iconify-icon>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <iconify-icon icon="lucide:git-fork"></iconify-icon>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/peterdemin/peterdemin.github.io/blob/master/source/index.rst">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
+    
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="#"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">👋 Hi, I’m Peter</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/index.rst.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/index.rst.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/index.rst.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:code-slash"></iconify-icon>
+            <span>View Source</span></a><a role="menuitem" href="https://chatgpt.com/?hints=search&q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/index.rst.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:openai"></iconify-icon>
+          <span>Open in ChatGPT</span>
+        </a><a role="menuitem" href="https://claude.ai/new?q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/index.rst.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:claude"></iconify-icon>
+          <span>Open in Claude</span>
+        </a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="hi-i-m-peter">
+<h1>👋 Hi, I’m Peter<a class="headerlink" href="#hi-i-m-peter" title="Link to this heading">¶</a></h1>
+<p>I live in the US and work as a Senior Software Engineer.
+Previously, I lived in Russia and Belarus, working for Yandex and EPAM in the same position.</p>
+<p>I write about Python, vim, git, self-hosting, and software engineering in general.
+I’m trying to keep a <a class="reference internal" href="life.html#life"><span class="std std-ref">public journal</span></a> about technical and non-technical topics,
+<a class="reference external" href="https://peter.demin.dev/life.xml">subscribe via RSS</a>.</p>
+<section id="articles-and-notes">
+<h2>Articles and notes<a class="headerlink" href="#articles-and-notes" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Articles:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/01-profiling-django-requests.html">Profiling django requests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/02-formatting-with-vim.html">Formatting data with Vim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/03-interactive-docs.html">Developer docs done right</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/04-foss-projects-to-work-and-learn.html">List of FOSS Python projects that are fun to work on</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/05-branch-dates.html">List date of last commit on git branches</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/06-cleanup_celery.html">Clean up old celery tasks from database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/07-continious-upgrades.html">Continuous upgrading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/10-create-mssql-user.html">MSSQL cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/11-find-merge-commit.html">How to find merge commit which includes a specific commit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/12-git-branch-cleanup.html">How to clean up stale git branches</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/13-jsonfield.html">Two-faced JSONField</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/14-kibitzr-banks.html">DIY Bank balance aggregation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/15-on-delegation.html">On delegation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/16-python-collections.html">Beauty of Python’s collections module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/17-python-compatible-version.html">Subtleties of Python compatible release version specifier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/20-script-to-pex.html">Make a PEX from Python script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/21-wlc.html">Weblate CLI (wlc) tips and tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/22-git-form-saver-demo.html">Git form saver demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/23-ChatGPT-company.html">SWE job descriptions generated by ChatGPT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/24-ChatGPT-recruiting.html">ChatGPT will replace recruiters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/25-tailscale.html">Personal VPN: a tale of Tailscale and Headscale</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/26-climbing-website.html">Climbr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/27-whimsical-graphviz.html">Making GraphViz look like Whimsical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/29-design-parents.html">Popular Design Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/30-time-deltas.html">Compute time deltas with Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/31-pmbok-quotes.html">Project Management Body of Knowledge (PMBOK) quotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/32-negative-feedback.html">Negative Non-Actionable Feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/33-hough-transform-algorithm.html">Hough Transform Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/34-write-sphinx-docs-in-google-docs.html">Write sphinx docs in Google Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/35-flask-prompts.html">FLASK evaluation questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/36-understanding-the-fast-fourier-transform-fft-in-layman-s-terms.html">Understanding the Fast Fourier Transform (FFT) in Layman’s Terms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/37-the-president-program.html">The president program</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/38-book-driven-development.html">Book-Driven Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/39-mini-pc-gpio.html">Using GPIO on an industrial mini PC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/40-session-auth.html">Session Authentication and Single-Page Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/41-questions-for-hiring-manager.html">Questions for a hiring manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/42-small-scale-deploy.html">Small-scale Deployment Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/43-pydantic-mutable-defaults.html">Mutable types in Pydantic default values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/44-rejection-response.html">Reaction to interview rejection emails</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/45-minimal-linux-email-box.html">How to set up a receiving email server on a Linux machine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/46-coaching.html">Tell me a story about how you coached a team member</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/49-python-job-market.html">Job market for Senior Python Engineers in Q4’2023</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/51-self-hosted-paas.html">Self-hosted PaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/52-git-aliases.html">My favourite aliases for Git (and vi)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/53-meaning-of-life.html">Meaning of Life</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/54-seattle-bakeries.html">Seattle Bakeries List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/55-exceptional-pickle.html">Expect the unexpected when excepting Pickling Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/56-what-is-i.html">What is I</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/57-bus-time.html">Next bus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/58-its-not-cold-in-russia.html">It’s not cold in Russia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/59-iced-water.html">Cooling Water with Ice</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/60-M.html">Macy’s stock seasonality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/61-tree.html">Tree Clip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/62-100q.html">100 questions for Washington state in Aug 2024 (with dropdowns)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/63-100q-open.html">100 questions for Washington state in Aug 2024</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/64-precision-recall.html">Precision-Recall</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/65-firefox-reader-solarized-dark.html">Solarized Dark Theme for Firefox Reader View</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/66-python-project-setup.html">Development environment setup script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/67-password.html">Password Generator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/68-beauty-salon.html">Beauty salon IT department</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/69-pytz.html">Ignominious Python timezones</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/70-options-design.html">Configuration-Driven Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/71-rss-feed.html">My RSS feed reader setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/72-calendly.html">Book a 15-minute call with me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/74-Bacillus-cereus.html">Fascinating Bacillus cereus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/75-replaced-by-AI.html">To be replaced by AI is a choice</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/76-gcp-free-tier.html">Personal cloud VM on Google Cloud Platform free tier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/77-github-stars.html">My GitHub stars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/78-solarized-shibuya.html">Solarized colors for Shibuya theme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/79-bugsink-gcp.html">Install Bugsink on Google Cloud Platform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/80-radicle.html">My Radicle Journey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/81-fedup.html">FedUp - Minimal Federated CDN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/82-build-on-push.html">Building this Website on Git Push</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_articles/82-build-on-push.html#make-build">make build</a></li>
+</ul>
+</div>
+</section>
+<section id="notes-from-my-reading-list">
+<h2>Notes from my reading list<a class="headerlink" href="#notes-from-my-reading-list" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Notes:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/01_xapo.html">Decentralizing the Practice of Architecture at Xapo Bank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/02_advice_process.html">Scaling the Practice of Architecture, Conversationally</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/03_why_remote_works.html">Why Remote Works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/04_spikes.html">How to use spikes as a foundation for ADRs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/05-amazon_adr_process.html">Amazon ADR process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/06-team_topologies.html">Team Topologies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/07-how_a_startup_loses_its_spark.html">How a startup loses its spark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/08-how_netflix_reinvented_hr.html">How Netflix Reinvented HR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/09-objective_driven_ai.html">Objective-Driven AI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/10-github_accelerator.html">GitHub Accelerator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/11-cognitive_load_is_what_matters.html">Cognitive load is what matters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/12-what_is_a_directly_responsible_individual.html">What is a directly responsible individual?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/13-why_you_should_check_your_secrets_into_git.html">Why you should check your secrets into Git</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/14-how_to_get_started_with_async.html">How to get started with async</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/15-gitlab_values_on_iteration.html">Gitlab values on iteration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/16-gitlab_s_directly_responsible_individuals.html">Gitlab’s Directly Responsible Individuals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/17-why_we_always_end_up_with_waterfall.html">Why we always end up with waterfall</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/18-robots_vs_programmers.html">Robots vs. Programmers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/19-a_senior_engineer_s_guide_to_the_system_design_interview_p1.html">A Senior Engineer’s Guide to the System Design Interview (Part 1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/20-a_senior_engineer_s_guide_to_the_system_design_interview_p2.html">A Senior Engineer’s Guide to the System Design Interview (Part 2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/21-a_senior_engineer_s_guide_to_the_system_design_interview_p3.html">A Senior Engineer’s Guide to the System Design Interview (Part 3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/22-a_senior_engineer_s_guide_to_the_system_design_interview_part_4_.html">A Senior Engineer’s Guide to the System Design Interview (Part 4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/23-being_accountable_when_you_dont_have_control.html">Being Accountable When You Don’t Have Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/24-four_key_metrics_for_a_software_development_team.html">Four Key Metrics for a Software Development Team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/25-scaling_technical_consistency.html">Scaling technical consistency</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/26-sociocracy_3_0.html">Sociocracy 3.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/27-zerocracy.html">Zerocracy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/28-karpman_drama_triangle.html">Karpman Drama Triangle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/29-grifters_believers_grinders_and_coasters.html">Grifters, believers, grinders, and coasters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/30-top_asked_meta_facebook_interview_questions_for_2025.html">Top Asked Meta (Facebook) Interview Questions for 2025</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_notes/31-cyberiad.html">“Cyberiad” by Stanislaw Lem</a></li>
+</ul>
+</div>
+</section>
+<section id="photos">
+<h2>Photos<a class="headerlink" href="#photos" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Photos:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="18_photos/01_snowlake/index.html">Snow Lake</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_photos/02_mailbox_peak/index.html">Mailbox peak</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_photos/03_twin_falls/index.html">Twin Falls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_photos/04_multnomah/index.html">Multnomah Falls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_photos/05_aurora/index.html">Aurora Borealis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_photos/06_diablo_lake/index.html">Diablo Lake</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_photos/07_bw_trees/index.html">B&amp;W trees</a></li>
+</ul>
+</div>
+</section>
+<section id="my-open-source-projects">
+<h2>My open-source projects<a class="headerlink" href="#my-open-source-projects" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/peterdemin/pip-compile-multi">pip-compile-multi</a> - Flexible Python dependency version locker.</p></li>
+<li><p><a class="reference external" href="https://github.com/peterdemin/gdocsync/">gdocsync</a> - Google Docs synchronization to local RST files.</p></li>
+<li><p><a class="reference external" href="https://kibitzr.github.io/">kibitzr</a> - Lightweight personal web assistant.</p></li>
+<li><p><a class="reference external" href="https://github.com/peterdemin/awsme">awsme</a> - Amazon Web Services Cloud Watch Metrics Library.</p></li>
+<li><p><a class="reference external" href="https://pypi.org/project/gcpfwup/">gcpfwup</a> - GCP Firewall update tool.</p></li>
+<li><p><a class="reference external" href="https://pypi.org/project/reshell/">reshell</a> - Reverse shell for deployment debugging.</p></li>
+<li><p><a class="reference internal" href="14_ideas/06-git-form-saver.html#git-form-saver"><span class="std std-ref">Git form saver</span></a> - HTTP API to submit HTML forms to git.</p></li>
+<li><p><a class="reference external" href="https://github.com/peterdemin/openai-cli">OpenAI CLI</a> - command-line interface for OpenAI GPT-3 model.</p></li>
+<li><p><a class="reference external" href="https://github.com/peterdemin/imgchkr">Image checker</a> - fictional JPEG validation microservice I use for experiments.</p></li>
+<li><p><a class="reference external" href="counter/">Backgammon counter</a> - Small 11ty + tailwind web page, mostly built by GPT-4.</p></li>
+<li><p><a class="reference external" href="race/">Cursor racing game</a> - built by GPT o1 preview.</p></li>
+</ul>
+</section>
+<section id="projects-that-did-not">
+<h2>Projects that did not<a class="headerlink" href="#projects-that-did-not" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Project ideas:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="14_ideas/01-collector.html">Collecte - self-hosted open source email collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_ideas/02-fossilitate.html">Fossilitate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_ideas/03-http-api-git-storage.html">HTTP API for append-only Git repositories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_ideas/04-mutant.html">Mutant - Data Schema Generator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_ideas/05-myseverance.html">MySeverance.com</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_ideas/06-git-form-saver.html">Git form saver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_ideas/07-checkpoint-framework.html">Checkpoint framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_ideas/08-word-mix.html">Sentence mixing puzzle game</a></li>
+</ul>
+</div>
+</section>
+<section id="projects-that-might">
+<h2>Projects that might<a class="headerlink" href="#projects-that-might" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Project ideas:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="15_projects/02-llm-personal-assistant.html">LLM-based personal assistant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_projects/09-search-pipeline.html">Search Pipeline</a></li>
+</ul>
+</div>
+<map name="webring-long">
+    <area alt="A previous track button" title="Previous!" href="https://ring.acab.dev/prev/WMSVdZiZli" coords="9,8,31,25" shape="rect">
+    <area alt="A shuffle button!" title="Surprise me~" href="https://ring.acab.dev/rand/WMSVdZiZli" coords="34,8,56,25" shape="rect">
+    <area alt="A next track button" title="Next!" href="https://ring.acab.dev/next/WMSVdZiZli" coords="59,8,81,25" shape="rect">
+    <area alt="A glider!" title="So, what is this webring thing about again?" href="https://ring.acab.dev/" coords="244,7,266,28" shape="rect">
+    <area alt="A hidden passage lies in front of the reader. Will they click?" href="https://ring.acab.dev/egg" coords="231,13,239,19" shape="rect">
+</map>
+<img style='image-rendering:pixelated;' usemap="#webring-long" src="https://ring.acab.dev/img/webring_long.gif"></section>
+</section>
+
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-next">
+    <a href="12_articles/01-profiling-django-requests.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Profiling django requests</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2022, Peter Demin</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/design-tabs.js?v=f930bc37"></script>
+      <script src="_static/shibuya.js?v=cac61aee"></script></body>
+</html>

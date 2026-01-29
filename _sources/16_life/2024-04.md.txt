@@ -1,0 +1,46 @@
+`Apr 30, 2024` - [RhinoSecurityLabs/cloudgoat](https://github.com/RhinoSecurityLabs/cloudgoat) - CloudGoat is Rhino Security Labs' "Vulnerable by Design" AWS deployment tool
+
+`Apr 26, 2024` - Added [](/12_articles/55-exceptional-pickle.md)
+
+`Apr 25, 2024` - Added [](/12_articles/54-seattle-bakeries.md)
+
+`Apr 19, 2024` - When I look at a bad design, I can tell it's bad. I can point a few issues. But I can't tell how to make it good. That's why I'm not a designer.
+
+`Apr 18, 2024` - Aspects to consider for scraping:
+1. Parallelism
+2. Batching
+3. Retrying
+4. Throttling
+5. Acceptable error rate
+6. Metrics
+7. Reporting
+8. Cancel and Resume
+
+`Apr 12, 2024` - Greatness comes from character. Character forms out of people who suffered. -- [Jensen Huang](https://www.youtube.com/watch?v=4CHEZua7raE)
+
+Fear leads to anger. Anger leads to hate. Hate leads to suffering. -- Yoda
+
+`Apr 12, 2024` - Software attempts to automate a real word process through creation of a limited model of the important aspects.
+The depth of the real world is infinite, and our understanding of it is shallow.
+But the computer model's depth is laughable.
+
+
+`Apr 11, 2024` - [hwayne/awesome-cold-showers](https://github.com/hwayne/awesome-cold-showers) - For when people get too hyped up about things
+
+`Apr 05, 2024` - [zoriya/Kyoo](https://github.com/zoriya/Kyoo) - A portable and vast media library solution.
+`Apr 03, 2024` - [Websoft9/websoft9](https://github.com/Websoft9/websoft9) - Applications self-hosting and DevOps platform for running open source, web-based linux Panel of lite PaaS
+
+`Apr 03, 2024` - [heyform/heyform](https://github.com/heyform/heyform) - Open-Source Form Builder
+
+`Apr 03, 2024` - [tsuru/tsuru](https://github.com/tsuru/tsuru) - Open source and extensible Platform as a Service (PaaS).
+
+`Apr 03, 2024` - [AlexanderKoch-Koch/low_cost_robot](https://github.com/AlexanderKoch-Koch/low_cost_robot) - None
+
+`Apr 03, 2024` - [Websoft9/websoft9](https://github.com/Websoft9/websoft9) - Applications self-hosting and DevOps platform for running open source, web-based linux Panel of lite PaaS
+
+`Apr 03, 2024` - [heyform/heyform](https://github.com/heyform/heyform) - Open-Source Form Builder
+
+`Apr 03, 2024` - [tsuru/tsuru](https://github.com/tsuru/tsuru) - Open source and extensible Platform as a Service (PaaS).
+
+
+`Apr 03, 2024` - [AlexanderKoch-Koch/low_cost_robot](https://github.com/AlexanderKoch-Koch/low_cost_robot) - None

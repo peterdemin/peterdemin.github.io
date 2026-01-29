@@ -1,0 +1,65 @@
+`Dec 26, 2024` - Thanks Nicola Iarocci for his [review](https://nicolaiarocci.com/books-i-read-in-2024/#i-love-russia-by-elena-kostyuchenko) of the book "I love Russia" by Elena Kostyuchenko:
+
+> This book is written by an independent Russian journalist who worked at Novaja Gazeta for many years until it was banned.
+> Mostly, these are reportages from the great rural Russia, far from the big cities (the story from small villages on the high-speed train line between Moscow and St. Petersburg is one of the best).
+> I Love Russia helps us understand today’s deep Russia and the consequences of the fall of the USSR and the advent of Putin.
+> It is also a love letter to the homeland, hence the title, but it does not bend to the official narrative; quite the opposite.
+
+I probably won't read the book, but I will recommend it to people who want to learn more about the modern Russian history.
+
+`Dec 23, 2024` - Added [](/12_articles/68-beauty-salon.md)
+
+`Dec 22, 2024` - [Eliran-Turgeman/Collecto](https://github.com/Eliran-Turgeman/Collecto) - Collecto is an open source & self-hosted forms backend.
+
+`Dec 21, 2024` - [malmeloo/FindMy.py](https://github.com/malmeloo/FindMy.py) - 🍏 + 🎯 + 🐍 = Query Apple's FindMy Network with Python!
+
+`Dec 20, 2024` - Indie stuff:
+- <https://fanzine.world/>
+- <https://minifeed.net/blogs/>
+- <https://indieblog.page/rss>
+- <https://firechicken.club/>
+
+`Dec 19, 2024` - [changesets/changesets](https://github.com/changesets/changesets) - 🦋       A way to manage your versioning and changelogs with a focus on monorepos
+
+`Dec 19, 2024` - [konfig-dev/konfig](https://github.com/konfig-dev/konfig) - SDK & API Docs Generator. Sunset as of December 2024
+
+`Dec 19, 2024` - [changesets/changesets](https://github.com/changesets/changesets) - 🦋       A way to manage your versioning and changelogs with a focus on monorepos
+
+`Dec 19, 2024` - [konfig-dev/konfig](https://github.com/konfig-dev/konfig) - SDK & API Docs Generator. Sunset as of December 2024
+
+`Dec 19, 2024` - Something to try to learn from: https://dylanhuang.com/blog/closing-my-startup/
+
+`Dec 17, 2024` - Coming back to [](/17_notes/28-karpman_drama_triangle.md),
+I think how "Who is right" and "Who is wrong" are drama-ignited questions.
+They don't serve a purpose of resolving a conflict, and creating a learning moment.
+They fight fire with gasoline, ignited by drama, fueling more drama.
+When a person's goal is to prove they're right, solution is out of the picture.
+
+`Dec 12, 2024` - There seems to be an inherent conflict living in a society, where person's value is tied to other peoples' perceptions and needs. Whereas person wants to be have their value defined by merit, but only gets other peoples' opinions.
+
+`Dec 10, 2024` - Existential crisis minute. Metaphor mode.
+
+1. A stock chart, jumping up and down every minute. Every move is a strict sum of asks and bids executed in order. And yet, the stock value can't be predicted even 1 second ahead.
+2. A man is running in a forest, jumping over falling trees and ducking under branches. Except that the forest is dark, the man can't see anything. Sometimes, he guesses right; sometimes, he hits the branch, falls, gets up, and keeps running. The position of every tree and branch is predetermined and exact for each moment in time, yet it is unknown to the man.
+3. An incomprehensible complex multidimensional visualization of a microorganism cell state with the exact number of molecules, atoms, and electrons.
+4. The same visualization but for each moment of its life.
+5. The same visualization but for a person.
+6. The same visualization but for all of humanity.
+7. A simplified version of it, showing just one aspect as a black curve on a flat white sheet of paper.
+8. A coin scratches a layer of paint off the single-line chart, revealing the essence of life progression on Earth.
+9. A bar chart showing the amount of energy consumed by a person each day of his life.
+10. Another bar chart for the sum value of all material exchanges.
+11. Another, for the value of immaterial exchanges.
+12. A bend of a line representing the total net value of a particular life year-by-year.
+13. A point at which the line crosses zero.
+14. A quick flash in the infinite history of the universe that had humanity.
+15. A short stretch of timeline labeled "carbon-based life".
+
+`Dec 09, 2024` - [pimalaya/himalaya](https://github.com/pimalaya/himalaya) - CLI to manage emails
+
+`Dec 09, 2024` - TIL that Listerine mouthwash is bad for teeth. Because it's acidic, duh, I've been using it for years, looking at the self-ad of killing 99.9% of germs and not considering the pH. Some non-acidic mouthwashes, like Act, don't have this problem.
+
+`Dec 06, 2024` - [trailbaseio/trailbase](https://github.com/trailbaseio/trailbase) - An open, sub-millisecond, single-executable Firebase alternative with type-safe APIs, built-in WebAssembly runtime, realtime subscriptions, auth, and admin UI built on Rust, SQLite & Wasmtime.
+
+`Dec 06, 2024` - Does it sound harsh to you if I say that half of the US population has an IQ below average?
+

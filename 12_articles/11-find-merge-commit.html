@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>How to find merge commit which includes a specific commit - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="How to clean up stale git branches" href="12-git-branch-cleanup.html" /><link rel="prev" title="MSSQL cheatsheet" href="10-create-mssql-user.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=51f15f49" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="How to find merge commit which includes a specific commit"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#scripting-the-solution">Scripting the solution</a></li>
+</ul>
+</div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
+  data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </span>
+  <span class="flex-grow px-2 break-all">
+    
+    
+      <span>peterdemin.github.io</span>
+    
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <iconify-icon icon="lucide:star"></iconify-icon>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <iconify-icon icon="lucide:git-fork"></iconify-icon>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/peterdemin/peterdemin.github.io/blob/master/source/12_articles/11-find-merge-commit.md">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
+    
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">How to find merge commit which includes a specific commit</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/11-find-merge-commit.md.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/11-find-merge-commit.md.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/11-find-merge-commit.md.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:markdown"></iconify-icon>
+            <span>View as Markdown</span></a><a role="menuitem" href="https://chatgpt.com/?hints=search&q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/11-find-merge-commit.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:openai"></iconify-icon>
+          <span>Open in ChatGPT</span>
+        </a><a role="menuitem" href="https://claude.ai/new?q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/11-find-merge-commit.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:claude"></iconify-icon>
+          <span>Open in Claude</span>
+        </a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="how-to-find-merge-commit-which-includes-a-specific-commit">
+<h1>How to find merge commit which includes a specific commit<a class="headerlink" href="#how-to-find-merge-commit-which-includes-a-specific-commit" title="Link to this heading">¶</a></h1>
+<blockquote>
+<div><p>TL;DR in the end you can find git alias config, that will just do the thing.</p>
+</div></blockquote>
+<p>Recently I was researching how a complex feature was implemented.
+I found in <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">-p</span></code> output commit, that did a part of it, but I needed a big picture.
+We use BitBucket’s pull request for review, and naturally all links and discussions aggregate there,
+so I wanted to find a PR, that had a specific change.</p>
+<p>If presented in terms of git commits graph we have something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">       <span class="n">c</span><span class="o">---</span><span class="n">e</span><span class="o">---</span><span class="n">g</span>    <span class="n">feature</span>
+</span><span data-line="2">      <span class="o">/</span>         \
+</span><span data-line="3"><span class="o">-</span><span class="n">a</span><span class="o">---</span><span class="n">b</span><span class="o">---</span><span class="n">d</span><span class="o">---</span><span class="n">f</span><span class="o">---</span><span class="n">h</span><span class="o">---</span><span class="n">i</span><span class="o">---</span><span class="n">j</span><span class="o">---</span> <span class="n">master</span>
+</span></pre></div>
+</div>
+<p>I know the commit hash for <code class="docutils literal notranslate"><span class="pre">c</span></code> and want to find commit <code class="docutils literal notranslate"><span class="pre">h</span></code> that has PR number in it’s message.</p>
+<p>Unfortunately git doesn’t provide a builtin command for such case.
+But it has <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">rev-list</span></code> - the tool, that lists commit hashes with a bunch of different options.</p>
+<p>First option of interest is <code class="docutils literal notranslate"><span class="pre">--ancestry-path</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"> <span class="o">--</span><span class="n">ancestry</span><span class="o">-</span><span class="n">path</span>
+</span><span data-line="2">     <span class="n">When</span> <span class="n">given</span> <span class="n">a</span> <span class="nb">range</span> <span class="n">of</span> <span class="n">commits</span> <span class="n">to</span> <span class="n">display</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span>  <span class="n">commit1</span><span class="o">..</span><span class="n">commit2</span> <span class="ow">or</span> <span class="n">commit2</span> <span class="o">^</span><span class="n">commit1</span><span class="p">),</span>
+</span><span data-line="3">     <span class="n">only</span> <span class="n">display</span> <span class="n">commits</span> <span class="n">that</span> <span class="n">exist</span> <span class="n">directly</span> <span class="n">on</span> <span class="n">the</span> <span class="n">ancestry</span> <span class="n">chain</span> <span class="n">between</span> <span class="n">the</span> <span class="n">commit1</span> <span class="ow">and</span> <span class="n">commit2</span><span class="p">,</span>
+</span><span data-line="4">     <span class="n">i</span><span class="o">.</span><span class="n">e</span><span class="o">.</span> <span class="n">commits</span> <span class="n">that</span> <span class="n">are</span> <span class="n">both</span> <span class="n">descendants</span> <span class="n">of</span> <span class="n">commit1</span><span class="p">,</span> <span class="ow">and</span> <span class="n">ancestors</span> <span class="n">of</span> <span class="n">commit2</span><span class="o">.</span>
+</span></pre></div>
+</div>
+<p>So for command <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">rev-list</span> <span class="pre">--ancestry-path</span> <span class="pre">c..master</span></code> it will give the list:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">j</span> <span class="n">i</span> <span class="n">h</span> <span class="n">g</span> <span class="n">e</span>
+</span></pre></div>
+</div>
+<p>This list includes all feature commits and all the commits that were done in master after the merge.
+It doesn’t include all the commits on master that were done prior the <code class="docutils literal notranslate"><span class="pre">h</span></code> merge (<code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">b</span> <span class="pre">d</span> <span class="pre">f</span></code>).</p>
+<p>Now I need to remove the tail, which is <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">j</span></code>.
+I’ll do it with the help of <code class="docutils literal notranslate"><span class="pre">--first-parent</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"> <span class="o">--</span><span class="n">first</span><span class="o">-</span><span class="n">parent</span>
+</span><span data-line="2">     <span class="n">Follow</span> <span class="n">only</span> <span class="n">the</span> <span class="n">first</span> <span class="n">parent</span> <span class="n">commit</span> <span class="n">upon</span> <span class="n">seeing</span> <span class="n">a</span> <span class="n">merge</span> <span class="n">commit</span><span class="o">.</span>
+</span><span data-line="3">     <span class="n">This</span> <span class="n">option</span> <span class="n">can</span> <span class="n">give</span> <span class="n">a</span> <span class="n">better</span> <span class="n">overview</span> <span class="n">when</span> <span class="n">viewing</span> <span class="n">the</span> <span class="n">evolution</span> <span class="n">of</span> <span class="n">a</span> <span class="n">particular</span> <span class="n">topic</span> <span class="n">branch</span><span class="p">,</span>
+</span><span data-line="4">     <span class="n">because</span> <span class="n">merges</span> <span class="n">into</span> <span class="n">a</span> <span class="n">topic</span> <span class="n">branch</span> <span class="n">tend</span> <span class="n">to</span> <span class="n">be</span> <span class="n">only</span> <span class="n">about</span> <span class="n">adjusting</span> <span class="n">to</span> <span class="n">updated</span> <span class="n">upstream</span>
+</span><span data-line="5">     <span class="kn">from</span><span class="w"> </span><span class="nn">time</span> <span class="n">to</span> <span class="n">time</span><span class="p">,</span> <span class="ow">and</span> <span class="n">this</span> <span class="n">option</span> <span class="n">allows</span> <span class="n">you</span> <span class="n">to</span> <span class="n">ignore</span> <span class="n">the</span> <span class="n">individual</span> <span class="n">commits</span>
+</span><span data-line="6">     <span class="n">brought</span> <span class="ow">in</span> <span class="n">to</span> <span class="n">your</span> <span class="n">history</span> <span class="n">by</span> <span class="n">such</span> <span class="n">a</span> <span class="n">merge</span><span class="o">.</span> <span class="n">Cannot</span> <span class="n">be</span> <span class="n">combined</span> <span class="k">with</span> <span class="o">--</span><span class="n">bisect</span><span class="o">.</span>
+</span></pre></div>
+</div>
+<p>Command <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">rev-list</span> <span class="pre">--first-parent</span> <span class="pre">c..master</span></code> will return list:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">j</span> <span class="n">i</span> <span class="n">h</span> <span class="n">f</span> <span class="n">d</span> <span class="n">b</span> <span class="n">a</span>
+</span></pre></div>
+</div>
+<p>That is, history of master branch, that excludes commits on feature branch.
+If we look closer on two lists at hand, we’ll see, that they start the same and go different paths exactly on the <code class="docutils literal notranslate"><span class="pre">h</span></code> commit.
+So now I need to compare two lists and the find first different item. Sounds easy, not so easy to do in bash.</p>
+<p>First let’s add line numbers to the output of these two commands. Like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">$ (git rev-list --ancestry-path c..master | cat -n); (git rev-list --first-parent c..master | cat -n)
+</span><span data-line="2">1 j
+</span><span data-line="3">2 i
+</span><span data-line="4">3 h
+</span><span data-line="5">4 g
+</span><span data-line="6">5 e
+</span><span data-line="7">1 j
+</span><span data-line="8">2 i
+</span><span data-line="9">3 h
+</span><span data-line="10">4 f
+</span><span data-line="11">5 d
+</span><span data-line="12">6 b
+</span><span data-line="13">7 a
+</span></pre></div>
+</div>
+<p>Then sort them by commit hash:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="o">...</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">-</span><span class="n">k2</span> <span class="o">-</span><span class="n">s</span>
+</span><span data-line="2"><span class="mi">7</span> <span class="n">a</span>
+</span><span data-line="3"><span class="mi">6</span> <span class="n">b</span>
+</span><span data-line="4"><span class="mi">5</span> <span class="n">d</span>
+</span><span data-line="5"><span class="mi">5</span> <span class="n">e</span>
+</span><span data-line="6"><span class="mi">4</span> <span class="n">f</span>
+</span><span data-line="7"><span class="mi">4</span> <span class="n">g</span>
+</span><span data-line="8"><span class="mi">3</span> <span class="n">h</span>
+</span><span data-line="9"><span class="mi">3</span> <span class="n">h</span>
+</span><span data-line="10"><span class="mi">2</span> <span class="n">i</span>
+</span><span data-line="11"><span class="mi">2</span> <span class="n">i</span>
+</span><span data-line="12"><span class="mi">1</span> <span class="n">j</span>
+</span><span data-line="13"><span class="mi">1</span> <span class="n">j</span>
+</span></pre></div>
+</div>
+<p>Here we can clearly see that duplication starts at <code class="docutils literal notranslate"><span class="pre">h</span></code>. Let’s remove all unique commits leaving only duplicates:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="o">...</span> <span class="o">|</span> <span class="n">uniq</span> <span class="o">-</span><span class="n">d</span> <span class="o">-</span><span class="n">f1</span>
+</span><span data-line="2"><span class="mi">3</span> <span class="n">h</span>
+</span><span data-line="3"><span class="mi">2</span> <span class="n">i</span>
+</span><span data-line="4"><span class="mi">1</span> <span class="n">j</span>
+</span></pre></div>
+</div>
+<p>Example output is in order, so I can just grab the first line.
+But that’s true for this simplistic example and not likely with real hashes.
+And it is exactly the reason behind adding line numbers.
+After numeric sort:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="o">...</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">-</span><span class="n">n</span>
+</span><span data-line="2"><span class="mi">1</span> <span class="n">j</span>
+</span><span data-line="3"><span class="mi">2</span> <span class="n">i</span>
+</span><span data-line="4"><span class="mi">3</span> <span class="n">h</span>
+</span></pre></div>
+</div>
+<p>Now take the last line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="o">...</span> <span class="o">|</span> <span class="n">tail</span> <span class="o">-</span><span class="mi">1</span>
+</span><span data-line="2"><span class="mi">3</span> <span class="n">h</span>
+</span></pre></div>
+</div>
+<p>And strip the line number, leaving the commit hash:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="o">...</span> <span class="o">|</span> <span class="n">cut</span> <span class="o">-</span><span class="n">f2</span>
+</span><span data-line="2"><span class="n">h</span>
+</span></pre></div>
+</div>
+<p>Having this hash, I was able to (finally) read the commit message and see the pull request number:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">git</span> <span class="n">show</span> <span class="n">h</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="n">Merge</span> <span class="n">pull</span> <span class="n">request</span> <span class="c1">#415 in repo from feature to master</span>
+</span></pre></div>
+</div>
+<section id="scripting-the-solution">
+<h2>Scripting the solution<a class="headerlink" href="#scripting-the-solution" title="Link to this heading">¶</a></h2>
+<p>Add these lines to your git config file (user specific <code class="docutils literal notranslate"><span class="pre">~/.gitconfig</span></code> or repo specific <code class="docutils literal notranslate"><span class="pre">.git/config</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="p">[</span><span class="n">alias</span><span class="p">]</span>
+</span><span data-line="2">    <span class="n">find</span><span class="o">-</span><span class="n">merge</span> <span class="o">=</span> <span class="s2">&quot;!sh -c &#39;commit=$0 &amp;&amp; branch=${1:-HEAD} &amp;&amp; (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2&#39;&quot;</span>
+</span><span data-line="3">    <span class="n">show</span><span class="o">-</span><span class="n">merge</span> <span class="o">=</span> <span class="s2">&quot;!sh -c &#39;merge=$(git find-merge $0 $1) &amp;&amp; [ -n </span><span class="se">\&quot;</span><span class="s2">$merge</span><span class="se">\&quot;</span><span class="s2"> ] &amp;&amp; git show $merge&#39;&quot;</span>
+</span></pre></div>
+</div>
+<p>Credits to <a class="reference external" href="https://stackoverflow.com/users/305973/robinst">Robin Stocker</a> who came up with the solution in <a class="reference external" href="https://stackoverflow.com/a/30998048/135079">this StackOverflow question</a></p>
+</section>
+</section>
+
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="10-create-mssql-user.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">MSSQL cheatsheet</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="12-git-branch-cleanup.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">How to clean up stale git branches</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2022, Peter Demin</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/shibuya.js?v=cac61aee"></script></body>
+</html>

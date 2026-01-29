@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Fossilitate - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="HTTP API for append-only Git repositories" href="03-http-api-git-storage.html" /><link rel="prev" title="Collecte - self-hosted open source email collector" href="01-collector.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=51f15f49" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="Fossilitate"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#filling-the-gap-in-open-source-supply-chain">Filling the gap in open source supply chain</a></li>
+<li><a class="reference internal" href="#outline">Outline</a><ul>
+<li><a class="reference internal" href="#upsides">Upsides</a></li>
+<li><a class="reference internal" href="#downsides">Downsides</a></li>
+<li><a class="reference internal" href="#solution">Solution</a></li>
+</ul>
+</li>
+</ul>
+</div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
+  data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </span>
+  <span class="flex-grow px-2 break-all">
+    
+    
+      <span>peterdemin.github.io</span>
+    
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <iconify-icon icon="lucide:star"></iconify-icon>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <iconify-icon icon="lucide:git-fork"></iconify-icon>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/peterdemin/peterdemin.github.io/blob/master/source/14_ideas/02-fossilitate.md">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
+    
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Fossilitate</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/14_ideas/02-fossilitate.md.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/14_ideas/02-fossilitate.md.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/14_ideas/02-fossilitate.md.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:markdown"></iconify-icon>
+            <span>View as Markdown</span></a><a role="menuitem" href="https://chatgpt.com/?hints=search&q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/14_ideas/02-fossilitate.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:openai"></iconify-icon>
+          <span>Open in ChatGPT</span>
+        </a><a role="menuitem" href="https://claude.ai/new?q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/14_ideas/02-fossilitate.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:claude"></iconify-icon>
+          <span>Open in Claude</span>
+        </a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="fossilitate">
+<h1>Fossilitate<a class="headerlink" href="#fossilitate" title="Link to this heading">¶</a></h1>
+<section id="filling-the-gap-in-open-source-supply-chain">
+<h2>Filling the gap in open source supply chain<a class="headerlink" href="#filling-the-gap-in-open-source-supply-chain" title="Link to this heading">¶</a></h2>
+<p><img alt="Flowers field" src="../_images/flowers.jpg" />
+Photo by <a class="reference external" href="https://unsplash.com/&#64;brianverde?utm_source=unsplash&amp;amp;utm_medium=referral&amp;amp;utm_content=creditCopyText">Brian Garcia</a></p>
+<p>Private companies, big or small, love open source software.
+Primarily, because it allows them to move faster.
+If company makes a website, it doesn’t need to start with developing a web framework.
+Instead, open source world provides a vast variety of frameworks for every programming language there is.
+Engineers can focus on unique value proposition and offload routine work to libraries, developed and maintained
+outside of the organization and basically at no cost to the company.</p>
+<p>Companies that choose to open a part of their software stack, get a good reputation among
+other developers, better candidates for HR and even free contributions from community.</p>
+<p>Arguably, humanity as a whole greatly benefits from open source, as common problems can be solved once,
+and reused by everyone. Popular frameworks report adoption by thousands of companies worldwide.</p>
+<p>One may say, that open source is the best thing that ever happened to software.
+But of course, nothing is perfect, and the reality brings in the complexity.</p>
+<p><img alt="Rain" src="../_images/rain.jpg" />
+Photo by <a class="reference external" href="https://unsplash.com/&#64;insolitus?utm_source=unsplash&amp;amp;utm_medium=referral&amp;amp;utm_content=creditCopyText">Rowan Heuvel</a></p>
+<p>When company chooses to adopt an open source package, it takes a risk.
+Part of the product becomes owned and controlled by someone outside of the company.
+If the package maintainer looses interest, the project might get stuck in the past.
+Abandoned projects do not receive upgrades when underlying technology changes.
+Also, bugs and security vulnerabilities may stay open for a long time.</p>
+<p>But even if the library is live and maintained, the author is working on it in their’s free time and supported only by good will.
+Fixing a bug in code is 1-step process.
+But to fix it in third-party library, one has to go through code review with a stranger and wait for the next public release.</p>
+<p>New features are hard to get in too, as many maintainers try to keep their projects simple and avoid feature bloat.
+Persuading the author, that their library needs additional functionality is a task of its own.</p>
+<p><img alt="Sun" src="../_images/sun.jpg" />
+Photo by <a class="reference external" href="https://unsplash.com/&#64;photoholgic?utm_source=unsplash&amp;amp;utm_medium=referral&amp;amp;utm_content=creditCopyText">Photoholgic</a></p>
+<p>The solution to all of these problems exists and is a part core part of the open source philosophy.
+It’s called fork.
+Anyone can copy an open source library, change it, and use start using the new version.
+The patch may take time to get merged in the upstream repository, and get released publicly,
+but the fork will have it immediately.
+Private forks trade the speed of change with the burden of maintaining patched software and managing private artifacts.
+Now company pays for using the open source with engineer’s time - the scarcest resource it has.
+If upstream makes new release, the patch has to be reapplied on top of it, oftentimes after adapting, testing and debugging.
+If company chooses not to keep up with the upstream, it gets stuck with an old unsupported version.</p>
+<p>But not all is doom and gloom. Because now companies have an option to outsource third-party forks maintainance.
+Effectively trading engineering time with cash.
+Fossility is the first SaaS to offer paid support for open source packages.</p>
+<p>Fossility makes this possible by covering 3 fronts:</p>
+<ol class="arabic simple">
+<li><p>Private companies pay monthly subscription to Fossility.</p></li>
+<li><p>Fossility partners with open source maintainers to ensure timely resolution of clients’ issues.</p></li>
+<li><p>Client gets access to a private artifactory with forked third-party libraries.</p></li>
+<li><p>Fossility maintains private forks until the patches are merged and released in upstream packages.</p></li>
+<li><p>Fossility pays open source maintainers to work on client’s issues.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="outline">
+<h2>Outline<a class="headerlink" href="#outline" title="Link to this heading">¶</a></h2>
+<section id="upsides">
+<h3>Upsides<a class="headerlink" href="#upsides" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Open source is the best way to move faster as a whole.</p></li>
+<li><p>Less reinventing the wheel.</p></li>
+<li><p>Free contributions.</p></li>
+</ul>
+</section>
+<section id="downsides">
+<h3>Downsides<a class="headerlink" href="#downsides" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Part of the product is owned and maintained by someone outside of the company.</p></li>
+<li><p>Bug fixes are slower to get to the production, because of the release cycle.</p></li>
+<li><p>Feature requests may get no attention, or be rejected.</p></li>
+<li><p>Library may get completely abandoned.</p></li>
+</ul>
+</section>
+<section id="solution">
+<h3>Solution<a class="headerlink" href="#solution" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Partner with open source library maintainers.</p></li>
+<li><p>Provide bounties to maintainers for working on issues needed by the clients.</p></li>
+<li><p>Maintain private artifactory for fork releases.</p></li>
+<li><p>Private releases a faster to incorporate new patches.</p></li>
+<li><p>Private releases with backported bug fixes.</p></li>
+</ul>
+<p>SaaS</p>
+</section>
+</section>
+</section>
+
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="01-collector.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Collecte - self-hosted open source email collector</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="03-http-api-git-storage.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">HTTP API for append-only Git repositories</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2022, Peter Demin</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/shibuya.js?v=cac61aee"></script></body>
+</html>

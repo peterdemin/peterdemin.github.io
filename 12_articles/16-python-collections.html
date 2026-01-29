@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Beauty of Python’s collections module - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Subtleties of Python compatible release version specifier" href="17-python-compatible-version.html" /><link rel="prev" title="On delegation" href="15-on-delegation.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=51f15f49" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="Beauty of Python’s collections module"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
+  data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </span>
+  <span class="flex-grow px-2 break-all">
+    
+    
+      <span>peterdemin.github.io</span>
+    
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <iconify-icon icon="lucide:star"></iconify-icon>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <iconify-icon icon="lucide:git-fork"></iconify-icon>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/peterdemin/peterdemin.github.io/blob/master/source/12_articles/16-python-collections.md">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
+    
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Beauty of Python’s collections module</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/16-python-collections.md.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/16-python-collections.md.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/16-python-collections.md.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:markdown"></iconify-icon>
+            <span>View as Markdown</span></a><a role="menuitem" href="https://chatgpt.com/?hints=search&q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/16-python-collections.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:openai"></iconify-icon>
+          <span>Open in ChatGPT</span>
+        </a><a role="menuitem" href="https://claude.ai/new?q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/16-python-collections.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:claude"></iconify-icon>
+          <span>Open in Claude</span>
+        </a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="beauty-of-python-s-collections-module">
+<h1>Beauty of Python’s collections module<a class="headerlink" href="#beauty-of-python-s-collections-module" title="Link to this heading">¶</a></h1>
+<p>Python is <a class="reference external" href="https://en.wikipedia.org/wiki/Duck_typing#In_Python">famed</a> for embracing duck typing.
+It is nice idea in a number of ways, allowing functions to work equally well with
+lists, sets, dictionary keys, or whatever user-defined object if it provides <code class="docutils literal notranslate"><span class="pre">__iter__</span></code> method.
+However sometimes we want to distinguish between types of arguments.
+Good example is recursive operations on nested structures.
+Consider function, that recursively deletes all dictionary items with <code class="docutils literal notranslate"><span class="pre">None</span></code> values.</p>
+<p>Here is how it could be written for reduced non-recursive case:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">def without_empty(data):
+</span><span data-line="2">    return {key: value
+</span><span data-line="3">            for key, value in data.items()
+</span><span data-line="4">            if value is not None}
+</span></pre></div>
+</div>
+<p>Now if we want to remove <code class="docutils literal notranslate"><span class="pre">None</span></code> values in nested dictionaries, we will add recursion:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">def without_empty(data):
+</span><span data-line="2">    return {key: without_empty(value)
+</span><span data-line="3">            for key, value in data.items()
+</span><span data-line="4">            if value is not None}
+</span></pre></div>
+</div>
+<p>Obviosly this new function will not work, because if value is not a dict,
+<code class="docutils literal notranslate"><span class="pre">AttributeError</span></code> will be raised in call to <code class="docutils literal notranslate"><span class="pre">items</span></code> method.</p>
+<p>So function need some way to distinguish between dictionaries and other values.
+Naive duck-typing solution could look like this:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">def without_empty(data):
+</span><span data-line="2">    if hasattr(data, &#39;items&#39;):
+</span><span data-line="3">        return {key: without_empty(value)
+</span><span data-line="4">                for key, value in data.items()
+</span><span data-line="5">                if value is not None}
+</span><span data-line="6">    else:
+</span><span data-line="7">        return data
+</span></pre></div>
+</div>
+<p>So far so good, checking with nested dictionary gives correct result:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">&gt;&gt;&gt; without_empty({1: {2: None, 4: 5}, 3: None})
+</span><span data-line="2">{1: {4: 5}}
+</span></pre></div>
+</div>
+<p>However, what if function has to support lists of dictionaries too?
+Current version will just ignore None values in lists:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">&gt;&gt;&gt; without_empty([{1: None}])
+</span><span data-line="2">[{1: None}]
+</span></pre></div>
+</div>
+<p>Let’s add check for lists:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">def without_empty(data):
+</span><span data-line="2">    if hasattr(data, &#39;items&#39;):
+</span><span data-line="3">        return {key: without_empty(value)
+</span><span data-line="4">                for key, value in data.items()
+</span><span data-line="5">                if value is not None}
+</span><span data-line="6">    elif hasattr(data, &#39;__iter__&#39;):
+</span><span data-line="7">        return [without_empty(item)
+</span><span data-line="8">                for item in data]
+</span><span data-line="9">    else:
+</span><span data-line="10">        return data
+</span></pre></div>
+</div>
+<p>Function works fine, giving expected result for complex case:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">&gt;&gt;&gt; without_empty({1: [6, {2: None, 7: 8}], 3: None})
+</span><span data-line="2">{1: [6, {7: 8}]}
+</span></pre></div>
+</div>
+<p>But code now is hard to follow and tricky to update.
+Because second condition is depending on the first one - both <code class="docutils literal notranslate"><span class="pre">dict</span></code> and <code class="docutils literal notranslate"><span class="pre">list</span></code> provide <code class="docutils literal notranslate"><span class="pre">__iter__</span></code> method.
+Also first check uses public method <code class="docutils literal notranslate"><span class="pre">items</span></code>, but second - internal helper <code class="docutils literal notranslate"><span class="pre">__iter__</span></code>,
+which looks like hacking.</p>
+<p>And here comes <a class="reference external" href="https://docs.python.org/3.6/library/collections.abc.html">collections.abc</a> (Just <a class="reference external" href="https://docs.python.org/2.7/library/collections.html">collections</a> in Python 2) providing number of
+abstract base classes that can be used to test whether a class provides a particular interface;
+for example, whether it is hashable or whether it is a sequence.</p>
+<p>Here is version of our function, that utilizes abstract classes:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">from collections import Mapping, Set, Sequence
+</span><span data-line="2">
+</span><span data-line="3">def without_empty(data):
+</span><span data-line="4">    if isinstance(data, Mapping):
+</span><span data-line="5">        return {key: without_empty(value)
+</span><span data-line="6">                for key, value in data.items()
+</span><span data-line="7">                if value is not None}
+</span><span data-line="8">    elif isinstance(data, (Sequence, Set)):
+</span><span data-line="9">        return [without_empty(item)
+</span><span data-line="10">                for item in data]
+</span><span data-line="11">    else:
+</span><span data-line="12">        return data
+</span></pre></div>
+</div>
+<p>At this point you may have question, how is it possible that built-in
+<code class="docutils literal notranslate"><span class="pre">dict</span></code> class is an instance of some deep burried <code class="docutils literal notranslate"><span class="pre">collections.abc.Mapping</span></code>?
+The answer is easy: it is not. And that’s why I decided to write about this module.</p>
+<p>In Python it is type’s responsiblity to decide if some object instantiates it.
+The mechanics are descrived in detail in documentation to <a class="reference external" href="https://docs.python.org/3.6/library/abc.html">abc</a> module.</p>
+<p>In short abstract base class defines must define method <code class="docutils literal notranslate"><span class="pre">__subclasshook__</span></code>,
+which may look something like this for Mapping class:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">@classmethod
+</span><span data-line="2">def __subclasshook__(cls, C):
+</span><span data-line="3">    if cls is Mapping:
+</span><span data-line="4">        if any(&#39;items&#39; in B.__dict__
+</span><span data-line="5">               for B in C.__mro__):
+</span><span data-line="6">            return True
+</span><span data-line="7">    return NotImplemented
+</span></pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">isinstance</span></code> calls this method and magic happens - object becomes
+an instance of a class that it never heard of.</p>
+</section>
+
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="15-on-delegation.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">On delegation</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="17-python-compatible-version.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Subtleties of Python compatible release version specifier</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2022, Peter Demin</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/shibuya.js?v=cac61aee"></script></body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Building this Website on Git Push - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Decentralizing the Practice of Architecture at Xapo Bank" href="../17_notes/01_xapo.html" /><link rel="prev" title="FedUp - Minimal Federated CDN" href="81-fedup.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=51f15f49" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="Building this Website on Git Push"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#">Building this Website on Git Push</a><ul>
+<li><a class="reference internal" href="#preface">Preface</a></li>
+<li><a class="reference internal" href="#virtual-machine">Virtual Machine</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#make-build">make build</a></li>
+</ul>
+</div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
+  data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </span>
+  <span class="flex-grow px-2 break-all">
+    
+    
+      <span>peterdemin.github.io</span>
+    
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <iconify-icon icon="lucide:star"></iconify-icon>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <iconify-icon icon="lucide:git-fork"></iconify-icon>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/peterdemin/peterdemin.github.io/blob/master/source/12_articles/82-build-on-push.md">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
+    
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Building this Website on Git Push</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/82-build-on-push.md.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/82-build-on-push.md.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/82-build-on-push.md.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:markdown"></iconify-icon>
+            <span>View as Markdown</span></a><a role="menuitem" href="https://chatgpt.com/?hints=search&q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/82-build-on-push.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:openai"></iconify-icon>
+          <span>Open in ChatGPT</span>
+        </a><a role="menuitem" href="https://claude.ai/new?q=Read%20https%3A//raw.githubusercontent.com/peterdemin/peterdemin.github.io/refs/heads/master/source/12_articles/82-build-on-push.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:claude"></iconify-icon>
+          <span>Open in Claude</span>
+        </a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="building-this-website-on-git-push">
+<h1>Building this Website on Git Push<a class="headerlink" href="#building-this-website-on-git-push" title="Link to this heading">¶</a></h1>
+<section id="preface">
+<h2>Preface<a class="headerlink" href="#preface" title="Link to this heading">¶</a></h2>
+<p>In the spirit of my recent fascination with self-sovereignity and decentralization I will replace the fancy friendly mature reliable GitHub Pages with a hack.</p>
+<blockquote>
+<div><p>As a side note, I like GitHub Pages, the service democratized static website hosting and made it easily approachable to many developers.
+GitHub Actions allow flexible builds outside of the default Jekyll system.
+For example, I’m using a Makefile with SphinxDocs, and quiet happy with it.
+And all of it is completely free.
+But this article is not about GitHub Pages, this is about an <em>alternative</em>.</p>
+</div></blockquote>
+<p>The hack is to run a Debian VM on my home server with a git repo and post-receive hook that builds a static website.
+The built artifact is then committed to another repo, which is pushed to a Cloud VPS.
+I could’ve simplified the setup by building the website directly on the VPS, the problem is that it’s so tiny, I doubt it can handle the build process.</p>
+<p>The website build process got pretty involved over the years since I’m hoarding all my petty experiments for no good reason.
+The builder needs Python, graphviz, NodeJS, and customary imperial tonne of npm packages.</p>
+<p>I’ll keep the VM running at all times and preserve the build files so it can run incrementally.
+I’ll also ship the build artifact through git, which should be much faster then a complete artifact every time.</p>
+</section>
+<section id="virtual-machine">
+<h2>Virtual Machine<a class="headerlink" href="#virtual-machine" title="Link to this heading">¶</a></h2>
+<p>My favorite way of running virtual machines is with Vagrant and KVM.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Vagrantfile</span></code>:</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># -*- mode: ruby -*-</span>
+</span><span data-line="2"><span class="c1"># vi: set ft=ruby :</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="no">Vagrant</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s2">&quot;2&quot;</span><span class="p">)</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="o">|</span><span class="n">config</span><span class="o">|</span>
+</span><span data-line="5"><span class="w">    </span><span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;debian/trixie64&quot;</span>
+</span><span data-line="6"><span class="w">    </span><span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">synced_folder</span><span class="w"> </span><span class="s2">&quot;./&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;/vagrant&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">type</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;virtiofs&quot;</span>
+</span><span data-line="7"><span class="w">    </span><span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provider</span><span class="w"> </span><span class="ss">:libvirt</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="o">|</span><span class="n">libvirt</span><span class="o">|</span>
+</span><span data-line="8"><span class="w">      </span><span class="n">libvirt</span><span class="o">.</span><span class="n">driver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;kvm&quot;</span>
+</span><span data-line="9"><span class="w">      </span><span class="n">libvirt</span><span class="o">.</span><span class="n">uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;qemu:///system&#39;</span>
+</span><span data-line="10"><span class="w">      </span><span class="n">libvirt</span><span class="o">.</span><span class="n">cpus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
+</span><span data-line="11"><span class="w">      </span><span class="n">libvirt</span><span class="o">.</span><span class="n">memory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;2048&quot;</span>
+</span><span data-line="12"><span class="w">      </span><span class="n">libvirt</span><span class="o">.</span><span class="n">memorybacking</span><span class="w"> </span><span class="ss">:access</span><span class="p">,</span><span class="w"> </span><span class="ss">:mode</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;shared&quot;</span>
+</span><span data-line="13"><span class="w">    </span><span class="k">end</span>
+</span><span data-line="14"><span class="w">    </span><span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span><span class="w"> </span><span class="s2">&quot;shell&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">path</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;provision_builder.sh&quot;</span>
+</span><span data-line="15"><span class="k">end</span>
+</span></pre></div>
+</div>
+<p>Upon creation (<code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">up</span></code>) it immediately runs the provisioning script that sets everything up.
+The script is reentrant, because I had to iterate a bit to polish all the kinks.</p>
+<p><code class="docutils literal notranslate"><span class="pre">provision_builder.sh</span></code>:</p>
+<p>#!/bin/bash
+set -euo pipefail</p>
+<p>apt-get update
+apt-get install -y      <br />
+curl                <br />
+build-essential     <br />
+git                 <br />
+python3-venv        <br />
+python-is-python3   <br />
+graphviz            <br />
+nodejs              <br />
+npm                 <br />
+rsync</p>
+<p>tailscale status || ( <br />
+mkdir -p /etc/apt/keyrings <br />
+&amp;&amp; curl -fsSL https://pkgs.tailscale.com/stable/debian/trixie.noarmor.gpg &gt; /usr/share/keyrings/tailscale-archive-keyring.gpg <br />
+&amp;&amp; curl -fsSL https://pkgs.tailscale.com/stable/debian/trixie.tailscale-keyring.list &gt; /etc/apt/sources.list.d/tailscale.list <br />
+&amp;&amp; apt-get update <br />
+&amp;&amp; apt-get install -y tailscale <br />
+&amp;&amp; tailscale login <br />
+&amp;&amp; tailscale up <br />
+)</p>
+<p>id builder || useradd -rms /usr/bin/git-shell builder
+chown builder:builder ~builder
+install -o builder -g builder -m 0700 -d ~builder/.ssh
+install -o builder -g builder -m 0700 -d /var/www/site
+install -o builder -g builder -m 0600 /dev/stdin ~builder/.ssh/authorized_keys &lt;&lt;’EOF’
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDYxOnUHnt2KZ8kdjYjO/xWflaFKxXXJLv6V8/TiXgow8L+QdFmcEJ/NRdR6/LVLEwiJ5h9l26mY8XxlpVAIY43NqbhPUdBp6SoeX2tpHFQa4R1i7coO3bO1sjAVqeTmTby4iROtWZ89OEsqYnWyYco4py+sn6X+h8TDRIbrl2zYQI9IwK8O2UJTV9qT2Vy4s4fitLTeO6AI7935OsrLzXV+iaGGmhoUfpZcHZ5I9puaaTOyxuJ3q4nA0PNiZ9Lw7+TYOo73eXPA+qRrsvEy6b6x3+izyj4WX31YSklksw5CX+jjc23d7muV8cHFaoO1GkueVYyve8ncqy0dGn9CiDQudVqUyhqkF49MvWO1Hjg9SeidaKGqalh0Pv8RJquTJ8aUXcVS9GwCmYu+/JfBVcCGYKEpcwrLOt/iYa9iHCsImb/wlO08n3R+HBIF4At0Jxgd4wWM8ZhSXoA2UjCBojZwcWLPuS+S/zplFgi3stv+mkfEf9WDQo1g5bueFJ+gK8= peterdemin&#64;MBA
+EOF
+test -d ~builder/repo.git || sudo -u builder -s /bin/bash -c “git init –bare ~builder/repo.git”
+test -d ~builder/pages.git || sudo -u builder -s /bin/bash -c “git init –bare ~builder/pages.git &amp;&amp; git -C ~builder/pages.git remote add origin pages&#64;demin-dev.tail13c89.ts.net:repo.git”
+test -d ~builder/venv || sudo -u builder -s /bin/bash -c “python3 -m venv ~builder/venv”
+test -f ~builder/.ssh/id_ed25519 || sudo -u builder -s /bin/bash -c ‘ssh-keygen -t ed25519 -f ~builder/.ssh/id_ed25519 -N “”’
+echo “Copy public key to serving host:”
+sudo -u builder -s /bin/bash -c ‘ssh-keygen -yf ~builder/.ssh/id_ed25519’
+echo</p>
+<p>sudo -u builder -s /bin/bash -c ‘git config –global user.email “builder&#64;demin.dev”’
+sudo -u builder -s /bin/bash -c ‘git config –global user.name “Builder Bot”’
+sudo -u builder -s /bin/bash -c ‘git config –global init.defaultBranch master’</p>
+<p>install -o builder -g builder -m 0700 -d ~builder/worktree
+install -m 0755 /dev/stdin ~builder/repo.git/hooks/post-receive &lt;&lt;’EOF’
+#!/usr/bin/env bash
+set -euo pipefail</p>
+<p>HOME=/home/builder
+WORK_TREE=”$HOME/worktree”
+LIVE_DIR=”/var/www/site”</p>
+<p>BRANCH=”master”
+BRANCH_REF=”refs/heads/$BRANCH”</p>
+<p>read oldrev newrev REFNAME
+if [[ “$REFNAME” != “$BRANCH_REF” ]]; then
+echo “Ignoring push to $REFNAME (only deploys $BRANCH_REF)”
+exit 0
+fi</p>
+<p>. $HOME/venv/bin/activate
+git –git-dir=”$HOME/repo.git” –work-tree=”$WORK_TREE” checkout -f $BRANCH</p>
+<p>cd “$WORK_TREE”
+which pip-sync &amp;&amp; make sync || make install</p>
+</section>
+</section>
+<section id="make-build">
+<h1>make build<a class="headerlink" href="#make-build" title="Link to this heading">¶</a></h1>
+<p>make html</p>
+<p>cd build/html
+git –git-dir=”$HOME/pages.git” –work-tree . add -A .
+git –git-dir=”$HOME/pages.git” –work-tree . commit -m “Build pages”
+git –git-dir=”$HOME/pages.git” –work-tree . push origin master
+EOF</p>
+<p>And that’s how I cut my website publish time from 5 minutes down to 10 seconds.</p>
+</section>
+
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="81-fedup.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">FedUp - Minimal Federated CDN</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="../17_notes/01_xapo.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Decentralizing the Practice of Architecture at Xapo Bank</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2022, Peter Demin</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/shibuya.js?v=cac61aee"></script></body>
+</html>
