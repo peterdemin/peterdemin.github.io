@@ -1,21 +1,23 @@
 #!/bin/bash
 set -euo pipefail
 
-apt-get update
-
 apt-get install -y      \
     curl                \
     build-essential     \
     git                 \
     python3-venv        \
     python-is-python3   \
+    graphviz            \
     rsync
+
+curl -sL https://deb.nodesource.com/setup_16.x | bash -
 
 # mkdir -p /etc/apt/keyrings
 # curl -fsSL https://pkgs.tailscale.com/stable/debian/trixie.noarmor.gpg > /usr/share/keyrings/tailscale-archive-keyring.gpg
 # curl -fsSL https://pkgs.tailscale.com/stable/debian/trixie.tailscale-keyring.list > /etc/apt/sources.list.d/tailscale.list
-# apt-get update
+apt-get update
 # apt-get install -y tailscale
+apt-get install -y nodejs
 # tailscale login
 # tailscale up
 
@@ -54,7 +56,9 @@ git --git-dir="$GIT_DIR" --work-tree="$WORK_TREE" checkout -f $BRANCH
 
 echo "==> Building"
 cd "$WORK_TREE"
-make html
+which pip-sync && make sync || make install
+make build
+# make html
 
 SRC="$WORK_TREE/build/html"
 if [[ ! -d "$SRC" ]]; then
