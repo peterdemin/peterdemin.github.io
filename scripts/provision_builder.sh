@@ -59,7 +59,6 @@ fi
 . $HOME/venv/bin/activate
 git --git-dir="$HOME/repo.git" --work-tree="$WORK_TREE" checkout -f $BRANCH
 
-echo "==> Building"
 cd "$WORK_TREE"
 which pip-sync && make sync || make install
 # make build
