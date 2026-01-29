@@ -65,7 +65,7 @@ which pip-sync && make sync || make install
 make html
 
 cd build/html
-git --git-dir="$HOME/pages.git" add .
-git --git-dir="$HOME/pages.git" commit -m "Build pages"
-git --git-dir="$HOME/pages.git" push origin master
+git --git-dir="$HOME/pages.git" --work-tree . add .
+git --git-dir="$HOME/pages.git" --work-tree . commit -m "Build pages"
+git --git-dir="$HOME/pages.git" --work-tree . push origin master
 EOF
