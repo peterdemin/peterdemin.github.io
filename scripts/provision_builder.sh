@@ -24,7 +24,6 @@ tailscale status || ( \
 )
 
 id builder || useradd -rms /usr/bin/git-shell builder
-chown builder:builder ~builder
 install -o builder -g builder -m 0700 -d ~builder/.ssh
 install -o builder -g builder -m 0700 -d /var/www/site
 install -o builder -g builder -m 0600 /dev/stdin ~builder/.ssh/authorized_keys <<'EOF'
