@@ -64,10 +64,5 @@ git --git-dir="$HOME/repo.git" --work-tree="$WORK_TREE" checkout -f $BRANCH
 
 cd "$WORK_TREE"
 . $HOME/venv/bin/activate
-make install p compress
-
-cd build/html
-git --git-dir="$HOME/pages.git" --work-tree . add -A .
-git --git-dir="$HOME/pages.git" --work-tree . commit -m "Build pages"
-git --git-dir="$HOME/pages.git" --work-tree . push origin master
+make install lightweight compress pages
 EOF
