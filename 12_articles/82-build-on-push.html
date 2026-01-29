@@ -64,7 +64,6 @@ data-aria-dark="Switch to auto color mode">
 <li><a class="reference internal" href="#virtual-machine">Virtual Machine</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#make-build">make build</a></li>
 <li><a class="reference internal" href="#abort-if-nginx-config-already-exist">8&lt; - - - - - Abort if nginx config already exist - - - - -</a></li>
 </ul>
 </div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
@@ -257,16 +256,7 @@ fi</p>
 <p>git –git-dir=”$HOME/repo.git” –work-tree=”$WORK_TREE” checkout -f $BRANCH</p>
 <p>cd “$WORK_TREE”
 . $HOME/venv/bin/activate
-which pip-sync &amp;&amp; make sync || make install</p>
-</section>
-</section>
-<section id="make-build">
-<h1>make build<a class="headerlink" href="#make-build" title="Link to this heading">¶</a></h1>
-<p>make p compress</p>
-<p>cd build/html
-git –git-dir=”$HOME/pages.git” –work-tree . add -A .
-git –git-dir=”$HOME/pages.git” –work-tree . commit -m “Build pages”
-git –git-dir=”$HOME/pages.git” –work-tree . push origin master
+make install lightweight compress pages
 EOF</p>
 <p>And that’s how I cut my website publish time from 5 minutes down to 10 seconds.</p>
 <p>Setting up the serving host is similar, except that instead of building it just needs to check out.</p>
@@ -287,6 +277,7 @@ install -m 0755 /dev/stdin ~pages/repo.git/hooks/post-receive &lt;&lt;’EOF’
 set -euo pipefail</p>
 <p>git –git-dir=”/home/pages/repo.git” –work-tree=”/var/www/pages” checkout -f master
 EOF</p>
+</section>
 </section>
 <section id="abort-if-nginx-config-already-exist">
 <h1>8&lt; - - - - - Abort if nginx config already exist - - - - -<a class="headerlink" href="#abort-if-nginx-config-already-exist" title="Link to this heading">¶</a></h1>
