@@ -65,6 +65,7 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 <li><a class="reference internal" href="#make-build">make build</a></li>
+<li><a class="reference internal" href="#abort-if-nginx-config-already-exist">8&lt; - - - - - Abort if nginx config already exist - - - - -</a></li>
 </ul>
 </div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
   data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
@@ -253,15 +254,15 @@ if [[ “$REFNAME” != “$BRANCH_REF” ]]; then
 echo “Ignoring push to $REFNAME (only deploys $BRANCH_REF)”
 exit 0
 fi</p>
-<p>. $HOME/venv/bin/activate
-git –git-dir=”$HOME/repo.git” –work-tree=”$WORK_TREE” checkout -f $BRANCH</p>
+<p>git –git-dir=”$HOME/repo.git” –work-tree=”$WORK_TREE” checkout -f $BRANCH</p>
 <p>cd “$WORK_TREE”
+. $HOME/venv/bin/activate
 which pip-sync &amp;&amp; make sync || make install</p>
 </section>
 </section>
 <section id="make-build">
 <h1>make build<a class="headerlink" href="#make-build" title="Link to this heading">¶</a></h1>
-<p>make html</p>
+<p>make p compress</p>
 <p>cd build/html
 git –git-dir=”$HOME/pages.git” –work-tree . add -A .
 git –git-dir=”$HOME/pages.git” –work-tree . commit -m “Build pages”
@@ -270,6 +271,40 @@ EOF</p>
 <p>And that’s how I cut my website publish time from 5 minutes down to 10 seconds.</p>
 <p>Setting up the serving host is similar, except that instead of building it just needs to check out.</p>
 <p><code class="docutils literal notranslate"><span class="pre">provision_pages.sh</span></code>:</p>
+<p>#!/bin/bash
+set -euo pipefail</p>
+<p>apt-get update
+apt-get install -y git</p>
+<p>id pages || useradd -rms /usr/bin/git-shell pages
+install -o pages -g pages -m 0700 -d ~pages/.ssh
+install -o pages -g www-data -m 0750 -d /var/www/pages
+install -o pages -g pages -m 0600 /dev/stdin ~pages/.ssh/authorized_keys &lt;&lt;’EOF’
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILG64GMcBIxl4rGuRum2n07Kf7dE9CUlzLl84e/TWvTM builder&#64;trixie
+EOF
+test -d ~pages/repo.git || sudo -u pages /bin/bash -c “git init –bare ~pages/repo.git”
+install -m 0755 /dev/stdin ~pages/repo.git/hooks/post-receive &lt;&lt;’EOF’
+#!/usr/bin/env bash
+set -euo pipefail</p>
+<p>git –git-dir=”/home/pages/repo.git” –work-tree=”/var/www/pages” checkout -f master
+EOF</p>
+</section>
+<section id="abort-if-nginx-config-already-exist">
+<h1>8&lt; - - - - - Abort if nginx config already exist - - - - -<a class="headerlink" href="#abort-if-nginx-config-already-exist" title="Link to this heading">¶</a></h1>
+<p>test -f /etc/nginx/sites-available/pages &amp;&amp; exit 0</p>
+<p>cat &gt; /etc/nginx/sites-available/pages &lt;&lt;’EOF’
+server {
+server_name pages.demin.dev;
+root /var/www/pages;
+index index.html index.htm;
+location / {
+gzip_static on;
+try_files $uri $uri/ =404;
+}
+}
+EOF
+ln -fs /etc/nginx/sites-available/pages /etc/nginx/sites-enabled/pages
+certbot –agree-tos –nginx -m peter&#64;demin.dev –non-interactive -d pages.demin.dev
+systemctl restart nginx.service</p>
 </section>
 
         </article>
