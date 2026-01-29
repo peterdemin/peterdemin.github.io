@@ -10,6 +10,7 @@ apt-get install -y      \
     python-is-python3   \
     graphviz            \
     nodejs              \
+    npm                 \
     rsync
 
 tailscale status || ( \
