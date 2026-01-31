@@ -168,7 +168,8 @@ But this article is not about GitHub Pages, this is about an <em>alternative</em
 The built artifact is then committed to another repo, which is pushed to a Cloud VPS.
 I could’ve simplified the setup by building the website directly on the VPS, the problem is that it’s so tiny, I doubt it can handle the build process.</p>
 <p>The website build process got pretty involved over the years since I’m hoarding all my petty experiments for no good reason.
-The builder needs Python, graphviz, NodeJS, and customary imperial tonne of npm packages.</p>
+The builder needs Python, graphviz, NodeJS, and customary imperial tonne of npm packages.
+On the bright side, the full build process is just a single make command.</p>
 <p>I’ll keep the VM running at all times and preserve the build files so it can run incrementally.
 I’ll also ship the build artifact through git, which should be much faster then a complete artifact every time.</p>
 </section>
@@ -239,31 +240,32 @@ The script is reentrant, because I had to iterate a bit to polish all the kinks.
 </span><span data-line="41">sudo<span class="w"> </span>-u<span class="w"> </span>builder<span class="w"> </span>/bin/bash<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;git config --global user.name &quot;Builder Bot&quot;&#39;</span>
 </span><span data-line="42">sudo<span class="w"> </span>-u<span class="w"> </span>builder<span class="w"> </span>/bin/bash<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;git config --global init.defaultBranch master&#39;</span>
 </span><span data-line="43">sudo<span class="w"> </span>-u<span class="w"> </span>builder<span class="w"> </span>/bin/bash<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;ssh-keyscan -t ed25519 demin-dev.tail13c89.ts.net &gt; ~/.ssh/known_hosts&#39;</span>
-</span><span data-line="44">
-</span><span data-line="45">install<span class="w"> </span>-o<span class="w"> </span>builder<span class="w"> </span>-g<span class="w"> </span>builder<span class="w"> </span>-m<span class="w"> </span><span class="m">0700</span><span class="w"> </span>-d<span class="w"> </span>~builder/worktree
-</span><span data-line="46">install<span class="w"> </span>-m<span class="w"> </span><span class="m">0755</span><span class="w"> </span>/dev/stdin<span class="w"> </span>~builder/repo.git/hooks/post-receive<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
-</span><span data-line="47"><span class="s">#!/usr/bin/env bash</span>
-</span><span data-line="48"><span class="s">set -euo pipefail</span>
-</span><span data-line="49">
-</span><span data-line="50"><span class="s">HOME=/home/builder</span>
-</span><span data-line="51"><span class="s">WORK_TREE=&quot;$HOME/worktree&quot;</span>
-</span><span data-line="52"><span class="s">LIVE_DIR=&quot;/var/www/site&quot;</span>
-</span><span data-line="53">
-</span><span data-line="54"><span class="s">BRANCH=&quot;master&quot;</span>
-</span><span data-line="55"><span class="s">BRANCH_REF=&quot;refs/heads/$BRANCH&quot;</span>
-</span><span data-line="56">
-</span><span data-line="57"><span class="s">read oldrev newrev REFNAME</span>
-</span><span data-line="58"><span class="s">if [[ &quot;$REFNAME&quot; != &quot;$BRANCH_REF&quot; ]]; then</span>
-</span><span data-line="59"><span class="s">  echo &quot;Ignoring push to $REFNAME (only deploys $BRANCH_REF)&quot;</span>
-</span><span data-line="60"><span class="s">  exit 0</span>
-</span><span data-line="61"><span class="s">fi</span>
-</span><span data-line="62">
-</span><span data-line="63"><span class="s">git --git-dir=&quot;$HOME/repo.git&quot; --work-tree=&quot;$WORK_TREE&quot; checkout -f $BRANCH</span>
-</span><span data-line="64">
-</span><span data-line="65"><span class="s">cd &quot;$WORK_TREE&quot;</span>
-</span><span data-line="66"><span class="s">. $HOME/venv/bin/activate</span>
-</span><span data-line="67"><span class="s">make install lightweight compress pages</span>
-</span><span data-line="68"><span class="s">EOF</span>
+</span><span data-line="44">sudo<span class="w"> </span>-u<span class="w"> </span>builder<span class="w"> </span>/bin/bash<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;ssh-keyscan -t ed25519 mirror.tail13c89.ts.net &gt;&gt; ~/.ssh/known_hosts&#39;</span>
+</span><span data-line="45">
+</span><span data-line="46">install<span class="w"> </span>-o<span class="w"> </span>builder<span class="w"> </span>-g<span class="w"> </span>builder<span class="w"> </span>-m<span class="w"> </span><span class="m">0700</span><span class="w"> </span>-d<span class="w"> </span>~builder/worktree
+</span><span data-line="47">install<span class="w"> </span>-m<span class="w"> </span><span class="m">0755</span><span class="w"> </span>/dev/stdin<span class="w"> </span>~builder/repo.git/hooks/post-receive<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+</span><span data-line="48"><span class="s">#!/usr/bin/env bash</span>
+</span><span data-line="49"><span class="s">set -euo pipefail</span>
+</span><span data-line="50">
+</span><span data-line="51"><span class="s">HOME=/home/builder</span>
+</span><span data-line="52"><span class="s">WORK_TREE=&quot;$HOME/worktree&quot;</span>
+</span><span data-line="53"><span class="s">LIVE_DIR=&quot;/var/www/site&quot;</span>
+</span><span data-line="54">
+</span><span data-line="55"><span class="s">BRANCH=&quot;master&quot;</span>
+</span><span data-line="56"><span class="s">BRANCH_REF=&quot;refs/heads/$BRANCH&quot;</span>
+</span><span data-line="57">
+</span><span data-line="58"><span class="s">read oldrev newrev REFNAME</span>
+</span><span data-line="59"><span class="s">if [[ &quot;$REFNAME&quot; != &quot;$BRANCH_REF&quot; ]]; then</span>
+</span><span data-line="60"><span class="s">  echo &quot;Ignoring push to $REFNAME (only deploys $BRANCH_REF)&quot;</span>
+</span><span data-line="61"><span class="s">  exit 0</span>
+</span><span data-line="62"><span class="s">fi</span>
+</span><span data-line="63">
+</span><span data-line="64"><span class="s">git --git-dir=&quot;$HOME/repo.git&quot; --work-tree=&quot;$WORK_TREE&quot; checkout -f $BRANCH</span>
+</span><span data-line="65">
+</span><span data-line="66"><span class="s">cd &quot;$WORK_TREE&quot;</span>
+</span><span data-line="67"><span class="s">. $HOME/venv/bin/activate</span>
+</span><span data-line="68"><span class="s">make install lightweight compress pages</span>
+</span><span data-line="69"><span class="s">EOF</span>
 </span></pre></div>
 </div>
 <p>And that’s how I cut my website publish time from 5 minutes down to 10 seconds.</p>

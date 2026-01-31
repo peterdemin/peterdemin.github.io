@@ -16,6 +16,7 @@ I could've simplified the setup by building the website directly on the VPS, the
 
 The website build process got pretty involved over the years since I'm hoarding all my petty experiments for no good reason.
 The builder needs Python, graphviz, NodeJS, and customary imperial tonne of npm packages.
+On the bright side, the full build process is just a single make command.
 
 I'll keep the VM running at all times and preserve the build files so it can run incrementally.
 I'll also ship the build artifact through git, which should be much faster then a complete artifact every time.
