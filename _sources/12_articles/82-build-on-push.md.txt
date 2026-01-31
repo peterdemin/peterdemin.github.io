@@ -61,3 +61,5 @@ Setting up the serving host is similar, except that instead of building it just 
 ```
 
 I added a flag to nginx to serve static precompressed gzip files to save CPU on the serving side.
+
+Then I deployed another mirror to https://mirror.demin.dev under a separate Google Cloud Platform account.
