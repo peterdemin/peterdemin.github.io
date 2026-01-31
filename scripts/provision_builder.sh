@@ -30,7 +30,7 @@ install -o builder -g builder -m 0600 /dev/stdin ~builder/.ssh/authorized_keys <
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDYxOnUHnt2KZ8kdjYjO/xWflaFKxXXJLv6V8/TiXgow8L+QdFmcEJ/NRdR6/LVLEwiJ5h9l26mY8XxlpVAIY43NqbhPUdBp6SoeX2tpHFQa4R1i7coO3bO1sjAVqeTmTby4iROtWZ89OEsqYnWyYco4py+sn6X+h8TDRIbrl2zYQI9IwK8O2UJTV9qT2Vy4s4fitLTeO6AI7935OsrLzXV+iaGGmhoUfpZcHZ5I9puaaTOyxuJ3q4nA0PNiZ9Lw7+TYOo73eXPA+qRrsvEy6b6x3+izyj4WX31YSklksw5CX+jjc23d7muV8cHFaoO1GkueVYyve8ncqy0dGn9CiDQudVqUyhqkF49MvWO1Hjg9SeidaKGqalh0Pv8RJquTJ8aUXcVS9GwCmYu+/JfBVcCGYKEpcwrLOt/iYa9iHCsImb/wlO08n3R+HBIF4At0Jxgd4wWM8ZhSXoA2UjCBojZwcWLPuS+S/zplFgi3stv+mkfEf9WDQo1g5bueFJ+gK8= peterdemin@MBA
 EOF
 test -d ~builder/repo.git || sudo -u builder -s /bin/bash -c "git init --bare ~builder/repo.git"
-test -d ~builder/pages.git || sudo -u builder -s /bin/bash -c "git init --bare ~builder/pages.git && git -C ~builder/pages.git remote add origin pages@demin-dev.tail13c89.ts.net:repo.git"
+test -d ~builder/pages.git || sudo -u builder -s /bin/bash -c "git init --bare ~builder/pages.git && git -C ~builder/pages.git remote add origin pages@demin-dev.tail13c89.ts.net:repo.git && git -C ~builder/pages.git remote add mirror pages@mirror.tail13c89.ts.net:repo.git"
 test -d ~builder/venv || sudo -u builder -s /bin/bash -c "python3 -m venv ~builder/venv"
 test -f ~builder/.ssh/id_ed25519 || sudo -u builder -s /bin/bash -c 'ssh-keygen -t ed25519 -f ~builder/.ssh/id_ed25519 -N ""'
 echo "Copy public key to serving host:"

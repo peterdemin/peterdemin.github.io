@@ -108,6 +108,7 @@ pages:
 	&& git --git-dir="${HOME}/pages.git" --work-tree . add -A . \
 	&& git --git-dir="${HOME}/pages.git" --work-tree . commit -m "Build pages" \
 	&& git --git-dir="${HOME}/pages.git" --work-tree . push origin master
+	&& git --git-dir="${HOME}/pages.git" --work-tree . push mirror master
 
 .PHONY: master
 master:
