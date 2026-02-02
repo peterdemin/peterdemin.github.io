@@ -26,7 +26,7 @@ jobs:
       - name: Install
         run: |
           sudo apt-get install graphviz
-          grep pip== requirements_dev.txt | xargs python -m pip install
+          grep pip== requirements.txt | xargs python -m pip install
           make install
 
       - name: Release
