@@ -30,6 +30,10 @@ autogen:
 rss:
 	python3 gen_atom.py > build/html/life.xml
 
+.PHONY: favicon
+favicon:
+	cp -f source/favicon.ico build/html/favicon.ico
+
 .PHONY: stars
 stars:
 	gh api --paginate \
@@ -40,19 +44,11 @@ stars:
 		| python star2md.py  \
 		> source/12_articles/77-github-stars.mdpart
 
-.PHONY: build
-build: autogen html rss counter_build race_build photos_build tree wordmix
-
 .PHONY: lightweight
-lightweight: autogen html rss tree wordmix
+lightweight: autogen html rss favicon tree wordmix
 
-.PHONY: publish
-publish:
-	rsync -a demin.dev/var/www/html/.stfolder build/html/
-	rsync -a --delete build/html/ demin.dev/var/www/html
-
-.PHONY: p
-p: lightweight publish
+.PHONY: build
+build: lightweight counter_build race_build photos_build
 
 .PHONY: compress
 compress:
@@ -88,7 +84,6 @@ gitconfig:
 .PHONY: export
 export:
 	mv build/html _docs
-	cp source/favicon.ico _docs/
 	cp CNAME _docs/
 	touch _docs/.nojekyll
 	git fetch origin gh-pages
