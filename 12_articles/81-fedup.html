@@ -2,7 +2,7 @@
 <html lang="en" data-accent-color="violet" data-content_root="../">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>FedUp - Minimal Federated CDN - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Decentralizing the Practice of Architecture at Xapo Bank" href="../17_notes/01_xapo.html" /><link rel="prev" title="My Radicle Journey" href="80-radicle.html" /><script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>FedUp - Minimal Federated CDN - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Building this Website on Git Push" href="82-build-on-push.html" /><link rel="prev" title="My Radicle Journey" href="80-radicle.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
@@ -59,16 +59,17 @@ data-aria-dark="Switch to auto color mode">
       <i class="i-lucide close"></i>
     </button>
     <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#foreword">Foreword</a></li>
 <li><a class="reference internal" href="#high-level">High-level</a></li>
 <li><a class="reference internal" href="#less-high-level">Less-high level</a></li>
-<li><a class="reference internal" href="#low-level">Low level</a><ul>
+<li><a class="reference internal" href="#low-level">Low-level</a><ul>
 <li><a class="reference internal" href="#node-initialization">Node initialization</a></li>
 <li><a class="reference internal" href="#cluster-membership">Cluster membership</a></li>
 <li><a class="reference internal" href="#https-certificates">HTTPS certificates</a></li>
+<li><a class="reference internal" href="#wiggle-room">Wiggle room</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#wiggle-room">Wiggle room</a></li>
-<li><a class="reference internal" href="#security">Security</a></li>
+<li><a class="reference internal" href="#trust-and-security">Trust and Security</a></li>
 </ul>
 </div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
   data-type="github" data-user="peterdemin" data-repo="peterdemin.github.io">
@@ -162,6 +163,17 @@ data-aria-dark="Switch to auto color mode">
 </div><article class="yue" role="main">
           <section id="fedup-minimal-federated-cdn">
 <h1>FedUp - Minimal Federated CDN<a class="headerlink" href="#fedup-minimal-federated-cdn" title="Link to this heading">¶</a></h1>
+<section id="foreword">
+<h2>Foreword<a class="headerlink" href="#foreword" title="Link to this heading">¶</a></h2>
+<p>This article is more of a thought experiment in the world of federation and decentralization.
+While many projects pursue social networks and instant messaging, I wanted to explore a simpler domain.
+Instead of a few dozens of RPC endpoints needed to implement Authenticated Transfer Protocol, I’ll have just two actions: upload the content, and serve it publicly.</p>
+<p>I call this FedUp, so it can have dual interpretation:</p>
+<ol class="arabic simple">
+<li><p>As a call to action, to <em>federate up</em> with your peers against the tyranny of centralized censorship and what not.</p></li>
+<li><p>As a expression of frustration of <em>being fed up</em> with needless drama and incompleteness of the current implementations of Matrix, Mastodon, and BlueSky.</p></li>
+</ol>
+</section>
 <section id="high-level">
 <h2>High-level<a class="headerlink" href="#high-level" title="Link to this heading">¶</a></h2>
 <p>FedUp is a federated CDN that operates within clusters of peers.
@@ -187,7 +199,7 @@ Cluster membership is defined by peers of the cluster.</p>
 </ol>
 </section>
 <section id="low-level">
-<h2>Low level<a class="headerlink" href="#low-level" title="Link to this heading">¶</a></h2>
+<h2>Low-level<a class="headerlink" href="#low-level" title="Link to this heading">¶</a></h2>
 <section id="node-initialization">
 <h3>Node initialization<a class="headerlink" href="#node-initialization" title="Link to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">fedup</span></code> initialization has following steps:</p>
@@ -228,28 +240,31 @@ If using Let’s Encrypt this is either manual, or requires a Domain provider wi
 <p>Or we figure out how to perform HTTP-01 with a short pause to distribute <code class="docutils literal notranslate"><span class="pre">.well-known/acme-challenge</span></code>.</p>
 <p>Copying certificates to spokes poses some security risk, but not more than trusting spokes to serve hub’s content.</p>
 </section>
-</section>
 <section id="wiggle-room">
-<h2>Wiggle room<a class="headerlink" href="#wiggle-room" title="Link to this heading">¶</a></h2>
+<h3>Wiggle room<a class="headerlink" href="#wiggle-room" title="Link to this heading">¶</a></h3>
 <p>I used specific products such as nginx, git, and Let’s Encrypt as examples, each part can be replaced.</p>
 <p>It doesn’t matter if content is served through Caddy, and files copied through <code class="docutils literal notranslate"><span class="pre">rsync</span></code>.</p>
 <p>Public IP addresses for SSH connections can be substituted with a VPN network.</p>
 <p>The essence of this setup is that cluster users trust each other to run their peer node faithfully.
 If the trust is broken, a bad node can be unfederated by deleting a directory and removing IP address from hub’s DNS records.</p>
 </section>
-<section id="security">
-<h2>Security<a class="headerlink" href="#security" title="Link to this heading">¶</a></h2>
+</section>
+<section id="trust-and-security">
+<h2>Trust and Security<a class="headerlink" href="#trust-and-security" title="Link to this heading">¶</a></h2>
 <p>If a node is compromised, the blast radius is three-fold:</p>
 <ol class="arabic simple">
 <li><p>Peer websites served through the IP address of the compromised node contain malicious content.</p></li>
 <li><p>All nodes that replicate content from compromised node, serve malicious content for the compromised website.</p></li>
-<li><p>SSL certificate is compromised.</p></li>
+<li><p>SSL certificates of peer websites are compromised.</p></li>
 </ol>
 <p><code class="docutils literal notranslate"><span class="pre">fedup</span></code> can put some measures in-place to mitigate the risk.</p>
 <ol class="arabic simple">
 <li><p>Regular HTTPS checks of random pages hosted by peers to ensure the exact much with original.</p></li>
 <li><p>Post-receive checks for malware fingerprints in the new content.</p></li>
 </ol>
+<p>The risk in trusting another person to host your website is the same as trusting another corporation.
+Serving websites through Netlify or GitHub carries the same risk of them getting hacked and modifying the content.</p>
+<p>But the FedUp attack surface is smaller, and the appeal of hacking a single website is lower.</p>
 </section>
 </section>
 
@@ -267,10 +282,10 @@ If the trust is broken, a bad node can be unfederated by deleting a directory an
         <span>Previous</span><div class="title">My Radicle Journey</div></div>
     </a>
   </div><div class="navigation-next">
-    <a href="../17_notes/01_xapo.html">
+    <a href="82-build-on-push.html">
       <div class="page-info">
         <span>Next</span>
-        <div class="title">Decentralizing the Practice of Architecture at Xapo Bank</div>
+        <div class="title">Building this Website on Git Push</div>
       </div>
       <i class="i-lucide chevron-right"></i>
     </a>
