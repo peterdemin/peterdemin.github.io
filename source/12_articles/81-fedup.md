@@ -1,5 +1,15 @@
 # FedUp - Minimal Federated CDN
 
+## Foreword
+
+This article is more of a thought experiment in the world of federation and decentralization.
+While many projects pursue social networks and instant messaging, I wanted to explore a simpler domain.
+Instead of a few dozens of RPC endpoints needed to implement Authenticated Transfer Protocol, I'll have just two actions: upload the content, and serve it publicly.
+
+I call this FedUp, so it can have dual interpretation:
+1. As a call to action, to *federate up* with your peers against the tyranny of centralized censorship and what not.
+2. As a expression of frustration of *being fed up* with needless drama and incompleteness of the current implementations of Matrix, Mastodon, and BlueSky.
+
 ## High-level
 
 FedUp is a federated CDN that operates within clusters of peers.
@@ -23,7 +33,7 @@ User pushes their content to peer node they own, which we'll call *hub*.
 10. Users point their DNS record to their hub and all the spokes of the cluster.
 11. `fedup` configures each machine's nginx to serve content for every domain from respective directory.
 
-## Low level
+## Low-level
 
 ### Node initialization
 
@@ -68,7 +78,7 @@ Or we figure out how to perform HTTP-01 with a short pause to distribute `.well-
 
 Copying certificates to spokes poses some security risk, but not more than trusting spokes to serve hub's content.
 
-## Wiggle room
+### Wiggle room
 
 I used specific products such as nginx, git, and Let's Encrypt as examples, each part can be replaced.
 
@@ -79,13 +89,18 @@ Public IP addresses for SSH connections can be substituted with a VPN network.
 The essence of this setup is that cluster users trust each other to run their peer node faithfully.
 If the trust is broken, a bad node can be unfederated by deleting a directory and removing IP address from hub's DNS records.
 
-## Security
+## Trust and Security
 
 If a node is compromised, the blast radius is three-fold:
 1. Peer websites served through the IP address of the compromised node contain malicious content.
 2. All nodes that replicate content from compromised node, serve malicious content for the compromised website.
-3. SSL certificate is compromised.
+3. SSL certificates of peer websites are compromised.
 
 `fedup` can put some measures in-place to mitigate the risk.
 1. Regular HTTPS checks of random pages hosted by peers to ensure the exact much with original.
 2. Post-receive checks for malware fingerprints in the new content.
+
+The risk in trusting another person to host your website is the same as trusting another corporation.
+Serving websites through Netlify or GitHub carries the same risk of them getting hacked and modifying the content.
+
+But the FedUp attack surface is smaller, and the appeal of hacking a single website is lower.
