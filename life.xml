@@ -1,5 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2026-01-26T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Jan 26, 2026_0</id><title>Journal</title><published>2026-01-26T00:00:00Z</published><updated>2026-01-26T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 26, 2026"/><content type="html"><![CDATA[<p>I got excited about ForgeFed, and want to see what is Forgejo is up to.
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2026-02-05T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Feb 05, 2026_0</id><title>Journal</title><published>2026-02-05T00:00:00Z</published><updated>2026-02-05T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Feb 05, 2026"/><content type="html"><![CDATA[<p>Today I learned <em>why</em> is it bad to put knives into a dishwasher.
+I thought it's because they bounce from the water streams and bump into other silverware and the cage.
+But the primary reason is combination of strong detergent and high water temperature for prolonged time.
+It weakens blade's edge and may degrade a handle, if it's wooden or made of a cheap plastic.
+The difference in sharpness between a hand-washed and dishwashed knives is drammatic.
+The sharp edge life can be reduced from a year down to a month.</p>
+]]></content></entry><entry><id>Jan 26, 2026_0</id><title>Journal</title><published>2026-01-26T00:00:00Z</published><updated>2026-01-26T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Jan 26, 2026"/><content type="html"><![CDATA[<p>I got excited about ForgeFed, and want to see what is Forgejo is up to.
 Naturally, they host the code in Forgejo itself, confusingly named codeberg.
 Here's what I saw when opened the repo:
 <img src="https://peter.demin.dev/_images/codeberg-down.png" alt="" />
@@ -370,5 +376,4 @@ The shrinking breadth of opportunities, countered by accumulated wealth.</p>
 <li>No breaking bones.</li>
 <li>No fighting.</li>
 </ol>
-]]></content></entry><entry><id>Apr 03, 2025_1</id><title>Journal</title><published>2025-04-03T00:00:00Z</published><updated>2025-04-03T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Apr 03, 2025"/><content type="html"><![CDATA[<p><a href="https://github.com/camel-ai/owl">camel-ai/owl</a> - 🦉 OWL: Optimized Workforce Learning for General Multi-Agent Assistance in Real-World Task Automation</p>
 ]]></content></entry></feed>
