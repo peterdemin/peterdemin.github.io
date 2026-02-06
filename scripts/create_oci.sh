@@ -297,7 +297,7 @@ LAUNCH_JSON="$(oci compute instance launch \
   --metadata "{\"ssh_authorized_keys\":\"${PUBKEY_LINE}\"}" \
   --wait-for-state RUNNING)"
 
-INSTANCE_ID="$(printf '%s' "$LAUNCH_JSON" | oci --output json raw-output --query 'data.id')"
+INSTANCE_ID="$(printf '%s' "$LAUNCH_JSON" | oci --output json --raw-output --query 'data.id')"
 
 # ============================================================
 # FETCH PUBLIC IP
@@ -318,4 +318,3 @@ echo "Instance ID : $INSTANCE_ID"
 echo "Public IP   : $PUBLIC_IP"
 echo "SSH         : ssh ${SSH_USER}@${PUBLIC_IP}"
 echo
-
