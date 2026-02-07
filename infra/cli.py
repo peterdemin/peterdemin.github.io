@@ -175,8 +175,8 @@ class BuilderPublishCommand:
             subprocess.check_call(git + ["reset", "--hard", "FETCH_HEAD"])
         shutil.copytree("infra", self._infra, dirs_exist_ok=True)
         subprocess.check_call(self._bare_git + ['worktree', 'list'])
-        subprocess.check_call(git + ["add", "-A", "."])
-        subprocess.call(git + ["commit", "-m", "infra"])
+        # subprocess.check_call(git + ["add", "-A", "."])
+        subprocess.call(git + ["commit", "-am", "infra"])
         self._push("infra", mirrors)
         return 0
 
