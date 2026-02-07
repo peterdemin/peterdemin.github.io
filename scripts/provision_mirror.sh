@@ -18,6 +18,7 @@ apt-get install -y      \
     python-is-python3   \
     nginx               \
     git                 \
+    age                 \
     tailscale
 
 tailscale status || tailscale login
@@ -31,16 +32,59 @@ fi
 id pages || useradd -rms /usr/bin/git-shell pages
 install -o pages -g pages -m 0700 -d ~pages/.ssh
 install -o pages -g www-data -m 0750 -d /var/www/pages
+install -o pages -g pages -m 0755 -d /var/lib/infra
 install -o pages -g pages -m 0600 /dev/stdin ~pages/.ssh/authorized_keys <<'EOF'
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILG64GMcBIxl4rGuRum2n07Kf7dE9CUlzLl84e/TWvTM builder@trixie
 EOF
+test -f ~pages/.ssh/id_ed25519 || sudo -u pages /bin/bash -c 'ssh-keygen -t ed25519 -f ~pages/.ssh/id_ed25519 -N ""'
+MIRROR_PUB_KEY="$(sudo -u pages /bin/bash -c 'ssh-keygen -yf ~pages/.ssh/id_ed25519')"
+MIRROR_KEY_DIR="/var/lib/infra/local-keys"
+HOST_ID="$(hostname -f)"
+install -o pages -g pages -m 0755 -d "$MIRROR_KEY_DIR"
+printf '%s\n' "$MIRROR_PUB_KEY" | install -o pages -g pages -m 0644 /dev/stdin "${MIRROR_KEY_DIR}/${HOST_ID}.pub"
+if [ -d /var/lib/infra/infra/mirrors ]; then
+  printf '%s\n' "$MIRROR_PUB_KEY" | install -o pages -g pages -m 0644 /dev/stdin "/var/lib/infra/infra/mirrors/${HOST_ID}.pub"
+fi
 test -d ~pages/repo.git || sudo -u pages /bin/bash -c "git init --bare ~pages/repo.git"
 install -m 0755 /dev/stdin ~pages/repo.git/hooks/post-receive <<'EOF'
 #!/usr/bin/env bash
 set -euo pipefail
 
-git --git-dir="/home/pages/repo.git" --work-tree="/var/www/pages" checkout -f master
+while read -r oldrev newrev refname; do
+  case "$refname" in
+    refs/heads/master)
+      git --git-dir="/home/pages/repo.git" --work-tree="/var/www/pages" checkout -f master
+      git --git-dir="/home/pages/repo.git" --work-tree="/var/lib/infra" checkout -f master
+      ;;
+  esac
+done
 EOF
+
+install -m 0644 /dev/stdin /etc/systemd/system/infra-apply.path <<'EOF'
+[Unit]
+Description=Watch infra checkout for changes
+
+[Path]
+PathChanged=/var/lib/infra/infra/primary_key_fingerprint.txt
+PathChanged=/var/lib/infra/infra/mirrors
+PathChanged=/var/lib/infra/infra/challenges
+PathChanged=/var/lib/infra/infra/certs
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+install -m 0644 /dev/stdin /etc/systemd/system/infra-apply.service <<'EOF'
+[Unit]
+Description=Apply infra config
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /var/lib/infra/infra/cli.py apply
+EOF
+
+systemctl daemon-reload
+systemctl enable --now infra-apply.path
 
 # 8< - - - - - Abort if nginx config already exist - - - - -
 test -f /etc/nginx/sites-available/pages && exit 0

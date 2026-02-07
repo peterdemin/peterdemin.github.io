@@ -64,3 +64,38 @@ Setting up the serving host is similar, except that instead of building, it just
 I added a flag to nginx to serve static precompressed gzip files to save CPU on the serving side.
 
 Then I deployed another mirror to https://mirror.demin.dev under a separate Google Cloud Platform account.
+
+## Infra Branch
+
+I use a second branch, `infra`, in the same `pages.git` repo on mirrors.
+It carries operational config and runtime data:
+
+1. Primary mirror fingerprint (`infra/primary_key_fingerprint.txt`).
+2. Public keys of all mirrors (`infra/mirrors/*.pub`).
+3. ACME challenges (`infra/challenges/*`).
+4. Encrypted cert bundles (`infra/certs/*.tar.age`).
+
+Mirrors check out `master` into `/var/www/pages` and `infra` into `/var/lib/infra`.
+A systemd `.path` unit watches `/var/lib/infra/infra/*` and runs `infra apply`
+(a tiny Python CLI in `infra/cli.py`) as root on every change.
+
+The builder VM forwards the `infra` branch to mirrors when I push it to the builder.
+That keeps the laptop out of the direct mirror communication path.
+
+## Certificates and Challenges
+
+DNS-01 is not available to me, so I do HTTP-01 with challenge distribution.
+The primary mirror runs certbot with manual hooks:
+
+1. `infra distribute-challenge` writes the token under `infra/challenges/`
+   and pushes the `infra` branch to mirrors.
+2. Mirrors apply the change and copy the token into
+   `/var/www/pages/.well-known/acme-challenge/`.
+3. `infra cleanup-challenge` removes the token and pushes again.
+
+Certificates are distributed via the same `infra` branch, but encrypted.
+The primary packs `fullchain.pem` and `privkey.pem` into a tarball,
+encrypts it with `age` for all mirror SSH public keys,
+commits to `infra/certs/`, and pushes to mirrors.
+Each mirror decrypts and installs the certs during `infra apply`
+and reloads nginx.
