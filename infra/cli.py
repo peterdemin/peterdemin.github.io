@@ -165,13 +165,13 @@ class BuilderPublishCommand:
         return self._push_infra(mirrors)
 
     def _push_infra(self, mirrors: list[str]) -> int:
-        primary = self._pick_primary(mirrors)
         infra = Path.home() / "infra"
         if not infra.is_dir():
             subprocess.check_call(
                 self._bare_git + ["worktree", "add", "--orphan", "infra", infra]
             )
         git = ["git", "-C", infra]
+        primary = self._pick_primary(mirrors)
         if subprocess.call(git + ["fetch", "--force", primary, "infra"]) == 0:
             subprocess.check_call(git + ["reset", "--hard", "FETCH_HEAD"])
         shutil.copytree("infra", infra, dirs_exist_ok=True)
