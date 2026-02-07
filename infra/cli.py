@@ -4,6 +4,7 @@ import os
 import shlex
 import shutil
 import subprocess
+import sys
 import tarfile
 import tempfile
 from pathlib import Path
@@ -165,7 +166,7 @@ class Command:
         subprocess.check_call(self._prefix + c, **kwargs)
 
     def _print(self, c: tuple[str | Path, ...]) -> None:
-        print(shlex.join(map(str, self._prefix + c)))
+        print(shlex.join(map(str, self._prefix + c)), file=sys.stderr)
 
 
 class BuilderPublishCommand:
