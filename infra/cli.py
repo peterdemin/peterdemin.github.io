@@ -169,14 +169,13 @@ class BuilderPublishCommand:
             subprocess.check_call(
                 self._bare_git + ["worktree", "add", "--orphan", "infra", self._infra]
             )
-        git = ["git", "-C", str(self._infra)]
+        cwd = str(self._infra)
         primary = self._pick_primary(mirrors)
-        if subprocess.call(git + ["fetch", "--force", primary, "infra"]) == 0:
-            subprocess.check_call(git + ["reset", "--hard", "FETCH_HEAD"])
+        if subprocess.call(["git", "fetch", "--force", primary, "infra"], cwd=cwd) == 0:
+            subprocess.check_call(["git", "reset", "--hard", "FETCH_HEAD"], cwd=cwd)
         shutil.copytree("infra", self._infra, dirs_exist_ok=True)
-        subprocess.check_call(self._bare_git + ['worktree', 'list'])
-        # subprocess.check_call(git + ["add", "-A", "."])
-        subprocess.call(git + ["commit", "-am", "infra"])
+        subprocess.check_call(["git", "add", "-A", "."], cwd=cwd)
+        subprocess.call(["git", "commit", "-m", "infra"], cwd=cwd)
         self._push("infra", mirrors)
         return 0
 
