@@ -7,52 +7,23 @@ import tarfile
 import tempfile
 from pathlib import Path
 
-INFRA_ROOT = Path("/var/lib/infra")
-INFRA_DIR = INFRA_ROOT / "infra"
-PRIMARY_FILE = INFRA_DIR / "primary_key_fingerprint.txt"
-MIRRORS_DIR = INFRA_DIR / "mirrors"
-LOCAL_PUB = Path("/home/pages/.ssh/id_ed25519.pub")
-AUTHORIZED_KEYS = Path("/home/pages/.ssh/authorized_keys")
+INFRA_DIR = Path("/var/lib/infra")
+KEYS_DIR = INFRA_DIR / "keys"
+PRIMARY_KEY = KEYS_DIR / "primary.pub"
+BUILDER_KEY = KEYS_DIR / "builder.pub"
+HOME_DIR = Path("/home/pages")
+LOCAL_PUB = HOME_DIR / ".ssh" / "id_ed25519.pub"
+AUTHORIZED_KEYS = HOME_DIR / ".ssh" / "authorized_keys"
 MIRRORS_LIST = Path("infra/mirrors.txt")
-MIRRORS_OUT = Path("infra/mirrors")
+MIRRORS_OUT = Path("infra/keys")
 CHALLENGES_DIR = INFRA_DIR / "challenges"
 WEBROOT_CHALLENGES = Path("/var/www/pages/.well-known/acme-challenge")
 CERTS_DIR = INFRA_DIR / "certs"
+GIT_DIR = HOME_DIR / "repo.git"
 
 
-def _local_fingerprint() -> str:
-    result = subprocess.run(
-        ["ssh-keygen", "-lf", str(LOCAL_PUB)],
-        check=True,
-        capture_output=True,
-        text=True,
-    )
-    parts = result.stdout.split()
-    if len(parts) < 2:
-        raise RuntimeError(f"Unexpected ssh-keygen output: {result.stdout!r}")
-    return parts[1]
-
-
-def _fingerprint_of_key(text: str) -> str:
-    proc = subprocess.run(
-        ["ssh-keygen", "-lf", "/dev/stdin"],
-        input=text,
-        text=True,
-        check=True,
-        capture_output=True,
-    )
-    parts = proc.stdout.split()
-    if len(parts) < 2:
-        raise RuntimeError(f"Unexpected ssh-keygen output: {proc.stdout!r}")
-    return parts[1]
-
-
-def _write_authorized_keys(keys):
-    if not keys:
-        return
-    AUTHORIZED_KEYS.write_text("\n".join(keys) + "\n", encoding="utf-8")
-    os.chmod(AUTHORIZED_KEYS, 0o600)
-    subprocess.run(["chown", "pages:pages", str(AUTHORIZED_KEYS)], check=True)
+def _read_key(path: Path) -> str:
+    return path.read_text(encoding="utf-8").strip()
 
 
 def _ensure_root():
@@ -154,16 +125,16 @@ class ApplyCommand:
         del args
         _ensure_root()
 
-        if not PRIMARY_FILE.exists():
-            print(f"Missing {PRIMARY_FILE}; skipping primary selection.")
+        if not PRIMARY_KEY.exists():
+            print(f"Missing {PRIMARY_KEY}; skipping primary selection.")
             return 0
 
         if not LOCAL_PUB.exists():
             print(f"Missing {LOCAL_PUB}; cannot evaluate primary.")
             return 1
 
-        primary_fp = PRIMARY_FILE.read_text(encoding="utf-8").strip()
-        local_fp = _local_fingerprint()
+        primary_fp = self._fingerprint(PRIMARY_KEY)
+        local_fp = self._fingerprint(LOCAL_PUB)
 
         if primary_fp == local_fp:
             subprocess.run(
@@ -174,57 +145,36 @@ class ApplyCommand:
                 ["systemctl", "disable", "--now", "certbot.timer"], check=True
             )
 
-        if MIRRORS_DIR.exists():
+        if KEYS_DIR.exists():
             keys = []
-            for pub in sorted(MIRRORS_DIR.glob("*.pub")):
-                key_text = pub.read_text(encoding="utf-8").strip()
-                try:
-                    if _fingerprint_of_key(key_text) == primary_fp:
-                        keys.append(key_text)
-                except subprocess.CalledProcessError:
-                    continue
+            for path in (BUILDER_KEY, PRIMARY_KEY):
+                if path.exists():
+                    keys.append(_read_key(path))
             if not keys:
                 print(
-                    "No matching primary key found in infra/mirrors; "
+                    "No builder/primary keys found in infra/keys; "
                     "authorized_keys not updated."
                 )
             else:
-                _write_authorized_keys(keys)
+                self._write_authorized_keys(keys)
 
         _sync_challenges()
         _sync_certs()
 
         return 0
 
+    def _fingerprint(self, path: Path) -> str:
+        return subprocess.check_output(
+            ["ssh-keygen", "-lf", str(path)],
+            text=True,
+        ).split()[1]
 
-class FingerprintCommand:
-    def add_subparser(self, sub):
-        p = sub.add_parser("fingerprint", help="Print local SSH public key fingerprint")
-        p.set_defaults(handle=self.handle)
-
-    def handle(self, args):
-        del args
-        if not LOCAL_PUB.exists():
-            print(f"Missing {LOCAL_PUB}")
-            return 1
-        print(_local_fingerprint())
-        return 0
-
-
-class SetPrimaryCommand:
-    def add_subparser(self, sub):
-        p = sub.add_parser("set-primary", help="Set primary fingerprint to local key")
-        p.set_defaults(handle=self.handle)
-
-    def handle(self, args):
-        del args
-        _ensure_root()
-        if not LOCAL_PUB.exists():
-            print(f"Missing {LOCAL_PUB}")
-            return 1
-        PRIMARY_FILE.parent.mkdir(parents=True, exist_ok=True)
-        PRIMARY_FILE.write_text(_local_fingerprint() + "\n", encoding="utf-8")
-        return 0
+    def _write_authorized_keys(self, keys):
+        AUTHORIZED_KEYS.write_text(
+            "".join(f"{key}\n" for key in keys), encoding="utf-8"
+        )
+        os.chmod(AUTHORIZED_KEYS, 0o600)
+        subprocess.check_call(["chown", "pages:pages", str(AUTHORIZED_KEYS)])
 
 
 class FetchKeysCommand:
@@ -270,53 +220,6 @@ class FetchKeysCommand:
         return 0
 
 
-class UpdateMirrorsCommand:
-    def add_subparser(self, sub):
-        p = sub.add_parser(
-            "update-mirrors",
-            help="Populate infra/mirrors.txt from git remotes and commit",
-        )
-        p.set_defaults(handle=self.handle)
-
-    def handle(self, args):
-        del args
-        remotes = _run_git(["remote", "-v"], capture=True).stdout.splitlines()
-        urls = []
-        for line in remotes:
-            parts = line.split()
-            if len(parts) < 3:
-                continue
-            url = parts[1]
-            if "pages@" not in url:
-                continue
-            if "repo.git" not in url:
-                continue
-            if url not in urls:
-                urls.append(url)
-
-        if not urls:
-            print("No mirror remotes found.")
-            return 1
-
-        MIRRORS_LIST.parent.mkdir(parents=True, exist_ok=True)
-        header = [
-            "# One mirror per line. Use the git URL for pages.git on the mirror.",
-            "# Generated from git remotes on the builder.",
-        ]
-        MIRRORS_LIST.write_text("\n".join(header + urls) + "\n", encoding="utf-8")
-
-        branch = _run_git(
-            ["rev-parse", "--abbrev-ref", "HEAD"], capture=True
-        ).stdout.strip()
-        if branch != "master":
-            print(f"Refusing to commit: current branch is {branch}")
-            return 1
-
-        _run_git(["add", str(MIRRORS_LIST)])
-        _run_git(["commit", "-m", "Update mirror list"])
-        return 0
-
-
 class MakeCommand:
     def add_subparser(self, sub):
         p = sub.add_parser("make", help="Run build command in current directory")
@@ -354,59 +257,19 @@ class DistributeChallengeCommand:
 
         (CHALLENGES_DIR / token).write_text(validation + "\n", encoding="utf-8")
         (WEBROOT_CHALLENGES / token).write_text(validation + "\n", encoding="utf-8")
+        git = ["git", "--git-dir", GIT_DIR, "--work-tree", INFRA_DIR]
 
-        git_dir = "/home/pages/repo.git"
-        work_tree = "/var/lib/infra"
-        subprocess.run(
-            [
-                "git",
-                "--git-dir",
-                git_dir,
-                "--work-tree",
-                work_tree,
-                "checkout",
-                "-f",
-                "master",
-            ],
-            check=True,
+        subprocess.check_call(
+            git + ["checkout", "-f", "master"],
         )
-        subprocess.run(
-            [
-                "git",
-                "--git-dir",
-                git_dir,
-                "--work-tree",
-                work_tree,
-                "add",
-                "infra/challenges",
-            ],
-            check=True,
+        subprocess.check_call(
+            git + ["add", "infra/challenges"],
         )
-        diff = subprocess.run(
-            [
-                "git",
-                "--git-dir",
-                git_dir,
-                "--work-tree",
-                work_tree,
-                "diff",
-                "--cached",
-                "--quiet",
-            ]
-        )
+        diff = subprocess.run(git + ["diff", "--cached", "--quiet"])
         if diff.returncode == 0:
             return 0
         subprocess.run(
-            [
-                "git",
-                "--git-dir",
-                git_dir,
-                "--work-tree",
-                work_tree,
-                "commit",
-                "-m",
-                f"Add ACME challenge {token}",
-            ],
+            git + ["commit", "-m", f"Add ACME challenge {token}"],
             check=True,
         )
 
@@ -415,7 +278,7 @@ class DistributeChallengeCommand:
                 line = line.strip()
                 if not line or line.startswith("#"):
                     continue
-                subprocess.run(
+                subprocess.check_call(
                     [
                         "runuser",
                         "-u",
@@ -423,12 +286,11 @@ class DistributeChallengeCommand:
                         "--",
                         "git",
                         "--git-dir",
-                        git_dir,
+                        GIT_DIR,
                         "push",
                         line,
                         "master",
                     ],
-                    check=True,
                 )
 
         return 0
@@ -458,15 +320,13 @@ class CleanupChallengeCommand:
         if web_challenge.exists():
             web_challenge.unlink()
 
-        git_dir = "/home/pages/repo.git"
-        work_tree = "/var/lib/infra"
         subprocess.run(
             [
                 "git",
                 "--git-dir",
-                git_dir,
+                GIT_DIR,
                 "--work-tree",
-                work_tree,
+                INFRA_DIR,
                 "checkout",
                 "-f",
                 "master",
@@ -477,9 +337,9 @@ class CleanupChallengeCommand:
             [
                 "git",
                 "--git-dir",
-                git_dir,
+                GIT_DIR,
                 "--work-tree",
-                work_tree,
+                INFRA_DIR,
                 "add",
                 "infra/challenges",
             ],
@@ -489,9 +349,9 @@ class CleanupChallengeCommand:
             [
                 "git",
                 "--git-dir",
-                git_dir,
+                GIT_DIR,
                 "--work-tree",
-                work_tree,
+                INFRA_DIR,
                 "diff",
                 "--cached",
                 "--quiet",
@@ -503,9 +363,9 @@ class CleanupChallengeCommand:
             [
                 "git",
                 "--git-dir",
-                git_dir,
+                GIT_DIR,
                 "--work-tree",
-                work_tree,
+                INFRA_DIR,
                 "commit",
                 "-m",
                 f"Remove ACME challenge {token}",
@@ -526,7 +386,7 @@ class CleanupChallengeCommand:
                         "--",
                         "git",
                         "--git-dir",
-                        git_dir,
+                        GIT_DIR,
                         "push",
                         line,
                         "master",
@@ -579,11 +439,11 @@ class DistributeCertsCommand:
             return 1
 
         recipients = []
-        if MIRRORS_DIR.exists():
-            for pub in sorted(MIRRORS_DIR.glob("*.pub")):
+        if KEYS_DIR.exists():
+            for pub in sorted(KEYS_DIR.glob("*.pub")):
                 recipients.append(pub.read_text(encoding="utf-8").strip())
         if not recipients:
-            print(f"No recipients found in {MIRRORS_DIR}")
+            print(f"No recipients found in {KEYS_DIR}")
             return 1
 
         CERTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -599,15 +459,13 @@ class DistributeCertsCommand:
             cmd.append(str(tar_path))
             subprocess.run(cmd, check=True)
 
-        git_dir = "/home/pages/repo.git"
-        work_tree = "/var/lib/infra"
         subprocess.run(
             [
                 "git",
                 "--git-dir",
-                git_dir,
+                GIT_DIR,
                 "--work-tree",
-                work_tree,
+                INFRA_DIR,
                 "checkout",
                 "-f",
                 "master",
@@ -618,9 +476,9 @@ class DistributeCertsCommand:
             [
                 "git",
                 "--git-dir",
-                git_dir,
+                GIT_DIR,
                 "--work-tree",
-                work_tree,
+                INFRA_DIR,
                 "add",
                 "infra/certs",
             ],
@@ -630,9 +488,9 @@ class DistributeCertsCommand:
             [
                 "git",
                 "--git-dir",
-                git_dir,
+                GIT_DIR,
                 "--work-tree",
-                work_tree,
+                INFRA_DIR,
                 "diff",
                 "--cached",
                 "--quiet",
@@ -644,9 +502,9 @@ class DistributeCertsCommand:
             [
                 "git",
                 "--git-dir",
-                git_dir,
+                GIT_DIR,
                 "--work-tree",
-                work_tree,
+                INFRA_DIR,
                 "commit",
                 "-m",
                 f"Update certs for {domain}",
@@ -667,7 +525,7 @@ class DistributeCertsCommand:
                         "--",
                         "git",
                         "--git-dir",
-                        git_dir,
+                        GIT_DIR,
                         "push",
                         line,
                         "master",
@@ -682,10 +540,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(prog="infra")
     sub = parser.add_subparsers(dest="cmd", required=True)
     ApplyCommand().add_subparser(sub)
-    FingerprintCommand().add_subparser(sub)
-    SetPrimaryCommand().add_subparser(sub)
     FetchKeysCommand().add_subparser(sub)
-    UpdateMirrorsCommand().add_subparser(sub)
     MakeCommand().add_subparser(sub)
     DistributeChallengeCommand().add_subparser(sub)
     CleanupChallengeCommand().add_subparser(sub)
