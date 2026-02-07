@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 import os
+import shlex
 import shutil
 import subprocess
 import tarfile
@@ -148,12 +149,29 @@ class ApplyCommand:
             os.chmod(live_dir / "privkey.pem", 0o600)
 
 
+class Command:
+    def __init__(self, *c: str | Path) -> None:
+        self._prefix = c
+
+    def subcommand(self, *c: str | Path) -> "Command":
+        return self.__class__(*(self._prefix + c))
+
+    def call(self, *c: str | Path, **kwargs) -> int:
+        self._print(c)
+        return subprocess.call(self._prefix + c, **kwargs)
+
+    def check_call(self, *c: str | Path, **kwargs) -> None:
+        self._print(c)
+        subprocess.check_call(self._prefix + c, **kwargs)
+
+    def _print(self, c: tuple[str | Path, ...]) -> None:
+        print(shlex.join(map(str, self._prefix + c)))
+
+
 class BuilderPublishCommand:
     def __init__(self) -> None:
-        pages_dir = Path.home() / "pages.git"
-        self._pages_git = ["git", "--git-dir", pages_dir]
-        infra_dir = Path.home() / "infra.git"
-        self._infra_git = ["git", "--git-dir", infra_dir]
+        self._pages_git = Command("git", "--git-dir", Path.home() / "pages.git")
+        self._infra_git = Command("git", "--git-dir", Path.home() / "infra.git")
 
     def add_subparser(self, sub):
         p = sub.add_parser("builder-publish", help="Push to mirrors")
@@ -168,25 +186,25 @@ class BuilderPublishCommand:
         """
         mirrors = self._load_mirrors()
         self._push_content(args.content, mirrors)
-        infra_mirrors = [m.replace('pages.git', 'infra.git') for m in mirrors]
+        infra_mirrors = [m.replace("pages.git", "infra.git") for m in mirrors]
         self._push_infra(infra_mirrors)
         return 0
 
     def _push_content(self, content: str, mirrors: list[str]) -> None:
-        git = self._pages_git + ["-C", content, "--work-tree", "."]
-        subprocess.check_call(git + ["add", "-A", "."])
-        subprocess.call(git + ["commit", "-m", "build pages"])
+        git = self._pages_git.subcommand("-C", content, "--work-tree", ".")
+        git.check_call("add", "-A", ".")
+        git.call("commit", "-m", "build pages")
         for mirror in mirrors:
-            subprocess.call(self._pages_git + ["push", mirror, "master"])
+            self._pages_git.call("push", mirror, "master")
 
     def _push_infra(self, mirrors: list[str]) -> None:
-        git = self._infra_git + ['-C', "infra", "--work-tree", "."]
-        subprocess.check_call(git + ["add", "-A", "."])
-        subprocess.call(git + ["commit", "-m", "infra"])
-        # primary = self._pick_primary(mirrors)
-        # subprocess.call(git + ["pull", "--rebase", primary, "master"])
+        git = self._infra_git.subcommand("-C", "infra", "--work-tree", ".")
+        git.check_call("add", "-A", ".")
+        git.call("commit", "-m", "infra")
+        primary = self._pick_primary(mirrors)
+        git.call("pull", "--rebase", primary, "master")
         for mirror in mirrors:
-            subprocess.call(self._pages_git + ["push", mirror, "master"])
+            self._infra_git.call("push", mirror, "master")
 
     def _load_mirrors(self) -> list[str]:
         return [
