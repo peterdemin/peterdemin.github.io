@@ -547,360 +547,361 @@ The script is reentrant, because I had to iterate a bit to polish all the kinks.
 </span><span data-line="161">
 </span><span data-line="162">    <span class="k">def</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
 </span><span data-line="163">        <span class="n">mirrors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_mirrors</span><span class="p">()</span>
-</span><span data-line="164">        <span class="bp">self</span><span class="o">.</span><span class="n">_push_content</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="n">mirrors</span><span class="p">)</span>
-</span><span data-line="165">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_push_infra</span><span class="p">(</span><span class="n">mirrors</span><span class="p">)</span>
-</span><span data-line="166">
-</span><span data-line="167">    <span class="k">def</span><span class="w"> </span><span class="nf">_push_infra</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mirrors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-</span><span data-line="168">        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infra</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
-</span><span data-line="169">            <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span>
-</span><span data-line="170">                <span class="bp">self</span><span class="o">.</span><span class="n">_bare_git</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;worktree&quot;</span><span class="p">,</span> <span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="s2">&quot;--orphan&quot;</span><span class="p">,</span> <span class="s2">&quot;infra&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infra</span><span class="p">]</span>
-</span><span data-line="171">            <span class="p">)</span>
-</span><span data-line="172">        <span class="n">git</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;git&quot;</span><span class="p">,</span> <span class="s2">&quot;-C&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infra</span><span class="p">]</span>
-</span><span data-line="173">        <span class="n">primary</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pick_primary</span><span class="p">(</span><span class="n">mirrors</span><span class="p">)</span>
-</span><span data-line="174">        <span class="k">if</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">git</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;fetch&quot;</span><span class="p">,</span> <span class="s2">&quot;--force&quot;</span><span class="p">,</span> <span class="n">primary</span><span class="p">,</span> <span class="s2">&quot;infra&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-</span><span data-line="175">            <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">git</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;reset&quot;</span><span class="p">,</span> <span class="s2">&quot;--hard&quot;</span><span class="p">,</span> <span class="s2">&quot;FETCH_HEAD&quot;</span><span class="p">])</span>
-</span><span data-line="176">        <span class="n">shutil</span><span class="o">.</span><span class="n">copytree</span><span class="p">(</span><span class="s2">&quot;infra&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infra</span><span class="p">,</span> <span class="n">dirs_exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span data-line="177">        <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bare_git</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;worktree&#39;</span><span class="p">,</span> <span class="s1">&#39;list&#39;</span><span class="p">])</span>
-</span><span data-line="178">        <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">git</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="s2">&quot;-A&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">])</span>
-</span><span data-line="179">        <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">git</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;commit&quot;</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;infra&quot;</span><span class="p">])</span>
-</span><span data-line="180">        <span class="bp">self</span><span class="o">.</span><span class="n">_push</span><span class="p">(</span><span class="s2">&quot;infra&quot;</span><span class="p">,</span> <span class="n">mirrors</span><span class="p">)</span>
-</span><span data-line="181">        <span class="k">return</span> <span class="mi">0</span>
-</span><span data-line="182">
-</span><span data-line="183">    <span class="k">def</span><span class="w"> </span><span class="nf">_push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">branch</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">mirrors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span data-line="184">        <span class="k">for</span> <span class="n">mirror</span> <span class="ow">in</span> <span class="n">mirrors</span><span class="p">:</span>
-</span><span data-line="185">            <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bare_git</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;push&quot;</span><span class="p">,</span> <span class="n">mirror</span><span class="p">,</span> <span class="n">branch</span><span class="p">])</span>
-</span><span data-line="186">
-</span><span data-line="187">    <span class="k">def</span><span class="w"> </span><span class="nf">_push_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">mirrors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span data-line="188">        <span class="n">git</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bare_git</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;-C&quot;</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="s2">&quot;--work-tree&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">]</span>
-</span><span data-line="189">        <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">git</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="s2">&quot;-A&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">])</span>
-</span><span data-line="190">        <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">git</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;commit&quot;</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;build pages&quot;</span><span class="p">])</span>
-</span><span data-line="191">        <span class="bp">self</span><span class="o">.</span><span class="n">_push</span><span class="p">(</span><span class="s2">&quot;master&quot;</span><span class="p">,</span> <span class="n">mirrors</span><span class="p">)</span>
-</span><span data-line="192">
-</span><span data-line="193">    <span class="k">def</span><span class="w"> </span><span class="nf">_load_mirrors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-</span><span data-line="194">        <span class="k">return</span> <span class="p">[</span>
-</span><span data-line="195">            <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-</span><span data-line="196">            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;infra/mirrors.txt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
-</span><span data-line="197">            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
-</span><span data-line="198">        <span class="p">]</span>
-</span><span data-line="199">
-</span><span data-line="200">    <span class="k">def</span><span class="w"> </span><span class="nf">_pick_primary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mirrors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span data-line="201">        <span class="n">prefix</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;infra/keys/primary.pub&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-</span><span data-line="202">        <span class="k">for</span> <span class="n">mirror</span> <span class="ow">in</span> <span class="n">mirrors</span><span class="p">:</span>
-</span><span data-line="203">            <span class="k">if</span> <span class="n">mirror</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">prefix</span><span class="p">):</span>
-</span><span data-line="204">                <span class="k">return</span> <span class="n">mirror</span>
-</span><span data-line="205">        <span class="k">return</span> <span class="n">mirrors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</span><span data-line="206">
+</span><span data-line="164">        <span class="kn">import</span><span class="w"> </span><span class="nn">pdb</span><span class="p">;</span> <span class="n">pdb</span><span class="o">.</span><span class="n">set_trace</span><span class="p">()</span>
+</span><span data-line="165">        <span class="bp">self</span><span class="o">.</span><span class="n">_push_content</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="n">mirrors</span><span class="p">)</span>
+</span><span data-line="166">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_push_infra</span><span class="p">(</span><span class="n">mirrors</span><span class="p">)</span>
+</span><span data-line="167">
+</span><span data-line="168">    <span class="k">def</span><span class="w"> </span><span class="nf">_push_infra</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mirrors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span><span data-line="169">        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infra</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+</span><span data-line="170">            <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span>
+</span><span data-line="171">                <span class="bp">self</span><span class="o">.</span><span class="n">_bare_git</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;worktree&quot;</span><span class="p">,</span> <span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="s2">&quot;--orphan&quot;</span><span class="p">,</span> <span class="s2">&quot;infra&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infra</span><span class="p">]</span>
+</span><span data-line="172">            <span class="p">)</span>
+</span><span data-line="173">        <span class="n">git</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;git&quot;</span><span class="p">,</span> <span class="s2">&quot;-C&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infra</span><span class="p">]</span>
+</span><span data-line="174">        <span class="n">primary</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pick_primary</span><span class="p">(</span><span class="n">mirrors</span><span class="p">)</span>
+</span><span data-line="175">        <span class="k">if</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">git</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;fetch&quot;</span><span class="p">,</span> <span class="s2">&quot;--force&quot;</span><span class="p">,</span> <span class="n">primary</span><span class="p">,</span> <span class="s2">&quot;infra&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span data-line="176">            <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">git</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;reset&quot;</span><span class="p">,</span> <span class="s2">&quot;--hard&quot;</span><span class="p">,</span> <span class="s2">&quot;FETCH_HEAD&quot;</span><span class="p">])</span>
+</span><span data-line="177">        <span class="n">shutil</span><span class="o">.</span><span class="n">copytree</span><span class="p">(</span><span class="s2">&quot;infra&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infra</span><span class="p">,</span> <span class="n">dirs_exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span data-line="178">        <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bare_git</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;worktree&#39;</span><span class="p">,</span> <span class="s1">&#39;list&#39;</span><span class="p">])</span>
+</span><span data-line="179">        <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">git</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="s2">&quot;-A&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">])</span>
+</span><span data-line="180">        <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">git</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;commit&quot;</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;infra&quot;</span><span class="p">])</span>
+</span><span data-line="181">        <span class="bp">self</span><span class="o">.</span><span class="n">_push</span><span class="p">(</span><span class="s2">&quot;infra&quot;</span><span class="p">,</span> <span class="n">mirrors</span><span class="p">)</span>
+</span><span data-line="182">        <span class="k">return</span> <span class="mi">0</span>
+</span><span data-line="183">
+</span><span data-line="184">    <span class="k">def</span><span class="w"> </span><span class="nf">_push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">branch</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">mirrors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="185">        <span class="k">for</span> <span class="n">mirror</span> <span class="ow">in</span> <span class="n">mirrors</span><span class="p">:</span>
+</span><span data-line="186">            <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bare_git</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;push&quot;</span><span class="p">,</span> <span class="n">mirror</span><span class="p">,</span> <span class="n">branch</span><span class="p">])</span>
+</span><span data-line="187">
+</span><span data-line="188">    <span class="k">def</span><span class="w"> </span><span class="nf">_push_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">mirrors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="189">        <span class="n">git</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bare_git</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;-C&quot;</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="s2">&quot;--work-tree&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">]</span>
+</span><span data-line="190">        <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">git</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="s2">&quot;-A&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">])</span>
+</span><span data-line="191">        <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">git</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;commit&quot;</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;build pages&quot;</span><span class="p">])</span>
+</span><span data-line="192">        <span class="bp">self</span><span class="o">.</span><span class="n">_push</span><span class="p">(</span><span class="s2">&quot;master&quot;</span><span class="p">,</span> <span class="n">mirrors</span><span class="p">)</span>
+</span><span data-line="193">
+</span><span data-line="194">    <span class="k">def</span><span class="w"> </span><span class="nf">_load_mirrors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span data-line="195">        <span class="k">return</span> <span class="p">[</span>
+</span><span data-line="196">            <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span><span data-line="197">            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;infra/mirrors.txt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+</span><span data-line="198">            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+</span><span data-line="199">        <span class="p">]</span>
+</span><span data-line="200">
+</span><span data-line="201">    <span class="k">def</span><span class="w"> </span><span class="nf">_pick_primary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mirrors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span data-line="202">        <span class="n">prefix</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;infra/keys/primary.pub&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span><span data-line="203">        <span class="k">for</span> <span class="n">mirror</span> <span class="ow">in</span> <span class="n">mirrors</span><span class="p">:</span>
+</span><span data-line="204">            <span class="k">if</span> <span class="n">mirror</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">prefix</span><span class="p">):</span>
+</span><span data-line="205">                <span class="k">return</span> <span class="n">mirror</span>
+</span><span data-line="206">        <span class="k">return</span> <span class="n">mirrors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </span><span data-line="207">
-</span><span data-line="208"><span class="k">class</span><span class="w"> </span><span class="nc">DistributeChallengeCommand</span><span class="p">:</span>
-</span><span data-line="209">    <span class="k">def</span><span class="w"> </span><span class="nf">add_subparser</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sub</span><span class="p">):</span>
-</span><span data-line="210">        <span class="n">p</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span>
-</span><span data-line="211">            <span class="s2">&quot;distribute-challenge&quot;</span><span class="p">,</span>
-</span><span data-line="212">            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Write ACME challenge and push infra branch to mirrors&quot;</span><span class="p">,</span>
-</span><span data-line="213">        <span class="p">)</span>
-</span><span data-line="214">        <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--token&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span data-line="215">        <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--validation&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span data-line="216">        <span class="n">p</span><span class="o">.</span><span class="n">set_defaults</span><span class="p">(</span><span class="n">handle</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="p">)</span>
-</span><span data-line="217">
-</span><span data-line="218">    <span class="k">def</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
-</span><span data-line="219">        <span class="n">_ensure_root</span><span class="p">()</span>
-</span><span data-line="220">
-</span><span data-line="221">        <span class="n">token</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">token</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-</span><span data-line="222">        <span class="n">validation</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">validation</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-</span><span data-line="223">        <span class="k">if</span> <span class="ow">not</span> <span class="n">token</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">validation</span><span class="p">:</span>
-</span><span data-line="224">            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Token and validation must be non-empty.&quot;</span><span class="p">)</span>
-</span><span data-line="225">            <span class="k">return</span> <span class="mi">1</span>
-</span><span data-line="226">
-</span><span data-line="227">        <span class="n">CHALLENGES_DIR</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span data-line="228">        <span class="n">WEBROOT_CHALLENGES</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span data-line="229">
-</span><span data-line="230">        <span class="p">(</span><span class="n">CHALLENGES_DIR</span> <span class="o">/</span> <span class="n">token</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">validation</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
-</span><span data-line="231">        <span class="p">(</span><span class="n">WEBROOT_CHALLENGES</span> <span class="o">/</span> <span class="n">token</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">validation</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
-</span><span data-line="232">        <span class="n">git</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;git&quot;</span><span class="p">,</span> <span class="s2">&quot;--git-dir&quot;</span><span class="p">,</span> <span class="n">GIT_DIR</span><span class="p">,</span> <span class="s2">&quot;--work-tree&quot;</span><span class="p">,</span> <span class="n">INFRA_DIR</span><span class="p">]</span>
-</span><span data-line="233">
-</span><span data-line="234">        <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">git</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;checkout&quot;</span><span class="p">,</span> <span class="s2">&quot;-f&quot;</span><span class="p">,</span> <span class="s2">&quot;master&quot;</span><span class="p">])</span>
-</span><span data-line="235">        <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">git</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="s2">&quot;infra/challenges&quot;</span><span class="p">])</span>
-</span><span data-line="236">        <span class="k">if</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">git</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;diff&quot;</span><span class="p">,</span> <span class="s2">&quot;--cached&quot;</span><span class="p">,</span> <span class="s2">&quot;--quiet&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-</span><span data-line="237">            <span class="k">return</span> <span class="mi">0</span>
-</span><span data-line="238">        <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">git</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;commit&quot;</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;Add challenge&quot;</span><span class="p">])</span>
-</span><span data-line="239">
-</span><span data-line="240">        <span class="k">if</span> <span class="n">MIRRORS_LIST</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-</span><span data-line="241">            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">MIRRORS_LIST</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
-</span><span data-line="242">                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-</span><span data-line="243">                <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span> <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">):</span>
-</span><span data-line="244">                    <span class="k">continue</span>
-</span><span data-line="245">                <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span>
-</span><span data-line="246">                    <span class="p">[</span>
-</span><span data-line="247">                        <span class="s2">&quot;runuser&quot;</span><span class="p">,</span>
-</span><span data-line="248">                        <span class="s2">&quot;-u&quot;</span><span class="p">,</span>
-</span><span data-line="249">                        <span class="s2">&quot;pages&quot;</span><span class="p">,</span>
-</span><span data-line="250">                        <span class="s2">&quot;--&quot;</span><span class="p">,</span>
-</span><span data-line="251">                        <span class="s2">&quot;git&quot;</span><span class="p">,</span>
-</span><span data-line="252">                        <span class="s2">&quot;--git-dir&quot;</span><span class="p">,</span>
-</span><span data-line="253">                        <span class="n">GIT_DIR</span><span class="p">,</span>
-</span><span data-line="254">                        <span class="s2">&quot;push&quot;</span><span class="p">,</span>
-</span><span data-line="255">                        <span class="n">line</span><span class="p">,</span>
-</span><span data-line="256">                        <span class="s2">&quot;master&quot;</span><span class="p">,</span>
-</span><span data-line="257">                    <span class="p">],</span>
-</span><span data-line="258">                <span class="p">)</span>
-</span><span data-line="259">
-</span><span data-line="260">        <span class="k">return</span> <span class="mi">0</span>
-</span><span data-line="261">
+</span><span data-line="208">
+</span><span data-line="209"><span class="k">class</span><span class="w"> </span><span class="nc">DistributeChallengeCommand</span><span class="p">:</span>
+</span><span data-line="210">    <span class="k">def</span><span class="w"> </span><span class="nf">add_subparser</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sub</span><span class="p">):</span>
+</span><span data-line="211">        <span class="n">p</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span>
+</span><span data-line="212">            <span class="s2">&quot;distribute-challenge&quot;</span><span class="p">,</span>
+</span><span data-line="213">            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Write ACME challenge and push infra branch to mirrors&quot;</span><span class="p">,</span>
+</span><span data-line="214">        <span class="p">)</span>
+</span><span data-line="215">        <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--token&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span data-line="216">        <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--validation&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span data-line="217">        <span class="n">p</span><span class="o">.</span><span class="n">set_defaults</span><span class="p">(</span><span class="n">handle</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="p">)</span>
+</span><span data-line="218">
+</span><span data-line="219">    <span class="k">def</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+</span><span data-line="220">        <span class="n">_ensure_root</span><span class="p">()</span>
+</span><span data-line="221">
+</span><span data-line="222">        <span class="n">token</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">token</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span><span data-line="223">        <span class="n">validation</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">validation</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span><span data-line="224">        <span class="k">if</span> <span class="ow">not</span> <span class="n">token</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">validation</span><span class="p">:</span>
+</span><span data-line="225">            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Token and validation must be non-empty.&quot;</span><span class="p">)</span>
+</span><span data-line="226">            <span class="k">return</span> <span class="mi">1</span>
+</span><span data-line="227">
+</span><span data-line="228">        <span class="n">CHALLENGES_DIR</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span data-line="229">        <span class="n">WEBROOT_CHALLENGES</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span data-line="230">
+</span><span data-line="231">        <span class="p">(</span><span class="n">CHALLENGES_DIR</span> <span class="o">/</span> <span class="n">token</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">validation</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+</span><span data-line="232">        <span class="p">(</span><span class="n">WEBROOT_CHALLENGES</span> <span class="o">/</span> <span class="n">token</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">validation</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+</span><span data-line="233">        <span class="n">git</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;git&quot;</span><span class="p">,</span> <span class="s2">&quot;--git-dir&quot;</span><span class="p">,</span> <span class="n">GIT_DIR</span><span class="p">,</span> <span class="s2">&quot;--work-tree&quot;</span><span class="p">,</span> <span class="n">INFRA_DIR</span><span class="p">]</span>
+</span><span data-line="234">
+</span><span data-line="235">        <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">git</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;checkout&quot;</span><span class="p">,</span> <span class="s2">&quot;-f&quot;</span><span class="p">,</span> <span class="s2">&quot;master&quot;</span><span class="p">])</span>
+</span><span data-line="236">        <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">git</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="s2">&quot;infra/challenges&quot;</span><span class="p">])</span>
+</span><span data-line="237">        <span class="k">if</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">git</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;diff&quot;</span><span class="p">,</span> <span class="s2">&quot;--cached&quot;</span><span class="p">,</span> <span class="s2">&quot;--quiet&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span data-line="238">            <span class="k">return</span> <span class="mi">0</span>
+</span><span data-line="239">        <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">git</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;commit&quot;</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;Add challenge&quot;</span><span class="p">])</span>
+</span><span data-line="240">
+</span><span data-line="241">        <span class="k">if</span> <span class="n">MIRRORS_LIST</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+</span><span data-line="242">            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">MIRRORS_LIST</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+</span><span data-line="243">                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span><span data-line="244">                <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span> <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">):</span>
+</span><span data-line="245">                    <span class="k">continue</span>
+</span><span data-line="246">                <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span>
+</span><span data-line="247">                    <span class="p">[</span>
+</span><span data-line="248">                        <span class="s2">&quot;runuser&quot;</span><span class="p">,</span>
+</span><span data-line="249">                        <span class="s2">&quot;-u&quot;</span><span class="p">,</span>
+</span><span data-line="250">                        <span class="s2">&quot;pages&quot;</span><span class="p">,</span>
+</span><span data-line="251">                        <span class="s2">&quot;--&quot;</span><span class="p">,</span>
+</span><span data-line="252">                        <span class="s2">&quot;git&quot;</span><span class="p">,</span>
+</span><span data-line="253">                        <span class="s2">&quot;--git-dir&quot;</span><span class="p">,</span>
+</span><span data-line="254">                        <span class="n">GIT_DIR</span><span class="p">,</span>
+</span><span data-line="255">                        <span class="s2">&quot;push&quot;</span><span class="p">,</span>
+</span><span data-line="256">                        <span class="n">line</span><span class="p">,</span>
+</span><span data-line="257">                        <span class="s2">&quot;master&quot;</span><span class="p">,</span>
+</span><span data-line="258">                    <span class="p">],</span>
+</span><span data-line="259">                <span class="p">)</span>
+</span><span data-line="260">
+</span><span data-line="261">        <span class="k">return</span> <span class="mi">0</span>
 </span><span data-line="262">
-</span><span data-line="263"><span class="k">class</span><span class="w"> </span><span class="nc">CleanupChallengeCommand</span><span class="p">:</span>
-</span><span data-line="264">    <span class="k">def</span><span class="w"> </span><span class="nf">add_subparser</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sub</span><span class="p">):</span>
-</span><span data-line="265">        <span class="n">p</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span>
-</span><span data-line="266">            <span class="s2">&quot;cleanup-challenge&quot;</span><span class="p">,</span>
-</span><span data-line="267">            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Remove ACME challenge and push infra branch to mirrors&quot;</span><span class="p">,</span>
-</span><span data-line="268">        <span class="p">)</span>
-</span><span data-line="269">        <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--token&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span data-line="270">        <span class="n">p</span><span class="o">.</span><span class="n">set_defaults</span><span class="p">(</span><span class="n">handle</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="p">)</span>
-</span><span data-line="271">
-</span><span data-line="272">    <span class="k">def</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
-</span><span data-line="273">        <span class="n">_ensure_root</span><span class="p">()</span>
-</span><span data-line="274">
-</span><span data-line="275">        <span class="n">token</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">token</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-</span><span data-line="276">        <span class="k">if</span> <span class="ow">not</span> <span class="n">token</span><span class="p">:</span>
-</span><span data-line="277">            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Token must be non-empty.&quot;</span><span class="p">)</span>
-</span><span data-line="278">            <span class="k">return</span> <span class="mi">1</span>
-</span><span data-line="279">
-</span><span data-line="280">        <span class="n">challenge</span> <span class="o">=</span> <span class="n">CHALLENGES_DIR</span> <span class="o">/</span> <span class="n">token</span>
-</span><span data-line="281">        <span class="n">web_challenge</span> <span class="o">=</span> <span class="n">WEBROOT_CHALLENGES</span> <span class="o">/</span> <span class="n">token</span>
-</span><span data-line="282">        <span class="k">if</span> <span class="n">challenge</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-</span><span data-line="283">            <span class="n">challenge</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
-</span><span data-line="284">        <span class="k">if</span> <span class="n">web_challenge</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-</span><span data-line="285">            <span class="n">web_challenge</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
-</span><span data-line="286">
-</span><span data-line="287">        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-</span><span data-line="288">            <span class="p">[</span>
-</span><span data-line="289">                <span class="s2">&quot;git&quot;</span><span class="p">,</span>
-</span><span data-line="290">                <span class="s2">&quot;--git-dir&quot;</span><span class="p">,</span>
-</span><span data-line="291">                <span class="n">GIT_DIR</span><span class="p">,</span>
-</span><span data-line="292">                <span class="s2">&quot;--work-tree&quot;</span><span class="p">,</span>
-</span><span data-line="293">                <span class="n">INFRA_DIR</span><span class="p">,</span>
-</span><span data-line="294">                <span class="s2">&quot;checkout&quot;</span><span class="p">,</span>
-</span><span data-line="295">                <span class="s2">&quot;-f&quot;</span><span class="p">,</span>
-</span><span data-line="296">                <span class="s2">&quot;master&quot;</span><span class="p">,</span>
-</span><span data-line="297">            <span class="p">],</span>
-</span><span data-line="298">            <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-</span><span data-line="299">        <span class="p">)</span>
-</span><span data-line="300">        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-</span><span data-line="301">            <span class="p">[</span>
-</span><span data-line="302">                <span class="s2">&quot;git&quot;</span><span class="p">,</span>
-</span><span data-line="303">                <span class="s2">&quot;--git-dir&quot;</span><span class="p">,</span>
-</span><span data-line="304">                <span class="n">GIT_DIR</span><span class="p">,</span>
-</span><span data-line="305">                <span class="s2">&quot;--work-tree&quot;</span><span class="p">,</span>
-</span><span data-line="306">                <span class="n">INFRA_DIR</span><span class="p">,</span>
-</span><span data-line="307">                <span class="s2">&quot;add&quot;</span><span class="p">,</span>
-</span><span data-line="308">                <span class="s2">&quot;infra/challenges&quot;</span><span class="p">,</span>
-</span><span data-line="309">            <span class="p">],</span>
-</span><span data-line="310">            <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-</span><span data-line="311">        <span class="p">)</span>
-</span><span data-line="312">        <span class="n">diff</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-</span><span data-line="313">            <span class="p">[</span>
-</span><span data-line="314">                <span class="s2">&quot;git&quot;</span><span class="p">,</span>
-</span><span data-line="315">                <span class="s2">&quot;--git-dir&quot;</span><span class="p">,</span>
-</span><span data-line="316">                <span class="n">GIT_DIR</span><span class="p">,</span>
-</span><span data-line="317">                <span class="s2">&quot;--work-tree&quot;</span><span class="p">,</span>
-</span><span data-line="318">                <span class="n">INFRA_DIR</span><span class="p">,</span>
-</span><span data-line="319">                <span class="s2">&quot;diff&quot;</span><span class="p">,</span>
-</span><span data-line="320">                <span class="s2">&quot;--cached&quot;</span><span class="p">,</span>
-</span><span data-line="321">                <span class="s2">&quot;--quiet&quot;</span><span class="p">,</span>
-</span><span data-line="322">            <span class="p">]</span>
-</span><span data-line="323">        <span class="p">)</span>
-</span><span data-line="324">        <span class="k">if</span> <span class="n">diff</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-</span><span data-line="325">            <span class="k">return</span> <span class="mi">0</span>
-</span><span data-line="326">        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-</span><span data-line="327">            <span class="p">[</span>
-</span><span data-line="328">                <span class="s2">&quot;git&quot;</span><span class="p">,</span>
-</span><span data-line="329">                <span class="s2">&quot;--git-dir&quot;</span><span class="p">,</span>
-</span><span data-line="330">                <span class="n">GIT_DIR</span><span class="p">,</span>
-</span><span data-line="331">                <span class="s2">&quot;--work-tree&quot;</span><span class="p">,</span>
-</span><span data-line="332">                <span class="n">INFRA_DIR</span><span class="p">,</span>
-</span><span data-line="333">                <span class="s2">&quot;commit&quot;</span><span class="p">,</span>
-</span><span data-line="334">                <span class="s2">&quot;-m&quot;</span><span class="p">,</span>
-</span><span data-line="335">                <span class="sa">f</span><span class="s2">&quot;Remove ACME challenge </span><span class="si">{</span><span class="n">token</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-</span><span data-line="336">            <span class="p">],</span>
-</span><span data-line="337">            <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-</span><span data-line="338">        <span class="p">)</span>
-</span><span data-line="339">
-</span><span data-line="340">        <span class="k">if</span> <span class="n">MIRRORS_LIST</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-</span><span data-line="341">            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">MIRRORS_LIST</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
-</span><span data-line="342">                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-</span><span data-line="343">                <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span> <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">):</span>
-</span><span data-line="344">                    <span class="k">continue</span>
-</span><span data-line="345">                <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-</span><span data-line="346">                    <span class="p">[</span>
-</span><span data-line="347">                        <span class="s2">&quot;runuser&quot;</span><span class="p">,</span>
-</span><span data-line="348">                        <span class="s2">&quot;-u&quot;</span><span class="p">,</span>
-</span><span data-line="349">                        <span class="s2">&quot;pages&quot;</span><span class="p">,</span>
-</span><span data-line="350">                        <span class="s2">&quot;--&quot;</span><span class="p">,</span>
-</span><span data-line="351">                        <span class="s2">&quot;git&quot;</span><span class="p">,</span>
-</span><span data-line="352">                        <span class="s2">&quot;--git-dir&quot;</span><span class="p">,</span>
-</span><span data-line="353">                        <span class="n">GIT_DIR</span><span class="p">,</span>
-</span><span data-line="354">                        <span class="s2">&quot;push&quot;</span><span class="p">,</span>
-</span><span data-line="355">                        <span class="n">line</span><span class="p">,</span>
-</span><span data-line="356">                        <span class="s2">&quot;master&quot;</span><span class="p">,</span>
-</span><span data-line="357">                    <span class="p">],</span>
-</span><span data-line="358">                    <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-</span><span data-line="359">                <span class="p">)</span>
-</span><span data-line="360">
-</span><span data-line="361">        <span class="k">return</span> <span class="mi">0</span>
-</span><span data-line="362">
+</span><span data-line="263">
+</span><span data-line="264"><span class="k">class</span><span class="w"> </span><span class="nc">CleanupChallengeCommand</span><span class="p">:</span>
+</span><span data-line="265">    <span class="k">def</span><span class="w"> </span><span class="nf">add_subparser</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sub</span><span class="p">):</span>
+</span><span data-line="266">        <span class="n">p</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span>
+</span><span data-line="267">            <span class="s2">&quot;cleanup-challenge&quot;</span><span class="p">,</span>
+</span><span data-line="268">            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Remove ACME challenge and push infra branch to mirrors&quot;</span><span class="p">,</span>
+</span><span data-line="269">        <span class="p">)</span>
+</span><span data-line="270">        <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--token&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span data-line="271">        <span class="n">p</span><span class="o">.</span><span class="n">set_defaults</span><span class="p">(</span><span class="n">handle</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="p">)</span>
+</span><span data-line="272">
+</span><span data-line="273">    <span class="k">def</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+</span><span data-line="274">        <span class="n">_ensure_root</span><span class="p">()</span>
+</span><span data-line="275">
+</span><span data-line="276">        <span class="n">token</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">token</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span><span data-line="277">        <span class="k">if</span> <span class="ow">not</span> <span class="n">token</span><span class="p">:</span>
+</span><span data-line="278">            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Token must be non-empty.&quot;</span><span class="p">)</span>
+</span><span data-line="279">            <span class="k">return</span> <span class="mi">1</span>
+</span><span data-line="280">
+</span><span data-line="281">        <span class="n">challenge</span> <span class="o">=</span> <span class="n">CHALLENGES_DIR</span> <span class="o">/</span> <span class="n">token</span>
+</span><span data-line="282">        <span class="n">web_challenge</span> <span class="o">=</span> <span class="n">WEBROOT_CHALLENGES</span> <span class="o">/</span> <span class="n">token</span>
+</span><span data-line="283">        <span class="k">if</span> <span class="n">challenge</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+</span><span data-line="284">            <span class="n">challenge</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+</span><span data-line="285">        <span class="k">if</span> <span class="n">web_challenge</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+</span><span data-line="286">            <span class="n">web_challenge</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+</span><span data-line="287">
+</span><span data-line="288">        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+</span><span data-line="289">            <span class="p">[</span>
+</span><span data-line="290">                <span class="s2">&quot;git&quot;</span><span class="p">,</span>
+</span><span data-line="291">                <span class="s2">&quot;--git-dir&quot;</span><span class="p">,</span>
+</span><span data-line="292">                <span class="n">GIT_DIR</span><span class="p">,</span>
+</span><span data-line="293">                <span class="s2">&quot;--work-tree&quot;</span><span class="p">,</span>
+</span><span data-line="294">                <span class="n">INFRA_DIR</span><span class="p">,</span>
+</span><span data-line="295">                <span class="s2">&quot;checkout&quot;</span><span class="p">,</span>
+</span><span data-line="296">                <span class="s2">&quot;-f&quot;</span><span class="p">,</span>
+</span><span data-line="297">                <span class="s2">&quot;master&quot;</span><span class="p">,</span>
+</span><span data-line="298">            <span class="p">],</span>
+</span><span data-line="299">            <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span data-line="300">        <span class="p">)</span>
+</span><span data-line="301">        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+</span><span data-line="302">            <span class="p">[</span>
+</span><span data-line="303">                <span class="s2">&quot;git&quot;</span><span class="p">,</span>
+</span><span data-line="304">                <span class="s2">&quot;--git-dir&quot;</span><span class="p">,</span>
+</span><span data-line="305">                <span class="n">GIT_DIR</span><span class="p">,</span>
+</span><span data-line="306">                <span class="s2">&quot;--work-tree&quot;</span><span class="p">,</span>
+</span><span data-line="307">                <span class="n">INFRA_DIR</span><span class="p">,</span>
+</span><span data-line="308">                <span class="s2">&quot;add&quot;</span><span class="p">,</span>
+</span><span data-line="309">                <span class="s2">&quot;infra/challenges&quot;</span><span class="p">,</span>
+</span><span data-line="310">            <span class="p">],</span>
+</span><span data-line="311">            <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span data-line="312">        <span class="p">)</span>
+</span><span data-line="313">        <span class="n">diff</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+</span><span data-line="314">            <span class="p">[</span>
+</span><span data-line="315">                <span class="s2">&quot;git&quot;</span><span class="p">,</span>
+</span><span data-line="316">                <span class="s2">&quot;--git-dir&quot;</span><span class="p">,</span>
+</span><span data-line="317">                <span class="n">GIT_DIR</span><span class="p">,</span>
+</span><span data-line="318">                <span class="s2">&quot;--work-tree&quot;</span><span class="p">,</span>
+</span><span data-line="319">                <span class="n">INFRA_DIR</span><span class="p">,</span>
+</span><span data-line="320">                <span class="s2">&quot;diff&quot;</span><span class="p">,</span>
+</span><span data-line="321">                <span class="s2">&quot;--cached&quot;</span><span class="p">,</span>
+</span><span data-line="322">                <span class="s2">&quot;--quiet&quot;</span><span class="p">,</span>
+</span><span data-line="323">            <span class="p">]</span>
+</span><span data-line="324">        <span class="p">)</span>
+</span><span data-line="325">        <span class="k">if</span> <span class="n">diff</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span data-line="326">            <span class="k">return</span> <span class="mi">0</span>
+</span><span data-line="327">        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+</span><span data-line="328">            <span class="p">[</span>
+</span><span data-line="329">                <span class="s2">&quot;git&quot;</span><span class="p">,</span>
+</span><span data-line="330">                <span class="s2">&quot;--git-dir&quot;</span><span class="p">,</span>
+</span><span data-line="331">                <span class="n">GIT_DIR</span><span class="p">,</span>
+</span><span data-line="332">                <span class="s2">&quot;--work-tree&quot;</span><span class="p">,</span>
+</span><span data-line="333">                <span class="n">INFRA_DIR</span><span class="p">,</span>
+</span><span data-line="334">                <span class="s2">&quot;commit&quot;</span><span class="p">,</span>
+</span><span data-line="335">                <span class="s2">&quot;-m&quot;</span><span class="p">,</span>
+</span><span data-line="336">                <span class="sa">f</span><span class="s2">&quot;Remove ACME challenge </span><span class="si">{</span><span class="n">token</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span data-line="337">            <span class="p">],</span>
+</span><span data-line="338">            <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span data-line="339">        <span class="p">)</span>
+</span><span data-line="340">
+</span><span data-line="341">        <span class="k">if</span> <span class="n">MIRRORS_LIST</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+</span><span data-line="342">            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">MIRRORS_LIST</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+</span><span data-line="343">                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span><span data-line="344">                <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span> <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">):</span>
+</span><span data-line="345">                    <span class="k">continue</span>
+</span><span data-line="346">                <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+</span><span data-line="347">                    <span class="p">[</span>
+</span><span data-line="348">                        <span class="s2">&quot;runuser&quot;</span><span class="p">,</span>
+</span><span data-line="349">                        <span class="s2">&quot;-u&quot;</span><span class="p">,</span>
+</span><span data-line="350">                        <span class="s2">&quot;pages&quot;</span><span class="p">,</span>
+</span><span data-line="351">                        <span class="s2">&quot;--&quot;</span><span class="p">,</span>
+</span><span data-line="352">                        <span class="s2">&quot;git&quot;</span><span class="p">,</span>
+</span><span data-line="353">                        <span class="s2">&quot;--git-dir&quot;</span><span class="p">,</span>
+</span><span data-line="354">                        <span class="n">GIT_DIR</span><span class="p">,</span>
+</span><span data-line="355">                        <span class="s2">&quot;push&quot;</span><span class="p">,</span>
+</span><span data-line="356">                        <span class="n">line</span><span class="p">,</span>
+</span><span data-line="357">                        <span class="s2">&quot;master&quot;</span><span class="p">,</span>
+</span><span data-line="358">                    <span class="p">],</span>
+</span><span data-line="359">                    <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span data-line="360">                <span class="p">)</span>
+</span><span data-line="361">
+</span><span data-line="362">        <span class="k">return</span> <span class="mi">0</span>
 </span><span data-line="363">
-</span><span data-line="364"><span class="k">class</span><span class="w"> </span><span class="nc">DistributeCertsCommand</span><span class="p">:</span>
-</span><span data-line="365">    <span class="k">def</span><span class="w"> </span><span class="nf">add_subparser</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sub</span><span class="p">):</span>
-</span><span data-line="366">        <span class="n">p</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span>
-</span><span data-line="367">            <span class="s2">&quot;distribute-certs&quot;</span><span class="p">,</span>
-</span><span data-line="368">            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Encrypt certs to mirrors and push infra branch&quot;</span><span class="p">,</span>
-</span><span data-line="369">        <span class="p">)</span>
-</span><span data-line="370">        <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--domain&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span data-line="371">        <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-</span><span data-line="372">            <span class="s2">&quot;--fullchain&quot;</span><span class="p">,</span>
-</span><span data-line="373">            <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-</span><span data-line="374">            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to fullchain.pem (defaults to /etc/letsencrypt/live/&lt;domain&gt;/fullchain.pem)&quot;</span><span class="p">,</span>
-</span><span data-line="375">        <span class="p">)</span>
-</span><span data-line="376">        <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-</span><span data-line="377">            <span class="s2">&quot;--privkey&quot;</span><span class="p">,</span>
-</span><span data-line="378">            <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-</span><span data-line="379">            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to privkey.pem (defaults to /etc/letsencrypt/live/&lt;domain&gt;/privkey.pem)&quot;</span><span class="p">,</span>
-</span><span data-line="380">        <span class="p">)</span>
-</span><span data-line="381">        <span class="n">p</span><span class="o">.</span><span class="n">set_defaults</span><span class="p">(</span><span class="n">handle</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="p">)</span>
-</span><span data-line="382">
-</span><span data-line="383">    <span class="k">def</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
-</span><span data-line="384">        <span class="n">_ensure_root</span><span class="p">()</span>
-</span><span data-line="385">
-</span><span data-line="386">        <span class="n">domain</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">domain</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-</span><span data-line="387">        <span class="k">if</span> <span class="ow">not</span> <span class="n">domain</span><span class="p">:</span>
-</span><span data-line="388">            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Domain must be non-empty.&quot;</span><span class="p">)</span>
-</span><span data-line="389">            <span class="k">return</span> <span class="mi">1</span>
-</span><span data-line="390">
-</span><span data-line="391">        <span class="n">fullchain</span> <span class="o">=</span> <span class="p">(</span>
-</span><span data-line="392">            <span class="n">Path</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">fullchain</span><span class="p">)</span>
-</span><span data-line="393">            <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">fullchain</span>
-</span><span data-line="394">            <span class="k">else</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;/etc/letsencrypt/live&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">domain</span> <span class="o">/</span> <span class="s2">&quot;fullchain.pem&quot;</span>
-</span><span data-line="395">        <span class="p">)</span>
-</span><span data-line="396">        <span class="n">privkey</span> <span class="o">=</span> <span class="p">(</span>
-</span><span data-line="397">            <span class="n">Path</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">privkey</span><span class="p">)</span>
-</span><span data-line="398">            <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">privkey</span>
-</span><span data-line="399">            <span class="k">else</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;/etc/letsencrypt/live&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">domain</span> <span class="o">/</span> <span class="s2">&quot;privkey.pem&quot;</span>
-</span><span data-line="400">        <span class="p">)</span>
-</span><span data-line="401">        <span class="k">if</span> <span class="ow">not</span> <span class="n">fullchain</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">privkey</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-</span><span data-line="402">            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Missing fullchain or privkey.&quot;</span><span class="p">)</span>
-</span><span data-line="403">            <span class="k">return</span> <span class="mi">1</span>
-</span><span data-line="404">
-</span><span data-line="405">        <span class="n">recipients</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span data-line="406">        <span class="k">if</span> <span class="n">KEYS_DIR</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-</span><span data-line="407">            <span class="k">for</span> <span class="n">pub</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">KEYS_DIR</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*.pub&quot;</span><span class="p">)):</span>
-</span><span data-line="408">                <span class="n">recipients</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pub</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
-</span><span data-line="409">        <span class="k">if</span> <span class="ow">not</span> <span class="n">recipients</span><span class="p">:</span>
-</span><span data-line="410">            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No recipients found in </span><span class="si">{</span><span class="n">KEYS_DIR</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span data-line="411">            <span class="k">return</span> <span class="mi">1</span>
-</span><span data-line="412">
-</span><span data-line="413">        <span class="n">CERTS_DIR</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span data-line="414">        <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmpdir</span><span class="p">:</span>
-</span><span data-line="415">            <span class="n">tar_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">)</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">domain</span><span class="si">}</span><span class="s2">.tar.gz&quot;</span>
-</span><span data-line="416">            <span class="k">with</span> <span class="n">tarfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">tar_path</span><span class="p">,</span> <span class="s2">&quot;w:gz&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tar</span><span class="p">:</span>
-</span><span data-line="417">                <span class="n">tar</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">fullchain</span><span class="p">,</span> <span class="n">arcname</span><span class="o">=</span><span class="s2">&quot;fullchain.pem&quot;</span><span class="p">)</span>
-</span><span data-line="418">                <span class="n">tar</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">privkey</span><span class="p">,</span> <span class="n">arcname</span><span class="o">=</span><span class="s2">&quot;privkey.pem&quot;</span><span class="p">)</span>
-</span><span data-line="419">            <span class="n">out_path</span> <span class="o">=</span> <span class="n">CERTS_DIR</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">domain</span><span class="si">}</span><span class="s2">.tar.age&quot;</span>
-</span><span data-line="420">            <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;--encrypt&quot;</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">out_path</span><span class="p">)]</span>
-</span><span data-line="421">            <span class="k">for</span> <span class="n">recipient</span> <span class="ow">in</span> <span class="n">recipients</span><span class="p">:</span>
-</span><span data-line="422">                <span class="n">cmd</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;-r&quot;</span><span class="p">,</span> <span class="n">recipient</span><span class="p">])</span>
-</span><span data-line="423">            <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">tar_path</span><span class="p">))</span>
-</span><span data-line="424">            <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span data-line="425">
-</span><span data-line="426">        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-</span><span data-line="427">            <span class="p">[</span>
-</span><span data-line="428">                <span class="s2">&quot;git&quot;</span><span class="p">,</span>
-</span><span data-line="429">                <span class="s2">&quot;--git-dir&quot;</span><span class="p">,</span>
-</span><span data-line="430">                <span class="n">GIT_DIR</span><span class="p">,</span>
-</span><span data-line="431">                <span class="s2">&quot;--work-tree&quot;</span><span class="p">,</span>
-</span><span data-line="432">                <span class="n">INFRA_DIR</span><span class="p">,</span>
-</span><span data-line="433">                <span class="s2">&quot;checkout&quot;</span><span class="p">,</span>
-</span><span data-line="434">                <span class="s2">&quot;-f&quot;</span><span class="p">,</span>
-</span><span data-line="435">                <span class="s2">&quot;master&quot;</span><span class="p">,</span>
-</span><span data-line="436">            <span class="p">],</span>
-</span><span data-line="437">            <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-</span><span data-line="438">        <span class="p">)</span>
-</span><span data-line="439">        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-</span><span data-line="440">            <span class="p">[</span>
-</span><span data-line="441">                <span class="s2">&quot;git&quot;</span><span class="p">,</span>
-</span><span data-line="442">                <span class="s2">&quot;--git-dir&quot;</span><span class="p">,</span>
-</span><span data-line="443">                <span class="n">GIT_DIR</span><span class="p">,</span>
-</span><span data-line="444">                <span class="s2">&quot;--work-tree&quot;</span><span class="p">,</span>
-</span><span data-line="445">                <span class="n">INFRA_DIR</span><span class="p">,</span>
-</span><span data-line="446">                <span class="s2">&quot;add&quot;</span><span class="p">,</span>
-</span><span data-line="447">                <span class="s2">&quot;infra/certs&quot;</span><span class="p">,</span>
-</span><span data-line="448">            <span class="p">],</span>
-</span><span data-line="449">            <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-</span><span data-line="450">        <span class="p">)</span>
-</span><span data-line="451">        <span class="n">diff</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-</span><span data-line="452">            <span class="p">[</span>
-</span><span data-line="453">                <span class="s2">&quot;git&quot;</span><span class="p">,</span>
-</span><span data-line="454">                <span class="s2">&quot;--git-dir&quot;</span><span class="p">,</span>
-</span><span data-line="455">                <span class="n">GIT_DIR</span><span class="p">,</span>
-</span><span data-line="456">                <span class="s2">&quot;--work-tree&quot;</span><span class="p">,</span>
-</span><span data-line="457">                <span class="n">INFRA_DIR</span><span class="p">,</span>
-</span><span data-line="458">                <span class="s2">&quot;diff&quot;</span><span class="p">,</span>
-</span><span data-line="459">                <span class="s2">&quot;--cached&quot;</span><span class="p">,</span>
-</span><span data-line="460">                <span class="s2">&quot;--quiet&quot;</span><span class="p">,</span>
-</span><span data-line="461">            <span class="p">]</span>
-</span><span data-line="462">        <span class="p">)</span>
-</span><span data-line="463">        <span class="k">if</span> <span class="n">diff</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-</span><span data-line="464">            <span class="k">return</span> <span class="mi">0</span>
-</span><span data-line="465">        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-</span><span data-line="466">            <span class="p">[</span>
-</span><span data-line="467">                <span class="s2">&quot;git&quot;</span><span class="p">,</span>
-</span><span data-line="468">                <span class="s2">&quot;--git-dir&quot;</span><span class="p">,</span>
-</span><span data-line="469">                <span class="n">GIT_DIR</span><span class="p">,</span>
-</span><span data-line="470">                <span class="s2">&quot;--work-tree&quot;</span><span class="p">,</span>
-</span><span data-line="471">                <span class="n">INFRA_DIR</span><span class="p">,</span>
-</span><span data-line="472">                <span class="s2">&quot;commit&quot;</span><span class="p">,</span>
-</span><span data-line="473">                <span class="s2">&quot;-m&quot;</span><span class="p">,</span>
-</span><span data-line="474">                <span class="sa">f</span><span class="s2">&quot;Update certs for </span><span class="si">{</span><span class="n">domain</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-</span><span data-line="475">            <span class="p">],</span>
-</span><span data-line="476">            <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-</span><span data-line="477">        <span class="p">)</span>
-</span><span data-line="478">
-</span><span data-line="479">        <span class="k">if</span> <span class="n">MIRRORS_LIST</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-</span><span data-line="480">            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">MIRRORS_LIST</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
-</span><span data-line="481">                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-</span><span data-line="482">                <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span> <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">):</span>
-</span><span data-line="483">                    <span class="k">continue</span>
-</span><span data-line="484">                <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-</span><span data-line="485">                    <span class="p">[</span>
-</span><span data-line="486">                        <span class="s2">&quot;runuser&quot;</span><span class="p">,</span>
-</span><span data-line="487">                        <span class="s2">&quot;-u&quot;</span><span class="p">,</span>
-</span><span data-line="488">                        <span class="s2">&quot;pages&quot;</span><span class="p">,</span>
-</span><span data-line="489">                        <span class="s2">&quot;--&quot;</span><span class="p">,</span>
-</span><span data-line="490">                        <span class="s2">&quot;git&quot;</span><span class="p">,</span>
-</span><span data-line="491">                        <span class="s2">&quot;--git-dir&quot;</span><span class="p">,</span>
-</span><span data-line="492">                        <span class="n">GIT_DIR</span><span class="p">,</span>
-</span><span data-line="493">                        <span class="s2">&quot;push&quot;</span><span class="p">,</span>
-</span><span data-line="494">                        <span class="n">line</span><span class="p">,</span>
-</span><span data-line="495">                        <span class="s2">&quot;master&quot;</span><span class="p">,</span>
-</span><span data-line="496">                    <span class="p">],</span>
-</span><span data-line="497">                    <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-</span><span data-line="498">                <span class="p">)</span>
-</span><span data-line="499">
-</span><span data-line="500">        <span class="k">return</span> <span class="mi">0</span>
-</span><span data-line="501">
+</span><span data-line="364">
+</span><span data-line="365"><span class="k">class</span><span class="w"> </span><span class="nc">DistributeCertsCommand</span><span class="p">:</span>
+</span><span data-line="366">    <span class="k">def</span><span class="w"> </span><span class="nf">add_subparser</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sub</span><span class="p">):</span>
+</span><span data-line="367">        <span class="n">p</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span>
+</span><span data-line="368">            <span class="s2">&quot;distribute-certs&quot;</span><span class="p">,</span>
+</span><span data-line="369">            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Encrypt certs to mirrors and push infra branch&quot;</span><span class="p">,</span>
+</span><span data-line="370">        <span class="p">)</span>
+</span><span data-line="371">        <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--domain&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span data-line="372">        <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+</span><span data-line="373">            <span class="s2">&quot;--fullchain&quot;</span><span class="p">,</span>
+</span><span data-line="374">            <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span data-line="375">            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to fullchain.pem (defaults to /etc/letsencrypt/live/&lt;domain&gt;/fullchain.pem)&quot;</span><span class="p">,</span>
+</span><span data-line="376">        <span class="p">)</span>
+</span><span data-line="377">        <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+</span><span data-line="378">            <span class="s2">&quot;--privkey&quot;</span><span class="p">,</span>
+</span><span data-line="379">            <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span data-line="380">            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to privkey.pem (defaults to /etc/letsencrypt/live/&lt;domain&gt;/privkey.pem)&quot;</span><span class="p">,</span>
+</span><span data-line="381">        <span class="p">)</span>
+</span><span data-line="382">        <span class="n">p</span><span class="o">.</span><span class="n">set_defaults</span><span class="p">(</span><span class="n">handle</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="p">)</span>
+</span><span data-line="383">
+</span><span data-line="384">    <span class="k">def</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+</span><span data-line="385">        <span class="n">_ensure_root</span><span class="p">()</span>
+</span><span data-line="386">
+</span><span data-line="387">        <span class="n">domain</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">domain</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span><span data-line="388">        <span class="k">if</span> <span class="ow">not</span> <span class="n">domain</span><span class="p">:</span>
+</span><span data-line="389">            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Domain must be non-empty.&quot;</span><span class="p">)</span>
+</span><span data-line="390">            <span class="k">return</span> <span class="mi">1</span>
+</span><span data-line="391">
+</span><span data-line="392">        <span class="n">fullchain</span> <span class="o">=</span> <span class="p">(</span>
+</span><span data-line="393">            <span class="n">Path</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">fullchain</span><span class="p">)</span>
+</span><span data-line="394">            <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">fullchain</span>
+</span><span data-line="395">            <span class="k">else</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;/etc/letsencrypt/live&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">domain</span> <span class="o">/</span> <span class="s2">&quot;fullchain.pem&quot;</span>
+</span><span data-line="396">        <span class="p">)</span>
+</span><span data-line="397">        <span class="n">privkey</span> <span class="o">=</span> <span class="p">(</span>
+</span><span data-line="398">            <span class="n">Path</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">privkey</span><span class="p">)</span>
+</span><span data-line="399">            <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">privkey</span>
+</span><span data-line="400">            <span class="k">else</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;/etc/letsencrypt/live&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">domain</span> <span class="o">/</span> <span class="s2">&quot;privkey.pem&quot;</span>
+</span><span data-line="401">        <span class="p">)</span>
+</span><span data-line="402">        <span class="k">if</span> <span class="ow">not</span> <span class="n">fullchain</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">privkey</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+</span><span data-line="403">            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Missing fullchain or privkey.&quot;</span><span class="p">)</span>
+</span><span data-line="404">            <span class="k">return</span> <span class="mi">1</span>
+</span><span data-line="405">
+</span><span data-line="406">        <span class="n">recipients</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span data-line="407">        <span class="k">if</span> <span class="n">KEYS_DIR</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+</span><span data-line="408">            <span class="k">for</span> <span class="n">pub</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">KEYS_DIR</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*.pub&quot;</span><span class="p">)):</span>
+</span><span data-line="409">                <span class="n">recipients</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pub</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</span><span data-line="410">        <span class="k">if</span> <span class="ow">not</span> <span class="n">recipients</span><span class="p">:</span>
+</span><span data-line="411">            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No recipients found in </span><span class="si">{</span><span class="n">KEYS_DIR</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span data-line="412">            <span class="k">return</span> <span class="mi">1</span>
+</span><span data-line="413">
+</span><span data-line="414">        <span class="n">CERTS_DIR</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span data-line="415">        <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmpdir</span><span class="p">:</span>
+</span><span data-line="416">            <span class="n">tar_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">)</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">domain</span><span class="si">}</span><span class="s2">.tar.gz&quot;</span>
+</span><span data-line="417">            <span class="k">with</span> <span class="n">tarfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">tar_path</span><span class="p">,</span> <span class="s2">&quot;w:gz&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tar</span><span class="p">:</span>
+</span><span data-line="418">                <span class="n">tar</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">fullchain</span><span class="p">,</span> <span class="n">arcname</span><span class="o">=</span><span class="s2">&quot;fullchain.pem&quot;</span><span class="p">)</span>
+</span><span data-line="419">                <span class="n">tar</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">privkey</span><span class="p">,</span> <span class="n">arcname</span><span class="o">=</span><span class="s2">&quot;privkey.pem&quot;</span><span class="p">)</span>
+</span><span data-line="420">            <span class="n">out_path</span> <span class="o">=</span> <span class="n">CERTS_DIR</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">domain</span><span class="si">}</span><span class="s2">.tar.age&quot;</span>
+</span><span data-line="421">            <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;--encrypt&quot;</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">out_path</span><span class="p">)]</span>
+</span><span data-line="422">            <span class="k">for</span> <span class="n">recipient</span> <span class="ow">in</span> <span class="n">recipients</span><span class="p">:</span>
+</span><span data-line="423">                <span class="n">cmd</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;-r&quot;</span><span class="p">,</span> <span class="n">recipient</span><span class="p">])</span>
+</span><span data-line="424">            <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">tar_path</span><span class="p">))</span>
+</span><span data-line="425">            <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span data-line="426">
+</span><span data-line="427">        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+</span><span data-line="428">            <span class="p">[</span>
+</span><span data-line="429">                <span class="s2">&quot;git&quot;</span><span class="p">,</span>
+</span><span data-line="430">                <span class="s2">&quot;--git-dir&quot;</span><span class="p">,</span>
+</span><span data-line="431">                <span class="n">GIT_DIR</span><span class="p">,</span>
+</span><span data-line="432">                <span class="s2">&quot;--work-tree&quot;</span><span class="p">,</span>
+</span><span data-line="433">                <span class="n">INFRA_DIR</span><span class="p">,</span>
+</span><span data-line="434">                <span class="s2">&quot;checkout&quot;</span><span class="p">,</span>
+</span><span data-line="435">                <span class="s2">&quot;-f&quot;</span><span class="p">,</span>
+</span><span data-line="436">                <span class="s2">&quot;master&quot;</span><span class="p">,</span>
+</span><span data-line="437">            <span class="p">],</span>
+</span><span data-line="438">            <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span data-line="439">        <span class="p">)</span>
+</span><span data-line="440">        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+</span><span data-line="441">            <span class="p">[</span>
+</span><span data-line="442">                <span class="s2">&quot;git&quot;</span><span class="p">,</span>
+</span><span data-line="443">                <span class="s2">&quot;--git-dir&quot;</span><span class="p">,</span>
+</span><span data-line="444">                <span class="n">GIT_DIR</span><span class="p">,</span>
+</span><span data-line="445">                <span class="s2">&quot;--work-tree&quot;</span><span class="p">,</span>
+</span><span data-line="446">                <span class="n">INFRA_DIR</span><span class="p">,</span>
+</span><span data-line="447">                <span class="s2">&quot;add&quot;</span><span class="p">,</span>
+</span><span data-line="448">                <span class="s2">&quot;infra/certs&quot;</span><span class="p">,</span>
+</span><span data-line="449">            <span class="p">],</span>
+</span><span data-line="450">            <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span data-line="451">        <span class="p">)</span>
+</span><span data-line="452">        <span class="n">diff</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+</span><span data-line="453">            <span class="p">[</span>
+</span><span data-line="454">                <span class="s2">&quot;git&quot;</span><span class="p">,</span>
+</span><span data-line="455">                <span class="s2">&quot;--git-dir&quot;</span><span class="p">,</span>
+</span><span data-line="456">                <span class="n">GIT_DIR</span><span class="p">,</span>
+</span><span data-line="457">                <span class="s2">&quot;--work-tree&quot;</span><span class="p">,</span>
+</span><span data-line="458">                <span class="n">INFRA_DIR</span><span class="p">,</span>
+</span><span data-line="459">                <span class="s2">&quot;diff&quot;</span><span class="p">,</span>
+</span><span data-line="460">                <span class="s2">&quot;--cached&quot;</span><span class="p">,</span>
+</span><span data-line="461">                <span class="s2">&quot;--quiet&quot;</span><span class="p">,</span>
+</span><span data-line="462">            <span class="p">]</span>
+</span><span data-line="463">        <span class="p">)</span>
+</span><span data-line="464">        <span class="k">if</span> <span class="n">diff</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span data-line="465">            <span class="k">return</span> <span class="mi">0</span>
+</span><span data-line="466">        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+</span><span data-line="467">            <span class="p">[</span>
+</span><span data-line="468">                <span class="s2">&quot;git&quot;</span><span class="p">,</span>
+</span><span data-line="469">                <span class="s2">&quot;--git-dir&quot;</span><span class="p">,</span>
+</span><span data-line="470">                <span class="n">GIT_DIR</span><span class="p">,</span>
+</span><span data-line="471">                <span class="s2">&quot;--work-tree&quot;</span><span class="p">,</span>
+</span><span data-line="472">                <span class="n">INFRA_DIR</span><span class="p">,</span>
+</span><span data-line="473">                <span class="s2">&quot;commit&quot;</span><span class="p">,</span>
+</span><span data-line="474">                <span class="s2">&quot;-m&quot;</span><span class="p">,</span>
+</span><span data-line="475">                <span class="sa">f</span><span class="s2">&quot;Update certs for </span><span class="si">{</span><span class="n">domain</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span data-line="476">            <span class="p">],</span>
+</span><span data-line="477">            <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span data-line="478">        <span class="p">)</span>
+</span><span data-line="479">
+</span><span data-line="480">        <span class="k">if</span> <span class="n">MIRRORS_LIST</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+</span><span data-line="481">            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">MIRRORS_LIST</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+</span><span data-line="482">                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span><span data-line="483">                <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span> <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">):</span>
+</span><span data-line="484">                    <span class="k">continue</span>
+</span><span data-line="485">                <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+</span><span data-line="486">                    <span class="p">[</span>
+</span><span data-line="487">                        <span class="s2">&quot;runuser&quot;</span><span class="p">,</span>
+</span><span data-line="488">                        <span class="s2">&quot;-u&quot;</span><span class="p">,</span>
+</span><span data-line="489">                        <span class="s2">&quot;pages&quot;</span><span class="p">,</span>
+</span><span data-line="490">                        <span class="s2">&quot;--&quot;</span><span class="p">,</span>
+</span><span data-line="491">                        <span class="s2">&quot;git&quot;</span><span class="p">,</span>
+</span><span data-line="492">                        <span class="s2">&quot;--git-dir&quot;</span><span class="p">,</span>
+</span><span data-line="493">                        <span class="n">GIT_DIR</span><span class="p">,</span>
+</span><span data-line="494">                        <span class="s2">&quot;push&quot;</span><span class="p">,</span>
+</span><span data-line="495">                        <span class="n">line</span><span class="p">,</span>
+</span><span data-line="496">                        <span class="s2">&quot;master&quot;</span><span class="p">,</span>
+</span><span data-line="497">                    <span class="p">],</span>
+</span><span data-line="498">                    <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span data-line="499">                <span class="p">)</span>
+</span><span data-line="500">
+</span><span data-line="501">        <span class="k">return</span> <span class="mi">0</span>
 </span><span data-line="502">
-</span><span data-line="503"><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">argv</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-</span><span data-line="504">    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">prog</span><span class="o">=</span><span class="s2">&quot;infra&quot;</span><span class="p">)</span>
-</span><span data-line="505">    <span class="n">sub</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_subparsers</span><span class="p">(</span><span class="n">dest</span><span class="o">=</span><span class="s2">&quot;cmd&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span data-line="506">    <span class="n">ApplyCommand</span><span class="p">()</span><span class="o">.</span><span class="n">add_subparser</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span>
-</span><span data-line="507">    <span class="n">BuilderPublishCommand</span><span class="p">()</span><span class="o">.</span><span class="n">add_subparser</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span>
-</span><span data-line="508">    <span class="n">DistributeChallengeCommand</span><span class="p">()</span><span class="o">.</span><span class="n">add_subparser</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span>
-</span><span data-line="509">    <span class="n">CleanupChallengeCommand</span><span class="p">()</span><span class="o">.</span><span class="n">add_subparser</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span>
-</span><span data-line="510">    <span class="n">DistributeCertsCommand</span><span class="p">()</span><span class="o">.</span><span class="n">add_subparser</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span>
-</span><span data-line="511">
-</span><span data-line="512">    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">argv</span><span class="p">)</span>
-</span><span data-line="513">    <span class="k">return</span> <span class="n">args</span><span class="o">.</span><span class="n">handle</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
-</span><span data-line="514">
+</span><span data-line="503">
+</span><span data-line="504"><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">argv</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span data-line="505">    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">prog</span><span class="o">=</span><span class="s2">&quot;infra&quot;</span><span class="p">)</span>
+</span><span data-line="506">    <span class="n">sub</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_subparsers</span><span class="p">(</span><span class="n">dest</span><span class="o">=</span><span class="s2">&quot;cmd&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span data-line="507">    <span class="n">ApplyCommand</span><span class="p">()</span><span class="o">.</span><span class="n">add_subparser</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span>
+</span><span data-line="508">    <span class="n">BuilderPublishCommand</span><span class="p">()</span><span class="o">.</span><span class="n">add_subparser</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span>
+</span><span data-line="509">    <span class="n">DistributeChallengeCommand</span><span class="p">()</span><span class="o">.</span><span class="n">add_subparser</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span>
+</span><span data-line="510">    <span class="n">CleanupChallengeCommand</span><span class="p">()</span><span class="o">.</span><span class="n">add_subparser</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span>
+</span><span data-line="511">    <span class="n">DistributeCertsCommand</span><span class="p">()</span><span class="o">.</span><span class="n">add_subparser</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span>
+</span><span data-line="512">
+</span><span data-line="513">    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">argv</span><span class="p">)</span>
+</span><span data-line="514">    <span class="k">return</span> <span class="n">args</span><span class="o">.</span><span class="n">handle</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
 </span><span data-line="515">
-</span><span data-line="516"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-</span><span data-line="517">    <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</span><span data-line="516">
+</span><span data-line="517"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span data-line="518">    <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
 </span></pre></div>
 </div>
 </section>
