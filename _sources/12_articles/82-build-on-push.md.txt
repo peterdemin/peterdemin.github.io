@@ -65,6 +65,15 @@ Setting up the serving host is similar, except that instead of building, it just
 
 I added a flag to nginx to serve static precompressed gzip files to save CPU on the serving side.
 
+All the heavy lifting is handled by a Python script:
+
+`infra/cli.py`:
+```{literalinclude} ../../infra/cli.py
+:language: python
+```
+
+## Certificate Hell
+
 Then I deployed another mirror to https://mirror.demin.dev under a separate Google Cloud Platform account.
 
 ## Infra Branch
