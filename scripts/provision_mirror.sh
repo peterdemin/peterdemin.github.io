@@ -38,25 +38,20 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILG64GMcBIxl4rGuRum2n07Kf7dE9CUlzLl84e/TWvTM
 EOF
 test -f ~pages/.ssh/id_ed25519 || sudo -u pages /bin/bash -c 'ssh-keygen -t ed25519 -f ~pages/.ssh/id_ed25519 -N ""'
 
-echo "Copy public key to if it's a primary edge:"
+echo "Copy public key to infra/keys/ directory:"
 sudo -u pages /bin/bash -c 'ssh-keygen -yf ~pages/.ssh/id_ed25519'
 echo
 
-test -d ~pages/repo.git || sudo -u pages /bin/bash -c "git init --bare ~pages/repo.git"
-install -m 0755 /dev/stdin ~pages/repo.git/hooks/post-receive <<'EOF'
-#!/usr/bin/env bash
-set -euo pipefail
+test -d ~pages/pages.git || sudo -u pages /bin/bash -c "git init --bare ~pages/pages.git"
+install -m 0755 /dev/stdin ~pages/pages.git/hooks/post-receive <<'EOF'
+#!/bin/bash
+exec git --git-dir="/home/pages/pages.git" --work-tree="/var/www/pages" checkout -f master
+EOF
 
-while read -r oldrev newrev refname; do
-  case "$refname" in
-    refs/heads/master)
-      git --git-dir="/home/pages/repo.git" --work-tree="/var/www/pages" checkout -f master
-      ;;
-    refs/heads/infra)
-      git --git-dir="/home/pages/repo.git" --work-tree="/var/lib/infra" checkout -f infra
-      ;;
-  esac
-done
+test -d ~pages/infra.git || sudo -u pages /bin/bash -c "git init --bare ~pages/infra.git"
+install -m 0755 /dev/stdin ~pages/infra.git/hooks/post-receive <<'EOF'
+#!/bin/bash
+exec git --git-dir="/home/pages/infra.git" --work-tree="/var/lib/infra" checkout -f master
 EOF
 
 install -m 0644 /dev/stdin /etc/systemd/system/infra-apply.path <<'EOF'

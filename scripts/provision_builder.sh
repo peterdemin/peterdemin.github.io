@@ -30,6 +30,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDYxOnUHnt2KZ8kdjYjO/xWflaFKxXXJLv6V8/TiXgo
 EOF
 test -d ~builder/repo.git || sudo -u builder -s /bin/bash -c "git init --bare ~builder/repo.git"
 test -d ~builder/pages.git || sudo -u builder -s /bin/bash -c "git init --bare ~builder/pages.git"
+test -d ~builder/infra.git || sudo -u builder -s /bin/bash -c "git init --bare ~builder/infra.git"
 test -d ~builder/venv || sudo -u builder -s /bin/bash -c "python3 -m venv ~builder/venv"
 test -f ~builder/.ssh/id_ed25519 || sudo -u builder -s /bin/bash -c 'ssh-keygen -t ed25519 -f ~builder/.ssh/id_ed25519 -N ""'
 echo "Copy public key to serving host:"

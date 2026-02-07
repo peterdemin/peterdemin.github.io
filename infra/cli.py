@@ -150,9 +150,10 @@ class ApplyCommand:
 
 class BuilderPublishCommand:
     def __init__(self) -> None:
-        self._pages_git = Path.home() / "pages.git"
-        self._infra = Path.home() / "infra"
-        self._bare_git = ["git", "--git-dir", self._pages_git]
+        pages_dir = Path.home() / "pages.git"
+        self._pages_git = ["git", "--git-dir", pages_dir]
+        infra_dir = Path.home() / "infra.git"
+        self._infra_git = ["git", "--git-dir", infra_dir]
 
     def add_subparser(self, sub):
         p = sub.add_parser("builder-publish", help="Push to mirrors")
@@ -160,34 +161,32 @@ class BuilderPublishCommand:
         p.set_defaults(handle=self.handle)
 
     def handle(self, args):
+        """
+        Publishes content and infra changes to all mirrors.
+
+        Executed from the worktree directory of source repo.
+        """
         mirrors = self._load_mirrors()
         self._push_content(args.content, mirrors)
-        return self._push_infra(mirrors)
-
-    def _push_infra(self, mirrors: list[str]) -> int:
-        if not self._infra.is_dir():
-            subprocess.check_call(
-                self._bare_git + ["worktree", "add", "--orphan", "infra", self._infra]
-            )
-        cwd = str(self._infra)
-        primary = self._pick_primary(mirrors)
-        if subprocess.call(["git", "fetch", "--force", primary, "infra"], cwd=cwd) == 0:
-            subprocess.check_call(["git", "reset", "--hard", "FETCH_HEAD"], cwd=cwd)
-        shutil.copytree("infra", self._infra, dirs_exist_ok=True)
-        subprocess.check_call(["git", "add", "-A", "."], cwd=cwd)
-        subprocess.call(["git", "commit", "-m", "infra"], cwd=cwd)
-        self._push("infra", mirrors)
+        infra_mirrors = [m.replace('pages.git', 'infra.git') for m in mirrors]
+        self._push_infra(infra_mirrors)
         return 0
 
-    def _push(self, branch: str, mirrors: list[str]) -> None:
-        for mirror in mirrors:
-            subprocess.call(self._bare_git + ["push", mirror, branch])
-
     def _push_content(self, content: str, mirrors: list[str]) -> None:
-        git = self._bare_git + ["-C", content, "--work-tree", "."]
+        git = self._pages_git + ["-C", content, "--work-tree", "."]
         subprocess.check_call(git + ["add", "-A", "."])
         subprocess.call(git + ["commit", "-m", "build pages"])
-        self._push("master", mirrors)
+        for mirror in mirrors:
+            subprocess.call(self._pages_git + ["push", mirror, "master"])
+
+    def _push_infra(self, mirrors: list[str]) -> None:
+        git = self._infra_git + ['-C', "infra", "--work-tree", "."]
+        subprocess.check_call(git + ["add", "-A", "."])
+        subprocess.call(git + ["commit", "-m", "infra"])
+        primary = self._pick_primary(mirrors)
+        subprocess.check_call(git + ["pull", "--rebase", primary, "master"])
+        for mirror in mirrors:
+            subprocess.call(self._pages_git + ["push", mirror, "master"])
 
     def _load_mirrors(self) -> list[str]:
         return [
