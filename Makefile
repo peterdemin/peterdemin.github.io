@@ -105,12 +105,6 @@ pages:
 	&& git --git-dir="${HOME}/pages.git" --work-tree . push origin master \
 	&& git --git-dir="${HOME}/pages.git" --work-tree . push mirror master
 
-.PHONY: infra_init
-infra_init:
-	python3 infra/cli.py update-mirrors
-	python3 infra/cli.py fetch-keys
-	git push origin master
-
 .PHONY: master
 master:
 	git checkout master

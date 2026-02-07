@@ -177,49 +177,6 @@ class ApplyCommand:
         subprocess.check_call(["chown", "pages:pages", str(AUTHORIZED_KEYS)])
 
 
-class FetchKeysCommand:
-    def add_subparser(self, sub):
-        p = sub.add_parser(
-            "fetch-keys",
-            help="Fetch mirror public keys from infra branch remotes",
-        )
-        p.set_defaults(handle=self.handle)
-
-    def handle(self, args):
-        del args
-        if not MIRRORS_LIST.exists():
-            print(f"Missing {MIRRORS_LIST}")
-            return 1
-
-        MIRRORS_OUT.mkdir(parents=True, exist_ok=True)
-        mirrors = []
-        for line in MIRRORS_LIST.read_text(encoding="utf-8").splitlines():
-            line = line.strip()
-            if not line or line.startswith("#"):
-                continue
-            mirrors.append(line)
-
-        if not mirrors:
-            print(f"No mirrors listed in {MIRRORS_LIST}")
-            return 1
-
-        for mirror in mirrors:
-            ref = f"refs/infra-remotes/{_safe_ref_name(mirror)}"
-            _run_git(["fetch", mirror, f"master:{ref}"])
-            ls = _run_git(
-                ["ls-tree", "-r", "--name-only", ref, "--", "local-keys"],
-                capture=True,
-            )
-            for relpath in ls.stdout.splitlines():
-                if not relpath.endswith(".pub"):
-                    continue
-                blob = _run_git(["show", f"{ref}:{relpath}"], capture=True)
-                dest = MIRRORS_OUT / Path(relpath).name
-                dest.write_text(blob.stdout, encoding="utf-8")
-
-        return 0
-
-
 class MakeCommand:
     def add_subparser(self, sub):
         p = sub.add_parser("make", help="Run build command in current directory")
@@ -540,7 +497,6 @@ def main(argv=None):
     parser = argparse.ArgumentParser(prog="infra")
     sub = parser.add_subparsers(dest="cmd", required=True)
     ApplyCommand().add_subparser(sub)
-    FetchKeysCommand().add_subparser(sub)
     MakeCommand().add_subparser(sub)
     DistributeChallengeCommand().add_subparser(sub)
     CleanupChallengeCommand().add_subparser(sub)
