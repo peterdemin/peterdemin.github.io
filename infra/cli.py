@@ -133,17 +133,16 @@ class ApplyCommand:
             print(f"Missing {LOCAL_PUB}; cannot evaluate primary.")
             return 1
 
-        primary_fp = self._fingerprint(PRIMARY_KEY)
-        local_fp = self._fingerprint(LOCAL_PUB)
-
-        if primary_fp == local_fp:
-            subprocess.run(
-                ["systemctl", "enable", "--now", "certbot.timer"], check=True
-            )
-        else:
-            subprocess.run(
-                ["systemctl", "disable", "--now", "certbot.timer"], check=True
-            )
+        # primary_fp = self._fingerprint(PRIMARY_KEY)
+        # local_fp = self._fingerprint(LOCAL_PUB)
+        # if primary_fp == local_fp:
+        #     subprocess.check_call(
+        #         ["systemctl", "enable", "--now", "certbot.timer"]
+        #     )
+        # else:
+        #     subprocess.check_call(
+        #         ["systemctl", "disable", "--now", "certbot.timer"]
+        #     )
 
         if KEYS_DIR.exists():
             keys = []
