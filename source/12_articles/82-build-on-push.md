@@ -12,7 +12,7 @@ In the spirit of my recent fascination with self-sovereignity and decentralizati
 
 The hack is to run a Debian VM on my home server with a git repo and post-receive hook that builds a static website.
 The built artifact is then committed to another repo, which is pushed to a Cloud VPS.
-I could've simplified the setup by building the website directly on the VPS, the problem is that it's so tiny, I doubt it can handle the build process.
+I could've simplified the setup by building the website directly on the VPS, the problem is that the VPS is so tiny, I doubt it can handle the build process.
 
 The website build process got pretty involved over the years since I'm hoarding all my petty experiments for no good reason.
 The builder needs Python, graphviz, NodeJS, and customary imperial tonne of npm packages.
@@ -20,6 +20,8 @@ On the bright side, the full build process is just a single make command.
 
 I'll keep the VM running at all times and preserve the build files so it can run incrementally.
 I'll also ship the build artifact through git, which should be much faster then a complete artifact every time.
+
+And I'll have a mirror VPS to open a can of HTTPS certificate synchronization worms.
 
 ## Virtual Machine
 
