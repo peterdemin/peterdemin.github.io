@@ -174,6 +174,8 @@ class BuilderPublishCommand:
         if subprocess.call(git + ["fetch", "--force", primary, "infra"]) == 0:
             subprocess.check_call(git + ["reset", "--hard", "FETCH_HEAD"])
         shutil.copytree("infra", self._infra, dirs_exist_ok=True)
+        git_text = (self._infra / ".git").read_text()
+        print(f"{git_text=}")
         subprocess.check_call(self._bare_git + ['worktree', 'list'])
         subprocess.check_call(git + ["add", "-A", "."])
         subprocess.call(git + ["commit", "-m", "infra"])
