@@ -184,7 +184,7 @@ class BuilderPublishCommand:
         subprocess.check_call(git + ["add", "-A", "."])
         subprocess.call(git + ["commit", "-m", "infra"])
         primary = self._pick_primary(mirrors)
-        subprocess.check_call(git + ["pull", "--rebase", primary, "master"])
+        subprocess.call(git + ["pull", "--rebase", primary, "master"])
         for mirror in mirrors:
             subprocess.call(self._pages_git + ["push", mirror, "master"])
 
