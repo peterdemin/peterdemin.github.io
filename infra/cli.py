@@ -22,98 +22,9 @@ CERTS_DIR = INFRA_DIR / "certs"
 GIT_DIR = HOME_DIR / "repo.git"
 
 
-def _read_key(path: Path) -> str:
-    return path.read_text(encoding="utf-8").strip()
-
-
 def _ensure_root():
     if os.geteuid() != 0:
         raise SystemExit("Must run as root.")
-
-
-def _safe_ref_name(value: str) -> str:
-    cleaned = []
-    for ch in value:
-        if ch.isalnum():
-            cleaned.append(ch)
-        else:
-            cleaned.append("_")
-    return "".join(cleaned).strip("_") or "mirror"
-
-
-def _run_git(args, cwd=None, capture=False):
-    return subprocess.run(
-        ["git", *args],
-        check=True,
-        cwd=cwd,
-        capture_output=capture,
-        text=capture,
-    )
-
-
-def _sync_challenges():
-    if not CHALLENGES_DIR.exists():
-        return
-    WEBROOT_CHALLENGES.mkdir(parents=True, exist_ok=True)
-    for path in WEBROOT_CHALLENGES.glob("*"):
-        if path.is_file():
-            path.unlink()
-    for src in CHALLENGES_DIR.glob("*"):
-        if not src.is_file():
-            continue
-        shutil.copyfile(src, WEBROOT_CHALLENGES / src.name)
-
-
-def _install_certs_from_tar(tar_path: Path):
-    with tempfile.TemporaryDirectory() as tmpdir:
-        with tarfile.open(tar_path, "r:gz") as tar:
-            tar.extractall(tmpdir)
-        tmp = Path(tmpdir)
-        domain = tar_path.stem.replace(".tar", "")
-        live_dir = Path("/etc/letsencrypt/live") / domain
-        live_dir.mkdir(parents=True, exist_ok=True)
-        fullchain = tmp / "fullchain.pem"
-        privkey = tmp / "privkey.pem"
-        if not fullchain.exists() or not privkey.exists():
-            raise RuntimeError("Missing cert files in archive.")
-        shutil.copyfile(fullchain, live_dir / "fullchain.pem")
-        shutil.copyfile(privkey, live_dir / "privkey.pem")
-        os.chmod(live_dir / "fullchain.pem", 0o644)
-        os.chmod(live_dir / "privkey.pem", 0o600)
-
-
-def _sync_certs():
-    if not CERTS_DIR.exists():
-        return
-    updated = False
-    key_path = Path("/home/pages/.ssh/id_ed25519")
-    if not key_path.exists():
-        print(f"Missing decryption key: {key_path}")
-        return
-    for enc in CERTS_DIR.glob("*.tar.age"):
-        with tempfile.TemporaryDirectory() as tmpdir:
-            out = Path(tmpdir) / enc.name.replace(".age", "")
-            try:
-                subprocess.run(
-                    [
-                        "age",
-                        "--decrypt",
-                        "-i",
-                        str(key_path),
-                        "-o",
-                        str(out),
-                        str(enc),
-                    ],
-                    check=True,
-                )
-                _install_certs_from_tar(out)
-                updated = True
-            except subprocess.CalledProcessError:
-                print(f"Failed to decrypt cert bundle: {enc}")
-            except (OSError, RuntimeError) as exc:
-                print(f"Failed to install certs from {enc}: {exc}")
-    if updated:
-        subprocess.run(["systemctl", "reload", "nginx"], check=True)
 
 
 class ApplyCommand:
@@ -148,7 +59,7 @@ class ApplyCommand:
             keys = []
             for path in (BUILDER_KEY, PRIMARY_KEY):
                 if path.exists():
-                    keys.append(_read_key(path))
+                    keys.append(path.read_text(encoding="utf-8").strip())
             if not keys:
                 print(
                     "No builder/primary keys found in infra/keys; "
@@ -157,9 +68,8 @@ class ApplyCommand:
             else:
                 self._write_authorized_keys(keys)
 
-        _sync_challenges()
-        _sync_certs()
-
+        self._sync_challenges()
+        self._sync_certs()
         return 0
 
     def _fingerprint(self, path: Path) -> str:
@@ -175,37 +85,110 @@ class ApplyCommand:
         os.chmod(AUTHORIZED_KEYS, 0o600)
         subprocess.check_call(["chown", "pages:pages", str(AUTHORIZED_KEYS)])
 
+    def _sync_challenges(self) -> None:
+        if not CHALLENGES_DIR.exists():
+            return
+        WEBROOT_CHALLENGES.mkdir(parents=True, exist_ok=True)
+        for path in WEBROOT_CHALLENGES.glob("*"):
+            if path.is_file():
+                path.unlink()
+        for src in CHALLENGES_DIR.glob("*"):
+            if not src.is_file():
+                continue
+            shutil.copyfile(src, WEBROOT_CHALLENGES / src.name)
+
+    def _sync_certs(self) -> None:
+        if not CERTS_DIR.exists():
+            return
+        updated = False
+        key_path = Path("/home/pages/.ssh/id_ed25519")
+        if not key_path.exists():
+            print(f"Missing decryption key: {key_path}")
+            return
+        for enc in CERTS_DIR.glob("*.tar.age"):
+            with tempfile.TemporaryDirectory() as tmpdir:
+                out = Path(tmpdir) / enc.name.replace(".age", "")
+                try:
+                    subprocess.run(
+                        [
+                            "age",
+                            "--decrypt",
+                            "-i",
+                            str(key_path),
+                            "-o",
+                            str(out),
+                            str(enc),
+                        ],
+                        check=True,
+                    )
+                    self._install_certs_from_tar(out)
+                    updated = True
+                except subprocess.CalledProcessError:
+                    print(f"Failed to decrypt cert bundle: {enc}")
+                except (OSError, RuntimeError) as exc:
+                    print(f"Failed to install certs from {enc}: {exc}")
+        if updated:
+            subprocess.run(["systemctl", "reload", "nginx"], check=True)
+
+    def _install_certs_from_tar(self, tar_path: Path) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            with tarfile.open(tar_path, "r:gz") as tar:
+                tar.extractall(tmpdir)
+            tmp = Path(tmpdir)
+            domain = tar_path.stem.replace(".tar", "")
+            live_dir = Path("/etc/letsencrypt/live") / domain
+            live_dir.mkdir(parents=True, exist_ok=True)
+            fullchain = tmp / "fullchain.pem"
+            privkey = tmp / "privkey.pem"
+            if not fullchain.exists() or not privkey.exists():
+                raise RuntimeError("Missing cert files in archive.")
+            shutil.copyfile(fullchain, live_dir / "fullchain.pem")
+            shutil.copyfile(privkey, live_dir / "privkey.pem")
+            os.chmod(live_dir / "fullchain.pem", 0o644)
+            os.chmod(live_dir / "privkey.pem", 0o600)
+
 
 class BuilderPublishCommand:
+    def __init__(self) -> None:
+        self._pages_git = Path.home() / "pages.git"
+        self._infra = Path.home() / "infra"
+        self._bare_git = ["git", "--git-dir", self._pages_git]
+
     def add_subparser(self, sub):
         p = sub.add_parser("builder-publish", help="Push to mirrors")
-        p.add_argument("content", help="Directory with content to be published")
+        p.add_argument("content", help="Directory with content to publish")
         p.set_defaults(handle=self.handle)
 
     def handle(self, args):
         mirrors = self._load_mirrors()
+        self._push_content(args.content, mirrors)
+        return self._push_infra(mirrors)
+
+    def _push_infra(self, mirrors: list[str]) -> int:
         primary = self._pick_primary(mirrors)
-        pages_git = Path.home() / "pages.git"
-        bare_git = ["git", "--git-dir", pages_git]
-        content = Path(args.content)
-        git = bare_git + ['-C', content,  '--work-tree', '.']
-        subprocess.check_call(git + ['add', '-A', '.'])
-        subprocess.call(git + ['commit', '-m', 'build pages'])
-        for mirror in mirrors:
-            subprocess.call(bare_git + ["push", mirror, "master"])
-        subprocess.call(bare_git + ["fetch", primary, "infra:infra"])
-        with tempfile.TemporaryDirectory() as work_tree:
-            git = bare_git + ["--work-tree", work_tree]
-            if subprocess.call(git + ["checkout", "-f", "infra"]) != 0:
-                subprocess.check_call(git + ["checkout", "--orphan", "infra"])
-            shutil.copytree("infra", work_tree, dirs_exist_ok=True)
-            subprocess.check_call(git + ["add", "."])
-            if subprocess.call(git + ["diff", "--cached", "--quiet"]) == 0:
-                return 0
-            subprocess.check_call(git + ["commit", "-m", "infra"])
-        for mirror in mirrors:
-            subprocess.call(bare_git + ["push", mirror, "infra"])
+        infra = Path.home() / "infra"
+        if not infra.is_dir():
+            subprocess.check_call(
+                self._bare_git + ["worktree", "add", "--orphan", infra]
+            )
+        git = ["git", "-C", infra]
+        if subprocess.call(git + ["fetch", "--force", primary, "infra"]) == 0:
+            subprocess.check_call(git + ["reset", "--hard", "FETCH_HEAD"])
+        shutil.copytree("infra", infra, dirs_exist_ok=True)
+        subprocess.check_call(git + ["add", "-A", "."])
+        subprocess.call(git + ["commit", "-m", "infra"])
+        self._push("infra", mirrors)
         return 0
+
+    def _push(self, branch: str, mirrors: list[str]) -> None:
+        for mirror in mirrors:
+            subprocess.call(self._bare_git + ["push", mirror, branch])
+
+    def _push_content(self, content: str, mirrors: list[str]) -> None:
+        git = self._bare_git + ["-C", content, "--work-tree", "."]
+        subprocess.check_call(git + ["add", "-A", "."])
+        subprocess.call(git + ["commit", "-m", "build pages"])
+        self._push("master", mirrors)
 
     def _load_mirrors(self) -> list[str]:
         return [
