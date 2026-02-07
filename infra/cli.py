@@ -180,7 +180,7 @@ class ApplyCommand:
 class BuilderPublishCommand:
     def add_subparser(self, sub):
         p = sub.add_parser("builder-publish", help="Push to mirrors")
-        p.add_argument("content", "Directory with content to be published")
+        p.add_argument("content", help="Directory with content to be published")
         p.set_defaults(handle=self.handle)
 
     def handle(self, args):
