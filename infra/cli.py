@@ -177,17 +177,50 @@ class ApplyCommand:
         subprocess.check_call(["chown", "pages:pages", str(AUTHORIZED_KEYS)])
 
 
-class MakeCommand:
+class BuilderPublishCommand:
     def add_subparser(self, sub):
-        p = sub.add_parser("make", help="Run build command in current directory")
-        p.add_argument("command", nargs=argparse.REMAINDER)
+        p = sub.add_parser("builder-publish", help="Push to mirrors")
+        p.add_argument("content", "Directory with content to be published")
         p.set_defaults(handle=self.handle)
 
     def handle(self, args):
-        if not args.command:
-            print("No command provided.")
-            return 1
-        return subprocess.run(["make"] + args.command, check=True).returncode
+        mirrors = self._load_mirrors()
+        primary = self._pick_primary(mirrors)
+        pages_git = Path.home() / "pages.git"
+        bare_git = ["git", "--git-dir", pages_git]
+        content = Path(args.content)
+        git = bare_git + ['-C', content,  '--work-tree', '.']
+        subprocess.check_call(git + ['add', '-A', '.'])
+        subprocess.call(git + ['commit', '-m', 'build pages'])
+        for mirror in mirrors:
+            subprocess.call(bare_git + ["push", mirror, "master"])
+        subprocess.call(bare_git + ["fetch", primary, "infra:infra"])
+        with tempfile.TemporaryDirectory() as work_tree:
+            git = bare_git + ["--work-tree", work_tree]
+            if subprocess.call(git + ["checkout", "-f", "infra"]) != 0:
+                subprocess.check_call(git + ["checkout", "--orphan", "infra"])
+            shutil.copytree("infra", work_tree, dirs_exist_ok=True)
+            subprocess.check_call(git + ["add", "."])
+            if subprocess.call(git + ["diff", "--cached", "--quiet"]) == 0:
+                return 0
+            subprocess.check_call(git + ["commit", "-m", "infra"])
+        for mirror in mirrors:
+            subprocess.call(bare_git + ["push", mirror, "infra"])
+        return 0
+
+    def _load_mirrors(self) -> list[str]:
+        return [
+            line.strip()
+            for line in Path("infra/mirrors.txt").open(encoding="utf-8")
+            if line.strip() and not line.startswith("#")
+        ]
+
+    def _pick_primary(self, mirrors: list[str]) -> str:
+        prefix = Path("infra/keys/primary.pub").read_text().strip().split()[-1]
+        for mirror in mirrors:
+            if mirror.startswith(prefix):
+                return mirror
+        return mirrors[0]
 
 
 class DistributeChallengeCommand:
@@ -216,19 +249,11 @@ class DistributeChallengeCommand:
         (WEBROOT_CHALLENGES / token).write_text(validation + "\n", encoding="utf-8")
         git = ["git", "--git-dir", GIT_DIR, "--work-tree", INFRA_DIR]
 
-        subprocess.check_call(
-            git + ["checkout", "-f", "master"],
-        )
-        subprocess.check_call(
-            git + ["add", "infra/challenges"],
-        )
-        diff = subprocess.run(git + ["diff", "--cached", "--quiet"])
-        if diff.returncode == 0:
+        subprocess.check_call(git + ["checkout", "-f", "master"])
+        subprocess.check_call(git + ["add", "infra/challenges"])
+        if subprocess.call(git + ["diff", "--cached", "--quiet"]) == 0:
             return 0
-        subprocess.run(
-            git + ["commit", "-m", f"Add ACME challenge {token}"],
-            check=True,
-        )
+        subprocess.check_call(git + ["commit", "-m", "Add challenge"])
 
         if MIRRORS_LIST.exists():
             for line in MIRRORS_LIST.read_text(encoding="utf-8").splitlines():
@@ -497,7 +522,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(prog="infra")
     sub = parser.add_subparsers(dest="cmd", required=True)
     ApplyCommand().add_subparser(sub)
-    MakeCommand().add_subparser(sub)
+    BuilderPublishCommand().add_subparser(sub)
     DistributeChallengeCommand().add_subparser(sub)
     CleanupChallengeCommand().add_subparser(sub)
     DistributeCertsCommand().add_subparser(sub)

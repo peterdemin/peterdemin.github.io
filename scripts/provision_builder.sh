@@ -61,5 +61,6 @@ fi
 git --git-dir="$HOME/repo.git" --work-tree="$WORK_TREE" checkout -f $BRANCH
 cd "$WORK_TREE"
 . $HOME/venv/bin/activate
-python3 infra/cli.py make install lightweight compress pages
+make install lightweight compress
+python3 infra/cli.py builder-publish build/html
 EOF
