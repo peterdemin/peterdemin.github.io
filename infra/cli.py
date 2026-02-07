@@ -161,7 +161,6 @@ class BuilderPublishCommand:
 
     def handle(self, args):
         mirrors = self._load_mirrors()
-        import pdb; pdb.set_trace()
         self._push_content(args.content, mirrors)
         return self._push_infra(mirrors)
 
