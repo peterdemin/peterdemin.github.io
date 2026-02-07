@@ -1,3 +1,3 @@
 # One mirror per line. Use the git URL for pages.git on the mirror.
-# Example:
-# pages@mirror.tail13c89.ts.net:repo.git
+pages@mirror.tail13c89.ts.net:repo.git
+pages@demin-dev.tail13c89.ts.net:repo.git
