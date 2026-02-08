@@ -210,15 +210,8 @@ class Mirror:
                 return remote, branch
         return mirrors[0]
 
-    def non_primary(self) -> list[tuple[str, str]]:
-        primary = self._primary_comment()
-        mirrors = self.all_mirrors()
-        primary_idx = 0
-        for i, (remote, _) in enumerate(mirrors):
-            if remote.startswith(primary):
-                primary_idx = i
-                break
-        return [m for i, m in enumerate(mirrors) if i != primary_idx]
+    def non_primary_infra(self) -> list[tuple[str, str]]:
+        return self._convert_to_infra(self._filter_non_primary(self.all_mirrors()))
 
     def add_known_host(self, remote: str) -> None:
         host = remote.partition("@")[2].partition(":")[0]
@@ -232,6 +225,26 @@ class Mirror:
 
     def forwards(self) -> list[tuple[str, str]]:
         return self._load_remotes(self._infra / "forward.txt")
+
+    def _filter_non_primary(
+        self, mirrors: list[tuple[str, str]]
+    ) -> list[tuple[str, str]]:
+        primary = self._primary_comment()
+        primary_idx = 0
+        for i, (remote, _) in enumerate(mirrors):
+            if remote.startswith(primary):
+                primary_idx = i
+                break
+        return [m for i, m in enumerate(mirrors) if i != primary_idx]
+
+    def _convert_to_infra(
+        self, mirrors: list[tuple[str, str]]
+    ) -> list[tuple[str, str]]:
+        return [
+            (r.replace(":pages.git", ":infra.git"), b)
+            for r, b in mirrors
+            if r.endswith(":pages.git") and b == "master"
+        ]
 
     def _primary_comment(self) -> str:
         return Path(self._infra / "keys/primary.pub").read_text().strip().split()[-1]
@@ -491,7 +504,7 @@ class DistributeCertsCommand:
 
         push_infra = infra_git.subcommand("push")
         mirror = Mirror(home=PAGES_HOME)
-        for remote, _ in mirror.non_primary():
+        for remote, _ in mirror.non_primary_infra():
             mirror.add_known_host(remote)
             push_infra(remote, "master")
         return 0
