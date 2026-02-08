@@ -21,7 +21,7 @@ CHALLENGES_DIR = INFRA_DIR / "challenges"
 WEBROOT_CHALLENGES = Path("/var/www/pages/.well-known/acme-challenge")
 CERTS_DIR = INFRA_DIR / "certs"
 GIT_DIR = HOME_DIR / "repo.git"
-KNOWN_HOSTS = Path.home() / '.ssh/known_hosts'
+KNOWN_HOSTS = Path.home() / ".ssh/known_hosts"
 
 
 def _ensure_root():
@@ -157,6 +157,11 @@ class Command:
         self._prefix = c
         self._verbose = verbose
 
+    def runuser(self, user: str) -> "Command":
+        return self.__class__(
+            *(("runuser", "-u", user, "--") + self._prefix), verbose=self._verbose
+        )
+
     def subcommand(self, *c: str | Path) -> "Command":
         return self.__class__(*(self._prefix + c), verbose=self._verbose)
 
@@ -164,18 +169,28 @@ class Command:
         self._print(c)
         return subprocess.call(self._prefix + c, **kwargs)
 
-    def check_call(self, *c: str | Path, **kwargs) -> None:
+    def __call__(self, *c: str | Path, **kwargs) -> None:
         self._print(c)
         subprocess.check_call(self._prefix + c, **kwargs)
 
     def check_output(self, *c: str | Path, **kwargs) -> str:
         self._print(c)
-        kwargs['text'] = True
+        kwargs["text"] = True
         return subprocess.check_output(self._prefix + c, **kwargs)
 
     def _print(self, c: tuple[str | Path, ...]) -> None:
         if self._verbose:
             print(shlex.join(map(str, self._prefix + c)), file=sys.stderr)
+
+
+def load_mirrors(path: Path) -> list[tuple[str, str]]:
+    result: list[tuple[str, str]] = []
+    for line in path.open(encoding="utf-8"):
+        line = line.strip()
+        if line and not line.startswith("#"):
+            remote, _, branch = line.partition(" ")
+            result.append((remote, branch or "master"))
+    return result
 
 
 class BuilderPublishCommand:
@@ -196,7 +211,7 @@ class BuilderPublishCommand:
 
         Executed from the worktree directory of source repo.
         """
-        mirrors = self._load_mirrors(MIRRORS_LIST)
+        mirrors = load_mirrors(MIRRORS_LIST)
         for remote, _ in mirrors:
             self._add_host_key(remote)
         self._push_content(args.content, mirrors)
@@ -206,19 +221,19 @@ class BuilderPublishCommand:
             if r.endswith(":pages.git") and b == "master"
         ]
         self._push_infra(infra_mirrors)
-        self._push_source(self._load_mirrors(FORWARD_LIST))
+        self._push_source(load_mirrors(FORWARD_LIST))
         return 0
 
     def _push_content(self, content: str, mirrors: list[tuple[str, str]]) -> None:
         git = self._pages_git.subcommand("-C", content, "--work-tree", ".")
-        git.check_call("add", "-A", ".")
+        git("add", "-A", ".")
         git.call("commit", "-m", "build pages")
         for remote, branch in mirrors:
             self._pages_git.call("push", remote, f"+master:{branch}")
 
     def _push_infra(self, mirrors: list[tuple[str, str]]) -> None:
         git = self._infra_git.subcommand("-C", "infra", "--work-tree", ".")
-        git.check_call("add", "-A", ".")
+        git("add", "-A", ".")
         git.call("commit", "-m", "infra")
         p_remote, p_branch = self._pick_primary(mirrors)
         git.call("pull", "--rebase", p_remote, p_branch)
@@ -229,15 +244,6 @@ class BuilderPublishCommand:
         for remote, branch in mirrors:
             self._add_host_key(remote)
             self._source_git.call("push", remote, f"+master:{branch}")
-
-    def _load_mirrors(self, path: Path) -> list[tuple[str, str]]:
-        result: list[tuple[str, str]] = []
-        for line in path.open(encoding="utf-8"):
-            line = line.strip()
-            if line and not line.startswith("#"):
-                remote, _, branch = line.partition(" ")
-                result.append((remote, branch or "master"))
-        return result
 
     def _pick_primary(self, mirrors: list[tuple[str, str]]) -> tuple[str, str]:
         comment = Path("infra/keys/primary.pub").read_text().strip().split()[-1]
@@ -251,7 +257,7 @@ class BuilderPublishCommand:
         for line in KNOWN_HOSTS.open():
             if line.startswith(host):
                 return
-        keyscan = Command('ssh-keyscan', '-t', 'ed25519')
+        keyscan = Command("ssh-keyscan", "-t", "ed25519")
         with KNOWN_HOSTS.open("at") as fobj:
             fobj.write(keyscan.check_output(host) + "\n")
 
@@ -413,50 +419,34 @@ class CleanupChallengeCommand:
 
 
 class DistributeCertsCommand:
+    def __init__(self) -> None:
+        self._live = Path("/etc/letsencrypt/live")
+
     def add_subparser(self, sub):
         p = sub.add_parser(
             "distribute-certs",
             help="Encrypt certs to mirrors and push infra branch",
         )
         p.add_argument("--domain", required=True)
-        p.add_argument(
-            "--fullchain",
-            default=None,
-            help="Path to fullchain.pem (defaults to /etc/letsencrypt/live/<domain>/fullchain.pem)",
-        )
-        p.add_argument(
-            "--privkey",
-            default=None,
-            help="Path to privkey.pem (defaults to /etc/letsencrypt/live/<domain>/privkey.pem)",
-        )
         p.set_defaults(handle=self.handle)
 
     def handle(self, args):
         _ensure_root()
 
         domain = args.domain.strip()
-        if not domain:
-            print("Domain must be non-empty.")
-            return 1
+        fullchain = self._live / domain / "fullchain.pem"
+        privkey = self._live / domain / "privkey.pem"
 
-        fullchain = (
-            Path(args.fullchain)
-            if args.fullchain
-            else Path("/etc/letsencrypt/live") / domain / "fullchain.pem"
-        )
-        privkey = (
-            Path(args.privkey)
-            if args.privkey
-            else Path("/etc/letsencrypt/live") / domain / "privkey.pem"
-        )
-        if not fullchain.exists() or not privkey.exists():
-            print("Missing fullchain or privkey.")
+        if not fullchain.exists():
+            print(f"Missing fullchain at {fullchain}.")
+            return 1
+        if not privkey.exists():
+            print(f"Missing privkey at {privkey}.")
             return 1
 
         recipients = []
-        if KEYS_DIR.exists():
-            for pub in sorted(KEYS_DIR.glob("*.pub")):
-                recipients.append(pub.read_text(encoding="utf-8").strip())
+        for pub in sorted(KEYS_DIR.glob("*.pub")):
+            recipients.append(pub.read_text(encoding="utf-8").strip())
         if not recipients:
             print(f"No recipients found in {KEYS_DIR}")
             return 1
@@ -468,86 +458,24 @@ class DistributeCertsCommand:
                 tar.add(fullchain, arcname="fullchain.pem")
                 tar.add(privkey, arcname="privkey.pem")
             out_path = CERTS_DIR / f"{domain}.tar.age"
-            cmd = ["age", "--encrypt", "-o", str(out_path)]
+            age = Command("age", "--encrypt", "-o", out_path)
             for recipient in recipients:
-                cmd.extend(["-r", recipient])
-            cmd.append(str(tar_path))
-            subprocess.run(cmd, check=True)
+                age = age.subcommand("-r", recipient)
+            age(tar_path)
 
-        subprocess.run(
-            [
-                "git",
-                "--git-dir",
-                GIT_DIR,
-                "--work-tree",
-                INFRA_DIR,
-                "checkout",
-                "-f",
-                "master",
-            ],
-            check=True,
+        git = Command(
+            "git", "--git-dir", Path.home() / "infra.git", "--work-tree", INFRA_DIR
         )
-        subprocess.run(
-            [
-                "git",
-                "--git-dir",
-                GIT_DIR,
-                "--work-tree",
-                INFRA_DIR,
-                "add",
-                "infra/certs",
-            ],
-            check=True,
-        )
-        diff = subprocess.run(
-            [
-                "git",
-                "--git-dir",
-                GIT_DIR,
-                "--work-tree",
-                INFRA_DIR,
-                "diff",
-                "--cached",
-                "--quiet",
-            ]
-        )
-        if diff.returncode == 0:
+        git("checkout", "-f", "master")
+        git("add", "infra/certs")
+        if git.call("diff", "--cached", "--quiet") == 0:
             return 0
-        subprocess.run(
-            [
-                "git",
-                "--git-dir",
-                GIT_DIR,
-                "--work-tree",
-                INFRA_DIR,
-                "commit",
-                "-m",
-                f"Update certs for {domain}",
-            ],
-            check=True,
-        )
-
-        if MIRRORS_LIST.exists():
-            for line in MIRRORS_LIST.read_text(encoding="utf-8").splitlines():
-                line = line.strip()
-                if not line or line.startswith("#"):
-                    continue
-                subprocess.run(
-                    [
-                        "runuser",
-                        "-u",
-                        "pages",
-                        "--",
-                        "git",
-                        "--git-dir",
-                        GIT_DIR,
-                        "push",
-                        line,
-                        "master",
-                    ],
-                    check=True,
-                )
-
+        git("commit", "-m", "Update certs")
+        push_infra = Command(
+            "git", "--git-dir", Path.home() / "infra.git", "push"
+        ).runuser("pages")
+        for remote, _ in load_mirrors(MIRRORS_LIST):
+            push_infra(remote, "master")
         return 0
 
 
