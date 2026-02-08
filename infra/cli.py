@@ -14,7 +14,6 @@ KEYS_DIR = INFRA_DIR / "keys"
 PRIMARY_KEY = KEYS_DIR / "primary.pub"
 BUILDER_KEY = KEYS_DIR / "builder.pub"
 HOME_DIR = Path("/home/pages")
-LOCAL_PUB = HOME_DIR / ".ssh" / "id_ed25519.pub"
 AUTHORIZED_KEYS = HOME_DIR / ".ssh" / "authorized_keys"
 MIRRORS_LIST = Path("infra/mirrors.txt")
 FORWARD_LIST = Path("infra/forward.txt")
@@ -31,6 +30,8 @@ def _ensure_root():
 
 
 class ApplyCommand:
+    _LOCAL_PUB = HOME_DIR / ".ssh" / "id_ed25519.pub"
+
     def add_subparser(self, sub):
         p = sub.add_parser("apply", help="Apply infra config")
         p.set_defaults(handle=self.handle)
@@ -43,12 +44,12 @@ class ApplyCommand:
             print(f"Missing {PRIMARY_KEY}; skipping primary selection.")
             return 0
 
-        if not LOCAL_PUB.exists():
-            print(f"Missing {LOCAL_PUB}; cannot evaluate primary.")
+        if not self._LOCAL_PUB.exists():
+            print(f"Missing {self._LOCAL_PUB}; cannot evaluate primary.")
             return 1
 
         # primary_fp = self._fingerprint(PRIMARY_KEY)
-        # local_fp = self._fingerprint(LOCAL_PUB)
+        # local_fp = self._fingerprint(self._LOCAL_PUB)
         # if primary_fp == local_fp:
         #     subprocess.check_call(
         #         ["systemctl", "enable", "--now", "certbot.timer"]
