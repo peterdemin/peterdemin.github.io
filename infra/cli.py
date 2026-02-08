@@ -477,13 +477,12 @@ class DistributeCertsCommand:
     def handle(self, args):
         _ensure_root()
 
-        self._pack_certs(args.domain, CERTS_DIR / f"{args.domain}.tar.age")
-
         infra_git = Command(
             "git", "--git-dir", PAGES_HOME / "infra.git", verbose=True
         ).runuser("pages")
         git = infra_git.subcommand("--work-tree", ".", cwd=INFRA_DIR)
         git("checkout", "-f", "master")
+        self._pack_certs(args.domain, CERTS_DIR / f"{args.domain}.tar.age")
         git("add", "-A", CERTS_DIR)
         if git.call("diff", "--cached", "--quiet") == 0:
             return 0
@@ -511,7 +510,9 @@ class DistributeCertsCommand:
         if not recipients:
             raise ValueError(f"No recipients found in {KEYS_DIR}")
 
+        chown = Command("chown", "pages:pages")
         out_file.parent.mkdir(parents=True, exist_ok=True)
+        chown(out_file.parent)
         age = Command("age", "--encrypt", "-o", out_file, verbose=True)
         for recipient in recipients:
             age = age.subcommand("-r", recipient)
@@ -521,7 +522,6 @@ class DistributeCertsCommand:
                 tar.add(fullchain, arcname="fullchain.pem")
                 tar.add(privkey, arcname="privkey.pem")
             age(tar_path)
-        chown = Command("chown", "pages:pages")
         chown(out_file)
 
     def _setup_git_user(self, git: Command) -> None:
