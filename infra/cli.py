@@ -154,30 +154,39 @@ class ApplyCommand:
 
 
 class Command:
-    def __init__(self, *c: str | Path, verbose: bool = False) -> None:
+    def __init__(self, *c: str | Path, verbose: bool = False, **kwargs) -> None:
         self._prefix = c
         self._verbose = verbose
+        self._kwargs = kwargs
 
     def runuser(self, user: str) -> "Command":
         return self.__class__(
-            *(("runuser", "-u", user, "--") + self._prefix), verbose=self._verbose
+            *(("runuser", "-u", user, "--") + self._prefix),
+            verbose=self._verbose,
+            **self._kwargs,
         )
 
-    def subcommand(self, *c: str | Path) -> "Command":
-        return self.__class__(*(self._prefix + c), verbose=self._verbose)
+    def subcommand(self, *c: str | Path, **kwargs) -> "Command":
+        return self.__class__(
+            *(self._prefix + c),
+            verbose=self._verbose,
+            **(self._kwargs | kwargs),
+        )
 
     def call(self, *c: str | Path, **kwargs) -> int:
         self._print(c)
-        return subprocess.call(self._prefix + c, **kwargs)
+        return subprocess.call(self._prefix + c, **(self._kwargs | kwargs))
 
     def __call__(self, *c: str | Path, **kwargs) -> None:
         self._print(c)
-        subprocess.check_call(self._prefix + c, **kwargs)
+        subprocess.check_call(self._prefix + c, **(self._kwargs | kwargs))
 
     def check_output(self, *c: str | Path, **kwargs) -> str:
         self._print(c)
-        kwargs["text"] = True
-        return subprocess.check_output(self._prefix + c, **kwargs)
+        return subprocess.check_output(
+            self._prefix + c,
+            **(self._kwargs | kwargs | {"text": True}),
+        )
 
     def _print(self, c: tuple[str | Path, ...]) -> None:
         if self._verbose:
@@ -486,28 +495,29 @@ class DistributeCertsCommand:
             return 1
 
         CERTS_DIR.mkdir(parents=True, exist_ok=True)
+        age = Command("age", "--encrypt", "-o", CERTS_DIR / f"{domain}.tar.age")
+        for recipient in recipients:
+            age = age.subcommand("-r", recipient)
         with tempfile.TemporaryDirectory() as tmpdir:
             tar_path = Path(tmpdir) / f"{domain}.tar.gz"
             with tarfile.open(tar_path, "w:gz") as tar:
                 tar.add(fullchain, arcname="fullchain.pem")
                 tar.add(privkey, arcname="privkey.pem")
-            out_path = CERTS_DIR / f"{domain}.tar.age"
-            age = Command("age", "--encrypt", "-o", out_path)
-            for recipient in recipients:
-                age = age.subcommand("-r", recipient)
             age(tar_path)
+        chown = Command("chown", "pages:pages")
+        chown(tar_path)
 
-        git = Command(
-            "git", "--git-dir", PAGES_HOME / "infra.git", "--work-tree", INFRA_DIR
-        )
+        infra_git = Command(
+            "git", "--git-dir", PAGES_HOME / "infra.git", verbose=True
+        ).runuser("pages")
+        git = infra_git.subcommand("--work-tree", ".", cwd=INFRA_DIR)
         git("checkout", "-f", "master")
-        git("add", "infra/certs")
+        git("add", "-A", CERTS_DIR)
         if git.call("diff", "--cached", "--quiet") == 0:
             return 0
         git("commit", "-m", "Update certs")
-        push_infra = Command(
-            "git", "--git-dir", PAGES_HOME / "infra.git", "push"
-        ).runuser("pages")
+
+        push_infra = infra_git.subcommand("push")
         for remote, _ in Mirror().non_primary():
             push_infra(remote, "master")
         return 0
