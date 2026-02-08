@@ -173,8 +173,9 @@ class Command:
 
 class BuilderPublishCommand:
     def __init__(self) -> None:
-        self._pages_git = Command("git", "--git-dir", Path.home() / "pages.git")
-        self._infra_git = Command("git", "--git-dir", Path.home() / "infra.git")
+        git = Command("git", verbose=True)
+        self._pages_git = git.subcommand("--git-dir", Path.home() / "pages.git")
+        self._infra_git = git.subcommand("--git-dir", Path.home() / "infra.git")
 
     def add_subparser(self, sub):
         p = sub.add_parser("builder-publish", help="Push to mirrors")
