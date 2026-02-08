@@ -140,6 +140,7 @@ class ApplyCommand:
             with tarfile.open(tar_path, "r:gz") as tar:
                 tar.extractall(tmpdir)
             tmp = Path(tmpdir)
+            Command("ls", "-lah")(tmp)
             domain = tar_path.stem.replace(".tar", "")
             live_dir = Path("/etc/letsencrypt/live") / domain
             live_dir.mkdir(parents=True, exist_ok=True)
