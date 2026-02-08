@@ -76,22 +76,26 @@ All the heavy lifting is handled by a Python script:
 
 Then I deployed another mirror to https://mirror.demin.dev under a separate Google Cloud Platform account.
 
-## Infra Branch
+## Infra Repo
 
-I use a second branch, `infra`, in the same `pages.git` repo on mirrors.
+I keep infra state in a separate bare repo on each mirror (`infra.git`).
 It carries operational config and runtime data:
 
-1. Primary mirror fingerprint (`infra/primary_key_fingerprint.txt`).
-2. Public keys of all mirrors (`infra/mirrors/*.pub`).
-3. ACME challenges (`infra/challenges/*`).
-4. Encrypted cert bundles (`infra/certs/*.tar.age`).
+1. Builder and primary public keys (`infra/keys/builder.pub`, `infra/keys/primary.pub`).
+2. Mirror public keys for encryption (`infra/keys/*.pub`).
+3. Mirror list (`infra/mirrors.txt`).
+4. ACME challenges (`infra/challenges/*`).
+5. Encrypted cert bundles (`infra/certs/*.tar.age`).
 
-Mirrors check out `master` into `/var/www/pages` and `infra` into `/var/lib/infra`.
-A systemd `.path` unit watches `/var/lib/infra/infra/*` and runs `infra apply`
+Mirrors check out `master` from `pages.git` into `/var/www/pages` and
+`master` from `infra.git` into `/var/lib/infra`.
+A systemd `.path` unit watches `/var/lib/infra` and runs `infra apply`
 (a tiny Python CLI in `infra/cli.py`) as root on every change.
 
-The builder VM forwards the `infra` branch to mirrors when I push it to the builder.
-That keeps the laptop out of the direct mirror communication path.
+The builder VM pushes content to all mirrors listed in `infra/mirrors.txt`
+as part of the publish step. Infra data is handled by the primary mirror.
+Separately, the source repo is forwarded to the destinations listed in
+`infra/forward.txt`.
 
 ## Certificates and Challenges
 
@@ -99,12 +103,12 @@ DNS-01 is not available to me, so I do HTTP-01 with challenge distribution.
 The primary mirror runs certbot with manual hooks:
 
 1. `infra distribute-challenge` writes the token under `infra/challenges/`
-   and pushes the `infra` branch to mirrors.
+   and pushes the infra repo to mirrors.
 2. Mirrors apply the change and copy the token into
    `/var/www/pages/.well-known/acme-challenge/`.
 3. `infra cleanup-challenge` removes the token and pushes again.
 
-Certificates are distributed via the same `infra` branch, but encrypted.
+Certificates are distributed via the same infra repo, but encrypted.
 The primary packs `fullchain.pem` and `privkey.pem` into a tarball,
 encrypts it with `age` for all mirror SSH public keys,
 commits to `infra/certs/`, and pushes to mirrors.
