@@ -14,14 +14,14 @@ INFRA_DIR = Path("/var/lib/infra")
 KEYS_DIR = INFRA_DIR / "keys"
 PRIMARY_KEY = KEYS_DIR / "primary.pub"
 BUILDER_KEY = KEYS_DIR / "builder.pub"
-HOME_DIR = Path("/home/pages")
-AUTHORIZED_KEYS = HOME_DIR / ".ssh" / "authorized_keys"
+PAGES_HOME = Path("/home/pages")
+AUTHORIZED_KEYS = PAGES_HOME / ".ssh" / "authorized_keys"
 MIRRORS_LIST = Path("infra/mirrors.txt")
 FORWARD_LIST = Path("infra/forward.txt")
 CHALLENGES_DIR = INFRA_DIR / "challenges"
 WEBROOT_CHALLENGES = Path("/var/www/pages/.well-known/acme-challenge")
 CERTS_DIR = INFRA_DIR / "certs"
-GIT_DIR = HOME_DIR / "repo.git"
+GIT_DIR = PAGES_HOME / "repo.git"
 KNOWN_HOSTS = Path.home() / ".ssh/known_hosts"
 
 
@@ -31,7 +31,7 @@ def _ensure_root():
 
 
 class ApplyCommand:
-    _LOCAL_PUB = HOME_DIR / ".ssh" / "id_ed25519.pub"
+    _LOCAL_PUB = PAGES_HOME / ".ssh" / "id_ed25519.pub"
 
     def add_subparser(self, sub):
         p = sub.add_parser("apply", help="Apply infra config")
@@ -498,7 +498,7 @@ class DistributeCertsCommand:
             age(tar_path)
 
         git = Command(
-            "git", "--git-dir", Path.home() / "infra.git", "--work-tree", INFRA_DIR
+            "git", "--git-dir", PAGES_HOME / "infra.git", "--work-tree", INFRA_DIR
         )
         git("checkout", "-f", "master")
         git("add", "infra/certs")
@@ -506,7 +506,7 @@ class DistributeCertsCommand:
             return 0
         git("commit", "-m", "Update certs")
         push_infra = Command(
-            "git", "--git-dir", Path.home() / "infra.git", "push"
+            "git", "--git-dir", PAGES_HOME / "infra.git", "push"
         ).runuser("pages")
         for remote, _ in Mirror().non_primary():
             push_infra(remote, "master")
