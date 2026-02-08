@@ -1,3 +1,5 @@
 # One mirror per line. Use the git URL for pages.git on the mirror.
+# Optional branch name after space for content-only pushes (default: master).
 pages@mirror.tail13c89.ts.net:pages.git
 pages@demin-dev.tail13c89.ts.net:pages.git
+git@github.com:peterdemin/peterdemin.github.io.git gh-pages

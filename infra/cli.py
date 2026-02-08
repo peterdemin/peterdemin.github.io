@@ -17,7 +17,6 @@ HOME_DIR = Path("/home/pages")
 LOCAL_PUB = HOME_DIR / ".ssh" / "id_ed25519.pub"
 AUTHORIZED_KEYS = HOME_DIR / ".ssh" / "authorized_keys"
 MIRRORS_LIST = Path("infra/mirrors.txt")
-MIRRORS_OUT = Path("infra/keys")
 CHALLENGES_DIR = INFRA_DIR / "challenges"
 WEBROOT_CHALLENGES = Path("/var/www/pages/.well-known/acme-challenge")
 CERTS_DIR = INFRA_DIR / "certs"
@@ -190,38 +189,44 @@ class BuilderPublishCommand:
         """
         mirrors = self._load_mirrors()
         self._push_content(args.content, mirrors)
-        infra_mirrors = [m.replace("pages.git", "infra.git") for m in mirrors]
+        infra_mirrors = [
+            (r.replace("pages.git", "infra.git"), b)
+            for r, b in mirrors
+            if b == "master"
+        ]
         self._push_infra(infra_mirrors)
         return 0
 
-    def _push_content(self, content: str, mirrors: list[str]) -> None:
+    def _push_content(self, content: str, mirrors: list[tuple[str, str]]) -> None:
         git = self._pages_git.subcommand("-C", content, "--work-tree", ".")
         git.check_call("add", "-A", ".")
         git.call("commit", "-m", "build pages")
-        for mirror in mirrors:
-            self._pages_git.call("push", mirror, "master")
+        for remote, branch in mirrors:
+            self._pages_git.call("push", remote, branch)
 
-    def _push_infra(self, mirrors: list[str]) -> None:
+    def _push_infra(self, mirrors: list[tuple[str, str]]) -> None:
         git = self._infra_git.subcommand("-C", "infra", "--work-tree", ".")
         git.check_call("add", "-A", ".")
         git.call("commit", "-m", "infra")
-        primary = self._pick_primary(mirrors)
-        git.call("pull", "--rebase", primary, "master")
-        for mirror in mirrors:
-            self._infra_git.call("push", mirror, "master")
+        p_remote, p_branch = self._pick_primary(mirrors)
+        git.call("pull", "--rebase", p_remote, p_branch)
+        for remote, branch in mirrors:
+            self._infra_git.call("push", remote, branch)
 
-    def _load_mirrors(self) -> list[str]:
-        return [
-            line.strip()
-            for line in Path("infra/mirrors.txt").open(encoding="utf-8")
-            if line.strip() and not line.startswith("#")
-        ]
+    def _load_mirrors(self) -> list[tuple[str, str]]:
+        result: list[tuple[str, str]] = []
+        for line in MIRRORS_LIST.open(encoding="utf-8"):
+            line = line.strip()
+            if line and not line.startswith("#"):
+                remote, _, branch = line.partition(" ")
+                result.append((remote, branch or "master"))
+        return result
 
-    def _pick_primary(self, mirrors: list[str]) -> str:
-        prefix = Path("infra/keys/primary.pub").read_text().strip().split()[-1]
-        for mirror in mirrors:
-            if mirror.startswith(prefix):
-                return mirror
+    def _pick_primary(self, mirrors: list[tuple[str, str]]) -> tuple[str, str]:
+        comment = Path("infra/keys/primary.pub").read_text().strip().split()[-1]
+        for remote, branch in mirrors:
+            if remote.startswith(comment):
+                return remote, branch
         return mirrors[0]
 
 
