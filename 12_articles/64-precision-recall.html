@@ -174,19 +174,19 @@ to build intuition around it.</p>
 <h2>First, we’ll load a small toy dataset<a class="headerlink" href="#first-well-load-a-small-toy-dataset" title="Link to this heading">¶</a></h2>
 <p>Following the SciKit doc, we’ll use Iris (flower, not part of an eye, or
 godess).</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">import numpy as np
-</span><span data-line="2">from sklearn.datasets import load_iris
-</span><span data-line="3">from sklearn.model_selection import train_test_split
-</span><span data-line="4">from sklearn.metrics._ranking import precision_recall_curve
-</span><span data-line="5">import pandas
-</span><span data-line="6">from sklearn.pipeline import make_pipeline
-</span><span data-line="7">from sklearn.preprocessing import StandardScaler
-</span><span data-line="8">from sklearn.svm import LinearSVC
-</span><span data-line="9">from sklearn.metrics import PrecisionRecallDisplay
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span data-line="2"><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_iris</span>
+</span><span data-line="3"><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+</span><span data-line="4"><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics._ranking</span><span class="w"> </span><span class="kn">import</span> <span class="n">precision_recall_curve</span>
+</span><span data-line="5"><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span>
+</span><span data-line="6"><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_pipeline</span>
+</span><span data-line="7"><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+</span><span data-line="8"><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.svm</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearSVC</span>
+</span><span data-line="9"><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">PrecisionRecallDisplay</span>
 </span><span data-line="10">
-</span><span data-line="11">random_state = np.random.RandomState(3)
+</span><span data-line="11"><span class="n">random_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </span><span data-line="12">
-</span><span data-line="13">X, y = load_iris(return_X_y=True)
+</span><span data-line="13"><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </span></pre></div>
 </div>
 </section>
@@ -198,8 +198,8 @@ are 310 Iris species, but this small dataset has only 3. So, it’s kinda
 multilabel. We don’t need that, for precision-recall we need something
 binary. So we trim both X and Y to only keep records for <code class="docutils literal notranslate"><span class="pre">Y=0</span></code> aka
 False and <code class="docutils literal notranslate"><span class="pre">1</span></code> aka True.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">X, y = X[y&lt;2], y[y&lt;2]
-</span><span data-line="2">pandas.DataFrame(X)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">y</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">y</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">]</span>
+</span><span data-line="2"><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 </span></pre></div>
 </div>
 <div>
@@ -307,7 +307,7 @@ False and <code class="docutils literal notranslate"><span class="pre">1</span><
   </tbody>
 </table>
 <p>100 rows × 4 columns</p>
-</div><div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">y
+</div><div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">y</span>
 </span></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
@@ -321,9 +321,9 @@ False and <code class="docutils literal notranslate"><span class="pre">1</span><
 on this data now, it will have 100% accuracy, so precision and recall
 will look stupied. So, we add noisy features, a whole lot, 100 times
 more noise than signal. That will make model to sweat.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">X = np.concatenate([X, random_state.randn(X.shape[0], 100 * X.shape[1])], axis=1)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">X</span><span class="p">,</span> <span class="n">random_state</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </span><span data-line="2">
-</span><span data-line="3">pandas.DataFrame(X)
+</span><span data-line="3"><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 </span></pre></div>
 </div>
 <div>
@@ -640,11 +640,11 @@ more noise than signal. That will make model to sweat.</p>
 <h2>Split to train and test data<a class="headerlink" href="#split-to-train-and-test-data" title="Link to this heading">¶</a></h2>
 <p>Because we’re such great data scientists, we can’t even think about
 testing the model on training data even for educational purposes.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=random_state)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
 </span></pre></div>
 </div>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">classifier = make_pipeline(StandardScaler(), LinearSVC(random_state=random_state))
-</span><span data-line="2">classifier.fit(X_train, y_train);
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">classifier</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">LinearSVC</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">))</span>
+</span><span data-line="2"><span class="n">classifier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">);</span>
 </span></pre></div>
 </div>
 </section>
@@ -654,11 +654,11 @@ testing the model on training data even for educational purposes.</p>
 Iris flower of species number 1. For whatever <code class="docutils literal notranslate"><span class="pre">4</span> <span class="pre">+</span> <span class="pre">40800</span></code> floats we
 throw in, the model returns a <em>score</em> of how likely the label is 1.
 Let’s take a look at the test output.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">y_score = classifier.decision_function(X_test)
-</span><span data-line="2">pandas.DataFrame.from_dict({
-</span><span data-line="3">    &#39;$Y_{score}$&#39;: y_score,
-</span><span data-line="4">    &#39;$Y_{true}$&#39;: y_test,
-</span><span data-line="5">}).plot();
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">y_score</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">decision_function</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({</span>
+</span><span data-line="3">    <span class="s1">&#39;$Y_</span><span class="si">{score}</span><span class="s1">$&#39;</span><span class="p">:</span> <span class="n">y_score</span><span class="p">,</span>
+</span><span data-line="4">    <span class="s1">&#39;$Y_</span><span class="si">{true}</span><span class="s1">$&#39;</span><span class="p">:</span> <span class="n">y_test</span><span class="p">,</span>
+</span><span data-line="5"><span class="p">})</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
 </span></pre></div>
 </div>
 <img alt="../_images/12.64_11_0.png" src="../_images/12.64_11_0.png" />
@@ -669,16 +669,16 @@ input having labeled as 1, but not in statistical terms. Let’s say,
 there is a correlation. Ok, that might be not the best way to present
 this data. How about we plot only scores, and paint it red for label 1
 and blue for label 0.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">pandas.DataFrame.from_dict({
-</span><span data-line="2">    &#39;$Y_{score}$&#39;: y_score,
-</span><span data-line="3">    &#39;$Y_{true}$&#39;: y_test,
-</span><span data-line="4">}).reset_index().plot(
-</span><span data-line="5">    kind=&#39;scatter&#39;,
-</span><span data-line="6">    x=&#39;index&#39;,
-</span><span data-line="7">    y=&#39;$Y_{score}$&#39;,
-</span><span data-line="8">    c=&#39;$Y_{true}$&#39;,
-</span><span data-line="9">    colormap=&#39;bwr&#39;,
-</span><span data-line="10">);
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({</span>
+</span><span data-line="2">    <span class="s1">&#39;$Y_</span><span class="si">{score}</span><span class="s1">$&#39;</span><span class="p">:</span> <span class="n">y_score</span><span class="p">,</span>
+</span><span data-line="3">    <span class="s1">&#39;$Y_</span><span class="si">{true}</span><span class="s1">$&#39;</span><span class="p">:</span> <span class="n">y_test</span><span class="p">,</span>
+</span><span data-line="4"><span class="p">})</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+</span><span data-line="5">    <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span>
+</span><span data-line="6">    <span class="n">x</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">,</span>
+</span><span data-line="7">    <span class="n">y</span><span class="o">=</span><span class="s1">&#39;$Y_</span><span class="si">{score}</span><span class="s1">$&#39;</span><span class="p">,</span>
+</span><span data-line="8">    <span class="n">c</span><span class="o">=</span><span class="s1">&#39;$Y_</span><span class="si">{true}</span><span class="s1">$&#39;</span><span class="p">,</span>
+</span><span data-line="9">    <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;bwr&#39;</span><span class="p">,</span>
+</span><span data-line="10"><span class="p">);</span>
 </span></pre></div>
 </div>
 <img alt="../_images/12.64_13_0.png" src="../_images/12.64_13_0.png" />
@@ -692,9 +692,9 @@ magical number has label 1.</p>
 <h2>Let’s build some curves<a class="headerlink" href="#lets-build-some-curves" title="Link to this heading">¶</a></h2>
 <p>Scikit learn provides handy implementation for drawing the P/R curve,
 let’s take a look, so we know what good looks like.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">display = PrecisionRecallDisplay.from_predictions(
-</span><span data-line="2">    y_test, y_score, name=&quot;LinearSVC&quot;, plot_chance_level=True
-</span><span data-line="3">).ax_.set_title(&quot;2-class Precision-Recall curve&quot;)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">display</span> <span class="o">=</span> <span class="n">PrecisionRecallDisplay</span><span class="o">.</span><span class="n">from_predictions</span><span class="p">(</span>
+</span><span data-line="2">    <span class="n">y_test</span><span class="p">,</span> <span class="n">y_score</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;LinearSVC&quot;</span><span class="p">,</span> <span class="n">plot_chance_level</span><span class="o">=</span><span class="kc">True</span>
+</span><span data-line="3"><span class="p">)</span><span class="o">.</span><span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;2-class Precision-Recall curve&quot;</span><span class="p">)</span>
 </span></pre></div>
 </div>
 <img alt="../_images/12.64_15_0.png" src="../_images/12.64_15_0.png" />
@@ -706,10 +706,10 @@ model (it doesn’t).</p>
 <h2>Let’s get under the hood<a class="headerlink" href="#lets-get-under-the-hood" title="Link to this heading">¶</a></h2>
 <p>First, we’ll sort the “true” labels (y_test) and the predicted scores
 (y_score) together by score.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">score_indices = np.argsort(y_score)
-</span><span data-line="2">sy_score = y_score[score_indices]
-</span><span data-line="3">sy_test = y_test[score_indices]
-</span><span data-line="4">pandas.DataFrame.from_dict({&#39;$Y_{true}$&#39;: sy_test, &#39;$Y_{score}$&#39;: sy_score}).plot();
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">score_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">y_score</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">sy_score</span> <span class="o">=</span> <span class="n">y_score</span><span class="p">[</span><span class="n">score_indices</span><span class="p">]</span>
+</span><span data-line="3"><span class="n">sy_test</span> <span class="o">=</span> <span class="n">y_test</span><span class="p">[</span><span class="n">score_indices</span><span class="p">]</span>
+</span><span data-line="4"><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({</span><span class="s1">&#39;$Y_</span><span class="si">{true}</span><span class="s1">$&#39;</span><span class="p">:</span> <span class="n">sy_test</span><span class="p">,</span> <span class="s1">&#39;$Y_</span><span class="si">{score}</span><span class="s1">$&#39;</span><span class="p">:</span> <span class="n">sy_score</span><span class="p">})</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
 </span></pre></div>
 </div>
 <img alt="../_images/12.64_17_0.png" src="../_images/12.64_17_0.png" />
@@ -717,9 +717,9 @@ model (it doesn’t).</p>
 range, while y_true jumps up and down like crazy. But if we squeeze hard
 enough, we’ll see that we have more 1’s on the right side. Actually,
 let’s do that color trick again.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">(pandas.DataFrame.from_dict({&#39;$Y_{score}$&#39;: sy_score, &#39;$Y_{true}$&#39;: sy_test})
-</span><span data-line="2">       .reset_index()
-</span><span data-line="3">       .plot(kind=&#39;scatter&#39;, x=&#39;index&#39;, y=&#39;$Y_{score}$&#39;, c=&#39;$Y_{true}$&#39;, colormap=&#39;bwr&#39;));
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="p">(</span><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({</span><span class="s1">&#39;$Y_</span><span class="si">{score}</span><span class="s1">$&#39;</span><span class="p">:</span> <span class="n">sy_score</span><span class="p">,</span> <span class="s1">&#39;$Y_</span><span class="si">{true}</span><span class="s1">$&#39;</span><span class="p">:</span> <span class="n">sy_test</span><span class="p">})</span>
+</span><span data-line="2">       <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</span><span data-line="3">       <span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;$Y_</span><span class="si">{score}</span><span class="s1">$&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;$Y_</span><span class="si">{true}</span><span class="s1">$&#39;</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;bwr&#39;</span><span class="p">));</span>
 </span></pre></div>
 </div>
 <img alt="../_images/12.64_19_0.png" src="../_images/12.64_19_0.png" />
@@ -818,9 +818,9 @@ score threshold is at the highest, and we haven’t observed any true
 positives, the recall is zero. At the end, when score threshold is at
 the lowest score, the recall is the number of <em>true positives</em> divided
 by the total number of points with label 1.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">precisions, recalls, thresholds = precision_recall_curve(y_test, y_score)
-</span><span data-line="2">thresholds = np.append(thresholds, float(&#39;nan&#39;))
-</span><span data-line="3">precisions.shape, recalls.shape, thresholds.shape
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">precisions</span><span class="p">,</span> <span class="n">recalls</span><span class="p">,</span> <span class="n">thresholds</span> <span class="o">=</span> <span class="n">precision_recall_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_score</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">thresholds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">thresholds</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;nan&#39;</span><span class="p">))</span>
+</span><span data-line="3"><span class="n">precisions</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">recalls</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">thresholds</span><span class="o">.</span><span class="n">shape</span>
 </span></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="p">((</span><span class="mi">51</span><span class="p">,),</span> <span class="p">(</span><span class="mi">51</span><span class="p">,),</span> <span class="p">(</span><span class="mi">51</span><span class="p">,))</span>
@@ -833,7 +833,7 @@ by the total number of points with label 1.</p>
 me some examples? How about we plot these 3 sequences against each
 other?</p>
 <p>First, all three lines on the same chart.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">pandas.DataFrame.from_dict({&#39;$Precision$&#39;: precisions, &#39;$Recall$&#39;: recalls, &#39;$Threshold$&#39;: thresholds}).plot();
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({</span><span class="s1">&#39;$Precision$&#39;</span><span class="p">:</span> <span class="n">precisions</span><span class="p">,</span> <span class="s1">&#39;$Recall$&#39;</span><span class="p">:</span> <span class="n">recalls</span><span class="p">,</span> <span class="s1">&#39;$Threshold$&#39;</span><span class="p">:</span> <span class="n">thresholds</span><span class="p">})</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
 </span></pre></div>
 </div>
 <img alt="../_images/12.64_23_0.png" src="../_images/12.64_23_0.png" />
@@ -843,7 +843,7 @@ the precision starts somewhere around 0.5 and goes up (and sometimes
 down) to 1.0.</p>
 <p>How about we put recall as the X axis, and plot precision and thresholds
 as Y.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">pandas.DataFrame.from_dict({&#39;$Precision$&#39;: precisions, &#39;$Recall$&#39;: recalls, &#39;$Threshold$&#39;: thresholds}).plot(x=&#39;$Recall$&#39;);
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({</span><span class="s1">&#39;$Precision$&#39;</span><span class="p">:</span> <span class="n">precisions</span><span class="p">,</span> <span class="s1">&#39;$Recall$&#39;</span><span class="p">:</span> <span class="n">recalls</span><span class="p">,</span> <span class="s1">&#39;$Threshold$&#39;</span><span class="p">:</span> <span class="n">thresholds</span><span class="p">})</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;$Recall$&#39;</span><span class="p">);</span>
 </span></pre></div>
 </div>
 <img alt="../_images/12.64_25_0.png" src="../_images/12.64_25_0.png" />
@@ -851,7 +851,7 @@ as Y.</p>
 are not as pronounced, but that’s fine.</p>
 <p>How about we go crazy and plot both precision and recall against the
 threshold?</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">pandas.DataFrame.from_dict({&#39;$Precision$&#39;: precisions, &#39;$Recall$&#39;: recalls, &#39;$Threshold$&#39;: thresholds}).plot(x=&#39;$Threshold$&#39;);
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({</span><span class="s1">&#39;$Precision$&#39;</span><span class="p">:</span> <span class="n">precisions</span><span class="p">,</span> <span class="s1">&#39;$Recall$&#39;</span><span class="p">:</span> <span class="n">recalls</span><span class="p">,</span> <span class="s1">&#39;$Threshold$&#39;</span><span class="p">:</span> <span class="n">thresholds</span><span class="p">})</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;$Threshold$&#39;</span><span class="p">);</span>
 </span></pre></div>
 </div>
 <img alt="../_images/12.64_27_0.png" src="../_images/12.64_27_0.png" />

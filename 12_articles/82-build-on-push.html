@@ -62,7 +62,7 @@ data-aria-dark="Switch to auto color mode">
 <li><a class="reference internal" href="#preface">Preface</a></li>
 <li><a class="reference internal" href="#virtual-machine">Virtual Machine</a></li>
 <li><a class="reference internal" href="#certificate-hell">Certificate Hell</a></li>
-<li><a class="reference internal" href="#infra-branch">Infra Branch</a></li>
+<li><a class="reference internal" href="#infra-repo">Infra Repo</a></li>
 <li><a class="reference internal" href="#certificates-and-challenges">Certificates and Challenges</a></li>
 </ul>
 </div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/peterdemin/peterdemin.github.io"
@@ -954,21 +954,25 @@ The script is reentrant, because I had to iterate a bit to polish all the kinks.
 <h2>Certificate Hell<a class="headerlink" href="#certificate-hell" title="Link to this heading">¶</a></h2>
 <p>Then I deployed another mirror to https://mirror.demin.dev under a separate Google Cloud Platform account.</p>
 </section>
-<section id="infra-branch">
-<h2>Infra Branch<a class="headerlink" href="#infra-branch" title="Link to this heading">¶</a></h2>
-<p>I use a second branch, <code class="docutils literal notranslate"><span class="pre">infra</span></code>, in the same <code class="docutils literal notranslate"><span class="pre">pages.git</span></code> repo on mirrors.
+<section id="infra-repo">
+<h2>Infra Repo<a class="headerlink" href="#infra-repo" title="Link to this heading">¶</a></h2>
+<p>I keep infra state in a separate bare repo on each mirror (<code class="docutils literal notranslate"><span class="pre">infra.git</span></code>).
 It carries operational config and runtime data:</p>
 <ol class="arabic simple">
-<li><p>Primary mirror fingerprint (<code class="docutils literal notranslate"><span class="pre">infra/primary_key_fingerprint.txt</span></code>).</p></li>
-<li><p>Public keys of all mirrors (<code class="docutils literal notranslate"><span class="pre">infra/mirrors/*.pub</span></code>).</p></li>
+<li><p>Builder and primary public keys (<code class="docutils literal notranslate"><span class="pre">infra/keys/builder.pub</span></code>, <code class="docutils literal notranslate"><span class="pre">infra/keys/primary.pub</span></code>).</p></li>
+<li><p>Mirror public keys for encryption (<code class="docutils literal notranslate"><span class="pre">infra/keys/*.pub</span></code>).</p></li>
+<li><p>Mirror list (<code class="docutils literal notranslate"><span class="pre">infra/mirrors.txt</span></code>).</p></li>
 <li><p>ACME challenges (<code class="docutils literal notranslate"><span class="pre">infra/challenges/*</span></code>).</p></li>
 <li><p>Encrypted cert bundles (<code class="docutils literal notranslate"><span class="pre">infra/certs/*.tar.age</span></code>).</p></li>
 </ol>
-<p>Mirrors check out <code class="docutils literal notranslate"><span class="pre">master</span></code> into <code class="docutils literal notranslate"><span class="pre">/var/www/pages</span></code> and <code class="docutils literal notranslate"><span class="pre">infra</span></code> into <code class="docutils literal notranslate"><span class="pre">/var/lib/infra</span></code>.
-A systemd <code class="docutils literal notranslate"><span class="pre">.path</span></code> unit watches <code class="docutils literal notranslate"><span class="pre">/var/lib/infra/infra/*</span></code> and runs <code class="docutils literal notranslate"><span class="pre">infra</span> <span class="pre">apply</span></code>
+<p>Mirrors check out <code class="docutils literal notranslate"><span class="pre">master</span></code> from <code class="docutils literal notranslate"><span class="pre">pages.git</span></code> into <code class="docutils literal notranslate"><span class="pre">/var/www/pages</span></code> and
+<code class="docutils literal notranslate"><span class="pre">master</span></code> from <code class="docutils literal notranslate"><span class="pre">infra.git</span></code> into <code class="docutils literal notranslate"><span class="pre">/var/lib/infra</span></code>.
+A systemd <code class="docutils literal notranslate"><span class="pre">.path</span></code> unit watches <code class="docutils literal notranslate"><span class="pre">/var/lib/infra</span></code> and runs <code class="docutils literal notranslate"><span class="pre">infra</span> <span class="pre">apply</span></code>
 (a tiny Python CLI in <code class="docutils literal notranslate"><span class="pre">infra/cli.py</span></code>) as root on every change.</p>
-<p>The builder VM forwards the <code class="docutils literal notranslate"><span class="pre">infra</span></code> branch to mirrors when I push it to the builder.
-That keeps the laptop out of the direct mirror communication path.</p>
+<p>The builder VM pushes content to all mirrors listed in <code class="docutils literal notranslate"><span class="pre">infra/mirrors.txt</span></code>
+as part of the publish step. Infra data is handled by the primary mirror.
+Separately, the source repo is forwarded to the destinations listed in
+<code class="docutils literal notranslate"><span class="pre">infra/forward.txt</span></code>.</p>
 </section>
 <section id="certificates-and-challenges">
 <h2>Certificates and Challenges<a class="headerlink" href="#certificates-and-challenges" title="Link to this heading">¶</a></h2>
@@ -976,12 +980,12 @@ That keeps the laptop out of the direct mirror communication path.</p>
 The primary mirror runs certbot with manual hooks:</p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">infra</span> <span class="pre">distribute-challenge</span></code> writes the token under <code class="docutils literal notranslate"><span class="pre">infra/challenges/</span></code>
-and pushes the <code class="docutils literal notranslate"><span class="pre">infra</span></code> branch to mirrors.</p></li>
+and pushes the infra repo to mirrors.</p></li>
 <li><p>Mirrors apply the change and copy the token into
 <code class="docutils literal notranslate"><span class="pre">/var/www/pages/.well-known/acme-challenge/</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">infra</span> <span class="pre">cleanup-challenge</span></code> removes the token and pushes again.</p></li>
 </ol>
-<p>Certificates are distributed via the same <code class="docutils literal notranslate"><span class="pre">infra</span></code> branch, but encrypted.
+<p>Certificates are distributed via the same infra repo, but encrypted.
 The primary packs <code class="docutils literal notranslate"><span class="pre">fullchain.pem</span></code> and <code class="docutils literal notranslate"><span class="pre">privkey.pem</span></code> into a tarball,
 encrypts it with <code class="docutils literal notranslate"><span class="pre">age</span></code> for all mirror SSH public keys,
 commits to <code class="docutils literal notranslate"><span class="pre">infra/certs/</span></code>, and pushes to mirrors.
