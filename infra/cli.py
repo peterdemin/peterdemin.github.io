@@ -516,12 +516,20 @@ class DistributeCertsCommand:
         git("add", "-A", CERTS_DIR)
         if git.call("diff", "--cached", "--quiet") == 0:
             return 0
+        self._setup_git_user(Command("git").runuser("pages"))
         git("commit", "-m", "Update certs")
 
         push_infra = infra_git.subcommand("push")
         for remote, _ in Mirror().non_primary():
             push_infra(remote, "master")
         return 0
+
+    def _setup_git_user(self, git: Command) -> None:
+        conf = git.subcommand("config", "--global")
+        if not conf.check_output("user.email").strip():
+            conf("user.email", "pages@demin.dev")
+        if not conf.check_output("user.name").strip():
+            conf("user.name", "Mr Pages")
 
 
 def main(argv=None):
