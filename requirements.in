@@ -7,3 +7,5 @@ setuptools
 shibuya
 pip-tools
 lxml
+ipython-pygments-lexers
+pip<25.3  # https://github.com/jazzband/pip-tools/issues/2252

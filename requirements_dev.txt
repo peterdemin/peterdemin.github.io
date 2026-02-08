@@ -108,8 +108,6 @@ ipython==9.10.0
     #   ipykernel
     #   ipywidgets
     #   jupyter-console
-ipython-pygments-lexers==1.1.1
-    # via ipython
 ipywidgets==8.1.8
     # via jupyter
 isoduration==20.11.0
