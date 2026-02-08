@@ -44,8 +44,14 @@ stars:
 		| python star2md.py  \
 		> source/12_articles/77-github-stars.mdpart
 
+
+.PHONY: ghpages
+ghpages:
+	cp -f CNAME build/html/
+	touch build/html/.nojekyll
+
 .PHONY: lightweight
-lightweight: autogen html rss favicon tree wordmix
+lightweight: autogen html rss favicon tree wordmix ghpages
 
 .PHONY: build
 build: lightweight counter_build race_build photos_build
@@ -84,8 +90,6 @@ gitconfig:
 .PHONY: export
 export:
 	mv build/html _docs
-	cp CNAME _docs/
-	touch _docs/.nojekyll
 	git fetch origin gh-pages
 	git checkout gh-pages
 	rm -rf build docs
