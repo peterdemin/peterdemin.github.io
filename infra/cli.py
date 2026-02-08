@@ -194,8 +194,10 @@ class Command:
 
 
 class Mirror:
-    def __init__(self, infra: Path = HERE) -> None:
+    def __init__(self, infra: Path = HERE, home: Path = Path.home()) -> None:
         self._infra = infra
+        self._home = home
+        self.known_hosts = self._home / ".ssh/known_hosts"
 
     def all_mirrors(self) -> list[tuple[str, str]]:
         return self._load_remotes(self._infra / "mirrors.txt")
@@ -218,11 +220,21 @@ class Mirror:
                 break
         return [m for i, m in enumerate(mirrors) if i != primary_idx]
 
-    def _primary_comment(self) -> str:
-        return Path(self._infra / "keys/primary.pub").read_text().strip().split()[-1]
+    def add_known_host(self, remote: str) -> None:
+        host = remote.partition("@")[2].partition(":")[0]
+        for line in self.known_hosts.open():
+            if line.startswith(host):
+                return
+        keyscan = Command("ssh-keyscan", "-t", "ed25519")
+        key = keyscan.check_output(host) + "\n"
+        with self.known_hosts.open("at") as fobj:
+            fobj.write(key)
 
     def forwards(self) -> list[tuple[str, str]]:
         return self._load_remotes(self._infra / "forward.txt")
+
+    def _primary_comment(self) -> str:
+        return Path(self._infra / "keys/primary.pub").read_text().strip().split()[-1]
 
     def _load_remotes(self, path: Path) -> list[tuple[str, str]]:
         result: list[tuple[str, str]] = []
@@ -255,7 +267,7 @@ class BuilderPublishCommand:
         mirror = Mirror()
         mirrors = mirror.all_mirrors()
         for remote, _ in mirrors:
-            self._add_host_key(remote)
+            mirror.add_known_host(remote)
         self._push_content(args.content, mirrors)
         infra_mirrors = [
             (r.replace(":pages.git", ":infra.git"), b)
@@ -284,7 +296,6 @@ class BuilderPublishCommand:
 
     def _push_source(self, mirrors: list[tuple[str, str]]) -> None:
         for remote, branch in mirrors:
-            self._add_host_key(remote)
             self._source_git.call("push", remote, f"+master:{branch}")
 
     def _pick_primary(self, mirrors: list[tuple[str, str]]) -> tuple[str, str]:
@@ -293,15 +304,6 @@ class BuilderPublishCommand:
             if remote.startswith(comment):
                 return remote, branch
         return mirrors[0]
-
-    def _add_host_key(self, remote: str) -> None:
-        host = remote.partition("@")[2].partition(":")[0]
-        for line in KNOWN_HOSTS.open():
-            if line.startswith(host):
-                return
-        keyscan = Command("ssh-keyscan", "-t", "ed25519")
-        with KNOWN_HOSTS.open("at") as fobj:
-            fobj.write(keyscan.check_output(host) + "\n")
 
 
 class DistributeChallengeCommand:
@@ -475,38 +477,7 @@ class DistributeCertsCommand:
     def handle(self, args):
         _ensure_root()
 
-        domain = args.domain.strip()
-        fullchain = self._live / domain / "fullchain.pem"
-        privkey = self._live / domain / "privkey.pem"
-
-        if not fullchain.exists():
-            print(f"Missing fullchain at {fullchain}.")
-            return 1
-        if not privkey.exists():
-            print(f"Missing privkey at {privkey}.")
-            return 1
-
-        recipients = []
-        for pub in sorted(KEYS_DIR.glob("*.pub")):
-            if pub.name not in ("primary.pub", "builder.pub"):
-                recipients.append(pub.read_text(encoding="utf-8").strip())
-        if not recipients:
-            print(f"No recipients found in {KEYS_DIR}")
-            return 1
-
-        CERTS_DIR.mkdir(parents=True, exist_ok=True)
-        out_file = CERTS_DIR / f"{domain}.tar.age"
-        age = Command("age", "--encrypt", "-o", out_file, verbose=True)
-        for recipient in recipients:
-            age = age.subcommand("-r", recipient)
-        with tempfile.TemporaryDirectory() as tmpdir:
-            tar_path = Path(tmpdir) / f"{domain}.tar.gz"
-            with tarfile.open(tar_path, "w:gz") as tar:
-                tar.add(fullchain, arcname="fullchain.pem")
-                tar.add(privkey, arcname="privkey.pem")
-            age(tar_path)
-        chown = Command("chown", "pages:pages")
-        chown(out_file)
+        self._pack_certs(args.domain, CERTS_DIR / f"{args.domain}.tar.age")
 
         infra_git = Command(
             "git", "--git-dir", PAGES_HOME / "infra.git", verbose=True
@@ -520,9 +491,38 @@ class DistributeCertsCommand:
         git("commit", "-m", "Update certs")
 
         push_infra = infra_git.subcommand("push")
-        for remote, _ in Mirror().non_primary():
+        mirror = Mirror(home=PAGES_HOME)
+        for remote, _ in mirror.non_primary():
+            mirror.add_known_host(remote)
             push_infra(remote, "master")
         return 0
+
+    def _pack_certs(self, domain: str, out_file: Path) -> None:
+        domain = domain.strip()
+        fullchain = self._live / domain / "fullchain.pem"
+        privkey = self._live / domain / "privkey.pem"
+        assert fullchain.exists()
+        assert privkey.exists()
+
+        recipients = []
+        for pub in sorted(KEYS_DIR.glob("*.pub")):
+            if pub.name not in ("primary.pub", "builder.pub"):
+                recipients.append(pub.read_text(encoding="utf-8").strip())
+        if not recipients:
+            raise ValueError(f"No recipients found in {KEYS_DIR}")
+
+        out_file.parent.mkdir(parents=True, exist_ok=True)
+        age = Command("age", "--encrypt", "-o", out_file, verbose=True)
+        for recipient in recipients:
+            age = age.subcommand("-r", recipient)
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tar_path = Path(tmpdir) / f"{domain}.tar.gz"
+            with tarfile.open(tar_path, "w:gz") as tar:
+                tar.add(fullchain, arcname="fullchain.pem")
+                tar.add(privkey, arcname="privkey.pem")
+            age(tar_path)
+        chown = Command("chown", "pages:pages")
+        chown(out_file)
 
     def _setup_git_user(self, git: Command) -> None:
         conf = git.subcommand("config", "--global")

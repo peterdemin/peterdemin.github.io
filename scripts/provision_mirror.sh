@@ -1,8 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 
-EMAIL=peter@demin.dev
-
 apt-mark hold google-cloud-cli google-cloud-cli-anthoscli google-guest-agent google-osconfig-agent
 
 mkdir -p /etc/apt/keyrings
@@ -37,6 +35,7 @@ install -o pages -g pages -m 0600 /dev/stdin ~pages/.ssh/authorized_keys <<'EOF'
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILG64GMcBIxl4rGuRum2n07Kf7dE9CUlzLl84e/TWvTM builder@trixie
 EOF
 test -f ~pages/.ssh/id_ed25519 || sudo -u pages /bin/bash -c 'ssh-keygen -t ed25519 -f ~pages/.ssh/id_ed25519 -N ""'
+echo | install -o pages -g pages -m 0600 /dev/stdin ~pages/.ssh/known_hosts
 
 echo "Copy public key to infra/keys/ directory:"
 sudo -u pages /bin/bash -c 'ssh-keygen -yf ~pages/.ssh/id_ed25519'
