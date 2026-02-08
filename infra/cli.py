@@ -526,9 +526,9 @@ class DistributeCertsCommand:
 
     def _setup_git_user(self, git: Command) -> None:
         conf = git.subcommand("config", "--global")
-        if not conf.check_output("user.email").strip():
+        if not conf.call("user.email") != 0:
             conf("user.email", "pages@demin.dev")
-        if not conf.check_output("user.name").strip():
+        if not conf.call("user.name") != 0:
             conf("user.name", "Mr Pages")
 
 
