@@ -151,11 +151,12 @@ class ApplyCommand:
 
 
 class Command:
-    def __init__(self, *c: str | Path) -> None:
+    def __init__(self, *c: str | Path, verbose: bool = False) -> None:
         self._prefix = c
+        self._verbose = verbose
 
     def subcommand(self, *c: str | Path) -> "Command":
-        return self.__class__(*(self._prefix + c))
+        return self.__class__(*(self._prefix + c), verbose=self._verbose)
 
     def call(self, *c: str | Path, **kwargs) -> int:
         self._print(c)
@@ -166,7 +167,8 @@ class Command:
         subprocess.check_call(self._prefix + c, **kwargs)
 
     def _print(self, c: tuple[str | Path, ...]) -> None:
-        print(shlex.join(map(str, self._prefix + c)), file=sys.stderr)
+        if self._verbose:
+            print(shlex.join(map(str, self._prefix + c)), file=sys.stderr)
 
 
 class BuilderPublishCommand:
