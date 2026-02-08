@@ -533,8 +533,8 @@ class DistributeCertsCommand:
         with tempfile.TemporaryDirectory() as tmpdir:
             tar_path = Path(tmpdir) / f"{domain}.tar.gz"
             with tarfile.open(tar_path, "w:gz") as tar:
-                tar.add(fullchain, arcname="fullchain.pem")
-                tar.add(privkey, arcname="privkey.pem")
+                tar.add(fullchain.resolve(), arcname=fullchain.name)
+                tar.add(privkey.resolve(), arcname=privkey.name)
             age(tar_path)
         chown(out_file)
 
