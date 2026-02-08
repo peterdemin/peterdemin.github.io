@@ -17,11 +17,13 @@ HOME_DIR = Path("/home/pages")
 LOCAL_PUB = HOME_DIR / ".ssh" / "id_ed25519.pub"
 AUTHORIZED_KEYS = HOME_DIR / ".ssh" / "authorized_keys"
 MIRRORS_LIST = Path("infra/mirrors.txt")
+FORWARD_LIST = Path("infra/forward.txt")
 CHALLENGES_DIR = INFRA_DIR / "challenges"
 WEBROOT_CHALLENGES = Path("/var/www/pages/.well-known/acme-challenge")
 CERTS_DIR = INFRA_DIR / "certs"
 GIT_DIR = HOME_DIR / "repo.git"
 KNOWN_HOSTS = Path.home() / '.ssh/known_hosts'
+
 
 def _ensure_root():
     if os.geteuid() != 0:
@@ -177,9 +179,10 @@ class Command:
 
 class BuilderPublishCommand:
     def __init__(self) -> None:
-        git = Command("git", verbose=True)
-        self._pages_git = git.subcommand("--git-dir", Path.home() / "pages.git")
-        self._infra_git = git.subcommand("--git-dir", Path.home() / "infra.git")
+        bare_git = Command("git", "--git-dir", verbose=True)
+        self._pages_git = bare_git.subcommand(Path.home() / "pages.git")
+        self._infra_git = bare_git.subcommand(Path.home() / "infra.git")
+        self._source_git = bare_git.subcommand(Path.home() / "repo.git")
 
     def add_subparser(self, sub):
         p = sub.add_parser("builder-publish", help="Push to mirrors")
@@ -192,7 +195,7 @@ class BuilderPublishCommand:
 
         Executed from the worktree directory of source repo.
         """
-        mirrors = self._load_mirrors()
+        mirrors = self._load_mirrors(MIRRORS_LIST)
         for remote, _ in mirrors:
             self._add_host_key(remote)
         self._push_content(args.content, mirrors)
@@ -202,6 +205,7 @@ class BuilderPublishCommand:
             if r.endswith(":pages.git") and b == "master"
         ]
         self._push_infra(infra_mirrors)
+        self._push_source(self._load_mirrors(FORWARD_LIST))
         return 0
 
     def _push_content(self, content: str, mirrors: list[tuple[str, str]]) -> None:
@@ -220,9 +224,14 @@ class BuilderPublishCommand:
         for remote, branch in mirrors:
             self._infra_git.call("push", "-f", remote, branch)
 
-    def _load_mirrors(self) -> list[tuple[str, str]]:
+    def _push_source(self, mirrors: list[tuple[str, str]]) -> None:
+        for remote, branch in mirrors:
+            self._add_host_key(remote)
+            self._source_git.call("push", remote, f"+master:{branch}")
+
+    def _load_mirrors(self, path: Path) -> list[tuple[str, str]]:
         result: list[tuple[str, str]] = []
-        for line in MIRRORS_LIST.open(encoding="utf-8"):
+        for line in path.open(encoding="utf-8"):
             line = line.strip()
             if line and not line.startswith("#"):
                 remote, _, branch = line.partition(" ")
