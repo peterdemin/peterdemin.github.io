@@ -495,7 +495,8 @@ class DistributeCertsCommand:
             return 1
 
         CERTS_DIR.mkdir(parents=True, exist_ok=True)
-        age = Command("age", "--encrypt", "-o", CERTS_DIR / f"{domain}.tar.age")
+        out_file = CERTS_DIR / f"{domain}.tar.age"
+        age = Command("age", "--encrypt", "-o", out_file)
         for recipient in recipients:
             age = age.subcommand("-r", recipient)
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -505,7 +506,7 @@ class DistributeCertsCommand:
                 tar.add(privkey, arcname="privkey.pem")
             age(tar_path)
         chown = Command("chown", "pages:pages")
-        chown(tar_path)
+        chown(out_file)
 
         infra_git = Command(
             "git", "--git-dir", PAGES_HOME / "infra.git", verbose=True
