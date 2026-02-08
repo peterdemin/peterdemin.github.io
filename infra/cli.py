@@ -9,6 +9,7 @@ import tarfile
 import tempfile
 from pathlib import Path
 
+HERE = Path(__file__).parent
 INFRA_DIR = Path("/var/lib/infra")
 KEYS_DIR = INFRA_DIR / "keys"
 PRIMARY_KEY = KEYS_DIR / "primary.pub"
@@ -183,14 +184,45 @@ class Command:
             print(shlex.join(map(str, self._prefix + c)), file=sys.stderr)
 
 
-def load_mirrors(path: Path) -> list[tuple[str, str]]:
-    result: list[tuple[str, str]] = []
-    for line in path.open(encoding="utf-8"):
-        line = line.strip()
-        if line and not line.startswith("#"):
-            remote, _, branch = line.partition(" ")
-            result.append((remote, branch or "master"))
-    return result
+class Mirror:
+    def __init__(self, infra: Path = HERE) -> None:
+        self._infra = infra
+
+    def all_mirrors(self) -> list[tuple[str, str]]:
+        return self._load_remotes(self._infra / "mirrors.txt")
+
+    def primary(self) -> tuple[str, str]:
+        primary = self._primary_comment()
+        mirrors = self.all_mirrors()
+        for remote, branch in mirrors:
+            if remote.startswith(primary):
+                return remote, branch
+        return mirrors[0]
+
+    def non_primary(self) -> list[tuple[str, str]]:
+        primary = self._primary_comment()
+        mirrors = self.all_mirrors()
+        primary_idx = 0
+        for i, (remote, _) in enumerate(mirrors):
+            if remote.startswith(primary):
+                primary_idx = i
+                break
+        return [m for i, m in enumerate(mirrors) if i != primary_idx]
+
+    def _primary_comment(self) -> str:
+        return Path(self._infra / "keys/primary.pub").read_text().strip().split()[-1]
+
+    def forwards(self) -> list[tuple[str, str]]:
+        return self._load_remotes(self._infra / "forward.txt")
+
+    def _load_remotes(self, path: Path) -> list[tuple[str, str]]:
+        result: list[tuple[str, str]] = []
+        for line in path.open(encoding="utf-8"):
+            line = line.strip()
+            if line and not line.startswith("#"):
+                remote, _, branch = line.partition(" ")
+                result.append((remote, branch or "master"))
+        return result
 
 
 class BuilderPublishCommand:
@@ -211,7 +243,8 @@ class BuilderPublishCommand:
 
         Executed from the worktree directory of source repo.
         """
-        mirrors = load_mirrors(MIRRORS_LIST)
+        mirror = Mirror()
+        mirrors = mirror.all_mirrors()
         for remote, _ in mirrors:
             self._add_host_key(remote)
         self._push_content(args.content, mirrors)
@@ -221,7 +254,7 @@ class BuilderPublishCommand:
             if r.endswith(":pages.git") and b == "master"
         ]
         self._push_infra(infra_mirrors)
-        self._push_source(load_mirrors(FORWARD_LIST))
+        self._push_source(mirror.forwards())
         return 0
 
     def _push_content(self, content: str, mirrors: list[tuple[str, str]]) -> None:
@@ -446,7 +479,8 @@ class DistributeCertsCommand:
 
         recipients = []
         for pub in sorted(KEYS_DIR.glob("*.pub")):
-            recipients.append(pub.read_text(encoding="utf-8").strip())
+            if pub.name not in ("primary.pub", "builder.pub"):
+                recipients.append(pub.read_text(encoding="utf-8").strip())
         if not recipients:
             print(f"No recipients found in {KEYS_DIR}")
             return 1
@@ -474,7 +508,7 @@ class DistributeCertsCommand:
         push_infra = Command(
             "git", "--git-dir", Path.home() / "infra.git", "push"
         ).runuser("pages")
-        for remote, _ in load_mirrors(MIRRORS_LIST):
+        for remote, _ in Mirror().non_primary():
             push_infra(remote, "master")
         return 0
 
