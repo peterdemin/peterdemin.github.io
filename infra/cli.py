@@ -202,7 +202,7 @@ class BuilderPublishCommand:
         git.check_call("add", "-A", ".")
         git.call("commit", "-m", "build pages")
         for remote, branch in mirrors:
-            self._pages_git.call("push", remote, branch)
+            self._pages_git.call("push", "-f", remote, branch)
 
     def _push_infra(self, mirrors: list[tuple[str, str]]) -> None:
         git = self._infra_git.subcommand("-C", "infra", "--work-tree", ".")
@@ -211,7 +211,7 @@ class BuilderPublishCommand:
         p_remote, p_branch = self._pick_primary(mirrors)
         git.call("pull", "--rebase", p_remote, p_branch)
         for remote, branch in mirrors:
-            self._infra_git.call("push", remote, branch)
+            self._infra_git.call("push", "-f", remote, branch)
 
     def _load_mirrors(self) -> list[tuple[str, str]]:
         result: list[tuple[str, str]] = []
