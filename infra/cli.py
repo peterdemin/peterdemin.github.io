@@ -236,7 +236,7 @@ class Mirror:
 
 class BuilderPublishCommand:
     def __init__(self) -> None:
-        bare_git = Command("git", "--git-dir", verbose=True)
+        bare_git = Command("git", "--git-dir")
         self._pages_git = bare_git.subcommand(Path.home() / "pages.git")
         self._infra_git = bare_git.subcommand(Path.home() / "infra.git")
         self._source_git = bare_git.subcommand(Path.home() / "repo.git")
@@ -496,7 +496,7 @@ class DistributeCertsCommand:
 
         CERTS_DIR.mkdir(parents=True, exist_ok=True)
         out_file = CERTS_DIR / f"{domain}.tar.age"
-        age = Command("age", "--encrypt", "-o", out_file)
+        age = Command("age", "--encrypt", "-o", out_file, verbose=True)
         for recipient in recipients:
             age = age.subcommand("-r", recipient)
         with tempfile.TemporaryDirectory() as tmpdir:
