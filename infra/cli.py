@@ -190,9 +190,9 @@ class BuilderPublishCommand:
         mirrors = self._load_mirrors()
         self._push_content(args.content, mirrors)
         infra_mirrors = [
-            (r.replace("pages.git", "infra.git"), b)
+            (r.replace(":pages.git", ":infra.git"), b)
             for r, b in mirrors
-            if b == "master"
+            if r.endswith(":pages.git") and b == "master"
         ]
         self._push_infra(infra_mirrors)
         return 0
@@ -202,7 +202,7 @@ class BuilderPublishCommand:
         git.check_call("add", "-A", ".")
         git.call("commit", "-m", "build pages")
         for remote, branch in mirrors:
-            self._pages_git.call("push", "-f", remote, branch)
+            self._pages_git.call("push", remote, f"+master:{branch}")
 
     def _push_infra(self, mirrors: list[tuple[str, str]]) -> None:
         git = self._infra_git.subcommand("-C", "infra", "--work-tree", ".")
