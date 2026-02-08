@@ -1,6 +1,6 @@
 # Building this Website on Git Push
 
-## Preface
+## Introduction
 
 In the spirit of my recent fascination with self-sovereignity and decentralization I will replace the fancy friendly mature reliable GitHub Pages with a hack.
 
