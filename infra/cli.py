@@ -21,7 +21,7 @@ CHALLENGES_DIR = INFRA_DIR / "challenges"
 WEBROOT_CHALLENGES = Path("/var/www/pages/.well-known/acme-challenge")
 CERTS_DIR = INFRA_DIR / "certs"
 GIT_DIR = HOME_DIR / "repo.git"
-
+KNOWN_HOSTS = Path.home() / '.ssh/known_hosts'
 
 def _ensure_root():
     if os.geteuid() != 0:
@@ -165,6 +165,11 @@ class Command:
         self._print(c)
         subprocess.check_call(self._prefix + c, **kwargs)
 
+    def check_output(self, *c: str | Path, **kwargs) -> str:
+        self._print(c)
+        kwargs['text'] = True
+        return subprocess.check_output(self._prefix + c, **kwargs)
+
     def _print(self, c: tuple[str | Path, ...]) -> None:
         if self._verbose:
             print(shlex.join(map(str, self._prefix + c)), file=sys.stderr)
@@ -188,6 +193,8 @@ class BuilderPublishCommand:
         Executed from the worktree directory of source repo.
         """
         mirrors = self._load_mirrors()
+        for remote, _ in mirrors:
+            self._add_host_key(remote)
         self._push_content(args.content, mirrors)
         infra_mirrors = [
             (r.replace(":pages.git", ":infra.git"), b)
@@ -228,6 +235,15 @@ class BuilderPublishCommand:
             if remote.startswith(comment):
                 return remote, branch
         return mirrors[0]
+
+    def _add_host_key(self, remote: str) -> None:
+        host = remote.partition("@")[2].partition(":")[0]
+        for line in KNOWN_HOSTS.open():
+            if line.startswith(host):
+                return
+        keyscan = Command('ssh-keyscan', '-t', 'ed25519')
+        with KNOWN_HOSTS.open("at") as fobj:
+            fobj.write(keyscan.check_output(host) + "\n")
 
 
 class DistributeChallengeCommand:
