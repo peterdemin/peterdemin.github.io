@@ -58,7 +58,7 @@ class Gallery:
         self._images.append(path)
 
     def save(self) -> None:
-        Path(f"{self._name}.md").write_text(self.markdown(), encoding="utf-8")
+        Path(f"{self._name}.mdpart").write_text(self.markdown(), encoding="utf-8")
         self.export_images()
         self.export_thumbnails()
 
@@ -66,12 +66,14 @@ class Gallery:
         lines = []
         for i, _ in self._iter_paths():
             target = self._target(i)
-            lines.extend([
-                f"```{{figure}} /16_life/{self._thumbnail(i)}",
-                f":alt: {target.name}",
-                f":target: /16_life/{target}",
-                "```",
-            ])
+            lines.extend(
+                [
+                    f'<a href="_{target}">',
+                    f'  <img alt="{target.name}"',
+                    f'       src="_{self._thumbnail(i)}">',
+                    "</a>",
+                ]
+            )
         return "\n".join(lines)
 
     def export_images(self) -> None:
