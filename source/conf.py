@@ -7,6 +7,12 @@ https://www.sphinx-doc.org/en/master/usage/configuration.html
 """
 # pylint: disable=invalid-name, redefined-builtin
 
+from sphinx.builders.dirhtml import DirectoryHTMLBuilder
+
+# Ensure WebP is considered an image for HTML output
+if "image/webp" not in DirectoryHTMLBuilder.supported_image_types:
+    DirectoryHTMLBuilder.supported_image_types.append("image/webp")
+
 # -- Path setup --------------------------------------------------------------
 
 # If extensions (or modules to document with autodoc) are in another directory,
