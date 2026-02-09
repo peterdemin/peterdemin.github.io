@@ -2,7 +2,7 @@
 I started noticing these tiny rare flowers scattered across.
 The overall scarcity made them noticable and brought attention, that otherwise would be lost in the summer abundance. 
 
-```{include} /16_life/2026_01_31_flowers.md
+```{include} /16_life/2026_01_31_flowers.mdpart
 ```
 
 In a way, I get the same effect in my RSS feed.
