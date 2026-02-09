@@ -34,6 +34,10 @@ rss:
 favicon:
 	cp -f source/favicon.ico build/html/favicon.ico
 
+.PHONY: images
+images:
+	cp -f source/16_life/images/* build/html/_images/
+
 .PHONY: stars
 stars:
 	gh api --paginate \
@@ -51,7 +55,7 @@ ghpages:
 	touch build/html/.nojekyll
 
 .PHONY: lightweight
-lightweight: autogen html rss favicon tree wordmix ghpages
+lightweight: autogen html rss favicon images tree wordmix ghpages
 
 .PHONY: build
 build: lightweight counter_build race_build photos_build
