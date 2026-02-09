@@ -66,7 +66,9 @@ class Gallery:
         lines = []
         for i, _ in self._iter_paths():
             target = self._target(i)
-            lines.append(f"[![{target}](./images/{self._thumbnail(i)})]({target})")
+            lines.append(
+                f"[![{target.name}](/16_life/{self._thumbnail(i)})](/16_life/{target})"
+            )
         return "\n".join(lines)
 
     def export_images(self) -> None:
@@ -77,12 +79,11 @@ class Gallery:
 
     def export_thumbnails(self) -> None:
         for i, path in self._iter_paths():
-            im = Image.open(path)
-            self._crop(im)
-            im.thumbnail((self._side, self._side))
+            im = self._crop(Image.open(path))
+            im.thumbnail((self._thumbnail_side, self._thumbnail_side))
             im.save(self._thumbnail(i))
 
-    def _crop(self, im: Image.Image) -> None:
+    def _crop(self, im: Image.Image) -> Image.Image:
         w, h = im.size
         cw = w // 2
         ch = h // 2
@@ -92,7 +93,7 @@ class Gallery:
         else:
             left, right = 0, w
             top, bottom = ch - cw, ch + cw
-        im.crop((left, top, right, bottom))
+        return im.crop((left, top, right, bottom))
 
     def _iter_paths(self) -> Iterable[tuple[int, Path]]:
         return enumerate(sorted(self._images), 1)
