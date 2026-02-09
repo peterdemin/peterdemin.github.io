@@ -5,6 +5,8 @@ ipdb
 pylint
 jc
 heic-to-jpg
+pillow
+pillow-heif
 ipython
 jupyter
 pandas
