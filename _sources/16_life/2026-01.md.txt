@@ -1,3 +1,15 @@
+`Jan 31, 2026` - I was wondering through a community gargen, which is quite bleak this time of year.
+I started noticing these tiny rare flowers scattered across.
+The overall scarcity made them noticable and brought attention, that otherwise would be lost in the summer abundance. 
+
+```{include} /16_life/2026_01_31_flowers.md
+```
+
+In a way, I get the same effect in my RSS feed.
+When I have 100 posts to go through, I skim and skip quickly.
+But if I have just a few, I read them through.
+Same goes for email digests, if they try to cover too much ground, the value of each item is lost in the overwhelming deluge of information.
+
 `Jan 26, 2026` - I got excited about ForgeFed, and want to see what is Forgejo is up to.
 Naturally, they host the code in Forgejo itself, confusingly named codeberg.
 Here's what I saw when opened the repo:
