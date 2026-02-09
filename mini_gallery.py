@@ -66,9 +66,12 @@ class Gallery:
         lines = []
         for i, _ in self._iter_paths():
             target = self._target(i)
-            lines.append(
-                f"[![{target.name}](/16_life/{self._thumbnail(i)})](/16_life/{target})"
-            )
+            lines.extend([
+                f"```{{figure}} /16_life/{self._thumbnail(i)}",
+                f":alt: {target.name}",
+                f":target: /16_life/{target}",
+                "```",
+            ])
         return "\n".join(lines)
 
     def export_images(self) -> None:
