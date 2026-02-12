@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Dec 06, 2024
+
+[trailbaseio/trailbase](https://github.com/trailbaseio/trailbase) - An open, sub-millisecond, single-executable Firebase alternative with type-safe APIs, built-in WebAssembly runtime, realtime subscriptions, auth, and admin UI built on Rust, SQLite & Wasmtime.

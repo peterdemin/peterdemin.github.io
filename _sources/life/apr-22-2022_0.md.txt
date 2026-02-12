@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Apr 22, 2022
+
+[thebjorn/pydeps](https://github.com/thebjorn/pydeps) - Python Module Dependency graphs

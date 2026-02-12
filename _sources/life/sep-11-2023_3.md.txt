@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Sep 11, 2023
+
+[bitswired/lazycodr](https://github.com/bitswired/lazycodr) - A CLI tool to help lazy coders get the work done with AI (commit messages, pull requests ...). Because a LAZY programmer is a GREAT programmer 😜

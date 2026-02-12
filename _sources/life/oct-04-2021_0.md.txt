@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Oct 04, 2021
+
+[akaihola/darker](https://github.com/akaihola/darker) - Apply black reformatting to Python files only in regions changed since a given commit. For a practical usage example, see the blog post at https://dev.to/akaihola/improving-python-code-incrementally-3f7a

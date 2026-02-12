@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Oct 26, 2023
+
+[](/12_articles/45-minimal-linux-email-box.md)

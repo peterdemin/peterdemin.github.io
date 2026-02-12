@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Oct 02, 2020
+
+[valohai/django-allauth-2fa](https://github.com/valohai/django-allauth-2fa) - Two-factor authentication for Django Allauth

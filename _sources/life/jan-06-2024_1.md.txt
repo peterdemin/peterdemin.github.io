@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jan 06, 2024
+
+Set up the Apple Weather app to ping you whenever it rains in Seattle, and never pick up your phone to an empty notification screen.

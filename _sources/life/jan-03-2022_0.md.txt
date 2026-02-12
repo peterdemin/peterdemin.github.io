@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jan 03, 2022
+
+[mitsuhiko/minijinja](https://github.com/mitsuhiko/minijinja) - MiniJinja is a powerful but minimal dependency template engine for Rust compatible with Jinja/Jinja2

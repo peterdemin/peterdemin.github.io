@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jul 10, 2024
+
+[ironman5366/ai-murder-mystery-hackathon](https://github.com/ironman5366/ai-murder-mystery-hackathon) - The game is afoot

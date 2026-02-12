@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jan 05, 2023
+
+[cider-security-research/cicd-goat](https://github.com/cider-security-research/cicd-goat) - A deliberately vulnerable CI/CD environment. Learn CI/CD security through multiple challenges.

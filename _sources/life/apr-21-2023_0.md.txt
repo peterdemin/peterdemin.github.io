@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Apr 21, 2023
+
+[griptape-ai/griptape](https://github.com/griptape-ai/griptape) - Modular Python framework for AI agents and workflows with chain-of-thought reasoning, tools, and memory.

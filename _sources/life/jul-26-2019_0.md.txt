@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jul 26, 2019
+
+[penguinolog/sqlalchemy_jsonfield](https://github.com/penguinolog/sqlalchemy_jsonfield) - SQLALchemy JSONField implementation for storing dicts at SQL independently from JSON type support

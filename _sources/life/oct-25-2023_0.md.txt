@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Oct 25, 2023
+
+Notes for [](/17_notes/25-scaling_technical_consistency.md)

@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Apr 08, 2021
+
+[jameslittle230/stork](https://github.com/jameslittle230/stork) - 🔎 Impossibly fast web search, made for static sites.

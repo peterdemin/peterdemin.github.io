@@ -1,0 +1,18 @@
+---
+orphan: true
+---
+
+# Dec 29, 2025
+
+On the third day of Christmas I managed to migrate from Virtualbox to libvirt.
+I learned about [virtiofs](https://wiki.archlinux.org/title/Libvirt#Configure_filesystem_passthrough) - a way to share directories with libvirt VMs, similar to shared folders of VirtualBox, but with manual mounting on the guest side.
+I tried [Cockpit](https://cockpit-project.org/) and Cockpit-machines, which is a WebUI to libvirt, but it didn't provide enough functionality (which I thought is extremely basic).
+I learned some obscure factoids about [cloud-init](https://docs.cloud-init.io/en/latest/index.html), but still very confused. It's such a weird combination of convenience and complexity.
+I landed on [vagrant-libvirt](https://vagrant-libvirt.github.io/vagrant-libvirt/) provider, and made just a few changes to my Vagrantfile to adjust.
+I wish I could remove Vagrant from my setup, but that would mean reimplementing the following steps, that I'm not too keen on:
+1. SSH key provisioning.
+2. Network configuration with static IP address for the guest and port forwarding.
+3. Mounting the virtiofs mounts.
+After all this good work, I looked at my GitHub repo with a lonely 1 star, and "unpublished" it.
+It's a fun thing to hack around, but a hard thing to share with other people.
+So far, I learned that most people are pretty secretive about their home media library setup, and not interested in cooperating or consolidating.

@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jun 23, 2020
+
+[pschanely/CrossHair](https://github.com/pschanely/CrossHair) - An analysis tool for Python that blurs the line between testing and type systems.

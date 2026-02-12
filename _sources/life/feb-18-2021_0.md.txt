@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Feb 18, 2021
+
+[Textualize/rich](https://github.com/Textualize/rich) - Rich is a Python library for rich text and beautiful formatting in the terminal.

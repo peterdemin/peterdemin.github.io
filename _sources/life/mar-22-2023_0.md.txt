@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Mar 22, 2023
+
+[fauxpilot/fauxpilot](https://github.com/fauxpilot/fauxpilot) - FauxPilot - an open-source alternative to GitHub Copilot server

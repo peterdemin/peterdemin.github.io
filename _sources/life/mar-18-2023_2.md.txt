@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Mar 18, 2023
+
+[evansd/whitenoise](https://github.com/evansd/whitenoise) - Radically simplified static file serving for Python web apps

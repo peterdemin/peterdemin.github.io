@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Apr 15, 2023
+
+[TomWright/mermaid-server](https://github.com/TomWright/mermaid-server) - Go implementation of a HTTP server to allow remote generation of mermaid-js diagrams without any pre-requisites installed locally.

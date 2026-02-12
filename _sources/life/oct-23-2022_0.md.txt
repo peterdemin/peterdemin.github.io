@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Oct 23, 2022
+
+[avitorio/outstatic](https://github.com/avitorio/outstatic) - Outstatic - A static CMS for Next.js

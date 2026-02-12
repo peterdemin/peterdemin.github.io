@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Dec 10, 2022
+
+[ossillate-inc/packj](https://github.com/ossillate-inc/packj) - Packj stops :zap: Solarwinds-, ESLint-, and PyTorch-like attacks by flagging malicious/vulnerable open-source dependencies ("weak links") in your software supply-chain

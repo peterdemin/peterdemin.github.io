@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Apr 08, 2023
+
+[0xTheProDev/fastapi-clean-example](https://github.com/0xTheProDev/fastapi-clean-example) - Clean Architecture Example using FastAPI framework

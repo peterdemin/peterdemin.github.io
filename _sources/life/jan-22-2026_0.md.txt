@@ -1,0 +1,13 @@
+---
+orphan: true
+---
+
+# Jan 22, 2026
+
+Here is a metaphor for how big tech companies operate that comes to mind over and over and seems to apply to many situations.
+A small company operates like a chess master: the pieces move in a tight choreography, and even when it's not clear for each separate pawn, there is a big picture, and it makes sense at the end.
+As the company grows, when no one knows how many teams are in the org, not to mention the names of the people, there ain't no chess master at the helm.
+Each piece is moved by a number of people who rarely communicate and have different goals.
+Coordination between pieces is eventual and minimal.
+There's a lot of effort exerted, and the amount of motion is dizzying.
+Yet, rarely are substantial improvements achieved, and never efficiently.

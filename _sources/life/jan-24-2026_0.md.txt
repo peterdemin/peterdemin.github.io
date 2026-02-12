@@ -1,0 +1,16 @@
+---
+orphan: true
+---
+
+# Jan 24, 2026
+
+I discovered a neat application for AI.
+My wife asked me to look up a recipe online as she was cooking.
+The problem with online recipies is that there's plenty, differing in minor ways.
+They are most likely poorly formatted and riddled with ads.
+ChatGPT to the rescue, here's my prompt:
+> I need a complete recipe for Pavlova cake with weights in grams.
+> I need it nicely formatted for printing on a single page.
+> Make it an HTML page with printer-friendly styles.
+Copy'n'Paste the HTML to a file, open it and send to printer.
+![Pavlova cake recipe](/16_life/images/pavlova-cake.png)

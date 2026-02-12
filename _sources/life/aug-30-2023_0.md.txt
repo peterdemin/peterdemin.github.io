@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Aug 30, 2023
+
+Notes for [](/17_notes/17-why_we_always_end_up_with_waterfall.md), [](/17_notes/18-robots_vs_programmers.md)

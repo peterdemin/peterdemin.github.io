@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Aug 15, 2023
+
+Notes for [](/17_notes/09-objective_driven_ai.md)

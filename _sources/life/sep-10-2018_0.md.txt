@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Sep 10, 2018
+
+[ycm-core/YouCompleteMe](https://github.com/ycm-core/YouCompleteMe) - A code-completion engine for Vim

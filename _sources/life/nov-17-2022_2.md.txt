@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Nov 17, 2022
+
+[ahupp/python-magic](https://github.com/ahupp/python-magic) - A python wrapper for libmagic

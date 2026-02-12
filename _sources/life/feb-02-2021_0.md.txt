@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Feb 02, 2021
+
+[chaimleib/intervaltree](https://github.com/chaimleib/intervaltree) - A mutable, self-balancing interval tree. Queries may be by point, by range overlap, or by range containment.

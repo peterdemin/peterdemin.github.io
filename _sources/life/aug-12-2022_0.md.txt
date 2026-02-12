@@ -1,0 +1,13 @@
+---
+orphan: true
+---
+
+# Aug 12, 2022
+
+[faster-cpython/ideas](https://github.com/faster-cpython/ideas) - None
+**Climbing log**
+- August
+    - 9: 10a, 10c, 10c, 11a, 11a
+    - 11: 10c, 10d, 11a, 10c, 11b, 10b
+    - 16: 10b, 10d, 11a, 11a, 11a
+    - 18: 10c, 10d, 11a, 11b, 11b

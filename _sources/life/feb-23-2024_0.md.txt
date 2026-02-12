@@ -1,0 +1,13 @@
+---
+orphan: true
+---
+
+# Feb 23, 2024
+
+GPT4 prompt to use shell:
+> Act as a Linux terminal. Generate bash commands to accomplish a task.
+> Do not explain, and do not provide instructions. Only generate the shell code to accomplish the task.
+> The task is:
+Example task:
+> Add this public key to authorized SSH keys for user "WubbaLubbaDubDub":
+> ssh-rsa AAAAB...

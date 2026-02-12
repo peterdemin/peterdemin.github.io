@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Aug 20, 2020
+
+[danielgtaylor/python-betterproto](https://github.com/danielgtaylor/python-betterproto) - Clean, modern, Python 3.6+ code generator & library for Protobuf 3 and async gRPC

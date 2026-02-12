@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Apr 30, 2024
+
+[RhinoSecurityLabs/cloudgoat](https://github.com/RhinoSecurityLabs/cloudgoat) - CloudGoat is Rhino Security Labs' "Vulnerable by Design" AWS deployment tool

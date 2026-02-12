@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jul 12, 2025
+
+[gw1urf/spigot](https://github.com/gw1urf/spigot) - A hierarchy of Markov Chain generated web pages.

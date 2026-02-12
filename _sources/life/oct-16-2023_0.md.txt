@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Oct 16, 2023
+
+Added article on [](/12_articles/43-pydantic-mutable-defaults.md)

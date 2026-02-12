@@ -1,0 +1,61 @@
+---
+orphan: true
+---
+
+# Sep 06, 2022
+
+[wakatime/wakaq](https://github.com/wakatime/wakaq) - Background task queue for Python backed by Redis, a super minimal Celery
+`October 17, 2022` · Hey, network! We've opened new positions to scale our product nationwide! We need:
+- Scum master.
+- Software development psychol.
+- Amel ginger with sloth filling experience.
+Extra points for having experience with:
+- Scrumbut implementation.
+- Technical debt reprioritization.
+- Ass-covering paper trail.
+Reach out to learn more, or
+if you know someone who fits the role!
+**Running log**
+```
+WEEK MO TU WE TH FR SA SU  TOTAL
+0704  -  2  6  7  -  -  -     15
+0711  4  -  -  4  6  4  6     14
+0718  -  -  6  -  -  -  -      6
+0725  -  -  -  -  -  -  -      0
+0801 10  4  6  -  -  - 10     30
+0808  4  - 10  -  8  -  -     22
+0815  -  4  -  6  6  -  -     16
+0822  8  -  -  6  -  -  -     14
+0829 12  -  6  -  -  6  -     24
+0905  6  -  -  -  -  -  -      6?
+0912 12  6  -  -  -  -  -     18
+0919  -  -  -  -  -  -  -      0
+0926  -  4  6  6  -  -  -     16
+1003  6  -  4  4
+```
+`October 6, 2022` · What's the name for it?
+* You are going to get a lunch at home;
+* But you need a clean plate;
+* All plates are dirty and stacked in a kitchen sink;
+* You're out of dish washing liquid, and have to use dishwasher;
+* Dishwasher is already full with dirty cups;
+* You're out of dishwasher tablets, and need to buy them;
+* Closest store is closed, and you need to drive to the next one;
+* Car has a flat tire, that has to be fixed first, and you need to get to tire shop;
+* Car is out of gas, and you need to get the gas by foot.
+This example is long and unrealistic, but I see this happening all the time.
+Solution for a small problem is blocked by something else, that requires significantly bigger effort.
+Is it akin to technical debt? Just not exactly technical.
+`October 3, 2022` · Scratched my self-hosting itch with two new additions to my home server:
+[Nextcloud](https://nextcloud.com/) and [Storj](https://www.storj.io/).
+* Nextcloud is a bit weird Snap installation with PHP, MariaDB, and Redis.
+  I don't feel comfortable exposing self-managing PHP applications (read Wordpress-level security),
+  so I've put it behind my 2FA cloud proxy. And of course it doesn't work well with the Nexcloud mobile client.
+  Aside from security, performance on my old home server is not that great.
+  Image previews are generated on-demand, so it takes awhile to see my 300 GB photo gallery.
+  Apple live photos seem to have no support too. All in all, I don't think it can replace Google Photos, as I hoped.
+* Storj is an implementation of an idea that I had another day. Pretty good one.
+  Set up could have been better streamlined, so it took few hours to hook up a Raspberry Pi 4 with 2 TB external HDD storage.
+  As a side effect I now have an Etherium wallet, that should be used for pay outs. We'll see.
+  Overall, I like their implementation a lot. From ideation to performance and security aspects.
+  I wish I could make it bare-metal, but I caved too early and went with the recommended Docker installation.

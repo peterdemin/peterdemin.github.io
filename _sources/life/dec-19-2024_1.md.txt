@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Dec 19, 2024
+
+[konfig-dev/konfig](https://github.com/konfig-dev/konfig) - SDK & API Docs Generator. Sunset as of December 2024

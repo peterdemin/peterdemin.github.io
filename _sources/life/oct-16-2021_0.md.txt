@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Oct 16, 2021
+
+[GitJournal/GitJournal](https://github.com/GitJournal/GitJournal) - Mobile first Note Taking integrated with Git

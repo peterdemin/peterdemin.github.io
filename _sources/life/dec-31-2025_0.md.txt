@@ -1,0 +1,15 @@
+---
+orphan: true
+---
+
+# Dec 31, 2025
+
+Updated [](/12_articles/71-rss-feed.md) with the new subscriptions:
+- [Andrew Nesbitt](https://nesbitt.io/feed.xml)
+- [Maurycy's blog](https://maurycyz.com/index.xml)
+- [Nathan Barry](https://nathan.rs/posts/index.xml)
+- [Peter Demin](https://peter.demin.dev/life.xml) (that's me!)
+- [Speculative Branches](https://specbranch.com/index.xml)
+- [people, ideas, machines](https://joshs.bearblog.dev/feed/)
+- [samir : coffee → nonsense](https://functional.computer/feed.xml)
+- [the website of jyn](https://jyn.dev/atom.xml)

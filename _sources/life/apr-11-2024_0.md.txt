@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Apr 11, 2024
+
+[hwayne/awesome-cold-showers](https://github.com/hwayne/awesome-cold-showers) - For when people get too hyped up about things

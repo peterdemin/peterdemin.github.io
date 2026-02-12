@@ -1,0 +1,9 @@
+---
+orphan: true
+---
+
+# Jan 13, 2025
+
+One of the thoughts that I come back over and over again is how leetcode interviews are failing at letting good candidates pass.
+Sometimes candidates are so anxious, that they can't put a for loop together. Even after building complex systems for a decade.
+Nothing new, I guess. The prerequisite for passing a leetcode interview is being comfortable with leetcode interviews.

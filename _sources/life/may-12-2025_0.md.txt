@@ -1,0 +1,17 @@
+---
+orphan: true
+---
+
+# May 12, 2025
+
+Loved this [HN comment](https://news.ycombinator.com/item?id=43967858):
+> How many spam calls does it take for you to presume spam?
+> How many linkedin autoreply ai comments does it take to presume all comments are ai?
+> How many emails before you immediately presume phishing?
+> How many rage baiting social posts do you need to see before you believe the entire site is composed of synthetic engagement?
+> How many tinder bots do you need to interact with before you feel the entire app is dead?
+> How many autodeny job application responses until you assume the next one is a ghost job posting?
+> How many interactions with greedy people does it take to presume that it's human nature?
+While spam emails seem to be solved (at least in Gmail), I never pick up calls from unknown numbers and immediately delete messages from people out of my contact list.
+One thing I'd like to add to the list, is:
+How many AI cheaters do you need to catch on the technical screening interview to incorporate a habit of doing IRL CAPTCHA challenges.

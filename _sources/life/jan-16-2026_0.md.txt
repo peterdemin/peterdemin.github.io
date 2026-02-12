@@ -1,0 +1,13 @@
+---
+orphan: true
+---
+
+# Jan 16, 2026
+
+I got into this trap twice, so I guess I might not be alone.
+I review someone else's code, and I get a strong feeling it was AI-generated.
+Because no human could possibly produce this kind of well-documented, type-annotated mindless slop.
+I feel offended for author being careless and pushing through slop without control.
+I ask the author whether they reviewed the generated code themselves before pushing it.
+They tell me they didn't use AI.
+They wrote the code themselves.

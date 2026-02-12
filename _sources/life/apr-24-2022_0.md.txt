@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Apr 24, 2022
+
+[dry-python/returns](https://github.com/dry-python/returns) - Make your functions return something meaningful, typed, and safe!

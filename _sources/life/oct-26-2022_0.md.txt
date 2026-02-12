@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Oct 26, 2022
+
+[adamchainz/django-upgrade](https://github.com/adamchainz/django-upgrade) - Automatically upgrade your Django projects.

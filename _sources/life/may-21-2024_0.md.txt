@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# May 21, 2024
+
+[tombonez/noTunes](https://github.com/tombonez/noTunes) - A simple macOS application that will prevent iTunes or Apple Music from launching.

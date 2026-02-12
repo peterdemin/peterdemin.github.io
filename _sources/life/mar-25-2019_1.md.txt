@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Mar 25, 2019
+
+[microsoft/pyright](https://github.com/microsoft/pyright) - Static Type Checker for Python

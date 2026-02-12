@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jan 12, 2025
+
+[samuelcolvin/watchfiles](https://github.com/samuelcolvin/watchfiles) - Simple, modern and fast file watching and code reload for Python, written in Rust

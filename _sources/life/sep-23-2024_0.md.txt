@@ -1,0 +1,12 @@
+---
+orphan: true
+---
+
+# Sep 23, 2024
+
+What if engineering strategy, performance reviews, and code quality metrics were connected?
+- The engineering strategy spells out what engineering goals are.
+- Performance review questions address those aspects directly.
+- Continuous Integration measures and tracks the project metrics towards the goals.
+- Self-review is just a biannual export from the CI.
+Beautiful utopia.

@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# May 13, 2021
+
+[majoal0/pluralize-ptbr](https://github.com/majoal0/pluralize-ptbr) - Obtenha o plural de palavras no singular em português brasileiro 🇧🇷

@@ -1,0 +1,10 @@
+---
+orphan: true
+---
+
+# Jan 05, 2024
+
+Another example of the situation I can't quite put my finger on. When you assemble an IKEA cabinet with two kinds of bolts, a long one and a slightly shorter one.
+And it's really hard to tell which one you have in hand unless you put them next to each other.
+So, when you start assembling the cabinet, you put a shorter bolt in place and keep assembling until, at the last step, you are left with the longer bolt, and you realize that you actually need a shorter bolt which you used at the first step. Now, you have to disassemble the cabinet to switch the bolts.
+It's a simple mistake that is not obvious at the moment but comes up later when it's harder to fix it.

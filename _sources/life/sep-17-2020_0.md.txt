@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Sep 17, 2020
+
+[aaugustin/django-sesame](https://github.com/aaugustin/django-sesame) - "Magic Links" - URLs with authentication tokens for one-click login

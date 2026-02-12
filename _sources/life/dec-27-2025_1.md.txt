@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Dec 27, 2025
+
+[dmacvicar/terraform-provider-libvirt](https://github.com/dmacvicar/terraform-provider-libvirt) - Terraform provider to provision infrastructure with Linux's KVM using libvirt

@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Oct 09, 2020
+
+[magic-wormhole/magic-wormhole-mailbox-server](https://github.com/magic-wormhole/magic-wormhole-mailbox-server) - the rendezvous/mailbox server for magic-wormhole clients

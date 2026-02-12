@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Mar 25, 2019
+
+[google/pytype](https://github.com/google/pytype) - A static type analyzer for Python code

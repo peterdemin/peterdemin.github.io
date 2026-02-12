@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Mar 14, 2025
+
+Reading [CTO Handbook](https://zachgoldberg.com/ctohandbook/) made me realize, that if I had a great startup idea and the right people around me, I would do things that I've never done before, many of which I deliberately chose not to do. I would also do a few nice things, but mostly the other kind.

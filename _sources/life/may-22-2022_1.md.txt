@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# May 22, 2022
+
+[miguelrochefort/awesome-adaptive-cards](https://github.com/miguelrochefort/awesome-adaptive-cards) - A curated list of awesome Adaptive Cards projects.

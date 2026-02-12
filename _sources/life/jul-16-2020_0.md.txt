@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jul 16, 2020
+
+[nipunn1313/mypy-protobuf](https://github.com/nipunn1313/mypy-protobuf) - open source tools to generate mypy stubs from protobufs

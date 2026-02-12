@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jan 20, 2026
+
+Something up my alley: [SelfCI](https://app.radicle.xyz/nodes/radicle.dpc.pw/rad%3Az2tDzYbAXxTQEKTGFVwiJPajkbeDU) - a minimalistic local-first Unix-philosophy-abiding CI.

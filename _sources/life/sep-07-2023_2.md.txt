@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Sep 07, 2023
+
+[stanfordnlp/dspy](https://github.com/stanfordnlp/dspy) - DSPy: The framework for programming—not prompting—language models

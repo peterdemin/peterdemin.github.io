@@ -1,0 +1,15 @@
+---
+orphan: true
+---
+
+# Apr 18, 2024
+
+Aspects to consider for scraping:
+1. Parallelism
+2. Batching
+3. Retrying
+4. Throttling
+5. Acceptable error rate
+6. Metrics
+7. Reporting
+8. Cancel and Resume

@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jun 12, 2023
+
+[getmoto/moto](https://github.com/getmoto/moto) - A library that allows you to easily mock out tests based on AWS infrastructure.

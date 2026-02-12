@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Nov 08, 2024
+
+Added [](/12_articles/66-python-project-setup.md)

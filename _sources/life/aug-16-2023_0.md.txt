@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Aug 16, 2023
+
+Notes for [](/17_notes/10-github_accelerator.rst)

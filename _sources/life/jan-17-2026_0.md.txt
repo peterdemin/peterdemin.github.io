@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jan 17, 2026
+
+Added a <a rel="me" href="https://mastodon.social/@peterdemin">Mastodon</a> account to join [Lurk.org](https://post.lurk.org/@320x200/115905835562819283) community following a link from permacomputing@conference.macaw.me XMPP channel.

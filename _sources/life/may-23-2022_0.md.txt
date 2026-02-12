@@ -1,0 +1,14 @@
+---
+orphan: true
+---
+
+# May 23, 2022
+
+I want to experiment with hosting .deb (.rpm?) packages on GitHub pages.
+So far, I found these two tutorials:
+* https://assafmo.github.io/2019/05/02/ppa-repo-hosted-on-github.html
+* https://pmateusz.github.io/linux/2017/06/30/linux-secure-apt-repository.html
+Would be nice to automate the index update and GPG signing through GitHub Actions.
+Packages, that I'm most interested in hosting:
+* Kibitzr
+* Arr family: Radarr, Sonarr, Lidarr.

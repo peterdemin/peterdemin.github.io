@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Dec 10, 2023
+
+[git-bug/git-bug](https://github.com/git-bug/git-bug) - Distributed, offline-first bug tracker embedded in git

@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# May 12, 2025
+
+[jaypyles/Scraperr](https://github.com/jaypyles/Scraperr) - Self-hosted webscraper.

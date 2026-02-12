@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Oct 13, 2023
+
+[mdx-js/mdx](https://github.com/mdx-js/mdx) - Markdown for the component era

@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Dec 04, 2022
+
+[peterdemin/openai-cli](https://github.com/peterdemin/openai-cli) - Command-line client for OpenAI APIs

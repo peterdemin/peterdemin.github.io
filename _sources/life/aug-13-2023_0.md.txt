@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Aug 13, 2023
+
+Notes for [](/17_notes/06-team_topologies.md)

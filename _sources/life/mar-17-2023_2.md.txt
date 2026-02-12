@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Mar 17, 2023
+
+[mpoon/gpt-repository-loader](https://github.com/mpoon/gpt-repository-loader) - Convert code repos into an LLM prompt-friendly format. Mostly built by GPT-4.

@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Sep 01, 2023
+
+[learning-at-home/hivemind](https://github.com/learning-at-home/hivemind) - Decentralized deep learning in PyTorch. Built to train models on thousands of volunteers across the world.

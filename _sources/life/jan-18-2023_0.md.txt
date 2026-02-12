@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jan 18, 2023
+
+[RafaelCosman/gpt-generated-textbooks](https://github.com/RafaelCosman/gpt-generated-textbooks) - Code to generate textbooks using GPT as well as several fully-generated examples

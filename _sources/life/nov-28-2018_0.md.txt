@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Nov 28, 2018
+
+[heynickc/awesome-ddd](https://github.com/heynickc/awesome-ddd) - A curated list of Domain-Driven Design (DDD), Command Query Responsibility Segregation (CQRS), Event Sourcing, and Event Storming resources

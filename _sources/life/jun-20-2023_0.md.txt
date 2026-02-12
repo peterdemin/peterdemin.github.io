@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jun 20, 2023
+
+[Why remote works](/17_notes/03_why_remote_works.md)

@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jan 13, 2018
+
+[peterdemin/pip-compile-multi](https://github.com/peterdemin/pip-compile-multi) - Python dependency locking for complex projects

@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jul 12, 2022
+
+[argoproj/argo-cd](https://github.com/argoproj/argo-cd) - Declarative Continuous Deployment for Kubernetes

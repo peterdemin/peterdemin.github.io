@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Nov 26, 2024
+
+[neuml/txtai](https://github.com/neuml/txtai) - 💡 All-in-one AI framework for semantic search, LLM orchestration and language model workflows

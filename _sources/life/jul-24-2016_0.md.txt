@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jul 24, 2016
+
+[failsafe-lib/failsafe](https://github.com/failsafe-lib/failsafe) - Fault tolerance and resilience patterns for the JVM

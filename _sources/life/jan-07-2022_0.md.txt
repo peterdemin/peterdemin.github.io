@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jan 07, 2022
+
+[Shogan/kube-chaos](https://github.com/Shogan/kube-chaos) - A chaos engineering style game where you seek out and destroy Kubernetes pods, twinstick shmup style.

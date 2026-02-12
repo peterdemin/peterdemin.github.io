@@ -1,0 +1,23 @@
+---
+orphan: true
+---
+
+# Mar 30, 2025
+
+TIL about [Amdahl's Law](https://en.wikipedia.org/wiki/Amdahl%27s_law).
+The wikipedia article has this nice chart:
+![Amdahl's Law](/16_life/images/AmdahlsLaw.svg)
+Somewhat counter-intuitively, for the case when 90% (9/10th) of the task can be parallelized, splitting it into 10 workers, would not result in 10 times speed improvement.
+It won't even be 9 times.
+The overall time of the task completion will only get faster by 5 times.
+Wait, what?! We had this massively parallelizable task, 90%. Seems like the rest is peanuts.
+We divide 90% of the task between 10 workers, it gets done 10 times faster, right?
+Right, but, the remaining sequential 10% still take the same amount of time.
+90% of original task time divided by 10 is 9%.
+The new proportion of parallel work is only ~47%, less than a half.
+To illustrate the time improvement in this example with an equation:
+```{math}
+T_{1} &= 0.9 \times \frac{1}{1} + 0.1 \times 1 = 1
+T_{10} &= 0.9 \times \frac{1}{10} + 0.1 \times 1 = 0.19 \approx \frac{1}{5}
+```
+To put the units, it means that a task that a single worker completes in one hour, ten workers will do in 11 minutes and 24 seconds.

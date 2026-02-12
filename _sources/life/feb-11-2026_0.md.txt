@@ -1,0 +1,14 @@
+---
+orphan: true
+---
+
+# Feb 11, 2026
+
+My response to the AI panic "LLM agents are so good, they are going to replace software engineers":
+1. Amount of work is unbound, you can't run out of it.
+   Companies hire engineers to push more features to reach more markets.
+   They don't need less people to do the same amount of work.
+   The need more faster people to stay competitive.
+2. Companies don't hire software engineers for their coding skills.
+   They hire problem owners who deliver solutions.
+   More productive problem solvers means more business to run, not less people.

@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jun 20, 2019
+
+[asottile/add-trailing-comma](https://github.com/asottile/add-trailing-comma) - A tool (and pre-commit hook) to automatically add trailing commas to calls and literals.

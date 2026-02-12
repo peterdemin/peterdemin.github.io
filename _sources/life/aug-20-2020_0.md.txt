@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Aug 20, 2020
+
+[adobe/brackets](https://github.com/adobe/brackets) - An open source code editor for the web, written in JavaScript, HTML and CSS.

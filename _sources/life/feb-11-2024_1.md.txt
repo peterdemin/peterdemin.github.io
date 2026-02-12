@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Feb 11, 2024
+
+[davidmerfield/blot](https://github.com/davidmerfield/blot) - Turns a folder into a website

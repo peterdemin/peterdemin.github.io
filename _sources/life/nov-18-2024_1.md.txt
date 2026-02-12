@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Nov 18, 2024
+
+[arkohut/pensieve](https://github.com/arkohut/pensieve) - A passive recording project allows you to have complete control over your data. Automatically take screenshots of all your screens, index them, and save them locally.

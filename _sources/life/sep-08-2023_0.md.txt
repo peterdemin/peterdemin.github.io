@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Sep 08, 2023
+
+[voila-dashboards/voila](https://github.com/voila-dashboards/voila) - Voilà turns Jupyter notebooks into standalone web applications

@@ -1,0 +1,19 @@
+---
+orphan: true
+---
+
+# Aug 07, 2024
+
+I was watching [Expanse](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://en.wikipedia.org/wiki/The_Expanse_(TV_series)) and was fascinated by their handheld devices (phones?).
+I liked the way they wirelessly cast screen using two-fingers swipe up in the direction of the cast target.
+I also liked how they share message attachments.
+The operating systems they are running seem to provide consistent experience across devices, so I assume there's a tight integration.
+What I liked most is that attachments contained two kinds formats.
+One was a presentation layer, similar to a static HTML page.
+Another was data (like JSON, or CSV) that can be direcly imported to a database or Jupyter Notebook.
+Like one time a person sent a bunch of people profiles, and the other side reviewed them and imported to their contacts.
+Another time it was asteroid coordinates, that were presented as an interactive 3D model, but also could be imported into the navigational system.
+I wonder if we can build this today.
+Each attachment would be an archive with HTML file that pulls raw data from a JSON file sitting by its side.
+But also having a "Download" button that exposes the data file directly.
+Or maybe a single HTML file with all the small data and assets embedded, and large assets pulled from S3.

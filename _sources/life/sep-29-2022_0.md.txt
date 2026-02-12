@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Sep 29, 2022
+
+[storj/storj](https://github.com/storj/storj) - Ongoing Storj v3 development. Decentralized cloud object storage that is affordable, easy to use, private, and secure.

@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jul 07, 2025
+
+[permissionlesstech/bitchat](https://github.com/permissionlesstech/bitchat) - bluetooth mesh chat, IRC vibes

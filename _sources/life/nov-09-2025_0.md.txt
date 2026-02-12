@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Nov 09, 2025
+
+[opencloud-eu/opencloud](https://github.com/opencloud-eu/opencloud) - 🌤️ OpenCloud is the open source platform for file management, sharing and collaboration. Simple and sovereign.

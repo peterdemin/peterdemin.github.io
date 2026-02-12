@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Oct 31, 2022
+
+[openai/whisper](https://github.com/openai/whisper) - Robust Speech Recognition via Large-Scale Weak Supervision
