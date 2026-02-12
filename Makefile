@@ -24,7 +24,7 @@ changelog:
 
 .PHONY: autogen
 autogen:
-	python3 gen_life.py > source/life_gd.rst
+	python3 gen_life.py
 
 .PHONY: rss
 rss:

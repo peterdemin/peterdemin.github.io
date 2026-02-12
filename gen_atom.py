@@ -6,6 +6,7 @@ import os
 import posixpath
 import re
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Iterable, Optional
 
 from lxml import etree as ET
@@ -15,8 +16,10 @@ BASE_URL = "https://peter.demin.dev"
 SOURCE_DIR = "source"
 LIFE_DIR = os.path.join(SOURCE_DIR, "16_life")
 RE_LIFE_DATE = re.compile(r"^`([A-Z][a-z]{2} \d{2}, \d{4})`")
+RE_STABLE_SLUG = re.compile(r"[ ,]+")
 LIFE_DATE_FMT = "%b %d, %Y"
 ATOM_NS = "http://www.w3.org/2005/Atom"
+POSTS_DIR = Path("source") / "life"
 
 
 @dataclass(frozen=True)
@@ -69,12 +72,20 @@ class FeedItem:
     @property
     def url(self) -> str:
         """Generate URL suffix to locate this record"""
-        return f"#:~:text={self.record.short_date}"
+        return f"/life/{self._slug}.html"
 
     @property
     def atom_date(self) -> str:
         """Format record date for Atom Feed"""
         return self.record.date.replace(microsecond=0).isoformat() + "Z"
+
+    @property
+    def source_path(self) -> Path:
+        return POSTS_DIR / (self._slug + ".md")
+
+    @property
+    def _slug(self) -> str:
+        return RE_STABLE_SLUG.sub("-", self.stable_id).lower()
 
 
 def aggregate_life_records(
@@ -217,7 +228,7 @@ def build_atom_feed(
         ET.SubElement(entry, q("title")).text = "Journal"
         ET.SubElement(entry, q("published")).text = it.atom_date
         ET.SubElement(entry, q("updated")).text = it.atom_date
-        ET.SubElement(entry, q("link"), {"href": site_url + it.url})
+        ET.SubElement(entry, q("link"), {"href": BASE_URL + it.url})
         ET.SubElement(entry, q("content"), {"type": "html"}).text = ET.CDATA(
             md.render(it.record.text)
         )
@@ -226,15 +237,19 @@ def build_atom_feed(
     return xml_bytes.decode("utf-8")
 
 
+def iter_feed_items() -> list[FeedItem]:
+    return sorted(
+        wrap_feed_items(aggregate_life_records(iter_life_lines())),
+        key=lambda x: x.record.sort_key,
+        reverse=True,
+    )
+
+
 def main():
     """Updates 16_life files with links to 12_articles and 17_notes files."""
     print(
         build_atom_feed(
-            items=sorted(
-                wrap_feed_items(aggregate_life_records(iter_life_lines())),
-                key=lambda x: x.record.sort_key,
-                reverse=True,
-            ),
+            items=iter_feed_items(),
             title="Peter Demin",
             author_name="Peter Demin",
             feed_url="https://peter.demin.dev/life.xml",
