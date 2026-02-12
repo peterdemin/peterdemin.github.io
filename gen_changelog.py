@@ -18,6 +18,7 @@ ARTICLES_DIR = os.path.join(SOURCE_DIR, "12_articles")
 RE_DATE = re.compile(r"^(\d{4}-\d{2}-\d{2}) .*$")
 RE_ADD = re.compile(r"^A\t(.+)$")
 RE_LIFE_DATE = re.compile(r"^`([A-Z][a-z]{2} \d{2}, \d{4})`")
+RE_LINK_TARGET = re.compile(r"]\((http[^)]+)\)")
 LIFE_DATE_FMT = "%b %d, %Y"
 GIT_LOG_COMMAND = [
     "git",
@@ -85,7 +86,7 @@ def parse_git_log(*dirs: str) -> Dict[datetime.datetime, List[str]]:
 
 
 def generate_life_records(
-    files_by_date: Dict[datetime.datetime, List[str]]
+    files_by_date: Dict[datetime.datetime, List[str]],
 ) -> Iterable[InterlinkRecord | LifeRecord]:
     """Compose life records linking to notes by creation date."""
     life_lines = []
@@ -115,13 +116,14 @@ def generate_life_records(
     with open(STARS_FILE, "rt", encoding="utf-8") as fobj:
         for line in fobj:
             text = line.rstrip()
-            if date := maybe_parse_date(line):
-                if text not in all_life_content:
-                    yield LifeRecord(
-                        text=text,
-                        date=date,
-                        life_path=find_life_file(date),
-                    )
+            date = maybe_parse_date(line)
+            link = maybe_parse_link(line)
+            if date and link and link not in all_life_content:
+                yield LifeRecord(
+                    text=text,
+                    date=date,
+                    life_path=find_life_file(date),
+                )
 
 
 def iter_life_files() -> Iterable[str]:
@@ -154,6 +156,13 @@ def parse_life_file(file_path: str) -> List[AnnotatedLifeLine]:
                 )
             )
     return annotated_lines
+
+
+def maybe_parse_link(text: str) -> str:
+    """Tries to parse date from the life record text."""
+    if mobj := RE_LINK_TARGET.match(text):
+        return mobj.group(1)
+    return ""
 
 
 def maybe_parse_date(text: str) -> Optional[datetime.datetime]:
