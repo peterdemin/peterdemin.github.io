@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Feb 11, 2026
+
+Changed my atom feed to link each item to a dedicated page (which is otherwise unreachable from the website).

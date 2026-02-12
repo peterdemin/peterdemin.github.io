@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2026-02-11T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Feb 11, 2026_0</id><title>Journal</title><published>2026-02-11T00:00:00Z</published><updated>2026-02-11T00:00:00Z</updated><link href="https://peter.demin.dev/life/feb-11-2026_0.html"/><content type="html"><![CDATA[<p>My response to the AI panic &quot;LLM agents are so good, they are going to replace software engineers&quot;:</p>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2026-02-11T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Feb 11, 2026_1</id><title>Journal</title><published>2026-02-11T00:00:00Z</published><updated>2026-02-11T00:00:00Z</updated><link href="https://peter.demin.dev/life/feb-11-2026_1.html"/><content type="html"><![CDATA[<p>Changed my atom feed to link each item to a dedicated page (which is otherwise unreachable from the website).</p>
+]]></content></entry><entry><id>Feb 11, 2026_0</id><title>Journal</title><published>2026-02-11T00:00:00Z</published><updated>2026-02-11T00:00:00Z</updated><link href="https://peter.demin.dev/life/feb-11-2026_0.html"/><content type="html"><![CDATA[<p>My response to the AI panic &quot;LLM agents are so good, they are going to replace software engineers&quot;:</p>
 <ol>
 <li>Amount of work is unbound, you can't run out of it.
 Companies hire engineers to push more features to reach more markets.
@@ -391,5 +392,4 @@ The shrinking breadth of opportunities, countered by accumulated wealth.</p>
 <li>No breaking bones.</li>
 <li>No fighting.</li>
 </ol>
-]]></content></entry><entry><id>Apr 03, 2025_1</id><title>Journal</title><published>2025-04-03T00:00:00Z</published><updated>2025-04-03T00:00:00Z</updated><link href="https://peter.demin.dev/life/apr-03-2025_1.html"/><content type="html"><![CDATA[<p><a href="https://github.com/camel-ai/owl">camel-ai/owl</a> - 🦉 OWL: Optimized Workforce Learning for General Multi-Agent Assistance in Real-World Task Automation</p>
 ]]></content></entry></feed>
