@@ -1,6 +1,6 @@
 `Jan 31, 2026` - I was wondering through a community gargen, which is quite bleak this time of year.
 I started noticing these tiny rare flowers scattered across.
-The overall scarcity made them noticable and brought attention, that otherwise would be lost in the summer abundance. 
+The overall scarcity made them noticable and brought attention, that otherwise would be lost in the summer abundance.
 
 ```{include} /16_life/2026_01_31_flowers.mdpart
 ```
@@ -9,6 +9,10 @@ In a way, I get the same effect in my RSS feed.
 When I have 100 posts to go through, I skim and skip quickly.
 But if I have just a few, I read them through.
 Same goes for email digests, if they try to cover too much ground, the value of each item is lost in the overwhelming deluge of information.
+
+`Jan 28, 2026` - Added [](/12_articles/82-build-on-push.md)
+
+`Jan 26, 2026` - Added [](/12_articles/81-fedup.md)
 
 `Jan 26, 2026` - I got excited about ForgeFed, and want to see what is Forgejo is up to.
 Naturally, they host the code in Forgejo itself, confusingly named codeberg.
@@ -45,8 +49,6 @@ Copy'n'Paste the HTML to a file, open it and send to printer.
 ![Pavlova cake recipe](/16_life/images/pavlova-cake.png)
 
 `Jan 23, 2026` - Added [](/12_articles/80-radicle.md)
-
-`Jan 22, 2026` - [kagisearch/smallweb](https://github.com/kagisearch/smallweb) - Kagi Small Web
 
 `Jan 22, 2026` - [susam/mintotp](https://github.com/susam/mintotp) - Minimal TOTP generator in 20 lines of Python
 
@@ -134,8 +136,6 @@ They wrote the code themselves.
 I didn't enjoy the overall enshittification of the Sentry functionality over the past few years.
 But this is it. That's the last drop. I'm looking for a replacement.
 Preferably something self-hosted with a low CPU/RAM usage.
-
-`Jan 15, 2026` - [hnpwd/hnpwd.github.io](https://github.com/hnpwd/hnpwd.github.io) - HN personal website directory and OPML
 
 `Jan 12, 2026` - It's been almost eleven years since the creation of "[PEP 492](https://peps.python.org/pep-0492/) – Coroutines with async and await syntax" by Yury Selivanov.
 I've been writing asynchronous Python on and off for about a decade, and still, async/await is the most complex part of Python for me.

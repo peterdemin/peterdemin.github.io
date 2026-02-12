@@ -3,23 +3,15 @@
 `Feb 16, 2022` - [Budibase/budibase](https://github.com/Budibase/budibase) - Create business apps and automate workflows in minutes. Supports PostgreSQL, MySQL, MariaDB, MSSQL, MongoDB, Rest API, Docker, K8s, and more 🚀 No code / Low code platform..
 
 `Feb 10, 2022` - [jordansissel/fpm](https://github.com/jordansissel/fpm) - Effing package management! Build packages for multiple platforms (deb, rpm, etc) with great ease and sanity.
-`Feb 09, 2022` - [janvarev/Irene-Voice-Assistant](https://github.com/janvarev/Irene-Voice-Assistant) - Ирина - русский голосовой ассистент для работы оффлайн. Поддерживает скиллы через плагины.
-
-`Feb 09, 2022` - [geldata/gel-python](https://github.com/geldata/gel-python) - The official Python client library for Gel
 
 `Feb 09, 2022` - [janvarev/Irene-Voice-Assistant](https://github.com/janvarev/Irene-Voice-Assistant) - Ирина - русский голосовой ассистент для работы оффлайн. Поддерживает скиллы через плагины.
-
 
 `Feb 09, 2022` - [geldata/gel-python](https://github.com/geldata/gel-python) - The official Python client library for Gel
 
 `Feb 08, 2022` - [spotify/annoy](https://github.com/spotify/annoy) - Approximate Nearest Neighbors in C++/Python optimized for memory usage and loading/saving to disk
 
 `Feb 06, 2022` - [pyutils/line_profiler](https://github.com/pyutils/line_profiler) - Line-by-line profiling for Python
-`Feb 04, 2022` - [Athou/commafeed](https://github.com/Athou/commafeed) - Google Reader inspired self-hosted personal RSS reader.
-
-`Feb 04, 2022` - [tomlockwood/dn](https://github.com/tomlockwood/dn) - Daily notes command line tool
 
 `Feb 04, 2022` - [Athou/commafeed](https://github.com/Athou/commafeed) - Google Reader inspired self-hosted personal RSS reader.
-
 
 `Feb 04, 2022` - [tomlockwood/dn](https://github.com/tomlockwood/dn) - Daily notes command line tool

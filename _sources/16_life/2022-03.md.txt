@@ -13,11 +13,7 @@
 `Mar 13, 2022` - [winfsp/hubfs](https://github.com/winfsp/hubfs) - File system for GitHub & GitLab
 
 `Mar 07, 2022` - [stephenou/fruitionsite](https://github.com/stephenou/fruitionsite) - Build your website with Notion for free
-`Mar 02, 2022` - [gildas-lormeau/SingleFile](https://github.com/gildas-lormeau/SingleFile) - Web Extension for saving a faithful copy of a complete web page in a single HTML file
-
-`Mar 02, 2022` - [afroisalreadyinu/miniboss](https://github.com/afroisalreadyinu/miniboss) - The most versatile way to manage containers locally
 
 `Mar 02, 2022` - [gildas-lormeau/SingleFile](https://github.com/gildas-lormeau/SingleFile) - Web Extension for saving a faithful copy of a complete web page in a single HTML file
-
 
 `Mar 02, 2022` - [afroisalreadyinu/miniboss](https://github.com/afroisalreadyinu/miniboss) - The most versatile way to manage containers locally

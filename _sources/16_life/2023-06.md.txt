@@ -14,17 +14,7 @@
 
 `Jun 21, 2023` - [cloud-custodian/cloud-custodian](https://github.com/cloud-custodian/cloud-custodian) - Rules engine for cloud security, cost optimization, and governance, DSL in yaml for policies to query, filter, and take actions on resources
 
-`Jun 21, 2023` - [pynamodb/PynamoDB](https://github.com/pynamodb/PynamoDB) - A pythonic interface to Amazon's DynamoDB
-
-`Jun 21, 2023` - [pallets/jinja](https://github.com/pallets/jinja) - A very fast and expressive template engine.
-
-`Jun 21, 2023` - [cloud-custodian/cloud-custodian](https://github.com/cloud-custodian/cloud-custodian) - Rules engine for cloud security, cost optimization, and governance, DSL in yaml for policies to query, filter, and take actions on resources
-
 `Jun 21, 2023` - I'm gonna call it "Public employee handbook, built as a static website, using Johnny Decimal system."
-
-`Jun 20, 2023` - [authlib/authlib](https://github.com/authlib/authlib) - The ultimate Python library in building OAuth, OpenID Connect clients and servers. JWS, JWE, JWK, JWA, JWT included.
-
-`Jun 20, 2023` - [actions/setup-python](https://github.com/actions/setup-python) - Set up your GitHub Actions workflow with a specific version of Python
 
 `Jun 20, 2023` - [authlib/authlib](https://github.com/authlib/authlib) - The ultimate Python library in building OAuth, OpenID Connect clients and servers. JWS, JWE, JWK, JWA, JWT included.
 
@@ -45,11 +35,6 @@
 
 `Jun 15, 2023` - Quick non-senstive abbreviation to mark especially sensitive critical code sections: TTCLYMOIWTYMLYTTC - Treat This Code Like Your Mamma Or I Will Treat Your Mamma Like You Treated This Code
 `Jun 12, 2023` - [getmoto/moto](https://github.com/getmoto/moto) - A library that allows you to easily mock out tests based on AWS infrastructure.
-
-`Jun 12, 2023` - [getmoto/py-partiql-parser](https://github.com/getmoto/py-partiql-parser) - Python Parser for PartiQL
-
-`Jun 12, 2023` - [getmoto/moto](https://github.com/getmoto/moto) - A library that allows you to easily mock out tests based on AWS infrastructure.
-
 
 `Jun 12, 2023` - [getmoto/py-partiql-parser](https://github.com/getmoto/py-partiql-parser) - Python Parser for PartiQL
 

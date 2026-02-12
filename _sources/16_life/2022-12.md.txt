@@ -1,23 +1,15 @@
 `Dec 30, 2022` - [peterdemin/imgchkr](https://github.com/peterdemin/imgchkr) - Image checker service
-`Dec 10, 2022` - [f/awesome-chatgpt-prompts](https://github.com/f/awesome-chatgpt-prompts) - Share, discover, and collect prompts from the community. Free and open source — self-host for your organization with complete privacy.
 
-`Dec 10, 2022` - [R9295/panoptisch](https://github.com/R9295/panoptisch) - A recursive dependency scanner for Python projects
-
-`Dec 10, 2022` - [ossillate-inc/packj](https://github.com/ossillate-inc/packj) - Packj stops :zap: Solarwinds-, ESLint-, and PyTorch-like attacks by flagging malicious/vulnerable open-source dependencies ("weak links") in your software supply-chain
+`Dec 10, 2022` - [f/prompts.chat](https://github.com/f/prompts.chat) - a.k.a. Awesome ChatGPT Prompts. Share, discover, and collect prompts from the community. Free and open source — self-host for your organization with complete privacy.
 
 `Dec 10, 2022` - [f/awesome-chatgpt-prompts](https://github.com/f/awesome-chatgpt-prompts) - Share, discover, and collect prompts from the community. Free and open source — self-host for your organization with complete privacy.
 
 `Dec 10, 2022` - [R9295/panoptisch](https://github.com/R9295/panoptisch) - A recursive dependency scanner for Python projects
-
 
 `Dec 10, 2022` - [ossillate-inc/packj](https://github.com/ossillate-inc/packj) - Packj stops :zap: Solarwinds-, ESLint-, and PyTorch-like attacks by flagging malicious/vulnerable open-source dependencies ("weak links") in your software supply-chain
 
 `Dec 06, 2022` - [commitizen-tools/commitizen](https://github.com/commitizen-tools/commitizen) - Create committing rules for projects :rocket: auto bump versions :arrow_up: and auto changelog generation :open_file_folder:
-`Dec 04, 2022` - [peterdemin/openai-cli](https://github.com/peterdemin/openai-cli) - Command-line client for OpenAI APIs
-
-`Dec 04, 2022` - [peterdemin/chcode](https://github.com/peterdemin/chcode) - Command-line utility to change Python source code
 
 `Dec 04, 2022` - [peterdemin/openai-cli](https://github.com/peterdemin/openai-cli) - Command-line client for OpenAI APIs
-
 
 `Dec 04, 2022` - [peterdemin/chcode](https://github.com/peterdemin/chcode) - Command-line utility to change Python source code

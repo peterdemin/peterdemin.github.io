@@ -10,10 +10,6 @@ Nothing new, I guess. The prerequisite for passing a leetcode interview is being
 
 `Jan 12, 2025` - [notify-rs/notify](https://github.com/notify-rs/notify) - 🔭 Cross-platform filesystem notification library for Rust.
 
-`Jan 12, 2025` - [samuelcolvin/watchfiles](https://github.com/samuelcolvin/watchfiles) - Simple, modern and fast file watching and code reload for Python, written in Rust
-
-`Jan 12, 2025` - [notify-rs/notify](https://github.com/notify-rs/notify) - 🔭 Cross-platform filesystem notification library for Rust.
-
 `Jan 05, 2025` - When watching movies, or (some) people on the street I keep catching myself thinking, that there many things that cause a great deal of distress for people, but are absent in my life:
 
 - War

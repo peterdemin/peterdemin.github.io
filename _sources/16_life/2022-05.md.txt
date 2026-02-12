@@ -56,10 +56,6 @@ Both individuals and the larger society have agreed to a set of interlocking del
 
 `May 19, 2022` - [osmoscraft/osmosnote](https://github.com/osmoscraft/osmosnote) - The knowledge IDE
 
-`May 19, 2022` - [Readarr/Readarr](https://github.com/Readarr/Readarr) - Book Manager and Automation (Sonarr for Ebooks)
-
-`May 19, 2022` - [osmoscraft/osmosnote](https://github.com/osmoscraft/osmosnote) - The knowledge IDE
-
 `May 17, 2022` · Notes on stress management.
 
 Stress management is management of body and mind. Stress is an integral part of human biology. Without stress hormones we would simple die.

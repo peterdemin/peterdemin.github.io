@@ -12,22 +12,11 @@ One of the super powers of experienced climbers is to be very aware of getting t
 
 `Nov 23, 2022` - [maligree/python-ast-explorer](https://github.com/maligree/python-ast-explorer) - The code behind python-ast-explorer.com
 
-`Nov 23, 2022` - [berkerpeksag/astor](https://github.com/berkerpeksag/astor) - Python AST read/write
-
-
-`Nov 23, 2022` - [maligree/python-ast-explorer](https://github.com/maligree/python-ast-explorer) - The code behind python-ast-explorer.com
-
 `Nov 21, 2022` - [hchasestevens/astpath](https://github.com/hchasestevens/astpath) - A command-line search utility for Python ASTs using XPath syntax.
-`Nov 17, 2022` - [ahupp/python-magic](https://github.com/ahupp/python-magic) - A python wrapper for libmagic
-
-`Nov 17, 2022` - [python-validators/validators](https://github.com/python-validators/validators) - Python Data Validation for Humans™.
-
-`Nov 17, 2022` - [mattkohl/docker-flask-celery-redis](https://github.com/mattkohl/docker-flask-celery-redis) - Docker-Compose template for orchestrating a Flask app with a Celery queue using Redis
 
 `Nov 17, 2022` - [ahupp/python-magic](https://github.com/ahupp/python-magic) - A python wrapper for libmagic
 
 `Nov 17, 2022` - [python-validators/validators](https://github.com/python-validators/validators) - Python Data Validation for Humans™.
-
 
 `Nov 17, 2022` - [mattkohl/docker-flask-celery-redis](https://github.com/mattkohl/docker-flask-celery-redis) - Docker-Compose template for orchestrating a Flask app with a Celery queue using Redis
 
