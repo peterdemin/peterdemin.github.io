@@ -360,7 +360,7 @@ The script is reentrant, because I had to iterate a bit to polish all the kinks.
 </span><span data-line="85">rm<span class="w"> </span>-f<span class="w"> </span>/etc/nginx/sites-enabled/default
 </span><span data-line="86">cat<span class="w"> </span>&gt;<span class="w"> </span>/etc/nginx/sites-available/pages<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
 </span><span data-line="87"><span class="s">server {</span>
-</span><span data-line="88"><span class="s">    server_name mirror.demin.dev;</span>
+</span><span data-line="88"><span class="s">    server_name peter.demin.dev;</span>
 </span><span data-line="89"><span class="s">    root /var/www/pages;</span>
 </span><span data-line="90"><span class="s">    index index.html index.htm;</span>
 </span><span data-line="91"><span class="s">    location / {</span>
@@ -370,7 +370,7 @@ The script is reentrant, because I had to iterate a bit to polish all the kinks.
 </span><span data-line="95"><span class="s">}</span>
 </span><span data-line="96"><span class="s">EOF</span>
 </span><span data-line="97">ln<span class="w"> </span>-fs<span class="w"> </span>/etc/nginx/sites-available/pages<span class="w"> </span>/etc/nginx/sites-enabled/pages
-</span><span data-line="98">certbot<span class="w"> </span>--agree-tos<span class="w"> </span>--nginx<span class="w"> </span>-m<span class="w"> </span>peter@demin.dev<span class="w"> </span>--non-interactive<span class="w"> </span>-d<span class="w"> </span>mirror.demin.dev
+</span><span data-line="98">certbot<span class="w"> </span>--agree-tos<span class="w"> </span>--nginx<span class="w"> </span>-m<span class="w"> </span>peter@demin.dev<span class="w"> </span>--non-interactive<span class="w"> </span>-d<span class="w"> </span>peter.demin.dev
 </span><span data-line="99">systemctl<span class="w"> </span>restart<span class="w"> </span>nginx.service
 </span><span data-line="100">
 </span><span data-line="101">screen<span class="w"> </span>-dm<span class="w"> </span>/bin/sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;apt remove --allow-change-held-packages -y google-cloud-cli google-cloud-cli-anthoscli google-guest-agent google-osconfig-agent&quot;</span>

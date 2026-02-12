@@ -1,5 +1,15 @@
 <?xml version='1.0' encoding='utf-8'?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2026-02-05T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Feb 05, 2026_0</id><title>Journal</title><published>2026-02-05T00:00:00Z</published><updated>2026-02-05T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Feb 05, 2026"/><content type="html"><![CDATA[<p>Today I learned <em>why</em> is it bad to put knives into a dishwasher.
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2026-02-11T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Feb 11, 2026_0</id><title>Journal</title><published>2026-02-11T00:00:00Z</published><updated>2026-02-11T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Feb 11, 2026"/><content type="html"><![CDATA[<p>My response to the AI panic &quot;LLM agents are so good, they are going to replace software engineers&quot;:</p>
+<ol>
+<li>Amount of work is unbound, you can't run out of it.
+Companies hire engineers to push more features to reach more markets.
+They don't need less people to do the same amount of work.
+The need more faster people to stay competitive.</li>
+<li>Companies don't hire software engineers for their coding skills.
+They hire problem owners who deliver solutions.
+More productive problem solvers means more business to run, not less people.</li>
+</ol>
+]]></content></entry><entry><id>Feb 05, 2026_0</id><title>Journal</title><published>2026-02-05T00:00:00Z</published><updated>2026-02-05T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Feb 05, 2026"/><content type="html"><![CDATA[<p>Today I learned <em>why</em> is it bad to put knives into a dishwasher.
 I thought it's because they bounce from the water streams and bump into other silverware and the cage.
 But the primary reason is combination of strong detergent and high water temperature for prolonged time.
 It weakens blade's edge and may degrade a handle, if it's wooden or made of a cheap plastic.
@@ -373,9 +383,4 @@ Reminds me of my friend who was working as IT support, while volunteering at the
 made be think how tech sector <em>remote-possible</em> in 2000s, <em>remote-friendly</em> in 2010s, then <em>remote-ubiquitous</em> in 2020s.
 The rise of AI-based products for cheating in the remote interviews driven by the demand moves us into a new era of <em>remote-fraudulent</em> starting around 2025.</p>
 ]]></content></entry><entry><id>Apr 27, 2025_1</id><title>Journal</title><published>2025-04-27T00:00:00Z</published><updated>2025-04-27T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Apr 27, 2025"/><content type="html"><![CDATA[<p>overwheLLMed. Courtesy of https://worksonmymachine.substack.com/p/the-coming-knowledge-work-supply</p>
-]]></content></entry><entry><id>Apr 27, 2025_0</id><title>Journal</title><published>2025-04-27T00:00:00Z</published><updated>2025-04-27T00:00:00Z</updated><link href="https://peter.demin.dev/life.html#:~:text=Apr 27, 2025"/><content type="html"><![CDATA[<p>I keep catching myself at the thought of inevitable decline.
-Am I at my peak? Or am I past it? Is it only downhill ahead?
-I think I can't find a breaking point because there's so many aspects to be considered.
-Like cognitive decline, that starts at twenty one, but is balanced out by growing pattern matching library.
-The shrinking breadth of opportunities, countered by accumulated wealth.</p>
 ]]></content></entry></feed>
