@@ -30,7 +30,6 @@ def write_posts() -> None:
             f'{ORPHAN}\n# {it.record.short_date}\n\n{it.record.text}',
             encoding='utf-8',
         )
-        print(it.source_path)
 
 
 def main() -> None:

@@ -1,6 +1,6 @@
 # You can set these variables from the command line, and also
 # from the environment for the first two.
-SPHINXOPTS  ?=
+SPHINXOPTS  ?= --jobs auto --nitpicky --fail-on-warning --quiet
 SPHINXBUILD ?= sphinx-build
 SOURCEDIR   = source
 BUILDDIR    = build
@@ -201,4 +201,4 @@ note:
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
 .PHONY: Makefile
 %: Makefile
-	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+	$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
