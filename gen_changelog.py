@@ -5,6 +5,7 @@
 import datetime
 import glob
 import os
+import sys
 import re
 import subprocess
 from dataclasses import dataclass
@@ -18,7 +19,7 @@ ARTICLES_DIR = os.path.join(SOURCE_DIR, "12_articles")
 RE_DATE = re.compile(r"^(\d{4}-\d{2}-\d{2}) .*$")
 RE_ADD = re.compile(r"^A\t(.+)$")
 RE_LIFE_DATE = re.compile(r"^`([A-Z][a-z]{2} \d{2}, \d{4})`")
-RE_LINK_TARGET = re.compile(r"]\((http[^)]+)\)")
+RE_LINK_TARGET = re.compile(r"(\(http[^)]+\))")
 LIFE_DATE_FMT = "%b %d, %Y"
 GIT_LOG_COMMAND = [
     "git",
@@ -118,12 +119,18 @@ def generate_life_records(
             text = line.rstrip()
             date = maybe_parse_date(line)
             link = maybe_parse_link(line)
-            if date and link and link not in all_life_content:
-                yield LifeRecord(
-                    text=text,
-                    date=date,
-                    life_path=find_life_file(date),
-                )
+            if date and link:
+                if link not in all_life_content:
+                    yield LifeRecord(
+                        text=text,
+                        date=date,
+                        life_path=find_life_file(date),
+                    )
+                else:
+                    n = all_life_content.count(link)
+                    if n > 1:
+                        print(f"Warning: {link} is mentioned {n} times", file=sys.stderr)
+
 
 
 def iter_life_files() -> Iterable[str]:
@@ -160,8 +167,8 @@ def parse_life_file(file_path: str) -> List[AnnotatedLifeLine]:
 
 def maybe_parse_link(text: str) -> str:
     """Tries to parse date from the life record text."""
-    if mobj := RE_LINK_TARGET.match(text):
-        return mobj.group(1)
+    if mobj := RE_LINK_TARGET.findall(text):
+        return mobj[0]
     return ""
 
 
