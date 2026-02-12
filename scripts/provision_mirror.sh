@@ -85,7 +85,7 @@ test -f /etc/nginx/sites-available/pages && exit 0
 rm -f /etc/nginx/sites-enabled/default
 cat > /etc/nginx/sites-available/pages <<'EOF'
 server {
-    server_name mirror.demin.dev;
+    server_name peter.demin.dev;
     root /var/www/pages;
     index index.html index.htm;
     location / {
@@ -95,7 +95,7 @@ server {
 }
 EOF
 ln -fs /etc/nginx/sites-available/pages /etc/nginx/sites-enabled/pages
-certbot --agree-tos --nginx -m peter@demin.dev --non-interactive -d mirror.demin.dev
+certbot --agree-tos --nginx -m peter@demin.dev --non-interactive -d peter.demin.dev
 systemctl restart nginx.service
 
 screen -dm /bin/sh -c "apt remove --allow-change-held-packages -y google-cloud-cli google-cloud-cli-anthoscli google-guest-agent google-osconfig-agent"
