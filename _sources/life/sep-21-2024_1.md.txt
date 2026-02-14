@@ -5,13 +5,19 @@ orphan: true
 # Sep 21, 2024
 
 Crazy man market analysis.
+
 1. 09/13 - random dude on the internet says new iPhones don't sell well (before they were shipped); AAPL dives 3.5%.
    09/18 - feds lower the rate by 50 points; AAPL rises 5.5%.
    Great job, market.
+
    ![AAPL](/16_life/images/aapl-2024-09-21.png)
+
 2. 09/13 - everyone suddenly realise LLMs are expensive; NVDA goes down 4.5%.
    09/18 - feds lower the rate by 50 points; NVDA goes back up to the prior level.
    Keep it up, market.
+
    ![NVDA](/16_life/images/nvda-2024-09-21.png)
+
 3. Macy's doesn't care.
+
    ![M](/16_life/images/m-2024-09-21.png)

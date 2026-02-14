@@ -5,6 +5,7 @@ orphan: true
 # Aug 30, 2024
 
 Crazy man market analysis (close).
+
 1. I jinxed it for eBay, it dipped right after I called it stable.
    ![EBAY](/16_life/images/ebay-2024-08-30.png)
 2. NVDA didn't dip a little bit, it dipped significantly.

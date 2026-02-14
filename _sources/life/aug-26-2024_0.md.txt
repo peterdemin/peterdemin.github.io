@@ -5,6 +5,7 @@ orphan: true
 # Aug 26, 2024
 
 Crazy man market analysis.
+
 1. eBay gains popularity, as more people are willing to buy second-hand eletronics (read phones).
    When most of the tech stock went down in July, eBay kept growing.
    ![EBAY](/16_life/images/ebay-2024-08-26.png)

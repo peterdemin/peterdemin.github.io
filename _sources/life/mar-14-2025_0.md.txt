@@ -4,6 +4,7 @@ orphan: true
 
 # Mar 14, 2025
 
+
 Some people, aspire for greater things, and manage to build their way to the goal.
 Other people are happy with what they got, maybe incrementally improve situation over time, or stay in the same place and enjoy themselves.
 And some people say: "Oh, if I had this and that, I would achieve great things, build something amazing."

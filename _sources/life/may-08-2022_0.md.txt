@@ -6,40 +6,71 @@ orphan: true
 
 [microsoft/Web-Dev-For-Beginners](https://github.com/microsoft/Web-Dev-For-Beginners) - 24 Lessons, 12 Weeks, Get Started as a Web Developer
 `June 30, 2022` · Almost recovered, still sleeping more, and some kidney pain.
+
+
 `June 29, 2022` · Feeling better, except for kidney pain.
+
+
 `June 28, 2022` · Slept around 20 hours, kidney pain got worse.
+
+
 `June 27, 2022` · Slept almost whole day, kidney pain got worse.
+
+
 `June 26, 2022` · Slept almost whole day, started to feel pain around kidneys. Tested positive on homekit.
+
+
 `June 25, 2022` · Started to experience cold symptoms: dizziness, body weakness, headache, cough, and running nose.
+
+
 `June 19-24, 2022` · Took a work trip to California. Caught Covid-19 somewhere around June 22.
+
+
 `June 15, 2022` · Topped my personal record. 6K in 35 minutes.
+
+
 `June 14, 2022` · Fell from a 5.11a track on my thumb toe and bent the nail. Did another 3 tracks afterwards, though.
+
+
 `June 8, 2022` ·
 I enjoyed KK's article on [Truth vs Trust](https://kk.org/thetechnium/truth-vs-trust/).
 It talks about a utopian news outlets that track down origins of every statement.
 Not a fact check (that journalists are "doing" now), just a chain of who quoted who.
 The article's start point is that we can't infer truth from a statement itself.
 But we can track who said what and an origin of every statement.
+
 The problem is though, that for polarizing topics (where truth can't be established,
 and we need to rely on trust) all modern news outlets would cover facts that are convenient for them,
 and omit everything else.
+
 Which means, that trustworthiness of a source is not a scalar, but more of a 3D matrix, that has topics, time, and past dishonesty as axes.
+
+
 A Tech Lead is a software engineer responsible for leading a team and alignment of the technical direction. Tech Lead has a focus on the technical aspects, or the "How."
+
 Tech Lead blends:
 - leadership skills
 - architecture skills
 - development skills
+
 Leadership skills include:
 - coaching
 - influencing
 - delegation
+
 They steer their team towards a common technical vision. They are accountable for the quality of the technical deliverables for the team.
+
 [source](https://www.patkua.com/blog/the-definition-of-a-tech-lead/)
+
+
 `June 7, 2022` ·
 I picked up running a week ago. Today’s personal best is 4 km in 23 minutes.
+
 Fun fact: here's what happens when you burn a molecule of triglyceride, the predominant fat in a human body:
+
 ```
 C55H104O6 + 78O2 --> 55CO2 + 52H2O + energy
 ```
+
 Oxidizing 10 kilos of human fat requires inhaling 29 kilos of oxygen to produce 28 kilos of carbon dioxide and 11 kilos of water.
 It means that you lose roughly the same amount of fat as you sweat.

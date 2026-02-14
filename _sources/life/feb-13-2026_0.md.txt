@@ -8,14 +8,20 @@ The thought of tiny flowers in a winter garden didn't leave my head for some tim
 so today I vibed a wrapper around [Mozilla Readability](https://github.com/mozilla/readability) library
 (actually, a [port](https://github.com/giulianopz/go-readability)
 by [Giuliano Panzironi](https://giulianopz.github.io)).
+
 It fetches a page from a given URL, passes it through main content extraction and cleaning,
 and presents in a distraction free layout using Solarized Dark theme.
+
 Here's an example of what it looks like:
+
 [https://reader.demin.dev/?url=https://peter.demin.dev/life/feb-13-2026_0.html](https://reader.demin.dev/?url=https://peter.demin.dev/life/feb-13-2026_0.html)
+
 The evening I spent openining random pages in full-screen mode and enjoying distraction free content.
+
 In the spirit of minimalism I made this service a socket-activated Go binary.
 So it doesn't take any of the precious RAM on my tiny VPS when idle,
 but also has a very small runtime footprint:
+
 ```
 ○ reader-api.service - Reader extractor API
      Loaded: loaded (/etc/systemd/system/reader-api.service; static)
@@ -27,9 +33,13 @@ TriggeredBy: ● reader-api.socket
    Main PID: 1325849 (code=exited, status=0/SUCCESS)
    Mem peak: 3.2M
         CPU: 45ms
+
 Feb 14 05:44:36 demin-dev systemd[1]: Started reader-api.service - Reader extractor API.
 Feb 14 05:44:36 demin-dev systemd[1]: reader-api.service: Deactivated successfully.
 Feb 14 05:44:36 demin-dev reader[1325849]: 2026/02/14 05:44:36 listening on systemd activation socket
 ```
+
 Can it get more minimal than that? I don't think so.
+
 Please don't scrape whole internet through my proxy.
+

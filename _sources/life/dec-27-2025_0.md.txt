@@ -6,9 +6,13 @@ orphan: true
 
 Inspired by [Clan](https://clan.lol/) and other Nix stories, I attempted to migrate my silly Vagrant+VirtualBox home setup to Terraform+KVM. I'm not very familiar with either, so I thought that's gonna be a fun learning experience. In a way, it was, but I learned not what I was hoping to.
 I started at Medium's article [Vagrant and VirtualBox Are No Longer Enough: Why KVM and Terraform Are the Future of DevOps](https://medium.com/@mohrezfadaei/vagrant-and-virtualbox-are-no-longer-enough-why-kvm-and-terraform-are-the-future-of-devops-24f978c9ca2c). AI-generated illustration was the first sign, but I ignored it. Looking at the article now, it's obvious to me now, that it's an AI slop through and through. Fuck you, [Mohammad Reza Fadaei](https://medium.com/@mohrezfadaei), you lazy piece of shit.
+
 The first challenge came from Terraform provider for libvirtd being not an "official" Hashicorp thing, but a "learning platform" for a random stranger (No offense, [Duncan Mac-Vicar P.](https://www.mac-vicar.eu/), thanks for doing what you're doing).
+
 The second challenge was that the Duncan's provider got a major rewrite and all Terraform recipes from the tutorial had to be migrated.
+
 The third challenge was that Ubuntu 22.04 has some weird issue in libvirt apparmor configuraion. Apparently, a VM doesn't get permissions to any of the volumes created specifically for it. There should be a script that generates a list of volume paths somewhere, but who knows what happened to it.
+
 After 3 hours of battling every part of the "Future of DevOps", my ChatGPT browser tab started to run out of memory, and I gave up.
 Looking back, I love how simple my Vagrant setup is, and I want to extend my gratitude to [Mitchell Hashimoto](https://mitchellh.com/) for building it.
 I still want to make my silly home VM work without dependency on any external dependencies (except stable Ubuntu/Debian repo), so if I get more time for this project, I'll try vibing raw libvirt config.

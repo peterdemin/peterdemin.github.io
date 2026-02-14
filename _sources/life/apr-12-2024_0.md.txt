@@ -7,3 +7,4 @@ orphan: true
 Software attempts to automate a real word process through creation of a limited model of the important aspects.
 The depth of the real world is infinite, and our understanding of it is shallow.
 But the computer model's depth is laughable.
+

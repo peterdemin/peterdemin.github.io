@@ -9,6 +9,7 @@ I've been writing asynchronous Python on and off for about a decade, and still, 
 Recently, I wrote a synchronous generator that yields results from an asynchronous iterable. What a ride!
 Back in the days of the PEP 492, Yury was working on EdgeDB, a wrapper layer around PostgreSQL.
 In a way, he still is, but it's called [Gel](https://www.geldata.com), and is a part of Vercel (but the page title still says EdgeDB, lol).
+
 Let's see what the people working on PEP 492 are up to:
 - [Guido van Rossum](https://gvanrossum.github.io) - the creator and benevolent dictator of Python. Retired from Dropbox in 2019, just to join Microsoft as a Distinguished Engineer in 2020.
 - [Victor Stinner](https://vstinner.readthedocs.io) - one of the performance-focused Python core contributors. These days, his good work is paid for by IBM through Red Hat.
@@ -19,6 +20,7 @@ Let's see what the people working on PEP 492 are up to:
 - [Stephen J. Turnbull](https://gitlab.com/yaseppochi) - seemingly, a Mailman (The GNU Mailing List manager) maintainer.
 - [Brett Cannon](https://snarky.ca) - Principal Software Engineer at Microsoft in Canada and Python core developer.
 - [Alyssa Coghlan](https://www.curiousefficiency.org) - Nicholas, at the time of the PEP, CPython core and packaging developer, supported by an Australian bank. Surprisingly, not working on `uv`.
+
 The rest of the people I never heard about:
 - [Paul Moore](https://github.com/pfmoore) - core developer of Python and pip.
 - [Nathaniel Smith](https://vorpus.org/) - a scientist, doing science stuff, but somehow deep in the Python community.

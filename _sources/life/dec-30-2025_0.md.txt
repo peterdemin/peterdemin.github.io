@@ -7,6 +7,7 @@ orphan: true
 I got bored enough to add an [RSS feed](https://peter.demin.dev/life.xml) to this journal.
 Having a custom plain-text format for these records, I had to add a custom Atom generator.
 Overall it was a smooth sailing, with two gotchas:
+
 1. CommaFeed (at least) doesn't like escaped HTML inside content fields, even if `type="html"`.
    So I had to switch to CDATA encoding.
 2. Python's builtin `xml.etree` library doesn't support CDATA ([CPython#81055](https://github.com/python/cpython/issues/81055) hanging from 2019).
@@ -14,4 +15,5 @@ Overall it was a smooth sailing, with two gotchas:
    Turns out lxml.etree is slightly incompatible in managing namespaces.
    It took a bit of googling to find out, that instead of `ET.register_namespace('', 'http://www.w3.org/2005/Atom')`,
    I should do `ET.Element(..., nsmap={None: 'http://www.w3.org/2005/Atom'})`.
+
 So, business as usual.

@@ -5,35 +5,57 @@ orphan: true
 # May 10, 2022
 
 I just tried to explain gender transformation to my kids in popular Soviet song:
+
 > Я был когда-то странной игрушкой безымянной.
+
 Protagonist is a male (animal), but he was a toy in the past.
 But toy's gender is feminine.
 Which makes a weird mix of two genders in one sentence separated by the time.
+
 The opposite example blew their minds:
+
 > Я была когда-то странным утюгом безымянным.
+
+
 `May 7, 2022` · Weird and disturbing fantasy from The Simpsons S33.E19 "Girls Just Shauna Have Fun"
+
 ![Simpsons](/16_life/images/simpsons-dream.jpeg)
+
+
 `May 6, 2022` ·
 Here are some of my favorite quotes from songs.
 I catch myself reciting this one during tough debug sessions:
+
     Goddamn machinery
     Why don't you speak to me?
         -- "The Axe" by Thom Yorke
+
+
 And this I love for the structure of the sentence:
+
     When I am king
     You will be first against the wall
     With your opinion
     Which is of no consequence at all
         -- "Paranoid Android" by Radiohead
+
+
 This one is for "broken pipe" and "Socket closed":
+
     Communication breakdown, it's always the same
     Havin' a nervous breakdown, a-drive me insane
         -- "Communication Breakdown" by Led Zeppelin
+
+
 `May 5, 2022` ·
 Surprisingly, zero intersection on most used self-hosted apps
 with [this guy](https://noted.lol/what-are-your-most-used-self-hosted-applications/).
+
+
 `May 3, 2022` ·
 I need to do something meaningful with my life or I’ll be wasting it.
+
+
 `May 2, 2022` ·
 TIL that US schools close in observance of the Islamic holiday Eid al-Fitr, a festive celebration marking the end of Ramadan, a month of fasting observed by Muslims worldwide.
 But they call it Quarterly grading/planning. Maybe to not stir the masses.

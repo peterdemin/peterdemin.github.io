@@ -5,6 +5,7 @@ orphan: true
 # Dec 10, 2024
 
 Existential crisis minute. Metaphor mode.
+
 1. A stock chart, jumping up and down every minute. Every move is a strict sum of asks and bids executed in order. And yet, the stock value can't be predicted even 1 second ahead.
 2. A man is running in a forest, jumping over falling trees and ducking under branches. Except that the forest is dark, the man can't see anything. Sometimes, he guesses right; sometimes, he hits the branch, falls, gets up, and keeps running. The position of every tree and branch is predetermined and exact for each moment in time, yet it is unknown to the man.
 3. An incomprehensible complex multidimensional visualization of a microorganism cell state with the exact number of molecules, atoms, and electrons.

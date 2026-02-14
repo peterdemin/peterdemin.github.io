@@ -4,5 +4,7 @@ orphan: true
 
 # May 30, 2022
 
+
 TIL that The Onion posts an article with the same title: "‘No Way To Prevent This,’ Says Only Nation Where This Regularly Happens" after every mass shouting.
 And ironically it does nothing to prevent this.
+

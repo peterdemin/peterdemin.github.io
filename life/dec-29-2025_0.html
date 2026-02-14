@@ -96,16 +96,16 @@ data-aria-dark="Switch to auto color mode">
 I learned about <a class="reference external" href="https://wiki.archlinux.org/title/Libvirt#Configure_filesystem_passthrough">virtiofs</a> - a way to share directories with libvirt VMs, similar to shared folders of VirtualBox, but with manual mounting on the guest side.
 I tried <a class="reference external" href="https://cockpit-project.org/">Cockpit</a> and Cockpit-machines, which is a WebUI to libvirt, but it didn’t provide enough functionality (which I thought is extremely basic).
 I learned some obscure factoids about <a class="reference external" href="https://docs.cloud-init.io/en/latest/index.html">cloud-init</a>, but still very confused. It’s such a weird combination of convenience and complexity.
-I landed on <a class="reference external" href="https://vagrant-libvirt.github.io/vagrant-libvirt/">vagrant-libvirt</a> provider, and made just a few changes to my Vagrantfile to adjust.
-I wish I could remove Vagrant from my setup, but that would mean reimplementing the following steps, that I’m not too keen on:</p>
+I landed on <a class="reference external" href="https://vagrant-libvirt.github.io/vagrant-libvirt/">vagrant-libvirt</a> provider, and made just a few changes to my Vagrantfile to adjust.</p>
+<p>I wish I could remove Vagrant from my setup, but that would mean reimplementing the following steps, that I’m not too keen on:</p>
 <ol class="arabic simple">
 <li><p>SSH key provisioning.</p></li>
 <li><p>Network configuration with static IP address for the guest and port forwarding.</p></li>
-<li><p>Mounting the virtiofs mounts.
-After all this good work, I looked at my GitHub repo with a lonely 1 star, and “unpublished” it.
-It’s a fun thing to hack around, but a hard thing to share with other people.
-So far, I learned that most people are pretty secretive about their home media library setup, and not interested in cooperating or consolidating.</p></li>
+<li><p>Mounting the virtiofs mounts.</p></li>
 </ol>
+<p>After all this good work, I looked at my GitHub repo with a lonely 1 star, and “unpublished” it.
+It’s a fun thing to hack around, but a hard thing to share with other people.
+So far, I learned that most people are pretty secretive about their home media library setup, and not interested in cooperating or consolidating.</p>
 </section>
 
         </article>

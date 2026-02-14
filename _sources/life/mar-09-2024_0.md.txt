@@ -5,6 +5,8 @@ orphan: true
 # Mar 09, 2024
 
 My favorite quote from Dune:
+
 «Where is Alia?» she asked.
+
 «Out doing what any good Fremen child should be doing in such times,» Paul said.
 «She’s killing enemy wounded and marking their bodies for the water-recovery teams.»

@@ -9,6 +9,7 @@ With Python, you gotta be disciplined to keep your third-party requirements in o
 You hire smart people, who know their stuff, but don't know Python (and are not really into learning the advanced topics of Python, because they are hired for the stuff they know well).
 And they do whatever is easier to get things done.
 And it's not always the right thing to do.
+
 The path of least resistance in Python is:
 - no type annotations
 - no linter
@@ -17,7 +18,9 @@ The path of least resistance in Python is:
 - no packaging
 - no meaningful module and class breakdown
 - no sensible docstrings or docs website.
+
 I'm not saying this is how all the projects go.
 But this is what you might get if you don't put any experienced folks on the project.
+
 Whereas with Golang, you have to get the most of the things right, or it won't work at all.
 :mic-drop:

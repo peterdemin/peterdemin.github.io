@@ -5,7 +5,9 @@ orphan: true
 # May 17, 2022
 
 Notes on stress management.
+
 Stress management is management of body and mind. Stress is an integral part of human biology. Without stress hormones we would simple die.
+
 1. Survival kit: sleep, eat, exercise.
 2. Sleep: 7-9 hours a day. Consistent schedule for work days and weekend. Reduce screen time before sleep. Keep phone outside of bedroom.
 3. Food: three colors of vegetables and fruits. 3 meals a day. Standard servings - no overeating.
@@ -17,6 +19,8 @@ Stress management is management of body and mind. Stress is an integral part of 
 9. Practice simple meditation several times a day. Focus on breath and do a body scan.
 10. Relax muscles while sitting, one group at a time. Neck, shoulders, arms, back, legs and feet.
 11. Hang out with friends to feel social connection.
+
 Sources:
 * [Beating Stress is Easier Than You Think | Annika Sörensen | TEDxSanJuanIsland](https://youtu.be/zDlz5N6DXuE)
 * [3 Stress-Management Techniques for Front Line Workers](https://youtu.be/i-pazYyLSWQ)
+

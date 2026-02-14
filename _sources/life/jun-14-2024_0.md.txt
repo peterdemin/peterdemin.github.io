@@ -5,5 +5,7 @@ orphan: true
 # Jun 14, 2024
 
 What do you call a fish with a monocle?
+
 ![sofishticated](/16_life/images/sofishticated.jpg)
+
 Sofishticated

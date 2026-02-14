@@ -6,16 +6,20 @@ orphan: true
 
 Here is a bureaucratic game idea.
 Classic arcade game setting with a top-down view and simple cartoonish graphics.
+
 **First level.**
 You stand in line, and the line moves slowly (left to right on the screen).
 Each person in front of you moves a split second after the person in front of them.
 Your goal is to catch up as quickly as possible.
+
 **Second level.**
 There are human hunters standing a few people after you, and they are shooting at you.
 You must dodge their bullets, and when you dodge, the bullet kills a person in front of you.
 When the person in front of you dies, you can take their spot, which speeds up your progressions through the line.
+
 **Third level.**
 While standing in line, you also need to fill in a form.
 This form includes some math quizzes.
 While filling out the form, you keep dodging the bullets, making sure that bullets don't hit the person who will be accepting your form who stands in front of you.
+
 I should try building it using Rosebud: [Invite link](https://rosebud.ai/?referralCode=e0sslhs&refSource=copy), [Launch HN post](https://news.ycombinator.com/item?id=38868185)

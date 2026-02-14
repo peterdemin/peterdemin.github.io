@@ -2,13 +2,13 @@
 <feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2026-02-13T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Feb 13, 2026_0</id><title>Journal</title><published>2026-02-13T00:00:00Z</published><updated>2026-02-13T00:00:00Z</updated><link href="https://peter.demin.dev/life/feb-13-2026_0.html"/><content type="html"><![CDATA[<p>The thought of tiny flowers in a winter garden didn't leave my head for some time,
 so today I vibed a wrapper around <a href="https://github.com/mozilla/readability">Mozilla Readability</a> library
 (actually, a <a href="https://github.com/giulianopz/go-readability">port</a>
-by <a href="https://giulianopz.github.io">Giuliano Panzironi</a>).
-It fetches a page from a given URL, passes it through main content extraction and cleaning,
-and presents in a distraction free layout using Solarized Dark theme.
-Here's an example of what it looks like:
-<a href="https://reader.demin.dev/?url=https://peter.demin.dev/life/feb-13-2026_0.html">https://reader.demin.dev/?url=https://peter.demin.dev/life/feb-13-2026_0.html</a>
-The evening I spent openining random pages in full-screen mode and enjoying distraction free content.
-In the spirit of minimalism I made this service a socket-activated Go binary.
+by <a href="https://giulianopz.github.io">Giuliano Panzironi</a>).</p>
+<p>It fetches a page from a given URL, passes it through main content extraction and cleaning,
+and presents in a distraction free layout using Solarized Dark theme.</p>
+<p>Here's an example of what it looks like:</p>
+<p><a href="https://reader.demin.dev/?url=https://peter.demin.dev/life/feb-13-2026_0.html">https://reader.demin.dev/?url=https://peter.demin.dev/life/feb-13-2026_0.html</a></p>
+<p>The evening I spent openining random pages in full-screen mode and enjoying distraction free content.</p>
+<p>In the spirit of minimalism I made this service a socket-activated Go binary.
 So it doesn't take any of the precious RAM on my tiny VPS when idle,
 but also has a very small runtime footprint:</p>
 <pre><code>○ reader-api.service - Reader extractor API
@@ -21,12 +21,13 @@ TriggeredBy: ● reader-api.socket
    Main PID: 1325849 (code=exited, status=0/SUCCESS)
    Mem peak: 3.2M
         CPU: 45ms
+
 Feb 14 05:44:36 demin-dev systemd[1]: Started reader-api.service - Reader extractor API.
 Feb 14 05:44:36 demin-dev systemd[1]: reader-api.service: Deactivated successfully.
 Feb 14 05:44:36 demin-dev reader[1325849]: 2026/02/14 05:44:36 listening on systemd activation socket
 </code></pre>
-<p>Can it get more minimal than that? I don't think so.
-Please don't scrape whole internet through my proxy.</p>
+<p>Can it get more minimal than that? I don't think so.</p>
+<p>Please don't scrape whole internet through my proxy.</p>
 ]]></content></entry><entry><id>Feb 11, 2026_1</id><title>Journal</title><published>2026-02-11T00:00:00Z</published><updated>2026-02-11T00:00:00Z</updated><link href="https://peter.demin.dev/life/feb-11-2026_1.html"/><content type="html"><![CDATA[<p>Changed my atom feed to link each item to a dedicated page (which is otherwise unreachable from the website).</p>
 ]]></content></entry><entry><id>Feb 11, 2026_0</id><title>Journal</title><published>2026-02-11T00:00:00Z</published><updated>2026-02-11T00:00:00Z</updated><link href="https://peter.demin.dev/life/feb-11-2026_0.html"/><content type="html"><![CDATA[<p>My response to the AI panic &quot;LLM agents are so good, they are going to replace software engineers&quot;:</p>
 <ol>
@@ -56,9 +57,9 @@ Same goes for email digests, if they try to cover too much ground, the value of 
 ]]></content></entry><entry><id>Jan 26, 2026_1</id><title>Journal</title><published>2026-01-26T00:00:00Z</published><updated>2026-01-26T00:00:00Z</updated><link href="https://peter.demin.dev/life/jan-26-2026_1.html"/><content type="html"><![CDATA[<p>Added <a href="https://peter.demin.dev/12_articles/81-fedup.html">FedUp - Minimal Federated CDN</a></p>
 ]]></content></entry><entry><id>Jan 26, 2026_0</id><title>Journal</title><published>2026-01-26T00:00:00Z</published><updated>2026-01-26T00:00:00Z</updated><link href="https://peter.demin.dev/life/jan-26-2026_0.html"/><content type="html"><![CDATA[<p>I got excited about ForgeFed, and want to see what is Forgejo is up to.
 Naturally, they host the code in Forgejo itself, confusingly named codeberg.
-Here's what I saw when opened the repo:
-<img src="https://peter.demin.dev/_images/codeberg-down.png" alt="" />
-Maybe, this is not the best day for the federated code forge community...</p>
+Here's what I saw when opened the repo:</p>
+<p><img src="https://peter.demin.dev/_images/codeberg-down.png" alt="" /></p>
+<p>Maybe, this is not the best day for the federated code forge community...</p>
 ]]></content></entry><entry><id>Jan 25, 2026_0</id><title>Journal</title><published>2026-01-25T00:00:00Z</published><updated>2026-01-25T00:00:00Z</updated><link href="https://peter.demin.dev/life/jan-25-2026_0.html"/><content type="html"><![CDATA[<p><a href="https://github.com/blacksky-algorithms/rsky">blacksky-algorithms/rsky</a> - An AT Protocol implementation prioritizing community safety and self-governance, written in Rust.</p>
 ]]></content></entry><entry><id>Jan 24, 2026_1</id><title>Journal</title><published>2026-01-24T00:00:00Z</published><updated>2026-01-24T00:00:00Z</updated><link href="https://peter.demin.dev/life/jan-24-2026_1.html"/><content type="html"><![CDATA[<p>Reading about radicle made me repeatedly question its purpose.
 I liked how it uses PKI for identity, and made me think of a minimal implementation of a Web UI for issues and code review.
@@ -71,15 +72,15 @@ This way developers could interact through git by adding or changing the message
 ]]></content></entry><entry><id>Jan 24, 2026_0</id><title>Journal</title><published>2026-01-24T00:00:00Z</published><updated>2026-01-24T00:00:00Z</updated><link href="https://peter.demin.dev/life/jan-24-2026_0.html"/><content type="html"><![CDATA[<p>I discovered a neat application for AI.
 My wife asked me to look up a recipe online as she was cooking.
 The problem with online recipies is that there's plenty, differing in minor ways.
-They are most likely poorly formatted and riddled with ads.
-ChatGPT to the rescue, here's my prompt:</p>
+They are most likely poorly formatted and riddled with ads.</p>
+<p>ChatGPT to the rescue, here's my prompt:</p>
 <blockquote>
 <p>I need a complete recipe for Pavlova cake with weights in grams.
 I need it nicely formatted for printing on a single page.
-Make it an HTML page with printer-friendly styles.
-Copy'n'Paste the HTML to a file, open it and send to printer.
-<img src="https://peter.demin.dev/_images/pavlova-cake.png" alt="" /></p>
+Make it an HTML page with printer-friendly styles.</p>
 </blockquote>
+<p>Copy'n'Paste the HTML to a file, open it and send to printer.</p>
+<p><img src="https://peter.demin.dev/_images/pavlova-cake.png" alt="" /></p>
 ]]></content></entry><entry><id>Jan 23, 2026_0</id><title>Journal</title><published>2026-01-23T00:00:00Z</published><updated>2026-01-23T00:00:00Z</updated><link href="https://peter.demin.dev/life/jan-23-2026_0.html"/><content type="html"><![CDATA[<p>Added <a href="https://peter.demin.dev/12_articles/80-radicle.html">My Radicle Journey</a></p>
 ]]></content></entry><entry><id>Jan 22, 2026_3</id><title>Journal</title><published>2026-01-22T00:00:00Z</published><updated>2026-01-22T00:00:00Z</updated><link href="https://peter.demin.dev/life/jan-22-2026_3.html"/><content type="html"><![CDATA[<p><a href="https://github.com/susam/mintotp">susam/mintotp</a> - Minimal TOTP generator in 20 lines of Python</p>
 ]]></content></entry><entry><id>Jan 22, 2026_2</id><title>Journal</title><published>2026-01-22T00:00:00Z</published><updated>2026-01-22T00:00:00Z</updated><link href="https://peter.demin.dev/life/jan-22-2026_2.html"/><content type="html"><![CDATA[<p><a href="https://github.com/cpg314/ltapiserv-rs">cpg314/ltapiserv-rs</a> - Server implementation of the LanguageTool API for offline grammar and spell checking, based on nlprule and symspell. And a small graphical command-line client.</p>
@@ -98,8 +99,8 @@ Until today, I discovered this <a href="https://vinitkumar.me/current-vim-setup/
 endfunction
 call ChangeBackground()
 </code></pre>
-<p>It detects the current Appearance setting and picks the corresponding Solarized theme.
-Thank you, Vinit! And thanks to <a href="https://github.com/hnpwd/hnpwd.github.io">hnpwd</a> for connecting me with Vinit!</p>
+<p>It detects the current Appearance setting and picks the corresponding Solarized theme.</p>
+<p>Thank you, Vinit! And thanks to <a href="https://github.com/hnpwd/hnpwd.github.io">hnpwd</a> for connecting me with Vinit!</p>
 ]]></content></entry><entry><id>Jan 22, 2026_0</id><title>Journal</title><published>2026-01-22T00:00:00Z</published><updated>2026-01-22T00:00:00Z</updated><link href="https://peter.demin.dev/life/jan-22-2026_0.html"/><content type="html"><![CDATA[<p>Here is a metaphor for how big tech companies operate that comes to mind over and over and seems to apply to many situations.
 A small company operates like a chess master: the pieces move in a tight choreography, and even when it's not clear for each separate pawn, there is a big picture, and it makes sense at the end.
 As the company grows, when no one knows how many teams are in the org, not to mention the names of the people, there ain't no chess master at the helm.
@@ -109,22 +110,22 @@ There's a lot of effort exerted, and the amount of motion is dizzying.
 Yet, rarely are substantial improvements achieved, and never efficiently.</p>
 ]]></content></entry><entry><id>Jan 21, 2026_3</id><title>Journal</title><published>2026-01-21T00:00:00Z</published><updated>2026-01-21T00:00:00Z</updated><link href="https://peter.demin.dev/life/jan-21-2026_3.html"/><content type="html"><![CDATA[<p><a href="https://github.com/SeanHeelan/anamnesis-release">SeanHeelan/anamnesis-release</a> - Automatic Exploit Generation with LLMs</p>
 ]]></content></entry><entry><id>Jan 21, 2026_2</id><title>Journal</title><published>2026-01-21T00:00:00Z</published><updated>2026-01-21T00:00:00Z</updated><link href="https://peter.demin.dev/life/jan-21-2026_2.html"/><content type="html"><![CDATA[<p><a href="https://github.com/anthropics/original_performance_takehome">anthropics/original_performance_takehome</a> - Anthropic's original performance take-home, now open for you to try!</p>
-]]></content></entry><entry><id>Jan 21, 2026_1</id><title>Journal</title><published>2026-01-21T00:00:00Z</published><updated>2026-01-21T00:00:00Z</updated><link href="https://peter.demin.dev/life/jan-21-2026_1.html"/><content type="html"><![CDATA[<p>Exploring Radicle landed me on <a href="https://www.ethswarm.org">Swarm</a>. I'm concerned with the eth- prefix in their domain name, and a mention of blockchain and web3 on the main page. But I like how they managed to build some community and ecosystem around this project. Fun fact: instead of regular documentation, they have <a href="https://www.ethswarm.org/the-book-of-swarm-2.pdf">The Book of Swarm</a> of 272 pages. I wonder how much of it is AI slop, though.
-On the note of automatic distribution of 4KB chunks through the network, I wonder how long before DMCA watchdogs start sending their letters to all owners of a chunk of a copyrighted content.
+]]></content></entry><entry><id>Jan 21, 2026_1</id><title>Journal</title><published>2026-01-21T00:00:00Z</published><updated>2026-01-21T00:00:00Z</updated><link href="https://peter.demin.dev/life/jan-21-2026_1.html"/><content type="html"><![CDATA[<p>Exploring Radicle landed me on <a href="https://www.ethswarm.org">Swarm</a>. I'm concerned with the eth- prefix in their domain name, and a mention of blockchain and web3 on the main page. But I like how they managed to build some community and ecosystem around this project. Fun fact: instead of regular documentation, they have <a href="https://www.ethswarm.org/the-book-of-swarm-2.pdf">The Book of Swarm</a> of 272 pages. I wonder how much of it is AI slop, though.</p>
+<p>On the note of automatic distribution of 4KB chunks through the network, I wonder how long before DMCA watchdogs start sending their letters to all owners of a chunk of a copyrighted content.
 With IPFS and BitTorrent node owner at least controls what content to store and serve.</p>
 ]]></content></entry><entry><id>Jan 21, 2026_0</id><title>Journal</title><published>2026-01-21T00:00:00Z</published><updated>2026-01-21T00:00:00Z</updated><link href="https://peter.demin.dev/life/jan-21-2026_0.html"/><content type="html"><![CDATA[<p>This looks like a trend, and I don't know how I feel about it:</p>
 <ul>
 <li>HN post &quot;<a href="https://news.ycombinator.com/item?id=46618714">Ask HN: Share your personal website</a>&quot; got 947 points and 2382 comments. The repo received 100+ pull requests in 7 days.</li>
 <li>Its predecessor from 2023 &quot;<a href="https://news.ycombinator.com/item?id=46618714">Ask HN: Could you share your personal blog here?</a>&quot; got 1014 points and 1940 comments.</li>
 <li>The scrape of that post <a href="https://blog.kagi.com/small-web">started</a> <a href="https://kagi.com/smallweb/">Kagi Small Web</a> - a random blog browser, powered by a <a href="https://github.com/kagisearch/smallweb">GitHub repo</a>.</li>
-<li><a href="https://rss.social">RSS.Social</a> - feed syndicator from Kagi's repo that presents this post in HN/Lobsters style.
-This seems to be a viable way for individual bloggers to get the discoverability they miss by not being on a &quot;big&quot; social media platform.
-For me, Kagi Small Web is a fun doomscroller-kind time killer.
-When I tried importing the OPML file into my <a href="https://peter.demin.dev/12_articles/71-rss-feed.html">My RSS feed reader setupRSS feed reader</a>, I noticed that a uniform format and an unfiltered stream of content is not engaging at all. Most of the posts don't click with me. But when the presentation changes with every post, I spend more time exploring the content.
-Can't say that I discovered anything interesting to subscribe to, though.
-But that might be an effect of informational overflow.
-Which is supported by my observation of myself skimming quickly through a list of 10+ unread posts, while indulging fully when I only have a couple.</li>
+<li><a href="https://rss.social">RSS.Social</a> - feed syndicator from Kagi's repo that presents this post in HN/Lobsters style.</li>
 </ul>
+<p>This seems to be a viable way for individual bloggers to get the discoverability they miss by not being on a &quot;big&quot; social media platform.
+For me, Kagi Small Web is a fun doomscroller-kind time killer.
+When I tried importing the OPML file into my <a href="https://peter.demin.dev/12_articles/71-rss-feed.html">My RSS feed reader setupRSS feed reader</a>, I noticed that a uniform format and an unfiltered stream of content is not engaging at all. Most of the posts don't click with me. But when the presentation changes with every post, I spend more time exploring the content.</p>
+<p>Can't say that I discovered anything interesting to subscribe to, though.
+But that might be an effect of informational overflow.
+Which is supported by my observation of myself skimming quickly through a list of 10+ unread posts, while indulging fully when I only have a couple.</p>
 ]]></content></entry><entry><id>Jan 20, 2026_2</id><title>Journal</title><published>2026-01-20T00:00:00Z</published><updated>2026-01-20T00:00:00Z</updated><link href="https://peter.demin.dev/life/jan-20-2026_2.html"/><content type="html"><![CDATA[<p><a href="https://github.com/markqvist/Reticulum">markqvist/Reticulum</a> - The cryptography-based networking stack for building unstoppable networks with LoRa, Packet Radio, WiFi and everything in between.</p>
 ]]></content></entry><entry><id>Jan 20, 2026_1</id><title>Journal</title><published>2026-01-20T00:00:00Z</published><updated>2026-01-20T00:00:00Z</updated><link href="https://peter.demin.dev/life/jan-20-2026_1.html"/><content type="html"><![CDATA[<p>Something up my alley: <a href="https://app.radicle.xyz/nodes/radicle.dpc.pw/rad%3Az2tDzYbAXxTQEKTGFVwiJPajkbeDU">SelfCI</a> - a minimalistic local-first Unix-philosophy-abiding CI.</p>
 ]]></content></entry><entry><id>Jan 20, 2026_0</id><title>Journal</title><published>2026-01-20T00:00:00Z</published><updated>2026-01-20T00:00:00Z</updated><link href="https://peter.demin.dev/life/jan-20-2026_0.html"/><content type="html"><![CDATA[<p>I'm gonna explore this old-school <a href="https://ring.acab.dev">Hacker Webring</a> that I discovered through <a href="https://linderud.dev">Morten Linderud</a> that was linked on <a href="https://lobste.rs">Lobsters</a> that doesn't require an introduction, but somehow evaded my attention for fourteen years.</p>
@@ -147,8 +148,8 @@ Preferably something self-hosted with a low CPU/RAM usage.</p>
 I've been writing asynchronous Python on and off for about a decade, and still, async/await is the most complex part of Python for me.
 Recently, I wrote a synchronous generator that yields results from an asynchronous iterable. What a ride!
 Back in the days of the PEP 492, Yury was working on EdgeDB, a wrapper layer around PostgreSQL.
-In a way, he still is, but it's called <a href="https://www.geldata.com">Gel</a>, and is a part of Vercel (but the page title still says EdgeDB, lol).
-Let's see what the people working on PEP 492 are up to:</p>
+In a way, he still is, but it's called <a href="https://www.geldata.com">Gel</a>, and is a part of Vercel (but the page title still says EdgeDB, lol).</p>
+<p>Let's see what the people working on PEP 492 are up to:</p>
 <ul>
 <li><a href="https://gvanrossum.github.io">Guido van Rossum</a> - the creator and benevolent dictator of Python. Retired from Dropbox in 2019, just to join Microsoft as a Distinguished Engineer in 2020.</li>
 <li><a href="https://vstinner.readthedocs.io">Victor Stinner</a> - one of the performance-focused Python core contributors. These days, his good work is paid for by IBM through Red Hat.</li>
@@ -158,8 +159,10 @@ Let's see what the people working on PEP 492 are up to:</p>
 <li><a href="https://www.csse.canterbury.ac.nz/greg.ewing/">Greg Ewing</a> - the winner of the ugliest homepage award.</li>
 <li><a href="https://gitlab.com/yaseppochi">Stephen J. Turnbull</a> - seemingly, a Mailman (The GNU Mailing List manager) maintainer.</li>
 <li><a href="https://snarky.ca">Brett Cannon</a> - Principal Software Engineer at Microsoft in Canada and Python core developer.</li>
-<li><a href="https://www.curiousefficiency.org">Alyssa Coghlan</a> - Nicholas, at the time of the PEP, CPython core and packaging developer, supported by an Australian bank. Surprisingly, not working on <code>uv</code>.
-The rest of the people I never heard about:</li>
+<li><a href="https://www.curiousefficiency.org">Alyssa Coghlan</a> - Nicholas, at the time of the PEP, CPython core and packaging developer, supported by an Australian bank. Surprisingly, not working on <code>uv</code>.</li>
+</ul>
+<p>The rest of the people I never heard about:</p>
+<ul>
 <li><a href="https://github.com/pfmoore">Paul Moore</a> - core developer of Python and pip.</li>
 <li><a href="https://vorpus.org/">Nathaniel Smith</a> - a scientist, doing science stuff, but somehow deep in the Python community.</li>
 <li><a href="https://www.behnel.de/">Stefan Behnel</a> - core developer of Python, maintainer of Cython and lxml.</li>
@@ -201,10 +204,10 @@ I found this <a href="https://software.annas-archive.li/AnnaArchivist/annas-arch
 <li>You will need to connect with people on platforms like Signal or Telegram, where you need to use a phone number to register. Services like https://hstock.org and https://sms-activate.org do help a lot. If you use yours and police request your data, you are fucked.</li>
 <li>Do not expect services to encrypt your data, do it yourself. E2EE is a fairytale unless you actually set it up.</li>
 </ul>
-<p>Get cryptocurrency in an anonymous way, and start using it!
-I feel something romantic about this level of paranoia.
-Luckily, neiter I nor anyone I've ever met had to apply any of these technics.</p>
+<p>Get cryptocurrency in an anonymous way, and start using it!</p>
 </blockquote>
+<p>I feel something romantic about this level of paranoia.
+Luckily, neiter I nor anyone I've ever met had to apply any of these technics.</p>
 ]]></content></entry><entry><id>Dec 31, 2025_0</id><title>Journal</title><published>2025-12-31T00:00:00Z</published><updated>2025-12-31T00:00:00Z</updated><link href="https://peter.demin.dev/life/dec-31-2025_0.html"/><content type="html"><![CDATA[<p>Updated <a href="https://peter.demin.dev/12_articles/71-rss-feed.html">My RSS feed reader setup</a> with the new subscriptions:</p>
 <ul>
 <li><a href="https://nesbitt.io/feed.xml">Andrew Nesbitt</a></li>
@@ -226,9 +229,9 @@ So I had to switch to CDATA encoding.</li>
 <li>So I switched to lxml that does.
 Turns out lxml.etree is slightly incompatible in managing namespaces.
 It took a bit of googling to find out, that instead of <code>ET.register_namespace('', 'http://www.w3.org/2005/Atom')</code>,
-I should do <code>ET.Element(..., nsmap={None: 'http://www.w3.org/2005/Atom'})</code>.
-So, business as usual.</li>
+I should do <code>ET.Element(..., nsmap={None: 'http://www.w3.org/2005/Atom'})</code>.</li>
 </ol>
+<p>So, business as usual.</p>
 ]]></content></entry><entry><id>Dec 29, 2025_2</id><title>Journal</title><published>2025-12-29T00:00:00Z</published><updated>2025-12-29T00:00:00Z</updated><link href="https://peter.demin.dev/life/dec-29-2025_2.html"/><content type="html"><![CDATA[<p><a href="https://github.com/cockpit-project/cockpit-machines">cockpit-project/cockpit-machines</a> - Cockpit UI for virtual machines</p>
 ]]></content></entry><entry><id>Dec 29, 2025_1</id><title>Journal</title><published>2025-12-29T00:00:00Z</published><updated>2025-12-29T00:00:00Z</updated><link href="https://peter.demin.dev/life/dec-29-2025_1.html"/><content type="html"><![CDATA[<p>I'm continuing my exodus from <em>greedy</em> (also free and privacy-preserving) Google infrastructure for my personal files.
 So far, I've got a nice 4 TB SSD drive and repurposed an old 4 TB HDD to set up Immich with a backup through Syncthing.
@@ -242,23 +245,23 @@ Currently, I download the archive to my laptop and then scp it to the server, wh
 I learned about <a href="https://wiki.archlinux.org/title/Libvirt#Configure_filesystem_passthrough">virtiofs</a> - a way to share directories with libvirt VMs, similar to shared folders of VirtualBox, but with manual mounting on the guest side.
 I tried <a href="https://cockpit-project.org/">Cockpit</a> and Cockpit-machines, which is a WebUI to libvirt, but it didn't provide enough functionality (which I thought is extremely basic).
 I learned some obscure factoids about <a href="https://docs.cloud-init.io/en/latest/index.html">cloud-init</a>, but still very confused. It's such a weird combination of convenience and complexity.
-I landed on <a href="https://vagrant-libvirt.github.io/vagrant-libvirt/">vagrant-libvirt</a> provider, and made just a few changes to my Vagrantfile to adjust.
-I wish I could remove Vagrant from my setup, but that would mean reimplementing the following steps, that I'm not too keen on:</p>
+I landed on <a href="https://vagrant-libvirt.github.io/vagrant-libvirt/">vagrant-libvirt</a> provider, and made just a few changes to my Vagrantfile to adjust.</p>
+<p>I wish I could remove Vagrant from my setup, but that would mean reimplementing the following steps, that I'm not too keen on:</p>
 <ol>
 <li>SSH key provisioning.</li>
 <li>Network configuration with static IP address for the guest and port forwarding.</li>
-<li>Mounting the virtiofs mounts.
-After all this good work, I looked at my GitHub repo with a lonely 1 star, and &quot;unpublished&quot; it.
-It's a fun thing to hack around, but a hard thing to share with other people.
-So far, I learned that most people are pretty secretive about their home media library setup, and not interested in cooperating or consolidating.</li>
+<li>Mounting the virtiofs mounts.</li>
 </ol>
+<p>After all this good work, I looked at my GitHub repo with a lonely 1 star, and &quot;unpublished&quot; it.
+It's a fun thing to hack around, but a hard thing to share with other people.
+So far, I learned that most people are pretty secretive about their home media library setup, and not interested in cooperating or consolidating.</p>
 ]]></content></entry><entry><id>Dec 27, 2025_1</id><title>Journal</title><published>2025-12-27T00:00:00Z</published><updated>2025-12-27T00:00:00Z</updated><link href="https://peter.demin.dev/life/dec-27-2025_1.html"/><content type="html"><![CDATA[<p><a href="https://github.com/dmacvicar/terraform-provider-libvirt">dmacvicar/terraform-provider-libvirt</a> - Terraform provider to provision infrastructure with Linux's KVM using libvirt</p>
 ]]></content></entry><entry><id>Dec 27, 2025_0</id><title>Journal</title><published>2025-12-27T00:00:00Z</published><updated>2025-12-27T00:00:00Z</updated><link href="https://peter.demin.dev/life/dec-27-2025_0.html"/><content type="html"><![CDATA[<p>Inspired by <a href="https://clan.lol/">Clan</a> and other Nix stories, I attempted to migrate my silly Vagrant+VirtualBox home setup to Terraform+KVM. I'm not very familiar with either, so I thought that's gonna be a fun learning experience. In a way, it was, but I learned not what I was hoping to.
-I started at Medium's article <a href="https://medium.com/@mohrezfadaei/vagrant-and-virtualbox-are-no-longer-enough-why-kvm-and-terraform-are-the-future-of-devops-24f978c9ca2c">Vagrant and VirtualBox Are No Longer Enough: Why KVM and Terraform Are the Future of DevOps</a>. AI-generated illustration was the first sign, but I ignored it. Looking at the article now, it's obvious to me now, that it's an AI slop through and through. Fuck you, <a href="https://medium.com/@mohrezfadaei">Mohammad Reza Fadaei</a>, you lazy piece of shit.
-The first challenge came from Terraform provider for libvirtd being not an &quot;official&quot; Hashicorp thing, but a &quot;learning platform&quot; for a random stranger (No offense, <a href="https://www.mac-vicar.eu/">Duncan Mac-Vicar P.</a>, thanks for doing what you're doing).
-The second challenge was that the Duncan's provider got a major rewrite and all Terraform recipes from the tutorial had to be migrated.
-The third challenge was that Ubuntu 22.04 has some weird issue in libvirt apparmor configuraion. Apparently, a VM doesn't get permissions to any of the volumes created specifically for it. There should be a script that generates a list of volume paths somewhere, but who knows what happened to it.
-After 3 hours of battling every part of the &quot;Future of DevOps&quot;, my ChatGPT browser tab started to run out of memory, and I gave up.
+I started at Medium's article <a href="https://medium.com/@mohrezfadaei/vagrant-and-virtualbox-are-no-longer-enough-why-kvm-and-terraform-are-the-future-of-devops-24f978c9ca2c">Vagrant and VirtualBox Are No Longer Enough: Why KVM and Terraform Are the Future of DevOps</a>. AI-generated illustration was the first sign, but I ignored it. Looking at the article now, it's obvious to me now, that it's an AI slop through and through. Fuck you, <a href="https://medium.com/@mohrezfadaei">Mohammad Reza Fadaei</a>, you lazy piece of shit.</p>
+<p>The first challenge came from Terraform provider for libvirtd being not an &quot;official&quot; Hashicorp thing, but a &quot;learning platform&quot; for a random stranger (No offense, <a href="https://www.mac-vicar.eu/">Duncan Mac-Vicar P.</a>, thanks for doing what you're doing).</p>
+<p>The second challenge was that the Duncan's provider got a major rewrite and all Terraform recipes from the tutorial had to be migrated.</p>
+<p>The third challenge was that Ubuntu 22.04 has some weird issue in libvirt apparmor configuraion. Apparently, a VM doesn't get permissions to any of the volumes created specifically for it. There should be a script that generates a list of volume paths somewhere, but who knows what happened to it.</p>
+<p>After 3 hours of battling every part of the &quot;Future of DevOps&quot;, my ChatGPT browser tab started to run out of memory, and I gave up.
 Looking back, I love how simple my Vagrant setup is, and I want to extend my gratitude to <a href="https://mitchellh.com/">Mitchell Hashimoto</a> for building it.
 I still want to make my silly home VM work without dependency on any external dependencies (except stable Ubuntu/Debian repo), so if I get more time for this project, I'll try vibing raw libvirt config.</p>
 ]]></content></entry><entry><id>Dec 23, 2025_0</id><title>Journal</title><published>2025-12-23T00:00:00Z</published><updated>2025-12-23T00:00:00Z</updated><link href="https://peter.demin.dev/life/dec-23-2025_0.html"/><content type="html"><![CDATA[<p>sailing the sea: https://news.ycombinator.com/item?id=46363366</p>
@@ -281,9 +284,9 @@ It's a great book, and I totally recommend it as well.</p>
 <li>add moderation</li>
 <li>add a reranker to find best candidates</li>
 <li>add background embedding calculation of user documents</li>
-<li>lots of failure cases to iron out so that the prompt worked for most cases
-Each step would take me more than two weeks, and still have gaps. But when you’re working alone, and you’re the only judge of your work, it’s easy to overestimate its quality.</li>
+<li>lots of failure cases to iron out so that the prompt worked for most cases</li>
 </ul>
+<p>Each step would take me more than two weeks, and still have gaps. But when you’re working alone, and you’re the only judge of your work, it’s easy to overestimate its quality.</p>
 ]]></content></entry><entry><id>Nov 11, 2025_0</id><title>Journal</title><published>2025-11-11T00:00:00Z</published><updated>2025-11-11T00:00:00Z</updated><link href="https://peter.demin.dev/life/nov-11-2025_0.html"/><content type="html"><![CDATA[<p>For years my life felt like a crazy race at break neck speeds, with great aspirations, challenges, achievements.
 Many times I asked myself: is this all there is to it?
 Other times I wondered: have I peaked; is it just downslide from here?
@@ -302,8 +305,8 @@ And after that I'm thinking about &quot;We&quot; by Yevgeny Zamyatin, which was 
 ]]></content></entry><entry><id>Oct 17, 2025_0</id><title>Journal</title><published>2025-10-17T00:00:00Z</published><updated>2025-10-17T00:00:00Z</updated><link href="https://peter.demin.dev/life/oct-17-2025_0.html"/><content type="html"><![CDATA[<p>At our reception, you’ll be treated to stale, lukewarm coffee and stone-hard bagels accompanied by jams featuring half the periodic table.</p>
 ]]></content></entry><entry><id>Oct 13, 2025_0</id><title>Journal</title><published>2025-10-13T00:00:00Z</published><updated>2025-10-13T00:00:00Z</updated><link href="https://peter.demin.dev/life/oct-13-2025_0.html"/><content type="html"><![CDATA[<p><a href="https://github.com/TheLastGimbus/GooglePhotosTakeoutHelper">TheLastGimbus/GooglePhotosTakeoutHelper</a> - Script that organizes the Google Takeout archive into one big chronological folder</p>
 ]]></content></entry><entry><id>Oct 12, 2025_0</id><title>Journal</title><published>2025-10-12T00:00:00Z</published><updated>2025-10-12T00:00:00Z</updated><link href="https://peter.demin.dev/life/oct-12-2025_0.html"/><content type="html"><![CDATA[<p>Careless carsales.</p>
-]]></content></entry><entry><id>Oct 09, 2025_1</id><title>Journal</title><published>2025-10-09T00:00:00Z</published><updated>2025-10-09T00:00:00Z</updated><link href="https://peter.demin.dev/life/oct-09-2025_1.html"/><content type="html"><![CDATA[<p>I recently learned about Gen Z emojis:
-| Emoji                         | Gen Z Meaning                             |
+]]></content></entry><entry><id>Oct 09, 2025_1</id><title>Journal</title><published>2025-10-09T00:00:00Z</published><updated>2025-10-09T00:00:00Z</updated><link href="https://peter.demin.dev/life/oct-09-2025_1.html"/><content type="html"><![CDATA[<p>I recently learned about Gen Z emojis:</p>
+<p>| Emoji                         | Gen Z Meaning                             |
 | ----------------------------- | ----------------------------------------- |
 | 💀 (skull)                    | I'm dying (laughing)                      |
 | 🤡 (clown face)               | You're a clown                            |
@@ -319,30 +322,30 @@ And after that I'm thinking about &quot;We&quot; by Yevgeny Zamyatin, which was 
 | 😲 (shocked combo)            | Shocked / wow                             |
 | 😚 (kissing face)             | Sounds good / ohhh                        |
 | ❤️  (heart)                    | Softening tone — doesn't always mean love |
-| 🤪 (zany face)                | Goofy / weird / silly mood                |
-And here's a new addition, that I find more interesting:
-👾 (space invader) means &quot;Maybe&quot; because maybe aliens exist.</p>
+| 🤪 (zany face)                | Goofy / weird / silly mood                |</p>
+<p>And here's a new addition, that I find more interesting:</p>
+<p>👾 (space invader) means &quot;Maybe&quot; because maybe aliens exist.</p>
 ]]></content></entry><entry><id>Oct 09, 2025_0</id><title>Journal</title><published>2025-10-09T00:00:00Z</published><updated>2025-10-09T00:00:00Z</updated><link href="https://peter.demin.dev/life/oct-09-2025_0.html"/><content type="html"><![CDATA[<p>László Krasznahorkai won the 2025 Nobel prize in literature.
 I've never heard about this author, and never bothered with Nobel prize winners before.
 But this time I thought I take a look.
 The award is honoring Krasznahorkai &quot;for his compelling and visionary oeuvre that, in the midst of apocalyptic terror, reaffirms the power of art.&quot;
 You don't find visionary oeuvre lying around every day, so I had to check, and it means &quot;a book&quot; in this case.
-Somewhat devour feculence moment for me.
-Here's an excerpt from NPR:</p>
+Somewhat devour feculence moment for me.</p>
+<p>Here's an excerpt from NPR:</p>
 <blockquote>
-<p>Satantango, Krasznahorkai's first novel, came out in 1985. It's about a pair of swindlers and a nearly abandoned collective farm. The book was made into a seven-hour movie in 1994. And The Melancholy of Resistance, which is one sentence that runs over 300 pages, is about a strange, ghostly circus appearing in a small town with a giant, dead stuffed whale.
-Wow, wow, wow, hold on, what? Okay, I guess, that clarifies a couple moments for me. Mainly, should I ever check again on Nobel prize winners in literature.
-<code>Oct 8, 2025</code> - Stanislaw Lem explaining ChatGPT in &quot;The Cyberiad&quot;:
-— What exactly is this Adviser supposed to do?
-— It should answer every question, solve every problem, give absolutely the best advice and, in a word, put the greatest wisdom entirely at my disposal.</p>
+<p>Satantango, Krasznahorkai's first novel, came out in 1985. It's about a pair of swindlers and a nearly abandoned collective farm. The book was made into a seven-hour movie in 1994. And The Melancholy of Resistance, which is one sentence that runs over 300 pages, is about a strange, ghostly circus appearing in a small town with a giant, dead stuffed whale.</p>
 </blockquote>
+<p>Wow, wow, wow, hold on, what? Okay, I guess, that clarifies a couple moments for me. Mainly, should I ever check again on Nobel prize winners in literature.</p>
+<p><code>Oct 8, 2025</code> - Stanislaw Lem explaining ChatGPT in &quot;The Cyberiad&quot;:</p>
+<p>— What exactly is this Adviser supposed to do?</p>
+<p>— It should answer every question, solve every problem, give absolutely the best advice and, in a word, put the greatest wisdom entirely at my disposal.</p>
 ]]></content></entry><entry><id>Sep 23, 2025_0</id><title>Journal</title><published>2025-09-23T00:00:00Z</published><updated>2025-09-23T00:00:00Z</updated><link href="https://peter.demin.dev/life/sep-23-2025_0.html"/><content type="html"><![CDATA[<p>Biking downhill 27:10 (witnessed a minor accident, car running into a bike in a bike lane).</p>
 ]]></content></entry><entry><id>Sep 18, 2025_0</id><title>Journal</title><published>2025-09-18T00:00:00Z</published><updated>2025-09-18T00:00:00Z</updated><link href="https://peter.demin.dev/life/sep-18-2025_0.html"/><content type="html"><![CDATA[<p>Biking downhill 27:14</p>
-]]></content></entry><entry><id>Sep 15, 2025_0</id><title>Journal</title><published>2025-09-15T00:00:00Z</published><updated>2025-09-15T00:00:00Z</updated><link href="https://peter.demin.dev/life/sep-15-2025_0.html"/><content type="html"><![CDATA[<p>Сплин - Валдай
+]]></content></entry><entry><id>Sep 15, 2025_0</id><title>Journal</title><published>2025-09-15T00:00:00Z</published><updated>2025-09-15T00:00:00Z</updated><link href="https://peter.demin.dev/life/sep-15-2025_0.html"/><content type="html"><![CDATA[<p>Сплин - Валдай</p>
 <audio controls>
-<source src="/_static/valdai.mp3" type="audio/mpeg">
-Your browser does not support the audio element.
-</audio></p>
+    <source src="/_static/valdai.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
 ]]></content></entry><entry><id>Sep 13, 2025_0</id><title>Journal</title><published>2025-09-13T00:00:00Z</published><updated>2025-09-13T00:00:00Z</updated><link href="https://peter.demin.dev/life/sep-13-2025_0.html"/><content type="html"><![CDATA[<p>Ordered <a href="https://a.co/d/amwrtvX">Cyberiad</a> by Stanislaw Lem, following the reference from “Busy Doing Nothing”. Added the second and third books of Dune for my daughter, who just finished reading the first book for the fourth time.</p>
 ]]></content></entry><entry><id>Sep 12, 2025_1</id><title>Journal</title><published>2025-09-12T00:00:00Z</published><updated>2025-09-12T00:00:00Z</updated><link href="https://peter.demin.dev/life/sep-12-2025_1.html"/><content type="html"><![CDATA[<p><a href="https://github.com/PicoTrex/Awesome-Nano-Banana-images">PicoTrex/Awesome-Nano-Banana-images</a> - A curated collection of fun and creative examples generated with Nano Banana &amp; Nano Banana Pro🍌, Gemini-2.5-flash-image based model. We also release Nano-consistent-150K openly to support the community's development of image generation and unified models(click to website to see our blog)</p>
 ]]></content></entry><entry><id>Sep 12, 2025_0</id><title>Journal</title><published>2025-09-12T00:00:00Z</published><updated>2025-09-12T00:00:00Z</updated><link href="https://peter.demin.dev/life/sep-12-2025_0.html"/><content type="html"><![CDATA[<p>When considering our service's reliability, we do not stop at mere tracking of the number of 9's. We also track 8's, and sometimes even 7's. For example, last month we achieved 5 8's, that is, 88.888% uptime.</p>
@@ -362,15 +365,15 @@ But a list of cyberpunk shows or movies that are better than Ergo Proxy seems li
 <li>Denno Coil</li>
 </ul>
 ]]></content></entry><entry><id>Sep 05, 2025_0</id><title>Journal</title><published>2025-09-05T00:00:00Z</published><updated>2025-09-05T00:00:00Z</updated><link href="https://peter.demin.dev/life/sep-05-2025_0.html"/><content type="html"><![CDATA[<p>Added <a href="https://peter.demin.dev/12_articles/74-Bacillus-cereus.html">Fascinating Bacillus cereus</a></p>
-]]></content></entry><entry><id>Aug 31, 2025_0</id><title>Journal</title><published>2025-08-31T00:00:00Z</published><updated>2025-08-31T00:00:00Z</updated><link href="https://peter.demin.dev/life/aug-31-2025_0.html"/><content type="html"><![CDATA[<p>I rewatched <a href="https://en.wikipedia.org/wiki/Interstellar_(film)">Interstellar (2014)</a> after it came up in a discussion of movie genre preferrences with my colleage, where we both agreed that it's an outstanding movie for both sci-fi and non-sci-fi fans. Suprisingly, this time, it hit me more as a parent-child relations movie. Of course I loved how all space scenes are in total silence. To that point the score was brilliant as well. But the things that made me think the most are feelings of Coop and Murph. Dr. Mann's monologue about survival instinct and human connection landed on me as a plot twist the first time I watched (ten years ago) but now I see how it supports the main theme.
-One thing that makes this movie special to me, is a song by a Russian artist <a href="https://youtu.be/2tiyg4AOmiw">Dolphin, Слышишь</a>, released the same year, as the movie, written from the Coop to Murph, including a verse of the unbearable longing experienced by Murph.</p>
+]]></content></entry><entry><id>Aug 31, 2025_0</id><title>Journal</title><published>2025-08-31T00:00:00Z</published><updated>2025-08-31T00:00:00Z</updated><link href="https://peter.demin.dev/life/aug-31-2025_0.html"/><content type="html"><![CDATA[<p>I rewatched <a href="https://en.wikipedia.org/wiki/Interstellar_(film)">Interstellar (2014)</a> after it came up in a discussion of movie genre preferrences with my colleage, where we both agreed that it's an outstanding movie for both sci-fi and non-sci-fi fans. Suprisingly, this time, it hit me more as a parent-child relations movie. Of course I loved how all space scenes are in total silence. To that point the score was brilliant as well. But the things that made me think the most are feelings of Coop and Murph. Dr. Mann's monologue about survival instinct and human connection landed on me as a plot twist the first time I watched (ten years ago) but now I see how it supports the main theme.</p>
+<p>One thing that makes this movie special to me, is a song by a Russian artist <a href="https://youtu.be/2tiyg4AOmiw">Dolphin, Слышишь</a>, released the same year, as the movie, written from the Coop to Murph, including a verse of the unbearable longing experienced by Murph.</p>
 ]]></content></entry><entry><id>Aug 01, 2025_0</id><title>Journal</title><published>2025-08-01T00:00:00Z</published><updated>2025-08-01T00:00:00Z</updated><link href="https://peter.demin.dev/life/aug-01-2025_0.html"/><content type="html"><![CDATA[<p>Recently I had a conversation with a high-rank manager who didn't see value in code ownership. He talked about design and ideas, but not people and tasks. This reminded me how past breakages were caused by people making changes without sufficient context. Or how a new team member spends a week on a task that takes twenty minutes. I'd like to split this context into three parts:</p>
 <ol>
 <li>System design - the pretty diagramming part, that is usually done well, covered in design docs and presentations. A good design, though, is so boring, that you can grasp the idea in ten minutes.</li>
 <li>Core principles - the ideas that influence how the design was produced. This is surprisingly variable between teams, never documented, and lives between an architect's head and tribe knowledge. It's also fluent, has many interpretations, and can be hardly expressed in words.</li>
-<li>Minute decision that are seldomly discussed but spread all over the code. This is the biggest chunk of the context, the meat and cause of all the quirks and optimizations.
-Of all three, only the first one is available to people outside of the code owners. The other two take so much effort to maintain, that only the owners have the capacity to hold.</li>
+<li>Minute decision that are seldomly discussed but spread all over the code. This is the biggest chunk of the context, the meat and cause of all the quirks and optimizations.</li>
 </ol>
+<p>Of all three, only the first one is available to people outside of the code owners. The other two take so much effort to maintain, that only the owners have the capacity to hold.</p>
 ]]></content></entry><entry><id>Jul 12, 2025_0</id><title>Journal</title><published>2025-07-12T00:00:00Z</published><updated>2025-07-12T00:00:00Z</updated><link href="https://peter.demin.dev/life/jul-12-2025_0.html"/><content type="html"><![CDATA[<p><a href="https://github.com/gw1urf/spigot">gw1urf/spigot</a> - A hierarchy of Markov Chain generated web pages.</p>
 ]]></content></entry><entry><id>Jul 07, 2025_0</id><title>Journal</title><published>2025-07-07T00:00:00Z</published><updated>2025-07-07T00:00:00Z</updated><link href="https://peter.demin.dev/life/jul-07-2025_0.html"/><content type="html"><![CDATA[<p><a href="https://github.com/permissionlesstech/bitchat">permissionlesstech/bitchat</a> - bluetooth mesh chat, IRC vibes</p>
 ]]></content></entry><entry><id>Jul 06, 2025_0</id><title>Journal</title><published>2025-07-06T00:00:00Z</published><updated>2025-07-06T00:00:00Z</updated><link href="https://peter.demin.dev/life/jul-06-2025_0.html"/><content type="html"><![CDATA[<p><a href="https://github.com/astral-sh/uv">astral-sh/uv</a> - An extremely fast Python package and project manager, written in Rust.</p>
@@ -395,14 +398,14 @@ How many emails before you immediately presume phishing?
 How many rage baiting social posts do you need to see before you believe the entire site is composed of synthetic engagement?
 How many tinder bots do you need to interact with before you feel the entire app is dead?
 How many autodeny job application responses until you assume the next one is a ghost job posting?
-How many interactions with greedy people does it take to presume that it's human nature?
-While spam emails seem to be solved (at least in Gmail), I never pick up calls from unknown numbers and immediately delete messages from people out of my contact list.
-One thing I'd like to add to the list, is:
-How many AI cheaters do you need to catch on the technical screening interview to incorporate a habit of doing IRL CAPTCHA challenges.</p>
+How many interactions with greedy people does it take to presume that it's human nature?</p>
 </blockquote>
+<p>While spam emails seem to be solved (at least in Gmail), I never pick up calls from unknown numbers and immediately delete messages from people out of my contact list.
+One thing I'd like to add to the list, is:</p>
+<p>How many AI cheaters do you need to catch on the technical screening interview to incorporate a habit of doing IRL CAPTCHA challenges.</p>
 ]]></content></entry><entry><id>May 07, 2025_0</id><title>Journal</title><published>2025-05-07T00:00:00Z</published><updated>2025-05-07T00:00:00Z</updated><link href="https://peter.demin.dev/life/may-07-2025_0.html"/><content type="html"><![CDATA[<p><a href="https://github.com/astral-sh/ty">astral-sh/ty</a> - An extremely fast Python type checker and language server, written in Rust.</p>
-]]></content></entry><entry><id>May 03, 2025_1</id><title>Journal</title><published>2025-05-03T00:00:00Z</published><updated>2025-05-03T00:00:00Z</updated><link href="https://peter.demin.dev/life/may-03-2025_1.html"/><content type="html"><![CDATA[<p>Utsav Mamoria in his article <a href="https://utsavmamoria.substack.com/p/how-to-live-an-intellectually-rich">&quot;How to live an intellectually rich life&quot;</a> speaks about how ideas need to be diverse and abundant. The premise is that they would combine in unexpected ways to create new better ideas. However, the article being a combination of many stories and ideas doesn't have any meaningful narrative, just the sum of its parts, that don't really fit together.
-Reminds me of my friend who was working as IT support, while volunteering at the fire station and studying for a medical degree. He was very passionate about each of the three areas and expected to have them eventually click together, so he could create something on the intersection. But they never did.</p>
+]]></content></entry><entry><id>May 03, 2025_1</id><title>Journal</title><published>2025-05-03T00:00:00Z</published><updated>2025-05-03T00:00:00Z</updated><link href="https://peter.demin.dev/life/may-03-2025_1.html"/><content type="html"><![CDATA[<p>Utsav Mamoria in his article <a href="https://utsavmamoria.substack.com/p/how-to-live-an-intellectually-rich">&quot;How to live an intellectually rich life&quot;</a> speaks about how ideas need to be diverse and abundant. The premise is that they would combine in unexpected ways to create new better ideas. However, the article being a combination of many stories and ideas doesn't have any meaningful narrative, just the sum of its parts, that don't really fit together.</p>
+<p>Reminds me of my friend who was working as IT support, while volunteering at the fire station and studying for a medical degree. He was very passionate about each of the three areas and expected to have them eventually click together, so he could create something on the intersection. But they never did.</p>
 ]]></content></entry><entry><id>May 03, 2025_0</id><title>Journal</title><published>2025-05-03T00:00:00Z</published><updated>2025-05-03T00:00:00Z</updated><link href="https://peter.demin.dev/life/may-03-2025_0.html"/><content type="html"><![CDATA[<p>I found this weird satisfaction in making my financial goal to spend zero dollars in a day. It allows me to focus on the things that matter instead of mindlessly gazing at the available options of paid entertainment.</p>
 ]]></content></entry><entry><id>May 02, 2025_0</id><title>Journal</title><published>2025-05-02T00:00:00Z</published><updated>2025-05-02T00:00:00Z</updated><link href="https://peter.demin.dev/life/may-02-2025_0.html"/><content type="html"><![CDATA[<p><a href="https://bio.site/peterdemin">Bio Site</a> <strike>bullshit</strike> compost.</p>
 ]]></content></entry><entry><id>Apr 30, 2025_0</id><title>Journal</title><published>2025-04-30T00:00:00Z</published><updated>2025-04-30T00:00:00Z</updated><link href="https://peter.demin.dev/life/apr-30-2025_0.html"/><content type="html"><![CDATA[<p>This <a href="https://newsletter.pragmaticengineer.com/p/tech-hiring-inflection-point">article about AI cheating in tech interviews</a>

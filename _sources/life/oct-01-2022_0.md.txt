@@ -6,8 +6,12 @@ orphan: true
 
 [peterdemin/git-form-saver](https://github.com/peterdemin/git-form-saver) - HTTP server that saves all POSTed forms to a git repo
 `November 17, 2022` · Lessons learned from climbing
+
 You look at your arms but all the lifting is done by your legs.
 When you begin, it feels that the arms strength is the bottleneck, but the progress comes from learning to keep arms relaxed and controlling your balance to let the legs do the work.
+
 The obvious way to progress seems to be from building up strength. But losing weight can actually boost your performance in shorter time.
+
 Sometimes when you plateau, the best thing is to take a break. Muscles grow when they rest, and when you come back you suddenly have more endurance and can do harder routes.
+
 One of the super powers of experienced climbers is to be very aware of getting tired, so they can find a good spot to rest on the wall.

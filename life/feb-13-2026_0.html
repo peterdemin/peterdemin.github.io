@@ -95,13 +95,13 @@ data-aria-dark="Switch to auto color mode">
 <p>The thought of tiny flowers in a winter garden didn’t leave my head for some time,
 so today I vibed a wrapper around <a class="reference external" href="https://github.com/mozilla/readability">Mozilla Readability</a> library
 (actually, a <a class="reference external" href="https://github.com/giulianopz/go-readability">port</a>
-by <a class="reference external" href="https://giulianopz.github.io">Giuliano Panzironi</a>).
-It fetches a page from a given URL, passes it through main content extraction and cleaning,
-and presents in a distraction free layout using Solarized Dark theme.
-Here’s an example of what it looks like:
-<a class="reference external" href="https://reader.demin.dev/?url=https://peter.demin.dev/life/feb-13-2026_0.html">https://reader.demin.dev/?url=https://peter.demin.dev/life/feb-13-2026_0.html</a>
-The evening I spent openining random pages in full-screen mode and enjoying distraction free content.
-In the spirit of minimalism I made this service a socket-activated Go binary.
+by <a class="reference external" href="https://giulianopz.github.io">Giuliano Panzironi</a>).</p>
+<p>It fetches a page from a given URL, passes it through main content extraction and cleaning,
+and presents in a distraction free layout using Solarized Dark theme.</p>
+<p>Here’s an example of what it looks like:</p>
+<p><a class="reference external" href="https://reader.demin.dev/?url=https://peter.demin.dev/life/feb-13-2026_0.html">https://reader.demin.dev/?url=https://peter.demin.dev/life/feb-13-2026_0.html</a></p>
+<p>The evening I spent openining random pages in full-screen mode and enjoying distraction free content.</p>
+<p>In the spirit of minimalism I made this service a socket-activated Go binary.
 So it doesn’t take any of the precious RAM on my tiny VPS when idle,
 but also has a very small runtime footprint:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">○ reader-api.service - Reader extractor API
@@ -114,13 +114,14 @@ but also has a very small runtime footprint:</p>
 </span><span data-line="8">   Main PID: 1325849 (code=exited, status=0/SUCCESS)
 </span><span data-line="9">   Mem peak: 3.2M
 </span><span data-line="10">        CPU: 45ms
-</span><span data-line="11">Feb 14 05:44:36 demin-dev systemd[1]: Started reader-api.service - Reader extractor API.
-</span><span data-line="12">Feb 14 05:44:36 demin-dev systemd[1]: reader-api.service: Deactivated successfully.
-</span><span data-line="13">Feb 14 05:44:36 demin-dev reader[1325849]: 2026/02/14 05:44:36 listening on systemd activation socket
+</span><span data-line="11">
+</span><span data-line="12">Feb 14 05:44:36 demin-dev systemd[1]: Started reader-api.service - Reader extractor API.
+</span><span data-line="13">Feb 14 05:44:36 demin-dev systemd[1]: reader-api.service: Deactivated successfully.
+</span><span data-line="14">Feb 14 05:44:36 demin-dev reader[1325849]: 2026/02/14 05:44:36 listening on systemd activation socket
 </span></pre></div>
 </div>
-<p>Can it get more minimal than that? I don’t think so.
-Please don’t scrape whole internet through my proxy.</p>
+<p>Can it get more minimal than that? I don’t think so.</p>
+<p>Please don’t scrape whole internet through my proxy.</p>
 </section>
 
         </article>

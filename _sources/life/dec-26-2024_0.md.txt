@@ -5,8 +5,10 @@ orphan: true
 # Dec 26, 2024
 
 Thanks Nicola Iarocci for his [review](https://nicolaiarocci.com/books-i-read-in-2024/#i-love-russia-by-elena-kostyuchenko) of the book "I love Russia" by Elena Kostyuchenko:
+
 > This book is written by an independent Russian journalist who worked at Novaja Gazeta for many years until it was banned.
 > Mostly, these are reportages from the great rural Russia, far from the big cities (the story from small villages on the high-speed train line between Moscow and St. Petersburg is one of the best).
 > I Love Russia helps us understand today’s deep Russia and the consequences of the fall of the USSR and the advent of Putin.
 > It is also a love letter to the homeland, hence the title, but it does not bend to the official narrative; quite the opposite.
+
 I probably won't read the book, but I will recommend it to people who want to learn more about the modern Russian history.

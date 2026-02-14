@@ -5,4 +5,5 @@ orphan: true
 # Aug 18, 2024
 
 this tea bag summarizes my thoughts of food in the US. The brown dust resembles tea only in color. But that’s what Americans like. No sophistication, big quantities, low price.
+
 ![Lipton](/16_life/images/lipton.jpeg)

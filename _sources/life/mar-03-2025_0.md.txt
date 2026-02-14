@@ -11,4 +11,5 @@ The bridge to business people is effort estimate in man hours.
 Which translates roughly to costs of implementation.
 That business people use to weight against the projected profits over the lifetime of the project (in years).
 Also, weighted against the potential return from other projects that team can do instead.
+
 I've never seen profits enter the picture for engineering planning, os it's often a kind of a dark area, of why is the deadline needs to be at this particular date.

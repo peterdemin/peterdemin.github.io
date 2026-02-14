@@ -5,6 +5,7 @@ orphan: true
 # Dec 31, 2025
 
 Updated [](/12_articles/71-rss-feed.md) with the new subscriptions:
+
 - [Andrew Nesbitt](https://nesbitt.io/feed.xml)
 - [Maurycy's blog](https://maurycyz.com/index.xml)
 - [Nathan Barry](https://nathan.rs/posts/index.xml)

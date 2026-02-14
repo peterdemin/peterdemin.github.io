@@ -7,5 +7,7 @@ orphan: true
 I got excited about ForgeFed, and want to see what is Forgejo is up to.
 Naturally, they host the code in Forgejo itself, confusingly named codeberg.
 Here's what I saw when opened the repo:
+
 ![Codeberg 502](/16_life/images/codeberg-down.png)
+
 Maybe, this is not the best day for the federated code forge community...

@@ -6,6 +6,7 @@ orphan: true
 
 After watching Mr. Robot I got curious about IPFS in general and Anna's Archive in particular.
 I found this [gem](https://software.annas-archive.li/AnnaArchivist/annas-archive/-/issues/305) in Anna's Archive Git repo:
+
 > Here is an extreme case for most, but very real for Anna's Archive, Libgen or Z-Library operators.
 >
 > - If you are under heavy police pressure from a surveillance government like the US, you are better off using a Live USB and a VPN with killswitch enabled when connecting to your server(s), avoid DNS leaks to Google or your ISP, and so on.
@@ -17,5 +18,6 @@ I found this [gem](https://software.annas-archive.li/AnnaArchivist/annas-archive
 > - Do not expect services to encrypt your data, do it yourself. E2EE is a fairytale unless you actually set it up.
 >
 > Get cryptocurrency in an anonymous way, and start using it!
+
 I feel something romantic about this level of paranoia.
 Luckily, neiter I nor anyone I've ever met had to apply any of these technics.

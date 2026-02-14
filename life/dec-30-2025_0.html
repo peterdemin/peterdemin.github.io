@@ -102,9 +102,9 @@ So I had to switch to CDATA encoding.</p></li>
 <li><p>So I switched to lxml that does.
 Turns out lxml.etree is slightly incompatible in managing namespaces.
 It took a bit of googling to find out, that instead of <code class="docutils literal notranslate"><span class="pre">ET.register_namespace('',</span> <span class="pre">'http://www.w3.org/2005/Atom')</span></code>,
-I should do <code class="docutils literal notranslate"><span class="pre">ET.Element(...,</span> <span class="pre">nsmap={None:</span> <span class="pre">'http://www.w3.org/2005/Atom'})</span></code>.
-So, business as usual.</p></li>
+I should do <code class="docutils literal notranslate"><span class="pre">ET.Element(...,</span> <span class="pre">nsmap={None:</span> <span class="pre">'http://www.w3.org/2005/Atom'})</span></code>.</p></li>
 </ol>
+<p>So, business as usual.</p>
 </section>
 
         </article>

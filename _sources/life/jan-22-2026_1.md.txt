@@ -5,12 +5,15 @@ orphan: true
 # Jan 22, 2026
 
 For *years* I had these lines in my `~/.vimrc`:
+
 ```
 set background=dark
 " set background=light
 ```
+
 I would go and move the comment to the other line whenever I needed to switch to another mode.
 Until today, I discovered this [jewel from Vinit Kumar](https://vinitkumar.me/current-vim-setup/):
+
 ```vim
 function! ChangeBackground()
   if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
@@ -21,5 +24,7 @@ function! ChangeBackground()
 endfunction
 call ChangeBackground()
 ```
+
 It detects the current Appearance setting and picks the corresponding Solarized theme.
+
 Thank you, Vinit! And thanks to [hnpwd](https://github.com/hnpwd/hnpwd.github.io) for connecting me with Vinit!

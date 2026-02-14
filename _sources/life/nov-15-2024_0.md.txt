@@ -5,6 +5,7 @@ orphan: true
 # Nov 15, 2024
 
 Quick reminder:
+
 1. War never changes.
 2. Fear leads to anger. Anger leads to hate. Hate leads to suffering.
 3. Also, insatiable greed of ambitious men.

@@ -5,6 +5,7 @@ orphan: true
 # Nov 23, 2025
 
 [this comment](https://news.ycombinator.com/item?id=46025285) left me bitter and confused:
+
 > Well it took me 2 full-time weeks to properly implement a RAG-based system so that it found actually relevant data and did not hallucinate. Had to:
 - write an evaluation pipeline to automate quality testing
 - add a query rewriting step to explore more options during search
@@ -15,4 +16,6 @@ orphan: true
 - add a reranker to find best candidates
 - add background embedding calculation of user documents
 - lots of failure cases to iron out so that the prompt worked for most cases
+
 Each step would take me more than two weeks, and still have gaps. But when you’re working alone, and you’re the only judge of your work, it’s easy to overestimate its quality.
+

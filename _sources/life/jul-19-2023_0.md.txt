@@ -5,7 +5,9 @@ orphan: true
 # Jul 19, 2023
 
 the more I work on the project docs, the more I wonder:
+
 1. Why none of my previous jobs had this level of documentation?
 2. Does the work I'm doing add value to the project, or am I caught
    in a perfectionist loop, polishing somethings that shouldn't even exist?
+
 More reading material: https://abseil.io/resources/swe-book/html/ch10.html

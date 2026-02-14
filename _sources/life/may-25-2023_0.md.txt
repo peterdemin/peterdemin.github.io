@@ -5,6 +5,7 @@ orphan: true
 # May 25, 2023
 
 Quotes from [Ask HN: How do you not take criticism of your work personally?](https://news.ycombinator.com/item?id=36056299):
+
 A high criticism tolerance is learned by understanding that ones self worth is not attached to output or delivery.
 (This is hard in our industry) It comes from self-acceptance and compassion.
 And these values are learned early on.
@@ -12,9 +13,11 @@ You’ll find that the people that break down at the slightest criticism the mos
 Those that had no room for being anything other than perfect.
 Where value was obtained from performance.
 To take it even further...why see it as criticism at all? You are not your lines of code.
+
 As much as i like the concept in general in life, in this case its just “you are not your lines of code”.
 Also people who criticize people make a mistake kind of.
 Always criticize the code, not the person
+
 > (Sometimes anger is healthy, it may also be a signal to us that our boundaries have been violated.)
 Exactly.
 And if that boundaries get violated repeatedly in the same situation (especially by the same people), it is fine to release that anger in a controlled way.
@@ -24,17 +27,22 @@ Also, do not swallow your anger.
 Find a non-destructive, non-harmful way to release it.
 As anger is a physical reaction, the easiest way is to go for a walk, ride your bike or whatever.
 Whatever floats your boat should be fine.
+
 <a id="anchortext" /> `May 20, 2023` · Such a great article!
 [DevEx: What Actually Drives Productivity](https://queue.acm.org/detail.cfm?id=3595878)
+
 Example DevEx metrics
+
 | ASPECT | FEEDBACK LOOPS | COGNITIVE LOAD | FLOW STATE |
 |---| --- | --- | --- |
 | **PERCEPTIONS**<br/>*Human attitudes and opinions* |• Satisfaction with automated test speed and output<br>• Satisfaction with time it takes to validate a local change<br>• Satisfaction with time it takes to deploy a change to production<br> |• Perceived complexity<br>• Perceived ability of codebase<br>• Ease of debugging production systems<br> |• Ease of understanding documentation to focus and avoid interruptions<br>• Satisfaction with clarity of task or project goals<br>• Perceived disruptiveness of being on-call |
 | **WORKFLOWS**<br>*System and process behaviors* |• Time it takes to generate Cl results<br>• Code review turnaround time<br>• Deployment lead time (time it takes to get a change released to production) |• Time it takes to get answers to technical questions<br>• Manual steps required to deploy a change<br>• Frequency of documentation improvements |• Number of blocks of time without meetings or interruptions<br>• Frequency of unplanned tasks or requests<br>• Frequency of incidents requiring team attention |
+
 **KPIS** *North star metrics*
 - Overall perceived ease of delivering software
 - Employee engagement or satisfaction
 - Perceived productivity
+
 `May 5, 2023` · Looks like I lived under the Python rock for some while. Here's my reading list for the weekend:
 - [Walrus operator](https://realpython.com/python-walrus-operator/)
 - [contextlib.ExitStack](https://docs.python.org/3/library/contextlib.html#contextlib.ExitStack)

@@ -5,6 +5,8 @@ orphan: true
 # Jul 13, 2023
 
 finally, an opinion on downsides of multi repo:
+
 > They pay for it by having to invest a lot into release management, version synchronization across multiple teams, much more integration testing, worse understanding of the product by individual developers / teams, and, in general, lower quality of the product. But, off-the-shelf VCSs don’t allow for sharing large repositories easily, and, of course, the problem this merge queue is trying to address would grow more severe with the size.
+
 `Jul 9, 2023` - I converted my Sphinx source files to conform to Johnny Decimal, and implemented the idea to remove friction for adding new articles.
 I published this as [gdocsync](https://github.com/peterdemin/gdocsync). The project is a bit raw, but I'm already dog-fooding it here.
