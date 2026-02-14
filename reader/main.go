@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"errors"
+	"flag"
 	"fmt"
 	"io"
 	"log"
@@ -10,8 +11,10 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"os/signal"
 	"strconv"
 	"sync"
+	"syscall"
 	"time"
 
 	"github.com/giulianopz/go-readability"
@@ -19,10 +22,8 @@ import (
 )
 
 func main() {
-	listener, listenerSource, err := activationListener()
-	if err != nil {
-		log.Fatal(err)
-	}
+	var addr = flag.String("addr", "", "TCP listen address, instead of systemd socket activation")
+	flag.Parse()
 
 	client := &http.Client{
 		Timeout: 20 * time.Second,
@@ -40,6 +41,10 @@ func main() {
 		})
 		cleanHandler(w, r, client)
 	})
+	mux.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		_, _ = w.Write([]byte("ok"))
+	})
 
 	server = &http.Server{
 		Handler:           mux,
@@ -47,10 +52,33 @@ func main() {
 		IdleTimeout:       1 * time.Second,
 	}
 
-	log.Printf("serving on %s", listenerSource)
-	if err := server.Serve(listener); err != nil && !errors.Is(err, http.ErrServerClosed) {
-		log.Fatal(err)
+	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
+	defer stop()
+
+	if *addr != "" {
+		server.Addr = *addr
+		log.Printf("listening on %s (tcp)", *addr)
+		go func() {
+			if err := server.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
+				log.Fatalf("ListenAndServe: %v", err)
+			}
+		}()
+	} else {
+		listener, err := systemdListener()
+		if err != nil {
+			log.Fatal(err)
+		}
+		log.Printf("listening on systemd activation socket")
+		go func() {
+			if err := server.Serve(listener); err != nil && !errors.Is(err, http.ErrServerClosed) {
+				log.Fatalf("Serve(socket): %v", err)
+			}
+		}()
 	}
+
+	<-ctx.Done()
+	stop()
+	gracefulShutdown(server)
 }
 
 func cleanHandler(w http.ResponseWriter, r *http.Request, client *http.Client) {
@@ -128,28 +156,35 @@ func gracefulShutdown(server *http.Server) {
 	_ = server.Shutdown(ctx)
 }
 
-func activationListener() (net.Listener, string, error) {
-	pid, err := strconv.Atoi(os.Getenv("LISTEN_PID"))
-	if err == nil && pid == os.Getpid() && os.Getenv("LISTEN_FDS") == "1" {
-		file := os.NewFile(uintptr(3), "systemd-socket")
-		if file == nil {
-			return nil, "", fmt.Errorf("systemd socket activation failed: fd 3 missing")
-		}
-		listener, err := net.FileListener(file)
-		_ = file.Close()
-		if err != nil {
-			return nil, "", fmt.Errorf("systemd socket activation failed: %w", err)
-		}
-		return listener, "systemd socket fd 3", nil
+func systemdListener() (net.Listener, error) {
+	lp := os.Getenv("LISTEN_PID")
+	lf := os.Getenv("LISTEN_FDS")
+	if lp == "" || lf == "" {
+		return nil, fmt.Errorf("not socket-activated: LISTEN_PID/LISTEN_FDS missing")
 	}
+	pid, err := strconv.Atoi(lp)
+	if err != nil || pid != os.Getpid() {
+		return nil, fmt.Errorf("LISTEN_PID=%q does not match pid=%d", lp, os.Getpid())
+	}
+	n, err := strconv.Atoi(lf)
+	if err != nil || n < 1 {
+		return nil, fmt.Errorf("LISTEN_FDS=%q invalid", lf)
+	}
+	if n != 1 {
+		return nil, fmt.Errorf("expected exactly 1 listening fd, got %d", n)
+	}
+	_ = os.Unsetenv("LISTEN_PID")
+	_ = os.Unsetenv("LISTEN_FDS")
+	_ = os.Unsetenv("LISTEN_FDNAMES")
 
-	addr := os.Getenv("LISTEN_ADDR")
-	if addr == "" {
-		addr = "127.0.0.1:8080"
+	file := os.NewFile(uintptr(3), "systemd-listener")
+	if file == nil {
+		return nil, fmt.Errorf("failed to open fd 3")
 	}
-	listener, err := net.Listen("tcp", addr)
+	listener, err := net.FileListener(file)
+	_ = file.Close()
 	if err != nil {
-		return nil, "", err
+		return nil, fmt.Errorf("net.FileListener(fd=3): %w", err)
 	}
-	return listener, "tcp " + addr, nil
+	return listener, nil
 }

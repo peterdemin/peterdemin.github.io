@@ -1,0 +1,15 @@
+upstream reader {
+    server unix:/run/reader/reader.sock;
+}
+
+server {
+    server_name reader.demin.dev;
+
+    location / {
+      proxy_pass http://reader;
+      proxy_http_version 1.0;
+      proxy_set_header Connection "close";
+      proxy_set_header X-Forwarded-Proto https;
+      proxy_set_header Host $http_host;
+    }
+}
