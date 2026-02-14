@@ -1,21 +1,21 @@
-`Feb 13, 2026` - The thought of tiny flowers in a winter garden didn't leave my head for some time,
+---
+orphan: true
+---
+
+# Feb 13, 2026
+
+The thought of tiny flowers in a winter garden didn't leave my head for some time,
 so today I vibed a wrapper around [Mozilla Readability](https://github.com/mozilla/readability) library
 (actually, a [port](https://github.com/giulianopz/go-readability)
 by [Giuliano Panzironi](https://giulianopz.github.io)).
-
 It fetches a page from a given URL, passes it through main content extraction and cleaning,
 and presents in a distraction free layout using Solarized Dark theme.
-
 Here's an example of what it looks like:
-
 [https://reader.demin.dev/?url=https://peter.demin.dev/life/feb-05-2026_0.html](https://reader.demin.dev/?url=https://peter.demin.dev/life/feb-05-2026_0.html)
-
 The evening I spent openining random pages in full-screen mode and enjoying distraction free content.
-
 In the spirit of minimalism I made this service a socket-activated Go binary.
 So it doesn't take any of the precious RAM on my tiny VPS when idle,
 but also has a very small runtime footprint:
-
 ```
 ○ reader-api.service - Reader extractor API
      Loaded: loaded (/etc/systemd/system/reader-api.service; static)
@@ -27,32 +27,9 @@ TriggeredBy: ● reader-api.socket
    Main PID: 1325849 (code=exited, status=0/SUCCESS)
    Mem peak: 3.2M
         CPU: 45ms
-
 Feb 14 05:44:36 demin-dev systemd[1]: Started reader-api.service - Reader extractor API.
 Feb 14 05:44:36 demin-dev systemd[1]: reader-api.service: Deactivated successfully.
 Feb 14 05:44:36 demin-dev reader[1325849]: 2026/02/14 05:44:36 listening on systemd activation socket
 ```
-
 Can it get more minimal than that? I don't think so.
-
 Please don't scrape whole internet through my proxy.
-
-
-`Feb 11, 2026` - Changed my atom feed to link each item to a dedicated page (which is otherwise unreachable from the website).
-
-`Feb 11, 2026` - My response to the AI panic "LLM agents are so good, they are going to replace software engineers":
-
-1. Amount of work is unbound, you can't run out of it.
-   Companies hire engineers to push more features to reach more markets.
-   They don't need less people to do the same amount of work.
-   The need more faster people to stay competitive.
-2. Companies don't hire software engineers for their coding skills.
-   They hire problem owners who deliver solutions.
-   More productive problem solvers means more business to run, not less people.
-
-`Feb 05, 2026` - Today I learned *why* is it bad to put knives into a dishwasher.
-I thought it's because they bounce from the water streams and bump into other silverware and the cage.
-But the primary reason is combination of strong detergent and high water temperature for prolonged time.
-It weakens blade's edge and may degrade a handle, if it's wooden or made of a cheap plastic.
-The difference in sharpness between a hand-washed and dishwashed knives is drammatic.
-The sharp edge life can be reduced from a year down to a month.
