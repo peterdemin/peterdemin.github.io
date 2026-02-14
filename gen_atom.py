@@ -46,7 +46,7 @@ class MultilineLifeRecord:
             text = line.text
             if line.date is not None:
                 text = text.replace(f"`{self.short_date}`", "").lstrip(" -·")
-            if not text or text == "---":
+            if text == "---":
                 continue
             res.append(text)
         return "\n".join(res)
