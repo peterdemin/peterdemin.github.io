@@ -1,0 +1,27 @@
+[Unit]
+Description=Reader extractor service
+Requires=reader.socket
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/reader
+User=www-data
+Group=www-data
+Restart=no
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+SystemCallArchitectures=native
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
