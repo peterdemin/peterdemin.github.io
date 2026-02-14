@@ -9,7 +9,7 @@
       --text-0: #f1f4fb;
       --text-1: #c3c9db;
       --accent: #8ec5ff;
-      --max-width: 70ch;
+      --max-width: 72ch;
       --radius-md: 12px;
     }
 
@@ -25,18 +25,23 @@
       color: var(--text-0);
       background: #0b0b0b;
       font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
-      line-height: 1.7;
+      font-size: 24px;
+      line-height: 1.85;
       text-rendering: optimizeLegibility;
       -webkit-font-smoothing: antialiased;
     }
 
     body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100dvh;
       padding: 5vh 6vw;
     }
 
     main {
+      width: 100%;
       max-width: var(--max-width);
-      margin: 0 auto;
+      margin: auto;
     }
 
     #reader-content > *:first-child {
@@ -60,7 +65,7 @@
     }
 
     #reader-content h1 {
-      font-size: clamp(1.9rem, 4.6vw, 2.7rem);
+      font-size: clamp(2.4rem, 5.8vw, 3.4rem);
       margin-top: 0;
     }
 
@@ -68,7 +73,7 @@
     #reader-content li,
     #reader-content blockquote {
       color: var(--text-1);
-      font-size: clamp(1.03rem, 1.15rem, 1.17rem);
+      font-size: clamp(1.25rem, 1.35rem, 1.45rem);
     }
 
     #reader-content p {
@@ -127,7 +132,7 @@
       }
 
       main {
-        margin: 0;
+        margin: auto;
       }
     }
   </style>
