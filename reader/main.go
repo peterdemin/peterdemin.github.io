@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	_ "embed"
 	"errors"
 	"flag"
 	"fmt"
@@ -13,6 +14,7 @@ import (
 	"os"
 	"os/signal"
 	"strconv"
+	"strings"
 	"sync"
 	"syscall"
 	"time"
@@ -21,9 +23,19 @@ import (
 	"github.com/yosssi/gohtml"
 )
 
+const contentPlaceholder = "{{CONTENT}}"
+
+//go:embed reader.html
+var readerTemplate string
+
 func main() {
 	var addr = flag.String("addr", "", "TCP listen address, instead of systemd socket activation")
 	flag.Parse()
+
+	pagePrefix, pageSuffix, err := splitTemplate(readerTemplate, contentPlaceholder)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	client := &http.Client{
 		Timeout: 20 * time.Second,
@@ -39,7 +51,7 @@ func main() {
 		defer stopOnce.Do(func() {
 			go gracefulShutdown(server)
 		})
-		cleanHandler(w, r, client)
+		cleanHandler(w, r, client, pagePrefix, pageSuffix)
 	})
 	mux.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
@@ -88,7 +100,7 @@ func main() {
 	}
 }
 
-func cleanHandler(w http.ResponseWriter, r *http.Request, client *http.Client) {
+func cleanHandler(w http.ResponseWriter, r *http.Request, client *http.Client, pagePrefix string, pageSuffix string) {
 	w.Header().Set("Connection", "close")
 
 	if r.Method != http.MethodGet {
@@ -115,7 +127,9 @@ func cleanHandler(w http.ResponseWriter, r *http.Request, client *http.Client) {
 	}
 
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	_, _ = w.Write([]byte(fragment))
+	_, _ = io.WriteString(w, pagePrefix)
+	_, _ = io.WriteString(w, fragment)
+	_, _ = io.WriteString(w, pageSuffix)
 }
 
 func extractCleanFragment(client *http.Client, targetURL string) (string, error) {
@@ -194,4 +208,12 @@ func systemdListener() (net.Listener, error) {
 		return nil, fmt.Errorf("net.FileListener(fd=3): %w", err)
 	}
 	return listener, nil
+}
+
+func splitTemplate(template string, placeholder string) (string, string, error) {
+	parts := strings.Split(template, placeholder)
+	if len(parts) != 2 {
+		return "", "", fmt.Errorf("reader template must contain exactly one %s placeholder", placeholder)
+	}
+	return parts[0], parts[1], nil
 }

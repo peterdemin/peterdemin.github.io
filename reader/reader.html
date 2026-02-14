@@ -39,17 +39,6 @@
       margin: 0 auto;
     }
 
-    #reader-content {
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 420ms ease, transform 420ms ease;
-    }
-
-    #reader-content.ready {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
     #reader-content > *:first-child {
       margin-top: 0;
     }
@@ -132,15 +121,6 @@
       overflow: auto;
     }
 
-    .error {
-      margin: 1rem 0 0;
-      padding: 16px 18px;
-      border-radius: var(--radius-md);
-      color: #ffd1d1;
-      font-family: "Avenir Next", "Futura", "Trebuchet MS", sans-serif;
-      font-size: 0.94rem;
-    }
-
     @media (max-width: 640px) {
       body {
         padding: 4vh 18px;
@@ -154,65 +134,7 @@
 </head>
 <body>
   <main aria-live="polite">
-    <section id="reader-content"></section>
-    <section id="reader-error" class="error" hidden></section>
+    <section id="reader-content">{{CONTENT}}</section>
   </main>
-
-  <script>
-    (function () {
-      const content = document.getElementById('reader-content');
-      const errorBox = document.getElementById('reader-error');
-
-      function setError(message) {
-        errorBox.textContent = message;
-        errorBox.hidden = false;
-      }
-
-      function sanitizeFragment(fragmentRoot) {
-        fragmentRoot.querySelectorAll('script, style, link, iframe').forEach((node) => node.remove());
-
-        // clean.html may contain invalid wrapping around images; unwrap image children safely.
-        fragmentRoot.querySelectorAll('img p').forEach((nestedP) => {
-          nestedP.parentElement?.insertAdjacentElement('afterend', nestedP);
-        });
-
-        // Ensure external links are safe and open separately.
-        fragmentRoot.querySelectorAll('a[href]').forEach((a) => {
-          const href = a.getAttribute('href') || '';
-          if (href.startsWith('http://') || href.startsWith('https://')) {
-            a.setAttribute('target', '_blank');
-            a.setAttribute('rel', 'noopener noreferrer');
-          }
-        });
-      }
-
-      fetch('https://reader.demin.dev/?url=https://peter.demin.dev', { cache: 'no-store' })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('HTTP ' + response.status + ' while fetching clean.html');
-          }
-          return response.text();
-        })
-        .then((html) => {
-          const template = document.createElement('template');
-          template.innerHTML = html.trim();
-          const fragmentRoot = document.createElement('div');
-          fragmentRoot.appendChild(template.content);
-          sanitizeFragment(fragmentRoot);
-
-          const bestContent =
-            fragmentRoot.querySelector('#write') ||
-            fragmentRoot.querySelector('article') ||
-            fragmentRoot.querySelector('main') ||
-            fragmentRoot;
-
-          content.innerHTML = bestContent.innerHTML;
-          requestAnimationFrame(() => content.classList.add('ready'));
-        })
-        .catch((error) => {
-          setError('Could not render clean.html. ' + error.message);
-        });
-    })();
-  </script>
 </body>
 </html>
