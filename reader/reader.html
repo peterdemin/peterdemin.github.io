@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reader</title>
+  <style>
+    :root {
+      --text-0: #f1f4fb;
+      --text-1: #c3c9db;
+      --accent: #8ec5ff;
+      --max-width: 70ch;
+      --radius-md: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      color: var(--text-0);
+      background: #0b0b0b;
+      font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+      line-height: 1.7;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      padding: 5vh 6vw;
+    }
+
+    main {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    #reader-content {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 420ms ease, transform 420ms ease;
+    }
+
+    #reader-content.ready {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #reader-content > *:first-child {
+      margin-top: 0;
+    }
+
+    #reader-content > *:last-child {
+      margin-bottom: 0;
+    }
+
+    #reader-content h1,
+    #reader-content h2,
+    #reader-content h3,
+    #reader-content h4,
+    #reader-content h5,
+    #reader-content h6 {
+      color: #ffffff;
+      line-height: 1.25;
+      margin: 1.4em 0 0.6em;
+      letter-spacing: 0.01em;
+    }
+
+    #reader-content h1 {
+      font-size: clamp(1.9rem, 4.6vw, 2.7rem);
+      margin-top: 0;
+    }
+
+    #reader-content p,
+    #reader-content li,
+    #reader-content blockquote {
+      color: var(--text-1);
+      font-size: clamp(1.03rem, 1.15rem, 1.17rem);
+    }
+
+    #reader-content p {
+      margin: 1em 0;
+    }
+
+    #reader-content a {
+      color: var(--accent);
+      text-decoration-color: rgba(142, 197, 255, 0.45);
+      text-underline-offset: 3px;
+      transition: color 160ms ease, text-decoration-color 160ms ease;
+    }
+
+    #reader-content a:hover {
+      color: #c6e3ff;
+      text-decoration-color: rgba(198, 227, 255, 0.88);
+    }
+
+    #reader-content strong {
+      color: #f8fbff;
+      font-weight: 700;
+    }
+
+    #reader-content img {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 1.45em 0;
+      border-radius: var(--radius-md);
+    }
+
+    #reader-content blockquote {
+      margin: 1.5em 0;
+      padding: 0.9em 1.1em;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      font-style: italic;
+    }
+
+    #reader-content pre,
+    #reader-content code {
+      font-family: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+      font-size: 0.94em;
+    }
+
+    #reader-content pre {
+      background: rgba(6, 9, 15, 0.88);
+      border: 1px solid rgba(171, 191, 255, 0.2);
+      border-radius: var(--radius-md);
+      padding: 1em;
+      overflow: auto;
+    }
+
+    .error {
+      margin: 1rem 0 0;
+      padding: 16px 18px;
+      border-radius: var(--radius-md);
+      color: #ffd1d1;
+      font-family: "Avenir Next", "Futura", "Trebuchet MS", sans-serif;
+      font-size: 0.94rem;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 4vh 18px;
+      }
+
+      main {
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main aria-live="polite">
+    <section id="reader-content"></section>
+    <section id="reader-error" class="error" hidden></section>
+  </main>
+
+  <script>
+    (function () {
+      const content = document.getElementById('reader-content');
+      const errorBox = document.getElementById('reader-error');
+
+      function setError(message) {
+        errorBox.textContent = message;
+        errorBox.hidden = false;
+      }
+
+      function sanitizeFragment(fragmentRoot) {
+        fragmentRoot.querySelectorAll('script, style, link, iframe').forEach((node) => node.remove());
+
+        // clean.html may contain invalid wrapping around images; unwrap image children safely.
+        fragmentRoot.querySelectorAll('img p').forEach((nestedP) => {
+          nestedP.parentElement?.insertAdjacentElement('afterend', nestedP);
+        });
+
+        // Ensure external links are safe and open separately.
+        fragmentRoot.querySelectorAll('a[href]').forEach((a) => {
+          const href = a.getAttribute('href') || '';
+          if (href.startsWith('http://') || href.startsWith('https://')) {
+            a.setAttribute('target', '_blank');
+            a.setAttribute('rel', 'noopener noreferrer');
+          }
+        });
+      }
+
+      fetch('clean.html', { cache: 'no-store' })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('HTTP ' + response.status + ' while fetching clean.html');
+          }
+          return response.text();
+        })
+        .then((html) => {
+          const template = document.createElement('template');
+          template.innerHTML = html.trim();
+          const fragmentRoot = document.createElement('div');
+          fragmentRoot.appendChild(template.content);
+          sanitizeFragment(fragmentRoot);
+
+          const bestContent =
+            fragmentRoot.querySelector('#write') ||
+            fragmentRoot.querySelector('article') ||
+            fragmentRoot.querySelector('main') ||
+            fragmentRoot;
+
+          content.innerHTML = bestContent.innerHTML;
+          requestAnimationFrame(() => content.classList.add('ready'));
+        })
+        .catch((error) => {
+          setError('Could not render clean.html. ' + error.message);
+        });
+    })();
+  </script>
+</body>
+</html>
