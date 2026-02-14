@@ -186,7 +186,7 @@
         });
       }
 
-      fetch('clean.html', { cache: 'no-store' })
+      fetch('https://reader.demin.dev/?url=https://peter.demin.dev', { cache: 'no-store' })
         .then((response) => {
           if (!response.ok) {
             throw new Error('HTTP ' + response.status + ' while fetching clean.html');

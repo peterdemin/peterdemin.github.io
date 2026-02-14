@@ -146,7 +146,7 @@ bus: bus-linux
 	ssh $(APIHOST) 'sudo ./bus/install.sh && sudo ./bus/deploy.sh'
 
 .PHONY: reader-linux
-reader-linux: reader-test
+reader-linux:
 	cd reader && GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags="-s -w" -o reader
 
 .PHONY: reader

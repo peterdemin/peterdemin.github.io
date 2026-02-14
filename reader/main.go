@@ -54,14 +54,13 @@ func main() {
 
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer stop()
+	serveDone := make(chan error, 1)
 
 	if *addr != "" {
 		server.Addr = *addr
 		log.Printf("listening on %s (tcp)", *addr)
 		go func() {
-			if err := server.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
-				log.Fatalf("ListenAndServe: %v", err)
-			}
+			serveDone <- server.ListenAndServe()
 		}()
 	} else {
 		listener, err := systemdListener()
@@ -70,15 +69,23 @@ func main() {
 		}
 		log.Printf("listening on systemd activation socket")
 		go func() {
-			if err := server.Serve(listener); err != nil && !errors.Is(err, http.ErrServerClosed) {
-				log.Fatalf("Serve(socket): %v", err)
-			}
+			serveDone <- server.Serve(listener)
 		}()
 	}
 
-	<-ctx.Done()
-	stop()
-	gracefulShutdown(server)
+	select {
+	case err := <-serveDone:
+		if err != nil && !errors.Is(err, http.ErrServerClosed) {
+			log.Fatal(err)
+		}
+	case <-ctx.Done():
+		stop()
+		gracefulShutdown(server)
+		err := <-serveDone
+		if err != nil && !errors.Is(err, http.ErrServerClosed) {
+			log.Fatal(err)
+		}
+	}
 }
 
 func cleanHandler(w http.ResponseWriter, r *http.Request, client *http.Client) {
