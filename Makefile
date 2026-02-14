@@ -145,6 +145,16 @@ bus: bus-linux
 	scp -r bus $(APIHOST):
 	ssh $(APIHOST) 'sudo ./bus/install.sh && sudo ./bus/deploy.sh'
 
+.PHONY: reader-linux
+reader-linux: reader-test
+	cd reader && GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags="-s -w" -o reader
+
+.PHONY: reader
+reader: reader-linux
+	scp -r reader $(APIHOST):
+	ssh $(APIHOST) 'sudo ./reader/install.sh && sudo ./reader/deploy.sh'
+
+
 ## COUNTER
 
 .PHONY: counter_clean
