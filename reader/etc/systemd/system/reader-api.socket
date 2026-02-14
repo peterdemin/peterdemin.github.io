@@ -7,6 +7,7 @@ SocketUser=reader
 SocketGroup=www-data
 SocketMode=0660
 DirectoryMode=0755
+TriggerLimitIntervalSec=0
 
 [Install]
 WantedBy=sockets.target
