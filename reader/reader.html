@@ -6,9 +6,10 @@
   <title>Reader</title>
   <style>
     :root {
-      --text-0: #f1f4fb;
-      --text-1: #c3c9db;
-      --accent: #8ec5ff;
+      --bg: #002b36;
+      --text-0: #eee8d5;
+      --text-1: #93a1a1;
+      --accent: #268bd2;
       --max-width: 72ch;
       --radius-md: 12px;
     }
@@ -23,7 +24,7 @@
       padding: 0;
       min-height: 100%;
       color: var(--text-0);
-      background: #0b0b0b;
+      background: var(--bg);
       font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
       font-size: 24px;
       line-height: 1.85;
@@ -58,7 +59,7 @@
     #reader-content h4,
     #reader-content h5,
     #reader-content h6 {
-      color: #ffffff;
+      color: #fdf6e3;
       line-height: 1.25;
       margin: 1.4em 0 0.6em;
       letter-spacing: 0.01em;
@@ -82,18 +83,18 @@
 
     #reader-content a {
       color: var(--accent);
-      text-decoration-color: rgba(142, 197, 255, 0.45);
+      text-decoration-color: rgba(38, 139, 210, 0.5);
       text-underline-offset: 3px;
       transition: color 160ms ease, text-decoration-color 160ms ease;
     }
 
     #reader-content a:hover {
-      color: #c6e3ff;
-      text-decoration-color: rgba(198, 227, 255, 0.88);
+      color: #2aa198;
+      text-decoration-color: rgba(42, 161, 152, 0.85);
     }
 
     #reader-content strong {
-      color: #f8fbff;
+      color: #eee8d5;
       font-weight: 700;
     }
 
@@ -119,8 +120,8 @@
     }
 
     #reader-content pre {
-      background: rgba(6, 9, 15, 0.88);
-      border: 1px solid rgba(171, 191, 255, 0.2);
+      background: rgba(7, 54, 66, 0.9);
+      border: 1px solid rgba(147, 161, 161, 0.35);
       border-radius: var(--radius-md);
       padding: 1em;
       overflow: auto;
