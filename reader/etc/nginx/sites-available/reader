@@ -13,3 +13,9 @@ server {
       proxy_set_header Host $http_host;
     }
 }
+
+server {
+    server_name r.demin.dev;
+    listen 100.121.131.14:443 ssl default_server;
+    ssl_reject_handshake on;
+}
