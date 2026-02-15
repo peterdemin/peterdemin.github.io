@@ -43,3 +43,7 @@ Can it get more minimal than that? I don't think so.
 
 Please don't scrape whole internet through my proxy.
 
+**UPD:** I quickly realized that in addition to being a public unauthenticated proxy, this service also exposed my VPN network in a limited way.
+I considered various ways to harden this setup, and decided to just move it inside of the VPN perimeter.
+
+So, you can't see it, but be consoled that I still use it and it's going great.

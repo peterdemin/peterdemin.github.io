@@ -28,6 +28,9 @@ Feb 14 05:44:36 demin-dev reader[1325849]: 2026/02/14 05:44:36 listening on syst
 </code></pre>
 <p>Can it get more minimal than that? I don't think so.</p>
 <p>Please don't scrape whole internet through my proxy.</p>
+<p><strong>UPD:</strong> I quickly realized that in addition to being a public unauthenticated proxy, this service also exposed my VPN network in a limited way.
+I considered various ways to harden this setup, and decided to just move it inside of the VPN perimeter.</p>
+<p>So, you can't see it, but be consoled that I still use it and it's going great.</p>
 ]]></content></entry><entry><id>Feb 11, 2026_1</id><title>Journal</title><published>2026-02-11T00:00:00Z</published><updated>2026-02-11T00:00:00Z</updated><link href="https://peter.demin.dev/life/feb-11-2026_1.html"/><content type="html"><![CDATA[<p>Changed my atom feed to link each item to a dedicated page (which is otherwise unreachable from the website).</p>
 ]]></content></entry><entry><id>Feb 11, 2026_0</id><title>Journal</title><published>2026-02-11T00:00:00Z</published><updated>2026-02-11T00:00:00Z</updated><link href="https://peter.demin.dev/life/feb-11-2026_0.html"/><content type="html"><![CDATA[<p>My response to the AI panic &quot;LLM agents are so good, they are going to replace software engineers&quot;:</p>
 <ol>
