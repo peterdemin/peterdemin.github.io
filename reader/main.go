@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	_ "embed"
 	"errors"
@@ -10,6 +11,7 @@ import (
 	"log"
 	"net"
 	"net/http"
+	nurl "net/url"
 	"os"
 	"os/signal"
 	"strconv"
@@ -18,8 +20,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/giulianopz/go-readability"
-	"github.com/yosssi/gohtml"
+	trafilatura "github.com/markusmobius/go-trafilatura"
+	"golang.org/x/net/html"
 )
 
 const contentPlaceholder = "{{CONTENT}}"
@@ -142,21 +144,32 @@ func cleanHandler(w http.ResponseWriter, r *http.Request, pagePrefix string, pag
 }
 
 func extractCleanFragment(source string, baseURL string) (string, error) {
-	reader, err := readability.New(
-		source,
-		baseURL,
-		readability.ClassesToPreserve("caption"),
-	)
+	var originalURL *nurl.URL
+	if parsed, parseErr := nurl.ParseRequestURI(baseURL); parseErr == nil {
+		originalURL = parsed
+	}
+
+	extractResult, err := trafilatura.Extract(strings.NewReader(source), trafilatura.Options{
+		OriginalURL:     originalURL,
+		EnableFallback:  true,
+		ExcludeComments: true,
+		IncludeLinks:    true,
+		IncludeImages:   true,
+	})
 	if err != nil {
 		return "", err
 	}
 
-	result, err := reader.Parse()
-	if err != nil {
+	if extractResult == nil || extractResult.ContentNode == nil {
+		return "", fmt.Errorf("trafilatura returned empty content")
+	}
+
+	var out bytes.Buffer
+	if err := html.Render(&out, extractResult.ContentNode); err != nil {
 		return "", err
 	}
 
-	return gohtml.Format(result.HTMLContent), nil
+	return out.String(), nil
 }
 
 func gracefulShutdown(server *http.Server) {
