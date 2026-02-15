@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reader</title>
+  <style>
+    :root {
+      --bg: #002b36;
+      --text: #eee8d5;
+      --muted: #93a1a1;
+      --accent: #268bd2;
+      --accent-hover: #2aa198;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    }
+
+    body {
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    main {
+      width: min(920px, 100%);
+    }
+
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      line-height: 1.2;
+    }
+
+    p {
+      margin: 0 0 1rem;
+      color: var(--muted);
+    }
+
+    form {
+      display: grid;
+      gap: 12px;
+    }
+
+    input[type="url"] {
+      width: 100%;
+      border: 1px solid rgba(147, 161, 161, 0.4);
+      background: rgba(7, 54, 66, 0.9);
+      color: var(--text);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 16px;
+    }
+
+    button {
+      justify-self: start;
+      border: 0;
+      background: var(--accent);
+      color: #fdf6e3;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    button:hover { background: var(--accent-hover); }
+
+    .status {
+      min-height: 1.4em;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .error {
+      color: #dc322f;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Reader</h1>
+    <p>Enter a URL, fetch page HTML in your browser, send to reader backend, render returned page.</p>
+
+    <form id="reader-form">
+      <input id="url" type="url" required placeholder="https://example.com/article" value="https://peter.demin.dev/life/jan-31-2026_0.html">
+      <button type="submit" id="submit">Open in Reader</button>
+      <div id="status" class="status"></div>
+    </form>
+  </main>
+
+  <script>
+    (function () {
+      const form = document.getElementById('reader-form');
+      const urlInput = document.getElementById('url');
+      const submitButton = document.getElementById('submit');
+      const status = document.getElementById('status');
+
+      function setStatus(text, isError) {
+        status.textContent = text;
+        status.className = isError ? 'status error' : 'status';
+      }
+
+      form.addEventListener('submit', async function (event) {
+        event.preventDefault();
+        const sourceUrl = urlInput.value.trim();
+        if (!sourceUrl) return;
+
+        submitButton.disabled = true;
+        setStatus('Fetching source page...', false);
+
+        try {
+          const sourceResponse = await fetch(sourceUrl, { method: 'GET', credentials: 'omit' });
+          if (!sourceResponse.ok) {
+            throw new Error('Source fetch failed with HTTP ' + sourceResponse.status);
+          }
+
+          const sourceHtml = await sourceResponse.text();
+          setStatus('Sending HTML to reader backend...', false);
+
+          const renderResponse = await fetch('/api/render?base_url=' + encodeURIComponent(sourceUrl), {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+            body: sourceHtml
+          });
+
+          if (!renderResponse.ok) {
+            throw new Error('Reader backend failed with HTTP ' + renderResponse.status);
+          }
+
+          const renderedHtml = await renderResponse.text();
+          document.open();
+          document.write(renderedHtml);
+          document.close();
+        } catch (err) {
+          const message = (err && err.message) ? err.message : String(err);
+          setStatus('Failed: ' + message + '. Some websites block browser fetches via CORS.', true);
+          submitButton.disabled = false;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -45,7 +45,7 @@ func main() {
 	)
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/api/render", func(w http.ResponseWriter, r *http.Request) {
 		defer stopOnce.Do(func() {
 			go gracefulShutdown(server)
 		})

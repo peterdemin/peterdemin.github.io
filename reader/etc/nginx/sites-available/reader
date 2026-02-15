@@ -5,8 +5,10 @@ upstream reader {
 server {
     server_name reader.demin.dev;
     client_max_body_size 10m;
+    root /var/www/reader;
+    index index.html;
 
-    location / {
+    location = /api/render {
       if ($request_method = OPTIONS) {
         add_header Access-Control-Allow-Origin "*" always;
         add_header Access-Control-Allow-Methods "POST, OPTIONS" always;
@@ -26,5 +28,16 @@ server {
       proxy_set_header Host $http_host;
       proxy_read_timeout 30s;
       proxy_send_timeout 30s;
+    }
+
+    location = /healthz {
+      proxy_pass http://reader;
+      proxy_http_version 1.0;
+      proxy_set_header Connection "close";
+      proxy_set_header Host $http_host;
+    }
+
+    location / {
+      try_files $uri $uri/ /index.html;
     }
 }
