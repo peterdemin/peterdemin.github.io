@@ -10,7 +10,6 @@ import (
 	"log"
 	"net"
 	"net/http"
-	"net/url"
 	"os"
 	"os/signal"
 	"strconv"
@@ -24,6 +23,7 @@ import (
 )
 
 const contentPlaceholder = "{{CONTENT}}"
+const maxHTMLBytes = 10 << 20 // 10 MiB
 
 //go:embed reader.html
 var readerTemplate string
@@ -37,10 +37,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-	client := &http.Client{
-		Timeout: 20 * time.Second,
-	}
-
 	var (
 		server   *http.Server
 		stopOnce sync.Once
@@ -51,7 +47,7 @@ func main() {
 		defer stopOnce.Do(func() {
 			go gracefulShutdown(server)
 		})
-		cleanHandler(w, r, client, pagePrefix, pageSuffix)
+		cleanHandler(w, r, pagePrefix, pageSuffix)
 	})
 	mux.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
@@ -100,27 +96,40 @@ func main() {
 	}
 }
 
-func cleanHandler(w http.ResponseWriter, r *http.Request, client *http.Client, pagePrefix string, pageSuffix string) {
+func cleanHandler(w http.ResponseWriter, r *http.Request, pagePrefix string, pageSuffix string) {
 	w.Header().Set("Connection", "close")
 
-	if r.Method != http.MethodGet {
+	if r.Method != http.MethodPost {
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
-	rawURL := r.URL.Query().Get("url")
-	if rawURL == "" {
-		http.Error(w, "missing query parameter: url", http.StatusBadRequest)
+	if r.Body == nil {
+		http.Error(w, "missing request body", http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+
+	body, err := io.ReadAll(io.LimitReader(r.Body, maxHTMLBytes+1))
+	if err != nil {
+		http.Error(w, "failed to read request body", http.StatusBadRequest)
+		return
+	}
+	if len(body) == 0 {
+		http.Error(w, "empty request body", http.StatusBadRequest)
+		return
+	}
+	if len(body) > maxHTMLBytes {
+		http.Error(w, "request body too large", http.StatusRequestEntityTooLarge)
 		return
 	}
 
-	targetURL, err := url.ParseRequestURI(rawURL)
-	if err != nil || targetURL.Scheme != "https" || targetURL.Host == "" {
-		http.Error(w, "url must be a valid HTTPS URL", http.StatusBadRequest)
-		return
+	baseURL := r.URL.Query().Get("base_url")
+	if baseURL == "" {
+		baseURL = "https://example.com/"
 	}
 
-	fragment, err := extractCleanFragment(client, targetURL.String())
+	fragment, err := extractCleanFragment(string(body), baseURL)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("extract failed: %v", err), http.StatusBadGateway)
 		return
@@ -132,31 +141,10 @@ func cleanHandler(w http.ResponseWriter, r *http.Request, client *http.Client, p
 	_, _ = io.WriteString(w, pageSuffix)
 }
 
-func extractCleanFragment(client *http.Client, targetURL string) (string, error) {
-	req, err := http.NewRequest(http.MethodGet, targetURL, nil)
-	if err != nil {
-		return "", err
-	}
-	req.Header.Set("User-Agent", "reader-extractor/1.0")
-
-	resp, err := client.Do(req)
-	if err != nil {
-		return "", err
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		return "", fmt.Errorf("upstream returned %s", resp.Status)
-	}
-
-	source, err := io.ReadAll(io.LimitReader(resp.Body, 10<<20))
-	if err != nil {
-		return "", err
-	}
-
+func extractCleanFragment(source string, baseURL string) (string, error) {
 	reader, err := readability.New(
-		string(source),
-		targetURL,
+		source,
+		baseURL,
 		readability.ClassesToPreserve("caption"),
 	)
 	if err != nil {
