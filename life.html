@@ -94,6 +94,19 @@ data-aria-dark="Switch to auto color mode">
 <span id="life"></span><h1>Journal<a class="headerlink" href="#journal" title="Link to this heading">¶</a></h1>
 </section>
 <hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">Feb</span> <span class="pre">14,</span> <span class="pre">2026</span></code> - Today I learned that <code class="docutils literal notranslate"><span class="pre">.dev</span></code> top-level domain is <a class="reference external" href="https://endtimes.dev/dev-and-hsts-preload/">HSTS-preloaded</a>.
+It means that <code class="docutils literal notranslate"><span class="pre">.dev</span></code> websites can only be accessed through HTTPS (not HTTP).
+HTTPS is cool and everything, but there’s a side effect.
+Which comes from using VPN, and internal resources.</p>
+<p>These days, I only consider Let’s Encrypt for SSL certificates.
+Unfortunately, my DNS provider doesn’t expose API access, which makes DNS-01 challenge automation impossible.
+That leaves me with only HTTP-01 challenge, which means I need to have my host exposed to the public internet.
+Which is not the case.</p>
+<p>But hey, the resource is already accessed through a VPN, so it’s encrypted in-transit the best way possible.
+That makes HTTPS redundant.
+Okay then, let’s use plain HTTP, right?
+Not if you’re on <code class="docutils literal notranslate"><span class="pre">.dev</span></code> domain, you don’t.
+Thanks to HSTS, HTTP protocol is off-limit.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Feb</span> <span class="pre">13,</span> <span class="pre">2026</span></code> - The thought of tiny flowers in a winter garden didn’t leave my head for some time,
 so today I vibed a wrapper around <a class="reference external" href="https://github.com/mozilla/readability">Mozilla Readability</a> library
 (actually, a <a class="reference external" href="https://github.com/giulianopz/go-readability">port</a>

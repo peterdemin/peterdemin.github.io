@@ -2,7 +2,7 @@
 <html lang="en" data-accent-color="violet" data-content_root="../">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>&lt;no title&gt; - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Feb 14, 2026 - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
@@ -20,7 +20,7 @@
   --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
 }
 </style>
-    <meta property="og:type" content="website"/><meta property="og:title" content="&lt;no title&gt;"/>
+    <meta property="og:type" content="website"/><meta property="og:title" content="Feb 14, 2026"/>
     <meta name="twitter:card" content="summary"/>
   </head>
 <body><div class="sy-head">
@@ -76,7 +76,7 @@ data-aria-dark="Switch to auto color mode">
         <span>/</span>
         <meta itemprop="position" content="1" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <strong itemprop="name">&lt;no title&gt;</strong>
+        <strong itemprop="name">Feb 14, 2026</strong>
         <meta itemprop="position" content="2" />
       </li></ol>
     <div class="xl:hidden ml-1">
@@ -90,7 +90,9 @@ data-aria-dark="Switch to auto color mode">
     <div class="flex flex-col break-words justify-between">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
-          <p><code class="docutils literal notranslate"><span class="pre">Feb</span> <span class="pre">14,</span> <span class="pre">2026</span></code> - Today I learned that <code class="docutils literal notranslate"><span class="pre">.dev</span></code> top-level domain is <a class="reference external" href="https://endtimes.dev/dev-and-hsts-preload/">HSTS-preloaded</a>.
+          <section id="feb-14-2026">
+<h1>Feb 14, 2026<a class="headerlink" href="#feb-14-2026" title="Link to this heading">¶</a></h1>
+<p>Today I learned that <code class="docutils literal notranslate"><span class="pre">.dev</span></code> top-level domain is <a class="reference external" href="https://endtimes.dev/dev-and-hsts-preload/">HSTS-preloaded</a>.
 It means that <code class="docutils literal notranslate"><span class="pre">.dev</span></code> websites can only be accessed through HTTPS (not HTTP).
 HTTPS is cool and everything, but there’s a side effect.
 Which comes from using VPN, and internal resources.</p>
@@ -103,56 +105,7 @@ That makes HTTPS redundant.
 Okay then, let’s use plain HTTP, right?
 Not if you’re on <code class="docutils literal notranslate"><span class="pre">.dev</span></code> domain, you don’t.
 Thanks to HSTS, HTTP protocol is off-limit.</p>
-<p><code class="docutils literal notranslate"><span class="pre">Feb</span> <span class="pre">13,</span> <span class="pre">2026</span></code> - The thought of tiny flowers in a winter garden didn’t leave my head for some time,
-so today I vibed a wrapper around <a class="reference external" href="https://github.com/mozilla/readability">Mozilla Readability</a> library
-(actually, a <a class="reference external" href="https://github.com/giulianopz/go-readability">port</a>
-by <a class="reference external" href="https://giulianopz.github.io">Giuliano Panzironi</a>).</p>
-<p>It fetches a page from a given URL, passes it through main content extraction and cleaning,
-and presents in a distraction free layout using Solarized Dark theme.</p>
-<p>Here’s an example of what it looks like:</p>
-<p><a class="reference external" href="https://reader.demin.dev/?url=https://peter.demin.dev/life/feb-13-2026_0.html">https://reader.demin.dev/?url=https://peter.demin.dev/life/feb-13-2026_0.html</a></p>
-<p>The evening I spent openining random pages in full-screen mode and enjoying distraction free content.</p>
-<p>In the spirit of minimalism I made this service a socket-activated Go binary.
-So it doesn’t take any of the precious RAM on my tiny VPS when idle,
-but also has a very small runtime footprint:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">○ reader-api.service - Reader extractor API
-</span><span data-line="2">     Loaded: loaded (/etc/systemd/system/reader-api.service; static)
-</span><span data-line="3">     Active: inactive (dead) since Sat 2026-02-14 05:44:36 UTC; 3min 13s ago
-</span><span data-line="4">   Duration: 68ms
-</span><span data-line="5"> Invocation: 03e5cdeca63e4b60bc0d3c073ed2872a
-</span><span data-line="6">TriggeredBy: ● reader-api.socket
-</span><span data-line="7">    Process: 1325849 ExecStart=/opt/reader/reader (code=exited, status=0/SUCCESS)
-</span><span data-line="8">   Main PID: 1325849 (code=exited, status=0/SUCCESS)
-</span><span data-line="9">   Mem peak: 3.2M
-</span><span data-line="10">        CPU: 45ms
-</span><span data-line="11">
-</span><span data-line="12">Feb 14 05:44:36 demin-dev systemd[1]: Started reader-api.service - Reader extractor API.
-</span><span data-line="13">Feb 14 05:44:36 demin-dev systemd[1]: reader-api.service: Deactivated successfully.
-</span><span data-line="14">Feb 14 05:44:36 demin-dev reader[1325849]: 2026/02/14 05:44:36 listening on systemd activation socket
-</span></pre></div>
-</div>
-<p>Can it get more minimal than that? I don’t think so.</p>
-<p>Please don’t scrape whole internet through my proxy.</p>
-<p><strong>UPD:</strong> I quickly realized that in addition to being a public unauthenticated proxy, this service also exposed my VPN network in a limited way.
-I considered various ways to harden this setup, and decided to just move it inside of the VPN perimeter.</p>
-<p>So, you can’t see it, but be consoled that I still use it and it’s going great.</p>
-<p><code class="docutils literal notranslate"><span class="pre">Feb</span> <span class="pre">11,</span> <span class="pre">2026</span></code> - Changed my atom feed to link each item to a dedicated page (which is otherwise unreachable from the website).</p>
-<p><code class="docutils literal notranslate"><span class="pre">Feb</span> <span class="pre">11,</span> <span class="pre">2026</span></code> - My response to the AI panic “LLM agents are so good, they are going to replace software engineers”:</p>
-<ol class="arabic simple">
-<li><p>Amount of work is unbound, you can’t run out of it.
-Companies hire engineers to push more features to reach more markets.
-They don’t need less people to do the same amount of work.
-The need more faster people to stay competitive.</p></li>
-<li><p>Companies don’t hire software engineers for their coding skills.
-They hire problem owners who deliver solutions.
-More productive problem solvers means more business to run, not less people.</p></li>
-</ol>
-<p><code class="docutils literal notranslate"><span class="pre">Feb</span> <span class="pre">05,</span> <span class="pre">2026</span></code> - Today I learned <em>why</em> is it bad to put knives into a dishwasher.
-I thought it’s because they bounce from the water streams and bump into other silverware and the cage.
-But the primary reason is combination of strong detergent and high water temperature for prolonged time.
-It weakens blade’s edge and may degrade a handle, if it’s wooden or made of a cheap plastic.
-The difference in sharpness between a hand-washed and dishwashed knives is drammatic.
-The sharp edge life can be reduced from a year down to a month.</p>
+</section>
 
         </article>
         <button class="back-to-top" type="button">
