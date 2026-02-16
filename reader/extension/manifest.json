@@ -10,7 +10,8 @@
     "tabs"
   ],
   "host_permissions": [
-    "https://reader.demin.dev/*"
+    "https://reader.demin.dev/*",
+    "<all_urls>"
   ],
   "background": {
     "service_worker": "background.js"
