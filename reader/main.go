@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"compress/gzip"
 	"context"
 	"crypto/sha256"
 	_ "embed"
@@ -295,6 +296,7 @@ func saveRenderedPage(originalBody []byte, fullPageHTML string) (string, error) 
 	relNoExt := filepath.Join(hash[:2], hash[2:4], hash[4:])
 	relPath := filepath.ToSlash(relNoExt + ".html")
 	absPath := filepath.Join(renderedRootDir, relNoExt+".html")
+	absGzipPath := absPath + ".gz"
 	absDir := filepath.Dir(absPath)
 
 	if err := os.MkdirAll(absDir, 0o755); err != nil {
@@ -302,6 +304,12 @@ func saveRenderedPage(originalBody []byte, fullPageHTML string) (string, error) 
 	}
 
 	if _, err := os.Stat(absPath); err == nil {
+		if _, err := os.Stat(absGzipPath); errors.Is(err, os.ErrNotExist) {
+			data, readErr := os.ReadFile(absPath)
+			if readErr == nil {
+				_ = writeGzipFile(absGzipPath, data)
+			}
+		}
 		return "/p/" + relPath, nil
 	} else if !errors.Is(err, os.ErrNotExist) {
 		return "", err
@@ -330,6 +338,9 @@ func saveRenderedPage(originalBody []byte, fullPageHTML string) (string, error) 
 	if err := os.Rename(tmpName, absPath); err != nil {
 		return "", err
 	}
+	if err := writeGzipFile(absGzipPath, []byte(fullPageHTML)); err != nil {
+		return "", err
+	}
 
 	return "/p/" + relPath, nil
 }
@@ -344,4 +355,38 @@ func buildResponseURL(r *http.Request, path string) string {
 		}
 	}
 	return scheme + "://" + r.Host + path
+}
+
+func writeGzipFile(path string, data []byte) error {
+	tmp, err := os.CreateTemp(filepath.Dir(path), ".tmp-reader-gz-*")
+	if err != nil {
+		return err
+	}
+	tmpName := tmp.Name()
+	defer func() {
+		_ = os.Remove(tmpName)
+	}()
+
+	zw, err := gzip.NewWriterLevel(tmp, gzip.BestCompression)
+	if err != nil {
+		_ = tmp.Close()
+		return err
+	}
+	if _, err := zw.Write(data); err != nil {
+		_ = zw.Close()
+		_ = tmp.Close()
+		return err
+	}
+	if err := zw.Close(); err != nil {
+		_ = tmp.Close()
+		return err
+	}
+	if err := tmp.Chmod(0o644); err != nil {
+		_ = tmp.Close()
+		return err
+	}
+	if err := tmp.Close(); err != nil {
+		return err
+	}
+	return os.Rename(tmpName, path)
 }

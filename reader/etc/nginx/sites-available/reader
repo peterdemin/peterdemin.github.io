@@ -7,6 +7,7 @@ server {
     client_max_body_size 10m;
     root /var/www/reader;
     index index.html;
+    gzip_static on;
 
     location = /api/render {
       if ($request_method = OPTIONS) {
