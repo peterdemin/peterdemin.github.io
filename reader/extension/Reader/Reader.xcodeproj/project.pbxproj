@@ -29,16 +29,12 @@
 		1E886ECB2F42A7CD00DA9CA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E886E8B2F42A7CD00DA9CA0 /* Assets.xcassets */; };
 		1E886ECC2F42A7CD00DA9CA0 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E886E8D2F42A7CD00DA9CA0 /* SafariWebExtensionHandler.swift */; };
 		1E886ECD2F42A7CD00DA9CA0 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E886E8D2F42A7CD00DA9CA0 /* SafariWebExtensionHandler.swift */; };
-		1E886EE72F42A7CD00DA9CA0 /* Reader in Resources */ = {isa = PBXBuildFile; fileRef = 1E886EDF2F42A7CD00DA9CA0 /* Reader */; };
-		1E886EE82F42A7CD00DA9CA0 /* Reader Capture in Resources */ = {isa = PBXBuildFile; fileRef = 1E886EE02F42A7CD00DA9CA0 /* Reader Capture */; };
 		1E886EE92F42A7CD00DA9CA0 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E886EE12F42A7CD00DA9CA0 /* background.js */; };
 		1E886EEA2F42A7CD00DA9CA0 /* viewer.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E886EE22F42A7CD00DA9CA0 /* viewer.js */; };
 		1E886EEB2F42A7CD00DA9CA0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1E886EE32F42A7CD00DA9CA0 /* README.md */; };
 		1E886EEC2F42A7CD00DA9CA0 /* viewer.html in Resources */ = {isa = PBXBuildFile; fileRef = 1E886EE42F42A7CD00DA9CA0 /* viewer.html */; };
 		1E886EED2F42A7CD00DA9CA0 /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 1E886EE52F42A7CD00DA9CA0 /* icons */; };
 		1E886EEE2F42A7CD00DA9CA0 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E886EE62F42A7CD00DA9CA0 /* manifest.json */; };
-		1E886EEF2F42A7CD00DA9CA0 /* Reader in Resources */ = {isa = PBXBuildFile; fileRef = 1E886EDF2F42A7CD00DA9CA0 /* Reader */; };
-		1E886EF02F42A7CD00DA9CA0 /* Reader Capture in Resources */ = {isa = PBXBuildFile; fileRef = 1E886EE02F42A7CD00DA9CA0 /* Reader Capture */; };
 		1E886EF12F42A7CD00DA9CA0 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E886EE12F42A7CD00DA9CA0 /* background.js */; };
 		1E886EF22F42A7CD00DA9CA0 /* viewer.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E886EE22F42A7CD00DA9CA0 /* viewer.js */; };
 		1E886EF32F42A7CD00DA9CA0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1E886EE32F42A7CD00DA9CA0 /* README.md */; };
@@ -111,8 +107,6 @@
 		1E886EB52F42A7CD00DA9CA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E886EBA2F42A7CD00DA9CA0 /* Reader Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Reader Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E886EBF2F42A7CD00DA9CA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1E886EDF2F42A7CD00DA9CA0 /* Reader */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Reader; sourceTree = SOURCE_ROOT; };
-		1E886EE02F42A7CD00DA9CA0 /* Reader Capture */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Reader Capture"; path = "../../Reader Capture"; sourceTree = "<group>"; };
 		1E886EE12F42A7CD00DA9CA0 /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = ../../background.js; sourceTree = "<group>"; };
 		1E886EE22F42A7CD00DA9CA0 /* viewer.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = viewer.js; path = ../../viewer.js; sourceTree = "<group>"; };
 		1E886EE32F42A7CD00DA9CA0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
@@ -248,8 +242,6 @@
 		1E886EDE2F42A7CD00DA9CA0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				1E886EDF2F42A7CD00DA9CA0 /* Reader */,
-				1E886EE02F42A7CD00DA9CA0 /* Reader Capture */,
 				1E886EE12F42A7CD00DA9CA0 /* background.js */,
 				1E886EE22F42A7CD00DA9CA0 /* viewer.js */,
 				1E886EE32F42A7CD00DA9CA0 /* README.md */,
@@ -423,13 +415,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E886EF42F42A7CD00DA9CA0 /* viewer.html in Resources */,
-				1E886EEF2F42A7CD00DA9CA0 /* Reader in Resources */,
 				1E886EF12F42A7CD00DA9CA0 /* background.js in Resources */,
 				1E886EF32F42A7CD00DA9CA0 /* README.md in Resources */,
 				1E886EF62F42A7CD00DA9CA0 /* manifest.json in Resources */,
 				1E886EF22F42A7CD00DA9CA0 /* viewer.js in Resources */,
 				1E886EF52F42A7CD00DA9CA0 /* icons in Resources */,
-				1E886EF02F42A7CD00DA9CA0 /* Reader Capture in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,13 +428,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E886EEC2F42A7CD00DA9CA0 /* viewer.html in Resources */,
-				1E886EE72F42A7CD00DA9CA0 /* Reader in Resources */,
 				1E886EE92F42A7CD00DA9CA0 /* background.js in Resources */,
 				1E886EEB2F42A7CD00DA9CA0 /* README.md in Resources */,
 				1E886EEE2F42A7CD00DA9CA0 /* manifest.json in Resources */,
 				1E886EEA2F42A7CD00DA9CA0 /* viewer.js in Resources */,
 				1E886EED2F42A7CD00DA9CA0 /* icons in Resources */,
-				1E886EE82F42A7CD00DA9CA0 /* Reader Capture in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -876,6 +864,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DCA8ARH67N;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
@@ -897,7 +886,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yourCompany.Reader;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.demin.reader;
 				PRODUCT_NAME = Reader;
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
@@ -917,6 +906,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DCA8ARH67N;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
@@ -938,7 +928,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yourCompany.Reader;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.demin.reader;
 				PRODUCT_NAME = Reader;
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
