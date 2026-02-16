@@ -7,11 +7,30 @@
   <style>
     :root {
       --bg: #002b36;
+      --heading: #fdf6e3;
       --text-0: #eee8d5;
       --text-1: #93a1a1;
       --accent: #268bd2;
+      --accent-hover: #2aa198;
+      --strong: #eee8d5;
+      --code-bg: rgba(7, 54, 66, 0.9);
+      --code-border: rgba(147, 161, 161, 0.35);
       --max-width: 72ch;
       --radius-md: 12px;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #fdf6e3;
+        --heading: #073642;
+        --text-0: #073642;
+        --text-1: #586e75;
+        --accent: #268bd2;
+        --accent-hover: #2aa198;
+        --strong: #073642;
+        --code-bg: rgba(238, 232, 213, 0.95);
+        --code-border: rgba(88, 110, 117, 0.35);
+      }
     }
 
     * {
@@ -59,7 +78,7 @@
     #reader-content h4,
     #reader-content h5,
     #reader-content h6 {
-      color: #fdf6e3;
+      color: var(--heading);
       line-height: 1.25;
       margin: 1.4em 0 0.6em;
       letter-spacing: 0.01em;
@@ -89,12 +108,12 @@
     }
 
     #reader-content a:hover {
-      color: #2aa198;
+      color: var(--accent-hover);
       text-decoration-color: rgba(42, 161, 152, 0.85);
     }
 
     #reader-content strong {
-      color: #eee8d5;
+      color: var(--strong);
       font-weight: 700;
     }
 
@@ -120,8 +139,8 @@
     }
 
     #reader-content pre {
-      background: rgba(7, 54, 66, 0.9);
-      border: 1px solid rgba(147, 161, 161, 0.35);
+      background: var(--code-bg);
+      border: 1px solid var(--code-border);
       border-radius: var(--radius-md);
       padding: 1em;
       overflow: auto;
