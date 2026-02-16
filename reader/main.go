@@ -3,7 +3,10 @@ package main
 import (
 	"bytes"
 	"context"
+	"crypto/sha256"
 	_ "embed"
+	"encoding/hex"
+	"encoding/json"
 	"errors"
 	"flag"
 	"fmt"
@@ -15,6 +18,7 @@ import (
 	nurl "net/url"
 	"os"
 	"os/signal"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"sync"
@@ -28,6 +32,7 @@ import (
 const contentPlaceholder = "{{CONTENT}}"
 const titlePlaceholder = "{{TITLE}}"
 const maxHTMLBytes = 10 << 20 // 10 MiB
+const renderedRootDir = "/var/www/reader/p"
 
 //go:embed reader.html
 var readerTemplate string
@@ -143,12 +148,20 @@ func cleanHandler(w http.ResponseWriter, r *http.Request, pagePrefix string, pag
 	}
 
 	titleSafe := stdhtml.EscapeString(title)
-	pagePrefix = strings.Replace(pagePrefix, titlePlaceholder, titleSafe, 1)
+	fullPage := strings.Replace(pagePrefix, titlePlaceholder, titleSafe, 1) + fragment + pageSuffix
 
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	_, _ = io.WriteString(w, pagePrefix)
-	_, _ = io.WriteString(w, fragment)
-	_, _ = io.WriteString(w, pageSuffix)
+	relativePath, err := saveRenderedPage(body, fullPage)
+	if err != nil {
+		http.Error(w, fmt.Sprintf("save failed: %v", err), http.StatusInternalServerError)
+		return
+	}
+
+	responseURL := buildResponseURL(r, relativePath)
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	_ = json.NewEncoder(w).Encode(map[string]string{
+		"path": relativePath,
+		"url":  responseURL,
+	})
 }
 
 func extractCleanFragment(source string, baseURL string) (string, string, error) {
@@ -273,4 +286,62 @@ func resolveURL(raw string, base *nurl.URL) string {
 		return raw
 	}
 	return base.ResolveReference(ref).String()
+}
+
+func saveRenderedPage(originalBody []byte, fullPageHTML string) (string, error) {
+	sum := sha256.Sum256(originalBody)
+	hash := hex.EncodeToString(sum[:])
+
+	relNoExt := filepath.Join(hash[:2], hash[2:4], hash[4:])
+	relPath := filepath.ToSlash(relNoExt + ".html")
+	absPath := filepath.Join(renderedRootDir, relNoExt+".html")
+	absDir := filepath.Dir(absPath)
+
+	if err := os.MkdirAll(absDir, 0o755); err != nil {
+		return "", err
+	}
+
+	if _, err := os.Stat(absPath); err == nil {
+		return "/p/" + relPath, nil
+	} else if !errors.Is(err, os.ErrNotExist) {
+		return "", err
+	}
+
+	tmp, err := os.CreateTemp(absDir, ".tmp-reader-*")
+	if err != nil {
+		return "", err
+	}
+	tmpName := tmp.Name()
+	defer func() {
+		_ = os.Remove(tmpName)
+	}()
+
+	if _, err := tmp.WriteString(fullPageHTML); err != nil {
+		_ = tmp.Close()
+		return "", err
+	}
+	if err := tmp.Chmod(0o644); err != nil {
+		_ = tmp.Close()
+		return "", err
+	}
+	if err := tmp.Close(); err != nil {
+		return "", err
+	}
+	if err := os.Rename(tmpName, absPath); err != nil {
+		return "", err
+	}
+
+	return "/p/" + relPath, nil
+}
+
+func buildResponseURL(r *http.Request, path string) string {
+	scheme := r.Header.Get("X-Forwarded-Proto")
+	if scheme == "" {
+		if r.TLS != nil {
+			scheme = "https"
+		} else {
+			scheme = "http"
+		}
+	}
+	return scheme + "://" + r.Host + path
 }

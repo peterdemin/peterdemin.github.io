@@ -1,7 +1,4 @@
 const READER_ENDPOINT = 'https://reader.demin.dev/api/render';
-const STORAGE_PREFIX = 'render:';
-const STORAGE_TTL_MS = 60 * 60 * 1000;
-const MAX_ENTRIES = 10;
 const processingTabs = new Set();
 
 chrome.action.onClicked.addListener(async (tab) => {
@@ -9,8 +6,7 @@ chrome.action.onClicked.addListener(async (tab) => {
     if (!tab.id) {
       throw new Error('No active tab id');
     }
-
-    await captureRenderAndShow(tab.id);
+    await captureRenderAndOpen(tab.id);
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     await openErrorTab(message);
@@ -32,7 +28,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   return false;
 });
 
-async function captureRenderAndShow(tabId) {
+async function captureRenderAndOpen(tabId) {
   if (processingTabs.has(tabId)) {
     return;
   }
@@ -50,34 +46,8 @@ async function captureRenderAndShow(tabId) {
       throw new Error('Failed to capture page HTML');
     }
 
-    const response = await fetch(
-      `${READER_ENDPOINT}?base_url=${encodeURIComponent(result.url)}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'text/plain; charset=utf-8',
-        },
-        body: result.html,
-      }
-    );
-    if (!response.ok) {
-      throw new Error(`Reader API returned HTTP ${response.status}`);
-    }
-
-    const renderedHtml = await response.text();
-    const id = crypto.randomUUID();
-    const key = `${STORAGE_PREFIX}${id}`;
-    await chrome.storage.local.set({
-      [key]: {
-        html: renderedHtml,
-        createdAt: Date.now(),
-      },
-    });
-    await cleanupOldRenders();
-
-    await chrome.tabs.update(tabId, {
-      url: chrome.runtime.getURL(`viewer.html#${id}`),
-    });
+    const shareURL = await renderToShareURL(result.html, result.url);
+    await chrome.tabs.update(tabId, { url: shareURL });
   } finally {
     processingTabs.delete(tabId);
   }
@@ -88,28 +58,14 @@ async function handleReaderOpenLink(message, sender) {
   if (!tabId) {
     throw new Error('Cannot determine source tab');
   }
+
   const href = typeof message.href === 'string' ? message.href : '';
   if (!isSafeNavigationURL(href)) {
     throw new Error('Unsupported link target');
   }
 
-  const renderedHtml = await captureViaHiddenTab(href);
-  const id = crypto.randomUUID();
-  const key = `${STORAGE_PREFIX}${id}`;
-  await chrome.storage.local.set({
-    [key]: {
-      html: renderedHtml,
-      createdAt: Date.now(),
-    },
-  });
-  await cleanupOldRenders();
-  await chrome.tabs.update(tabId, {
-    url: chrome.runtime.getURL(`viewer.html#${id}`),
-  });
-}
-
-function isSafeNavigationURL(url) {
-  return url.startsWith('http://') || url.startsWith('https://');
+  const shareURL = await captureViaHiddenTab(href);
+  await chrome.tabs.update(tabId, { url: shareURL });
 }
 
 async function captureViaHiddenTab(targetURL) {
@@ -134,20 +90,7 @@ async function captureViaHiddenTab(targetURL) {
       throw new Error('Failed to capture target page HTML');
     }
 
-    const response = await fetch(
-      `${READER_ENDPOINT}?base_url=${encodeURIComponent(result.url)}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'text/plain; charset=utf-8',
-        },
-        body: result.html,
-      }
-    );
-    if (!response.ok) {
-      throw new Error(`Reader API returned HTTP ${response.status}`);
-    }
-    return await response.text();
+    return await renderToShareURL(result.html, result.url);
   } finally {
     try {
       await chrome.tabs.remove(tempTabID);
@@ -155,6 +98,27 @@ async function captureViaHiddenTab(targetURL) {
       // Ignore cleanup errors.
     }
   }
+}
+
+async function renderToShareURL(html, baseURL) {
+  const response = await fetch(`${READER_ENDPOINT}?base_url=${encodeURIComponent(baseURL)}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8',
+    },
+    body: html,
+  });
+
+  if (!response.ok) {
+    throw new Error(`Reader API returned HTTP ${response.status}`);
+  }
+
+  const payload = await response.json();
+  if (!payload || typeof payload.url !== 'string' || payload.url.length === 0) {
+    throw new Error('Reader API returned invalid response');
+  }
+
+  return payload.url;
 }
 
 function waitForTabComplete(tabId, timeoutMs) {
@@ -179,33 +143,8 @@ function waitForTabComplete(tabId, timeoutMs) {
   });
 }
 
-async function cleanupOldRenders() {
-  const all = await chrome.storage.local.get(null);
-  const now = Date.now();
-
-  const renderEntries = Object.entries(all)
-    .filter(([key, value]) => key.startsWith(STORAGE_PREFIX) && value && typeof value === 'object')
-    .map(([key, value]) => ({
-      key,
-      createdAt: Number(value.createdAt) || 0,
-    }))
-    .sort((a, b) => b.createdAt - a.createdAt);
-
-  const toDelete = [];
-
-  for (const entry of renderEntries) {
-    if (now - entry.createdAt > STORAGE_TTL_MS) {
-      toDelete.push(entry.key);
-    }
-  }
-
-  for (let i = MAX_ENTRIES; i < renderEntries.length; i += 1) {
-    toDelete.push(renderEntries[i].key);
-  }
-
-  if (toDelete.length > 0) {
-    await chrome.storage.local.remove([...new Set(toDelete)]);
-  }
+function isSafeNavigationURL(url) {
+  return url.startsWith('http://') || url.startsWith('https://');
 }
 
 async function openErrorTab(message) {

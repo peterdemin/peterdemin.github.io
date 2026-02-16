@@ -10,6 +10,7 @@ User=reader
 Group=reader
 WorkingDirectory=/opt/reader/
 ExecStart=/opt/reader/reader
+ReadWritePaths=/var/www/reader/p
 
 NoNewPrivileges=yes
 UMask=0077

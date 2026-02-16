@@ -135,10 +135,12 @@
             throw new Error('Reader backend failed with HTTP ' + renderResponse.status);
           }
 
-          const renderedHtml = await renderResponse.text();
-          document.open();
-          document.write(renderedHtml);
-          document.close();
+          const payload = await renderResponse.json();
+          if (!payload || !payload.url) {
+            throw new Error('Reader backend returned invalid response');
+          }
+
+          window.location.href = payload.url;
         } catch (err) {
           const message = (err && err.message) ? err.message : String(err);
           setStatus('Failed: ' + message + '. Some websites block browser fetches via CORS.', true);
