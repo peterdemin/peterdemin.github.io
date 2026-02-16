@@ -90,13 +90,13 @@ async function cleanupOldRenders() {
 async function openErrorTab(message) {
   const escaped = escapeHTML(message);
   const html = `<!doctype html>
-<html><head><meta charset="utf-8"><title>Reader Capture Error</title>
+<html><head><meta charset="utf-8"><title>Reader Error</title>
 <style>
 body { margin: 0; padding: 24px; font: 16px/1.5 -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif; background: #002b36; color: #eee8d5; }
 h1 { margin: 0 0 12px; font-size: 20px; }
 p { margin: 0; color: #93a1a1; white-space: pre-wrap; }
 </style></head>
-<body><h1>Reader Capture failed</h1><p>${escaped}</p></body></html>`;
+<body><h1>Reader failed</h1><p>${escaped}</p></body></html>`;
 
   const url = `data:text/html;charset=utf-8,${encodeURIComponent(html)}`;
   await chrome.tabs.create({ url });

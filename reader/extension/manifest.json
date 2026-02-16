@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Reader Capture",
+  "name": "Reader",
   "version": "0.1.0",
   "description": "Capture current page HTML and open it in reader.demin.dev",
   "permissions": [

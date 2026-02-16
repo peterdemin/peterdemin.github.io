@@ -1,4 +1,4 @@
-# Reader Capture Extension
+# Reader Extension
 
 Toolbar action captures HTML from the active tab, sends it to:
 
