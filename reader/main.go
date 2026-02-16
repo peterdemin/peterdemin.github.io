@@ -7,6 +7,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	stdhtml "html"
 	"io"
 	"log"
 	"net"
@@ -21,10 +22,11 @@ import (
 	"time"
 
 	trafilatura "github.com/markusmobius/go-trafilatura"
-	"golang.org/x/net/html"
+	xhtml "golang.org/x/net/html"
 )
 
 const contentPlaceholder = "{{CONTENT}}"
+const titlePlaceholder = "{{TITLE}}"
 const maxHTMLBytes = 10 << 20 // 10 MiB
 
 //go:embed reader.html
@@ -37,6 +39,9 @@ func main() {
 	pagePrefix, pageSuffix, err := splitTemplate(readerTemplate, contentPlaceholder)
 	if err != nil {
 		log.Fatal(err)
+	}
+	if !strings.Contains(pagePrefix, titlePlaceholder) {
+		log.Fatalf("reader template must contain %s placeholder", titlePlaceholder)
 	}
 
 	var (
@@ -131,11 +136,14 @@ func cleanHandler(w http.ResponseWriter, r *http.Request, pagePrefix string, pag
 		baseURL = "https://example.com/"
 	}
 
-	fragment, err := extractCleanFragment(string(body), baseURL)
+	fragment, title, err := extractCleanFragment(string(body), baseURL)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("extract failed: %v", err), http.StatusBadGateway)
 		return
 	}
+
+	titleSafe := stdhtml.EscapeString(title)
+	pagePrefix = strings.Replace(pagePrefix, titlePlaceholder, titleSafe, 1)
 
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	_, _ = io.WriteString(w, pagePrefix)
@@ -143,7 +151,7 @@ func cleanHandler(w http.ResponseWriter, r *http.Request, pagePrefix string, pag
 	_, _ = io.WriteString(w, pageSuffix)
 }
 
-func extractCleanFragment(source string, baseURL string) (string, error) {
+func extractCleanFragment(source string, baseURL string) (string, string, error) {
 	var originalURL *nurl.URL
 	if parsed, parseErr := nurl.ParseRequestURI(baseURL); parseErr == nil {
 		originalURL = parsed
@@ -157,21 +165,29 @@ func extractCleanFragment(source string, baseURL string) (string, error) {
 		IncludeImages:   true,
 	})
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
 
 	if extractResult == nil || extractResult.ContentNode == nil {
-		return "", fmt.Errorf("trafilatura returned empty content")
+		return "", "", fmt.Errorf("trafilatura returned empty content")
 	}
 
 	absolutizeSrcAttrs(extractResult.ContentNode, originalURL)
 
 	var out bytes.Buffer
-	if err := html.Render(&out, extractResult.ContentNode); err != nil {
-		return "", err
+	if err := xhtml.Render(&out, extractResult.ContentNode); err != nil {
+		return "", "", err
 	}
 
-	return out.String(), nil
+	title := strings.TrimSpace(extractResult.Metadata.Title)
+	if title == "" && originalURL != nil {
+		title = originalURL.Hostname()
+	}
+	if title == "" {
+		title = "Reader"
+	}
+
+	return out.String(), title, nil
 }
 
 func gracefulShutdown(server *http.Server) {
@@ -221,12 +237,12 @@ func splitTemplate(template string, placeholder string) (string, string, error) 
 	return parts[0], parts[1], nil
 }
 
-func absolutizeSrcAttrs(node *html.Node, base *nurl.URL) {
+func absolutizeSrcAttrs(node *xhtml.Node, base *nurl.URL) {
 	if node == nil || base == nil {
 		return
 	}
 
-	if node.Type == html.ElementNode {
+	if node.Type == xhtml.ElementNode {
 		for i := range node.Attr {
 			if node.Attr[i].Key != "src" {
 				continue
