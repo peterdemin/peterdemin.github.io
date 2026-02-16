@@ -164,6 +164,8 @@ func extractCleanFragment(source string, baseURL string) (string, error) {
 		return "", fmt.Errorf("trafilatura returned empty content")
 	}
 
+	absolutizeSrcAttrs(extractResult.ContentNode, originalURL)
+
 	var out bytes.Buffer
 	if err := html.Render(&out, extractResult.ContentNode); err != nil {
 		return "", err
@@ -217,4 +219,42 @@ func splitTemplate(template string, placeholder string) (string, string, error) 
 		return "", "", fmt.Errorf("reader template must contain exactly one %s placeholder", placeholder)
 	}
 	return parts[0], parts[1], nil
+}
+
+func absolutizeSrcAttrs(node *html.Node, base *nurl.URL) {
+	if node == nil || base == nil {
+		return
+	}
+
+	if node.Type == html.ElementNode {
+		for i := range node.Attr {
+			if node.Attr[i].Key != "src" {
+				continue
+			}
+			resolved := resolveURL(node.Attr[i].Val, base)
+			if resolved != "" {
+				node.Attr[i].Val = resolved
+			}
+		}
+	}
+
+	for child := node.FirstChild; child != nil; child = child.NextSibling {
+		absolutizeSrcAttrs(child, base)
+	}
+}
+
+func resolveURL(raw string, base *nurl.URL) string {
+	if raw == "" {
+		return ""
+	}
+	lower := strings.ToLower(raw)
+	if strings.HasPrefix(lower, "data:") || strings.HasPrefix(lower, "blob:") {
+		return raw
+	}
+
+	ref, err := nurl.Parse(raw)
+	if err != nil {
+		return raw
+	}
+	return base.ResolveReference(ref).String()
 }
