@@ -1,5 +1,24 @@
 <?xml version='1.0' encoding='utf-8'?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2026-02-14T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Feb 14, 2026_0</id><title>Journal</title><published>2026-02-14T00:00:00Z</published><updated>2026-02-14T00:00:00Z</updated><link href="https://peter.demin.dev/life/feb-14-2026_0.html"/><content type="html"><![CDATA[<p>Today I learned that <code>.dev</code> top-level domain is <a href="https://endtimes.dev/dev-and-hsts-preload/">HSTS-preloaded</a>.
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2026-02-15T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Feb 15, 2026_0</id><title>Journal</title><published>2026-02-15T00:00:00Z</published><updated>2026-02-15T00:00:00Z</updated><link href="https://peter.demin.dev/life/feb-15-2026_0.html"/><content type="html"><![CDATA[<p>I keep playing with the Reader project.
+I learned that I can't fetch a website using Javascript <code>fetch</code>.
+That I can't fetch pages through iframes.
+All for security reasons.
+I can't fetch HTML on the server side, because with the current AI crawling environment, plenty of platforms block it.</p>
+<p>The bookmarklet allows running arbitrary Javascript, and works in practice, but Safari doesn't let adding bookmarklets to the toolbar.
+There's a workaround with favourites toolbar, but then you gotta have another horizontal row for just this toolbar.</p>
+<p>Basically, the only technically feasible way to reformat arbitrary website the way I want it to look is to make a browser extension.
+Something I wouldn't tackle before Codex.
+I learned that you can make an extension for Chrome and Firefox by adding a standard <code>manifest.json</code>, which is pretty reasonable approach.
+Of course, to make it available to others you need to have a paid extension marketplace account, and go through the hoops of review and what not.
+Then I learned that for Safari extension, the same functionality involves like 20 files, mostly scaffolded by XCode.
+A ton of bullshit, and signing, and I managed to have a Safari extension as well.</p>
+<p>The way extension works:</p>
+<ol>
+<li>Open a website (with one extractable main content element), and you don't like how it looks.</li>
+<li>Click the circle icon in the browser toolbar.</li>
+<li>Enjoy the distraction-free reading experience with large font and the best color scheme ever existed.</li>
+</ol>
+]]></content></entry><entry><id>Feb 14, 2026_0</id><title>Journal</title><published>2026-02-14T00:00:00Z</published><updated>2026-02-14T00:00:00Z</updated><link href="https://peter.demin.dev/life/feb-14-2026_0.html"/><content type="html"><![CDATA[<p>Today I learned that <code>.dev</code> top-level domain is <a href="https://endtimes.dev/dev-and-hsts-preload/">HSTS-preloaded</a>.
 It means that <code>.dev</code> websites can only be accessed through HTTPS (not HTTP).
 HTTPS is cool and everything, but there's a side effect.
 Which comes from using VPN, and internal resources.</p>
@@ -427,5 +446,4 @@ One thing I'd like to add to the list, is:</p>
 ]]></content></entry><entry><id>Apr 30, 2025_0</id><title>Journal</title><published>2025-04-30T00:00:00Z</published><updated>2025-04-30T00:00:00Z</updated><link href="https://peter.demin.dev/life/apr-30-2025_0.html"/><content type="html"><![CDATA[<p>This <a href="https://newsletter.pragmaticengineer.com/p/tech-hiring-inflection-point">article about AI cheating in tech interviews</a>
 made be think how tech sector <em>remote-possible</em> in 2000s, <em>remote-friendly</em> in 2010s, then <em>remote-ubiquitous</em> in 2020s.
 The rise of AI-based products for cheating in the remote interviews driven by the demand moves us into a new era of <em>remote-fraudulent</em> starting around 2025.</p>
-]]></content></entry><entry><id>Apr 27, 2025_1</id><title>Journal</title><published>2025-04-27T00:00:00Z</published><updated>2025-04-27T00:00:00Z</updated><link href="https://peter.demin.dev/life/apr-27-2025_1.html"/><content type="html"><![CDATA[<p>overwheLLMed. Courtesy of https://worksonmymachine.substack.com/p/the-coming-knowledge-work-supply</p>
 ]]></content></entry></feed>
