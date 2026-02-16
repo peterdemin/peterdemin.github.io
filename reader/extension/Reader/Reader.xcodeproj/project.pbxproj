@@ -644,6 +644,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DCA8ARH67N;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Reader Extension";
@@ -659,7 +660,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yourCompany.Reader.Extension;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.demin.reader.Extension;
 				PRODUCT_NAME = "Reader Extension";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -677,6 +678,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DCA8ARH67N;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Reader Extension";
@@ -692,7 +694,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yourCompany.Reader.Extension;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.demin.reader.Extension;
 				PRODUCT_NAME = "Reader Extension";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -713,6 +715,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DCA8ARH67N;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (App)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Reader;
@@ -733,7 +736,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yourCompany.Reader;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.demin.reader;
 				PRODUCT_NAME = Reader;
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -753,6 +756,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DCA8ARH67N;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (App)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Reader;
@@ -773,7 +777,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yourCompany.Reader;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.demin.reader;
 				PRODUCT_NAME = Reader;
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -792,6 +796,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DCA8ARH67N;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
@@ -810,7 +815,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yourCompany.Reader.Extension;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.demin.reader.Extension;
 				PRODUCT_NAME = "Reader Extension";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -827,6 +832,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DCA8ARH67N;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
@@ -845,7 +851,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yourCompany.Reader.Extension;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.demin.reader.Extension;
 				PRODUCT_NAME = "Reader Extension";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
