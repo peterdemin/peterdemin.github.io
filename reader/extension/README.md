@@ -22,7 +22,7 @@ Then opens the rendered HTML in a new tab.
 ## Convert for Safari (macOS)
 
 ```bash
-xcrun safari-web-extension-converter /absolute/path/to/extension --no-open
+xcrun safari-web-extension-converter reader/extension --no-open
 ```
 
 Then open the generated Xcode project and run it.
