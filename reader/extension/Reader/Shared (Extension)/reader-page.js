@@ -1,14 +1,4 @@
 (function attachReaderLinkInterception() {
-  clearLoadingOverlay();
-  window.addEventListener('pageshow', clearLoadingOverlay);
-  window.addEventListener('pagehide', clearLoadingOverlay);
-  window.addEventListener('beforeunload', clearLoadingOverlay);
-  document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden') {
-      clearLoadingOverlay();
-    }
-  });
-
   document.addEventListener('click', (event) => {
     if (event.defaultPrevented) {
       return;
@@ -77,14 +67,4 @@ function showLoadingOverlay() {
   ].join(';'));
   overlay.textContent = 'Loading reader view...';
   document.documentElement.appendChild(overlay);
-
-  // If navigation fails or user goes back via bfcache, never leave a stuck overlay.
-  window.setTimeout(clearLoadingOverlay, 1500);
-}
-
-function clearLoadingOverlay() {
-  const overlay = document.getElementById('reader-loading-overlay');
-  if (overlay) {
-    overlay.remove();
-  }
 }

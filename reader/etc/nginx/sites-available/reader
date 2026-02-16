@@ -37,6 +37,10 @@ server {
       proxy_set_header Host $http_host;
     }
 
+    location ^~ /p/ {
+      try_files $uri =404;
+    }
+
     location / {
       try_files $uri $uri/ /index.html;
     }

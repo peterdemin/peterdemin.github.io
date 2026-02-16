@@ -13,7 +13,7 @@ ExecStart=/opt/reader/reader
 ReadWritePaths=/var/www/reader/p
 
 NoNewPrivileges=yes
-UMask=0077
+UMask=0022
 RemoveIPC=yes
 
 ProtectSystem=strict

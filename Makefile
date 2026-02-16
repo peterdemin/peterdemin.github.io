@@ -151,8 +151,8 @@ reader-linux:
 
 .PHONY: reader
 reader: reader-linux
-	scp -r reader/etc reader/*.sh reader/reader $(APIHOST):reader/
-	# ssh $(APIHOST) 'sudo ./reader/install.sh'
+	scp -r reader/etc reader/*.sh reader/static reader/reader $(APIHOST):reader/
+	ssh $(APIHOST) 'sudo ./reader/install.sh'
 	ssh $(APIHOST) 'sudo ./reader/deploy.sh'
 
 ## COUNTER
