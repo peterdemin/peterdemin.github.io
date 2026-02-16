@@ -13,3 +13,6 @@ bus/bus
 /demin.dev/
 /source/life/
 /reader/reader
+
+/reader/extension/Reader/Reader.xcodeproj/project.xcworkspace/xcuserdata/
+/reader/extension/Reader/Reader.xcodeproj/xcuserdata/
