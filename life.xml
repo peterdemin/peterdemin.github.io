@@ -6,6 +6,7 @@ On the other hand, there's not much insight.</p>
 So far I was inspecting/rewriting the code and guiding the model.
 The doc suggests that building a verifiable test harness first gives better results.
 I'm not quite sure, though, how is it supposed to mix with explorative work, where you learn as you go, and you don't know where you gonna land.</p>
+<p>(<a href="https://reader.demin.dev/p/53/2f/b75bd7d15357def46c7d081168a3b0a951282f7555352fbcc515c931fb35.html">This post in reader</a>)</p>
 ]]></content></entry><entry><id>Feb 15, 2026_0</id><title>Journal</title><published>2026-02-15T00:00:00Z</published><updated>2026-02-15T00:00:00Z</updated><link href="https://peter.demin.dev/life/feb-15-2026_0.html"/><content type="html"><![CDATA[<p>I keep playing with the Reader project.
 I learned that I can't fetch a website using Javascript <code>fetch</code>.
 That I can't fetch pages through iframes.

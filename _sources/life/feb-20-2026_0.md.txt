@@ -12,3 +12,5 @@ One thing I took away as a Staff Engineer, is that I gotta up my game in specs, 
 So far I was inspecting/rewriting the code and guiding the model.
 The doc suggests that building a verifiable test harness first gives better results.
 I'm not quite sure, though, how is it supposed to mix with explorative work, where you learn as you go, and you don't know where you gonna land.
+
+([This post in reader](https://reader.demin.dev/p/53/2f/b75bd7d15357def46c7d081168a3b0a951282f7555352fbcc515c931fb35.html))
