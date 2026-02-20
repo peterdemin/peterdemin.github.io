@@ -142,7 +142,18 @@ func cleanHandler(w http.ResponseWriter, r *http.Request, pagePrefix string, pag
 		baseURL = "https://example.com/"
 	}
 
-	fragment, title, err := extractCleanFragment(string(body), baseURL)
+	paths := pathsForHash(contentHash(body))
+	if fileExists(paths.absHTML) {
+		responseURL := buildResponseURL(r, paths.relURL)
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		_ = json.NewEncoder(w).Encode(map[string]string{
+			"path": paths.relURL,
+			"url":  responseURL,
+		})
+		return
+	}
+
+	fragment, title, err := extractCleanFragment(body, baseURL)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("extract failed: %v", err), http.StatusBadGateway)
 		return
@@ -151,7 +162,7 @@ func cleanHandler(w http.ResponseWriter, r *http.Request, pagePrefix string, pag
 	titleSafe := stdhtml.EscapeString(title)
 	fullPage := strings.Replace(pagePrefix, titlePlaceholder, titleSafe, 1) + fragment + pageSuffix
 
-	relativePath, err := saveRenderedPage(body, fullPage)
+	relativePath, err := saveRenderedPage(paths, fullPage)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("save failed: %v", err), http.StatusInternalServerError)
 		return
@@ -165,13 +176,13 @@ func cleanHandler(w http.ResponseWriter, r *http.Request, pagePrefix string, pag
 	})
 }
 
-func extractCleanFragment(source string, baseURL string) (string, string, error) {
+func extractCleanFragment(source []byte, baseURL string) (string, string, error) {
 	var originalURL *nurl.URL
 	if parsed, parseErr := nurl.ParseRequestURI(baseURL); parseErr == nil {
 		originalURL = parsed
 	}
 
-	extractResult, err := trafilatura.Extract(strings.NewReader(source), trafilatura.Options{
+	extractResult, err := trafilatura.Extract(bytes.NewReader(source), trafilatura.Options{
 		OriginalURL:     originalURL,
 		EnableFallback:  true,
 		ExcludeComments: true,
@@ -289,33 +300,23 @@ func resolveURL(raw string, base *nurl.URL) string {
 	return base.ResolveReference(ref).String()
 }
 
-func saveRenderedPage(originalBody []byte, fullPageHTML string) (string, error) {
-	sum := sha256.Sum256(originalBody)
-	hash := hex.EncodeToString(sum[:])
+type storagePaths struct {
+	relURL  string
+	absHTML string
+	absGzip string
+	absDir  string
+}
 
-	relNoExt := filepath.Join(hash[:2], hash[2:4], hash[4:])
-	relPath := filepath.ToSlash(relNoExt + ".html")
-	absPath := filepath.Join(renderedRootDir, relNoExt+".html")
-	absGzipPath := absPath + ".gz"
-	absDir := filepath.Dir(absPath)
-
-	if err := os.MkdirAll(absDir, 0o755); err != nil {
+func saveRenderedPage(paths storagePaths, fullPageHTML string) (string, error) {
+	if err := os.MkdirAll(paths.absDir, 0o755); err != nil {
 		return "", err
 	}
 
-	if _, err := os.Stat(absPath); err == nil {
-		if _, err := os.Stat(absGzipPath); errors.Is(err, os.ErrNotExist) {
-			data, readErr := os.ReadFile(absPath)
-			if readErr == nil {
-				_ = writeGzipFile(absGzipPath, data)
-			}
-		}
-		return "/p/" + relPath, nil
-	} else if !errors.Is(err, os.ErrNotExist) {
-		return "", err
+	if fileExists(paths.absHTML) {
+		return paths.relURL, nil
 	}
 
-	tmp, err := os.CreateTemp(absDir, ".tmp-reader-*")
+	tmp, err := os.CreateTemp(paths.absDir, ".tmp-reader-*")
 	if err != nil {
 		return "", err
 	}
@@ -335,14 +336,14 @@ func saveRenderedPage(originalBody []byte, fullPageHTML string) (string, error) 
 	if err := tmp.Close(); err != nil {
 		return "", err
 	}
-	if err := os.Rename(tmpName, absPath); err != nil {
+	if err := os.Rename(tmpName, paths.absHTML); err != nil {
 		return "", err
 	}
-	if err := writeGzipFile(absGzipPath, []byte(fullPageHTML)); err != nil {
+	if err := writeGzipFileFromString(paths.absGzip, fullPageHTML); err != nil {
 		return "", err
 	}
 
-	return "/p/" + relPath, nil
+	return paths.relURL, nil
 }
 
 func buildResponseURL(r *http.Request, path string) string {
@@ -357,7 +358,7 @@ func buildResponseURL(r *http.Request, path string) string {
 	return scheme + "://" + r.Host + path
 }
 
-func writeGzipFile(path string, data []byte) error {
+func writeGzipFileFromString(path string, data string) error {
 	tmp, err := os.CreateTemp(filepath.Dir(path), ".tmp-reader-gz-*")
 	if err != nil {
 		return err
@@ -372,7 +373,7 @@ func writeGzipFile(path string, data []byte) error {
 		_ = tmp.Close()
 		return err
 	}
-	if _, err := zw.Write(data); err != nil {
+	if _, err := io.WriteString(zw, data); err != nil {
 		_ = zw.Close()
 		_ = tmp.Close()
 		return err
@@ -389,4 +390,24 @@ func writeGzipFile(path string, data []byte) error {
 		return err
 	}
 	return os.Rename(tmpName, path)
+}
+
+func fileExists(path string) bool {
+	_, err := os.Stat(path)
+	return err == nil
+}
+
+func contentHash(data []byte) string {
+	sum := sha256.Sum256(data)
+	return hex.EncodeToString(sum[:])
+}
+
+func pathsForHash(hash string) storagePaths {
+	relNoExt := filepath.Join(hash[:2], hash[2:4], hash[4:])
+	return storagePaths{
+		relURL:  "/p/" + filepath.ToSlash(relNoExt+".html"),
+		absHTML: filepath.Join(renderedRootDir, relNoExt+".html"),
+		absGzip: filepath.Join(renderedRootDir, relNoExt+".html.gz"),
+		absDir:  filepath.Join(renderedRootDir, hash[:2], hash[2:4]),
+	}
 }
