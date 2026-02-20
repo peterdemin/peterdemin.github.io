@@ -1,0 +1,14 @@
+---
+orphan: true
+---
+
+# Feb 20, 2026
+
+Reading [The future of software engineering](https://www.thoughtworks.com/content/dam/thoughtworks/documents/report/tw_future%20_of_software_development_retreat_%20key_takeaways.pdf) from thoughtworks.
+I like how there's no overhyped bullshit. It's pretty reasonable.
+On the other hand, there's not much insight.
+
+One thing I took away as a Staff Engineer, is that I gotta up my game in specs, tests, and constraints when working with code generation.
+So far I was inspecting/rewriting the code and guiding the model.
+The doc suggests that building a verifiable test harness first gives better results.
+I'm not quite sure, though, how is it supposed to mix with explorative work, where you learn as you go, and you don't know where you gonna land.

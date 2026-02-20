@@ -1,5 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2026-02-15T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Feb 15, 2026_0</id><title>Journal</title><published>2026-02-15T00:00:00Z</published><updated>2026-02-15T00:00:00Z</updated><link href="https://peter.demin.dev/life/feb-15-2026_0.html"/><content type="html"><![CDATA[<p>I keep playing with the Reader project.
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2026-02-20T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Feb 20, 2026_0</id><title>Journal</title><published>2026-02-20T00:00:00Z</published><updated>2026-02-20T00:00:00Z</updated><link href="https://peter.demin.dev/life/feb-20-2026_0.html"/><content type="html"><![CDATA[<p>Reading <a href="https://www.thoughtworks.com/content/dam/thoughtworks/documents/report/tw_future%20_of_software_development_retreat_%20key_takeaways.pdf">The future of software engineering</a> from thoughtworks.
+I like how there's no overhyped bullshit. It's pretty reasonable.
+On the other hand, there's not much insight.</p>
+<p>One thing I took away as a Staff Engineer, is that I gotta up my game in specs, tests, and constraints when working with code generation.
+So far I was inspecting/rewriting the code and guiding the model.
+The doc suggests that building a verifiable test harness first gives better results.
+I'm not quite sure, though, how is it supposed to mix with explorative work, where you learn as you go, and you don't know where you gonna land.</p>
+]]></content></entry><entry><id>Feb 15, 2026_0</id><title>Journal</title><published>2026-02-15T00:00:00Z</published><updated>2026-02-15T00:00:00Z</updated><link href="https://peter.demin.dev/life/feb-15-2026_0.html"/><content type="html"><![CDATA[<p>I keep playing with the Reader project.
 I learned that I can't fetch a website using Javascript <code>fetch</code>.
 That I can't fetch pages through iframes.
 All for security reasons.
@@ -443,7 +450,4 @@ One thing I'd like to add to the list, is:</p>
 <p>Reminds me of my friend who was working as IT support, while volunteering at the fire station and studying for a medical degree. He was very passionate about each of the three areas and expected to have them eventually click together, so he could create something on the intersection. But they never did.</p>
 ]]></content></entry><entry><id>May 03, 2025_0</id><title>Journal</title><published>2025-05-03T00:00:00Z</published><updated>2025-05-03T00:00:00Z</updated><link href="https://peter.demin.dev/life/may-03-2025_0.html"/><content type="html"><![CDATA[<p>I found this weird satisfaction in making my financial goal to spend zero dollars in a day. It allows me to focus on the things that matter instead of mindlessly gazing at the available options of paid entertainment.</p>
 ]]></content></entry><entry><id>May 02, 2025_0</id><title>Journal</title><published>2025-05-02T00:00:00Z</published><updated>2025-05-02T00:00:00Z</updated><link href="https://peter.demin.dev/life/may-02-2025_0.html"/><content type="html"><![CDATA[<p><a href="https://bio.site/peterdemin">Bio Site</a> <strike>bullshit</strike> compost.</p>
-]]></content></entry><entry><id>Apr 30, 2025_0</id><title>Journal</title><published>2025-04-30T00:00:00Z</published><updated>2025-04-30T00:00:00Z</updated><link href="https://peter.demin.dev/life/apr-30-2025_0.html"/><content type="html"><![CDATA[<p>This <a href="https://newsletter.pragmaticengineer.com/p/tech-hiring-inflection-point">article about AI cheating in tech interviews</a>
-made be think how tech sector <em>remote-possible</em> in 2000s, <em>remote-friendly</em> in 2010s, then <em>remote-ubiquitous</em> in 2020s.
-The rise of AI-based products for cheating in the remote interviews driven by the demand moves us into a new era of <em>remote-fraudulent</em> starting around 2025.</p>
 ]]></content></entry></feed>
