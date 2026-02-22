@@ -2,7 +2,18 @@
 
 (Sometimes called an Alcohol Jet Burner)
 
-## What it is
+## Read This First
+
+WARNING: Non-negotiable safety rules
+
+- Never refuel while the burner is lit or still hot.
+- Keep spare fuel containers far from the burner.
+- Keep ventilation open at all times.
+- Keep the unit away from children, pets, and loose fabric.
+- Never leave an open flame unattended while sleeping.
+- Keep a working CO detector nearby in enclosed spaces.
+
+## What It Is
 
 ![Illustration](/12_articles/images/12.84.001.webp)
 
@@ -10,46 +21,63 @@
 
 - Great for small enclosed spaces like tents or a small room
 - Safe to use indoors
-- Bad for outdoor use – the flame blows out easily
+- Bad for outdoor use - the flame blows out easily
 - Can be used for heating or cooking
 
 ### Complete Heating Kit
 
 - An Alcohol Burner
 - A Safety Enclosure
-- A few lighters (preferable the long stemmed kind)
-- A Gallon of fuel
+- A few lighters (preferably the long-stemmed kind)
+- A gallon of fuel
 - Tissue or paper towels to clean the burner coil
 - Optional: a second, smaller, wire mesh cylinder for cooking and a milk
   crate to keep it off the floor
 
+### Quick Start
+
+1. Build the copper coil burner and let the J-B Weld cure for 24 hours.
+2. Build the safety enclosure (base, mesh cage, and Terra Cotta cap).
+3. Fill with approved fuel, light near the fume hole, and confirm stable flame.
+4. Place in a flat, ventilated area and keep spare fuel away from the unit.
+
+### Expected Performance Ranges
+
+- Typical burn time with an 8 oz. jar: about 5-6 hours
+- Typical lighting time from cold copper: about 10-30 seconds
+- Typical flame range with 5/64 inch fume hole: about 2-6 inches
+- Typical water heating performance: simmer in about 10 minutes, boil in about 20 minutes (varies by fuel and setup)
+
 ## How It Works
 
-How do they work? The burner uses nothing but fumes from the alcohol
-fuel. What makes alcohol so dangerous to burn is the fact that it’s so
+How does it work? The burner uses nothing but fumes from the alcohol
+fuel.
+
+What makes alcohol so dangerous to burn is the fact that it’s so
 incredibly flammable. This design mitigates that danger and actually
-uses it to our advantage. Alcohol fumes or vapors from the liquid fuel
-in the jar collect in the copper pipe and when the pipe is heated, the
-fumes expand and are forced out a tiny hole at the bottom of the copper
-loop (the fume or jet hole). These fumes combust as soon as they exit
-and hit the open flame which then heats the top of the copper loop. It’s
-creates a constant cycle of vaporized fumes being forced out of the hole
-and then combusting.
+uses it to our advantage.
+
+Alcohol fumes or vapors from the liquid fuel in the jar collect in the
+copper pipe and when the pipe is heated, the fumes expand and are forced
+out a tiny hole at the bottom of the copper loop (the fume or jet hole).
+These fumes combust as soon as they exit and hit the open flame which
+then heats the top of the copper loop. It’s a constant cycle of vaporized
+fumes being forced out of the hole and then combusting.
 
 The alcohol fumes will burn until the flow is interrupted by tipping the
 burner sideways or blowing it out like a candle. This adds extra safety
 as they will go out automatically if they tip over. The jar is sealed,
-making them spill proof, as well.
+making it spill-proof, as well.
 
 Is alcohol safe to burn indoors? Yes, alcohol burns very clean and is
 safe to use indoors. There are more details on this in the “Fuel”
 section below. The recommended fuels are Isopropyl or Ethanol
 Alcohol (most commonly found as rubbing alcohol or liquid hand
-sanitizer). A 6-8oz. Jar of alcohol like we use in this design can burn
+sanitizer). A 6-8 oz. jar of alcohol like we use in this design can burn
 for 5-6 hours. It’s also safe to cook over, so you can roast
 marshmallows or use a frying pan or pot to cook over the flame.
 
-How do you light it? The copper coil has to be heated until the fumes
+How do you light it? The copper coil must be heated until the fumes
 expand enough to start flowing out the tiny hole at the bottom of the
 copper loop so they can combust.
 
@@ -61,7 +89,7 @@ the copper is.
 The easiest way to light the burner is to first turn it completely
 upside down for a few seconds and fill the copper loop with alcohol
 fuel. When you put it upright the alcohol will drain back into the jar
-but this leaves extra fumes behind and its easier to light.
+but this leaves extra fumes behind and it’s easier to light.
 
 Note: If the flame goes out, but the copper is still hot, it can be
 re-lit almost instantly.
@@ -83,17 +111,17 @@ stays cool to the touch. The Terra Cotta pot on top helps contain and
 control the open flame and also heats up to provide efficient, radiant
 heat.
 
-If you have the burner sitting on steady flat surface like a table
+If you have the burner sitting on a steady flat surface like a table
 inside a building and there is nothing flammable around it and there is
 no danger of it tipping over or pets disturbing it or getting burned and
-you promise not to burn yourself playing with the flames too much… then
+you promise not to burn yourself playing with the flames too much... then
 you don’t need an enclosure. Although, the Terra Cotta pot does help
 radiate the heat to a smaller area around the burner if you are using it
 for heat in a power outage or emergency situation.
 
 ## Heater Safety
 
-The Heater needs to be set-up in a flat stable place near the center of
+The heater needs to be set up in a flat, stable place near the center of
 the tent or structure with nothing immediately above it. The flame is
 mostly contained but can still flicker out of the vent at the top of the
 Terra Cotta pot.
@@ -114,18 +142,34 @@ efficiently by doing a short 15-30 minute burn, then blowing it out and
 letting the Terra Cotta contain and radiate heat for about 15 minutes
 before relighting it.
 
+### Before Lighting Checklist
+
+- Unit is on a flat, stable surface
+- Nothing flammable is immediately above or touching the unit
+- Ventilation openings are clear
+- CO detector is present and working
+- Spare fuel is capped and stored away from the burner
+
+### After Use Checklist
+
+- Fully extinguish flame
+- Wait for cool-down before touching hot zones
+- Wipe soot from coil once cool
+- Check lid seal and wick placement
+- Store fuel away from heat and flame sources
+
 ### Heat Zones
 
 HOT: The metal Jar Lid and Terra Cotta Pot will get very hot. The Terra
 Cotta will heat up like an oven dish to a few hundred degrees. Touch it
-only with proper padding. OR simply do not touch either of these parts
+only with proper padding. Or simply do not touch either of these parts
 for 10-15 minutes after putting out the flame.
 
 The copper loop gets very hot but cools very quickly. It will only stay
 hot for about 2 minutes after which it will be cool enough to touch.
 
 WARM: The Jar itself will get very warm or even hot as it picks up heat
-form the metal lid but cools down in about 5 minutes. However, it only
+from the metal lid but cools down in about 5 minutes. However, it only
 heats up where there isn’t fuel. The liquid alcohol will act as an
 insulator and the glass around it won’t get hot at all. The bottom of
 the jar will stay cool.
@@ -154,7 +198,7 @@ A very common and important question people ask is “Do alcohol burners
 produce dangerous amounts of Carbon Monoxide (CO), especially in small
 enclosed spaces?”
 
-In a word, No, Carbon Monoxide (CO) is not a significant danger from
+In a word: no. Carbon Monoxide (CO) is not a significant danger from
 alcohol burners or stoves, because alcohol does not produce CO as a
 byproduct of burning, unlike most other fuels, but the more you know
 about it the better you can mitigate any possible danger.
@@ -163,7 +207,7 @@ Carbon Monoxide is an odorless and invisible gas that is given off
 during combustion. The only way to detect Carbon Monoxide is with a
 small, battery powered CO detector. Carbon Monoxide can poison you by
 replacing the oxygen in your blood leading to flu-like symptoms that
-starts with headaches, fatigue, vomiting, and blacking out and can
+start with headaches, fatigue, vomiting, and blacking out and can
 culminate in death fairly quickly at very high CO concentrations. When
 you burn things that contain carbon like natural gas, propane, gasoline,
 kerosene, oil, coal, or wood, it can give off CO. With proper
@@ -177,15 +221,15 @@ Even cigarettes produce a bit of CO. The less oxygen the fire has to
 properly combust, the more CO it is likely producing. Proper ventilation
 is the key to safety and why some things should only be burned outside.
 
-It’s important to remember that ANY flame is capable of creating Carbon
+It’s important to remember that any flame is capable of creating Carbon
 Monoxide if it doesn’t have sufficient oxygen for combustion. However,
 alcohols are much simpler chemically and not derived from petroleum.
 Alcohol fuels combust completely and burn more cleanly than other fuels.
 A copper coil “jet” heater will simply stop burning the alcohol fumes
 without sufficient oxygen because there is no other fuel or wick to
 maintain the combustion. Also, the only byproducts of pure ethanol when
-burned are Carbon Dioxide (CO2) –note the 2 there, CO2 is not CO—and
-Water.
+burned are Carbon Dioxide (CO2) - note the 2 there, CO2 is not CO - and
+water.
 
 While tents breathe well, there are rare cases where it could be
 dangerous. For example, an ice storm coating the outside of a tent (or
@@ -216,14 +260,14 @@ WARNING: Do not drink rubbing alcohol! Isopropyl alcohol and Denatured
 ethanol alcohol are poisonous and can kill you even in fairly small
 amounts.
 
-Isopropyl Alcohol: Most rubbing alcohol isopropanol-based. You’ll see it
+Isopropyl Alcohol: Most rubbing alcohol is isopropanol-based. You’ll see it
 listed as “Isopropyl Rubbing Alcohol” and these are readily available at
 most any grocery store or pharmacy and even most gas stations stocked
 near medical or cleaning supplies. Isopropyl alcohol is poisonous when
 consumed and often has additives to make it bitter so people won’t drink
 it and kill themselves.
 
-The hand sanitizer is often given out free, by the gallon, to
+Hand sanitizer is often given out free, by the gallon, to
 humanitarian organizations.
 
 Isopropyl alcohol burns with a warm yellow flame and a tiny bit of black
@@ -249,7 +293,7 @@ alcohol).
 Denatured Alcohol burns very hot with a blue flame and is sometimes
 almost invisible.
 
-Because it burns VERY HOT, that makes it great for cooking.
+Because it burns very hot, that makes it great for cooking.
 
 It can be burned in these copper coil burners and works very well with
 some caveats. The amount of heat it puts out makes it a lot more
@@ -259,7 +303,7 @@ more susceptible to flare outs. It can get the Terra Cotta hot enough to
 crack. The copper coil burner has to tip over almost 90 degrees before
 denatured fumes will stop flowing and go out.
 
-If you plan to burn Denatured Alcohol Fuel, use the smaller 1/16 (.4mm)
+If you plan to burn Denatured Alcohol Fuel, use the smaller 1/16 (0.4 mm)
 hole when building the copper coil and increase the height of the cap
 above the flame a few more inches when cutting the wire frame for the
 enclosure. Also, plan on burning it for much shorter amounts of time and
@@ -271,7 +315,7 @@ burner itself.
 These are the local average fuel costs from stores in late 2021. The
 best source of fuel is still the high alcohol content liquid hand
 sanitizer given out for free here. If you need to buy fuel, that’s a
-pretty good estimate for what to budget. An 8oz jar will burn for 5-6
+pretty good estimate for what to budget. An 8 oz. jar will burn for 5-6
 hours.
 
 Generic Grain or Wheat Alcohol: Ethanol alcohol comes in many forms and
@@ -296,16 +340,15 @@ aren’t denatured. It’s too pure (usually 99% ABV) and can cause alcohol
 poisoning in even tiny amounts. In normal consumer use, it will be
 heavily diluted.
 
-Fuels to Avoid: All hand sanitizers with additives for scent or things
-like Aloe Vera for skin health. Only burn the dye-free and scent-free
-liquid hand sanitizers.
+### Fuels to Avoid
 
-Most Camping Stove fuels that says they are Denatured Alcohol are often
-a mixture of several things, one of which might be Methanol. Methanol
-fumes can be toxic and unhealthy and the higher the methanol content of
-the fuel the worse it will be. These are safe only for burning or
-cooking outside, not inside a tent. Check any Denatured fuel you are
-using for Methanol.
+- Hand sanitizers with additives (scent, dyes, aloe, skin-care additives)
+- Unknown or mixed denatured alcohol blends without ingredient disclosure
+- Methanol-heavy stove fuels for indoor use
+
+Only burn dye-free, scent-free liquid hand sanitizers in this design.
+Many camping stove fuels sold as “denatured alcohol” include methanol or
+other additives. Check the label before use.
 
 ### Refueling and Burn Maintenance
 
@@ -342,7 +385,7 @@ be around \$7 on average, which is actually an amazing price point.
 
 Ask Around Your Community: You can save a lot of money if you already
 have some of the things you need. I don’t think anyone will be buying
-cotton tshirt rags if you already have an old white t-shirt to cut up.
+cotton T-shirt rags if you already have an old white T-shirt to cut up.
 Canning jars and dinner plates appear on garage sales all the time,
 people have these things in storage. “Buy nothing groups” often have old
 dinnerware.
@@ -359,7 +402,7 @@ humidifiers and refrigeration as well as small gas lines and water
 lines. Talk to a local contractor or appliance store and see if they can
 save short cut-off scraps for you. You only need 8 inches of copper
 tubing to make a copper coil burner. Building Contractors can also buy
-in bulk at slightly cheaper prices on things like Silicone caulking.
+in bulk at slightly cheaper prices on things like silicone caulking.
 
 Don’t Use Any Random Jar: As we documented in the Heat zones part above,
 there is a heat differential in the glass from heating and cooling
@@ -375,8 +418,8 @@ this, don’t use a random pickle jar.
 Again, these are bulk prices. Your best price point is going to be
 around building a dozen heaters at a time. If you only want to make a
 few of these for fun, you’re going to have some extra overhead costs due
-to leftover materials. The copper tubing comes in a 10ft roll and you’ll
-have to a lot of extra J-B Weld (although that’s honestly pretty great
+to leftover materials. The copper tubing comes in a 10 ft roll and you’ll
+have a lot of extra J-B Weld (although that’s honestly pretty great
 for repairs around the house). If you only make, like, 2 burners, I hope
 you plan to do some canning with the other 10 jars in the pack. Maybe
 build a small animal cage with the leftover hardware mesh and get a
@@ -403,18 +446,18 @@ what you need to get started:
 
 These are late 2021 prices and regional to Heater Bloc.
 
-Some Alternative Prices: Thing like different size canning jar or a
-larger role of copper tubing or wire mesh. You can also get the cheaper
+Some Alternative Prices: Things like different size canning jars or a
+larger roll of copper tubing or wire mesh. You can also get cheaper
 caulking, but it takes a lot longer to dry. The shorter, wide-mouth
 canning jars let you use less wire for the enclosure and make it more
 stable, but cost a bit more.
 
-THESE LISTS ARE JUST A GUIDLINE - USE WHATEVER YOU HAVE AVAILABLE AND
-WHATEVER YOU CAN FIND LOCALLY
+These lists are just a guideline. Use whatever you have available and
+whatever you can find locally.
 
 (More advice on variations and adapting to what you have appears later in this guide.)
 
-This Doesn’t Include Tools.
+This doesn’t include tools.
 
 None of the tools are specialized, but you’re going to need to own or
 borrow all of them. Tools needed are listed in the build sections below.
@@ -440,44 +483,44 @@ it. Put the jar burner in place, add the wire cage, and put the Terra
 Cotta cap on top. Test light it to make sure it works.
 
 Give it away to someone who needs to keep warm and then make another
-one. You’re Done!
+one. You’re done.
 
 ## How to Build the Copper Coil Jar Burner
 
 ### Tools Needed
 
-- Safety Glasses
-- Handheld Drill
+- Safety glasses
+- Handheld drill
 - 5/64 drill bit
 - 1/4 drill bit
-- 3/8 Counter Sink drill bit
-- Hack Saw with a good metal blade OR a small Metal Tube Cutter
+- 3/8 countersink drill bit
+- Hacksaw with a good metal blade or a small metal tube cutter
 
 ### Parts Needed
 
-- Masking Tape
-- Table Salt
-- Squeeze Bottle Cap or Tiny Funnel
-- Small cup or bowl of some kind to catch loose salt.
-- 1-Inch diameter dowel or pipe or socket
-- Vice (maybe)
+- Masking tape
+- Table salt
+- Squeeze bottle cap or tiny funnel
+- Small cup or bowl of some kind to catch loose salt
+- 1-inch diameter dowel or pipe or socket
+- Vise (maybe)
 - Sharpie
-- Sand Paper (180 grit or similar)
+- Sandpaper (180 grit or similar)
 - Scissors
-- Scrap Wood to drill into
+- Scrap wood to drill into
 - Disposable gloves (maybe)
 - Paper plate or cardboard scrap
 - Small clean applicator stick, like a disposable chopstick
-- Optional: Center Punch
-- Optional: Small 12” Pry Bar
-- 1/4 Inch Copper Tubbing (found in 10ft and 20ft lengths)
-- Glass Canning/Mason Jar with Lid (6oz or 8oz)
+- Optional: center punch
+- Optional: small 12-inch pry bar
+- 1/4 inch copper tubing (found in 10 ft and 20 ft lengths)
+- Glass canning/mason jar with lid (6 oz. or 8 oz.)
 - J-B Weld two-part epoxy
-- Cotton T-shirt Wick Material
+- Cotton T-shirt wick material
 
 Remember if you work in teams, lots of steps can be sub-divided up. One
 person can bend copper while others sand and clean up burrs. One person
-can be cutting wicks while other’s feed them into the burners. One
+can be cutting wicks while others feed them into the burners. One
 person can be cutting wire while others hook the cages together.
 
 ![Illustration](/12_articles/images/12.84.016.webp)
@@ -491,7 +534,7 @@ your eyes when necessary.
 
 1.  Cut a piece of copper tubing to about 10 inches in length
 
-    Notes: You could go longer than 10 inches, like 12 inches, until you get
+    Note: You could go longer than 10 inches, like 12 inches, until you get
     really good at bending it. This doesn’t have to be exact, but don’t
     crush the ends closed. The best tool to cut the copper with is a Hack
     Saw or a Metal Band Saw (if you have a shop). Copper Tube Cutters (the
@@ -509,9 +552,9 @@ your eyes when necessary.
 
 3.  Fill the tube with table salt using a tiny funnel or a paper cone or
     your hand that you try to cup round the tiny little hole and pour
-    salt into it, you’ll make a mess, but it kind of works… the best
+    salt into it, you’ll make a mess, but it kind of works... the best
     tool we have found is the lid to a squeeze bottle. Like a glue
-    bottle or ketchup bottle with a tiny nozzle… or something similar.
+    bottle or ketchup bottle with a tiny nozzle... or something similar.
     You can buy these bottles cheap and sometimes just the caps.
 
     Note: It takes surprisingly less salt to fill the tube than you think it
@@ -521,7 +564,7 @@ your eyes when necessary.
 
 4.  Tape that end closed, too
 
-    Notes: If there isn’t anything inside the tube it won’t bend, it will
+    Note: If there isn’t anything inside the tube it won’t bend, it will
     just kink and become useless. Fine sand and rock salt also work. Table
     salt seems to work the best. We tried freezing water inside it once,
     that didn’t work, either. Use salt.
@@ -535,12 +578,12 @@ your eyes when necessary.
     dowel or metal rod.
 6.  Bend the copper tube into a complete loop around the 1-inch dowel
     using your hands. Use steady, but slow pressure.
-    There’s a few different types of ¼ inch copper tubing.
+    There are a few different types of 1/4 inch copper tubing.
     Some are thinner or weaker than others.
     Those need pressure near the dowel to bend well,
     others, need pressure out at the end of the tubing.
 
-    Notes: It can be a little bigger than an inch but you won’t really get a
+    Note: It can be a little bigger than an inch but you won’t really get a
     nice bend trying to go much smaller than that. Be prepared to mess up a
     few times before you start getting the bend just right. Also, you want a
     gap between the coils, if it’s too big you can flatten it a bit, but you
@@ -567,8 +610,8 @@ your eyes when necessary.
 ### Cut and Clean Up the Copper Coil Ends
 
 If it didn’t bend evenly, you can cut the copper tubing so both ends are
-even. Shortening them is Not required, it’s just for aesthetics, but it
-makes feeding it into the jar lid and feeding the wicks in A LOT quicker
+even. Shortening them is not required, it’s just for aesthetics, but it
+makes feeding it into the jar lid and feeding the wicks in a lot quicker
 and easier, later on. Do that here after dumping the salt.
 
 You need to keep about 3/4 to an inch of pipe below the loop to have
@@ -587,16 +630,16 @@ of the copper and don’t cut yourself on the sharp edges.
     shaking usually works.
 2.  Clean up the burrs and rough edges. Use sand paper (180 grit works
     great) and clean up any burrs and rough edges on the outside and the
-    end ends of the copper tubing. Having your sandpaper on a sanding
+    ends of the copper tubing. Having your sandpaper on a sanding
     block helps sand the ends (or if you have a shop, use a belt
     sander).
 
-3.  Use a 3/8 Counter Sink drill bit and drill lightly into the end of
+3.  Use a 3/8 countersink drill bit and drill lightly into the end of
     the tubing to clean up the inside and remove any burrs from the
     cutting process. Making the inside smooth will also help a lot later
     when feeding in the wicking material.
 
-    Notes: A single flute counter sink drill bit is the best, if you can
+    Note: A single flute counter sink drill bit is the best, if you can
     find one. Alternatively, you could just jam some small needle nose
     pliers in there and knock out any obstructions. You can find hand tools
     specifically for de-burring metal and there are handheld reamers &
@@ -616,7 +659,7 @@ of the copper and don’t cut yourself on the sharp edges.
 1.  Put the ends of the copper tube against the jar lid and mark where
     you need to drill. Mark the lid using a sharpie or something similar.
 
-2.  Using a 1/4 inch drill bit and a hand drill, punch two holes thought
+2.  Using a 1/4 inch drill bit and a hand drill, punch two holes through
     the jar lid. Put it down on a flat surface like a piece of scrap
     wood you don’t care about punching holes in and drill straight down.
     Don’t try to just hold the lid in your hand. Also, don’t try to
@@ -627,12 +670,12 @@ of the copper and don’t cut yourself on the sharp edges.
     inch counter sink drill bit. This part you can do while
     the lid is screwed onto the jars if you want to.
 4.  Rough up the outside of the top of the metal jar lid around the hole
-    with sandpaper. This will help a lot with longterm adhesion when you
+    with sandpaper. This will help a lot with long-term adhesion when you
     apply the J-B Weld later. After sanding, clean everything you just
     sanded with a rag or paper towel and rubbing alcohol or acetone.
 5.  Feed the ends of the copper tubes through the jar lid holes.
-    You’d think this would be the easiest part, but the tubing likes to not
-    line up just so work it a little and bend the copper a tiny bit if
+    You’d think this would be the easiest part, but the tubing likes not
+    to line up, so work it a little and bend the copper a tiny bit if
     needed.
 
 You want the copper loop about 1/2 inch above the jar lid with at least
@@ -649,12 +692,12 @@ more inside the lid, but you don’t need more.
 
 ### Best Option: J-B Weld Cold Weld Twin Tube Epoxy
 
-“J-B Weld” is a heat safe (up to 550 degrees F) two-part epoxy that is
+“J-B Weld” is a heat-safe (up to 550 degrees F) two-part epoxy that is
 available at about any hardware store. We recommend the “J-B Weld Cold
-Weld Twin Tube Epoxy”. The 2oz package can make 20-25 heaters and the
-10oz “Pro” size is good for over 100.
+Weld Twin Tube Epoxy”. The 2 oz. package can make 20-25 heaters and the
+10 oz. “Pro” size is good for over 100.
 
-The roughing up with sandpaper you did in the last two sections section
+The roughing up with sandpaper you did in the last two sections
 will help with adhesion. If you waited a long time between these steps,
 make sure the areas where you are applying J-B Weld on the jar lid and
 copper coil are clean.
@@ -691,14 +734,14 @@ below.
 There’s another type of J-B Weld that also works called “J-B Weld Steel
 Stick” that is the same two-part epoxy, but in a putty form. It’s only
 rated to 300 degrees F, though. It takes a bit more and we’ve found one
-2oz “steel stick putty” can make about 12 to 15 heater lids. So it’s
+2 oz. “steel stick putty” can make about 12 to 15 heater lids. So it’s
 about half as affordable as the original J-B Weld. However, it doesn’t
 need to be mixed on a surface or applied with a stick. This makes it
 better for “field repairs” and quick applications.
 
 1.  Cut or rip off a small piece (about a 1/4 inch worth) of the epoxy
     putty and work it with your fingers until it mixes and activates.
-    Try to get equal amount of both the grey and black parts, which means cutting it off is
+    Try to get equal amounts of both the grey and black parts, which means cutting it off is
     probably safer. You really want to cover your fingers with something
     like disposable nitrile gloves, or in a pinch, a sandwich bag, but if
     you have a place to wash your hands, you don’t absolutely have to. The
@@ -716,7 +759,7 @@ better for “field repairs” and quick applications.
 
 ### Drill the Fume Hole
 
-After the J-B weld is cured, you want to drill a small hole in the top
+After the J-B Weld is cured, you want to drill a small hole in the top
 middle of the bottom copper loop.
 
 This hole is very important and acts as the Flow Regulator for the
@@ -724,14 +767,14 @@ alcohol fumes. How big do you want that flame to get?
 
 ### Choosing a Fume-Hole Bit Size
 
-1/16 (1.5 mm ) – tends to be too small for isopropyl alcohol, the flame
+1/16 (1.5 mm) - tends to be too small for isopropyl alcohol; the flame
 will be about the size of a burning candle, but this size works great if
 you are planning to use Denatured Alcohol.
 
-5/64 (2 mm) – Recommended size. It burns well, but the flame stays in
+5/64 (2 mm) - recommended size. It burns well, but the flame stays in
 the 2-6 inch range, typically.
 
-3/32 (2.5 mm) - The flame will vary from 2-8 inches above the hole and
+3/32 (2.5 mm) - the flame will vary from 2-8 inches above the hole and
 tends to work well, it’s just harder to contain.
 
 (You can always go bigger, you can’t go smaller)
@@ -742,9 +785,9 @@ coils. If your drill bit is too short to drill in from the top of the
 loop, you can drill carefully from the side, but get the hole in the
 middle-center of the copper tubing. This is a delicate, focused step.
 Only put a hole on the top side of the tube, don’t accidentally punch
-all the way though both sides.
+all the way through both sides.
 
-Note: if you happen to have a center punch, you can make a tiny dent in
+Note: If you happen to have a center punch, you can make a tiny dent in
 the middle of the copper tubing to help keep your bit from slipping
 while you drill. It’s not necessary, just helpful.
 
@@ -762,18 +805,18 @@ t-shirt or handkerchief or pack of t-shirt rags and cut it into long
 skinny strips. We use white so we don’t have to worry about fabric dyes
 leaching into the fuel.
 
-You need Two identical Wicks, one for each end of the copper tube.
+You need two identical wicks, one for each end of the copper tube.
 
-The Wicks needs to be about 1/2 to 1 inch wide (depending on the
-thickness of the cotton material) and long enough to reach bottom of the
+The wicks need to be about 1/2 to 1 inch wide (depending on the
+thickness of the cotton material) and long enough to reach the bottom of the
 jar from about the center of the copper loop.
 
 To feed it into the copper pipe, use a roll and push motion and feed it
 into the tube until it’s about an inch or so above the jar lid inside
 the pipe (just estimate).
 
-Now, Fill with your choice of fuel and screw the jar lid on tight. The
-Copper Coil Burner is Done!
+Now, fill with your choice of fuel and screw the jar lid on tight. The
+Copper Coil Burner is done!
 
 ![Illustration](/12_articles/images/12.84.028.webp)
 
@@ -799,7 +842,7 @@ here won’t be the same where you are.
     radiate and contain heat to a smaller area for better heating efficiency.
 
 The best and most affordable solution we’ve found so far is to use a
-thrifted heavy stoneware or porcelain dinner plate or wide paste bowl
+thrifted heavy stoneware or porcelain dinner plate or wide pasta bowl
 for the base, ½ inch wire “hardware mesh” (readily found at hardware
 stores for building small animal cages) for the breathable cage around
 the flame, and a Terra Cotta Pot as a cap for the top. Terra Cotta clay
@@ -809,7 +852,7 @@ resistant cap. Silicone caulking is used to create thick rubbery rings
 on the plate to keep burner and wire enclosure from sliding around.
 
 The most common jar we’ve found for the burner piece is about 4 inches
-tall and holds 8 oz. of fuel. There are some short 2.5 inch “wide mouth”
+tall and holds 8 oz. of fuel. There are some short 2.5-inch “wide-mouth”
 mason jars that work well, too if you can find them. The shorter the
 jar, the shorter your overall enclosure can be and because Terra Cotta
 makes it top heavy, you don’t want to make things too tall and skinny,
@@ -821,21 +864,21 @@ a 6-inch Wide Terra Cotta Pot:
 
 ### Tools Needed
 
-- Long Nose or Needle Nose Pliers
-- Small Diagonal Cutter or a Small Flush Cutter
-- Caulking Gun
+- Long-nose or needle-nose pliers
+- Small diagonal cutter or a small flush cutter
+- Caulking gun
 - Knife to cut caulking tip open
-- Wire or a Nail about 3 inches long to puncture the foil seal inside the caulking tube
+- Wire or a nail about 3 inches long to puncture the foil seal inside the caulking tube
 
 (Small cheap pliers and cutters work fine here.)
 
 ### Parts Needed
 
 - Stoneware dinner plate or wide pasta bowl with at least 6 inches of flat space in the middle
-- The Copper Coil Burner (or at least the jar part of it)
-- Any size roll of 1/2 Inch galvanized hardware mesh (you need an 8” by 18” piece)
-- 6” wide Terra Cotta Pot
-- Silicone Caulking
+- The copper coil burner (or at least the jar part of it)
+- Any size roll of 1/2 inch galvanized hardware mesh (you need an 8 by 18 inch piece)
+- 6-inch wide Terra Cotta pot
+- Silicone caulking
 - Trash can or box
 
 ### Create the Wire Cylinder
@@ -844,8 +887,8 @@ a 6-inch Wide Terra Cotta Pot:
 
 There’s a little bit of circle math here, but I’ll get into that later.
 You are going to be creating a cylinder that hooks onto itself and fits
-inside of the 6” Terra Cotta pot. The inside of the pot actually
-measures about 5 ¼ inches across so your cylinder can be about 5 inches
+inside of the 6-inch Terra Cotta pot. The inside of the pot actually
+measures about 5 1/4 inches across so your cylinder can be about 5 inches
 in diameter.
 
 A 16 inch long piece of wire will bend into a circle of approx. 5
@@ -861,10 +904,10 @@ or overheating the Terra Cotta.
 The cool thing about 1/2 inch hardware mesh is you don’t need to measure
 it, you can just count the squares because each one measures 1/2 an
 inch. If you are making a whole bunch of these, cut yourself a couple
-little long skinny wire strips as guides that are length you need to cut
+little long skinny wire strips as guides that are the length you need to cut
 each side of the enclosure for quick measuring.
 
-1.  Open up your roll of 1/2 inch hardware mesh. It’ll want to keep it’s
+1.  Open up your roll of 1/2 inch hardware mesh. It’ll want to keep its
     bend from being rolled up, use that to your advantage when making cylinders,
     don’t try to bend it the other way, it’ll make a mess.
 
@@ -873,11 +916,11 @@ each side of the enclosure for quick measuring.
     cylinder need to be smooth. So does one side. After you count out 17
     inches wide go an extra half an inch and cut the wire so you have a
     bunch of wire pieces poking out on that end. You’ll bend these over to
-    hold everything together. Sometimes a diagram work betters.
+    hold everything together. Sometimes a diagram works better.
 
 ### Wire Layout Reference
 
-Notes: The easiest way to make a bunch of these at once is to just
+Note: The easiest way to make a bunch of these at once is to just
 measure out your long side 17 inches on the curve (plus the extra
 bending wires) and then cut straight down all the way. You’ll have a
 piece 17 wide and 3 feet tall. Now cut that into 8 inch tall sections.
@@ -887,8 +930,8 @@ You’ll sometimes end up with a row of poking out wires you won’t need.
 Like when you cut the 8 inch sections. Have a trash can or cardboard box
 handy and clip these directly into it to make less of a mess.
 
-4.  Now bend over each of the short wires to make hooks.
-5.  Bend the entire piece into a cylinder and hook it together with a 1 inch (two
+3.  Now bend over each of the short wires to make hooks.
+4.  Bend the entire piece into a cylinder and hook it together with a 1 inch (two
     little squares worth) of overlap. Use
     the needle nose pliers to bend the wires tighter once you have it hooked
     in place to make a nice tight cylinder. It can help to bend the two End
@@ -900,53 +943,48 @@ handy and clip these directly into it to make less of a mess.
 
 ![Illustration](/12_articles/images/12.84.033.webp)
 
-Make the Plate Non-Slip Using Silicone: Use the “Silicone caulking”
+Make the Plate Non-Slip Using Silicone: Use “silicone caulking”
 (which is a fireproof rubbery substance used for sealing around windows
 and other things to keep water out) to create a thick ring of silicone
 to hold the jar burner in place on the plate. Then a second ring to hold
 the wire mesh cage.
 
-1.  Cut the tip off your Silicone caulking tube so you have the widest
+1.  Cut the tip off your silicone caulking tube so you have the widest
     option possible.
 2.  Puncture the foil with a wire or nail and put the tube in your
     caulking gun.
 3.  Hold the Jar in the middle of the plate and put a big thick blob of
-    Silicon all the way around it. Spin the plate to make this easier.
-    Then go around the jar again to make the Silicone thicker and taller.
+    silicone all the way around it. Spin the plate to make this easier.
+    Then go around the jar again to make the silicone thicker and taller.
 4.  Now add more to keep the wire mesh cylinder from slipping around.
-    The best design for this is to make a bunch of lines coming off the
-    circle in the middle, like you are a toddler drawing a sun with
-    sunbeams coming out of it using a giant crayon… OR maybe it’s a
-    tentacle monster, I don’t know. The point is you’re not a toddler
-    and you’re using Silicone just make the same shape. Try to get the
-    tentacles even in thickness. You don’t need to make it super thick
-    like you did for the jar. (The tentacles in this picture could be
-    thinner.)
+    The best design is to make several radial silicone lines coming off
+    the center ring (like sunbeams). Try to keep line thickness fairly
+    even. You don’t need to make these lines as thick as the jar ring.
 
-    Notes: When you put the wire cage and pot on these silicone lines, the
+    Note: When you put the wire cage and pot on these silicone lines, the
     wire will sink in a little bit and keep things from sliding around. It
     works pretty well. Making a circle around the wire enclosure, like you
     did the glass jar, just doesn’t seem to work well because it has to be
     too precise. The cage can still fall over, but it won’t slide around.
 
     (Use a wide nail or screw or plastic wrap and tape to close off the tip
-    of your Silicone tube if you didn’t use it all).
+    of your silicone tube if you didn’t use it all).
 
 5.  Leave that somewhere NOT inside your house (this stuff smells as it
     dries) for at least the first day. It’ll take about 3 days for it to
     set up completely because you’re putting it down so thick around the
     jar. Yes, really, it takes that long. If it’s too cold outside it
     won’t set at all. Putting these in a garage or utility room or shop
-    is great option, if you have it. Sometimes it’s good just to
+    is a great option, if you have it. Sometimes it’s good just to
     pre-make these plates if you have the Jars even if you haven’t done
     the copper coil part for them, yet.
 
-    Notes: The 100% Silicone dries faster so that might make it more
+    Note: 100% silicone dries faster, so that might make it more
     valuable to you to get these made quicker. The Acrylic Latex caulking
-    with Silicone can take over a week to dry. Get the stuff that starts
+    with silicone can take over a week to dry. Get the stuff that starts
     white and dries clear so you can tell when it’s dry.
 
-6.  After it’s dry, you’ll need to carefully Cut away the silicone from
+6.  After it’s dry, you’ll need to carefully cut away the silicone from
     against the glass using a small knife and wiggle the jar out of the
     silicone ring. Take a small thin blade (utility knife, small
     Leatherman, pocket knife, etc.) and just push it straight down
@@ -962,22 +1000,21 @@ the wire mesh cage.
 
 Put the copper coil burner in the middle of the plate, put wire mesh
 cage in place around the burner (push the cage down into the silicone a
-bit), and then turn the Terra cotta Pot upside down and put it on top.
+bit), and then turn the Terra Cotta pot upside down and put it on top.
 The enclosure is complete.
 
-(You can decorate the plates with STICKERS! The plates don’t get hot at
-all. If you want to print out some little instruction labels, that’s
-cool, but you can also just stick logos and things on them.)
+Note: You can decorate the plates with stickers. The plates don’t get
+hot. If you want, print small instruction labels for quick field use.
 
 ### Adapt the Enclosure to Available Materials
 
 The dinner plate we use as a base is just to provide a flat surface
 because the canning jars are so skinny and prone to falling over. They
-are fire safe fairly easy to find and affordable both new and used. The
+are fire-safe, fairly easy to find, and affordable both new and used. The
 base part doesn’t get hot at all. You can use any portable flat surface.
 Wood should work fine and you could even drill a large hole for the
 burner instead of making a silicone ring. Anything non-flammable like
-glass and metal platers, thick plastic cutting boards, concrete pavers,
+glass and metal platters, thick plastic cutting boards, concrete pavers,
 flat terra cotta platters, and flat pottery pieces would all work fine
 as a steady base for the heater. It should be several inches bigger than
 your wire cage and pot in diameter, but you know, be respectful that
@@ -994,14 +1031,14 @@ and the wire is usually thinner, so you might have to use tie wire to
 hook it together. Chicken wire wouldn’t work as it doesn’t hold weight.
 We haven’t tried other fencing materials.
 
-You CAN use Terra Cotta platters (the flat plate-shaped pieces that
+You can use Terra Cotta platters (the flat plate-shaped pieces that
 typically go under pots and planters), as a cap on your enclosure
 instead of a pot. If you do that you need to raise the wire mesh
 cylinder height by several inches. The platters don’t have a vent hole
 and the flame will lick out around the edges when it has no place to go.
 The newer ones are also fairly thin and more prone to cracking if they
-get too hot. The old, large, thick platers work very well. As a bonus,
-the platers are flat and can be use as warming surfaces for things like
+get too hot. The old, large, thick platters work very well. As a bonus,
+the platters are flat and can be used as warming surfaces for things like
 hot drinks.
 
 If you want to use it for more efficient cooking, you will want to cut a
@@ -1020,27 +1057,37 @@ Circle Math is below.
 
 ### Bonus Circle Math
 
-If you are using different sized Terra Cotta pots and platers for your
+If you are using different sized Terra Cotta pots and platters for your
 cap, you need to figure out how long to cut your wire for the cage
 enclosure to fit them. You can start big and just use trial and error to
-cut is smaller until it fits inside the pot, but it’s actually pretty
+cut it smaller until it fits inside the pot, but it’s actually pretty
 easy to figure out with math.
 
 Measure across the Inside of the Terra Cotta Pot opening to get the
 diameter of the circle you need.
 
-The Diameter \[times\] Pi \[equals\] the Circumference – or rather the
-length of the outside edge of the circle -- the length you need to cut
+The Diameter \[times\] Pi \[equals\] the Circumference - or rather the
+length of the outside edge of the circle - the length you need to cut
 your wire mesh to make a circle that size.
 
 Let’s say the pot is 6.5 inches across on the inside. Pi is 3.14.
 
-So… using a calculator to multiply… 6.5 x 3.14 = 20.41
+So... using a calculator to multiply... 6.5 x 3.14 = 20.41
 
 Round up or down as needed. In this case it’s really close to 20.5
 inches. Remember to also add an extra inch for overlap. Cut your wire
 21.5 inches long and when you bend it into a circle you will have one
 that is very close to 6.5 inches in diameter.
+
+## Troubleshooting
+
+| Symptom | Likely cause | Quick fix |
+| --- | --- | --- |
+| Flame won’t start | Copper loop not hot enough | Hold flame at fume hole longer (10-30 seconds), or prime loop by flipping burner briefly |
+| Flame is very small | Fuel is water-heavy or soot is insulating coil | Replace old fuel with fresh higher-percentage alcohol and clean soot from coil |
+| Flame is too large | Fume hole is too big for enclosure setup | Increase cap height, improve ventilation gap, or rebuild with smaller fume hole on next unit |
+| Burner goes out early | Fuel mix too diluted or wick not feeding well | Replace fuel, reseat/replace wick, verify wick reaches fuel in jar |
+| Excess soot buildup | Lower alcohol percentage or contaminated fuel | Use cleaner/higher alcohol fuel and wipe coil periodically |
 
 ## Maintenance
 
@@ -1059,31 +1106,31 @@ sustain the flame. When refilling, it's recommended to dump out the old
 fuel and add fresh alcohol if the flame is weak.
 
 Wick: If the wicking material falls out of the copper pipe inside the
-jar- just stick it back in. If it happens a lot, get a thicker piece of
+jar - just stick it back in. If it happens a lot, get a thicker piece of
 cotton cloth to replace it. If the wicking material is thick enough, it
 won’t fall out.
 
 Seal on top of the lid: Sometimes after a lot of use or if the copper
-pipping gets wiggled back and forth too much the J-B Weld holding it to
+piping gets wiggled back and forth too much the J-B Weld holding it to
 the lid will crack or loosen from the lid. You can still use the burner,
 but might lose some fuel to evaporation and it won’t be completely spill
 proof. You can pull the pipe out of the lid, break and clean off the old
-J-B Weld, and reapply new J-B weld. A premium silicone would also work
+J-B Weld, and reapply new J-B Weld. A premium silicone would also work
 in a pinch. The holes need to be sealed well so the alcohol doesn’t
 spill or evaporate.
 
 ## Go Build Something for Your Community
 
-That it, we’re done giving you advice. This is kind of long because we
+That’s it, we’re done giving you advice. This is kind of long because we
 want you to learn from our mistakes so you can make heaters easier and
 faster, that’s all.
 
-We have a twitter and email listed below. As you find better ways to do
+We have a Twitter and email listed below. As you find better ways to do
 things or better design options or materials or if you have feedback on
 usage in different environments, please share with us and the community.
 Iterative improvement is where it’s at, but don’t spend so long
 improving things that you never make any heaters. It’s more important to
-keep people warm then to create the perfectly engineered solution. There
+keep people warm than to create the perfectly engineered solution. There
 is another guide for Can Heaters that work outdoors and in bigger areas.
 Look for that guide too.
 
@@ -1091,7 +1138,7 @@ Go make your own heaters. Share warmth with those in need.
 
 Caring for others is hot, actually.
 
-Updated December 2021 - Email: HeaterBloc@Gmail.com - Twitter:
+Original guide updated December 2021 - Email: HeaterBloc@Gmail.com - Twitter:
 @HeaterBloc
 
 Print these out and cut them into little fliers to distribute with
