@@ -17,8 +17,6 @@
       --code-border: rgba(147, 161, 161, 0.35);
       --max-width: 72ch;
       --radius-md: 12px;
-      --base-font-size: clamp(17px, 1.1vw + 12px, 24px);
-      --body-line-height: 1.75;
     }
 
     @media (prefers-color-scheme: light) {
@@ -47,8 +45,8 @@
       color: var(--text-0);
       background: var(--bg);
       font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
-      font-size: var(--base-font-size);
-      line-height: var(--body-line-height);
+      font-size: 24px;
+      line-height: 1.85;
       text-rendering: optimizeLegibility;
       -webkit-font-smoothing: antialiased;
     }
@@ -87,7 +85,7 @@
     }
 
     #reader-content h1 {
-      font-size: clamp(1.9rem, 5.2vw, 3rem);
+      font-size: clamp(2.4rem, 5.8vw, 3.4rem);
       margin-top: 0;
     }
 
@@ -95,7 +93,7 @@
     #reader-content li,
     #reader-content blockquote {
       color: var(--text-1);
-      font-size: 1.05em;
+      font-size: clamp(1.25rem, 1.35rem, 1.45rem);
     }
 
     #reader-content p {
@@ -149,6 +147,12 @@
     }
 
     @media (max-width: 640px) {
+      html,
+      body {
+        font-size: 18px;
+        line-height: 1.7;
+      }
+
       body {
         padding: 4vh 18px;
       }
@@ -158,13 +162,13 @@
       }
 
       #reader-content h1 {
-        font-size: clamp(1.65rem, 8vw, 2.2rem);
+        font-size: clamp(1.9rem, 8vw, 2.5rem);
       }
 
       #reader-content p,
       #reader-content li,
       #reader-content blockquote {
-        font-size: 1em;
+        font-size: clamp(1rem, 1.08rem, 1.15rem);
       }
     }
   </style>
