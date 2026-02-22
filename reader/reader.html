@@ -140,7 +140,9 @@
       font-size: 0.94em;
     }
 
-    #reader-content :not(pre) > code {
+    #reader-content p code,
+    #reader-content li code,
+    #reader-content blockquote code {
       white-space: pre-wrap;
       color: var(--code-text);
       background: var(--code-bg);
@@ -148,6 +150,19 @@
       border-radius: 6px;
       padding: 0.12em 0.38em;
       word-break: break-word;
+    }
+
+    #reader-content > code {
+      display: block;
+      white-space: pre-wrap;
+      color: var(--code-text);
+      background: var(--code-bg);
+      border: 1px solid var(--code-border);
+      border-radius: var(--radius-md);
+      padding: 1em;
+      margin: 1.25em 0;
+      line-height: 1.45;
+      overflow: auto;
     }
 
     #reader-content pre {
