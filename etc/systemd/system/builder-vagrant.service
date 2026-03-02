@@ -1,0 +1,50 @@
+[Unit]
+Description=Builder Vagrant VM (libvirt)
+Wants=network-online.target libvirtd.service
+After=network-online.target libvirtd.service
+
+# If NetworkManager is used, this helps network-online.target actually work:
+Wants=NetworkManager-wait-online.service
+After=NetworkManager-wait-online.service
+
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Service]
+Type=oneshot
+User=peterdemin
+Group=peterdemin
+WorkingDirectory=/home/peterdemin/builder
+
+# Non-interactive + make provider explicit (avoids surprises)
+Environment=VAGRANT_NONINTERACTIVE=1
+Environment=VAGRANT_DEFAULT_PROVIDER=libvirt
+# Ensure vagrant uses the system libvirt uri you set in Vagrantfile
+Environment=LIBVIRT_DEFAULT_URI=qemu:///system
+
+# Optional: avoid locale-related weirdness in shell provisioners
+Environment=LC_ALL=en_US.UTF-8
+Environment=LANG=en_US.UTF-8
+
+# Helpful if vagrant sometimes trips over stale state:
+ExecStartPre=/usr/bin/vagrant status --machine-readable
+ExecStartPre=/usr/bin/vagrant validate
+
+# Bring it up without provisioning
+ExecStart=/usr/bin/vagrant up --no-provision
+
+# Stop should halt, not destroy. Destroy makes boot fragile and slow.
+ExecStop=/usr/bin/vagrant halt --force
+
+# If libvirt isn't ready or virtiofs races, retry.
+Restart=on-failure
+RestartSec=15
+
+# Cold boot + box download + virtiofs + provisioning can take a while.
+TimeoutStartSec=30min
+TimeoutStopSec=10min
+
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
