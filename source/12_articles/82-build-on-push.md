@@ -72,6 +72,13 @@ All the heavy lifting is handled by a Python script:
 :language: python
 ```
 
+To fire up the builder VM on server's boot, I wired it up to SystemD:
+
+`/etc/systemd/system/builder-vagrant.service`:
+```{literalinclude} ../../etc/systemd/system/builder-vagrant.service
+:language: systemd
+```
+
 ## Certificate Hell
 
 Then I deployed another mirror to https://mirror.demin.dev under a separate Google Cloud Platform account.
