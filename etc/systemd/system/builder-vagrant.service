@@ -12,9 +12,9 @@ StartLimitBurst=5
 
 [Service]
 Type=oneshot
-User=peterdemin
-Group=peterdemin
-WorkingDirectory=/home/peterdemin/builder
+User=peter.demin
+Group=peter.demin
+WorkingDirectory=/home/peter.demin/builder
 
 # Non-interactive + make provider explicit (avoids surprises)
 Environment=VAGRANT_NONINTERACTIVE=1
