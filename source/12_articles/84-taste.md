@@ -1,6 +1,8 @@
 # On Taste
 
-Disclaimer: This is another AI-related post, none of the ideas are mine, but at least I typed it myself.
+> Disclaimer: This is another AI-related post, none of the ideas are mine, but at least I typed it myself.
+> After that I asked Codex to predict HN comments, and it pointed out how bad it is.
+> So I attached them here, to save you trouble.
 
 You can put Mozart to a two year old, and learn that they prefer Baby Shark better.
 The most exquisite ceviche gives spot to mac'n'cheese.
@@ -30,3 +32,32 @@ Sure, not every piece of code needs to be to the highest personal standard.
 Most of the time, the thing that works today, is better than the better thing one week later.
 The only thing that can tell what's good enough is the taste.
 The taste that was earned through years of experience, that AI-coding doesn't provide.
+
+---
+
+## HN GPT comments
+
+1. This is basically the [taste gap](https://writershq.co.uk/the-taste-gap-by-ira-glass/), with an AI twist.
+   The old version was: your taste develops faster than your skill, so you can see the flaw but can’t yet fix it.
+   The new version is that AI can generate something polished enough to obscure the gap.
+   That seems directionally right to me.
+
+2. I think “taste doesn’t transfer through exposure” is overstated.
+   Exposure alone isn’t enough, sure.
+   But a huge amount of engineering judgment comes from reading better code, hearing better objections, and working with people who’ve already made the mistakes.
+   If taste were truly non-transferable, mentorship would be mostly fake, and that doesn’t match reality.
+
+3. A lot of what people call “taste” is really scar tissue.
+   You stop liking certain abstractions because you’ve seen them turn simple changes into week-long incidents.
+   You stop admiring “clever” code because you’ve been the person debugging it later.
+   That’s why seniors often converge: they’ve explored different paths, but the failure modes rhyme.
+
+4. The strongest point here is not “AI writes bad code.” Humans already do that fine on their own.
+   The stronger point is that AI may let people skip the part where they build an internal model of why something is bad.
+   That’s the part that matters.
+   Code quality is downstream of judgment more often than people want to admit.
+
+5. I’d separate “taste” into at least two buckets: taste as stylistic preference, and taste as operational judgment.
+   AI is already decent at mimicking the first one.
+   It can write code that looks like it belongs.
+   The second one is harder, because it depends on understanding constraints, maintenance burden, failure modes, and what kinds of shortcuts come back to bite you.
