@@ -6,7 +6,7 @@
 #    requirements upgrade
 #
 -r requirements.txt
-anyio==4.12.1
+anyio==4.13.0
     # via
     #   httpx
     #   jupyter-server
@@ -22,11 +22,11 @@ astroid==4.0.4
     # via pylint
 asttokens==3.0.1
     # via stack-data
-async-lru==2.1.0
+async-lru==2.3.0
     # via jupyterlab
 beautifulsoup4==4.14.3
     # via nbconvert
-black==26.1.0
+black==26.3.1
     # via -r requirements_dev.in
 bleach[css]==6.3.0
     # via nbconvert
@@ -54,7 +54,7 @@ fastjsonschema==2.21.2
     # via nbformat
 flake8==7.3.0
     # via -r requirements_dev.in
-fonttools==4.61.1
+fonttools==4.62.1
     # via matplotlib
 fqdn==1.5.1
     # via jsonschema
@@ -62,23 +62,23 @@ gcloud==0.18.3
     # via -r requirements_dev.in
 gdocsync==0.2.0
     # via -r requirements_dev.in
-google-api-core==2.29.0
+google-api-core==2.30.3
     # via google-api-python-client
-google-api-python-client==2.189.0
+google-api-python-client==2.196.0
     # via gdocsync
-google-auth==2.48.0
+google-auth==2.52.0
     # via
     #   google-api-core
     #   google-api-python-client
     #   google-auth-httplib2
     #   google-auth-oauthlib
-google-auth-httplib2==0.3.0
+google-auth-httplib2==0.4.0
     # via
     #   gdocsync
     #   google-api-python-client
-google-auth-oauthlib==1.2.4
+google-auth-oauthlib==1.4.0
     # via gdocsync
-googleapis-common-protos==1.72.0
+googleapis-common-protos==1.75.0
     # via
     #   gcloud
     #   google-api-core
@@ -101,7 +101,7 @@ ipykernel==7.2.0
     #   jupyter
     #   jupyter-console
     #   jupyterlab
-ipython==9.10.0
+ipython==9.13.0
     # via
     #   -r requirements_dev.in
     #   ipdb
@@ -112,19 +112,19 @@ ipywidgets==8.1.8
     # via jupyter
 isoduration==20.11.0
     # via jsonschema
-isort==7.0.0
+isort==8.0.1
     # via
     #   -r requirements_dev.in
     #   pylint
 jc==1.25.6
     # via -r requirements_dev.in
-jedi==0.19.2
+jedi==0.20.0
     # via ipython
 joblib==1.5.3
     # via scikit-learn
-json5==0.13.0
+json5==0.14.0
     # via jupyterlab-server
-jsonpointer==3.0.0
+jsonpointer==3.1.1
     # via jsonschema
 jsonschema[format-nongpl]==4.26.0
     # via
@@ -153,11 +153,11 @@ jupyter-core==5.9.1
     #   nbclient
     #   nbconvert
     #   nbformat
-jupyter-events==0.12.0
+jupyter-events==0.12.1
     # via jupyter-server
-jupyter-lsp==2.3.0
+jupyter-lsp==2.3.1
     # via jupyterlab
-jupyter-server==2.17.0
+jupyter-server==2.18.2
     # via
     #   jupyter-lsp
     #   jupyterlab
@@ -166,7 +166,7 @@ jupyter-server==2.17.0
     #   notebook-shim
 jupyter-server-terminals==0.5.4
     # via jupyter-server
-jupyterlab==4.5.3
+jupyterlab==4.5.7
     # via
     #   jupyter
     #   notebook
@@ -178,13 +178,13 @@ jupyterlab-server==2.28.0
     #   notebook
 jupyterlab-widgets==3.0.16
     # via ipywidgets
-kiwisolver==1.4.9
+kiwisolver==1.5.0
     # via matplotlib
 lark==1.3.1
     # via rfc3987-syntax
-matplotlib==3.10.8
+matplotlib==3.10.9
     # via -r requirements_dev.in
-matplotlib-inline==0.2.1
+matplotlib-inline==0.2.2
     # via
     #   ipykernel
     #   ipython
@@ -192,13 +192,13 @@ mccabe==0.7.0
     # via
     #   flake8
     #   pylint
-mistune==3.2.0
+mistune==3.2.1
     # via nbconvert
 mypy-extensions==1.1.0
     # via black
 nbclient==0.10.4
     # via nbconvert
-nbconvert==7.17.0
+nbconvert==7.17.1
     # via
     #   jupyter
     #   jupyter-server
@@ -211,7 +211,7 @@ nest-asyncio==1.6.0
     # via ipykernel
 nodeenv==1.10.0
     # via pyright
-notebook==7.5.3
+notebook==7.5.6
     # via jupyter
 notebook-shim==0.2.4
     # via
@@ -221,48 +221,50 @@ oauth2client==4.1.3
     # via gcloud
 oauthlib==3.3.1
     # via requests-oauthlib
-pandas==3.0.0
+pandas==3.0.2
     # via -r requirements_dev.in
 pandocfilters==1.5.1
     # via nbconvert
-parso==0.8.5
+parso==0.8.7
     # via jedi
-pathspec==1.0.4
+pathspec==1.1.1
     # via black
 pexpect==4.9.0
     # via ipython
-pillow-heif==1.2.0
+pillow-heif==1.3.0
     # via -r requirements_dev.in
-pip-compile-multi==3.2.2
+pip-compile-multi==3.3.1
     # via -r requirements_dev.in
-platformdirs==4.5.1
+platformdirs==4.9.6
     # via
     #   black
     #   jupyter-core
     #   pylint
-prometheus-client==0.24.1
+prometheus-client==0.25.0
     # via jupyter-server
 prompt-toolkit==3.0.52
     # via
     #   ipython
     #   jupyter-console
-proto-plus==1.27.1
+proto-plus==1.28.0
     # via google-api-core
-protobuf==6.33.5
+protobuf==7.34.1
     # via
     #   gcloud
     #   google-api-core
     #   googleapis-common-protos
     #   proto-plus
 psutil==7.2.2
-    # via ipykernel
+    # via
+    #   ipykernel
+    #   ipython
 ptyprocess==0.7.0
     # via
     #   pexpect
     #   terminado
 pure-eval==0.2.3
     # via stack-data
-pyasn1==0.6.2
+pyasn1==0.6.3
     # via
     #   oauth2client
     #   pyasn1-modules
@@ -275,13 +277,13 @@ pycodestyle==2.14.0
     # via flake8
 pyflakes==3.4.0
     # via flake8
-pylint==4.0.4
+pylint==4.0.5
     # via -r requirements_dev.in
 pyparsing==3.3.2
     # via
     #   httplib2
     #   matplotlib
-pyright==1.1.408
+pyright==1.1.409
     # via -r requirements_dev.in
 python-dateutil==2.9.0.post0
     # via
@@ -289,7 +291,7 @@ python-dateutil==2.9.0.post0
     #   jupyter-client
     #   matplotlib
     #   pandas
-python-json-logger==4.0.0
+python-json-logger==4.1.0
     # via jupyter-events
 pytokens==0.4.1
     # via black
@@ -321,14 +323,12 @@ rpds-py==0.30.0
     #   jsonschema
     #   referencing
 rsa==4.9.1
-    # via
-    #   google-auth
-    #   oauth2client
+    # via oauth2client
 ruamel-yaml==0.19.1
     # via jc
 scikit-learn==1.8.0
     # via -r requirements_dev.in
-scipy==1.17.0
+scipy==1.17.1
     # via scikit-learn
 send2trash==2.1.0
     # via jupyter-server
@@ -350,11 +350,11 @@ threadpoolctl==3.6.0
     # via scikit-learn
 tinycss2==1.4.0
     # via bleach
-tomlkit==0.14.0
+tomlkit==0.15.0
     # via pylint
 toposort==1.10
     # via pip-compile-multi
-tornado==6.5.4
+tornado==6.5.5
     # via
     #   ipykernel
     #   jupyter-client
@@ -362,7 +362,7 @@ tornado==6.5.4
     #   jupyterlab
     #   notebook
     #   terminado
-traitlets==5.14.3
+traitlets==5.15.0
     # via
     #   ipykernel
     #   ipython
@@ -381,13 +381,13 @@ typing-extensions==4.15.0
     # via
     #   beautifulsoup4
     #   pyright
-tzdata==2025.3
+tzdata==2026.2
     # via arrow
 uri-template==1.3.0
     # via jsonschema
 uritemplate==4.2.0
     # via google-api-python-client
-wcwidth==0.6.0
+wcwidth==0.7.0
     # via prompt-toolkit
 webcolors==25.10.0
     # via jsonschema
@@ -399,7 +399,7 @@ websocket-client==1.9.0
     # via jupyter-server
 widgetsnbextension==4.0.15
     # via ipywidgets
-xmltodict==1.0.2
+xmltodict==1.0.4
     # via jc
 
 # The following packages are considered to be unsafe in a requirements file:
