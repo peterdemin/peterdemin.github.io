@@ -15,7 +15,7 @@ babel==2.18.0
     # via sphinx
 build==1.5.0
     # via pip-tools
-certifi==2026.4.22
+certifi==2026.5.20
     # via
     #   requests
     #   urllib3
@@ -23,7 +23,7 @@ cffi==2.0.0
     # via cryptography
 charset-normalizer==3.4.7
     # via requests
-click==8.3.3
+click==8.4.1
     # via pip-tools
 cryptography==48.0.0
     # via
@@ -37,7 +37,7 @@ graphviz==0.21
     # via -r requirements.in
 h11==0.16.0
     # via wsproto
-idna==3.14
+idna==3.16
     # via
     #   requests
     #   trio
@@ -51,7 +51,7 @@ jinja2==3.1.6
     #   myst-parser
     #   simple-photo-gallery
     #   sphinx
-lxml==6.1.0
+lxml==6.1.1
     # via -r requirements.in
 markdown-it-py==4.2.0
     # via
@@ -59,13 +59,13 @@ markdown-it-py==4.2.0
     #   myst-parser
 markupsafe==3.0.3
     # via jinja2
-mdit-py-plugins==0.6.0
+mdit-py-plugins==0.6.1
     # via myst-parser
 mdurl==0.1.2
     # via markdown-it-py
-myst-parser==5.0.0
+myst-parser==5.1.0
     # via -r requirements.in
-numpy==2.4.4
+numpy==2.4.6
     # via opencv-python
 opencv-python==4.13.0.92
     # via simple-photo-gallery
@@ -101,7 +101,7 @@ pysocks==1.7.1
     # via urllib3
 pyyaml==6.0.3
     # via myst-parser
-requests==2.33.1
+requests==2.34.2
     # via
     #   simple-photo-gallery
     #   sphinx
@@ -109,13 +109,13 @@ roman-numerals==4.1.0
     # via sphinx
 selenium==4.2.0
     # via simple-photo-gallery
-shibuya==2026.1.9
+shibuya==2026.5.19
     # via -r requirements.in
 simple-photo-gallery==1.5.7
     # via -r requirements.in
 sniffio==1.3.1
     # via trio
-snowballstemmer==3.0.1
+snowballstemmer==3.1.0
     # via sphinx
 sortedcontainers==2.4.0
     # via trio
