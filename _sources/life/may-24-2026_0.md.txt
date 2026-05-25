@@ -4,7 +4,8 @@ orphan: true
 
 # May 24, 2026
 
-My libvirt-based Vagrant box failed to start with a cryptic error message. I fixed it by renaming the box from "default" to "trixie", which is a pretty cryptic way of fixing a VM.
+My libvirt-based Vagrant box failed to start with a cryptic error message.
+I fixed it by renaming the box from "default" to "trixie", which is a pretty cryptic way of fixing a VM.
 
 While debugging this I learned about Vagrant 3.0 - a Golang rewrite, that was
 [announced](https://www.hashicorp.com/en/blog/toward-vagrant-3-0) in 2021 by Chris Roberts and Sophia Castellarin.
