@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jun 22, 2023
+
+[mindsdb/mindsdb](https://github.com/mindsdb/mindsdb) - Federated Query Engine for AI - The only MCP Server you'll ever need

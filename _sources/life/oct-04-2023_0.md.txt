@@ -1,0 +1,12 @@
+---
+orphan: true
+---
+
+# Oct 04, 2023
+
+Turns out you can't use regular RJ45 connectors with flat ethernet cables because the wire diameter is much smaller.
+And it's really hard to find the connectors for flat cables due to low supply.
+It's like half the size of the regular round cable wire.
+I had to learn it the hard way.
+Lesson learned: when buying ethernet cable pay attention to the wire gauge.
+AWG 24 is okay, but AWG 32 is too small.

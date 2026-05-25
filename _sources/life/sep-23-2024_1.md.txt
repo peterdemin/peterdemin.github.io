@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Sep 23, 2024
+
+[praiskup/argparse-manpage](https://github.com/praiskup/argparse-manpage) - Automatically build man-pages for your Python project

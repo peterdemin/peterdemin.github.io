@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Sep 06, 2023
+
+[fabric/fabric](https://github.com/fabric/fabric) - Simple, Pythonic remote execution and deployment.

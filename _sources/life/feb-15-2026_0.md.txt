@@ -1,0 +1,26 @@
+---
+orphan: true
+---
+
+# Feb 15, 2026
+
+I keep playing with the Reader project.
+I learned that I can't fetch a website using Javascript `fetch`.
+That I can't fetch pages through iframes.
+All for security reasons.
+I can't fetch HTML on the server side, because with the current AI crawling environment, plenty of platforms block it.
+
+The bookmarklet allows running arbitrary Javascript, and works in practice, but Safari doesn't let adding bookmarklets to the toolbar.
+There's a workaround with favourites toolbar, but then you gotta have another horizontal row for just this toolbar.
+
+Basically, the only technically feasible way to reformat arbitrary website the way I want it to look is to make a browser extension.
+Something I wouldn't tackle before Codex.
+I learned that you can make an extension for Chrome and Firefox by adding a standard `manifest.json`, which is pretty reasonable approach.
+Of course, to make it available to others you need to have a paid extension marketplace account, and go through the hoops of review and what not.
+Then I learned that for Safari extension, the same functionality involves like 20 files, mostly scaffolded by XCode.
+A ton of bullshit, and signing, and I managed to have a Safari extension as well.
+
+The way extension works:
+1. Open a website (with one extractable main content element), and you don't like how it looks.
+2. Click the circle icon in the browser toolbar.
+3. Enjoy the distraction-free reading experience with large font and the best color scheme ever existed.

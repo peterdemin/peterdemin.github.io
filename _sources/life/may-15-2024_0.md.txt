@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# May 15, 2024
+
+Good summary for things you can do for QA/Testing: https://www.functionize.com/blog/production-testing-what-why-and-how

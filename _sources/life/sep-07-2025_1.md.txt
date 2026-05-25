@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Sep 07, 2025
+
+[lingdojo/kana-dojo](https://github.com/lingdojo/kana-dojo) - Aesthetic, minimalist platform for learning Japanese inspired by Duolingo and Monkeytype.

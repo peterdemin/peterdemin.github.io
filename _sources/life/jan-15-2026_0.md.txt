@@ -1,0 +1,10 @@
+---
+orphan: true
+---
+
+# Jan 15, 2026
+
+I've been using [Sentry](https://sentry.io/welcome/) for almost all of my career, but yesterday I received an email about Sentry asking for write permissions to my repos to create pull requests made by an LLM.
+I didn't enjoy the overall enshittification of the Sentry functionality over the past few years.
+But this is it. That's the last drop. I'm looking for a replacement.
+Preferably something self-hosted with a low CPU/RAM usage.

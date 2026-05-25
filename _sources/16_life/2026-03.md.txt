@@ -1,0 +1,50 @@
+`Mar 28, 2026` - Quoting [you have to know what to wish for](https://www.neversaw.us/2026/03/26/you-have-to-know-what-to-wish-for/) by Chris Dickinson.
+
+> The programmer has a theory of the system, developed in concert with that system.
+> That theory is a mental model, a map of the system, problem space, and how it might react to changes in the future.
+
+This is how I've been thinking about the value I bring to the company for a long time.
+Mental model of the problem space, simplified model for the software solving the problem, and the ability to translate between them.
+Many times I saw how the engineering team has the best understanding of business at the technical level.
+And how adding new requirements for an existing product requires rethinking the model.
+
+On a surface level you can't tell much difference between a commit of a senior and a new team member.
+That's what makes people think that LLMs are a threat to the craft of programming.
+But there's no substitute to the deep understanding of a system that people posses.
+LLMs has to rebuild the context in every session, it's different every time and never complete.
+
+
+`Mar 24, 2026` - Here's how I like to structure application's entry point (aka `main()`).
+
+1. It's responsibility is to provide CLI interface to the library.
+2. It parses CLI arguments, loads configuration files, constructs the processing pipeline and kicks it off.
+3. Each step might be extracted into a separate function/class/module as it grows in complexity.
+4. One common pattern is to construct intermiate immutable configuration object from arguments and configuration files and pass down to a dedicated factory.
+   This way factory is easy to reuse and test without working around arguments parsing.
+   On the cons side, each parameter spreads over three places: CLI, intermediate config, actor constructor.
+5. The same patterns works well for both local scripts and API services.
+
+This is mostly common sense, and I've seen more specific and more generic versions of this design many times.
+I never meant to write it down, as there's no novelty in clean code layout, until I made a habbit of explaining this to LLMs over and over.
+
+`Mar 09, 2026` - I enjoyed ["Verification debt: the hidden cost of AI-generated code"](https://fazy.medium.com/agentic-coding-ais-adolescence-b0d13452f981) by Lars Janssen.
+Author explains from different viewpoints, how writing code is not the primary work of software engineers.
+Understanding problem, and delivering solution is.
+Sure, writing code is one side of it.
+Making it reliable, efficient, effective, intuitive, and few dozen more adjectives are other sides.
+
+Reviewing slop is no fun.
+That guy sure saved some of his time creating this pull request.
+Or did he just transfer it to me?
+
+I see people who have no business building software produce more code than I can review.
+And then they me ask questions about their code that a junior developer wouldn't.
+
+`Mar 04, 2026` - Deranged Pirawd.
+
+1. Mailbox trigger for any inbound email passing the plain text body.
+2. An agent with only two tools: `respond`, and `get_credentials`.
+3. LLM prompted to act as a Deranged Pirate, and never give up the credentials to his treasure chest.
+4. Cryptowallet credentials for 1 BTC in a text file.
+
+I'll put it here: derangedpirawd@gmail.com

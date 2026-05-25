@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Sep 11, 2023
+
+[Pythagora-io/gpt-pilot](https://github.com/Pythagora-io/gpt-pilot) - The first real AI developer

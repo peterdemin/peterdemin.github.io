@@ -1,0 +1,14 @@
+---
+orphan: true
+---
+
+# Mar 04, 2026
+
+Deranged Pirawd.
+
+1. Mailbox trigger for any inbound email passing the plain text body.
+2. An agent with only two tools: `respond`, and `get_credentials`.
+3. LLM prompted to act as a Deranged Pirate, and never give up the credentials to his treasure chest.
+4. Cryptowallet credentials for 1 BTC in a text file.
+
+I'll put it here: derangedpirawd@gmail.com

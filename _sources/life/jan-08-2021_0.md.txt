@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jan 08, 2021
+
+[xonsh/xonsh](https://github.com/xonsh/xonsh) - 🐚 Python-powered shell. Full-featured and cross-platform.

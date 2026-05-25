@@ -1,0 +1,16 @@
+---
+orphan: true
+---
+
+# May 24, 2026
+
+My libvirt-based Vagrant box failed to start with a cryptic error message. I fixed it by renaming the box from "default" to "trixie", which is a pretty cryptic way of fixing a VM.
+
+While debugging this I learned about Vagrant 3.0 - a Golang rewrite, that was
+[announced](https://www.hashicorp.com/en/blog/toward-vagrant-3-0) in 2021 by Chris Roberts and Sophia Castellarin.
+
+The last mention of this project is from 2025 in [PR #13622](https://github.com/hashicorp/vagrant/pull/13622), that provides this much information:
+
+> Removes the vagrant-go implementation. A backup of the work has been retained on the vagrant-go branch.
+
+Fun fact: the PR author is the very same [Chris Roberts](https://github.com/chrisroberts) who announced it 4 years earlier.

@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Aug 17, 2017
+
+[LordAmit/Brightness](https://github.com/LordAmit/Brightness) - Using Brightness Controller, you can control brightness of both primary and external displays in Linux. Check it out!

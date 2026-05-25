@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Nov 17, 2022
+
+[python-validators/validators](https://github.com/python-validators/validators) - Python Data Validation for Humans™.

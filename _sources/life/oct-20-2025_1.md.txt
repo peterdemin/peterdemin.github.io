@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Oct 20, 2025
+
+[nathan-barry/nathan.rs](https://github.com/nathan-barry/nathan.rs) - My personal site using Hugo for static site generation. My pride and joy.

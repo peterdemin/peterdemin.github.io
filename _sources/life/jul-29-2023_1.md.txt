@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jul 29, 2023
+
+[liltom-eth/llama2-webui](https://github.com/liltom-eth/llama2-webui) - Run any Llama 2 locally with gradio UI on GPU or CPU from anywhere (Linux/Windows/Mac). Use `llama2-wrapper` as your local llama2 backend for Generative Agents/Apps.

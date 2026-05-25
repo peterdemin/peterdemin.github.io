@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Aug 31, 2023
+
+[ydataai/ydata-synthetic](https://github.com/ydataai/ydata-synthetic) - Synthetic data generators for tabular and time-series data

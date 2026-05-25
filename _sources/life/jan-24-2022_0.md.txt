@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jan 24, 2022
+
+[rust-lang/crates.io-index](https://github.com/rust-lang/crates.io-index) - Registry index for crates.io

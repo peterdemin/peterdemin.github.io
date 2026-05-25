@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# May 18, 2023
+
+[astral-sh/ruff](https://github.com/astral-sh/ruff) - An extremely fast Python linter and code formatter, written in Rust.

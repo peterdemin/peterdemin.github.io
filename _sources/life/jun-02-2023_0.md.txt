@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jun 02, 2023
+
+[PromtEngineer/localGPT](https://github.com/PromtEngineer/localGPT) - Chat with your documents on your local device using GPT models. No data leaves your device and 100% private.

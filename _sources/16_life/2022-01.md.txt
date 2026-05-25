@@ -1,0 +1,21 @@
+`Jan 28, 2022` - [giampaolo/psutil](https://github.com/giampaolo/psutil) - Cross-platform lib for process and system monitoring in Python
+
+`Jan 27, 2022` - [withfig/autocomplete](https://github.com/withfig/autocomplete) - IDE-style autocomplete for your existing terminal & shell
+
+`Jan 24, 2022` - [rust-lang/crates.io-index](https://github.com/rust-lang/crates.io-index) - Registry index for crates.io
+
+`Jan 22, 2022` - [pymorphy2/pymorphy2](https://github.com/pymorphy2/pymorphy2) - Morphological analyzer / inflection engine for Russian and Ukrainian languages.
+
+`Jan 19, 2022` - [dbader/schedule](https://github.com/dbader/schedule) - Python job scheduling for humans.
+
+`Jan 16, 2022` - [rmcelreath/stat_rethinking_2022](https://github.com/rmcelreath/stat_rethinking_2022) - Statistical Rethinking course winter 2022
+
+`Jan 15, 2022` - [0x111/telegram-rss-bot](https://github.com/0x111/telegram-rss-bot) - RSS bot for telegram written in Go
+
+`Jan 07, 2022` - [Shogan/kube-chaos](https://github.com/Shogan/kube-chaos) - A chaos engineering style game where you seek out and destroy Kubernetes pods, twinstick shmup style.
+
+`Jan 04, 2022` - [Martiusweb/asynctest](https://github.com/Martiusweb/asynctest) - Enhance the standard unittest package with features for testing asyncio libraries
+
+`Jan 03, 2022` - [mitsuhiko/minijinja](https://github.com/mitsuhiko/minijinja) - MiniJinja is a powerful but minimal dependency template engine for Rust compatible with Jinja/Jinja2
+
+`Jan 01, 2022` - [garak92/librechromecast](https://github.com/garak92/librechromecast) - FOSS application for casting media to chromecast devices

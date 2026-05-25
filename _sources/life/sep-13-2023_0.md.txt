@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Sep 13, 2023
+
+[peterdemin/fact](https://github.com/peterdemin/fact) - Factual evaluation for Llama-2 summarization

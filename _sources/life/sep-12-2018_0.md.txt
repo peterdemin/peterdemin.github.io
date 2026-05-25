@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Sep 12, 2018
+
+[kibitzr/kibitzr-sentry](https://github.com/kibitzr/kibitzr-sentry) - Send errors from Kibitzr checks to Sentry.

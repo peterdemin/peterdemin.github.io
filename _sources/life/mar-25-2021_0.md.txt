@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Mar 25, 2021
+
+[raimon49/pip-licenses](https://github.com/raimon49/pip-licenses) - Dump the license list of packages installed with pip.

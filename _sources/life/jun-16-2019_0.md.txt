@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jun 16, 2019
+
+[ygzgxyz/awesome-sphinxdoc](https://github.com/ygzgxyz/awesome-sphinxdoc) - Awesome Sphinxdoc is a curated collection of valuable resources for Sphinx

@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Mar 23, 2023
+
+[evidence-dev/evidence](https://github.com/evidence-dev/evidence) - Business intelligence as code: build fast, interactive data visualizations in SQL and markdown

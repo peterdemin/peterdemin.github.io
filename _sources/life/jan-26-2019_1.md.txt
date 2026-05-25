@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jan 26, 2019
+
+[trimstray/the-practical-linux-hardening-guide](https://github.com/trimstray/the-practical-linux-hardening-guide) - This guide details creating a secure Linux production system. OpenSCAP (C2S/CIS, STIG).

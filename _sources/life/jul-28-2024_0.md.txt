@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jul 28, 2024
+
+[haltakov/simple-photo-gallery](https://github.com/haltakov/simple-photo-gallery) - Beautiful and simple photo galleries that help you tell your story. Free and open-source.

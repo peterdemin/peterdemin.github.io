@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jan 21, 2026
+
+[anthropics/original_performance_takehome](https://github.com/anthropics/original_performance_takehome) - Anthropic's original performance take-home, now open for you to try!

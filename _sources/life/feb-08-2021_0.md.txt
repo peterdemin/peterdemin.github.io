@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Feb 08, 2021
+
+[wilsonzlin/minify-html](https://github.com/wilsonzlin/minify-html) - Extremely fast and smart HTML + JS + CSS minifier, available for Rust, Deno, Java, Node.js, Python, Ruby, and WASM

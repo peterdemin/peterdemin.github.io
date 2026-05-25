@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# May 01, 2017
+
+[psf/cachecontrol](https://github.com/psf/cachecontrol) - The httplib2 caching algorithms packaged up for use with requests.

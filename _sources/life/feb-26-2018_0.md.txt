@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Feb 26, 2018
+
+[lyft/confidant](https://github.com/lyft/confidant) - Confidant: your secret keeper. https://lyft.github.io/confidant

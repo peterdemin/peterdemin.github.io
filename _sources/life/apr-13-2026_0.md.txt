@@ -1,0 +1,10 @@
+---
+orphan: true
+---
+
+# Apr 13, 2026
+
+Reading [AI-Native Dev Teams Start With Structure, Not Models](https://www.nibzard.com/ai-native-dev-teams/) by Nikola Balic reminded me of [Seeing like a software company](https://www.seangoedecke.com/seeing-like-a-software-company/) by Sean Goedecke.
+The legible teams are more ready for AI-assisted development, because easy information access is what makes building LLM context easy.
+Another trait that helps is being remote-first or distributed.
+Anything that forces people to write down what they discussed.

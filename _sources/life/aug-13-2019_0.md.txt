@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Aug 13, 2019
+
+[uber/hypothesis-gufunc](https://github.com/uber/hypothesis-gufunc) - Extension to hypothesis for testing numpy general universal functions

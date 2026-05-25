@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jan 28, 2019
+
+[noamraph/tqdm](https://github.com/noamraph/tqdm) - Add a progress meter to your loops in a second

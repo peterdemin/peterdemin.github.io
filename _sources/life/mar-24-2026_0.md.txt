@@ -1,0 +1,18 @@
+---
+orphan: true
+---
+
+# Mar 24, 2026
+
+Here's how I like to structure application's entry point (aka `main()`).
+
+1. It's responsibility is to provide CLI interface to the library.
+2. It parses CLI arguments, loads configuration files, constructs the processing pipeline and kicks it off.
+3. Each step might be extracted into a separate function/class/module as it grows in complexity.
+4. One common pattern is to construct intermiate immutable configuration object from arguments and configuration files and pass down to a dedicated factory.
+   This way factory is easy to reuse and test without working around arguments parsing.
+   On the cons side, each parameter spreads over three places: CLI, intermediate config, actor constructor.
+5. The same patterns works well for both local scripts and API services.
+
+This is mostly common sense, and I've seen more specific and more generic versions of this design many times.
+I never meant to write it down, as there's no novelty in clean code layout, until I made a habbit of explaining this to LLMs over and over.

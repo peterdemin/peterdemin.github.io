@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jan 18, 2019
+
+[guardrailsio/awesome-python-security](https://github.com/guardrailsio/awesome-python-security) - Awesome Python Security resources 🕶🐍🔐

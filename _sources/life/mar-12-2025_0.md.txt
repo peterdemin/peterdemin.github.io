@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Mar 12, 2025
+
+[ZachGoldberg/Startup-CTO-Handbook](https://github.com/ZachGoldberg/Startup-CTO-Handbook) - The Startup CTO's Handbook, a book covering leadership, management and technical topics for leaders of software engineering teams

@@ -1,0 +1,12 @@
+`Aug 31, 2025` - I rewatched [Interstellar (2014)](https://en.wikipedia.org/wiki/Interstellar_(film)) after it came up in a discussion of movie genre preferrences with my colleage, where we both agreed that it's an outstanding movie for both sci-fi and non-sci-fi fans. Suprisingly, this time, it hit me more as a parent-child relations movie. Of course I loved how all space scenes are in total silence. To that point the score was brilliant as well. But the things that made me think the most are feelings of Coop and Murph. Dr. Mann's monologue about survival instinct and human connection landed on me as a plot twist the first time I watched (ten years ago) but now I see how it supports the main theme.
+
+One thing that makes this movie special to me, is a song by a Russian artist [Dolphin, Слышишь](https://youtu.be/2tiyg4AOmiw), released the same year, as the movie, written from the Coop to Murph, including a verse of the unbearable longing experienced by Murph.
+
+`Aug 01, 2025` - Recently I had a conversation with a high-rank manager who didn't see value in code ownership. He talked about design and ideas, but not people and tasks. This reminded me how past breakages were caused by people making changes without sufficient context. Or how a new team member spends a week on a task that takes twenty minutes. I'd like to split this context into three parts:
+
+1. System design - the pretty diagramming part, that is usually done well, covered in design docs and presentations. A good design, though, is so boring, that you can grasp the idea in ten minutes.
+2. Core principles - the ideas that influence how the design was produced. This is surprisingly variable between teams, never documented, and lives between an architect's head and tribe knowledge. It's also fluent, has many interpretations, and can be hardly expressed in words.
+3. Minute decision that are seldomly discussed but spread all over the code. This is the biggest chunk of the context, the meat and cause of all the quirks and optimizations.
+
+Of all three, only the first one is available to people outside of the code owners. The other two take so much effort to maintain, that only the owners have the capacity to hold.
+

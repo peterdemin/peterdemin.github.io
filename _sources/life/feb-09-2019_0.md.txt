@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Feb 09, 2019
+
+[voronianski/react-star-rating-component](https://github.com/voronianski/react-star-rating-component) - Basic React component for star (or any other icon based) rating elements

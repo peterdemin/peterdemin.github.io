@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jan 22, 2022
+
+[pymorphy2/pymorphy2](https://github.com/pymorphy2/pymorphy2) - Morphological analyzer / inflection engine for Russian and Ukrainian languages.

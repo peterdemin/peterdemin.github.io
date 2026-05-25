@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jan 14, 2021
+
+[jaraco/inflect](https://github.com/jaraco/inflect) - Correctly generate plurals, ordinals, indefinite articles; convert numbers to words

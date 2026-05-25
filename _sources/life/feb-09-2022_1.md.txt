@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Feb 09, 2022
+
+[janvarev/Irene-Voice-Assistant](https://github.com/janvarev/Irene-Voice-Assistant) - Ирина - русский голосовой ассистент для работы оффлайн. Поддерживает скиллы через плагины.

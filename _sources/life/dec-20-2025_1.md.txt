@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Dec 20, 2025
+
+[piercefreeman/autopg](https://github.com/piercefreeman/autopg) - 🐘 Auto-optimizations for Postgres

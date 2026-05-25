@@ -1,0 +1,22 @@
+---
+orphan: true
+---
+
+# Feb 24, 2026
+
+One good way of thinking about AI codegen is that it removes friction from coding.
+Friction is what keeps your pants on.
+Without friction, people don't need to think hard whether the thing they want to build should be built in the first place.
+LLM happily takes any task, adds its own implicit assumption and spits out loads of code.
+Since the process was mostly frictionless until this point, the engineer is faced with a wall of code.
+The code they never wrote, and are completely unfamiliar with.
+It takes a great deal of discipline to go through it and internalize completely.
+What I found though experience is that if I apply the same vigor I do for my own code, most of this slop has to be rewritten.
+Before I can show these to my colleages, I have to do a lot of grunt work.
+Usually, polishing the code that took 10 minutes to produce takes at least a day.
+
+The experience is extremely frustrating, and many times I wonder if I should have just write it from scratch myself.
+But at this point sunken cost fallacy kicks in and I force myself through cleaning up the mess.
+
+I've done plenty of cleanups through my career, and it's never fun.
+But this is the only way to keep my pants on.

@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Apr 12, 2020
+
+[GitDiaryBot/GitDiaryBot](https://github.com/GitDiaryBot/GitDiaryBot) - Multi-tenant diary bot using plain text files and git for synchronization

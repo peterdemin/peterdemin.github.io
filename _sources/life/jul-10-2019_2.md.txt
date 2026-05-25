@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jul 10, 2019
+
+[pyjokes/pyjokes](https://github.com/pyjokes/pyjokes) - One line jokes for programmers (jokes as a service)

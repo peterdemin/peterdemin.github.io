@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Feb 12, 2023
+
+[salesforce/CodeGen](https://github.com/salesforce/CodeGen) - CodeGen is a family of open-source model for program synthesis. Trained on TPU-v4. Competitive with OpenAI Codex.

@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Dec 29, 2025
+
+[cockpit-project/cockpit-machines](https://github.com/cockpit-project/cockpit-machines) - Cockpit UI for virtual machines

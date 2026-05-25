@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Dec 22, 2024
+
+[Eliran-Turgeman/Collecto](https://github.com/Eliran-Turgeman/Collecto) - Collecto is an open source & self-hosted forms backend.

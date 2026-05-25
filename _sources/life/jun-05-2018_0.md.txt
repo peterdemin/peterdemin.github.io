@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jun 05, 2018
+
+[applegrew/django-select2](https://github.com/applegrew/django-select2) - This is a Django integration for Select2

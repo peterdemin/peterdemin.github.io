@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jan 07, 2024
+
+[grantjenks/blue](https://github.com/grantjenks/blue) - The slightly less uncompromising Python code formatter.

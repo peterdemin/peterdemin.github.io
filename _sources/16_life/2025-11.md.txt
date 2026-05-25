@@ -1,0 +1,25 @@
+`Nov 23, 2025` - [this comment](https://news.ycombinator.com/item?id=46025285) left me bitter and confused:
+
+> Well it took me 2 full-time weeks to properly implement a RAG-based system so that it found actually relevant data and did not hallucinate. Had to:
+- write an evaluation pipeline to automate quality testing
+- add a query rewriting step to explore more options during search
+- add hybrid BM-25+vector search with proper rank fusion
+- tune all the hyperparameters for best results (like weight bias for bm25 vs. vector, how many documents to retrieve for analysis, how to chunk documents based on semantics)
+- parallelize the search pipeline to decrease wait times
+- add moderation
+- add a reranker to find best candidates
+- add background embedding calculation of user documents
+- lots of failure cases to iron out so that the prompt worked for most cases
+
+Each step would take me more than two weeks, and still have gaps. But when you’re working alone, and you’re the only judge of your work, it’s easy to overestimate its quality.
+
+
+`Nov 11, 2025` - For years my life felt like a crazy race at break neck speeds, with great aspirations, challenges, achievements.
+Many times I asked myself: is this all there is to it?
+Other times I wondered: have I peaked; is it just downslide from here?
+And sometimes I feel like I won. The game is finished and I'm on top.
+Like in StarCraft, when all the enemies are neutralized, there's no more threat, but you have an option to continue "playing". Of course, at this point, there's no play, just frolicing around aimlessly, and exploring the senseless limits.
+The lesson here, naturally, is that all these ideas are false, the hill has no top, it's round like Earth itself.
+
+
+`Nov 09, 2025` - [opencloud-eu/opencloud](https://github.com/opencloud-eu/opencloud) - 🌤️ OpenCloud is the open source platform for file management, sharing and collaboration. Simple and sovereign.

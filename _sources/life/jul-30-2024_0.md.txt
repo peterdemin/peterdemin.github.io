@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jul 30, 2024
+
+[facebookresearch/sam2](https://github.com/facebookresearch/sam2) - The repository provides code for running inference with the Meta Segment Anything Model 2 (SAM 2), links for downloading the trained model checkpoints, and example notebooks that show how to use the model.

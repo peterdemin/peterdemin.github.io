@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jul 01, 2024
+
+[danielmiessler/Fabric](https://github.com/danielmiessler/Fabric) - Fabric is an open-source framework for augmenting humans using AI. It provides a modular system for solving specific problems using a crowdsourced set of AI prompts that can be used anywhere.

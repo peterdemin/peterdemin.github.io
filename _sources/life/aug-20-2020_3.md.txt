@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Aug 20, 2020
+
+[python/mypy](https://github.com/python/mypy) - Optional static typing for Python

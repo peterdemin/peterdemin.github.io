@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Oct 04, 2019
+
+[mahmoud/glom](https://github.com/mahmoud/glom) - ☄️ Python's nested data operator (and CLI), for all your declarative restructuring needs. Got data? Glom it! ☄️

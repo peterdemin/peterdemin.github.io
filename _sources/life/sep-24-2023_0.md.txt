@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Sep 24, 2023
+
+Notes for [](/17_notes/22-a_senior_engineer_s_guide_to_the_system_design_interview_part_4_.md)

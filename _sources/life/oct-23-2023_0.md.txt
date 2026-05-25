@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Oct 23, 2023
+
+Notes for [](/17_notes/24-four_key_metrics_for_a_software_development_team.md)

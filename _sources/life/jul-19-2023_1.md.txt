@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jul 19, 2023
+
+[dabeaz-course/python-mastery](https://github.com/dabeaz-course/python-mastery) - Advanced Python Mastery (course by @dabeaz)

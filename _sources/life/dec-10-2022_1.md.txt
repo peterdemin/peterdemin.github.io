@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Dec 10, 2022
+
+[R9295/panoptisch](https://github.com/R9295/panoptisch) - A recursive dependency scanner for Python projects

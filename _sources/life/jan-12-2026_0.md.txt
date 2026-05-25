@@ -1,0 +1,8 @@
+---
+orphan: true
+---
+
+# Jan 12, 2026
+
+I got curious if smartphone notifications can be possibly implemented in a privacy-preserving fashion (and to what extent).
+My reading list: [UnifiedPush - Push notifications, security and privacy](https://unifiedpush.org/news/20250513_push_security_privacy/)

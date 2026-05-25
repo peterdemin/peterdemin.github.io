@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Nov 01, 2023
+
+[mateusz-brainhub/awesome-cto-resources](https://github.com/mateusz-brainhub/awesome-cto-resources) - :bulb: A community-curated list of awesome resources to help you grow as a CTO

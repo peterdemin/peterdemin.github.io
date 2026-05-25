@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Dec 03, 2018
+
+[pypa/pipx](https://github.com/pypa/pipx) - Install and Run Python Applications in Isolated Environments

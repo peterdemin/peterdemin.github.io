@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# May 19, 2022
+
+[Readarr/Readarr](https://github.com/Readarr/Readarr) - Book Manager and Automation (Sonarr for Ebooks)

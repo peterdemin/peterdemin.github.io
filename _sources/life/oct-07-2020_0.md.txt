@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Oct 07, 2020
+
+[wemake-services/wemake-python-package](https://github.com/wemake-services/wemake-python-package) - Bleeding edge cookiecutter template to create new python packages

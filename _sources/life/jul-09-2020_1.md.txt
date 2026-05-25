@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jul 09, 2020
+
+[ajaymerchia/git-castle](https://github.com/ajaymerchia/git-castle) - A platform-agnostic, lightweight tool to manage secrets with git.

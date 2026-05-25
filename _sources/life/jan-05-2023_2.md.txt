@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jan 05, 2023
+
+[juanfont/headscale](https://github.com/juanfont/headscale) - An open source, self-hosted implementation of the Tailscale control server

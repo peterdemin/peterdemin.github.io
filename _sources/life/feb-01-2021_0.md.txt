@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Feb 01, 2021
+
+[abhivaikar/howtheytest](https://github.com/abhivaikar/howtheytest) - A collection of public resources about how software companies test their software

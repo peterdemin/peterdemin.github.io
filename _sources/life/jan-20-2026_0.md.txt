@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jan 20, 2026
+
+I'm gonna explore this old-school [Hacker Webring](https://ring.acab.dev) that I discovered through [Morten Linderud](https://linderud.dev) that was linked on [Lobsters](https://lobste.rs) that doesn't require an introduction, but somehow evaded my attention for fourteen years.

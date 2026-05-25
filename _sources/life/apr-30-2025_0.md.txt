@@ -1,0 +1,9 @@
+---
+orphan: true
+---
+
+# Apr 30, 2025
+
+This [article about AI cheating in tech interviews](https://newsletter.pragmaticengineer.com/p/tech-hiring-inflection-point)
+made be think how tech sector *remote-possible* in 2000s, *remote-friendly* in 2010s, then *remote-ubiquitous* in 2020s.
+The rise of AI-based products for cheating in the remote interviews driven by the demand moves us into a new era of *remote-fraudulent* starting around 2025.

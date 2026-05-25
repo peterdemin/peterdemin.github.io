@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# May 14, 2021
+
+[bermi/Python-Inflector](https://github.com/bermi/Python-Inflector) - Inflects English and Spanish nouns. Similar to Rails inflector but for Python

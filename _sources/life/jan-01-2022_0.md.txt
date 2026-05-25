@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jan 01, 2022
+
+[garak92/librechromecast](https://github.com/garak92/librechromecast) - FOSS application for casting media to chromecast devices

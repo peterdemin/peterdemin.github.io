@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Oct 29, 2019
+
+[amandasaurus/django-template-i18n-lint](https://github.com/amandasaurus/django-template-i18n-lint) - Lint tool to find non-trans/blocktrans text in django templates

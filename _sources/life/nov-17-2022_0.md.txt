@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Nov 17, 2022
+
+[mattkohl/docker-flask-celery-redis](https://github.com/mattkohl/docker-flask-celery-redis) - Docker-Compose template for orchestrating a Flask app with a Celery queue using Redis

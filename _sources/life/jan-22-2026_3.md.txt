@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jan 22, 2026
+
+[susam/mintotp](https://github.com/susam/mintotp) - Minimal TOTP generator in 20 lines of Python

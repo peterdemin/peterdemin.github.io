@@ -1,0 +1,8 @@
+---
+orphan: true
+---
+
+# Apr 02, 2025
+
+TIL about [Happy Eyeballs](https://en.wikipedia.org/wiki/Happy_Eyeballs) - the weirdest name for trying to connect to IPv4 and IPv6 addresses simultaneously to reduce the request time in case one of them is not accessible.
+They call it an "algorithm", and it has dedicated libraries, like [aiohappyeyeballs](https://github.com/aio-libs/aiohappyeyeballs) 👏

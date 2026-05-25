@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jul 22, 2020
+
+[jhaals/yopass](https://github.com/jhaals/yopass) - Secure sharing of secrets, passwords and files

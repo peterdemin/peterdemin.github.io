@@ -1,0 +1,56 @@
+`May 30, 2023` - [bigcapitalhq/bigcapital](https://github.com/bigcapitalhq/bigcapital) - 💵 Bigcapital is financial accounting with intelligent reporting for faster decision-making, an open-source alternative to Quickbooks, Xero, etc.
+
+`May 25, 2023` - Quotes from [Ask HN: How do you not take criticism of your work personally?](https://news.ycombinator.com/item?id=36056299):
+
+A high criticism tolerance is learned by understanding that ones self worth is not attached to output or delivery.
+(This is hard in our industry) It comes from self-acceptance and compassion.
+And these values are learned early on.
+You’ll find that the people that break down at the slightest criticism the most are those that were criticised the most as children as well.
+Those that had no room for being anything other than perfect.
+Where value was obtained from performance.
+To take it even further...why see it as criticism at all? You are not your lines of code.
+
+As much as i like the concept in general in life, in this case its just “you are not your lines of code”.
+Also people who criticize people make a mistake kind of.
+Always criticize the code, not the person
+
+> (Sometimes anger is healthy, it may also be a signal to us that our boundaries have been violated.)
+Exactly.
+And if that boundaries get violated repeatedly in the same situation (especially by the same people), it is fine to release that anger in a controlled way.
+I’ve come to the conclusion that some folks haven’t left the state where they sometimes need a (vocal) pat on their hand to realize they crossed boundaries they shouldn’t cross.
+If you can play that game, congrats.
+Also, do not swallow your anger.
+Find a non-destructive, non-harmful way to release it.
+As anger is a physical reaction, the easiest way is to go for a walk, ride your bike or whatever.
+Whatever floats your boat should be fine.
+
+<a id="anchortext" /> `May 20, 2023` · Such a great article!
+[DevEx: What Actually Drives Productivity](https://queue.acm.org/detail.cfm?id=3595878)
+
+Example DevEx metrics
+
+| ASPECT | FEEDBACK LOOPS | COGNITIVE LOAD | FLOW STATE |
+|---| --- | --- | --- |
+| **PERCEPTIONS**<br/>*Human attitudes and opinions* |• Satisfaction with automated test speed and output<br>• Satisfaction with time it takes to validate a local change<br>• Satisfaction with time it takes to deploy a change to production<br> |• Perceived complexity<br>• Perceived ability of codebase<br>• Ease of debugging production systems<br> |• Ease of understanding documentation to focus and avoid interruptions<br>• Satisfaction with clarity of task or project goals<br>• Perceived disruptiveness of being on-call |
+| **WORKFLOWS**<br>*System and process behaviors* |• Time it takes to generate Cl results<br>• Code review turnaround time<br>• Deployment lead time (time it takes to get a change released to production) |• Time it takes to get answers to technical questions<br>• Manual steps required to deploy a change<br>• Frequency of documentation improvements |• Number of blocks of time without meetings or interruptions<br>• Frequency of unplanned tasks or requests<br>• Frequency of incidents requiring team attention |
+
+**KPIS** *North star metrics*
+- Overall perceived ease of delivering software
+- Employee engagement or satisfaction
+- Perceived productivity
+
+`May 5, 2023` · Looks like I lived under the Python rock for some while. Here's my reading list for the weekend:
+- [Walrus operator](https://realpython.com/python-walrus-operator/)
+- [contextlib.ExitStack](https://docs.python.org/3/library/contextlib.html#contextlib.ExitStack)
+
+`May 24, 2023` - [huggingface/transformers](https://github.com/huggingface/transformers) - 🤗 Transformers: the model-definition framework for state-of-the-art machine learning models in text, vision, audio, and multimodal models, for both inference and training.
+
+`May 18, 2023` - [astral-sh/ruff](https://github.com/astral-sh/ruff) - An extremely fast Python linter and code formatter, written in Rust.
+
+`May 16, 2023` - [hat-open/hat-syslog](https://github.com/hat-open/hat-syslog) - Syslog Server and tools
+
+`May 15, 2023` - [nbQA-dev/nbQA](https://github.com/nbQA-dev/nbQA) - Run ruff, isort, pyupgrade, mypy, pylint, flake8, and more on Jupyter Notebooks
+
+`May 05, 2023` - [protocolbuffers/protobuf](https://github.com/protocolbuffers/protobuf) - Protocol Buffers - Google's data interchange format
+
+`May 03, 2023` - [logseq/logseq](https://github.com/logseq/logseq) - A privacy-first, open-source platform for knowledge management and collaboration. Download link:  http://github.com/logseq/logseq/releases. roadmap: https://discuss.logseq.com/t/logseq-product-roadmap/34267

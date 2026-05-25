@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Mar 15, 2024
+
+[The Grug Brained Developer](https://grugbrain.dev) - A layman's guide to thinking like the self-aware smol brained

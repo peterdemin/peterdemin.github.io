@@ -1,0 +1,11 @@
+---
+orphan: true
+---
+
+# Feb 25, 2026
+
+What kind of psychopath would compare a human being to a next token prediction model?
+I've been jamming with AI code generation quite a lot past few days, and people ask if it's akin to managing a junior developer.
+No, it's not. People learn, investing my time in mentorship helps the person to achieve their career goals.
+It takes a mental disorder to preach agent swarms replacing software engineers.
+Same disorder that let's people in charge impose performance reviews, reducing employees to single digits.

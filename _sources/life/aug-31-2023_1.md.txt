@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Aug 31, 2023
+
+[bigscience-workshop/petals](https://github.com/bigscience-workshop/petals) - 🌸 Run LLMs at home, BitTorrent-style. Fine-tuning and inference up to 10x faster than offloading

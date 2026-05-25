@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jan 12, 2025
+
+[notify-rs/notify](https://github.com/notify-rs/notify) - 🔭 Cross-platform filesystem notification library for Rust.

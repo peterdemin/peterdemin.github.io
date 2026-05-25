@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Nov 14, 2024
+
+Added [](/12_articles/67-password.rst)

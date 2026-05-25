@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Sep 29, 2020
+
+[life4/flakehell](https://github.com/life4/flakehell) - Flake8 wrapper to make it nice, legacy-friendly, configurable.

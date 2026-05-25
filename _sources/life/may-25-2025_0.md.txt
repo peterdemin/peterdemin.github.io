@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# May 25, 2025
+
+For many years, I thought that deep understanding of the system is the core part of the software enginnering job. My biggest value to the company is how I keep the product in my head and keep thinking about it even outside of working hours. This article suggests, that the deep understanding of the code is no longer necessary in the era of AI: <https://archive.ph/HVZRL>. Not sure I'm fully onboard with this idea, but I can see the appeal in the face of managers, who lost (or never had) their touch with reality of building software.

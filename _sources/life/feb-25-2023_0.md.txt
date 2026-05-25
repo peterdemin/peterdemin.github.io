@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Feb 25, 2023
+
+[altercation/vim-colors-solarized](https://github.com/altercation/vim-colors-solarized) - precision colorscheme for the vim text editor

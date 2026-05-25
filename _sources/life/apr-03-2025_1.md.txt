@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Apr 03, 2025
+
+[camel-ai/owl](https://github.com/camel-ai/owl) - 🦉 OWL: Optimized Workforce Learning for General Multi-Agent Assistance in Real-World Task Automation

@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Oct 28, 2022
+
+[saltstack/pip-tools-compile-impersonate](https://github.com/saltstack/pip-tools-compile-impersonate) - Pre-commit pip-compile wrapper capabable of "impersonating" platforms

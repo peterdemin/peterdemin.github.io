@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Sep 27, 2019
+
+[gliderlabs/herokuish](https://github.com/gliderlabs/herokuish) - Utility for emulating Heroku build and runtime tasks in containers

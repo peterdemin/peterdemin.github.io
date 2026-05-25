@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Dec 20, 2025
+
+TIL about [automatic Postgres configuration](https://github.com/piercefreeman/autopg/tree/main/autopgpool) and Servury's promo on [anonymity vs privacy](https://servury.com/blog/privacy-is-marketing-anonymity-is-architecture/) both of which may be applied to [Seattle-Beauty-Lounge](https://seattle-beauty-lounge.com/).

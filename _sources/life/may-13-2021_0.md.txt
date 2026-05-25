@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# May 13, 2021
+
+[ggteixeira/Plural-Generator](https://github.com/ggteixeira/Plural-Generator) - Linguistic algorithm which main goal is to generate plurals for Brazilian Portuguese.

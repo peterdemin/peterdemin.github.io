@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jun 21, 2023
+
+I'm gonna call it "Public employee handbook, built as a static website, using Johnny Decimal system."

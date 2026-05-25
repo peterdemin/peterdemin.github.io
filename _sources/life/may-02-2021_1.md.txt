@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# May 02, 2021
+
+[WeblateOrg/weblate](https://github.com/WeblateOrg/weblate) - Web based localization tool with tight version control integration.

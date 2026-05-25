@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Aug 20, 2020
+
+[python-poetry/poetry](https://github.com/python-poetry/poetry) - Python packaging and dependency management made easy

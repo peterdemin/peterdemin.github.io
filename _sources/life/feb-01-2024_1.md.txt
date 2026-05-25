@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Feb 01, 2024
+
+[quasilyte/go-ruleguard](https://github.com/quasilyte/go-ruleguard) - Define and run pattern-based custom linting rules.

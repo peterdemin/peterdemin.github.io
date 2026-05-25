@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Sep 12, 2024
+
+[smarlhens/python-boilerplate](https://github.com/smarlhens/python-boilerplate) - Python boilerplate using uv, pre-commit, prettier, pytest, GitHub Actions, mypy, ruff, bandit & docformatter.

@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jul 03, 2019
+
+[google/pinject](https://github.com/google/pinject) - A pythonic dependency injection library.

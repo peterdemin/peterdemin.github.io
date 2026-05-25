@@ -1,0 +1,14 @@
+---
+orphan: true
+---
+
+# Dec 29, 2025
+
+I'm continuing my exodus from *greedy* (also free and privacy-preserving) Google infrastructure for my personal files.
+So far, I've got a nice 4 TB SSD drive and repurposed an old 4 TB HDD to set up Immich with a backup through Syncthing.
+I also set up another Syncthing folder to backup Google Drive from my laptop (which runs Google Drive client to download all files).
+It's fine so far, except that few random photos got their creation date in a far-far future, so they show up at the top.
+On a related note, Paul Baecher published [Incremental backups of Gmail takeouts](https://baecher.dev/stdout/incremental-backups-of-gmail-takeouts/).
+I asked him if he automated downloads from the Takeout, and he suggested trying an option to pull email backups through Google Drive, which has a proper client. That would require having enough space in Google Drive to store all emails, of course.
+For uninititated, last year Google added authentication for downloading from the takeout links, so I can't use wget in a shell script on the server.
+Currently, I download the archive to my laptop and then scp it to the server, which is extremely lame.

@@ -1,0 +1,78 @@
+`Dec 31, 2025` - Updated [](/12_articles/71-rss-feed.md) with the new subscriptions:
+
+- [Andrew Nesbitt](https://nesbitt.io/feed.xml)
+- [Maurycy's blog](https://maurycyz.com/index.xml)
+- [Nathan Barry](https://nathan.rs/posts/index.xml)
+- [Peter Demin](https://peter.demin.dev/life.xml) (that's me!)
+- [Speculative Branches](https://specbranch.com/index.xml)
+- [people, ideas, machines](https://joshs.bearblog.dev/feed/)
+- [samir : coffee → nonsense](https://functional.computer/feed.xml)
+- [the website of jyn](https://jyn.dev/atom.xml)
+
+`Dec 30, 2025` - I got bored enough to add an [RSS feed](https://peter.demin.dev/life.xml) to this journal.
+Having a custom plain-text format for these records, I had to add a custom Atom generator.
+Overall it was a smooth sailing, with two gotchas:
+
+1. CommaFeed (at least) doesn't like escaped HTML inside content fields, even if `type="html"`.
+   So I had to switch to CDATA encoding.
+2. Python's builtin `xml.etree` library doesn't support CDATA ([CPython#81055](https://github.com/python/cpython/issues/81055) hanging from 2019).
+3. So I switched to lxml that does.
+   Turns out lxml.etree is slightly incompatible in managing namespaces.
+   It took a bit of googling to find out, that instead of `ET.register_namespace('', 'http://www.w3.org/2005/Atom')`,
+   I should do `ET.Element(..., nsmap={None: 'http://www.w3.org/2005/Atom'})`.
+
+So, business as usual.
+
+`Dec 29, 2025` - [cockpit-project/cockpit-machines](https://github.com/cockpit-project/cockpit-machines) - Cockpit UI for virtual machines
+
+`Dec 29, 2025` - I'm continuing my exodus from *greedy* (also free and privacy-preserving) Google infrastructure for my personal files.
+So far, I've got a nice 4 TB SSD drive and repurposed an old 4 TB HDD to set up Immich with a backup through Syncthing.
+I also set up another Syncthing folder to backup Google Drive from my laptop (which runs Google Drive client to download all files).
+It's fine so far, except that few random photos got their creation date in a far-far future, so they show up at the top.
+On a related note, Paul Baecher published [Incremental backups of Gmail takeouts](https://baecher.dev/stdout/incremental-backups-of-gmail-takeouts/).
+I asked him if he automated downloads from the Takeout, and he suggested trying an option to pull email backups through Google Drive, which has a proper client. That would require having enough space in Google Drive to store all emails, of course.
+For uninititated, last year Google added authentication for downloading from the takeout links, so I can't use wget in a shell script on the server.
+Currently, I download the archive to my laptop and then scp it to the server, which is extremely lame.
+
+`Dec 29, 2025` - On the third day of Christmas I managed to migrate from Virtualbox to libvirt.
+I learned about [virtiofs](https://wiki.archlinux.org/title/Libvirt#Configure_filesystem_passthrough) - a way to share directories with libvirt VMs, similar to shared folders of VirtualBox, but with manual mounting on the guest side.
+I tried [Cockpit](https://cockpit-project.org/) and Cockpit-machines, which is a WebUI to libvirt, but it didn't provide enough functionality (which I thought is extremely basic).
+I learned some obscure factoids about [cloud-init](https://docs.cloud-init.io/en/latest/index.html), but still very confused. It's such a weird combination of convenience and complexity.
+I landed on [vagrant-libvirt](https://vagrant-libvirt.github.io/vagrant-libvirt/) provider, and made just a few changes to my Vagrantfile to adjust.
+
+I wish I could remove Vagrant from my setup, but that would mean reimplementing the following steps, that I'm not too keen on:
+
+1. SSH key provisioning.
+2. Network configuration with static IP address for the guest and port forwarding.
+3. Mounting the virtiofs mounts.
+
+After all this good work, I looked at my GitHub repo with a lonely 1 star, and "unpublished" it.
+It's a fun thing to hack around, but a hard thing to share with other people.
+So far, I learned that most people are pretty secretive about their home media library setup, and not interested in cooperating or consolidating.
+
+`Dec 27, 2025` - [dmacvicar/terraform-provider-libvirt](https://github.com/dmacvicar/terraform-provider-libvirt) - Terraform provider to provision infrastructure with Linux's KVM using libvirt
+
+`Dec 27, 2025` - Inspired by [Clan](https://clan.lol/) and other Nix stories, I attempted to migrate my silly Vagrant+VirtualBox home setup to Terraform+KVM. I'm not very familiar with either, so I thought that's gonna be a fun learning experience. In a way, it was, but I learned not what I was hoping to.
+I started at Medium's article [Vagrant and VirtualBox Are No Longer Enough: Why KVM and Terraform Are the Future of DevOps](https://medium.com/@mohrezfadaei/vagrant-and-virtualbox-are-no-longer-enough-why-kvm-and-terraform-are-the-future-of-devops-24f978c9ca2c). AI-generated illustration was the first sign, but I ignored it. Looking at the article now, it's obvious to me now, that it's an AI slop through and through. Fuck you, [Mohammad Reza Fadaei](https://medium.com/@mohrezfadaei), you lazy piece of shit.
+
+The first challenge came from Terraform provider for libvirtd being not an "official" Hashicorp thing, but a "learning platform" for a random stranger (No offense, [Duncan Mac-Vicar P.](https://www.mac-vicar.eu/), thanks for doing what you're doing).
+
+The second challenge was that the Duncan's provider got a major rewrite and all Terraform recipes from the tutorial had to be migrated.
+
+The third challenge was that Ubuntu 22.04 has some weird issue in libvirt apparmor configuraion. Apparently, a VM doesn't get permissions to any of the volumes created specifically for it. There should be a script that generates a list of volume paths somewhere, but who knows what happened to it.
+
+After 3 hours of battling every part of the "Future of DevOps", my ChatGPT browser tab started to run out of memory, and I gave up.
+Looking back, I love how simple my Vagrant setup is, and I want to extend my gratitude to [Mitchell Hashimoto](https://mitchellh.com/) for building it.
+I still want to make my silly home VM work without dependency on any external dependencies (except stable Ubuntu/Debian repo), so if I get more time for this project, I'll try vibing raw libvirt config.
+
+`Dec 23, 2025` - sailing the sea: https://news.ycombinator.com/item?id=46363366
+
+`Dec 21, 2025` - While reading "Material World" by Ed Conway, I many times thought about Oxygen Not Included, which is a cartoonistic survival game about a settlement deep underground. Being deep means they don't get free solar and wind power, no access to virtually unlimited fresh water, and, as the title suggests, no oxygen. Such hermetic setup forces player into constant mining of resources (they made up oxylite, a stone that produces oxygen). As population grows, you need more and more resources, that progressively become hard to get. Fun game, totally recommend.
+Another thought, that I keep coming back to again and again after finishing the book, is that even farming depends on fossil fuels. Sometimes in mass media you can get an idea, that global warming and rising CO2 levels are due to the greed of filthy crude oil oligarhs. But the we need fossil fuels to produce fertilisers, without which it would be impossible to grow enough food to feed the evergrowing population of Earth. Building a single windmill power generator requires vast amounts of concrete and steel, producing which takes about a year worth of eletricity that windmill generates.
+It's a great book, and I totally recommend it as well.
+
+`Dec 20, 2025` - [piercefreeman/autopg](https://github.com/piercefreeman/autopg) - 🐘 Auto-optimizations for Postgres
+
+`Dec 20, 2025` - TIL about [automatic Postgres configuration](https://github.com/piercefreeman/autopg/tree/main/autopgpool) and Servury's promo on [anonymity vs privacy](https://servury.com/blog/privacy-is-marketing-anonymity-is-architecture/) both of which may be applied to [Seattle-Beauty-Lounge](https://seattle-beauty-lounge.com/).
+
+`Dec 06, 2025` - [simulot/immich-go](https://github.com/simulot/immich-go) - An alternative to the immich-CLI command that doesn't depend on nodejs installation. It tries its best for importing google photos takeout archives.

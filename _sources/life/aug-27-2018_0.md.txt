@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Aug 27, 2018
+
+[glideapps/quicktype](https://github.com/glideapps/quicktype) - Generate types and converters from JSON, Schema, and GraphQL

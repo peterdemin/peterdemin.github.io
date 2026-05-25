@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Dec 13, 2020
+
+[garnaat/kappa](https://github.com/garnaat/kappa) - What precedes Lambda

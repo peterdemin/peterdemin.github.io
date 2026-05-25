@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Dec 07, 2020
+
+[meeb/django-distill](https://github.com/meeb/django-distill) - Minimal configuration static site generator for Django

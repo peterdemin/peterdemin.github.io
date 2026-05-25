@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Apr 19, 2024
+
+When I look at a bad design, I can tell it's bad. I can point a few issues. But I can't tell how to make it good. That's why I'm not a designer.

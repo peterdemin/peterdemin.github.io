@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# May 09, 2019
+
+[python-attrs/attrs](https://github.com/python-attrs/attrs) - Python Classes Without Boilerplate

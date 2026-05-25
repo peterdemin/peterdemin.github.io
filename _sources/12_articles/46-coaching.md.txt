@@ -1,0 +1,15 @@
+# Tell me a story about how you coached a team member
+
+During my time at Moveworks, I joined a vibrant and ambitious team of 50 engineers. The startup environment was electric, each day buzzing with new challenges and the thrilling sense of building something impactful. As with many startups, our resources were stretched thin, and the 'bus factor' for many areas was perilously low. I found myself as the directly responsible individual for a critical part of our product, carrying the weight of its success on my shoulders.
+
+When I was joined by a new team member, our initial strategy was straightforward – divide and conquer. Our collaboration was minimal, each of us buried in our respective tasks. This approach boosted our short-term productivity: we doubled our output with virtually zero communication overhead. My colleague was skilled and independent, rarely needing my intervention.
+
+About a year into this arrangement, I was blindsided by the news that my teammate had been let go. This unexpected turn of events was a jolt to our system. I learned that personal issues had affected his performance, and suddenly, I was back to handling double the workload, much of which I hadn’t closely monitored before.
+
+The arrival of a new hire a few months later marked a turning point. He was a junior engineer, unfamiliar with our tech stack, but eager to learn. I remembered the lesson from my previous experience and decided to take a different approach. From his first day, we set up daily 1:1 calls to discuss technology and team dynamics. Despite my packed schedule, I made it a priority to ensure his success. We spent months discussing Python best practices and the nuances of building scalable software. This mentorship required significant effort on my part, but the personal connection and satisfaction I derived from his progress were immensely motivating.
+
+Half a year later, our team dynamic had transformed. We were no longer just two engineers working in parallel; we were a cohesive unit, capable of stepping into each other's roles when needed. This was evident when, during my colleague's vacation, an urgent issue arose from a key customer. I seamlessly took over, resolving the issue before his return. Upon his return, I briefed him on the solution, ensuring he retained ownership of his project.
+
+Another instance highlighted our teamwork. Faced with two escalations and a third one incoming, it was impossible for me to tackle them all. He stepped in, delivering high-quality work promptly.
+
+In conclusion, the journey at Moveworks was more than just about building a product; it was about building a team. The effort I put into fostering a collaborative and supportive environment was taxing in the short term but invaluable in the long run. It cultivated a healthy team dynamic and led to a lasting friendship that extended beyond my tenure at the company. This experience profoundly shaped my approach to leadership and team building, leaving me with invaluable lessons that I carry with me to this day.

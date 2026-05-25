@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Nov 06, 2023
+
+[everywall/ladder](https://github.com/everywall/ladder) - Selfhosted alternative to 12ft.io. and 1ft.io bypass paywalls with a proxy ladder and remove CORS headers from any URL

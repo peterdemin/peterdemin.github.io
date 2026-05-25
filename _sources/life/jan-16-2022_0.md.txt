@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jan 16, 2022
+
+[rmcelreath/stat_rethinking_2022](https://github.com/rmcelreath/stat_rethinking_2022) - Statistical Rethinking course winter 2022

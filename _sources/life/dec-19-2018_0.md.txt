@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Dec 19, 2018
+
+[opsmop/opsmop](https://github.com/opsmop/opsmop) - DISCONTINUED: permanent copy of fork lives at github.com/mpdehaan/opsmop

@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jan 29, 2021
+
+[RickSayd/navigating-system-design](https://github.com/RickSayd/navigating-system-design) - None

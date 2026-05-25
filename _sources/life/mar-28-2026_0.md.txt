@@ -1,0 +1,21 @@
+---
+orphan: true
+---
+
+# Mar 28, 2026
+
+Quoting [you have to know what to wish for](https://www.neversaw.us/2026/03/26/you-have-to-know-what-to-wish-for/) by Chris Dickinson.
+
+> The programmer has a theory of the system, developed in concert with that system.
+> That theory is a mental model, a map of the system, problem space, and how it might react to changes in the future.
+
+This is how I've been thinking about the value I bring to the company for a long time.
+Mental model of the problem space, simplified model for the software solving the problem, and the ability to translate between them.
+Many times I saw how the engineering team has the best understanding of business at the technical level.
+And how adding new requirements for an existing product requires rethinking the model.
+
+On a surface level you can't tell much difference between a commit of a senior and a new team member.
+That's what makes people think that LLMs are a threat to the craft of programming.
+But there's no substitute to the deep understanding of a system that people posses.
+LLMs has to rebuild the context in every session, it's different every time and never complete.
+

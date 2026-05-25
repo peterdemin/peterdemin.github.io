@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Mar 28, 2025
+
+Imaging having to learn jQuery in 2025. How does it make you feel?

@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# May 30, 2023
+
+[bigcapitalhq/bigcapital](https://github.com/bigcapitalhq/bigcapital) - 💵 Bigcapital is financial accounting with intelligent reporting for faster decision-making, an open-source alternative to Quickbooks, Xero, etc.
