@@ -5,7 +5,7 @@ from sphinx.builders.dirhtml import DirectoryHTMLBuilder
 
 project = "Peter Demin"
 html_title = "Peter Demin"
-copyright = "2022, Peter Demin"
+copyright = "2016-2026, Peter Demin"
 author = "Peter Demin"
 
 # Ensure WebP is considered an image for HTML output
