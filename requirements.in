@@ -3,7 +3,7 @@ myst-parser
 sphinx-design
 graphviz
 simple-photo-gallery
-setuptools
+setuptools<82  # simple-photo-gallery relies on pkg_resouces
 shibuya
 pip-tools
 lxml
