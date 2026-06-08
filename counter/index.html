@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en" class="min-h-screen">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/tailwind.css">
+    <title>Backgammon counter</title>
+  </head>
+  <body style="touch-action: none">
+    <div class="flex flex-col h-screen mt-2 gap-8">
+
+        <div class="flex flex-col gap-4">
+            <div class="px-2 flex flex-row gap-2 items-stretch">
+                <input class="p-2 rounded text-2xl font-bold w-5/12" type="text" name="name" id="name" value="Peter" />
+                <input class="p-2 rounded text-xl w-3/12" type="text" name="sum1" id="sum1" />
+                <button class="p-2 rounded bg-red-500 w-4/12" data-target="sum1">Reset</button>
+            </div>
+            <div class="px-2 grid gap-2 grid-cols-3 text-center [&>button]:text-xl [&>button]:px-4 [&>button]:py-10 [&>button]:rounded [&>button]:bg-gray-300">
+                <button data-target="sum1">1</button>
+                <button data-target="sum1">2</button>
+                <button data-target="sum1">3</button>
+                <button data-target="sum1">4</button>
+                <button data-target="sum1">5</button>
+                <button data-target="sum1">6</button>
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-4">
+            <div class="px-2 flex flex-row gap-2 items-stretch">
+                <input class="p-2 rounded text-2xl font-bold w-5/12" type="text" name="name" id="name" value="Davit" />
+                <input class="p-2 rounded text-xl w-3/12" type="text" name="sum2" id="sum2" />
+                <button class="p-2 rounded bg-red-500 w-4/12" data-target="sum2">Reset</button>
+            </div>
+            <div class="px-2 grid gap-2 grid-cols-3 text-center [&>button]:text-xl [&>button]:px-4 [&>button]:py-10 [&>button]:rounded [&>button]:bg-gray-300">
+                <button data-target="sum2">1</button>
+                <button data-target="sum2">2</button>
+                <button data-target="sum2">3</button>
+                <button data-target="sum2">4</button>
+                <button data-target="sum2">5</button>
+                <button data-target="sum2">6</button>
+            </div>
+        </div></div>
+
+    <script>
+      function addNumberToSum(event) {
+        const sumInput = document.getElementById(event.target.dataset.target);
+        if (event.target.textContent === "Reset") {
+            sumInput.value = 0;
+        } else {
+            const buttonValue = parseInt(event.target.textContent, 10);
+            const currentSum = parseInt(sumInput.value || '0', 10);
+            sumInput.value = currentSum + buttonValue;
+        }
+      }
+      const buttons = document.querySelectorAll("button");
+      buttons.forEach(button => {
+        button.addEventListener("click", addNumberToSum);
+      });
+    </script>
+
+  </body>
+</html>
