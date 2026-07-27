@@ -1,5 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2026-07-23T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Jul 23, 2026_0</id><title>Journal</title><published>2026-07-23T00:00:00Z</published><updated>2026-07-23T00:00:00Z</updated><link href="https://peter.demin.dev/life/jul-23-2026_0.html"/><content type="html"><![CDATA[<p>things I learned about sailing:</p>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2026-07-26T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Jul 26, 2026_0</id><title>Journal</title><published>2026-07-26T00:00:00Z</published><updated>2026-07-26T00:00:00Z</updated><link href="https://peter.demin.dev/life/jul-26-2026_0.html"/><content type="html"><![CDATA[<p>more things I learned:</p>
+<ol>
+<li>Blisters in fiber glass hull pack acid under 150+ psi.</li>
+<li>Main sail slides are made of plastic, so they break before the main sail tears.</li>
+<li>On older boats you need to remove a rivet to remove a broken slide from the mast tracks. And put a new rivet after the fix.</li>
+<li>The best way to remove a rivet is to drill it through, being careful to not damage the hole.</li>
+<li>Home depot doesn't stock stainless rivets.</li>
+<li>Marine rivets are 59c a piece.</li>
+<li>Battery uses 12V 20A direct current. This requires thick 10 gauge wires, that you normally won't find at home.</li>
+<li>Electric motor, even trolling one, draws much more.</li>
+</ol>
+]]></content></entry><entry><id>Jul 23, 2026_0</id><title>Journal</title><published>2026-07-23T00:00:00Z</published><updated>2026-07-23T00:00:00Z</updated><link href="https://peter.demin.dev/life/jul-23-2026_0.html"/><content type="html"><![CDATA[<p>things I learned about sailing:</p>
 <ol>
 <li>It’s okay for a sailboat to be old. Fiberglass ages well. 1979 boat can be as seaworthy as 2026.</li>
 <li>Sailboats don’t need to be expensive. Even though many of them are. My trick is to buy from a nonprofit, that accepts boat donations.</li>
@@ -547,5 +558,4 @@ But a list of cyberpunk shows or movies that are better than Ergo Proxy seems li
 <li>Minute decision that are seldomly discussed but spread all over the code. This is the biggest chunk of the context, the meat and cause of all the quirks and optimizations.</li>
 </ol>
 <p>Of all three, only the first one is available to people outside of the code owners. The other two take so much effort to maintain, that only the owners have the capacity to hold.</p>
-]]></content></entry><entry><id>Jul 12, 2025_0</id><title>Journal</title><published>2025-07-12T00:00:00Z</published><updated>2025-07-12T00:00:00Z</updated><link href="https://peter.demin.dev/life/jul-12-2025_0.html"/><content type="html"><![CDATA[<p><a href="https://github.com/gw1urf/spigot">gw1urf/spigot</a> - A hierarchy of Markov Chain generated web pages.</p>
 ]]></content></entry></feed>

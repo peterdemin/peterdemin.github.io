@@ -1,0 +1,16 @@
+---
+orphan: true
+---
+
+# Jul 26, 2026
+
+more things I learned:
+
+1. Blisters in fiber glass hull pack acid under 150+ psi.
+2. Main sail slides are made of plastic, so they break before the main sail tears.
+3. On older boats you need to remove a rivet to remove a broken slide from the mast tracks. And put a new rivet after the fix.
+4. The best way to remove a rivet is to drill it through, being careful to not damage the hole.
+5. Home depot doesn't stock stainless rivets.
+6. Marine rivets are 59c a piece.
+7. Battery uses 12V 20A direct current. This requires thick 10 gauge wires, that you normally won't find at home.
+8. Electric motor, even trolling one, draws much more.
