@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Sep 04, 2023
+
+[vale-cli/vale](https://github.com/vale-cli/vale) - :pencil: A markup-aware linter for prose built with speed and extensibility in mind.

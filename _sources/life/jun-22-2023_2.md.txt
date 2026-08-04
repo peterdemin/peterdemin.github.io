@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jun 22, 2023
+
+[mindsdb/mindshub](https://github.com/mindsdb/mindshub) - Make AI do actual work. Swap the model anytime — keep everything you've built.

@@ -1,3 +1,5 @@
+`Jun 22, 2026` - [ngrok/webernetes](https://github.com/ngrok/webernetes) - Kubernetes in the browser.
+
 `Jun 15, 2026` - True leaders ask not what their country can do for them - they grab what they can reach and get what they can get away with.
 
 `Jun 07, 2026` - As many of the ape descendants on mostly harmless planet know, Earth was built for mice with a sole purpose of finding the question to Life, the Universe and Everything.
@@ -12,3 +14,13 @@ And the desire to continue the lineage is mainly to take another shot in this re
 Create another human being to take their stab at the problem.
 Completing the thought might result in immediate anihilation of the universe, and it might have happened before.
 But still, we just can't help it.
+
+`Jun 05, 2026` - [jgm/gitit](https://github.com/jgm/gitit) - A wiki using HAppS, pandoc, and git
+`Jun 02, 2026` - [advplyr/audiobookshelf-app](https://github.com/advplyr/audiobookshelf-app) - Mobile application for Audiobookshelf
+
+`Jun 02, 2026` - [advplyr/audiobookshelf](https://github.com/advplyr/audiobookshelf) - Self-hosted audiobook and podcast server
+
+
+`Jun 02, 2026` - [docusealco/docuseal](https://github.com/docusealco/docuseal) - Open source DocuSign alternative. Create, fill, and sign digital documents ✍️
+
+`Jun 01, 2026` - [anthropic-experimental/sandbox-runtime](https://github.com/anthropic-experimental/sandbox-runtime) - A lightweight sandboxing tool for enforcing filesystem and network restrictions on arbitrary processes at the OS level, without requiring a container.

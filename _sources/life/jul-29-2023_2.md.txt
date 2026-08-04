@@ -1,0 +1,7 @@
+---
+orphan: true
+---
+
+# Jul 29, 2023
+
+[oobabooga/textgen](https://github.com/oobabooga/textgen) - Open-source desktop app for local LLMs. Text, vision, tool-calling, OpenAI/Anthropic-compatible API. 100% private.

@@ -2,6 +2,8 @@
 
 `Jun 26, 2023` - "capturing the fast-growing demand" is all it is about these days.
 
+`Jun 22, 2023` - [mindsdb/mindshub](https://github.com/mindsdb/mindshub) - Make AI do actual work. Swap the model anytime — keep everything you've built.
+
 `Jun 22, 2023` - [mindsdb/mindsdb](https://github.com/mindsdb/mindsdb) - Federated Query Engine for AI - The only MCP Server you'll ever need
 
 `Jun 22, 2023` - interesting quote from “A Philosophy of Software Design” book by John Ousterhout:

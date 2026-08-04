@@ -1,3 +1,5 @@
+`May 31, 2026` - [mszep/pandoc_resume](https://github.com/mszep/pandoc_resume) - The Markdown Resume
+
 `May 31, 2026` - Print all local branch names with date of last commit:
 
 ```bash
@@ -26,3 +28,5 @@ The last mention of this project is from 2025 in [PR #13622](https://github.com/
 Fun fact: the PR author is the very same [Chris Roberts](https://github.com/chrisroberts) who announced it 4 years earlier.
 
 `May 09, 2026` - Added [](/12_articles/84-taste.md)
+
+`May 04, 2026` - [mobile-shell/mosh](https://github.com/mobile-shell/mosh) - Mobile Shell
