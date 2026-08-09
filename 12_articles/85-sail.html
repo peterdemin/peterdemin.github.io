@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Boom and Sail Physics - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Decentralizing the Practice of Architecture at Xapo Bank" href="../17_notes/01_xapo.html" /><link rel="prev" title="On Taste" href="84-taste.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=51f15f49" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Boom and Sail Physics"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#canonical-lift-and-drag">Canonical lift and drag</a></li>
+<li><a class="reference internal" href="#piecewise-lift-coefficient">Piecewise lift coefficient</a></li>
+<li><a class="reference internal" href="#world-frame">World frame</a></li>
+<li><a class="reference internal" href="#boat-frame">Boat frame</a></li>
+<li><a class="reference internal" href="#boom-angle">Boom angle</a></li>
+<li><a class="reference internal" href="#sail-frame">Sail frame</a></li>
+<li><a class="reference internal" href="#angle-of-attack">Angle of attack</a></li>
+<li><a class="reference internal" href="#lift-and-drag-vectors-in-sail-frame">Lift and drag vectors in sail frame</a></li>
+<li><a class="reference internal" href="#force-in-the-boat-frame">Force in the boat frame</a></li>
+<li><a class="reference internal" href="#trim-efficiency">Trim efficiency</a></li>
+<li><a class="reference internal" href="#force-acceleration-and-velocity">Force, acceleration, and velocity</a></li>
+<li><a class="reference internal" href="#physics-chain">Physics chain</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
+    
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Boom and Sail Physics</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="boom-and-sail-physics">
+<h1>Boom and Sail Physics<a class="headerlink" href="#boom-and-sail-physics" title="Link to this heading">¶</a></h1>
+<p>This note derives a compact sail-and-boom model from standard aerodynamic force
+formulas.</p>
+<p>The presentation uses three coordinate systems:</p>
+<ol class="arabic simple">
+<li><p><strong>Sail frame</strong>: the boom and sail chord lie on the positive <span class="math notranslate nohighlight">\(x\)</span> axis.</p></li>
+<li><p><strong>Boat frame</strong>: the boat centerline forward lies on the positive <span class="math notranslate nohighlight">\(x\)</span> axis.</p></li>
+<li><p><strong>World frame</strong>: east lies on the positive <span class="math notranslate nohighlight">\(x\)</span> axis.</p></li>
+</ol>
+<p>The order matters:</p>
+<ol class="arabic simple">
+<li><p>Write lift and drag in the sail frame.</p></li>
+<li><p>Express apparent wind in that frame.</p></li>
+<li><p>Rotate force into the boat frame.</p></li>
+<li><p>Project to forward drive.</p></li>
+<li><p>Convert force to acceleration and velocity.</p></li>
+<li><p>Use the sheet only to constrain the boom angle.</p></li>
+</ol>
+<section id="canonical-lift-and-drag">
+<h2>Canonical lift and drag<a class="headerlink" href="#canonical-lift-and-drag" title="Link to this heading">¶</a></h2>
+<p>The standard aerodynamic force formulas are:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[L = \frac{1}{2}\rho v_a^2 S C_L\]</div>
+</div>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[D = \frac{1}{2}\rho v_a^2 S C_D\]</div>
+</div>
+<p>Where:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\rho\)</span> is air density,</p></li>
+<li><p><span class="math notranslate nohighlight">\(v_a\)</span> is apparent wind speed,</p></li>
+<li><p><span class="math notranslate nohighlight">\(S\)</span> is sail area,</p></li>
+<li><p><span class="math notranslate nohighlight">\(C_L\)</span> is lift coefficient,</p></li>
+<li><p><span class="math notranslate nohighlight">\(C_D\)</span> is drag coefficient.</p></li>
+</ol>
+<p>The essential point is that force scales with <span class="math notranslate nohighlight">\(v_a^2\)</span>, not <span class="math notranslate nohighlight">\(v_a\)</span>.</p>
+</section>
+<section id="piecewise-lift-coefficient">
+<h2>Piecewise lift coefficient<a class="headerlink" href="#piecewise-lift-coefficient" title="Link to this heading">¶</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(\alpha\)</span> be the angle of attack and <span class="math notranslate nohighlight">\(\alpha_s\)</span> the stall angle.</p>
+<p>Use a piecewise lift model:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\begin{split}C_L(\alpha) =
+\begin{cases}
+c_1 \alpha, &amp; 0 \le \alpha \le \alpha_s \\
+C_{L,\max}\left(1 - k_s(\alpha - \alpha_s)\right), &amp; \alpha &gt; \alpha_s
+\end{cases}\end{split}\]</div>
+</div>
+<p>with:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[C_{L,\max} = c_1 \alpha_s\]</div>
+</div>
+<p>This says:</p>
+<ol class="arabic simple">
+<li><p>lift grows roughly linearly before stall,</p></li>
+<li><p>lift peaks at stall,</p></li>
+<li><p>lift decreases after stall.</p></li>
+</ol>
+<p>For drag, one may use any monotone increasing function of <span class="math notranslate nohighlight">\(\alpha\)</span>.
+A simple choice is:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[C_D(\alpha) = C_{D,0} + c_2 \alpha^2\]</div>
+</div>
+<p>where <span class="math notranslate nohighlight">\(C_{D,0}\)</span> is parasitic drag at zero angle of attack.</p>
+</section>
+<section id="world-frame">
+<h2>World frame<a class="headerlink" href="#world-frame" title="Link to this heading">¶</a></h2>
+<p>In the world frame:</p>
+<ol class="arabic simple">
+<li><p>positive <span class="math notranslate nohighlight">\(x\)</span> points east,</p></li>
+<li><p>positive <span class="math notranslate nohighlight">\(y\)</span> points south on the screen.</p></li>
+</ol>
+<p>Let the boat heading be <span class="math notranslate nohighlight">\(\theta_b\)</span>.
+Let the true wind direction be <span class="math notranslate nohighlight">\(\theta_w\)</span>.</p>
+<p>Boat velocity is:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\begin{split}\vec{v}_b^{(3)} =
+v_b
+\begin{bmatrix}
+\cos \theta_b \\
+\sin \theta_b
+\end{bmatrix}\end{split}\]</div>
+</div>
+<p>True wind velocity is:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\begin{split}\vec{v}_w^{(3)} =
+v_w
+\begin{bmatrix}
+\cos \theta_w \\
+\sin \theta_w
+\end{bmatrix}\end{split}\]</div>
+</div>
+<p>The apparent wind in the world frame is:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\vec{v}_a^{(3)} = \vec{v}_w^{(3)} - \vec{v}_b^{(3)}\]</div>
+</div>
+</section>
+<section id="boat-frame">
+<h2>Boat frame<a class="headerlink" href="#boat-frame" title="Link to this heading">¶</a></h2>
+<p>The boat frame rotates with the hull.</p>
+<p>Its positive <span class="math notranslate nohighlight">\(x\)</span> axis points forward.
+Its positive <span class="math notranslate nohighlight">\(y\)</span> axis points to one side of the hull.</p>
+<p>To express a world-frame vector in the boat frame, rotate by <span class="math notranslate nohighlight">\(-\theta_b\)</span>:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\begin{split}R_b =
+\begin{bmatrix}
+\cos(-\theta_b) &amp; -\sin(-\theta_b) \\
+\sin(-\theta_b) &amp; \cos(-\theta_b)
+\end{bmatrix}\end{split}\]</div>
+</div>
+<p>Then:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\vec{v}_a^{(2)} = R_b \vec{v}_a^{(3)}\]</div>
+</div>
+<p>The apparent wind angle in the boat frame is:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\phi = \operatorname{atan2}(v_{a,y}^{(2)}, v_{a,x}^{(2)})\]</div>
+</div>
+</section>
+<section id="boom-angle">
+<h2>Boom angle<a class="headerlink" href="#boom-angle" title="Link to this heading">¶</a></h2>
+<p>Let the boom angle in the boat frame be <span class="math notranslate nohighlight">\(\beta\)</span>.</p>
+<p>By convention:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\beta = \pi\)</span> would place the boom on the centerline aft,</p></li>
+<li><p>for convenience one may instead measure boom angle from the aft direction,</p></li>
+<li><p>in that convention <span class="math notranslate nohighlight">\(\beta = 0\)</span> means centered aft.</p></li>
+</ol>
+<p>It is cleaner to use the second convention for sailing geometry, so this note
+measures <span class="math notranslate nohighlight">\(\beta\)</span> from the aft centerline.</p>
+<p>Let <span class="math notranslate nohighlight">\(\beta_{\text{free}}\)</span> be the angle the boom would take with no sheet
+restriction.
+Let <span class="math notranslate nohighlight">\(\beta_{\max}\)</span> be the maximum magnitude allowed by the mainsheet.</p>
+<p>Then:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\begin{split}\beta =
+\begin{cases}
+-\beta_{\max}, &amp; \beta_{\text{free}} &lt; -\beta_{\max} \\
+\beta_{\text{free}}, &amp; -\beta_{\max} \le \beta_{\text{free}} \le \beta_{\max} \\
+\beta_{\max}, &amp; \beta_{\text{free}} &gt; \beta_{\max}
+\end{cases}\end{split}\]</div>
+</div>
+<p>The mainsheet therefore acts only as a constraint on boom angle.</p>
+</section>
+<section id="sail-frame">
+<h2>Sail frame<a class="headerlink" href="#sail-frame" title="Link to this heading">¶</a></h2>
+<p>The sail frame rotates with the boom.</p>
+<p>Its positive <span class="math notranslate nohighlight">\(x\)</span> axis lies along the boom and sail chord.</p>
+<p>To transform from the boat frame to the sail frame, rotate by <span class="math notranslate nohighlight">\(-\beta\)</span>:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\begin{split}R_s =
+\begin{bmatrix}
+\cos(-\beta) &amp; -\sin(-\beta) \\
+\sin(-\beta) &amp; \cos(-\beta)
+\end{bmatrix}\end{split}\]</div>
+</div>
+<p>Then:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\vec{v}_a^{(1)} = R_s \vec{v}_a^{(2)}\]</div>
+</div>
+</section>
+<section id="angle-of-attack">
+<h2>Angle of attack<a class="headerlink" href="#angle-of-attack" title="Link to this heading">¶</a></h2>
+<p>In the sail frame, the chord is aligned with the <span class="math notranslate nohighlight">\(x\)</span> axis.
+So the angle of attack is read directly from the apparent wind:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\alpha = \operatorname{atan2}(v_{a,y}^{(1)}, v_{a,x}^{(1)})\]</div>
+</div>
+<p>Only the acute angle is needed for the coefficient model:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\alpha_{\text{eff}} = \min(|\alpha|, \pi - |\alpha|)\]</div>
+</div>
+<p>with:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[0 \le \alpha_{\text{eff}} \le \frac{\pi}{2}\]</div>
+</div>
+</section>
+<section id="lift-and-drag-vectors-in-sail-frame">
+<h2>Lift and drag vectors in sail frame<a class="headerlink" href="#lift-and-drag-vectors-in-sail-frame" title="Link to this heading">¶</a></h2>
+<p>Let:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\hat{a}^{(1)} = \frac{\vec{v}_a^{(1)}}{\lVert \vec{v}_a^{(1)} \rVert}\]</div>
+</div>
+<p>be the apparent wind direction in the sail frame.</p>
+<p>Let a perpendicular direction be:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\begin{split}\hat{n}^{(1)} =
+\begin{bmatrix}
+-a_y^{(1)} \\
+a_x^{(1)}
+\end{bmatrix}\end{split}\]</div>
+</div>
+<p>Then drag is:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\vec{D}^{(1)} = D \hat{a}^{(1)}\]</div>
+</div>
+<p>and lift is:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\vec{L}^{(1)} = L \hat{n}^{(1)}\]</div>
+</div>
+<p>The total sail force in the sail frame is:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\vec{F}^{(1)} = \vec{L}^{(1)} + \vec{D}^{(1)}\]</div>
+</div>
+<p>If the chosen <span class="math notranslate nohighlight">\(\hat{n}^{(1)}\)</span> produces force on the wrong side, replace
+<span class="math notranslate nohighlight">\(\hat{n}^{(1)}\)</span> with <span class="math notranslate nohighlight">\(-\hat{n}^{(1)}\)</span>.</p>
+</section>
+<section id="force-in-the-boat-frame">
+<h2>Force in the boat frame<a class="headerlink" href="#force-in-the-boat-frame" title="Link to this heading">¶</a></h2>
+<p>Rotate the sail-frame force back into the boat frame:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\vec{F}^{(2)} = R_s^{-1} \vec{F}^{(1)}\]</div>
+</div>
+<p>Now the boat-frame <span class="math notranslate nohighlight">\(x\)</span> component is the forward drive direction.</p>
+<p>So the forward propulsive force is:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[F_{\text{drive}} = \max(0, F_x^{(2)})\]</div>
+</div>
+<p>The <span class="math notranslate nohighlight">\(y\)</span> component in the boat frame is the sideways force.
+That term can later be used for heel or leeway if desired.</p>
+</section>
+<section id="trim-efficiency">
+<h2>Trim efficiency<a class="headerlink" href="#trim-efficiency" title="Link to this heading">¶</a></h2>
+<p>If the boom is too tight or too loose relative to the apparent-wind demand,
+the sail should lose efficiency.</p>
+<p>Define:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[e_{\text{over}} = \max(0, |\beta_{\text{free}}| - \beta_{\max})\]</div>
+</div>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[e_{\text{under}} = \max(0, \beta_{\max} - |\beta_{\text{free}}|)\]</div>
+</div>
+<p>Then:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\eta_{\text{trim}} =
+\eta_{\text{over}} \eta_{\text{under}}\]</div>
+</div>
+<p>where each factor lies in <span class="math notranslate nohighlight">\([0, 1]\)</span>.</p>
+<p>This efficiency factor multiplies the canonical lift and drag formulas:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[L = \frac{1}{2}\rho v_a^2 S C_L \eta_{\text{trim}}\]</div>
+</div>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[D = \frac{1}{2}\rho v_a^2 S C_D \eta_{\text{trim}}\]</div>
+</div>
+</section>
+<section id="force-acceleration-and-velocity">
+<h2>Force, acceleration, and velocity<a class="headerlink" href="#force-acceleration-and-velocity" title="Link to this heading">¶</a></h2>
+<p>Force should produce acceleration, not speed directly.</p>
+<p>Let the boat mass be <span class="math notranslate nohighlight">\(m\)</span>.</p>
+<p>Then:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[a_{\text{forward}} = \frac{F_{\text{drive}}}{m}\]</div>
+</div>
+<p>If <span class="math notranslate nohighlight">\(v_b\)</span> is the scalar boat speed along its centerline, then:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[v_b(t + \Delta t) = v_b(t) + a_{\text{forward}} \Delta t\]</div>
+</div>
+<p>In vector form, the world-frame boat velocity is then:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\begin{split}\vec{v}_b^{(3)} =
+v_b
+\begin{bmatrix}
+\cos \theta_b \\
+\sin \theta_b
+\end{bmatrix}\end{split}\]</div>
+</div>
+<p>In a fuller model, one would add hull drag and integrate position as well:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\vec{x}(t + \Delta t) = \vec{x}(t) + \vec{v}_b^{(3)} \Delta t\]</div>
+</div>
+</section>
+<section id="physics-chain">
+<h2>Physics chain<a class="headerlink" href="#physics-chain" title="Link to this heading">¶</a></h2>
+<p>The structure is:</p>
+<ol class="arabic simple">
+<li><p>canonical lift and drag depend on <span class="math notranslate nohighlight">\(v_a^2\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(C_L\)</span> and <span class="math notranslate nohighlight">\(C_D\)</span> depend on angle of attack,</p></li>
+<li><p>angle of attack is measured in the sail frame,</p></li>
+<li><p>the sail frame comes from the boom angle,</p></li>
+<li><p>the boom angle is clamped by the mainsheet,</p></li>
+<li><p>the forward component of total force produces acceleration,</p></li>
+<li><p>acceleration updates boat velocity.</p></li>
+</ol>
+<p>This is the smallest consistent path from sail aerodynamics to boat speed.</p>
+</section>
+</section>
+
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="84-taste.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">On Taste</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="../17_notes/01_xapo.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Decentralizing the Practice of Architecture at Xapo Bank</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2016-2026, Peter Demin</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/shibuya.js?v=50760d75"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script></body>
+</html>

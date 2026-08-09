@@ -1,13 +1,10 @@
-`Aug 09, 2026` - Heaving to is an important skill for single-handing the sailboat.
-It takes some skill to predict the drift direction and speed.
-My boat drifts downwind and forward, maybe at 45 degrees to wind.
-Maybe that's because the spreader is angled a bit aft, and main lays on it, preventing it from aligning with the wind.
-I saw the boat speed go up to a knot while drifting, which is comparable to drifting with sails down,
-and is greater than the speed of smaller drifting power boats.
-When planning to heave to I can choose one of two broad reach directions to drift to.
-Being on starboard tack makes me a stand-on vehicle, but in practice everyone gives me way regardless of tack.
+---
+orphan: true
+---
 
-`Aug 08, 2026` - I learned a few things about electricity.
+# Aug 08, 2026
+
+I learned a few things about electricity.
 The boat came with a trolling motor directly connected to a battery, so I had to figure out the proper protection.
 The first iteration was two manual circuit breakers: one between battery and power bus and another between power bus and the motor.
 I checked the prices for marine equipement, and tried to save money by going with cheap automotive breakers.
@@ -23,7 +20,3 @@ But the BMS no longer trips, and I can go on high speed reliably (tested with a 
 The battery side of the breaker heats considerably, so that I can touch but can't hold it in my fingers.
 I checked the lug contact, made sure it's clean and snug, the heat seems to come from inside the breaker.
 Not ideal, but manageable. I rarely need to go on top speed for longer than a few seconds.
-
-`Aug 06, 2026` - I should look into this someday: https://pgtune.leopard.in.ua
-
-`Aug 04, 2026` - [ToneyAlexander/inclusive-color-space](https://github.com/ToneyAlexander/inclusive-color-space)
