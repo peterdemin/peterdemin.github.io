@@ -1,5 +1,24 @@
 <?xml version='1.0' encoding='utf-8'?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2026-08-09T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Aug 09, 2026_0</id><title>Journal</title><published>2026-08-09T00:00:00Z</published><updated>2026-08-09T00:00:00Z</updated><link href="https://peter.demin.dev/life/aug-09-2026_0.html"/><content type="html"><![CDATA[<p>Heaving to is an important skill for single-handing the sailboat.
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://peter.demin.dev/life.xml</id><title>Peter Demin</title><updated>2026-08-17T00:00:00Z</updated><link rel="self" href="https://peter.demin.dev/life.xml"/><link href="https://peter.demin.dev/life.html"/><author><name>Peter Demin</name></author><entry><id>Aug 17, 2026_0</id><title>Journal</title><published>2026-08-17T00:00:00Z</published><updated>2026-08-17T00:00:00Z</updated><link href="https://peter.demin.dev/life/aug-17-2026_0.html"/><content type="html"><![CDATA[<p>Yep, lowering the mainsail killed the boat speed while heaving to.</p>
+<p>More things I learned:</p>
+<ul>
+<li>Tie five butterfly knots every foot or so to make a short rope ladder.</li>
+<li>Hang it from a whinch or cleat to climb aboard from water.</li>
+<li>Let a long end drift behind the boat.</li>
+<li>It's okay to go for a swim while heaving to if you can climb back.</li>
+<li>Even when single-handing.</li>
+<li>If you stare at windex long enough, you learn how the wind feels on your face.</li>
+<li>Then you can sail without looking at windex.</li>
+<li>If you listen to the sails long enough, you don't need to look at them.</li>
+<li>It's okay to sail at night if you know the area, can go without windex, and know how sails sound.</li>
+<li>Garmin Navionics is helpful too.</li>
+<li>When keeping bearing using compass, turn tiller towards the azimuth you want to be on.</li>
+<li>When running turn tiller towards the sail that luffs.</li>
+<li>Foilers love to catch motorboat wakes. Some people run the boats just to give them a ride.</li>
+<li>Wakes kill the sailboat speed though.</li>
+<li>Don't try to tack over a wake.</li>
+</ul>
+]]></content></entry><entry><id>Aug 09, 2026_0</id><title>Journal</title><published>2026-08-09T00:00:00Z</published><updated>2026-08-09T00:00:00Z</updated><link href="https://peter.demin.dev/life/aug-09-2026_0.html"/><content type="html"><![CDATA[<p>Heaving to is an important skill for single-handing the sailboat.
 It takes some skill to predict the drift direction and speed.
 My boat drifts downwind and forward, maybe at 45 degrees to wind.
 Maybe that's because the spreader is angled a bit aft, and main lays on it, preventing it from aligning with the wind.
@@ -525,5 +544,4 @@ And after that I'm thinking about &quot;We&quot; by Yevgeny Zamyatin, which was 
 ]]></content></entry><entry><id>Oct 20, 2025_0</id><title>Journal</title><published>2025-10-20T00:00:00Z</published><updated>2025-10-20T00:00:00Z</updated><link href="https://peter.demin.dev/life/oct-20-2025_0.html"/><content type="html"><![CDATA[<p>there’s something inconceivable about same-day delivery for a bunch of bananas for $0.99 with no delivery fee.</p>
 ]]></content></entry><entry><id>Oct 17, 2025_0</id><title>Journal</title><published>2025-10-17T00:00:00Z</published><updated>2025-10-17T00:00:00Z</updated><link href="https://peter.demin.dev/life/oct-17-2025_0.html"/><content type="html"><![CDATA[<p>At our reception, you’ll be treated to stale, lukewarm coffee and stone-hard bagels accompanied by jams featuring half the periodic table.</p>
 ]]></content></entry><entry><id>Oct 13, 2025_0</id><title>Journal</title><published>2025-10-13T00:00:00Z</published><updated>2025-10-13T00:00:00Z</updated><link href="https://peter.demin.dev/life/oct-13-2025_0.html"/><content type="html"><![CDATA[<p><a href="https://github.com/TheLastGimbus/GooglePhotosTakeoutHelper">TheLastGimbus/GooglePhotosTakeoutHelper</a> - Script that organizes the Google Takeout archive into one big chronological folder</p>
-]]></content></entry><entry><id>Oct 12, 2025_0</id><title>Journal</title><published>2025-10-12T00:00:00Z</published><updated>2025-10-12T00:00:00Z</updated><link href="https://peter.demin.dev/life/oct-12-2025_0.html"/><content type="html"><![CDATA[<p>Careless carsales.</p>
 ]]></content></entry></feed>
