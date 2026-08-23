@@ -1,0 +1,484 @@
+<?xml version='1.0' encoding='utf-8'?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>https://www.rippling.com/blog/hub/engineering</id>
+  <title>Rippling Engineering Blog</title>
+  <updated>2026-07-16T15:43:50.704000Z</updated>
+  <link rel="self" href="https://peter.demin.dev/feeds/rippling-engineering.atom.xml" />
+  <link href="https://www.rippling.com/blog/hub/engineering" />
+  <author>
+    <name>Rippling</name>
+  </author>
+  <entry>
+    <id>https://www.rippling.com/blog/building-spend-management-slashing-latencies</id>
+    <title>Building Spend Management: Slashing latencies from 3.5s to 600ms</title>
+    <link href="https://www.rippling.com/blog/building-spend-management-slashing-latencies" />
+    <published>2026-07-16T15:43:50.704000Z</published>
+    <updated>2026-07-16T15:43:50.704000Z</updated>
+    <author>
+      <name>Sam Mahdad</name>
+    </author>
+    <summary type="html">These are the key changes we made to bring the 99th percentile of this endpoint from around 3.5 seconds down to 600 milliseconds.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/the-garbage-collector-fights-back</id>
+    <title>Scaling stories at Rippling: The garbage collector fights back</title>
+    <link href="https://www.rippling.com/blog/the-garbage-collector-fights-back" />
+    <published>2026-07-16T15:43:49.005000Z</published>
+    <updated>2026-07-16T15:43:49.005000Z</updated>
+    <author>
+      <name>Matt Hooks</name>
+    </author>
+    <summary type="html">Get a behind-the-scenes look at our journey scaling. Today&amp;#x27;s topic: reducing our P99 API latency to speed up page load times.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/rippling-hires-albert-strasheim-as-cto-svp-engineering</id>
+    <title>Rippling hires Albert Strasheim as CTO &amp; SVP, Engineering</title>
+    <link href="https://www.rippling.com/blog/rippling-hires-albert-strasheim-as-cto-svp-engineering" />
+    <published>2026-07-16T15:42:48.971000Z</published>
+    <updated>2026-07-16T15:42:48.971000Z</updated>
+    <author>
+      <name>The Rippling Team</name>
+    </author>
+    <summary type="html">Rippling is pleased to welcome Albert Strasheim to the Rippling executive team as CTO and SVP, Engineering</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/react-native-upgrades</id>
+    <title>Managing and scoping React Native upgrades</title>
+    <link href="https://www.rippling.com/blog/react-native-upgrades" />
+    <published>2026-07-16T15:42:48.136000Z</published>
+    <updated>2026-07-16T15:42:48.136000Z</updated>
+    <author>
+      <name>Nikhil Vashistha</name>
+    </author>
+    <summary type="html">Learn tips and tricks for handling React Native upgrades from the perspective of Rippling’s Engineering team.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/quality-week</id>
+    <title>Quality Week: 5 days for engineers to solve the things that annoy them most</title>
+    <link href="https://www.rippling.com/blog/quality-week" />
+    <published>2026-07-16T15:42:21.975000Z</published>
+    <updated>2026-07-16T15:42:21.975000Z</updated>
+    <author>
+      <name>The Rippling Team</name>
+    </author>
+    <summary type="html">Learn how Rippling engineers roll up their sleeves to debug, purge dead code, and improve existing processes during Quality Week.Learn how Rippling engineers roll up their sleeves to debug, purge dead code, and improve existing processes during Quality Wee</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/10-lessons-containerizing-our-django-backend</id>
+    <title>10 Lessons: Containerizing our Django Backend</title>
+    <link href="https://www.rippling.com/blog/10-lessons-containerizing-our-django-backend" />
+    <published>2026-07-16T15:42:21.809000Z</published>
+    <updated>2026-07-16T15:42:21.809000Z</updated>
+    <author>
+      <name>Senthil Velu Sundaram</name>
+    </author>
+    <summary type="html">Discover 10 key lessons learned from containerizing Rippling&amp;#x27;s Django backend to enhance scalability and performance.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/multiregion-data-residency-qcon-alex-strachan</id>
+    <title>How Rippling is redefining multiregion data residency</title>
+    <link href="https://www.rippling.com/blog/multiregion-data-residency-qcon-alex-strachan" />
+    <published>2026-07-16T15:41:51.148000Z</published>
+    <updated>2026-07-16T15:41:51.148000Z</updated>
+    <author>
+      <name>Alex Strachan</name>
+    </author>
+    <summary type="html">Explore how Rippling is redefining data residency with Alex Strachan’s QCon SF insights on secure, scalable multiregion architecture.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/thousands-millions-scaling-reporting-engine</id>
+    <title>From thousands to millions: Scaling our reporting engine</title>
+    <link href="https://www.rippling.com/blog/thousands-millions-scaling-reporting-engine" />
+    <published>2026-07-16T15:38:29.239000Z</published>
+    <updated>2026-07-16T15:38:29.239000Z</updated>
+    <author>
+      <name>Ayush Rai</name>
+    </author>
+    <summary type="html">Discover how Rippling scaled its analytics engine for 10x data growth, enhancing real-time reporting and optimizing large dataset handling.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/ripplings-real-time-reporting-engine</id>
+    <title>Inside Rippling’s real-time reporting engine</title>
+    <link href="https://www.rippling.com/blog/ripplings-real-time-reporting-engine" />
+    <published>2026-07-16T15:38:02.853000Z</published>
+    <updated>2026-07-16T15:38:02.853000Z</updated>
+    <author>
+      <name>Venu Madhav</name>
+    </author>
+    <summary type="html">Rippling&amp;#x27;s BI tool is better than standalone BI systems. Rippling allows users to merge data across applications into real-time reports to answer the most pressing business questions.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/streamlining-aws-access-with-rippling-at-scale</id>
+    <title>Streamlining AWS access with Rippling at scale — Integrating IAM Identity Center and Just-In-Time access</title>
+    <link href="https://www.rippling.com/blog/streamlining-aws-access-with-rippling-at-scale" />
+    <published>2026-07-16T15:36:14.817000Z</published>
+    <updated>2026-07-16T15:36:14.817000Z</updated>
+    <author>
+      <name>Shreyas Damle</name>
+    </author>
+    <summary type="html">Here&amp;#x27;s how we&amp;#x27;ve leveraged the power of Rippling and AWS IAM Identity Center to supercharge our developers&amp;#x27; productivity and bolster our security stance.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/my-first-90-days-at-rippling</id>
+    <title>My first 90 days at Rippling: Insights and tips for new software engineers</title>
+    <link href="https://www.rippling.com/blog/my-first-90-days-at-rippling" />
+    <published>2026-07-16T15:36:14.110000Z</published>
+    <updated>2026-07-16T15:36:14.110000Z</updated>
+    <author>
+      <name>Jatin Goel</name>
+    </author>
+    <summary type="html">Unsure how to stand out as a new grad software engineer? Here are the tips from one engineer about optimizing your resume, preparing for interviews, and his experience at Rippling Academy.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/heres-why-former-founders-make-rippling-better</id>
+    <title>Here’s why former founders make Rippling better</title>
+    <link href="https://www.rippling.com/blog/heres-why-former-founders-make-rippling-better" />
+    <published>2026-07-16T15:36:13.272000Z</published>
+    <updated>2026-07-16T15:36:13.272000Z</updated>
+    <author>
+      <name>Brad Armstrong</name>
+    </author>
+    <summary type="html">We love working with founders–in fact, we love it so much that we acquired RunX– a team of brilliant leaders to help us engineer a world-class developer experience for our product teams.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/engineering-siem-part-3</id>
+    <title>Engineering a SIEM part 3: Creating cost-effective, scalable detections</title>
+    <link href="https://www.rippling.com/blog/engineering-siem-part-3" />
+    <published>2026-07-16T15:36:12.885000Z</published>
+    <updated>2026-07-16T15:36:12.885000Z</updated>
+    <author>
+      <name>Piotr Szwajkowski</name>
+    </author>
+    <summary type="html">Streamlining the alert and detection flow of Security Information and Event Management system.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/engineering-siem-part-1</id>
+    <title>Engineering a SIEM part 1: Why did we need to build our own SIEM?</title>
+    <link href="https://www.rippling.com/blog/engineering-siem-part-1" />
+    <published>2026-07-16T15:36:12.190000Z</published>
+    <updated>2026-07-16T15:36:12.190000Z</updated>
+    <author>
+      <name>Piotr Szwajkowski</name>
+    </author>
+    <summary type="html">Discover how Rippling&amp;#x27;s engineering-first approach led to the innovative creation of our own SIEM system.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/meet-the-ripplers-simrans-story</id>
+    <title>Meet the Ripplers: Simran’s story</title>
+    <link href="https://www.rippling.com/blog/meet-the-ripplers-simrans-story" />
+    <published>2026-07-16T15:36:11.232000Z</published>
+    <updated>2026-07-16T15:36:11.232000Z</updated>
+    <author>
+      <name>The Rippling Team</name>
+    </author>
+    <summary type="html">Meet Simran: Uncover the inspiring story behind her journey at Rippling and how she&amp;#x27;s pushing boundaries in innovation.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/engineering-siem-part-2</id>
+    <title>Engineering a SIEM part 2: Rippling’s security data lakehouse and modular design</title>
+    <link href="https://www.rippling.com/blog/engineering-siem-part-2" />
+    <published>2026-07-16T15:36:10.940000Z</published>
+    <updated>2026-07-16T15:36:10.940000Z</updated>
+    <author>
+      <name>Piotr Szwajkowski</name>
+    </author>
+    <summary type="html">Explore how Rippling innovated SIEM with a security data lakehouse, leveraging Snowflake for a cutting-edge cybersecurity approach.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/enterprise-grade-apis</id>
+    <title>How Rippling builds enterprise-grade APIs</title>
+    <link href="https://www.rippling.com/blog/enterprise-grade-apis" />
+    <published>2026-07-16T15:35:34.728000Z</published>
+    <updated>2026-07-16T15:35:34.728000Z</updated>
+    <author>
+      <name>Shimao Zheng</name>
+    </author>
+    <summary type="html">Enterprise-grade APIs let customers integrate with Rippling directly from their infrastructure, enabling faster implementation with minimal engineering effort.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/rippling-hires-duncan-godfrey-as-ciso</id>
+    <title>Rippling hires Duncan Godfrey as CISO</title>
+    <link href="https://www.rippling.com/blog/rippling-hires-duncan-godfrey-as-ciso" />
+    <published>2026-07-16T15:35:33.012000Z</published>
+    <updated>2026-07-16T15:35:33.012000Z</updated>
+    <author>
+      <name>The Rippling Team</name>
+    </author>
+    <summary type="html">Rippling is thrilled to welcome Duncan Godfrey to the team as our new as CISO.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/rippling-hack-week-ideas-application-ambition-and-imagination</id>
+    <title>Rippling Hack Week: ideas, application, ambition, and imagination</title>
+    <link href="https://www.rippling.com/blog/rippling-hack-week-ideas-application-ambition-and-imagination" />
+    <published>2026-07-16T15:35:32.492000Z</published>
+    <updated>2026-07-16T15:35:32.492000Z</updated>
+    <author>
+      <name>Aditi Kandpal</name>
+    </author>
+    <summary type="html">Step inside Rippling&amp;#x27;s bi-annual Hack Week where employees across teams turn ambitious ideas into real product innovations and company improvements.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/rippling-engineer-jeevan-singh-absolute-appsec-podcast</id>
+    <title>Rippling hire Jeevan Singh talks Security Engineering and career growth on the Absolute AppSec podcast</title>
+    <link href="https://www.rippling.com/blog/rippling-engineer-jeevan-singh-absolute-appsec-podcast" />
+    <published>2026-07-16T15:34:18.773000Z</published>
+    <updated>2026-07-16T15:34:18.773000Z</updated>
+    <author>
+      <name>The Rippling Team</name>
+    </author>
+    <summary type="html">Rippling senior security staff engineer Jeevan Singh talks about his passion for threat modeling, scaling security programs at large companies, and transitioning from a directorship role to being an individual contributor.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/recommendations-rippling-powering-campaign-platform</id>
+    <title>Recommendations at Rippling: Powering the Rippling Campaign Platform</title>
+    <link href="https://www.rippling.com/blog/recommendations-rippling-powering-campaign-platform" />
+    <published>2026-07-16T15:34:18.274000Z</published>
+    <updated>2026-07-16T15:34:18.274000Z</updated>
+    <author>
+      <name>Emerson Matson</name>
+    </author>
+    <summary type="html">Discover how Rippling&amp;#x27;s machine learning engine Galaxy revolutionized campaign delivery, boosting clicks 2.5x and refining user engagement.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/spot-friendly-ci-pipeline-persistence</id>
+    <title>Spot-friendly CI pipeline: Persistence</title>
+    <link href="https://www.rippling.com/blog/spot-friendly-ci-pipeline-persistence" />
+    <published>2026-07-16T15:34:18.053000Z</published>
+    <updated>2026-07-16T15:34:18.053000Z</updated>
+    <author>
+      <name>JD Palomino</name>
+    </author>
+    <summary type="html">In part two of our three-part series on how Rippling moved to AWS Spot Instances for CI, we&amp;#x27;ll share how we solved the work persistence problem and were able to move forward with spot adoption in Rippling CI.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/preseeding-faster-way-to-run-tests</id>
+    <title>PreSeeding: A faster way to run tests</title>
+    <link href="https://www.rippling.com/blog/preseeding-faster-way-to-run-tests" />
+    <published>2026-07-16T15:33:22.285000Z</published>
+    <updated>2026-07-16T15:33:22.285000Z</updated>
+    <author>
+      <name>Arvind Saripalli</name>
+    </author>
+    <summary type="html">Discover how Rippling&amp;#x27;s PreSeed test framework revolutionizes testing by drastically reducing setUp times, enhancing developer productivity, and saving costs.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/mastering-mobile-app-quality</id>
+    <title>Mastering mobile app quality: Rippling's CI/CD journey with Bitrise</title>
+    <link href="https://www.rippling.com/blog/mastering-mobile-app-quality" />
+    <published>2026-07-16T15:33:21.460000Z</published>
+    <updated>2026-07-16T15:33:21.460000Z</updated>
+    <author>
+      <name>Siddhant Soni</name>
+    </author>
+    <summary type="html">Check out how Rippling scaled its mobile infrastructure to a fully cloud-based CI/CD setup for Android and iOS.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/how-we-used-the-cloud-to-supercharge-remote-development</id>
+    <title>How we used the cloud to supercharge remote development</title>
+    <link href="https://www.rippling.com/blog/how-we-used-the-cloud-to-supercharge-remote-development" />
+    <published>2026-07-16T15:33:19.506000Z</published>
+    <updated>2026-07-16T15:33:19.506000Z</updated>
+    <author>
+      <name>Senthil Velu Sundaram</name>
+    </author>
+    <summary type="html">Learn how Rippling leveraged the cloud to supercharge remote development and boost team productivity.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/7-lessons-from-building-our-radius-server-in-the-cloud</id>
+    <title>7 Lessons from building our RADIUS server in the cloud</title>
+    <link href="https://www.rippling.com/blog/7-lessons-from-building-our-radius-server-in-the-cloud" />
+    <published>2026-07-16T15:26:18.578000Z</published>
+    <updated>2026-07-16T15:26:18.578000Z</updated>
+    <author>
+      <name>Karthik Bhuvaneswaran</name>
+    </author>
+    <summary type="html">7 crucial lessons learned from building Rippling&amp;#x27;s Radius server in the cloud for increased security and performance.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/the-code-behind-ripplings-no-code-workflow-automation-tools</id>
+    <title>The code behind Rippling’s no-code workflow automation tools</title>
+    <link href="https://www.rippling.com/blog/the-code-behind-ripplings-no-code-workflow-automation-tools" />
+    <published>2026-07-16T15:26:17.390000Z</published>
+    <updated>2026-07-16T15:26:17.390000Z</updated>
+    <author>
+      <name>Dilanka Dharmasena</name>
+    </author>
+    <summary type="html">Explore how Rippling built a resilient workflow engine to power its no-code automation tools, turning manual HR tasks into seamless automated processes.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/scaling-stories-at-rippling-fast-serializers-part-2</id>
+    <title>Scaling stories at Rippling: Fast Serializers, Part 2</title>
+    <link href="https://www.rippling.com/blog/scaling-stories-at-rippling-fast-serializers-part-2" />
+    <published>2026-07-16T15:26:17.271000Z</published>
+    <updated>2026-07-16T15:26:17.271000Z</updated>
+    <author>
+      <name>Arvind Saripalli</name>
+    </author>
+    <summary type="html">Get a behind-the-scenes look at our journey scaling Rippling without sacrificing our execution speed. In part one of this two-part series, we’ll did a deep dive into the API bottleneck issue we were facing; in part two, we&amp;#x27;ll explain how we solved it.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/rust-suspend-time</id>
+    <title>Suspend-unaware cross-platform monotonic time in Rust</title>
+    <link href="https://www.rippling.com/blog/rust-suspend-time" />
+    <published>2026-07-16T15:26:16.924000Z</published>
+    <updated>2026-07-16T15:26:16.924000Z</updated>
+    <author>
+      <name>Calder White</name>
+    </author>
+    <summary type="html">Discover how Rippling&amp;#x27;s agent, running on tens of thousands of devices globally, measures task duration to optimize customer performance. Learn how our team improved metrics, ensuring efficiency while contributing back to the Rust ecosystem, benefiting the</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/revisiting-end-to-end-testing</id>
+    <title>How we overhauled our end-to-end testing to improve speed, reliability, and developer experience</title>
+    <link href="https://www.rippling.com/blog/revisiting-end-to-end-testing" />
+    <published>2026-07-16T15:22:41.867000Z</published>
+    <updated>2026-07-16T15:22:41.867000Z</updated>
+    <author>
+      <name>Anoop Raveendran</name>
+    </author>
+    <summary type="html">Revisiting end-to-end testing for better reliability, speed, and developer experience at scale</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/how-rippling-used-spot-instances-to-save-and-scale-ci-cd</id>
+    <title>How Rippling used Spot instances to save and scale CI/CD</title>
+    <link href="https://www.rippling.com/blog/how-rippling-used-spot-instances-to-save-and-scale-ci-cd" />
+    <published>2026-07-16T15:22:41.631000Z</published>
+    <updated>2026-07-16T15:22:41.631000Z</updated>
+    <author>
+      <name>Remy DeWolf</name>
+    </author>
+    <summary type="html">As of mid 2023, Rippling has 650 engineers pushing hundreds of pull requests every day. Learn how we used Spot Instances to save on infrastructure costs.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/code-ownership-at-rippling</id>
+    <title>Code ownership at Rippling</title>
+    <link href="https://www.rippling.com/blog/code-ownership-at-rippling" />
+    <published>2026-07-16T15:22:41.274000Z</published>
+    <updated>2026-07-16T15:22:41.274000Z</updated>
+    <author>
+      <name>JD Palomino</name>
+    </author>
+    <summary type="html">Rippling built a custom service catalog to boost reliability for a scaling engineering team. Dive into this innovative approach to code ownership.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/boosting-workflow-velocity-gitspice</id>
+    <title>Boosting workflow velocity with git-spice</title>
+    <link href="https://www.rippling.com/blog/boosting-workflow-velocity-gitspice" />
+    <published>2026-07-16T15:22:41.175000Z</published>
+    <updated>2026-07-16T15:22:41.175000Z</updated>
+    <author>
+      <name>Abhinav Gupta</name>
+    </author>
+    <summary type="html">How PR stacking gets you better code reviews and improves code quality</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/scaling-stories-at-rippling-fast-serializers-part-1</id>
+    <title>Scaling stories at Rippling: Fast Serializers, Part 1</title>
+    <link href="https://www.rippling.com/blog/scaling-stories-at-rippling-fast-serializers-part-1" />
+    <published>2026-07-16T15:22:40.920000Z</published>
+    <updated>2026-07-16T15:22:40.920000Z</updated>
+    <author>
+      <name>Arvind Saripalli</name>
+    </author>
+    <summary type="html">Get a behind-the-scenes look at our journey scaling Rippling without sacrificing our execution speed. In part one of this two-part series, we’ll do a deep dive into the API bottleneck issue we were facing.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/rippling-migration-to-uv-from-poetry-python-dependency-management-at-scale</id>
+    <title>Rippling's Migration to uv from poetry: Python Dependency Management at Scale</title>
+    <link href="https://www.rippling.com/blog/rippling-migration-to-uv-from-poetry-python-dependency-management-at-scale" />
+    <published>2026-04-21T05:56:16.081000Z</published>
+    <updated>2026-04-21T05:56:16.081000Z</updated>
+    <author>
+      <name>Nick Grisafi</name>
+    </author>
+    <summary type="html">Find out how Rippling&amp;#x27;s DevX team successfully migrated the entire Python monolith from poetry to uv in just four weeks.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/eliminating-data-skew-in-flink</id>
+    <title>Eliminating Data Skew in Flink: 27% Faster Processing and $1M in Annual Savings</title>
+    <link href="https://www.rippling.com/blog/eliminating-data-skew-in-flink" />
+    <published>2026-03-26T18:30:27.370000Z</published>
+    <updated>2026-03-26T18:30:27.370000Z</updated>
+    <author>
+      <name>Jeffrey Chuc</name>
+    </author>
+    <summary type="html">How Rippling&amp;#x27;s Core Platform team re-architected their Apache Flink ETL pipeline to solve a critical data skew bottleneck and boost CPU utilization.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/corroding-the-monolith-building-a-rust-native-mongodb-client-for-python-with-ai</id>
+    <title>Corroding the Monolith: Building a Rust-Native MongoDB Client for Python with AI-First Development</title>
+    <link href="https://www.rippling.com/blog/corroding-the-monolith-building-a-rust-native-mongodb-client-for-python-with-ai" />
+    <published>2026-03-12T21:23:59.592000Z</published>
+    <updated>2026-03-12T21:23:59.592000Z</updated>
+    <author>
+      <name>Comyar Zaheri</name>
+    </author>
+    <summary type="html">Rippling engineers built mongoxide, a custom Rust MongoDB client, cutting query execution times by 45% and enabling a high-performance object-document mapper with 20x speedup.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/rippling-gunicorn-pre-fork-journey-memory-savings-and-cost-reduction</id>
+    <title>Rippling's Gunicorn pre-fork journey: 70%+ memory savings and a 30% cost reduction</title>
+    <link href="https://www.rippling.com/blog/rippling-gunicorn-pre-fork-journey-memory-savings-and-cost-reduction" />
+    <published>2026-01-23T01:10:38.436000Z</published>
+    <updated>2026-01-23T01:10:38.436000Z</updated>
+    <author>
+      <name>Xiayang Wu</name>
+    </author>
+    <summary type="html">Rippling’s engineering team used a Gunicorn pre-fork strategy to cut memory use by 70% and reduce costs by 30% — improving speed, reliability, and scalability.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/how-a-team-of-only-10-engineers-built-ripplings-peo-from-scratch</id>
+    <title>How a team of only 10 engineers built Rippling’s PEO from scratch</title>
+    <link href="https://www.rippling.com/blog/how-a-team-of-only-10-engineers-built-ripplings-peo-from-scratch" />
+    <published>2025-11-18T21:21:06.989000Z</published>
+    <updated>2025-11-18T21:21:06.989000Z</updated>
+    <author>
+      <name>Sachin Bhat</name>
+    </author>
+    <summary type="html">See how 10 engineers tackled complex multi-tenancy challenges to build Rippling&amp;#x27;s Professional Employer Organization platform from the ground up.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/no-more-menu-rage-smooth-navigation-with-usesafearea</id>
+    <title>No more menu rage: Smooth navigation with useSafeArea</title>
+    <link href="https://www.rippling.com/blog/no-more-menu-rage-smooth-navigation-with-usesafearea" />
+    <published>2025-10-24T18:49:23.146000Z</published>
+    <updated>2025-10-24T18:49:23.146000Z</updated>
+    <author>
+      <name>Jasmeet Singh</name>
+    </author>
+    <summary type="html">Discover Jasmeet’s insights on creating useSafeArea and how it now ensures seamless menu interactions for Rippling users</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/hackweek-2025-one-global-team-building-together</id>
+    <title>Hackweek 2025: one global team, building together</title>
+    <link href="https://www.rippling.com/blog/hackweek-2025-one-global-team-building-together" />
+    <published>2025-10-15T00:39:09.658000Z</published>
+    <updated>2025-10-15T00:39:09.658000Z</updated>
+    <author>
+      <name>The Rippling Team</name>
+    </author>
+    <summary type="html">Hackweek at Rippling empowers employees to turn ideas into impact. With dedicated work time to build &amp;amp; innovate, teams create real projects — many of which ship to production.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/building-editors-in-react-applications</id>
+    <title>Building Editors in React Applications</title>
+    <link href="https://www.rippling.com/blog/building-editors-in-react-applications" />
+    <published>2025-09-19T05:47:32.746000Z</published>
+    <updated>2025-09-19T05:47:32.746000Z</updated>
+    <author>
+      <name>The Rippling Team</name>
+    </author>
+    <summary type="html">Learn how to build efficient and user-friendly editors in React applications with insights from Rippling&amp;#x27;s development team.</summary>
+  </entry>
+  <entry>
+    <id>https://www.rippling.com/blog/introducing-ripplings-engineering-hub-in-poland</id>
+    <title>Cześć! Introducing Rippling’s engineering hub in Poland</title>
+    <link href="https://www.rippling.com/blog/introducing-ripplings-engineering-hub-in-poland" />
+    <published>2025-09-19T05:27:25.478000Z</published>
+    <updated>2025-09-19T05:27:25.478000Z</updated>
+    <author>
+      <name>The Rippling Team</name>
+    </author>
+    <summary type="html">Introducing Rippling&amp;#x27;s Engineering Hub in Poland: Expanding our global talent with top-tier engineering expertise.</summary>
+  </entry>
+</feed>
