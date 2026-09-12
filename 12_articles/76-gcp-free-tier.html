@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -108,7 +108,7 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="personal-cloud-vm-on-google-cloud-platform-free-tier">
-<h1>Personal cloud VM on Google Cloud Platform free tier<a class="headerlink" href="#personal-cloud-vm-on-google-cloud-platform-free-tier" title="Link to this heading">¶</a></h1>
+<h1>Personal cloud VM on Google Cloud Platform free tier<a class="headerlink" href="#personal-cloud-vm-on-google-cloud-platform-free-tier" title="Link to this heading">#</a></h1>
 <p>Google Cloud Platform generously offers a tiny Virtual Machine instance for <a class="reference external" href="https://docs.cloud.google.com/free/docs/free-cloud-features#compute">free</a> per account.
 The <a class="reference external" href="https://docs.cloud.google.com/compute/docs/general-purpose-machines#e2-shared-core">e2-micro</a> is not exactly a power house: <code class="docutils literal notranslate"><span class="pre">0.25</span></code> CPU, <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">GB</span></code> RAM, and <code class="docutils literal notranslate"><span class="pre">30</span> <span class="pre">GB</span></code> HDD (not SSD).
 But don’t be discouraged, as you’ll see how much we can pack on it.</p>
@@ -128,14 +128,14 @@ I pay $12/year for demin.dev.</p>
 <p>In the interest of efficiency, we won’t be using containerization or nested virtualization (sorry, no <a class="reference internal" href="51-self-hosted-paas.html"><span class="std std-doc">Docker PaaS</span></a> preaching here), which means extra fuss for installing each separate piece.
 But you’ll see that the setup follows the same steps across many parts, and it’s a good opportunity to learn Linux fundamentals: managing packages, users, configuration files, and SystemD units.</p>
 <section id="install-gcloud-cli">
-<h2>Install GCloud CLI<a class="headerlink" href="#install-gcloud-cli" title="Link to this heading">¶</a></h2>
+<h2>Install GCloud CLI<a class="headerlink" href="#install-gcloud-cli" title="Link to this heading">#</a></h2>
 <p>I prefer scriptable solutions to clicking around in a Web UI, so we’ll be using <a class="reference external" href="https://docs.cloud.google.com/sdk/docs/install-sdk">Google Cloud command-line interface</a>.
 There are many ways to install <code class="docutils literal notranslate"><span class="pre">gcloud</span></code>, my favorite is to use <code class="docutils literal notranslate"><span class="pre">pip</span></code>.
 With a modern Python (3.12+ at the moment of writing), create a virtualenv and run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">gcloud</span></code>.</p>
 <p>After installation, authenticate the CLI under your Google account: <code class="docutils literal notranslate"><span class="pre">gcloud</span> <span class="pre">auth</span> <span class="pre">login</span></code>.</p>
 </section>
 <section id="create-a-vm">
-<h2>Create a VM<a class="headerlink" href="#create-a-vm" title="Link to this heading">¶</a></h2>
+<h2>Create a VM<a class="headerlink" href="#create-a-vm" title="Link to this heading">#</a></h2>
 <p>I extracted the parts that you most likely want to change as variables.
 I’m using the domain name demin.dev, and my user name is peter:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="nv">PROJECT</span><span class="o">=</span>demindev
@@ -152,11 +152,11 @@ I’m using the domain name demin.dev, and my user name is peter:</p>
 </span><span data-line="12"><span class="w">    </span>--network-interface<span class="o">=</span>network-tier<span class="o">=</span>STANDARD,stack-type<span class="o">=</span>IPV4_ONLY,subnet<span class="o">=</span>default<span class="w"> </span><span class="se">\</span>
 </span><span data-line="13"><span class="w">    </span>--tags<span class="o">=</span>http-server,https-server,jabber-server,smtp-server<span class="w"> </span><span class="se">\</span>
 </span><span data-line="14"><span class="w">    </span>--public-ptr<span class="w"> </span><span class="se">\</span>
-</span><span data-line="15"><span class="w">    </span>--public-ptr-domain<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">DOMAIN</span><span class="si">}</span><span class="s2">.&quot;</span><span class="w"> </span><span class="se">\</span>
-</span><span data-line="16"><span class="w">    </span>--metadata<span class="o">=</span><span class="s2">&quot;ssh-keys=</span><span class="si">${</span><span class="nv">USERNAME</span><span class="si">}</span><span class="s2">:</span><span class="si">${</span><span class="nv">PUBKEY</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span data-line="15"><span class="w">    </span>--public-ptr-domain<span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">DOMAIN</span><span class="si">}</span><span class="s2">."</span><span class="w"> </span><span class="se">\</span>
+</span><span data-line="16"><span class="w">    </span>--metadata<span class="o">=</span><span class="s2">"ssh-keys=</span><span class="si">${</span><span class="nv">USERNAME</span><span class="si">}</span><span class="s2">:</span><span class="si">${</span><span class="nv">PUBKEY</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
 </span><span data-line="17"><span class="w">    </span>--maintenance-policy<span class="o">=</span>MIGRATE<span class="w"> </span><span class="se">\</span>
 </span><span data-line="18"><span class="w">    </span>--provisioning-model<span class="o">=</span>STANDARD<span class="w"> </span><span class="se">\</span>
-</span><span data-line="19"><span class="w">    </span>--service-account<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">ACCOUNT</span><span class="si">}</span><span class="s2">-compute@developer.gserviceaccount.com&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span data-line="19"><span class="w">    </span>--service-account<span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">ACCOUNT</span><span class="si">}</span><span class="s2">-compute@developer.gserviceaccount.com"</span><span class="w"> </span><span class="se">\</span>
 </span><span data-line="20"><span class="w">    </span>--create-disk<span class="o">=</span>auto-delete<span class="o">=</span>yes,boot<span class="o">=</span>yes,device-name<span class="o">=</span><span class="nv">$INSTANCE</span>,image<span class="o">=</span>projects/debian-cloud/global/images/debian-13-trixie-v20251014,mode<span class="o">=</span>rw,size<span class="o">=</span><span class="m">10</span>,type<span class="o">=</span>pd-standard<span class="w"> </span><span class="se">\</span>
 </span><span data-line="21"><span class="w">    </span>--no-shielded-secure-boot<span class="w"> </span><span class="se">\</span>
 </span><span data-line="22"><span class="w">    </span>--shielded-vtpm<span class="w"> </span><span class="se">\</span>
@@ -179,7 +179,7 @@ On the contrary, it tends to reuse the same IPv4 address if you delete/recreate 
 The jabber subdomains (conference.demin.dev and pubsub.demin.dev) can be <code class="docutils literal notranslate"><span class="pre">A</span></code> records with the same IP, or a <code class="docutils literal notranslate"><span class="pre">CNAME</span></code> record mapping to the domain.</p>
 </section>
 <section id="configure-firewall">
-<h2>Configure Firewall<a class="headerlink" href="#configure-firewall" title="Link to this heading">¶</a></h2>
+<h2>Configure Firewall<a class="headerlink" href="#configure-firewall" title="Link to this heading">#</a></h2>
 <p>Ensure Google Firewall has rules for HTTP/HTTPS, and Jabber:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">gcloud<span class="w"> </span>compute<span class="w"> </span>firewall-rules<span class="w"> </span>create<span class="w"> </span>default-allow-http<span class="w"> </span><span class="se">\</span>
 </span><span data-line="2"><span class="w">    </span>--project<span class="o">=</span><span class="nv">$PROJECT</span><span class="w"> </span><span class="se">\</span>
@@ -225,10 +225,10 @@ The jabber subdomains (conference.demin.dev and pubsub.demin.dev) can be <code c
 </div>
 </section>
 <section id="provision">
-<h2>Provision<a class="headerlink" href="#provision" title="Link to this heading">¶</a></h2>
+<h2>Provision<a class="headerlink" href="#provision" title="Link to this heading">#</a></h2>
 <p>Personally, I put all VM setup code in a shell script, so my workflow looks like this:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">scp<span class="w"> </span>provision.sh<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">IP</span><span class="si">}</span><span class="s2">:&quot;</span>
-</span><span data-line="2">ssh<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">IP</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>--<span class="w"> </span><span class="s2">&quot;chmod +x provision.sh &amp;&amp; sudo ./provision.sh&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">scp<span class="w"> </span>provision.sh<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">IP</span><span class="si">}</span><span class="s2">:"</span>
+</span><span data-line="2">ssh<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">IP</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>--<span class="w"> </span><span class="s2">"chmod +x provision.sh &amp;&amp; sudo ./provision.sh"</span>
 </span></pre></div>
 </div>
 <p>For the sake of the guideline, I’ll split the steps, so it’s easier to follow and adjust.
@@ -241,7 +241,7 @@ Log in to the instance and become root:</p>
 <p>For the email server instructions, please refer to <a class="reference internal" href="45-minimal-linux-email-box.html"><span class="std std-doc">How to set up a receiving email server on a Linux machine</span></a>.
 The instructions for the RSS reader are in <a class="reference internal" href="71-rss-feed.html"><span class="std std-doc">My RSS feed reader setup</span></a>.</p>
 <section id="clean-up-google-cruft">
-<h3>Clean up Google cruft<a class="headerlink" href="#clean-up-google-cruft" title="Link to this heading">¶</a></h3>
+<h3>Clean up Google cruft<a class="headerlink" href="#clean-up-google-cruft" title="Link to this heading">#</a></h3>
 <p>Google preinstalls its CLI in the VM cloud images. I find it unnecessary and wasteful, clean up:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">apt<span class="w"> </span>remove<span class="w"> </span>-y<span class="w"> </span>google-cloud-cli<span class="w"> </span>google-cloud-cli-anthoscli<span class="w"> </span>google-guest-agent<span class="w"> </span>google-osconfig-agent
 </span><span data-line="2">apt<span class="w"> </span>autoremove
@@ -255,7 +255,7 @@ Keeping packages would most likely mean upgrading them, which takes the same cra
 </div>
 </section>
 <section id="install-tailscale">
-<h3>Install Tailscale<a class="headerlink" href="#install-tailscale" title="Link to this heading">¶</a></h3>
+<h3>Install Tailscale<a class="headerlink" href="#install-tailscale" title="Link to this heading">#</a></h3>
 <p>I like to start with Tailscale because it lets me disable public SSH access to the instance as soon as possible.</p>
 <p>Add Tailscale’s Debian package repo:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">mkdir<span class="w"> </span>-p<span class="w"> </span>/etc/apt/keyrings
@@ -295,10 +295,10 @@ You’ll need to apply <a class="reference external" href="https://tailscale.com
 </div>
 </section>
 <section id="folder-synchronization-with-syncthing">
-<h3>Folder synchronization with Syncthing<a class="headerlink" href="#folder-synchronization-with-syncthing" title="Link to this heading">¶</a></h3>
+<h3>Folder synchronization with Syncthing<a class="headerlink" href="#folder-synchronization-with-syncthing" title="Link to this heading">#</a></h3>
 <p>The steps to install Syncthing from the package maintainer’s repo are similar:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">curl</span> <span class="o">-</span><span class="n">L</span> <span class="o">-</span><span class="n">o</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">keyrings</span><span class="o">/</span><span class="n">syncthing</span><span class="o">-</span><span class="n">archive</span><span class="o">-</span><span class="n">keyring</span><span class="o">.</span><span class="n">gpg</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">syncthing</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="n">release</span><span class="o">-</span><span class="n">key</span><span class="o">.</span><span class="n">gpg</span>
-</span><span data-line="2"><span class="n">echo</span> <span class="s2">&quot;deb [signed-by=/etc/apt/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing stable-v2&quot;</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">syncthing</span><span class="o">.</span><span class="n">list</span>
+</span><span data-line="2"><span class="n">echo</span> <span class="s2">"deb [signed-by=/etc/apt/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing stable-v2"</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">syncthing</span><span class="o">.</span><span class="n">list</span>
 </span><span data-line="3"><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
 </span><span data-line="4"><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">syncthing</span>
 </span></pre></div>
@@ -314,7 +314,7 @@ You’ll need to apply <a class="reference external" href="https://tailscale.com
 <p>One cool thing to do is to share <code class="docutils literal notranslate"><span class="pre">/var/www/html</span></code> with your laptop for a seamless website deployment experience.</p>
 </section>
 <section id="nginx-and-https">
-<h3>Nginx and HTTPS<a class="headerlink" href="#nginx-and-https" title="Link to this heading">¶</a></h3>
+<h3>Nginx and HTTPS<a class="headerlink" href="#nginx-and-https" title="Link to this heading">#</a></h3>
 <p>The domain needs TLS certificates to serve HTTPS and XMPP traffic.
 Certbot recommends using the snap package because they don’t have the time to support everyone who can’t figure out how to install Python.
 But it’s more efficient to install from pip. Here are the steps.</p>
@@ -360,13 +360,13 @@ Example <code class="docutils literal notranslate"><span class="pre">/etc/nginx/
 </div>
 <p>Generate the certificates and set up automatic renewal as per <a class="reference external" href="https://eff-certbot.readthedocs.io/en/latest/using.html#setting-up-automated-renewal">official docs</a>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">certbot<span class="w"> </span>--agree-tos<span class="w"> </span>--nginx<span class="w"> </span>-m<span class="w"> </span><span class="nv">$EMAIL</span>
-</span><span data-line="2"><span class="nv">SLEEPTIME</span><span class="o">=</span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">&#39;BEGIN{srand(); print int(rand()*(3600+1))}&#39;</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;0 0,12 * * * root sleep </span><span class="nv">$SLEEPTIME</span><span class="s2"> &amp;&amp; certbot renew -q&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/crontab
+</span><span data-line="2"><span class="nv">SLEEPTIME</span><span class="o">=</span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">'BEGIN{srand(); print int(rand()*(3600+1))}'</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"0 0,12 * * * root sleep </span><span class="nv">$SLEEPTIME</span><span class="s2"> &amp;&amp; certbot renew -q"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/crontab
 </span></pre></div>
 </div>
 <p>This command picks the subdomains from the nginx config and updates them to include the HTTPS-related details.</p>
 </section>
 <section id="ejabberd">
-<h3>Ejabberd<a class="headerlink" href="#ejabberd" title="Link to this heading">¶</a></h3>
+<h3>Ejabberd<a class="headerlink" href="#ejabberd" title="Link to this heading">#</a></h3>
 <p>I was inspired to set up an XMPP server after reading about <a class="reference external" href="https://xn--gckvb8fzb.com/run-your-own-instant-messaging-service-on-freebsd/">FreeBSD setup from マリウス</a>.
 There are a few differences with my setup, though.
 Using the default Mnesia database will cause frequent crashes due to running out of 1GB of memory, so we’ll switch to the second-easiest option: SQLite.</p>
@@ -379,12 +379,12 @@ Using the default Mnesia database will cause frequent crashes due to running out
 </span><span data-line="2"><span class="w">  </span>-<span class="w"> </span>demin.dev
 </span><span data-line="3">
 </span><span data-line="4">certfiles:
-</span><span data-line="5"><span class="w">  </span><span class="c1"># - &quot;/etc/ejabberd/ejabberd.pem&quot;</span>
+</span><span data-line="5"><span class="w">  </span><span class="c1"># - "/etc/ejabberd/ejabberd.pem"</span>
 </span><span data-line="6"><span class="w">  </span>-<span class="w"> </span>/etc/letsencrypt/live/demin.dev/fullchain.pem
 </span><span data-line="7"><span class="w">  </span>-<span class="w"> </span>/etc/letsencrypt/live/demin.dev/privkey.pem
 </span><span data-line="8">
 </span><span data-line="9">sql_type:<span class="w"> </span>sqlite
-</span><span data-line="10">sql_database:<span class="w"> </span><span class="s2">&quot;/var/lib/ejabberd/ejabberd.db&quot;</span>
+</span><span data-line="10">sql_database:<span class="w"> </span><span class="s2">"/var/lib/ejabberd/ejabberd.db"</span>
 </span><span data-line="11">auth_method:<span class="w"> </span>sql
 </span><span data-line="12">default_db:<span class="w"> </span>sql
 </span><span data-line="13">
@@ -406,14 +406,14 @@ Using the default Mnesia database will cause frequent crashes due to running out
 </div>
 <p>Start service and register the first user:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">systemctl<span class="w"> </span>start<span class="w"> </span>ejabberd.service
-</span><span data-line="2"><span class="nb">read</span><span class="w"> </span>-rsp<span class="w"> </span><span class="s2">&quot;Enter password for account </span><span class="nv">$NAME</span><span class="s2">: &quot;</span><span class="w"> </span>password
+</span><span data-line="2"><span class="nb">read</span><span class="w"> </span>-rsp<span class="w"> </span><span class="s2">"Enter password for account </span><span class="nv">$NAME</span><span class="s2">: "</span><span class="w"> </span>password
 </span><span data-line="3">sudo<span class="w"> </span>-u<span class="w"> </span>ejabberd<span class="w"> </span>ejabberdctl<span class="w"> </span>register<span class="w"> </span><span class="nv">$NAME</span><span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span><span class="nv">$password</span>
 </span></pre></div>
 </div>
 </section>
 </section>
 <section id="memory-usage">
-<h2>Memory usage<a class="headerlink" href="#memory-usage" title="Link to this heading">¶</a></h2>
+<h2>Memory usage<a class="headerlink" href="#memory-usage" title="Link to this heading">#</a></h2>
 <p>After a few days of running this VM, I checked the usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">MiB</span> <span class="n">Mem</span> <span class="p">:</span>    <span class="mf">964.6</span> <span class="n">total</span><span class="p">,</span>    <span class="mf">223.1</span> <span class="n">free</span><span class="p">,</span>    <span class="mf">708.9</span> <span class="n">used</span><span class="p">,</span>    <span class="mf">198.4</span> <span class="n">buff</span><span class="o">/</span><span class="n">cache</span>
 </span><span data-line="2"><span class="n">MiB</span> <span class="n">Swap</span><span class="p">:</span>      <span class="mf">0.0</span> <span class="n">total</span><span class="p">,</span>      <span class="mf">0.0</span> <span class="n">free</span><span class="p">,</span>      <span class="mf">0.0</span> <span class="n">used</span><span class="o">.</span>    <span class="mf">255.7</span> <span class="n">avail</span> <span class="n">Mem</span>
@@ -443,7 +443,7 @@ But it doesn’t run out of memory - the following command doesn’t return any 
 And getting some services restarted by OOM killer every once in a while is fine with me.</p>
 </section>
 <section id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">¶</a></h2>
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
 <p>This setup provides me a sovereign setup with these enjoyable, free, and open-source things:</p>
 <ol class="arabic simple">
 <li><p>Email and XMPP accounts: <code class="docutils literal notranslate"><span class="pre">peter&#64;demin.dev</span></code>.</p></li>
@@ -456,7 +456,7 @@ And getting some services restarted by OOM killer every once in a while is fine 
 I wish more people played with such an internet presence.</p>
 </section>
 <section id="honorable-mentions">
-<h2>Honorable mentions<a class="headerlink" href="#honorable-mentions" title="Link to this heading">¶</a></h2>
+<h2>Honorable mentions<a class="headerlink" href="#honorable-mentions" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://github.com/trailofbits/algo">AlgoVPN</a> - a set of Ansible scripts that simplify the setup of a personal WireGuard and IPsec VPN.
 This was the first GCP VM I launched automatically.

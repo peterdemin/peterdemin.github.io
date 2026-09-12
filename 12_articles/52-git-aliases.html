@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -95,33 +95,33 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="my-favourite-aliases-for-git-and-vi">
-<h1>My favourite aliases for Git (and vi)<a class="headerlink" href="#my-favourite-aliases-for-git-and-vi" title="Link to this heading">¶</a></h1>
+<h1>My favourite aliases for Git (and vi)<a class="headerlink" href="#my-favourite-aliases-for-git-and-vi" title="Link to this heading">#</a></h1>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># git co is a shorthand for git checkout</span>
-</span><span data-line="2">git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.co<span class="w"> </span><span class="s1">&#39;checkout&#39;</span>
+</span><span data-line="2">git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.co<span class="w"> </span><span class="s1">'checkout'</span>
 </span><span data-line="3">
 </span><span data-line="4"><span class="c1"># git vi opens all files with uncommitted changes in vi editor</span>
-</span><span data-line="5">git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.vi<span class="w"> </span><span class="s1">&#39;!vi -o $(git status -s | awk &#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;/^[^?]/ {print $2}&#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;) -c &#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;au VimEnter * windo norm g;&#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;&#39;</span>
+</span><span data-line="5">git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.vi<span class="w"> </span><span class="s1">'!vi -o $(git status -s | awk '</span><span class="s2">"'"</span><span class="s1">'/^[^?]/ {print $2}'</span><span class="s2">"'"</span><span class="s1">') -c '</span><span class="s2">"'"</span><span class="s1">'au VimEnter * windo norm g;'</span><span class="s2">"'"</span><span class="s1">''</span>
 </span><span data-line="6">
 </span><span data-line="7"><span class="c1"># git vib opens all files changed in the branch (compared to remote master) in vi editor</span>
-</span><span data-line="8">git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.vib<span class="w"> </span><span class="s1">&#39;!vi -o $(git diff origin/master...HEAD --name-status | awk &#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;/^[AM]/ {print $2}&#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;)&#39;</span>
+</span><span data-line="8">git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.vib<span class="w"> </span><span class="s1">'!vi -o $(git diff origin/master...HEAD --name-status | awk '</span><span class="s2">"'"</span><span class="s1">'/^[AM]/ {print $2}'</span><span class="s2">"'"</span><span class="s1">')'</span>
 </span><span data-line="9">
 </span><span data-line="10"><span class="c1"># git vib opens files changed in the last commit in vi editor</span>
-</span><span data-line="11">git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.vih<span class="w"> </span><span class="s1">&#39;!vi -o $(git diff HEAD~1..HEAD --name-status | awk &#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;/^[AM]/ {print $2}&#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;)&#39;</span>
+</span><span data-line="11">git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.vih<span class="w"> </span><span class="s1">'!vi -o $(git diff HEAD~1..HEAD --name-status | awk '</span><span class="s2">"'"</span><span class="s1">'/^[AM]/ {print $2}'</span><span class="s2">"'"</span><span class="s1">')'</span>
 </span><span data-line="12">
 </span><span data-line="13"><span class="c1"># git rbm rebases current branch on top of the fresh origin master and pushes it out</span>
-</span><span data-line="14">git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.rbm<span class="w"> </span><span class="s1">&#39;!git fetch --all -p &amp;&amp; git rebase origin/master &amp;&amp; git push -f&#39;</span>
+</span><span data-line="14">git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.rbm<span class="w"> </span><span class="s1">'!git fetch --all -p &amp;&amp; git rebase origin/master &amp;&amp; git push -f'</span>
 </span><span data-line="15">
 </span><span data-line="16"><span class="c1"># git amp amends the latest commit with the current changes and force-pushes it out</span>
-</span><span data-line="17">git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.amp<span class="w"> </span><span class="s1">&#39;!git commit --amend -a --no-edit &amp;&amp; git push -f&#39;</span>
+</span><span data-line="17">git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.amp<span class="w"> </span><span class="s1">'!git commit --amend -a --no-edit &amp;&amp; git push -f'</span>
 </span></pre></div>
 </div>
 <section id="git-configuration">
-<h2>Git configuration<a class="headerlink" href="#git-configuration" title="Link to this heading">¶</a></h2>
+<h2>Git configuration<a class="headerlink" href="#git-configuration" title="Link to this heading">#</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># Record conflict resolution and re-apply it automatically</span>
 </span><span data-line="2">git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>rerere.enabled<span class="w"> </span><span class="nb">true</span>
 </span><span data-line="3">
 </span><span data-line="4"><span class="c1"># Use 4 spaces for tabs in git diff</span>
-</span><span data-line="5">git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>core.pager<span class="w"> </span><span class="s2">&quot;less -x1,5&quot;</span>
+</span><span data-line="5">git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>core.pager<span class="w"> </span><span class="s2">"less -x1,5"</span>
 </span><span data-line="6">
 </span><span data-line="7"><span class="c1"># Automatically set up remote upstream when pushing branch</span>
 </span><span data-line="8">git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>push.autoSetupRemote<span class="w"> </span><span class="nb">true</span>

@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="_static/print.css?v=20ff2c19" />
@@ -92,7 +92,7 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="journal">
-<span id="life"></span><h1>Journal<a class="headerlink" href="#journal" title="Link to this heading">¶</a></h1>
+<span id="life"></span><h1>Journal<a class="headerlink" href="#journal" title="Link to this heading">#</a></h1>
 </section>
 <hr class="docutils" />
 <p><code class="docutils literal notranslate"><span class="pre">Aug</span> <span class="pre">23,</span> <span class="pre">2026</span></code> - I like Rippling engineering blog, but it doesn’t expose an RSS feed. And that’s how I like my blogs.
@@ -192,7 +192,7 @@ But still, we just can’t help it.</p>
 <hr class="docutils" />
 <p><code class="docutils literal notranslate"><span class="pre">May</span> <span class="pre">31,</span> <span class="pre">2026</span></code> - <a class="reference external" href="https://github.com/mszep/pandoc_resume">mszep/pandoc_resume</a> - The Markdown Resume</p>
 <p><code class="docutils literal notranslate"><span class="pre">May</span> <span class="pre">31,</span> <span class="pre">2026</span></code> - Print all local branch names with date of last commit:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">git<span class="w"> </span>branch<span class="w"> </span>--list<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-c3-<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>branch<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>git<span class="w"> </span>log<span class="w"> </span>-1<span class="w"> </span><span class="nv">$branch</span><span class="w"> </span>--format<span class="o">=</span><span class="s2">&quot;%ai </span><span class="nv">$branch</span><span class="s2">&quot;</span><span class="w"> </span>--<span class="w"> </span><span class="p">|</span><span class="w"> </span>cat<span class="p">;</span><span class="w"> </span><span class="k">done</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">git<span class="w"> </span>branch<span class="w"> </span>--list<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-c3-<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>branch<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>git<span class="w"> </span>log<span class="w"> </span>-1<span class="w"> </span><span class="nv">$branch</span><span class="w"> </span>--format<span class="o">=</span><span class="s2">"%ai </span><span class="nv">$branch</span><span class="s2">"</span><span class="w"> </span>--<span class="w"> </span><span class="p">|</span><span class="w"> </span>cat<span class="p">;</span><span class="w"> </span><span class="k">done</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort
 </span></pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">May</span> <span class="pre">31,</span> <span class="pre">2026</span></code> - I own the only shop in Seattle, that figured out how to build software at high quality, high speed, and at a low price. Naturally, we’re booked for the next 200 years, so I won’t even put the shop’s name here.</p>
@@ -464,13 +464,13 @@ Make it an HTML page with printer-friendly styles.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Jan</span> <span class="pre">22,</span> <span class="pre">2026</span></code> - <a class="reference external" href="https://github.com/cpg314/ltapiserv-rs">cpg314/ltapiserv-rs</a> - Server implementation of the LanguageTool API for offline grammar and spell checking, based on nlprule and symspell. And a small graphical command-line client.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Jan</span> <span class="pre">22,</span> <span class="pre">2026</span></code> - For <em>years</em> I had these lines in my <code class="docutils literal notranslate"><span class="pre">~/.vimrc</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="nb">set</span> <span class="n">background</span><span class="o">=</span><span class="n">dark</span>
-</span><span data-line="2"><span class="s2">&quot; set background=light</span>
+</span><span data-line="2"><span class="s2">" set background=light</span>
 </span></pre></div>
 </div>
 <p>I would go and move the comment to the other line whenever I needed to switch to another mode.
 Until today, I discovered this <a class="reference external" href="https://vinitkumar.me/current-vim-setup/">jewel from Vinit Kumar</a>:</p>
 <div class="highlight-vim notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="k">function</span><span class="p">!</span> ChangeBackground<span class="p">()</span>
-</span><span data-line="2">  <span class="k">if</span> system<span class="p">(</span><span class="s2">&quot;defaults read -g AppleInterfaceStyle&quot;</span><span class="p">)</span> <span class="p">=~</span> <span class="s1">&#39;^Dark&#39;</span>
+</span><span data-line="2">  <span class="k">if</span> <span class="k">system</span><span class="p">(</span><span class="s2">"defaults read -g AppleInterfaceStyle"</span><span class="p">)</span> <span class="p">=~</span> <span class="s1">'^Dark'</span>
 </span><span data-line="3">    <span class="k">set</span> <span class="nb">background</span><span class="p">=</span><span class="nb">dark</span>
 </span><span data-line="4">  <span class="k">else</span>
 </span><span data-line="5">    <span class="k">set</span> <span class="nb">background</span><span class="p">=</span><span class="nb">light</span>
@@ -562,7 +562,7 @@ I wish it <a class="reference external" href="https://github.com/lepture/shibuya
 <p><code class="docutils literal notranslate"><span class="pre">Jan</span> <span class="pre">10,</span> <span class="pre">2026</span></code> - <a class="reference external" href="https://github.com/scottrogowski/code2flow">scottrogowski/code2flow</a> - Pretty good call graphs for dynamic languages</p>
 <p><code class="docutils literal notranslate"><span class="pre">Jan</span> <span class="pre">10,</span> <span class="pre">2026</span></code> - Added <a class="reference internal" href="12_articles/77-github-stars.html"><span class="std std-doc">My GitHub stars</span></a></p>
 <p><code class="docutils literal notranslate"><span class="pre">Jan</span> <span class="pre">09,</span> <span class="pre">2026</span></code> - Mildly interesting idea: use GitHub CLI to export repos I starred and inject this information into my public journal.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">gh<span class="w"> </span>api<span class="w"> </span>--paginate<span class="w"> </span>users/peterdemin/starred<span class="w"> </span>--header<span class="w"> </span><span class="s1">&#39;Accept: application/vnd.github.star+json&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.<span class="w"> </span>&gt;<span class="w"> </span>gh-stars.json
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">gh<span class="w"> </span>api<span class="w"> </span>--paginate<span class="w"> </span>users/peterdemin/starred<span class="w"> </span>--header<span class="w"> </span><span class="s1">'Accept: application/vnd.github.star+json'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.<span class="w"> </span>&gt;<span class="w"> </span>gh-stars.json
 </span></pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">Jan</span> <span class="pre">09,</span> <span class="pre">2026</span></code> - Here’s some food for thought.
@@ -1658,8 +1658,8 @@ I wrote it few years ago. But I can’t read it now.</p>
 </span><span data-line="8"><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="m">0</span><span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$f</span>
 </span><span data-line="9"><span class="w">    </span><span class="k">done</span><span class="p">;</span>
 </span><span data-line="10">
-</span><span data-line="11"><span class="c1"># ip route add default via $(ifconfig -a tun0 | grep -o &#39;P-t-P:[^ ]*&#39; | cut -d : -f 2) table 42</span>
-</span><span data-line="12">ip<span class="w"> </span>route<span class="w"> </span>add<span class="w"> </span>default<span class="w"> </span>via<span class="w"> </span><span class="k">$(</span>ifconfig<span class="w"> </span>-a<span class="w"> </span>tun0<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-o<span class="w"> </span><span class="s1">&#39;destination [^ ]*&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $2}&#39;</span><span class="k">)</span><span class="w"> </span>table<span class="w"> </span><span class="m">42</span>
+</span><span data-line="11"><span class="c1"># ip route add default via $(ifconfig -a tun0 | grep -o 'P-t-P:[^ ]*' | cut -d : -f 2) table 42</span>
+</span><span data-line="12">ip<span class="w"> </span>route<span class="w"> </span>add<span class="w"> </span>default<span class="w"> </span>via<span class="w"> </span><span class="k">$(</span>ifconfig<span class="w"> </span>-a<span class="w"> </span>tun0<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-o<span class="w"> </span><span class="s1">'destination [^ ]*'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">'{print $2}'</span><span class="k">)</span><span class="w"> </span>table<span class="w"> </span><span class="m">42</span>
 </span></pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">Mar</span> <span class="pre">29,</span> <span class="pre">2023</span></code> - <a class="reference external" href="https://github.com/fafrd/aquarium">fafrd/aquarium</a> - AI-controlled Linux Containers</p>
@@ -1986,8 +1986,8 @@ Which makes a weird mix of two genders in one sentence separated by the time.</p
 Here are some of my favorite quotes from songs.
 I catch myself reciting this one during tough debug sessions:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">Goddamn machinery
-</span><span data-line="2">Why don&#39;t you speak to me?
-</span><span data-line="3">    -- &quot;The Axe&quot; by Thom Yorke
+</span><span data-line="2">Why don't you speak to me?
+</span><span data-line="3">    -- "The Axe" by Thom Yorke
 </span></pre></div>
 </div>
 <p>And this I love for the structure of the sentence:</p>
@@ -1995,13 +1995,13 @@ I catch myself reciting this one during tough debug sessions:</p>
 </span><span data-line="2">You will be first against the wall
 </span><span data-line="3">With your opinion
 </span><span data-line="4">Which is of no consequence at all
-</span><span data-line="5">    -- &quot;Paranoid Android&quot; by Radiohead
+</span><span data-line="5">    -- "Paranoid Android" by Radiohead
 </span></pre></div>
 </div>
 <p>This one is for “broken pipe” and “Socket closed”:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">Communication breakdown, it&#39;s always the same
-</span><span data-line="2">Havin&#39; a nervous breakdown, a-drive me insane
-</span><span data-line="3">    -- &quot;Communication Breakdown&quot; by Led Zeppelin
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">Communication breakdown, it's always the same
+</span><span data-line="2">Havin' a nervous breakdown, a-drive me insane
+</span><span data-line="3">    -- "Communication Breakdown" by Led Zeppelin
 </span></pre></div>
 </div>
 <hr class="docutils" />

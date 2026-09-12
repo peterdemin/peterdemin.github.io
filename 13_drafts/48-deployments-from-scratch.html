@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -101,7 +101,7 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="deployments-from-scratch">
-<h1>Deployments from scratch<a class="headerlink" href="#deployments-from-scratch" title="Link to this heading">¶</a></h1>
+<h1>Deployments from scratch<a class="headerlink" href="#deployments-from-scratch" title="Link to this heading">#</a></h1>
 <p>In this article I attempt to think through software deployment from the first principles.
 It’s getting harder and harder each year to find any deployment strategy online that doesn’t
 involve having a Kubernetes cluster running inside of virtual machines in the cloud.</p>
@@ -110,7 +110,7 @@ I have a single physical server in a single location, that needs to run a couple
 I’m the only software developer on a team, and I don’t need to change the code much often.
 I want the set up to be simple, without extra moving parts.</p>
 <section id="deploy-object">
-<h2>Deploy object<a class="headerlink" href="#deploy-object" title="Link to this heading">¶</a></h2>
+<h2>Deploy object<a class="headerlink" href="#deploy-object" title="Link to this heading">#</a></h2>
 <p>So what is this thing we’re deploying?
 It’s a handful of source code files, that are executed inside of their language runtime.
 Runtime comes with a set of third-party dependencies, of course.</p>
@@ -118,7 +118,7 @@ Runtime comes with a set of third-party dependencies, of course.</p>
 It’s objectively less number of moving parts, but the deployment process is still about the same.</p>
 </section>
 <section id="desired-properties">
-<h2>Desired properties<a class="headerlink" href="#desired-properties" title="Link to this heading">¶</a></h2>
+<h2>Desired properties<a class="headerlink" href="#desired-properties" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p>Transparency. Being able to SSH to the server and observe what’s going on.</p></li>
 <li><p>Simplicity. No unnecessary levels of abstractions, that introduce new failure modes.
@@ -128,7 +128,7 @@ It’s objectively less number of moving parts, but the deployment process is st
 </ol>
 </section>
 <section id="non-goals">
-<h2>Non-goals<a class="headerlink" href="#non-goals" title="Link to this heading">¶</a></h2>
+<h2>Non-goals<a class="headerlink" href="#non-goals" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p>Resource isolation. We run our software on our hardware, no need to isolate and compartmentalize for the sake of security.</p></li>
 <li><p>Granular permission control. All people who make changes to the software also have sudo permissions on the production server.</p></li>
@@ -139,7 +139,7 @@ The whole thing is handled by a single server.</p></li>
 </ol>
 </section>
 <section id="deployment-process-outline">
-<h2>Deployment process outline<a class="headerlink" href="#deployment-process-outline" title="Link to this heading">¶</a></h2>
+<h2>Deployment process outline<a class="headerlink" href="#deployment-process-outline" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p>Build an artifact.</p></li>
 <li><p>Upload it to the target server.</p></li>
@@ -149,7 +149,7 @@ The whole thing is handled by a single server.</p></li>
 </ol>
 </section>
 <section id="off-topic-paas-like-deployments">
-<h2>Off-topic: PaaS-like deployments<a class="headerlink" href="#off-topic-paas-like-deployments" title="Link to this heading">¶</a></h2>
+<h2>Off-topic: PaaS-like deployments<a class="headerlink" href="#off-topic-paas-like-deployments" title="Link to this heading">#</a></h2>
 <p>Heroku workflow is different:</p>
 <ol class="arabic simple">
 <li><p>Push git repo to the deployment host.</p></li>
@@ -165,7 +165,7 @@ The whole thing is handled by a single server.</p></li>
 </ul>
 </section>
 <section id="build-artifact">
-<h2>1. Build Artifact<a class="headerlink" href="#build-artifact" title="Link to this heading">¶</a></h2>
+<h2>1. Build Artifact<a class="headerlink" href="#build-artifact" title="Link to this heading">#</a></h2>
 <ol class="arabic">
 <li><p>Executable.
 Artifact could contain a compiled binary, or a single script.
@@ -188,7 +188,7 @@ Running activation script for the older version rolls back the deployment.</p></
 </ol>
 </section>
 <section id="upload-artifact-to-server">
-<h2>2. Upload Artifact to Server<a class="headerlink" href="#upload-artifact-to-server" title="Link to this heading">¶</a></h2>
+<h2>2. Upload Artifact to Server<a class="headerlink" href="#upload-artifact-to-server" title="Link to this heading">#</a></h2>
 </section>
 </section>
 

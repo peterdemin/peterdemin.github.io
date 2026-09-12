@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -98,9 +98,9 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="developer-docs-done-right">
-<h1>Developer docs done right<a class="headerlink" href="#developer-docs-done-right" title="Link to this heading">¶</a></h1>
+<h1>Developer docs done right<a class="headerlink" href="#developer-docs-done-right" title="Link to this heading">#</a></h1>
 <section id="problem">
-<h2>Problem<a class="headerlink" href="#problem" title="Link to this heading">¶</a></h2>
+<h2>Problem<a class="headerlink" href="#problem" title="Link to this heading">#</a></h2>
 <p>Existing developer documentation systems largely fall into two buckets:</p>
 <ol class="arabic simple">
 <li><p>Docs live separately from source code. Examples: Confluence, Notion.</p></li>
@@ -133,7 +133,7 @@ data-aria-dark="Switch to auto color mode">
 </ol>
 </section>
 <section id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading">¶</a></h2>
+<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading">#</a></h2>
 <p>The perfect documentation system has to be a mix of both approaches:</p>
 <ol class="arabic simple">
 <li><p>Developers should immediately see the rendered docs (and rendering issues) while editing code.</p></li>
@@ -142,7 +142,7 @@ data-aria-dark="Switch to auto color mode">
 </ol>
 </section>
 <section id="existing-solutions">
-<h2>Existing solutions<a class="headerlink" href="#existing-solutions" title="Link to this heading">¶</a></h2>
+<h2>Existing solutions<a class="headerlink" href="#existing-solutions" title="Link to this heading">#</a></h2>
 <p>Few projects are trying to solve this:</p>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://swimm.io/">swimm</a> is paid solution that puts special hooks into code and provides IDE integrations to display the docs while editing code.</p></li>
@@ -150,7 +150,7 @@ data-aria-dark="Switch to auto color mode">
 </ol>
 </section>
 <section id="components">
-<h2>Components<a class="headerlink" href="#components" title="Link to this heading">¶</a></h2>
+<h2>Components<a class="headerlink" href="#components" title="Link to this heading">#</a></h2>
 <p>Here are the high level components that make this system work regardless of implementation.</p>
 <ol class="arabic simple">
 <li><p>Docs renderer. Extracts doc strings from source code, resolves cross references, applies markup, and generates HTML pages.</p></li>

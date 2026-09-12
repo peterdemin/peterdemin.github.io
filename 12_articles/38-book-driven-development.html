@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -99,9 +99,9 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="book-driven-development">
-<h1>Book-Driven Development<a class="headerlink" href="#book-driven-development" title="Link to this heading">¶</a></h1>
+<h1>Book-Driven Development<a class="headerlink" href="#book-driven-development" title="Link to this heading">#</a></h1>
 <section id="definition">
-<h2>Definition<a class="headerlink" href="#definition" title="Link to this heading">¶</a></h2>
+<h2>Definition<a class="headerlink" href="#definition" title="Link to this heading">#</a></h2>
 <p>Book-Driven Development is a software engineering approach for organizing the development process around a Book.
 The Book means a single location that includes all documentation related to running a company.
 The same approach can be applied to other fields as well, but the author focuses on their area of expertise.</p>
@@ -112,7 +112,7 @@ As decisions are made and progress is done, new paragraphs are added to the Book
 Ideally, the Book alone should provide enough information to rebuild the company and product from scratch.</p>
 </section>
 <section id="table-of-contents">
-<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">¶</a></h2>
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">#</a></h2>
 <p>This is how the table of contents looks for an imaginary Company.
 We will use this as an example in a later section for illustration purposes.
 Chapters are using <a class="reference external" href="https://johnnydecimal.com/">Johnny.Decimal system</a>.</p>
@@ -230,7 +230,7 @@ Chapters are using <a class="reference external" href="https://johnnydecimal.com
 </ul>
 </section>
 <section id="book-centered-work-flow">
-<h2>Book-centered Work Flow<a class="headerlink" href="#book-centered-work-flow" title="Link to this heading">¶</a></h2>
+<h2>Book-centered Work Flow<a class="headerlink" href="#book-centered-work-flow" title="Link to this heading">#</a></h2>
 <p>As an engineer starts working on a new project, they:</p>
 <ol class="arabic simple">
 <li><p>Create a new page under the “40 Product Feature 1 Projects” category.</p></li>
@@ -241,7 +241,7 @@ Chapters are using <a class="reference external" href="https://johnnydecimal.com
 </ol>
 </section>
 <section id="book-building">
-<h2>Book Building<a class="headerlink" href="#book-building" title="Link to this heading">¶</a></h2>
+<h2>Book Building<a class="headerlink" href="#book-building" title="Link to this heading">#</a></h2>
 <p>The company is using Sphinx docs for the Book generation. This provides many benefits:</p>
 <ol class="arabic simple">
 <li><p>Support for Markdown for simple formatting and RestructuredText for more complex ones.</p></li>
@@ -250,7 +250,7 @@ Chapters are using <a class="reference external" href="https://johnnydecimal.com
 </ol>
 </section>
 <section id="auto-generation-examples">
-<h2>Auto-Generation Examples<a class="headerlink" href="#auto-generation-examples" title="Link to this heading">¶</a></h2>
+<h2>Auto-Generation Examples<a class="headerlink" href="#auto-generation-examples" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p>Project updates are generated from git history.</p></li>
 <li><p>People and Team pages auto-updated with the links to projects the person worked on.</p></li>

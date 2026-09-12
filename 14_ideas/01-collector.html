@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -98,14 +98,14 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="collecte-self-hosted-open-source-email-collector">
-<h1>Collecte - self-hosted open source email collector<a class="headerlink" href="#collecte-self-hosted-open-source-email-collector" title="Link to this heading">¶</a></h1>
+<h1>Collecte - self-hosted open source email collector<a class="headerlink" href="#collecte-self-hosted-open-source-email-collector" title="Link to this heading">#</a></h1>
 <p>Collect emails on your static website into your private git repo.
 The solution is targeted at people who already have a Linux server and domain,
 or don’t mind to get one.
 You have to be familiar with basics of operating a web server.
 No Python knowledge is required, but service is going to use it.</p>
 <section id="prerequisites">
-<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">¶</a></h2>
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>You’ll need to host a Linux server somewhere.</p></li>
 <li><p>You’ll need a domain to serve the API requests.</p></li>
@@ -116,13 +116,13 @@ No Python knowledge is required, but service is going to use it.</p>
 </ul>
 </section>
 <section id="what-you-get">
-<h2>What you get<a class="headerlink" href="#what-you-get" title="Link to this heading">¶</a></h2>
+<h2>What you get<a class="headerlink" href="#what-you-get" title="Link to this heading">#</a></h2>
 <p>Python service running on a virtual machine using systemd unit.
 Nginx serving a single API endpoint.
 Private git repository, that stores all submitted emails into a plain text file.</p>
 </section>
 <section id="how-it-works">
-<h2>How it works<a class="headerlink" href="#how-it-works" title="Link to this heading">¶</a></h2>
+<h2>How it works<a class="headerlink" href="#how-it-works" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Service accepts POST requests at <code class="docutils literal notranslate"><span class="pre">/singup</span></code>.</p></li>
 <li><p>Appends the received email to <code class="docutils literal notranslate"><span class="pre">emails.txt</span></code>.</p></li>
@@ -132,7 +132,7 @@ Private git repository, that stores all submitted emails into a plain text file.
 </ul>
 </section>
 <section id="how-to-install">
-<h2>How to install<a class="headerlink" href="#how-to-install" title="Link to this heading">¶</a></h2>
+<h2>How to install<a class="headerlink" href="#how-to-install" title="Link to this heading">#</a></h2>
 <p>Instruction are written for Ubuntu Linux, but can be applied to any other Linux distribution.</p>
 <ol class="arabic">
 <li><p>Create a system user to run the service. <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">adduser</span> <span class="pre">--system</span> <span class="pre">collecte</span> <span class="pre">--home</span> <span class="pre">/var/lib/collecte</span></code></p></li>
@@ -154,8 +154,8 @@ Private git repository, that stores all submitted emails into a plain text file.
 </span><span data-line="3"><span class="n">Description</span><span class="o">=</span><span class="n">collecte</span> <span class="n">HTTP</span> <span class="n">API</span>
 </span><span data-line="4"><span class="n">After</span><span class="o">=</span><span class="n">network</span><span class="o">.</span><span class="n">target</span>
 </span><span data-line="5"><span class="n">StartLimitIntervalSec</span><span class="o">=</span><span class="mi">0</span>
-</span><span data-line="6"><span class="n">Environment</span><span class="o">=</span><span class="s2">&quot;PORT=7777&quot;</span>
-</span><span data-line="7"><span class="n">Environment</span><span class="o">=</span><span class="s2">&quot;REDIRECT_URL=https://your-static-website.com/thanks&quot;</span>
+</span><span data-line="6"><span class="n">Environment</span><span class="o">=</span><span class="s2">"PORT=7777"</span>
+</span><span data-line="7"><span class="n">Environment</span><span class="o">=</span><span class="s2">"REDIRECT_URL=https://your-static-website.com/thanks"</span>
 </span><span data-line="8">
 </span><span data-line="9"><span class="p">[</span><span class="n">Service</span><span class="p">]</span>
 </span><span data-line="10"><span class="n">Type</span><span class="o">=</span><span class="n">simple</span>

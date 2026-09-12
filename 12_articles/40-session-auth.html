@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -101,11 +101,11 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="session-authentication-and-single-page-applications">
-<h1>Session Authentication and Single-Page Applications<a class="headerlink" href="#session-authentication-and-single-page-applications" title="Link to this heading">¶</a></h1>
+<h1>Session Authentication and Single-Page Applications<a class="headerlink" href="#session-authentication-and-single-page-applications" title="Link to this heading">#</a></h1>
 <p>TL;DR: Don’t use session authentication in cross-domain AJAX clients, it’s a world of pain.
 Just go with <code class="docutils literal notranslate"><span class="pre">Authorization:</span> <span class="pre">Bearer</span> <span class="pre">&lt;token&gt;</span></code> header and be at peace.</p>
 <section id="context">
-<h2>Context<a class="headerlink" href="#context" title="Link to this heading">¶</a></h2>
+<h2>Context<a class="headerlink" href="#context" title="Link to this heading">#</a></h2>
 <p>This is something that I learned the hard way, during completion of a take-home assignment.
 I would expect the most the full-stack developers to know this, but I haven’t found an in-depth explanation on the web.
 The tech stack is Django REST Framework and React combo.
@@ -113,7 +113,7 @@ React frontend runs on a separate port in the local developer environment to sup
 In production, frontend is served from CDN, and API is hosted on a separate subdomain.</p>
 </section>
 <section id="session-authentication-in-django">
-<h2>Session Authentication in Django<a class="headerlink" href="#session-authentication-in-django" title="Link to this heading">¶</a></h2>
+<h2>Session Authentication in Django<a class="headerlink" href="#session-authentication-in-django" title="Link to this heading">#</a></h2>
 <p>Using Django terminology, “session” in a nutshell:</p>
 <ol class="arabic simple">
 <li><p>When user makes the first request to the server,
@@ -135,7 +135,7 @@ Django provides convenient attribute <code class="docutils literal notranslate">
 </ol>
 </section>
 <section id="session-authentication-in-django-rest-framework">
-<h2>Session Authentication in Django REST Framework<a class="headerlink" href="#session-authentication-in-django-rest-framework" title="Link to this heading">¶</a></h2>
+<h2>Session Authentication in Django REST Framework<a class="headerlink" href="#session-authentication-in-django-rest-framework" title="Link to this heading">#</a></h2>
 <p>Django REST Framework provides SessionAuthentication built on top of Django cookie-based sessions.</p>
 <p>The documentation has a hint:</p>
 <blockquote>
@@ -147,7 +147,7 @@ Django provides convenient attribute <code class="docutils literal notranslate">
 Great question! And a deep rabit hole…</p>
 </section>
 <section id="cross-origin-resource-sharing-cors">
-<h2>Cross-Origin Resource Sharing (CORS)<a class="headerlink" href="#cross-origin-resource-sharing-cors" title="Link to this heading">¶</a></h2>
+<h2>Cross-Origin Resource Sharing (CORS)<a class="headerlink" href="#cross-origin-resource-sharing-cors" title="Link to this heading">#</a></h2>
 <p>CORS headers allow server to configure what domains (origins) are allowed to send AJAX requests.
 In absence of response header explicitly stating that this domain is approved, the browser rejects the response.</p>
 <p>Thank you, browser. The confusion of this situation comes from the developer unawareness of the possible attacks.
@@ -164,7 +164,7 @@ It may look like the localhost domain is the same, but the browser actually cons
 <p>That would do for the production. But not for local development.</p>
 </section>
 <section id="cross-origin-troubles-in-local-development">
-<h2>Cross-Origin Troubles in Local Development<a class="headerlink" href="#cross-origin-troubles-in-local-development" title="Link to this heading">¶</a></h2>
+<h2>Cross-Origin Troubles in Local Development<a class="headerlink" href="#cross-origin-troubles-in-local-development" title="Link to this heading">#</a></h2>
 <p>In local environment, we have frontend and backend served from <code class="docutils literal notranslate"><span class="pre">localhost</span></code>, but from different ports.
 Let’s say <code class="docutils literal notranslate"><span class="pre">3000</span></code> for the frontend, and <code class="docutils literal notranslate"><span class="pre">8000</span></code> for the backend.</p>
 <blockquote>
@@ -193,7 +193,7 @@ It just goes nowhere.</p>
 </ol>
 </section>
 <section id="solution-1-don-t-use-cookies">
-<h2>Solution 1: Don’t Use Cookies<a class="headerlink" href="#solution-1-don-t-use-cookies" title="Link to this heading">¶</a></h2>
+<h2>Solution 1: Don’t Use Cookies<a class="headerlink" href="#solution-1-don-t-use-cookies" title="Link to this heading">#</a></h2>
 <p>Don’t use cookie-based authentication when building websites with cross-origin AJAX.
 Use <a class="reference external" href="https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication">Token authentication</a> instead.
 If Django REST Framework’s token authentication is too basic, try <a class="reference external" href="https://jazzband.github.io/django-rest-knox/auth/">Django REST Knox</a>.</p>
@@ -204,7 +204,7 @@ It works only in the context of cookie-based authentication, where browser autom
 Hence, there’s no need protect the session from hijacking.</p>
 </section>
 <section id="solution-2-use-http-proxy-locally-to-make-ajax-same-origin">
-<h2>Solution 2: Use HTTP Proxy Locally to Make AJAX Same-Origin<a class="headerlink" href="#solution-2-use-http-proxy-locally-to-make-ajax-same-origin" title="Link to this heading">¶</a></h2>
+<h2>Solution 2: Use HTTP Proxy Locally to Make AJAX Same-Origin<a class="headerlink" href="#solution-2-use-http-proxy-locally-to-make-ajax-same-origin" title="Link to this heading">#</a></h2>
 <p>These troubles don’t exist in production.
 When serving from a proper domain and standard HTTPS port, CORS headers work as expected.</p>
 <p>For the local development, you can set up a proxy, so that HTTP requests are sent to the same-origin frontend <code class="docutils literal notranslate"><span class="pre">localhost:3000</span></code>,

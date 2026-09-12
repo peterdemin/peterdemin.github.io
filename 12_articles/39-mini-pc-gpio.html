@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -96,9 +96,9 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="using-gpio-on-an-industrial-mini-pc">
-<h1>Using GPIO on an industrial mini PC<a class="headerlink" href="#using-gpio-on-an-industrial-mini-pc" title="Link to this heading">¶</a></h1>
+<h1>Using GPIO on an industrial mini PC<a class="headerlink" href="#using-gpio-on-an-industrial-mini-pc" title="Link to this heading">#</a></h1>
 <section id="what-s-an-industrial-mini-pc">
-<h2>What’s an industrial mini PC<a class="headerlink" href="#what-s-an-industrial-mini-pc" title="Link to this heading">¶</a></h2>
+<h2>What’s an industrial mini PC<a class="headerlink" href="#what-s-an-industrial-mini-pc" title="Link to this heading">#</a></h2>
 <p><img alt="Mini PCs" src="../_images/39-mini-pcs.png" /></p>
 <p>There are many industrial mini PCs on the market.
 Their common features are:</p>
@@ -134,7 +134,7 @@ The common problem with them is the lack of documentation and support forums.</p
 It has an Intel CPU, Samsung SSD, and an array of GPIO ports.</p>
 </section>
 <section id="accessing-gpio-on-linux">
-<h2>Accessing GPIO on Linux<a class="headerlink" href="#accessing-gpio-on-linux" title="Link to this heading">¶</a></h2>
+<h2>Accessing GPIO on Linux<a class="headerlink" href="#accessing-gpio-on-linux" title="Link to this heading">#</a></h2>
 <p>My OS of choice is Ubuntu 22.04, but the experience is similar for most Linux distributions.</p>
 <p>At first, it wasn’t clear how to use the GPIO ports, as most of the online GPIO documentation targets System-on-Chips (SoC) such as Arduino and Raspberry Pi.</p>
 <p>Modern Linux exposes GPIO through a Kernel driver that mounts <code class="docutils literal notranslate"><span class="pre">/dev/gpiochip[n]</span></code> character devices.
@@ -190,7 +190,7 @@ I found mentions of the drivers for this chip:</p>
 </li>
 <li><p>Kconfig snippet:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span><span data-line="1">config GPIO_IT87
-</span><span data-line="2">        tristate &quot;IT87xx GPIO support&quot;
+</span><span data-line="2">        tristate "IT87xx GPIO support"
 </span><span data-line="3">        help
 </span><span data-line="4">          Say yes here to support GPIO functionality of IT87xx Super I/O chips.
 </span><span data-line="5">
@@ -224,11 +224,11 @@ The biggest gotcha was that pin numbers in gpiolib do not match pin numbers in B
 <p>I connected each pin to an LED on a breadboard and used the following script to discover their numbers:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">63</span><span class="k">)</span>
 </span><span data-line="2"><span class="k">do</span>
-</span><span data-line="3"><span class="w">    </span><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$i</span><span class="s2"> on &quot;</span>
-</span><span data-line="4"><span class="w">    </span>sudo<span class="w"> </span>gpioset<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$i</span><span class="s2">=1&quot;</span>
+</span><span data-line="3"><span class="w">    </span><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="nv">$i</span><span class="s2"> on "</span>
+</span><span data-line="4"><span class="w">    </span>sudo<span class="w"> </span>gpioset<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="s2">"</span><span class="nv">$i</span><span class="s2">=1"</span>
 </span><span data-line="5"><span class="w">    </span>sleep<span class="w"> </span><span class="m">1</span>
 </span><span data-line="6"><span class="w">    </span><span class="nb">echo</span><span class="w"> </span>off
-</span><span data-line="7"><span class="w">    </span>sudo<span class="w"> </span>gpioset<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$i</span><span class="s2">=0&quot;</span>
+</span><span data-line="7"><span class="w">    </span>sudo<span class="w"> </span>gpioset<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="s2">"</span><span class="nv">$i</span><span class="s2">=0"</span>
 </span><span data-line="8"><span class="k">done</span>
 </span></pre></div>
 </div>

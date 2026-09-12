@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -106,7 +106,7 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="boom-and-sail-physics">
-<h1>Boom and Sail Physics<a class="headerlink" href="#boom-and-sail-physics" title="Link to this heading">¶</a></h1>
+<h1>Boom and Sail Physics<a class="headerlink" href="#boom-and-sail-physics" title="Link to this heading">#</a></h1>
 <p>This note derives a compact sail-and-boom model from standard aerodynamic force
 formulas.</p>
 <p>The presentation uses three coordinate systems:</p>
@@ -125,7 +125,7 @@ formulas.</p>
 <li><p>Use the sheet only to constrain the boom angle.</p></li>
 </ol>
 <section id="canonical-lift-and-drag">
-<h2>Canonical lift and drag<a class="headerlink" href="#canonical-lift-and-drag" title="Link to this heading">¶</a></h2>
+<h2>Canonical lift and drag<a class="headerlink" href="#canonical-lift-and-drag" title="Link to this heading">#</a></h2>
 <p>The standard aerodynamic force formulas are:</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
@@ -146,7 +146,7 @@ formulas.</p>
 <p>The essential point is that force scales with <span class="math notranslate nohighlight">\(v_a^2\)</span>, not <span class="math notranslate nohighlight">\(v_a\)</span>.</p>
 </section>
 <section id="piecewise-lift-coefficient">
-<h2>Piecewise lift coefficient<a class="headerlink" href="#piecewise-lift-coefficient" title="Link to this heading">¶</a></h2>
+<h2>Piecewise lift coefficient<a class="headerlink" href="#piecewise-lift-coefficient" title="Link to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(\alpha\)</span> be the angle of attack and <span class="math notranslate nohighlight">\(\alpha_s\)</span> the stall angle.</p>
 <p>Use a piecewise lift model:</p>
 <div class="math-wrapper docutils container">
@@ -177,7 +177,7 @@ A simple choice is:</p>
 <p>where <span class="math notranslate nohighlight">\(C_{D,0}\)</span> is parasitic drag at zero angle of attack.</p>
 </section>
 <section id="world-frame">
-<h2>World frame<a class="headerlink" href="#world-frame" title="Link to this heading">¶</a></h2>
+<h2>World frame<a class="headerlink" href="#world-frame" title="Link to this heading">#</a></h2>
 <p>In the world frame:</p>
 <ol class="arabic simple">
 <li><p>positive <span class="math notranslate nohighlight">\(x\)</span> points east,</p></li>
@@ -212,7 +212,7 @@ v_w
 </div>
 </section>
 <section id="boat-frame">
-<h2>Boat frame<a class="headerlink" href="#boat-frame" title="Link to this heading">¶</a></h2>
+<h2>Boat frame<a class="headerlink" href="#boat-frame" title="Link to this heading">#</a></h2>
 <p>The boat frame rotates with the hull.</p>
 <p>Its positive <span class="math notranslate nohighlight">\(x\)</span> axis points forward.
 Its positive <span class="math notranslate nohighlight">\(y\)</span> axis points to one side of the hull.</p>
@@ -237,7 +237,7 @@ Its positive <span class="math notranslate nohighlight">\(y\)</span> axis points
 </div>
 </section>
 <section id="boom-angle">
-<h2>Boom angle<a class="headerlink" href="#boom-angle" title="Link to this heading">¶</a></h2>
+<h2>Boom angle<a class="headerlink" href="#boom-angle" title="Link to this heading">#</a></h2>
 <p>Let the boom angle in the boat frame be <span class="math notranslate nohighlight">\(\beta\)</span>.</p>
 <p>By convention:</p>
 <ol class="arabic simple">
@@ -263,7 +263,7 @@ Let <span class="math notranslate nohighlight">\(\beta_{\max}\)</span> be the ma
 <p>The mainsheet therefore acts only as a constraint on boom angle.</p>
 </section>
 <section id="sail-frame">
-<h2>Sail frame<a class="headerlink" href="#sail-frame" title="Link to this heading">¶</a></h2>
+<h2>Sail frame<a class="headerlink" href="#sail-frame" title="Link to this heading">#</a></h2>
 <p>The sail frame rotates with the boom.</p>
 <p>Its positive <span class="math notranslate nohighlight">\(x\)</span> axis lies along the boom and sail chord.</p>
 <p>To transform from the boat frame to the sail frame, rotate by <span class="math notranslate nohighlight">\(-\beta\)</span>:</p>
@@ -282,7 +282,7 @@ Let <span class="math notranslate nohighlight">\(\beta_{\max}\)</span> be the ma
 </div>
 </section>
 <section id="angle-of-attack">
-<h2>Angle of attack<a class="headerlink" href="#angle-of-attack" title="Link to this heading">¶</a></h2>
+<h2>Angle of attack<a class="headerlink" href="#angle-of-attack" title="Link to this heading">#</a></h2>
 <p>In the sail frame, the chord is aligned with the <span class="math notranslate nohighlight">\(x\)</span> axis.
 So the angle of attack is read directly from the apparent wind:</p>
 <div class="math-wrapper docutils container">
@@ -301,7 +301,7 @@ So the angle of attack is read directly from the apparent wind:</p>
 </div>
 </section>
 <section id="lift-and-drag-vectors-in-sail-frame">
-<h2>Lift and drag vectors in sail frame<a class="headerlink" href="#lift-and-drag-vectors-in-sail-frame" title="Link to this heading">¶</a></h2>
+<h2>Lift and drag vectors in sail frame<a class="headerlink" href="#lift-and-drag-vectors-in-sail-frame" title="Link to this heading">#</a></h2>
 <p>Let:</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
@@ -336,7 +336,7 @@ a_x^{(1)}
 <span class="math notranslate nohighlight">\(\hat{n}^{(1)}\)</span> with <span class="math notranslate nohighlight">\(-\hat{n}^{(1)}\)</span>.</p>
 </section>
 <section id="force-in-the-boat-frame">
-<h2>Force in the boat frame<a class="headerlink" href="#force-in-the-boat-frame" title="Link to this heading">¶</a></h2>
+<h2>Force in the boat frame<a class="headerlink" href="#force-in-the-boat-frame" title="Link to this heading">#</a></h2>
 <p>Rotate the sail-frame force back into the boat frame:</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
@@ -352,7 +352,7 @@ a_x^{(1)}
 That term can later be used for heel or leeway if desired.</p>
 </section>
 <section id="trim-efficiency">
-<h2>Trim efficiency<a class="headerlink" href="#trim-efficiency" title="Link to this heading">¶</a></h2>
+<h2>Trim efficiency<a class="headerlink" href="#trim-efficiency" title="Link to this heading">#</a></h2>
 <p>If the boom is too tight or too loose relative to the apparent-wind demand,
 the sail should lose efficiency.</p>
 <p>Define:</p>
@@ -382,7 +382,7 @@ the sail should lose efficiency.</p>
 </div>
 </section>
 <section id="force-acceleration-and-velocity">
-<h2>Force, acceleration, and velocity<a class="headerlink" href="#force-acceleration-and-velocity" title="Link to this heading">¶</a></h2>
+<h2>Force, acceleration, and velocity<a class="headerlink" href="#force-acceleration-and-velocity" title="Link to this heading">#</a></h2>
 <p>Force should produce acceleration, not speed directly.</p>
 <p>Let the boat mass be <span class="math notranslate nohighlight">\(m\)</span>.</p>
 <p>Then:</p>
@@ -412,7 +412,7 @@ v_b
 </div>
 </section>
 <section id="physics-chain">
-<h2>Physics chain<a class="headerlink" href="#physics-chain" title="Link to this heading">¶</a></h2>
+<h2>Physics chain<a class="headerlink" href="#physics-chain" title="Link to this heading">#</a></h2>
 <p>The structure is:</p>
 <ol class="arabic simple">
 <li><p>canonical lift and drag depend on <span class="math notranslate nohighlight">\(v_a^2\)</span>,</p></li>

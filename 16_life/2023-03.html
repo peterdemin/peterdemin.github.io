@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -104,8 +104,8 @@ I wrote it few years ago. But I can’t read it now.</p>
 </span><span data-line="8"><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="m">0</span><span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$f</span>
 </span><span data-line="9"><span class="w">    </span><span class="k">done</span><span class="p">;</span>
 </span><span data-line="10">
-</span><span data-line="11"><span class="c1"># ip route add default via $(ifconfig -a tun0 | grep -o &#39;P-t-P:[^ ]*&#39; | cut -d : -f 2) table 42</span>
-</span><span data-line="12">ip<span class="w"> </span>route<span class="w"> </span>add<span class="w"> </span>default<span class="w"> </span>via<span class="w"> </span><span class="k">$(</span>ifconfig<span class="w"> </span>-a<span class="w"> </span>tun0<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-o<span class="w"> </span><span class="s1">&#39;destination [^ ]*&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $2}&#39;</span><span class="k">)</span><span class="w"> </span>table<span class="w"> </span><span class="m">42</span>
+</span><span data-line="11"><span class="c1"># ip route add default via $(ifconfig -a tun0 | grep -o 'P-t-P:[^ ]*' | cut -d : -f 2) table 42</span>
+</span><span data-line="12">ip<span class="w"> </span>route<span class="w"> </span>add<span class="w"> </span>default<span class="w"> </span>via<span class="w"> </span><span class="k">$(</span>ifconfig<span class="w"> </span>-a<span class="w"> </span>tun0<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-o<span class="w"> </span><span class="s1">'destination [^ ]*'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">'{print $2}'</span><span class="k">)</span><span class="w"> </span>table<span class="w"> </span><span class="m">42</span>
 </span></pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">Mar</span> <span class="pre">29,</span> <span class="pre">2023</span></code> - <a class="reference external" href="https://github.com/fafrd/aquarium">fafrd/aquarium</a> - AI-controlled Linux Containers</p>

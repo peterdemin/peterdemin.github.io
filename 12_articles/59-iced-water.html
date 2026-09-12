@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -103,15 +103,15 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="cooling-water-with-ice">
-<h1>Cooling Water with Ice<a class="headerlink" href="#cooling-water-with-ice" title="Link to this heading">¶</a></h1>
+<h1>Cooling Water with Ice<a class="headerlink" href="#cooling-water-with-ice" title="Link to this heading">#</a></h1>
 <section id="tl-dr">
-<h2>TL;DR<a class="headerlink" href="#tl-dr" title="Link to this heading">¶</a></h2>
+<h2>TL;DR<a class="headerlink" href="#tl-dr" title="Link to this heading">#</a></h2>
 <p>One ice cube cools two ounces of water to just above freezing temperature.</p>
 <p>To cool <strong>12 oz</strong> of water from 20°C to just above freezing, approximately 88.9 grams of ice is needed.
 A standard ice cube (approximately 16 grams) can be used as an approximation, requiring about <strong>six ice cubes</strong>.</p>
 </section>
 <section id="background">
-<h2>Background<a class="headerlink" href="#background" title="Link to this heading">¶</a></h2>
+<h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
 <p>I have this lovely home water carbonation machine. It dispenses water in 6 oz increments, and 12 oz is my sweet spot.
 The effectiveness of water absorption of carbon dioxide depends on water temperature. The colder the better.
 The machine doesn’t cool the water itself and has little insulation in the water tank (which I think is a design flaw).
@@ -119,7 +119,7 @@ My fridge produces ice cubes, though.
 Following is a school way of figuring out how much ice I must put into a tank for a glass of bubbly water.</p>
 </section>
 <section id="interactive-form">
-<h2>Interactive form<a class="headerlink" href="#interactive-form" title="Link to this heading">¶</a></h2>
+<h2>Interactive form<a class="headerlink" href="#interactive-form" title="Link to this heading">#</a></h2>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -185,12 +185,12 @@ Following is a school way of figuring out how much ice I must put into a tank fo
     calculateIceCubes();
 </script></section>
 <section id="physics">
-<h2>Physics<a class="headerlink" href="#physics" title="Link to this heading">¶</a></h2>
+<h2>Physics<a class="headerlink" href="#physics" title="Link to this heading">#</a></h2>
 <p>To calculate the amount of ice needed to cool 12 oz (355 mL) of water from 20°C to 0°C, we’ll use the principle of energy conservation.
 The heat lost by the water must equal the heat gained by the ice.</p>
 </section>
 <section id="assumptions">
-<h2>Assumptions<a class="headerlink" href="#assumptions" title="Link to this heading">¶</a></h2>
+<h2>Assumptions<a class="headerlink" href="#assumptions" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p>Ice melting point is 0°C.</p></li>
 <li><p>The specific heat capacity of water is 4.18 J/g°C.</p></li>
@@ -199,7 +199,7 @@ The heat lost by the water must equal the heat gained by the ice.</p>
 </ol>
 </section>
 <section id="step-1-calculate-the-heat-energy-lost-by-the-water">
-<h2>Step 1: Calculate the heat energy lost by the water<a class="headerlink" href="#step-1-calculate-the-heat-energy-lost-by-the-water" title="Link to this heading">¶</a></h2>
+<h2>Step 1: Calculate the heat energy lost by the water<a class="headerlink" href="#step-1-calculate-the-heat-energy-lost-by-the-water" title="Link to this heading">#</a></h2>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[Q_{\text{water}} = m_{\text{water}} \times c_{\text{water}} \times \Delta T_{\text{water}}\]</div>
@@ -217,7 +217,7 @@ The heat lost by the water must equal the heat gained by the ice.</p>
 </div>
 </section>
 <section id="step-2-calculate-the-amount-of-ice-needed">
-<h2>Step 2: Calculate the amount of ice needed<a class="headerlink" href="#step-2-calculate-the-amount-of-ice-needed" title="Link to this heading">¶</a></h2>
+<h2>Step 2: Calculate the amount of ice needed<a class="headerlink" href="#step-2-calculate-the-amount-of-ice-needed" title="Link to this heading">#</a></h2>
 <p>Since the ice will absorb heat and melt, the heat required to melt <span class="math notranslate nohighlight">\(m_{\text{ice}}\)</span> grams of ice is given by:</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
@@ -244,7 +244,7 @@ The heat lost by the water must equal the heat gained by the ice.</p>
 <p>My ice cubes weigh 16 grams on average, so I need about six ice cubes.</p>
 </section>
 <section id="step-3-calculate-the-amount-of-time-needed">
-<h2>Step 3: Calculate the amount of time needed<a class="headerlink" href="#step-3-calculate-the-amount-of-time-needed" title="Link to this heading">¶</a></h2>
+<h2>Step 3: Calculate the amount of time needed<a class="headerlink" href="#step-3-calculate-the-amount-of-time-needed" title="Link to this heading">#</a></h2>
 <p>For a rough estimate, assuming the heat transfer rate <span class="math notranslate nohighlight">\(R\)</span> is about 100 W (100 J/s, a typical estimate for moderate convective conditions):</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
@@ -256,7 +256,7 @@ The heat lost by the water must equal the heat gained by the ice.</p>
 </div>
 </section>
 <section id="calculation-flaws">
-<h2>Calculation flaws<a class="headerlink" href="#calculation-flaws" title="Link to this heading">¶</a></h2>
+<h2>Calculation flaws<a class="headerlink" href="#calculation-flaws" title="Link to this heading">#</a></h2>
 <p>The formula above doesn’t take into consideration:</p>
 <ol class="arabic simple">
 <li><p>Room air warming up water as the ice melts.</p></li>

@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -92,7 +92,7 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="install-bugsink-on-google-cloud-platform">
-<h1>Install Bugsink on Google Cloud Platform<a class="headerlink" href="#install-bugsink-on-google-cloud-platform" title="Link to this heading">¶</a></h1>
+<h1>Install Bugsink on Google Cloud Platform<a class="headerlink" href="#install-bugsink-on-google-cloud-platform" title="Link to this heading">#</a></h1>
 <p><a class="reference external" href="https://github.com/bugsink/bugsink/">Bugsink</a> is a lightweight self-hosted error tracking service written in Python/Django.
 It’s compatible with Sentry Client SDK, so migration means just changing a DSN URL.</p>
 <p>Bugsink can be sensibly scaled according to usage.
@@ -127,11 +127,11 @@ At which point I can sign in, create a project and copy the DSN URL to plug into
 </span><span data-line="16"><span class="w">    </span>--network-interface<span class="o">=</span>network-tier<span class="o">=</span>STANDARD,stack-type<span class="o">=</span>IPV4_ONLY,subnet<span class="o">=</span>default<span class="w"> </span><span class="se">\</span>
 </span><span data-line="17"><span class="w">    </span>--tags<span class="o">=</span>http-server,https-server<span class="w"> </span><span class="se">\</span>
 </span><span data-line="18"><span class="w">    </span>--public-ptr<span class="w"> </span><span class="se">\</span>
-</span><span data-line="19"><span class="w">    </span>--public-ptr-domain<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">DOMAIN</span><span class="si">}</span><span class="s2">.&quot;</span><span class="w"> </span><span class="se">\</span>
-</span><span data-line="20"><span class="w">    </span>--metadata<span class="o">=</span><span class="s2">&quot;ssh-keys=</span><span class="si">${</span><span class="nv">USERNAME</span><span class="si">}</span><span class="s2">:</span><span class="si">${</span><span class="nv">PUBKEY</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span data-line="19"><span class="w">    </span>--public-ptr-domain<span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">DOMAIN</span><span class="si">}</span><span class="s2">."</span><span class="w"> </span><span class="se">\</span>
+</span><span data-line="20"><span class="w">    </span>--metadata<span class="o">=</span><span class="s2">"ssh-keys=</span><span class="si">${</span><span class="nv">USERNAME</span><span class="si">}</span><span class="s2">:</span><span class="si">${</span><span class="nv">PUBKEY</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
 </span><span data-line="21"><span class="w">    </span>--maintenance-policy<span class="o">=</span>MIGRATE<span class="w"> </span><span class="se">\</span>
 </span><span data-line="22"><span class="w">    </span>--provisioning-model<span class="o">=</span>STANDARD<span class="w"> </span><span class="se">\</span>
-</span><span data-line="23"><span class="w">    </span>--service-account<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">ACCOUNT</span><span class="si">}</span><span class="s2">-compute@developer.gserviceaccount.com&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span data-line="23"><span class="w">    </span>--service-account<span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">ACCOUNT</span><span class="si">}</span><span class="s2">-compute@developer.gserviceaccount.com"</span><span class="w"> </span><span class="se">\</span>
 </span><span data-line="24"><span class="w">    </span>--create-disk<span class="o">=</span>auto-delete<span class="o">=</span>yes,boot<span class="o">=</span>yes,device-name<span class="o">=</span><span class="nv">$INSTANCE</span>,image<span class="o">=</span>projects/debian-cloud/global/images/debian-13-trixie-v20251014,mode<span class="o">=</span>rw,size<span class="o">=</span><span class="m">10</span>,type<span class="o">=</span>pd-standard<span class="w"> </span><span class="se">\</span>
 </span><span data-line="25"><span class="w">    </span>--no-shielded-secure-boot<span class="w"> </span><span class="se">\</span>
 </span><span data-line="26"><span class="w">    </span>--shielded-vtpm<span class="w"> </span><span class="se">\</span>
@@ -139,7 +139,7 @@ At which point I can sign in, create a project and copy the DSN URL to plug into
 </span><span data-line="28"><span class="w">    </span>--labels<span class="o">=</span>goog-ec-src<span class="o">=</span>vm_add-gcloud<span class="w"> </span><span class="se">\</span>
 </span><span data-line="29"><span class="w">    </span>--reservation-affinity<span class="o">=</span>any
 </span><span data-line="30">
-</span><span data-line="31"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Attempting to set up firewall rules, it&#39;s okay to fail if they already exist&quot;</span>
+</span><span data-line="31"><span class="nb">echo</span><span class="w"> </span><span class="s2">"Attempting to set up firewall rules, it's okay to fail if they already exist"</span>
 </span><span data-line="32">
 </span><span data-line="33">gcloud<span class="w"> </span>compute<span class="w"> </span>firewall-rules<span class="w"> </span>create<span class="w"> </span>default-allow-http<span class="w"> </span><span class="se">\</span>
 </span><span data-line="34"><span class="w">    </span>--project<span class="o">=</span><span class="nv">$PROJECT</span><span class="w"> </span><span class="se">\</span>
@@ -162,13 +162,13 @@ At which point I can sign in, create a project and copy the DSN URL to plug into
 </span><span data-line="51"><span class="w">    </span>--target-tags<span class="o">=</span>https-server<span class="w"> </span><span class="se">\</span>
 </span><span data-line="52"><span class="w">    </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
 </span><span data-line="53">
-</span><span data-line="54"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Update DNS to point bugsink subdomain to the EXTERNAL IP address&quot;</span>
+</span><span data-line="54"><span class="nb">echo</span><span class="w"> </span><span class="s2">"Update DNS to point bugsink subdomain to the EXTERNAL IP address"</span>
 </span><span data-line="55">
 </span><span data-line="56">ssh-keygen<span class="w"> </span>-R<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
-</span><span data-line="57"><span class="k">until</span><span class="w"> </span>ssh<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span><span class="s1">&#39;echo up&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>sleep<span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
+</span><span data-line="57"><span class="k">until</span><span class="w"> </span>ssh<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span><span class="s1">'echo up'</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>sleep<span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
 </span><span data-line="58">
-</span><span data-line="59">scp<span class="w"> </span>-rC<span class="w"> </span>scripts/provision_bugsink.sh<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">DOMAIN</span><span class="si">}</span><span class="s2">:&quot;</span>
-</span><span data-line="60">ssh<span class="w"> </span>-t<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--<span class="w"> </span><span class="s2">&quot;chmod +x provision_bugsink.sh &amp;&amp; sudo ./provision_bugsink.sh&quot;</span>
+</span><span data-line="59">scp<span class="w"> </span>-rC<span class="w"> </span>scripts/provision_bugsink.sh<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">DOMAIN</span><span class="si">}</span><span class="s2">:"</span>
+</span><span data-line="60">ssh<span class="w"> </span>-t<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--<span class="w"> </span><span class="s2">"chmod +x provision_bugsink.sh &amp;&amp; sudo ./provision_bugsink.sh"</span>
 </span></pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">scripts/provision_bugsink.sh</span></code>:</p>
@@ -182,23 +182,23 @@ At which point I can sign in, create a project and copy the DSN URL to plug into
 </span><span data-line="8"><span class="nv">EMAIL</span><span class="o">=</span>peter@demin.dev
 </span><span data-line="9">
 </span><span data-line="10"><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$EUID</span><span class="w"> </span>-ne<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-</span><span data-line="11"><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;ERROR: Run this script as root (sudo -i).&quot;</span>
+</span><span data-line="11"><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"ERROR: Run this script as root (sudo -i)."</span>
 </span><span data-line="12"><span class="w">  </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
 </span><span data-line="13"><span class="k">fi</span>
 </span><span data-line="14">
-</span><span data-line="15">log<span class="o">()</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;\n[%s] %s\n&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>date<span class="w"> </span>-Is<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$*</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="o">}</span>
+</span><span data-line="15">log<span class="o">()</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s2">"\n[%s] %s\n"</span><span class="w"> </span><span class="s2">"</span><span class="k">$(</span>date<span class="w"> </span>-Is<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$*</span><span class="s2">"</span><span class="p">;</span><span class="w"> </span><span class="o">}</span>
 </span><span data-line="16">
 </span><span data-line="17">run_as_bugsink<span class="o">()</span><span class="w"> </span><span class="o">{</span>
 </span><span data-line="18"><span class="w">  </span><span class="c1"># Run a command as the bugsink user, in /home/bugsink, with bash -lc so venv activation works.</span>
-</span><span data-line="19"><span class="w">  </span>su<span class="w"> </span>-<span class="w"> </span>bugsink<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;bash -lc &#39;cd /home/bugsink &amp;&amp; </span><span class="nv">$*</span><span class="s2">&#39;&quot;</span>
+</span><span data-line="19"><span class="w">  </span>su<span class="w"> </span>-<span class="w"> </span>bugsink<span class="w"> </span>-c<span class="w"> </span><span class="s2">"bash -lc 'cd /home/bugsink &amp;&amp; </span><span class="nv">$*</span><span class="s2">'"</span>
 </span><span data-line="20"><span class="o">}</span>
 </span><span data-line="21">
 </span><span data-line="22">write_file_root<span class="o">()</span><span class="w"> </span><span class="o">{</span>
-</span><span data-line="23"><span class="w">  </span><span class="c1"># write_file_root /path/to/file &quot;content...&quot;</span>
-</span><span data-line="24"><span class="w">  </span><span class="nb">local</span><span class="w"> </span><span class="nv">path</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+</span><span data-line="23"><span class="w">  </span><span class="c1"># write_file_root /path/to/file "content..."</span>
+</span><span data-line="24"><span class="w">  </span><span class="nb">local</span><span class="w"> </span><span class="nv">path</span><span class="o">=</span><span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span>
 </span><span data-line="25"><span class="w">  </span><span class="nb">shift</span>
-</span><span data-line="26"><span class="w">  </span>install<span class="w"> </span>-d<span class="w"> </span>-m<span class="w"> </span><span class="m">0755</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$path</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
-</span><span data-line="27"><span class="w">  </span>cat<span class="w"> </span>&gt;<span class="s2">&quot;</span><span class="nv">$path</span><span class="s2">&quot;</span><span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+</span><span data-line="26"><span class="w">  </span>install<span class="w"> </span>-d<span class="w"> </span>-m<span class="w"> </span><span class="m">0755</span><span class="w"> </span><span class="s2">"</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">"</span><span class="nv">$path</span><span class="s2">"</span><span class="k">)</span><span class="s2">"</span>
+</span><span data-line="27"><span class="w">  </span>cat<span class="w"> </span>&gt;<span class="s2">"</span><span class="nv">$path</span><span class="s2">"</span><span class="w"> </span><span class="s">&lt;&lt;'EOF'</span>
 </span><span data-line="28"><span class="s">EOF</span>
 </span><span data-line="29"><span class="w">  </span><span class="c1"># Replace file content with provided stdin after this function returns? Not needed.</span>
 </span><span data-line="30"><span class="o">}</span>
@@ -209,7 +209,7 @@ At which point I can sign in, create a project and copy the DSN URL to plug into
 </span><span data-line="35">curl<span class="w"> </span>-fsSL<span class="w"> </span>https://pkgs.tailscale.com/stable/debian/trixie.noarmor.gpg<span class="w"> </span>&gt;<span class="w"> </span>/usr/share/keyrings/tailscale-archive-keyring.gpg
 </span><span data-line="36">curl<span class="w"> </span>-fsSL<span class="w"> </span>https://pkgs.tailscale.com/stable/debian/trixie.tailscale-keyring.list<span class="w"> </span>&gt;<span class="w"> </span>/etc/apt/sources.list.d/tailscale.list
 </span><span data-line="37">
-</span><span data-line="38">log<span class="w"> </span><span class="s2">&quot;Install packages&quot;</span>
+</span><span data-line="38">log<span class="w"> </span><span class="s2">"Install packages"</span>
 </span><span data-line="39"><span class="nb">export</span><span class="w"> </span><span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive
 </span><span data-line="40">apt<span class="w"> </span>update
 </span><span data-line="41">apt<span class="w"> </span>-y<span class="w"> </span>upgrade
@@ -221,45 +221,45 @@ At which point I can sign in, create a project and copy the DSN URL to plug into
 </span><span data-line="47"><span class="w">    </span>curl<span class="w">            </span><span class="se">\</span>
 </span><span data-line="48"><span class="w">    </span>tailscale
 </span><span data-line="49">
-</span><span data-line="50">log<span class="w"> </span><span class="s2">&quot;Login to tailscale&quot;</span>
-</span><span data-line="51"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Log in to your Tailscale account to add a new instance. Then disable SSH access&quot;</span>
+</span><span data-line="50">log<span class="w"> </span><span class="s2">"Login to tailscale"</span>
+</span><span data-line="51"><span class="nb">echo</span><span class="w"> </span><span class="s2">"Log in to your Tailscale account to add a new instance. Then disable SSH access"</span>
 </span><span data-line="52">tailscale<span class="w"> </span>login
 </span><span data-line="53">
-</span><span data-line="54">log<span class="w"> </span><span class="s2">&quot;Create non-root user: bugsink (if missing)&quot;</span>
+</span><span data-line="54">log<span class="w"> </span><span class="s2">"Create non-root user: bugsink (if missing)"</span>
 </span><span data-line="55"><span class="k">if</span><span class="w"> </span>!<span class="w"> </span>id<span class="w"> </span>-u<span class="w"> </span>bugsink<span class="w"> </span>&gt;/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-</span><span data-line="56"><span class="w">  </span>adduser<span class="w"> </span>bugsink<span class="w"> </span>--disabled-password<span class="w"> </span>--gecos<span class="w"> </span><span class="s2">&quot;&quot;</span>
+</span><span data-line="56"><span class="w">  </span>adduser<span class="w"> </span>bugsink<span class="w"> </span>--disabled-password<span class="w"> </span>--gecos<span class="w"> </span><span class="s2">""</span>
 </span><span data-line="57"><span class="k">fi</span>
 </span><span data-line="58">
-</span><span data-line="59">log<span class="w"> </span><span class="s2">&quot;Create/activate venv and install/upgrade Bugsink&quot;</span>
-</span><span data-line="60">run_as_bugsink<span class="w"> </span><span class="s1">&#39;python3 -m venv venv&#39;</span>
-</span><span data-line="61">run_as_bugsink<span class="w"> </span><span class="s1">&#39;. venv/bin/activate &amp;&amp; python3 -m pip install --upgrade pip&#39;</span>
-</span><span data-line="62">run_as_bugsink<span class="w"> </span><span class="s1">&#39;. venv/bin/activate &amp;&amp; python3 -m pip install --upgrade bugsink&#39;</span>
-</span><span data-line="63">run_as_bugsink<span class="w"> </span><span class="s1">&#39;. venv/bin/activate &amp;&amp; bugsink-show-version&#39;</span>
+</span><span data-line="59">log<span class="w"> </span><span class="s2">"Create/activate venv and install/upgrade Bugsink"</span>
+</span><span data-line="60">run_as_bugsink<span class="w"> </span><span class="s1">'python3 -m venv venv'</span>
+</span><span data-line="61">run_as_bugsink<span class="w"> </span><span class="s1">'. venv/bin/activate &amp;&amp; python3 -m pip install --upgrade pip'</span>
+</span><span data-line="62">run_as_bugsink<span class="w"> </span><span class="s1">'. venv/bin/activate &amp;&amp; python3 -m pip install --upgrade bugsink'</span>
+</span><span data-line="63">run_as_bugsink<span class="w"> </span><span class="s1">'. venv/bin/activate &amp;&amp; bugsink-show-version'</span>
 </span><span data-line="64">
-</span><span data-line="65">log<span class="w"> </span><span class="s2">&quot;Generate production config: bugsink_conf.py (template=singleserver)&quot;</span>
+</span><span data-line="65">log<span class="w"> </span><span class="s2">"Generate production config: bugsink_conf.py (template=singleserver)"</span>
 </span><span data-line="66"><span class="c1"># If config exists, we keep it (idempotent-ish)</span>
 </span><span data-line="67"><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>!<span class="w"> </span>-f<span class="w"> </span>/home/bugsink/bugsink_conf.py<span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-</span><span data-line="68"><span class="w">  </span>run_as_bugsink<span class="w"> </span><span class="s2">&quot;. venv/bin/activate &amp;&amp; bugsink-create-conf --template=singleserver --host=&#39;</span><span class="si">${</span><span class="nv">HOST</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+</span><span data-line="68"><span class="w">  </span>run_as_bugsink<span class="w"> </span><span class="s2">". venv/bin/activate &amp;&amp; bugsink-create-conf --template=singleserver --host='</span><span class="si">${</span><span class="nv">HOST</span><span class="si">}</span><span class="s2">'"</span>
 </span><span data-line="69"><span class="k">else</span>
-</span><span data-line="70"><span class="w">  </span>log<span class="w"> </span><span class="s2">&quot;   /home/bugsink/bugsink_conf.py already exists; leaving it unchanged.&quot;</span>
+</span><span data-line="70"><span class="w">  </span>log<span class="w"> </span><span class="s2">"   /home/bugsink/bugsink_conf.py already exists; leaving it unchanged."</span>
 </span><span data-line="71"><span class="k">fi</span>
 </span><span data-line="72">
-</span><span data-line="73">log<span class="w"> </span><span class="s2">&quot;Initialize DBs (migrate main + snappea queue DB)&quot;</span>
-</span><span data-line="74">run_as_bugsink<span class="w"> </span><span class="s2">&quot;. venv/bin/activate &amp;&amp; bugsink-manage migrate&quot;</span>
-</span><span data-line="75">run_as_bugsink<span class="w"> </span><span class="s2">&quot;. venv/bin/activate &amp;&amp; bugsink-manage migrate snappea --database=snappea&quot;</span>
+</span><span data-line="73">log<span class="w"> </span><span class="s2">"Initialize DBs (migrate main + snappea queue DB)"</span>
+</span><span data-line="74">run_as_bugsink<span class="w"> </span><span class="s2">". venv/bin/activate &amp;&amp; bugsink-manage migrate"</span>
+</span><span data-line="75">run_as_bugsink<span class="w"> </span><span class="s2">". venv/bin/activate &amp;&amp; bugsink-manage migrate snappea --database=snappea"</span>
 </span><span data-line="76">
-</span><span data-line="77">log<span class="w"> </span><span class="s2">&quot;Create the superuser&quot;</span>
+</span><span data-line="77">log<span class="w"> </span><span class="s2">"Create the superuser"</span>
 </span><span data-line="78"><span class="nb">echo</span>
-</span><span data-line="79"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&gt;&gt;&gt; You will now be prompted to create the Bugsink superuser (per the docs).&quot;</span>
-</span><span data-line="80"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&gt;&gt;&gt; Use an email address as username if you like.&quot;</span>
+</span><span data-line="79"><span class="nb">echo</span><span class="w"> </span><span class="s2">"&gt;&gt;&gt; You will now be prompted to create the Bugsink superuser (per the docs)."</span>
+</span><span data-line="80"><span class="nb">echo</span><span class="w"> </span><span class="s2">"&gt;&gt;&gt; Use an email address as username if you like."</span>
 </span><span data-line="81"><span class="nb">echo</span>
-</span><span data-line="82">run_as_bugsink<span class="w"> </span><span class="s2">&quot;. venv/bin/activate &amp;&amp; bugsink-manage createsuperuser&quot;</span>
+</span><span data-line="82">run_as_bugsink<span class="w"> </span><span class="s2">". venv/bin/activate &amp;&amp; bugsink-manage createsuperuser"</span>
 </span><span data-line="83">
-</span><span data-line="84">log<span class="w"> </span><span class="s2">&quot;Sanity checks&quot;</span>
-</span><span data-line="85">run_as_bugsink<span class="w"> </span><span class="s2">&quot;. venv/bin/activate &amp;&amp; bugsink-manage check_migrations&quot;</span>
-</span><span data-line="86">run_as_bugsink<span class="w"> </span><span class="s2">&quot;. venv/bin/activate &amp;&amp; bugsink-manage check --deploy --fail-level WARNING&quot;</span>
+</span><span data-line="84">log<span class="w"> </span><span class="s2">"Sanity checks"</span>
+</span><span data-line="85">run_as_bugsink<span class="w"> </span><span class="s2">". venv/bin/activate &amp;&amp; bugsink-manage check_migrations"</span>
+</span><span data-line="86">run_as_bugsink<span class="w"> </span><span class="s2">". venv/bin/activate &amp;&amp; bugsink-manage check --deploy --fail-level WARNING"</span>
 </span><span data-line="87">
-</span><span data-line="88">log<span class="w"> </span><span class="s2">&quot;systemd: gunicorn.service&quot;</span>
+</span><span data-line="88">log<span class="w"> </span><span class="s2">"systemd: gunicorn.service"</span>
 </span><span data-line="89">cat<span class="w"> </span>&gt;/etc/systemd/system/gunicorn.service<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
 </span><span data-line="90"><span class="s">[Unit]</span>
 </span><span data-line="91"><span class="s">Description=gunicorn daemon</span>
@@ -270,12 +270,12 @@ At which point I can sign in, create a project and copy the DSN URL to plug into
 </span><span data-line="96"><span class="s">Type=notify</span>
 </span><span data-line="97"><span class="s">User=bugsink</span>
 </span><span data-line="98"><span class="s">Group=bugsink</span>
-</span><span data-line="99"><span class="s">Environment=&quot;PYTHONUNBUFFERED=1&quot;</span>
+</span><span data-line="99"><span class="s">Environment="PYTHONUNBUFFERED=1"</span>
 </span><span data-line="100"><span class="s">WorkingDirectory=/home/bugsink</span>
 </span><span data-line="101"><span class="s">UMask=0077</span>
 </span><span data-line="102">
 </span><span data-line="103"><span class="s">ExecStart=/home/bugsink/venv/bin/gunicorn \\</span>
-</span><span data-line="104"><span class="s">    --bind=&quot;127.0.0.1:8000&quot; \\</span>
+</span><span data-line="104"><span class="s">    --bind="127.0.0.1:8000" \\</span>
 </span><span data-line="105"><span class="s">    --workers=1 \\</span>
 </span><span data-line="106"><span class="s">    --timeout=60 \\</span>
 </span><span data-line="107"><span class="s">    --access-logfile - \\</span>
@@ -342,7 +342,7 @@ At which point I can sign in, create a project and copy the DSN URL to plug into
 </span><span data-line="168">systemctl<span class="w"> </span>daemon-reload
 </span><span data-line="169">systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>gunicorn.service
 </span><span data-line="170">
-</span><span data-line="171">log<span class="w"> </span><span class="s2">&quot;nginx&quot;</span>
+</span><span data-line="171">log<span class="w"> </span><span class="s2">"nginx"</span>
 </span><span data-line="172">rm<span class="w"> </span>-f<span class="w"> </span>/etc/nginx/sites-enabled/default<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
 </span><span data-line="173">
 </span><span data-line="174">cat<span class="w"> </span>&gt;/etc/nginx/sites-available/bugsink<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
@@ -367,7 +367,7 @@ At which point I can sign in, create a project and copy the DSN URL to plug into
 </span><span data-line="193"><span class="s">        proxy_set_header Host \$host;</span>
 </span><span data-line="194"><span class="s">        proxy_set_header X-Real-IP \$remote_addr;</span>
 </span><span data-line="195"><span class="s">        proxy_set_header X-Forwarded-Proto \$scheme;</span>
-</span><span data-line="196"><span class="s">        add_header Strict-Transport-Security &quot;max-age=31536000; preload&quot; always;</span>
+</span><span data-line="196"><span class="s">        add_header Strict-Transport-Security "max-age=31536000; preload" always;</span>
 </span><span data-line="197"><span class="s">        proxy_redirect off;</span>
 </span><span data-line="198"><span class="s">    }</span>
 </span><span data-line="199"><span class="s">}</span>
@@ -377,14 +377,14 @@ At which point I can sign in, create a project and copy the DSN URL to plug into
 </span><span data-line="203">service<span class="w"> </span>nginx<span class="w"> </span>configtest
 </span><span data-line="204">systemctl<span class="w"> </span>restart<span class="w"> </span>nginx.service
 </span><span data-line="205">
-</span><span data-line="206">log<span class="w"> </span><span class="s2">&quot;SSL via certbot&quot;</span>
+</span><span data-line="206">log<span class="w"> </span><span class="s2">"SSL via certbot"</span>
 </span><span data-line="207"><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span>-e<span class="w"> </span>/usr/bin/certbot<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
 </span><span data-line="208"><span class="w">    </span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>/opt/certbot/
 </span><span data-line="209"><span class="w">    </span>/opt/certbot/bin/python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>certbot<span class="w"> </span>certbot-nginx
 </span><span data-line="210"><span class="w">    </span>ln<span class="w"> </span>-s<span class="w"> </span>/opt/certbot/bin/certbot<span class="w"> </span>/usr/bin/certbot
 </span><span data-line="211"><span class="k">fi</span>
 </span><span data-line="212">/opt/certbot/bin/certbot<span class="w"> </span>--agree-tos<span class="w"> </span>--nginx<span class="w"> </span>-m<span class="w"> </span><span class="nv">$EMAIL</span>
-</span><span data-line="213">install<span class="w"> </span>-m<span class="w"> </span><span class="m">0744</span><span class="w"> </span>/dev/stdin<span class="w"> </span>/etc/cron.weekly/certbot-renew<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+</span><span data-line="213">install<span class="w"> </span>-m<span class="w"> </span><span class="m">0744</span><span class="w"> </span>/dev/stdin<span class="w"> </span>/etc/cron.weekly/certbot-renew<span class="w"> </span><span class="s">&lt;&lt;'EOF'</span>
 </span><span data-line="214"><span class="s">#!/bin/sh</span>
 </span><span data-line="215"><span class="s">certbot renew -q</span>
 </span><span data-line="216"><span class="s">EOF</span>
@@ -392,8 +392,8 @@ At which point I can sign in, create a project and copy the DSN URL to plug into
 </span><span data-line="218">service<span class="w"> </span>nginx<span class="w"> </span>configtest
 </span><span data-line="219">systemctl<span class="w"> </span>restart<span class="w"> </span>nginx.service
 </span><span data-line="220">
-</span><span data-line="221">log<span class="w"> </span><span class="s2">&quot;systemd: snappea.service&quot;</span>
-</span><span data-line="222">cat<span class="w"> </span>&gt;/etc/systemd/system/snappea.service<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+</span><span data-line="221">log<span class="w"> </span><span class="s2">"systemd: snappea.service"</span>
+</span><span data-line="222">cat<span class="w"> </span>&gt;/etc/systemd/system/snappea.service<span class="w"> </span><span class="s">&lt;&lt;'EOF'</span>
 </span><span data-line="223"><span class="s">[Unit]</span>
 </span><span data-line="224"><span class="s">Description=Bugsink snappea worker</span>
 </span><span data-line="225"><span class="s">After=network-online.target</span>
@@ -405,8 +405,8 @@ At which point I can sign in, create a project and copy the DSN URL to plug into
 </span><span data-line="231"><span class="s">Group=bugsink</span>
 </span><span data-line="232"><span class="s">WorkingDirectory=/home/bugsink</span>
 </span><span data-line="233">
-</span><span data-line="234"><span class="s">Environment=&quot;PYTHONUNBUFFERED=1&quot;</span>
-</span><span data-line="235"><span class="s">Environment=&quot;PHONEHOME=False&quot;</span>
+</span><span data-line="234"><span class="s">Environment="PYTHONUNBUFFERED=1"</span>
+</span><span data-line="235"><span class="s">Environment="PHONEHOME=False"</span>
 </span><span data-line="236"><span class="s">UMask=0077</span>
 </span><span data-line="237">
 </span><span data-line="238"><span class="s">ExecStart=/home/bugsink/venv/bin/bugsink-runsnappea</span>
@@ -470,18 +470,18 @@ At which point I can sign in, create a project and copy the DSN URL to plug into
 </span><span data-line="296">systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>snappea.service
 </span><span data-line="297">
 </span><span data-line="298"><span class="c1"># Remove Google cruft in background</span>
-</span><span data-line="299">screen<span class="w"> </span>-dm<span class="w"> </span>/bin/sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;apt remove --allow-change-held-packages -y google-cloud-cli google-cloud-cli-anthoscli google-guest-agent google-osconfig-agent&quot;</span>
+</span><span data-line="299">screen<span class="w"> </span>-dm<span class="w"> </span>/bin/sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">"apt remove --allow-change-held-packages -y google-cloud-cli google-cloud-cli-anthoscli google-guest-agent google-osconfig-agent"</span>
 </span><span data-line="300">
 </span><span data-line="301"><span class="nb">echo</span>
-</span><span data-line="302">log<span class="w"> </span><span class="s2">&quot;DONE. Memory usage:&quot;</span>
+</span><span data-line="302">log<span class="w"> </span><span class="s2">"DONE. Memory usage:"</span>
 </span><span data-line="303">free<span class="w"> </span>-h
-</span><span data-line="304"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Open: https://</span><span class="si">${</span><span class="nv">HOST</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span data-line="304"><span class="nb">echo</span><span class="w"> </span><span class="s2">"Open: https://</span><span class="si">${</span><span class="nv">HOST</span><span class="si">}</span><span class="s2">"</span>
 </span><span data-line="305"><span class="nb">echo</span>
-</span><span data-line="306"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Useful checks:&quot;</span>
-</span><span data-line="307"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  systemctl status gunicorn.service&quot;</span>
-</span><span data-line="308"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  systemctl status snappea.service&quot;</span>
-</span><span data-line="309"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  journalctl -u snappea.service&quot;</span>
-</span><span data-line="310"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  tail -n 200 /var/log/nginx/bugsink.error.log&quot;</span>
+</span><span data-line="306"><span class="nb">echo</span><span class="w"> </span><span class="s2">"Useful checks:"</span>
+</span><span data-line="307"><span class="nb">echo</span><span class="w"> </span><span class="s2">"  systemctl status gunicorn.service"</span>
+</span><span data-line="308"><span class="nb">echo</span><span class="w"> </span><span class="s2">"  systemctl status snappea.service"</span>
+</span><span data-line="309"><span class="nb">echo</span><span class="w"> </span><span class="s2">"  journalctl -u snappea.service"</span>
+</span><span data-line="310"><span class="nb">echo</span><span class="w"> </span><span class="s2">"  tail -n 200 /var/log/nginx/bugsink.error.log"</span>
 </span></pre></div>
 </div>
 <p>Once you’re done playing with it, here’s how you can destroy the VM:</p>
@@ -492,7 +492,7 @@ At which point I can sign in, create a project and copy the DSN URL to plug into
 </span><span data-line="5"><span class="nv">PROJECT</span><span class="o">=</span>demindev
 </span><span data-line="6"><span class="nv">INSTANCE</span><span class="o">=</span>bugsink
 </span><span data-line="7">
-</span><span data-line="8">gcloud<span class="w"> </span>compute<span class="w"> </span>instances<span class="w"> </span>delete<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$INSTANCE</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span data-line="8">gcloud<span class="w"> </span>compute<span class="w"> </span>instances<span class="w"> </span>delete<span class="w"> </span><span class="s2">"</span><span class="nv">$INSTANCE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
 </span><span data-line="9"><span class="w">  </span>--project<span class="o">=</span><span class="nv">$PROJECT</span><span class="w"> </span><span class="se">\</span>
 </span><span data-line="10"><span class="w">  </span>--zone<span class="o">=</span>us-west1-c<span class="w"> </span><span class="se">\</span>
 </span><span data-line="11"><span class="w">  </span>--quiet

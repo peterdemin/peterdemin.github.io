@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -99,9 +99,9 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="search-pipeline">
-<h1>Search Pipeline<a class="headerlink" href="#search-pipeline" title="Link to this heading">¶</a></h1>
+<h1>Search Pipeline<a class="headerlink" href="#search-pipeline" title="Link to this heading">#</a></h1>
 <section id="search-index-configuration">
-<h2>Search Index Configuration<a class="headerlink" href="#search-index-configuration" title="Link to this heading">¶</a></h2>
+<h2>Search Index Configuration<a class="headerlink" href="#search-index-configuration" title="Link to this heading">#</a></h2>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">list</span>
 </span><span data-line="2"><span class="nt">items</span><span class="p">:</span>
 </span><span data-line="3"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dict</span>
@@ -112,7 +112,7 @@ data-aria-dark="Switch to auto color mode">
 </div>
 </section>
 <section id="search-index-data-structure">
-<h2>Search Index Data Structure<a class="headerlink" href="#search-index-data-structure" title="Link to this heading">¶</a></h2>
+<h2>Search Index Data Structure<a class="headerlink" href="#search-index-data-structure" title="Link to this heading">#</a></h2>
 <div class="code yaml highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">search_index</span><span class="p">:</span>
 </span><span data-line="2">  <span class="nb">type</span><span class="p">:</span> <span class="nb">dict</span>
 </span><span data-line="3">  <span class="n">schema</span><span class="p">:</span>
@@ -146,7 +146,7 @@ data-aria-dark="Switch to auto color mode">
 </div>
 </section>
 <section id="pipeline-dag">
-<h2>Pipeline DAG<a class="headerlink" href="#pipeline-dag" title="Link to this heading">¶</a></h2>
+<h2>Pipeline DAG<a class="headerlink" href="#pipeline-dag" title="Link to this heading">#</a></h2>
 <div class="graphviz"><img src="../_images/graphviz-6effdb86545b7861b1045fdd8c37d3d597959b83.png" alt="digraph pipeline {
 edge [color=&quot;#808080&quot;, arrowsize=.6, penwidth=3, minlen=3];
 node [shape=box, fontname=&quot;DIN Next, sans-serif&quot;, style=&quot;rounded,filled&quot;, penwidth=5, fillcolor=&quot;#8010d0&quot;, color=&quot;#f0f0f0&quot;, fontcolor=white,  margin=&quot;0.35&quot; fontweight=bold]
@@ -173,19 +173,19 @@ LLM -&gt; RAG  [label=&quot; Summarize&quot;]
 }" class="graphviz" /></div>
 </section>
 <section id="knowledge-extraction">
-<h2>Knowledge Extraction<a class="headerlink" href="#knowledge-extraction" title="Link to this heading">¶</a></h2>
+<h2>Knowledge Extraction<a class="headerlink" href="#knowledge-extraction" title="Link to this heading">#</a></h2>
 <p>Prompt:</p>
 <blockquote>
 <div><p>Format the following document as a list of self-sufficient evergreen facts. One per line. Include supporting context in each fact.</p>
 <p>{text}</p>
 </div></blockquote>
 <p>Postprocessing:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39; </span><span class="se">\n</span><span class="s1">-&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">output</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">' </span><span class="se">\n</span><span class="s1">-'</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">output</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()]</span>
 </span></pre></div>
 </div>
 </section>
 <section id="retrieval-augmented-generation">
-<h2>Retrieval-Augmented Generation<a class="headerlink" href="#retrieval-augmented-generation" title="Link to this heading">¶</a></h2>
+<h2>Retrieval-Augmented Generation<a class="headerlink" href="#retrieval-augmented-generation" title="Link to this heading">#</a></h2>
 <p>Prompt:</p>
 <blockquote>
 <div><p>Answer the following question using only the context below. Only include information specifically discussed. Copy the answer verbatim from the context. Exclude irrelevant sentences. Be concise.</p>

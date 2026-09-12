@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -103,11 +103,11 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="formatting-data-with-vim">
-<h1>Formatting data with Vim<a class="headerlink" href="#formatting-data-with-vim" title="Link to this heading">¶</a></h1>
+<h1>Formatting data with Vim<a class="headerlink" href="#formatting-data-with-vim" title="Link to this heading">#</a></h1>
 <p>One of Vim’s great features is how it can integrate with external utilities.
 Here are the commands that I use most.</p>
 <section id="prettify-json">
-<h2>Prettify JSON<a class="headerlink" href="#prettify-json" title="Link to this heading">¶</a></h2>
+<h2>Prettify JSON<a class="headerlink" href="#prettify-json" title="Link to this heading">#</a></h2>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">:% !python -mjson.tool
 </span></pre></div>
 </div>
@@ -119,50 +119,50 @@ replace buffer with results, effectively reindenting JSON document.</p>
 </div>
 </section>
 <section id="convert-pretty-json-to-a-compressed-one-line-form">
-<h2>Convert pretty JSON to a compressed one-line form<a class="headerlink" href="#convert-pretty-json-to-a-compressed-one-line-form" title="Link to this heading">¶</a></h2>
+<h2>Convert pretty JSON to a compressed one-line form<a class="headerlink" href="#convert-pretty-json-to-a-compressed-one-line-form" title="Link to this heading">#</a></h2>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">:% ! jq -c .
 </span></pre></div>
 </div>
 </section>
 <section id="reindent-xml">
-<h2>Reindent XML<a class="headerlink" href="#reindent-xml" title="Link to this heading">¶</a></h2>
+<h2>Reindent XML<a class="headerlink" href="#reindent-xml" title="Link to this heading">#</a></h2>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">:% !xmllint --format --recover -
 </span></pre></div>
 </div>
 </section>
 <section id="pretty-print-python-data-structures">
-<h2>Pretty print Python data structures:<a class="headerlink" href="#pretty-print-python-data-structures" title="Link to this heading">¶</a></h2>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">:% !python -c &#39;import pprint, sys; pprint.pprint(eval(sys.stdin.read()))&#39;
+<h2>Pretty print Python data structures:<a class="headerlink" href="#pretty-print-python-data-structures" title="Link to this heading">#</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">:% !python -c 'import pprint, sys; pprint.pprint(eval(sys.stdin.read()))'
 </span></pre></div>
 </div>
 </section>
 <section id="python-data-structure-to-json">
-<h2>Python data structure to JSON<a class="headerlink" href="#python-data-structure-to-json" title="Link to this heading">¶</a></h2>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">:% !python -c &#39;import sys, json; print(json.dumps(eval(sys.stdin.read()), indent=2))&#39;
+<h2>Python data structure to JSON<a class="headerlink" href="#python-data-structure-to-json" title="Link to this heading">#</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">:% !python -c 'import sys, json; print(json.dumps(eval(sys.stdin.read()), indent=2))'
 </span></pre></div>
 </div>
 </section>
 <section id="json-to-yaml">
-<h2>JSON to YAML<a class="headerlink" href="#json-to-yaml" title="Link to this heading">¶</a></h2>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">:% !python -c &#39;import sys, json, yaml; print(yaml.dump(json.load(sys.stdin), indent=2))&#39;
+<h2>JSON to YAML<a class="headerlink" href="#json-to-yaml" title="Link to this heading">#</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">:% !python -c 'import sys, json, yaml; print(yaml.dump(json.load(sys.stdin), indent=2))'
 </span></pre></div>
 </div>
 </section>
 <section id="yaml-to-json">
-<h2>YAML to JSON<a class="headerlink" href="#yaml-to-json" title="Link to this heading">¶</a></h2>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">:% !python -c &#39;import sys, json, yaml; print(json.dumps(yaml.safe_load(sys.stdin), indent=2))&#39;
+<h2>YAML to JSON<a class="headerlink" href="#yaml-to-json" title="Link to this heading">#</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">:% !python -c 'import sys, json, yaml; print(json.dumps(yaml.safe_load(sys.stdin), indent=2))'
 </span></pre></div>
 </div>
 </section>
 <section id="csv-column-to-txt">
-<h2>CSV column to txt<a class="headerlink" href="#csv-column-to-txt" title="Link to this heading">¶</a></h2>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">:% !python -c &#39;import sys, csv; print(&quot;\n&quot;.join(row[0] for row in csv.reader(sys.stdin)))&#39;
+<h2>CSV column to txt<a class="headerlink" href="#csv-column-to-txt" title="Link to this heading">#</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">:% !python -c 'import sys, csv; print("\n".join(row[0] for row in csv.reader(sys.stdin)))'
 </span></pre></div>
 </div>
 </section>
 <section id="txt-to-single-column-csv">
-<h2>Txt to single-column CSV<a class="headerlink" href="#txt-to-single-column-csv" title="Link to this heading">¶</a></h2>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">:% !python -c &#39;import sys, csv; csv.writer(sys.stdout).writerows([line.strip()] for line in sys.stdin)&#39;
+<h2>Txt to single-column CSV<a class="headerlink" href="#txt-to-single-column-csv" title="Link to this heading">#</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">:% !python -c 'import sys, csv; csv.writer(sys.stdout).writerows([line.strip()] for line in sys.stdin)'
 </span></pre></div>
 </div>
 </section>

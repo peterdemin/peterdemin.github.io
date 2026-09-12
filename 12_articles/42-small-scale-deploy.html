@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -106,7 +106,7 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="small-scale-deployment-options">
-<h1>Small-scale Deployment Options<a class="headerlink" href="#small-scale-deployment-options" title="Link to this heading">¶</a></h1>
+<h1>Small-scale Deployment Options<a class="headerlink" href="#small-scale-deployment-options" title="Link to this heading">#</a></h1>
 <p>The common best practice these days for deploying software seems to be a Kubernetes cluster with CI/CD pipeline attached.
 While reasonable and battle-proof for an enterprise, this solution could carry a heavy overhead for small scale.
 Small as in a single-server on-premise deployments.
@@ -114,7 +114,7 @@ The development team consists of one or a few engineers, who have direct access 
 For the sake of examples I’ll use a Python service.
 But the same process should be portable to other languages.</p>
 <section id="development-experience-aspects-in-consideration">
-<h2>Development Experience Aspects in Consideration<a class="headerlink" href="#development-experience-aspects-in-consideration" title="Link to this heading">¶</a></h2>
+<h2>Development Experience Aspects in Consideration<a class="headerlink" href="#development-experience-aspects-in-consideration" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>End-to-end time for the deployment of the new version.
 End-to-end meaning from changes saved to a file locally, to startup in prod.</p></li>
@@ -124,7 +124,7 @@ End-to-end meaning from changes saved to a file locally, to startup in prod.</p>
 </ul>
 </section>
 <section id="options-overview">
-<h2>Options Overview<a class="headerlink" href="#options-overview" title="Link to this heading">¶</a></h2>
+<h2>Options Overview<a class="headerlink" href="#options-overview" title="Link to this heading">#</a></h2>
 <div class="graphviz"><img src="../_images/graphviz-253d8f314839c880a58b25468fcf8ae40351981f.png" alt="digraph services {
 edge [color=&quot;#808080&quot;, arrowsize=.6, penwidth=3, minlen=3];
 node [shape=box, fontname=&quot;DIN Next, sans-serif&quot;, style=&quot;rounded,filled&quot;, penwidth=5, fillcolor=&quot;#8010d0&quot;, color=&quot;#f0f0f0&quot;, fontcolor=white,  margin=&quot;0.35&quot; fontweight=bold]
@@ -148,7 +148,7 @@ bgcolor=&quot;#f0f0f0&quot;;
 }" class="graphviz" /></div>
 </section>
 <section id="compartmentalization">
-<h2>Compartmentalization<a class="headerlink" href="#compartmentalization" title="Link to this heading">¶</a></h2>
+<h2>Compartmentalization<a class="headerlink" href="#compartmentalization" title="Link to this heading">#</a></h2>
 <p>We can divide the deployment system into following loosely coupled components:</p>
 <ol class="arabic simple">
 <li><p>User interface. Could be git hooks, CLI, web page.</p></li>
@@ -160,7 +160,7 @@ bgcolor=&quot;#f0f0f0&quot;;
 </ol>
 </section>
 <section id="git-push">
-<h2>Git Push<a class="headerlink" href="#git-push" title="Link to this heading">¶</a></h2>
+<h2>Git Push<a class="headerlink" href="#git-push" title="Link to this heading">#</a></h2>
 <p>Heroku-like open-source self-hosted single-node PaaS projects:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/mardix/sailor">Sailor</a></p></li>
@@ -177,7 +177,7 @@ bgcolor=&quot;#f0f0f0&quot;;
 </ul>
 </section>
 <section id="git-pull">
-<h2>Git Pull<a class="headerlink" href="#git-pull" title="Link to this heading">¶</a></h2>
+<h2>Git Pull<a class="headerlink" href="#git-pull" title="Link to this heading">#</a></h2>
 <p>In a high-level, the git pull approach means having a code repo cloned to the prod server.
 The deployment is basically running this script:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">git<span class="w"> </span>pull
@@ -198,7 +198,7 @@ The deployment is basically running this script:</p>
 </ul>
 </section>
 <section id="rsync">
-<h2>Rsync<a class="headerlink" href="#rsync" title="Link to this heading">¶</a></h2>
+<h2>Rsync<a class="headerlink" href="#rsync" title="Link to this heading">#</a></h2>
 <p>Similar to git pull with core aspects being almost the same.</p>
 <p>Upsides:</p>
 <ul class="simple">
@@ -211,7 +211,7 @@ The deployment is basically running this script:</p>
 </ul>
 </section>
 <section id="custom-tar-balls">
-<h2>Custom Tar Balls<a class="headerlink" href="#custom-tar-balls" title="Link to this heading">¶</a></h2>
+<h2>Custom Tar Balls<a class="headerlink" href="#custom-tar-balls" title="Link to this heading">#</a></h2>
 <p>This mode adds a few steps to the deployment process - building the deployment artifacts (my.tar.gz), and unpacking on the server.</p>
 <ul class="simple">
 <li><p>End-to-end time for the deployment of the new version: <strong>medium</strong>, the whole project is transfered for each deployment.</p></li>
@@ -227,7 +227,7 @@ While every aspect is simple, customization adds up to overall project complexit
 </ul>
 </section>
 <section id="runtime-specific-packages">
-<h2>Runtime-specific Packages<a class="headerlink" href="#runtime-specific-packages" title="Link to this heading">¶</a></h2>
+<h2>Runtime-specific Packages<a class="headerlink" href="#runtime-specific-packages" title="Link to this heading">#</a></h2>
 <p>A twist on the custom tar balls, using Python wheels, or what have you.</p>
 <p>Downsides:</p>
 <ul class="simple">
@@ -235,21 +235,21 @@ While every aspect is simple, customization adds up to overall project complexit
 </ul>
 </section>
 <section id="os-specific-packages">
-<h2>OS-specific Packages<a class="headerlink" href="#os-specific-packages" title="Link to this heading">¶</a></h2>
+<h2>OS-specific Packages<a class="headerlink" href="#os-specific-packages" title="Link to this heading">#</a></h2>
 <p>A twist on runtime-specific packages, but building .deb or .rpm artifacts.
 The build stage is more involved, but the OS provides a standard way of performing common operations, addressing the downsides of custom tar balls approach.</p>
 </section>
 <section id="docker-containers">
-<h2>Docker Containers<a class="headerlink" href="#docker-containers" title="Link to this heading">¶</a></h2>
+<h2>Docker Containers<a class="headerlink" href="#docker-containers" title="Link to this heading">#</a></h2>
 <p>Streamlines common operations, but requires docker runtime, and makes it somewhat harder to hack on the software in production.
 Docker registry is optional, and can be replaced by running <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">save</span></code> and <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">load</span></code> commands.</p>
 </section>
 <section id="virtual-machines">
-<h2>Virtual Machines<a class="headerlink" href="#virtual-machines" title="Link to this heading">¶</a></h2>
+<h2>Virtual Machines<a class="headerlink" href="#virtual-machines" title="Link to this heading">#</a></h2>
 <p>A spin on the docker containers, providing higher level of isolation, but incuring significant overhead in performance, build times, and memory usage.</p>
 </section>
 <section id="deep-dive-into-custom-tar-balls">
-<h2>Deep Dive into Custom Tar Balls<a class="headerlink" href="#deep-dive-into-custom-tar-balls" title="Link to this heading">¶</a></h2>
+<h2>Deep Dive into Custom Tar Balls<a class="headerlink" href="#deep-dive-into-custom-tar-balls" title="Link to this heading">#</a></h2>
 <p>The main downside is the version management and all the custom tooling required to be built and learned to run the process.
 This can be circumvented by creating a general-purpose well-documented tooling.</p>
 <p>The tool has support following deployment aspects:</p>

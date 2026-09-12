@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -92,7 +92,7 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="beauty-of-python-s-collections-module">
-<h1>Beauty of Python’s collections module<a class="headerlink" href="#beauty-of-python-s-collections-module" title="Link to this heading">¶</a></h1>
+<h1>Beauty of Python’s collections module<a class="headerlink" href="#beauty-of-python-s-collections-module" title="Link to this heading">#</a></h1>
 <p>Python is <a class="reference external" href="https://en.wikipedia.org/wiki/Duck_typing#In_Python">famed</a> for embracing duck typing.
 It is nice idea in a number of ways, allowing functions to work equally well with
 lists, sets, dictionary keys, or whatever user-defined object if it provides <code class="docutils literal notranslate"><span class="pre">__iter__</span></code> method.
@@ -118,7 +118,7 @@ Consider function, that recursively deletes all dictionary items with <code clas
 <p>So function need some way to distinguish between dictionaries and other values.
 Naive duck-typing solution could look like this:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">def without_empty(data):
-</span><span data-line="2">    if hasattr(data, &#39;items&#39;):
+</span><span data-line="2">    if hasattr(data, 'items'):
 </span><span data-line="3">        return {key: without_empty(value)
 </span><span data-line="4">                for key, value in data.items()
 </span><span data-line="5">                if value is not None}
@@ -139,11 +139,11 @@ Current version will just ignore None values in lists:</p>
 </div>
 <p>Let’s add check for lists:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">def without_empty(data):
-</span><span data-line="2">    if hasattr(data, &#39;items&#39;):
+</span><span data-line="2">    if hasattr(data, 'items'):
 </span><span data-line="3">        return {key: without_empty(value)
 </span><span data-line="4">                for key, value in data.items()
 </span><span data-line="5">                if value is not None}
-</span><span data-line="6">    elif hasattr(data, &#39;__iter__&#39;):
+</span><span data-line="6">    elif hasattr(data, '__iter__'):
 </span><span data-line="7">        return [without_empty(item)
 </span><span data-line="8">                for item in data]
 </span><span data-line="9">    else:
@@ -187,7 +187,7 @@ which may look something like this for Mapping class:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">@classmethod
 </span><span data-line="2">def __subclasshook__(cls, C):
 </span><span data-line="3">    if cls is Mapping:
-</span><span data-line="4">        if any(&#39;items&#39; in B.__dict__
+</span><span data-line="4">        if any('items' in B.__dict__
 </span><span data-line="5">               for B in C.__mro__):
 </span><span data-line="6">            return True
 </span><span data-line="7">    return NotImplemented

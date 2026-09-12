@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -99,10 +99,10 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="scaling-the-practice-of-architecture-conversationally">
-<h1>Scaling the Practice of Architecture, Conversationally<a class="headerlink" href="#scaling-the-practice-of-architecture-conversationally" title="Link to this heading">¶</a></h1>
+<h1>Scaling the Practice of Architecture, Conversationally<a class="headerlink" href="#scaling-the-practice-of-architecture-conversationally" title="Link to this heading">#</a></h1>
 <p>Article: <a class="reference external" href="https://martinfowler.com/articles/scaling-architecture-conversationally.html">https://martinfowler.com/articles/scaling-architecture-conversationally.html</a></p>
 <section id="problem">
-<h2>Problem<a class="headerlink" href="#problem" title="Link to this heading">¶</a></h2>
+<h2>Problem<a class="headerlink" href="#problem" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Article starts at the situation where there exists a small group of architects, that are a bottleneck to decision process.</p></li>
 <li><p>Additionaly, the existing process involves a handoff between the architect drawing abstract diagrams, and an engineer implementing the design.</p></li>
@@ -112,7 +112,7 @@ As Alberto Brandolini said: “It is the developer’s assumptions which get shi
 </ul>
 </section>
 <section id="solution">
-<h2>Solution<a class="headerlink" href="#solution" title="Link to this heading">¶</a></h2>
+<h2>Solution<a class="headerlink" href="#solution" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Introduce the Advice Process: anyone can make an architectural decision, but they must follow the process. In essense they create a document of a particular structure, outlining the proposition, and seek an advice from affected parties.</p></li>
 <li><p>Affected parties for each aspect of the decision making are documented as a checklist: this person for security, this for UX, that for analytics, etc.</p></li>
@@ -134,7 +134,7 @@ That didn’t resonate with me, maybe I’ll revisit it later.)</p></li>
 </ul>
 </section>
 <section id="pitfals">
-<h2>Pitfals<a class="headerlink" href="#pitfals" title="Link to this heading">¶</a></h2>
+<h2>Pitfals<a class="headerlink" href="#pitfals" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Architectural failures are integral part of the decision making.
 The team feels safe to re-visit, and share the learnings.
@@ -147,13 +147,13 @@ Making sure quieter contributors are heard.</p></li>
 </ul>
 </section>
 <section id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">¶</a></h2>
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Advice Process is not looking for consensus, but for a broad range of inputs and voices.</p></li>
 </ul>
 </section>
 <section id="links-to-follow">
-<h2>Links to follow<a class="headerlink" href="#links-to-follow" title="Link to this heading">¶</a></h2>
+<h2>Links to follow<a class="headerlink" href="#links-to-follow" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.thoughtworks.com/radar/techniques/lightweight-architecture-decision-records">Architectural Decision Records</a></p></li>
 <li><p><a class="reference external" href="https://web.archive.org/web/20210506014629/https://upmo.com/dev/decisions/0010-som-synthetic-monitoring.html">Examples of ADRs</a></p></li>

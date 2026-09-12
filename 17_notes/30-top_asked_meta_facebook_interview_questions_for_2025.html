@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -104,10 +104,10 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="top-asked-meta-facebook-interview-questions-for-2025">
-<h1>Top Asked Meta (Facebook) Interview Questions for 2025<a class="headerlink" href="#top-asked-meta-facebook-interview-questions-for-2025" title="Link to this heading">¶</a></h1>
+<h1>Top Asked Meta (Facebook) Interview Questions for 2025<a class="headerlink" href="#top-asked-meta-facebook-interview-questions-for-2025" title="Link to this heading">#</a></h1>
 <p>Article: <a class="reference external" href="https://www.simplilearn.com/facebook-interview-questions-answers-article">https://www.simplilearn.com/facebook-interview-questions-answers-article</a></p>
 <section id="problems">
-<h2>Problems<a class="headerlink" href="#problems" title="Link to this heading">¶</a></h2>
+<h2>Problems<a class="headerlink" href="#problems" title="Link to this heading">#</a></h2>
 <p>Here’s the list of problems from the article:</p>
 <ul class="simple">
 <li><p>You are given a set of random numbers. Write a code to shift all the zeros to the left.</p></li>
@@ -120,11 +120,11 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </section>
 <section id="solutions">
-<h2>Solutions<a class="headerlink" href="#solutions" title="Link to this heading">¶</a></h2>
+<h2>Solutions<a class="headerlink" href="#solutions" title="Link to this heading">#</a></h2>
 <p>I wanted to get an idea of how hard the problems are, but didn’t want to spend time solving them.
 I let GPT 4o do it for me, and focused on writing tooling to execute and verify all code snippets on this page.</p>
 <section id="shift-zeros-left">
-<h3>Shift zeros left<a class="headerlink" href="#shift-zeros-left" title="Link to this heading">¶</a></h3>
+<h3>Shift zeros left<a class="headerlink" href="#shift-zeros-left" title="Link to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="k">def</span><span class="w"> </span><span class="nf">shift_zeros_left</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
 </span><span data-line="2">    <span class="n">non_zero_pos</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>  <span class="c1"># Position to place the next non-zero element</span>
 </span><span data-line="3">
@@ -153,7 +153,7 @@ I let GPT 4o do it for me, and focused on writing tooling to execute and verify 
 </div>
 </section>
 <section id="merge-intervals">
-<h3>Merge intervals<a class="headerlink" href="#merge-intervals" title="Link to this heading">¶</a></h3>
+<h3>Merge intervals<a class="headerlink" href="#merge-intervals" title="Link to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">reduce</span>
 </span><span data-line="2">
 </span><span data-line="3"><span class="k">def</span><span class="w"> </span><span class="nf">merge_intervals</span><span class="p">(</span><span class="n">intervals</span><span class="p">):</span>
@@ -175,13 +175,13 @@ I let GPT 4o do it for me, and focused on writing tooling to execute and verify 
 </div>
 </section>
 <section id="tree-to-double-linked-list">
-<h3>Tree to double-linked list<a class="headerlink" href="#tree-to-double-linked-list" title="Link to this heading">¶</a></h3>
+<h3>Tree to double-linked list<a class="headerlink" href="#tree-to-double-linked-list" title="Link to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="k">class</span><span class="w"> </span><span class="nc">TreeNode</span><span class="p">:</span>
 </span><span data-line="2">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 </span><span data-line="3">        <span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">val</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span>
 </span><span data-line="4">
 </span><span data-line="5"><span class="k">def</span><span class="w"> </span><span class="nf">tree_to_doubly_linked_list</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
-</span><span data-line="6"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Converts a binary tree into a doubly linked list in-place.&quot;&quot;&quot;</span>
+</span><span data-line="6"><span class="w">    </span><span class="sd">"""Converts a binary tree into a doubly linked list in-place."""</span>
 </span><span data-line="7">    <span class="k">def</span><span class="w"> </span><span class="nf">inorder</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
 </span><span data-line="8">        <span class="k">nonlocal</span> <span class="n">prev</span><span class="p">,</span> <span class="n">head</span>
 </span><span data-line="9">        <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span>
@@ -199,7 +199,7 @@ I let GPT 4o do it for me, and focused on writing tooling to execute and verify 
 </span><span data-line="21">    <span class="k">return</span> <span class="n">head</span>
 </span><span data-line="22">
 </span><span data-line="23"><span class="k">def</span><span class="w"> </span><span class="nf">linked_list_to_list</span><span class="p">(</span><span class="n">head</span><span class="p">):</span>
-</span><span data-line="24"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Converts a doubly linked list to a list representation.&quot;&quot;&quot;</span>
+</span><span data-line="24"><span class="w">    </span><span class="sd">"""Converts a doubly linked list to a list representation."""</span>
 </span><span data-line="25">    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
 </span><span data-line="26">    <span class="k">while</span> <span class="n">head</span><span class="p">:</span>
 </span><span data-line="27">        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">head</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
@@ -215,7 +215,7 @@ I let GPT 4o do it for me, and focused on writing tooling to execute and verify 
 </div>
 </section>
 <section id="tree-levels">
-<h3>Tree levels<a class="headerlink" href="#tree-levels" title="Link to this heading">¶</a></h3>
+<h3>Tree levels<a class="headerlink" href="#tree-levels" title="Link to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">deque</span>
 </span><span data-line="2"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 </span><span data-line="3">
@@ -226,7 +226,7 @@ I let GPT 4o do it for me, and focused on writing tooling to execute and verify 
 </span><span data-line="8">        <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">right</span>
 </span><span data-line="9">
 </span><span data-line="10"><span class="k">def</span><span class="w"> </span><span class="nf">level_order_traversal</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TreeNode</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
-</span><span data-line="11"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns level order traversal of a binary tree.&quot;&quot;&quot;</span>
+</span><span data-line="11"><span class="w">    </span><span class="sd">"""Returns level order traversal of a binary tree."""</span>
 </span><span data-line="12">    <span class="k">if</span> <span class="ow">not</span> <span class="n">root</span><span class="p">:</span>
 </span><span data-line="13">        <span class="k">return</span> <span class="p">[]</span>
 </span><span data-line="14">    
@@ -240,7 +240,7 @@ I let GPT 4o do it for me, and focused on writing tooling to execute and verify 
 </span><span data-line="22">
 </span><span data-line="23"><span class="c1"># Optimized Tree Builder for Testing</span>
 </span><span data-line="24"><span class="k">def</span><span class="w"> </span><span class="nf">build_tree</span><span class="p">(</span><span class="n">values</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TreeNode</span><span class="p">]:</span>
-</span><span data-line="25"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Builds a binary tree from a list of values (None represents missing nodes).&quot;&quot;&quot;</span>
+</span><span data-line="25"><span class="w">    </span><span class="sd">"""Builds a binary tree from a list of values (None represents missing nodes)."""</span>
 </span><span data-line="26">    <span class="k">if</span> <span class="ow">not</span> <span class="n">values</span><span class="p">:</span>
 </span><span data-line="27">        <span class="k">return</span> <span class="kc">None</span>
 </span><span data-line="28">    <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">TreeNode</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">]</span>
@@ -264,12 +264,12 @@ I let GPT 4o do it for me, and focused on writing tooling to execute and verify 
 </div>
 </section>
 <section id="reverse-words">
-<h3>Reverse words<a class="headerlink" href="#reverse-words" title="Link to this heading">¶</a></h3>
+<h3>Reverse words<a class="headerlink" href="#reverse-words" title="Link to this heading">#</a></h3>
 <p>Disqualified. LLM couldn’t come up with a meaningful solution that passes the tests.</p>
 </section>
 </section>
 <section id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">¶</a></h2>
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
 <ul>
 <li><p>Meta uses simple problems, with concise solutions taking under 20 lines of code.</p></li>
 <li><p>GPT 4o is pretty good at leet code.

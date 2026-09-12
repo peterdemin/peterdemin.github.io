@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -92,7 +92,7 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="diy-bank-balance-aggregation">
-<h1>DIY Bank balance aggregation<a class="headerlink" href="#diy-bank-balance-aggregation" title="Link to this heading">¶</a></h1>
+<h1>DIY Bank balance aggregation<a class="headerlink" href="#diy-bank-balance-aggregation" title="Link to this heading">#</a></h1>
 <p>I like to know what my credit card balance is.
 And I don’t want to visit all online bank accounts every day.
 So I automated this process.
@@ -117,9 +117,9 @@ So I picked the snippets for my banks and mashed them into one file:</p>
 </span><span data-line="14"><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
 </span><span data-line="15"><span class="w">    </span><span class="nt">notify</span><span class="p">:</span>
 </span><span data-line="16"><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">stash</span><span class="p">:</span>
-</span><span data-line="17"><span class="w">          </span><span class="nt">bofa_checking</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">lines.0</span><span class="nv"> </span><span class="s">}}&quot;</span><span class="w"> </span>
-</span><span data-line="18"><span class="w">          </span><span class="nt">bofa_savings</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">lines.1</span><span class="nv"> </span><span class="s">}}&quot;</span><span class="w"> </span>
-</span><span data-line="19"><span class="w">          </span><span class="nt">bofa_credit</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">lines.2</span><span class="nv"> </span><span class="s">}}&quot;</span><span class="w"> </span>
+</span><span data-line="17"><span class="w">          </span><span class="nt">bofa_checking</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">lines.0</span><span class="nv"> </span><span class="s">}}"</span><span class="w"> </span>
+</span><span data-line="18"><span class="w">          </span><span class="nt">bofa_savings</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">lines.1</span><span class="nv"> </span><span class="s">}}"</span><span class="w"> </span>
+</span><span data-line="19"><span class="w">          </span><span class="nt">bofa_credit</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">lines.2</span><span class="nv"> </span><span class="s">}}"</span><span class="w"> </span>
 </span><span data-line="20"><span class="w">    </span><span class="nt">period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3 hours</span>
 </span><span data-line="21">
 </span><span data-line="22"><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">discover</span>
@@ -135,7 +135,7 @@ So I picked the snippets for my banks and mashed them into one file:</p>
 </span><span data-line="32"><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
 </span><span data-line="33"><span class="w">    </span><span class="nt">notify</span><span class="p">:</span>
 </span><span data-line="34"><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">stash</span><span class="p">:</span>
-</span><span data-line="35"><span class="w">          </span><span class="nt">discover</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${{</span><span class="nv"> </span><span class="s">content</span><span class="nv"> </span><span class="s">}}&quot;</span><span class="w"> </span>
+</span><span data-line="35"><span class="w">          </span><span class="nt">discover</span><span class="p">:</span><span class="w"> </span><span class="s">"${{</span><span class="nv"> </span><span class="s">content</span><span class="nv"> </span><span class="s">}}"</span><span class="w"> </span>
 </span><span data-line="36"><span class="w">    </span><span class="nt">period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3h</span>
 </span><span data-line="37">
 </span><span data-line="38"><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">amex</span>
@@ -149,11 +149,11 @@ So I picked the snippets for my banks and mashed them into one file:</p>
 </span><span data-line="46"><span class="w">          </span><span class="nt">click</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </span><span data-line="47"><span class="w">    </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
 </span><span data-line="48"><span class="w">    </span><span class="nt">transform</span><span class="p">:</span>
-</span><span data-line="49"><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">xpath</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;//*[@id=&quot;root&quot;]/div[1]//section//li[2]/div/div[2]/span&#39;</span>
+</span><span data-line="49"><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">xpath</span><span class="p">:</span><span class="w"> </span><span class="s">'//*[@id="root"]/div[1]//section//li[2]/div/div[2]/span'</span>
 </span><span data-line="50"><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
 </span><span data-line="51"><span class="w">    </span><span class="nt">notify</span><span class="p">:</span>
 </span><span data-line="52"><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">stash</span><span class="p">:</span>
-</span><span data-line="53"><span class="w">          </span><span class="nt">amex</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">content</span><span class="nv"> </span><span class="s">}}&quot;</span><span class="w"> </span>
+</span><span data-line="53"><span class="w">          </span><span class="nt">amex</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">content</span><span class="nv"> </span><span class="s">}}"</span><span class="w"> </span>
 </span><span data-line="54"><span class="w">    </span><span class="nt">period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3h</span>
 </span><span data-line="55">
 </span><span data-line="56"><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">summary</span>
@@ -168,15 +168,15 @@ So I picked the snippets for my banks and mashed them into one file:</p>
 </span><span data-line="65"><span class="w">          </span><span class="no">{%- set credits = bofa + discover + amex -%} </span>
 </span><span data-line="66"><span class="w">          </span><span class="no">{%- set total = -bofa - discover - amex + checking + savings -%} </span>
 </span><span data-line="67"><span class="w">          </span><span class="no">```text</span>
-</span><span data-line="68"><span class="w">          </span><span class="no">checking     {{ &#39;%10s&#39; % stash.bofa_checking }}</span>
-</span><span data-line="69"><span class="w">          </span><span class="no">savings      {{ &#39;%10s&#39; % stash.bofa_savings }}</span>
+</span><span data-line="68"><span class="w">          </span><span class="no">checking     {{ '%10s' % stash.bofa_checking }}</span>
+</span><span data-line="69"><span class="w">          </span><span class="no">savings      {{ '%10s' % stash.bofa_savings }}</span>
 </span><span data-line="70"><span class="w">          </span><span class="no">credit cards:</span>
-</span><span data-line="71"><span class="w">              </span><span class="no">bofa     {{ &#39;%10s&#39; % stash.bofa_credit }}</span>
-</span><span data-line="72"><span class="w">              </span><span class="no">discover {{ &#39;%10s&#39; % stash.discover }}</span>
-</span><span data-line="73"><span class="w">              </span><span class="no">amex     {{ &#39;%10s&#39; % stash.amex }}</span>
-</span><span data-line="74"><span class="w">              </span><span class="no">*total*  {{ &#39;%10s&#39; % credits | dollars }}</span>
+</span><span data-line="71"><span class="w">              </span><span class="no">bofa     {{ '%10s' % stash.bofa_credit }}</span>
+</span><span data-line="72"><span class="w">              </span><span class="no">discover {{ '%10s' % stash.discover }}</span>
+</span><span data-line="73"><span class="w">              </span><span class="no">amex     {{ '%10s' % stash.amex }}</span>
+</span><span data-line="74"><span class="w">              </span><span class="no">*total*  {{ '%10s' % credits | dollars }}</span>
 </span><span data-line="75"><span class="w">          </span><span class="no">-----------------------</span>
-</span><span data-line="76"><span class="w">          </span><span class="no">balance      {{ &#39;%10s&#39; % total | dollars }}</span>
+</span><span data-line="76"><span class="w">          </span><span class="no">balance      {{ '%10s' % total | dollars }}</span>
 </span><span data-line="77"><span class="w">          </span><span class="no">```</span>
 </span><span data-line="78"><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">changes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">new</span><span class="w"> </span>
 </span><span data-line="79"><span class="w">    </span><span class="nt">notify</span><span class="p">:</span>
@@ -230,9 +230,9 @@ to my Telegram account. (Actually, it sends it to me and my wife private group).
 They always go in this order, so I stash their values under corresponding keys:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="w">  </span><span class="nt">notify</span><span class="p">:</span>
 </span><span data-line="2"><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">stash</span><span class="p">:</span>
-</span><span data-line="3"><span class="w">        </span><span class="nt">bofa_checking</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">lines.0</span><span class="nv"> </span><span class="s">}}&quot;</span>
-</span><span data-line="4"><span class="w">        </span><span class="nt">bofa_savings</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">lines.1</span><span class="nv"> </span><span class="s">}}&quot;</span>
-</span><span data-line="5"><span class="w">        </span><span class="nt">bofa_credit</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">lines.2</span><span class="nv"> </span><span class="s">}}&quot;</span>
+</span><span data-line="3"><span class="w">        </span><span class="nt">bofa_checking</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">lines.0</span><span class="nv"> </span><span class="s">}}"</span>
+</span><span data-line="4"><span class="w">        </span><span class="nt">bofa_savings</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">lines.1</span><span class="nv"> </span><span class="s">}}"</span>
+</span><span data-line="5"><span class="w">        </span><span class="nt">bofa_credit</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">lines.2</span><span class="nv"> </span><span class="s">}}"</span>
 </span></pre></div>
 </div>
 </li>
@@ -267,15 +267,15 @@ It looks scary at first sight. But on closer look, it’s simple assigning and a
 </span><span data-line="8"><span class="w">       </span><span class="no">{%- set credits = bofa + discover + amex -%} </span>
 </span><span data-line="9"><span class="w">       </span><span class="no">{%- set total = -bofa - discover - amex + checking + savings -%} </span>
 </span><span data-line="10"><span class="w">       </span><span class="no">```text</span>
-</span><span data-line="11"><span class="w">       </span><span class="no">checking     {{ &#39;%10s&#39; % stash.bofa_checking }}</span>
-</span><span data-line="12"><span class="w">       </span><span class="no">savings      {{ &#39;%10s&#39; % stash.bofa_savings }}</span>
+</span><span data-line="11"><span class="w">       </span><span class="no">checking     {{ '%10s' % stash.bofa_checking }}</span>
+</span><span data-line="12"><span class="w">       </span><span class="no">savings      {{ '%10s' % stash.bofa_savings }}</span>
 </span><span data-line="13"><span class="w">       </span><span class="no">credit cards:</span>
-</span><span data-line="14"><span class="w">           </span><span class="no">bofa     {{ &#39;%10s&#39; % stash.bofa_credit }}</span>
-</span><span data-line="15"><span class="w">           </span><span class="no">discover {{ &#39;%10s&#39; % stash.discover }}</span>
-</span><span data-line="16"><span class="w">           </span><span class="no">amex     {{ &#39;%10s&#39; % stash.amex }}</span>
-</span><span data-line="17"><span class="w">           </span><span class="no">*total*  {{ &#39;%10s&#39; % credits | dollars }}</span>
+</span><span data-line="14"><span class="w">           </span><span class="no">bofa     {{ '%10s' % stash.bofa_credit }}</span>
+</span><span data-line="15"><span class="w">           </span><span class="no">discover {{ '%10s' % stash.discover }}</span>
+</span><span data-line="16"><span class="w">           </span><span class="no">amex     {{ '%10s' % stash.amex }}</span>
+</span><span data-line="17"><span class="w">           </span><span class="no">*total*  {{ '%10s' % credits | dollars }}</span>
 </span><span data-line="18"><span class="w">       </span><span class="no">-----------------------</span>
-</span><span data-line="19"><span class="w">       </span><span class="no">balance      {{ &#39;%10s&#39; % total | dollars }}</span>
+</span><span data-line="19"><span class="w">       </span><span class="no">balance      {{ '%10s' % total | dollars }}</span>
 </span><span data-line="20"><span class="w">       </span><span class="no">```</span>
 </span><span data-line="21"><span class="w">   </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">changes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">new</span><span class="w"> </span>
 </span></pre></div>

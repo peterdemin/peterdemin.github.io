@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -92,25 +92,25 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="ignominious-python-timezones">
-<h1>Ignominious Python timezones<a class="headerlink" href="#ignominious-python-timezones" title="Link to this heading">¶</a></h1>
+<h1>Ignominious Python timezones<a class="headerlink" href="#ignominious-python-timezones" title="Link to this heading">#</a></h1>
 <p>A good old timezone battle.</p>
 <p>Here’s the glitch. If your local timezone is US/Pacific (PST):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pytz</span><span class="w"> </span><span class="kn">import</span> <span class="n">timezone</span>
-</span><span data-line="2"><span class="gp">&gt;&gt;&gt; </span><span class="n">TIMEZONE</span> <span class="o">=</span> <span class="n">timezone</span><span class="p">(</span><span class="s2">&quot;America/Los_Angeles&quot;</span><span class="p">)</span>
+</span><span data-line="2"><span class="gp">&gt;&gt;&gt; </span><span class="n">TIMEZONE</span> <span class="o">=</span> <span class="n">timezone</span><span class="p">(</span><span class="s2">"America/Los_Angeles"</span><span class="p">)</span>
 </span><span data-line="3">
 </span><span data-line="4"><span class="gp">&gt;&gt;&gt; </span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">TIMEZONE</span><span class="p">)</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
-</span><span data-line="5"><span class="go">&#39;2025-01-01T00:00:00-08:00&#39;</span>
+</span><span data-line="5"><span class="go">'2025-01-01T00:00:00-08:00'</span>
 </span><span data-line="6">
 </span><span data-line="7"><span class="gp">&gt;&gt;&gt; </span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">TIMEZONE</span><span class="p">)</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
-</span><span data-line="8"><span class="go">&#39;2025-01-01T00:00:00-07:53&#39;</span>
+</span><span data-line="8"><span class="go">'2025-01-01T00:00:00-07:53'</span>
 </span></pre></div>
 </div>
 <p>Same code running with the local timezone set to UTC (like on a server):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">TIMEZONE</span><span class="p">)</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
-</span><span data-line="2"><span class="go">&#39;2024-12-31T16:00:00-08:00&#39;</span>
+</span><span data-line="2"><span class="go">'2024-12-31T16:00:00-08:00'</span>
 </span><span data-line="3">
 </span><span data-line="4"><span class="gp">&gt;&gt;&gt; </span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">TIMEZONE</span><span class="p">)</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
-</span><span data-line="5"><span class="go">&#39;2025-01-01T00:00:00-07:53&#39;</span>
+</span><span data-line="5"><span class="go">'2025-01-01T00:00:00-07:53'</span>
 </span></pre></div>
 </div>
 <p>Python documentation on <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime.astimezone">astimezone</a>:</p>
@@ -134,12 +134,12 @@ For the user device case, having local timezone set to PST,
 <code class="docutils literal notranslate"><span class="pre">datetime.datetime(2025,</span> <span class="pre">1,</span> <span class="pre">1)</span></code> is a naive datetime, having <code class="docutils literal notranslate"><span class="pre">self.tzinfo=None</span></code>,
 no adjustment of date or time data is performed, because the target timezone is the same as local:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">TIMEZONE</span><span class="p">)</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
-</span><span data-line="2"><span class="go">&#39;2025-01-01T00:00:00-08:00&#39;</span>
+</span><span data-line="2"><span class="go">'2025-01-01T00:00:00-08:00'</span>
 </span></pre></div>
 </div>
 <p>Okay. when timezone is passed directly as tzinfo, we get the weird offset:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">TIMEZONE</span><span class="p">)</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
-</span><span data-line="2"><span class="go">&#39;2025-01-01T00:00:00-07:53&#39;</span>
+</span><span data-line="2"><span class="go">'2025-01-01T00:00:00-07:53'</span>
 </span></pre></div>
 </div>
 <p>The reason is explained on <a class="reference external" href="https://stackoverflow.com/a/50613134/135079">SO</a>:</p>
@@ -159,18 +159,18 @@ Another quote, from <code class="docutils literal notranslate"><span class="pre"
 <p>Unfortunately, indeed.</p>
 <p>And for the last mystery, when server runs with local timezone set to UTC:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">TIMEZONE</span><span class="p">)</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
-</span><span data-line="2"><span class="go">&#39;2024-12-31T16:00:00-08:00&#39;</span>
+</span><span data-line="2"><span class="go">'2024-12-31T16:00:00-08:00'</span>
 </span></pre></div>
 </div>
 <p>The naive datetime inherits UTC timezone from the environment, so the result is shifted by 8 hours back.</p>
 <p>The proper way of attaching timezone information to a naive datetime is using <code class="docutils literal notranslate"><span class="pre">pytz.localize</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s1">&#39;US/Pacific&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">localize</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
-</span><span data-line="2"><span class="go">&#39;2025-01-01T00:00:00-08:00&#39;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s1">'US/Pacific'</span><span class="p">)</span><span class="o">.</span><span class="n">localize</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+</span><span data-line="2"><span class="go">'2025-01-01T00:00:00-08:00'</span>
 </span></pre></div>
 </div>
 <p>And if you try following Python docs and use <code class="docutils literal notranslate"><span class="pre">dt.replace</span></code>, you’ll see the same pytz incompatibility:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s1">&#39;US/Pacific&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
-</span><span data-line="2"><span class="go">&#39;2025-01-01T00:00:00-07:53&#39;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s1">'US/Pacific'</span><span class="p">))</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+</span><span data-line="2"><span class="go">'2025-01-01T00:00:00-07:53'</span>
 </span></pre></div>
 </div>
 </section>

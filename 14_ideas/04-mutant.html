@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -97,9 +97,9 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="mutant-data-schema-generator">
-<h1>Mutant - Data Schema Generator<a class="headerlink" href="#mutant-data-schema-generator" title="Link to this heading">¶</a></h1>
+<h1>Mutant - Data Schema Generator<a class="headerlink" href="#mutant-data-schema-generator" title="Link to this heading">#</a></h1>
 <section id="preface">
-<h2>Preface<a class="headerlink" href="#preface" title="Link to this heading">¶</a></h2>
+<h2>Preface<a class="headerlink" href="#preface" title="Link to this heading">#</a></h2>
 <p>My team was developing simple storage service, that aggregates data from number of not so simple storages.
 All service does is receiving and serving documents, that can be represented as dictionaries and lists (json serializable). It used SQL database for persistent storage and Solr for fast querying and caching.
 As this definition sounds simple, it took ridiculously long time to implement it.
@@ -115,7 +115,7 @@ And now, when we want to add new field, we have to change code in 6 places:</p>
 <p>That’s way too easy to forget about one place.</p>
 </section>
 <section id="data-definition-language-and-code-generator">
-<h2>Data Definition Language and Code Generator<a class="headerlink" href="#data-definition-language-and-code-generator" title="Link to this heading">¶</a></h2>
+<h2>Data Definition Language and Code Generator<a class="headerlink" href="#data-definition-language-and-code-generator" title="Link to this heading">#</a></h2>
 <p>That’s why I think about creating data-driven framework, that will allow us to define our data once
 and have everything else automatically derived.</p>
 <p>Let’s imagine how data definition would look like using YAML format.
@@ -135,11 +135,11 @@ Also, username length is limited to 30 symbols and it is marked as primary key f
 Password field is marked as private.
 Entity and type names use CamelCase notation and field names are lowercase.</p>
 <p>So there could be some simple generator, that makes Python classes for definitions:</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="n">definition</span> <span class="o">=</span> <span class="n">load_yaml</span><span class="p">(</span><span class="s2">&quot;author.yaml&quot;</span><span class="p">)</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="n">definition</span> <span class="o">=</span> <span class="n">load_yaml</span><span class="p">(</span><span class="s2">"author.yaml"</span><span class="p">)</span>
 </span><span data-line="2"><span class="gp">&gt;&gt;&gt; </span><span class="n">Author</span> <span class="o">=</span> <span class="n">make_class</span><span class="p">(</span><span class="n">definition</span><span class="p">)</span>
-</span><span data-line="3"><span class="gp">&gt;&gt;&gt; </span><span class="n">peter</span> <span class="o">=</span> <span class="n">Author</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s2">&quot;peter&quot;</span><span class="p">,</span> <span class="n">email</span><span class="o">=</span><span class="s2">&quot;peter@data-driven.com&quot;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">&quot;secret&quot;</span><span class="p">)</span>
+</span><span data-line="3"><span class="gp">&gt;&gt;&gt; </span><span class="n">peter</span> <span class="o">=</span> <span class="n">Author</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s2">"peter"</span><span class="p">,</span> <span class="n">email</span><span class="o">=</span><span class="s2">"peter@data-driven.com"</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">"secret"</span><span class="p">)</span>
 </span><span data-line="4"><span class="gp">&gt;&gt;&gt; </span><span class="n">peter</span>
-</span><span data-line="5"><span class="go">&lt;Author username=&quot;peter&quot;&gt;</span>
+</span><span data-line="5"><span class="go">&lt;Author username="peter"&gt;</span>
 </span></pre></div>
 </div>
 <p>Not very useful, but it shows the idea. For people familiar with Django ORM,
@@ -155,8 +155,8 @@ we can auto generate following Django model:</p>
 </div>
 <p>And for solr schema:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="nt">&lt;fields&gt;</span>
-</span><span data-line="2"><span class="w">  </span><span class="nt">&lt;field</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;author_username&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;string&quot;</span><span class="w"> </span><span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="w"> </span><span class="na">stored=</span><span class="s">&quot;true&quot;</span><span class="w"> </span><span class="na">required=</span><span class="s">&quot;true&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
-</span><span data-line="3"><span class="w">  </span><span class="nt">&lt;field</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;author_email&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;string&quot;</span><span class="w"> </span><span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="w"> </span><span class="na">stored=</span><span class="s">&quot;true&quot;</span><span class="w"> </span><span class="na">required=</span><span class="s">&quot;true&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span data-line="2"><span class="w">  </span><span class="nt">&lt;field</span><span class="w"> </span><span class="na">name=</span><span class="s">"author_username"</span><span class="w"> </span><span class="na">type=</span><span class="s">"string"</span><span class="w"> </span><span class="na">indexed=</span><span class="s">"true"</span><span class="w"> </span><span class="na">stored=</span><span class="s">"true"</span><span class="w"> </span><span class="na">required=</span><span class="s">"true"</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span data-line="3"><span class="w">  </span><span class="nt">&lt;field</span><span class="w"> </span><span class="na">name=</span><span class="s">"author_email"</span><span class="w"> </span><span class="na">type=</span><span class="s">"string"</span><span class="w"> </span><span class="na">indexed=</span><span class="s">"true"</span><span class="w"> </span><span class="na">stored=</span><span class="s">"true"</span><span class="w"> </span><span class="na">required=</span><span class="s">"true"</span><span class="w"> </span><span class="nt">/&gt;</span>
 </span><span data-line="4"><span class="nt">&lt;/fields&gt;</span>
 </span></pre></div>
 </div>
@@ -164,7 +164,7 @@ we can auto generate following Django model:</p>
 But at this point we looked at simplistic example of one entity.</p>
 </section>
 <section id="more-complex-example">
-<h2>More complex example<a class="headerlink" href="#more-complex-example" title="Link to this heading">¶</a></h2>
+<h2>More complex example<a class="headerlink" href="#more-complex-example" title="Link to this heading">#</a></h2>
 <p>Let’s define blog. Blog has posts, authors, tags and annotations.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="nt">Blog</span><span class="p">:</span>
 </span><span data-line="2"><span class="w">    </span><span class="nt">posts</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">list-of</span><span class="p">:</span><span class="w"> </span><span class="nv">Post</span><span class="p p-Indicator">,</span><span class="nt"> own</span><span class="p">:</span><span class="w"> </span><span class="nv">true</span><span class="p p-Indicator">}</span>

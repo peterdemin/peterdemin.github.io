@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -92,7 +92,7 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="clean-up-old-celery-tasks-from-database">
-<h1>Clean up old celery tasks from database<a class="headerlink" href="#clean-up-old-celery-tasks-from-database" title="Link to this heading">¶</a></h1>
+<h1>Clean up old celery tasks from database<a class="headerlink" href="#clean-up-old-celery-tasks-from-database" title="Link to this heading">#</a></h1>
 <p>Celery prior to version 4 <a class="reference external" href="http://docs.celeryproject.org/en/3.1/getting-started/brokers/django.html">provided Database broker</a>
 which had poor perfomance but allowed to have background processing in Django without pains of operating RabbitMQ or Redis.</p>
 <p>One subtliety of using it is that if no of workers is serving <code class="docutils literal notranslate"><span class="pre">celery</span></code> queue, database is going to grow pretty quickly.
@@ -101,7 +101,7 @@ And once this table grows to millions of records, deleting them (on replicated d
 <p>One solution is to split records into small batches and delete each in it’s own transaction.
 Choosing batch size is a nice problem - too small will make script run longer than necessary, while too big will result in error like:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">Msg</span> <span class="mi">9002</span><span class="p">,</span> <span class="n">Level</span> <span class="mi">17</span><span class="p">,</span> <span class="n">State</span> <span class="mi">2</span><span class="p">,</span> <span class="n">Line</span> <span class="mi">3</span>
-</span><span data-line="2"><span class="n">The</span> <span class="n">transaction</span> <span class="n">log</span> <span class="k">for</span> <span class="n">database</span> <span class="s1">&#39;Database&#39;</span> <span class="ow">is</span> <span class="n">full</span> <span class="n">due</span> <span class="n">to</span> <span class="s1">&#39;LOG_BACKUP&#39;</span><span class="o">.</span>
+</span><span data-line="2"><span class="n">The</span> <span class="n">transaction</span> <span class="n">log</span> <span class="k">for</span> <span class="n">database</span> <span class="s1">'Database'</span> <span class="ow">is</span> <span class="n">full</span> <span class="n">due</span> <span class="n">to</span> <span class="s1">'LOG_BACKUP'</span><span class="o">.</span>
 </span></pre></div>
 </div>
 <p>I adapted <a class="reference external" href="https://en.wikipedia.org/wiki/Nagle%27s_algorithm">Nagle’s algorithm</a> to this task:</p>
@@ -119,20 +119,20 @@ Choosing batch size is a nice problem - too small will make script run longer th
 </span><span data-line="7">
 </span><span data-line="8">
 </span><span data-line="9"><span class="k">class</span><span class="w"> </span><span class="nc">Command</span><span class="p">(</span><span class="n">BaseCommand</span><span class="p">):</span>
-</span><span data-line="10">    <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;Delete old celery tasks&#39;</span>
+</span><span data-line="10">    <span class="n">help</span> <span class="o">=</span> <span class="s1">'Delete old celery tasks'</span>
 </span><span data-line="11">
 </span><span data-line="12">    <span class="k">def</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
-</span><span data-line="13">        <span class="n">result</span> <span class="o">=</span> <span class="n">TaskMeta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">Max</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">),</span> <span class="n">Min</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">))</span>
-</span><span data-line="14">        <span class="n">id_min</span><span class="p">,</span> <span class="n">id_max</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;id__min&#39;</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;id__max&#39;</span><span class="p">]</span>
+</span><span data-line="13">        <span class="n">result</span> <span class="o">=</span> <span class="n">TaskMeta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">Max</span><span class="p">(</span><span class="s1">'id'</span><span class="p">),</span> <span class="n">Min</span><span class="p">(</span><span class="s1">'id'</span><span class="p">))</span>
+</span><span data-line="14">        <span class="n">id_min</span><span class="p">,</span> <span class="n">id_max</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">'id__min'</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="s1">'id__max'</span><span class="p">]</span>
 </span><span data-line="15">        <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
-</span><span data-line="16">            <span class="s2">&quot;Total: </span><span class="si">%r</span><span class="s2">, ranging from </span><span class="si">%r</span><span class="s2"> to </span><span class="si">%r</span><span class="s2">&quot;</span>
+</span><span data-line="16">            <span class="s2">"Total: </span><span class="si">%r</span><span class="s2">, ranging from </span><span class="si">%r</span><span class="s2"> to </span><span class="si">%r</span><span class="s2">"</span>
 </span><span data-line="17">            <span class="o">%</span> <span class="p">(</span><span class="n">TaskMeta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="n">id_min</span><span class="p">,</span> <span class="n">id_max</span><span class="p">)</span>
 </span><span data-line="18">        <span class="p">)</span>
 </span><span data-line="19">        <span class="k">if</span> <span class="n">id_min</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">id_max</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span data-line="20">            <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Nothing to do, exiting&quot;</span><span class="p">)</span>
+</span><span data-line="20">            <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"Nothing to do, exiting"</span><span class="p">)</span>
 </span><span data-line="21">            <span class="k">return</span>
 </span><span data-line="22">        <span class="n">id_max</span> <span class="o">-=</span> <span class="mi">100</span>
-</span><span data-line="23">        <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Decreased finish down to </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">id_max</span><span class="p">)</span>
+</span><span data-line="23">        <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"Decreased finish down to </span><span class="si">%d</span><span class="s2">"</span> <span class="o">%</span> <span class="n">id_max</span><span class="p">)</span>
 </span><span data-line="24">        <span class="n">step</span> <span class="o">=</span> <span class="mi">100</span>
 </span><span data-line="25">        <span class="n">start</span> <span class="o">=</span> <span class="n">id_min</span>
 </span><span data-line="26">        <span class="k">while</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="n">id_max</span><span class="p">:</span>
@@ -140,7 +140,7 @@ Choosing batch size is a nice problem - too small will make script run longer th
 </span><span data-line="28">            <span class="k">try</span><span class="p">:</span>
 </span><span data-line="29">                <span class="n">deleted</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">TaskMeta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">id__gte</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">id__lt</span><span class="o">=</span><span class="n">finish</span><span class="p">)</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
 </span><span data-line="30">                <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
-</span><span data-line="31">                    <span class="s2">&quot;For range </span><span class="si">%d</span><span class="s2">-</span><span class="si">%d</span><span class="s2"> deleted </span><span class="si">%d</span><span class="s2"> objects&quot;</span>
+</span><span data-line="31">                    <span class="s2">"For range </span><span class="si">%d</span><span class="s2">-</span><span class="si">%d</span><span class="s2"> deleted </span><span class="si">%d</span><span class="s2"> objects"</span>
 </span><span data-line="32">                    <span class="o">%</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">finish</span><span class="p">,</span> <span class="n">deleted</span><span class="p">)</span>
 </span><span data-line="33">                <span class="p">)</span>
 </span><span data-line="34">                <span class="n">step</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">step</span> <span class="o">*</span> <span class="mf">1.05</span><span class="p">)</span>
@@ -158,9 +158,9 @@ Choosing batch size is a nice problem - too small will make script run longer th
 </span><span data-line="2"><span class="n">For</span> <span class="nb">range</span> <span class="mi">771389</span><span class="o">-</span><span class="mi">809999</span> <span class="n">deleted</span> <span class="mi">38610</span> <span class="n">objects</span>
 </span><span data-line="3"><span class="n">For</span> <span class="nb">range</span> <span class="mi">809999</span><span class="o">-</span><span class="mi">850539</span> <span class="n">deleted</span> <span class="mi">40540</span> <span class="n">objects</span>
 </span><span data-line="4"><span class="n">For</span> <span class="nb">range</span> <span class="mi">850539</span><span class="o">-</span><span class="mi">893106</span> <span class="n">deleted</span> <span class="mi">42567</span> <span class="n">objects</span>
-</span><span data-line="5"><span class="p">(</span><span class="s1">&#39;42000&#39;</span><span class="p">,</span> <span class="s2">&quot;[42000] [FreeTDS][SQL Server]The transaction log for database &#39;Database&#39; is full due to &#39;LOG_BACKUP&#39;. (9002) (SQLExecDirectW)&quot;</span><span class="p">)</span>
-</span><span data-line="6"><span class="p">(</span><span class="s1">&#39;42000&#39;</span><span class="p">,</span> <span class="s2">&quot;[42000] [FreeTDS][SQL Server]The transaction log for database &#39;Database&#39; is full due to &#39;LOG_BACKUP&#39;. (9002) (SQLExecDirectW)&quot;</span><span class="p">)</span>
-</span><span data-line="7"><span class="p">(</span><span class="s1">&#39;42000&#39;</span><span class="p">,</span> <span class="s2">&quot;[42000] [FreeTDS][SQL Server]The transaction log for database &#39;Database&#39; is full due to &#39;LOG_BACKUP&#39;. (9002) (SQLExecDirectW)&quot;</span><span class="p">)</span>
+</span><span data-line="5"><span class="p">(</span><span class="s1">'42000'</span><span class="p">,</span> <span class="s2">"[42000] [FreeTDS][SQL Server]The transaction log for database 'Database' is full due to 'LOG_BACKUP'. (9002) (SQLExecDirectW)"</span><span class="p">)</span>
+</span><span data-line="6"><span class="p">(</span><span class="s1">'42000'</span><span class="p">,</span> <span class="s2">"[42000] [FreeTDS][SQL Server]The transaction log for database 'Database' is full due to 'LOG_BACKUP'. (9002) (SQLExecDirectW)"</span><span class="p">)</span>
+</span><span data-line="7"><span class="p">(</span><span class="s1">'42000'</span><span class="p">,</span> <span class="s2">"[42000] [FreeTDS][SQL Server]The transaction log for database 'Database' is full due to 'LOG_BACKUP'. (9002) (SQLExecDirectW)"</span><span class="p">)</span>
 </span><span data-line="8"><span class="n">For</span> <span class="nb">range</span> <span class="mi">893106</span><span class="o">-</span><span class="mi">898692</span> <span class="n">deleted</span> <span class="mi">5586</span> <span class="n">objects</span>
 </span><span data-line="9"><span class="n">For</span> <span class="nb">range</span> <span class="mi">898692</span><span class="o">-</span><span class="mi">904557</span> <span class="n">deleted</span> <span class="mi">5865</span> <span class="n">objects</span>
 </span><span data-line="10"><span class="o">...</span>

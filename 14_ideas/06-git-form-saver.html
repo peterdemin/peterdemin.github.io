@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -107,7 +107,7 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="git-form-saver">
-<span id="id1"></span><h1>Git form saver<a class="headerlink" href="#git-form-saver" title="Link to this heading">¶</a></h1>
+<span id="id1"></span><h1>Git form saver<a class="headerlink" href="#git-form-saver" title="Link to this heading">#</a></h1>
 <nav class="contents local" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#what-is-git-form-saver" id="id2">What is Git form saver</a></p></li>
@@ -128,7 +128,7 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </nav>
 <section id="what-is-git-form-saver">
-<h2><a class="toc-backref" href="#id2" role="doc-backlink">What is Git form saver</a><a class="headerlink" href="#what-is-git-form-saver" title="Link to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">What is Git form saver</a><a class="headerlink" href="#what-is-git-form-saver" title="Link to this heading">#</a></h2>
 <p>Git form saver is an HTTP API that pushes HTML forms to git repositories.</p>
 <p>In a nutshell, API does the following:</p>
 <ul class="simple">
@@ -140,7 +140,7 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </section>
 <section id="when-to-use-git-form-saver">
-<h2><a class="toc-backref" href="#id3" role="doc-backlink">When to use Git form saver</a><a class="headerlink" href="#when-to-use-git-form-saver" title="Link to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">When to use Git form saver</a><a class="headerlink" href="#when-to-use-git-form-saver" title="Link to this heading">#</a></h2>
 <p>Git form saver is useful when you want to allow appending data to specific file in a git repo through HTML form submission.</p>
 <p><strong>Use-cases</strong></p>
 <ul>
@@ -164,7 +164,7 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </section>
 <section id="security-features">
-<h2><a class="toc-backref" href="#id4" role="doc-backlink">Security features</a><a class="headerlink" href="#security-features" title="Link to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Security features</a><a class="headerlink" href="#security-features" title="Link to this heading">#</a></h2>
 <p>Git form saver supports limiting user actions in 3 ways:</p>
 <ol class="arabic simple">
 <li><p>Git form saver uses SSH with <strong>private key authentication</strong>
@@ -177,7 +177,7 @@ Java Web Token (JWT) at the beginning of the file.</p></li>
 required for the token verification.</p></li>
 </ol>
 <section id="git-ssh-authentication">
-<h3><a class="toc-backref" href="#id5" role="doc-backlink">Git SSH authentication</a><a class="headerlink" href="#git-ssh-authentication" title="Link to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">Git SSH authentication</a><a class="headerlink" href="#git-ssh-authentication" title="Link to this heading">#</a></h3>
 <p>Each git form saver instance can have a unique private key used for all
 git interactions. The same private key is used for generating the JWT.
 Private key never leaves the server and is hidden from target
@@ -189,7 +189,7 @@ or create a separate GitHub account and add as a collaborator to your repo.</p>
 </div>
 </section>
 <section id="mandatory-token">
-<h3><a class="toc-backref" href="#id6" role="doc-backlink">Mandatory token</a><a class="headerlink" href="#mandatory-token" title="Link to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">Mandatory token</a><a class="headerlink" href="#mandatory-token" title="Link to this heading">#</a></h3>
 <p>To enable Git form saver to append forms to a file, you need to generate
 a security token, and save it in the target file.
 Security token encodes repository URL and file path (with optional secret)
@@ -199,14 +199,14 @@ specific files inside the repository.</p>
 <p>The token is different for each repository and for each file inside the repository.</p>
 </section>
 <section id="secret">
-<h3><a class="toc-backref" href="#id7" role="doc-backlink">Secret</a><a class="headerlink" href="#secret" title="Link to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">Secret</a><a class="headerlink" href="#secret" title="Link to this heading">#</a></h3>
 <p>For protected environments, as internal networks, or mobile applications,
 security token can include additional <code class="docutils literal notranslate"><span class="pre">secret</span></code> value.
 Only form submissions, that include this <code class="docutils literal notranslate"><span class="pre">secret</span></code> value will be permitted.</p>
 </section>
 </section>
 <section id="demo-server">
-<h2><a class="toc-backref" href="#id8" role="doc-backlink">Demo server</a><a class="headerlink" href="#demo-server" title="Link to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Demo server</a><a class="headerlink" href="#demo-server" title="Link to this heading">#</a></h2>
 <p>To allow demo instance to access your repository,
 you need to add its SSH public key to the target git repository.</p>
 <p>If your repository is on GitHub, you can just
@@ -216,7 +216,7 @@ add a special <cite>GitHub account &lt;https://github.com/git-form-saver&gt;</ci
 </span></pre></div>
 </div>
 <section id="security-token-generation">
-<h3><a class="toc-backref" href="#id9" role="doc-backlink">Security token generation</a><a class="headerlink" href="#security-token-generation" title="Link to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">Security token generation</a><a class="headerlink" href="#security-token-generation" title="Link to this heading">#</a></h3>
 <p>Use this form to generate a security token for your repo:</p>
 <script>
 function generateToken(event, form) {
@@ -261,7 +261,7 @@ function generateToken(event, form) {
 somewhere in the beginning (first 2 KiB).</p>
 </section>
 <section id="save-text-to-any-file">
-<h3><a class="toc-backref" href="#id10" role="doc-backlink">Save text to any file</a><a class="headerlink" href="#save-text-to-any-file" title="Link to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">Save text to any file</a><a class="headerlink" href="#save-text-to-any-file" title="Link to this heading">#</a></h3>
 <p>Once the preparations are done, you can submit this form.
 The text will be appended to the target file, after a little delay.</p>
 <form action="https://gitformsaver.demin.dev/" method="POST">

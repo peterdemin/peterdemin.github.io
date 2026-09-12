@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -101,9 +101,9 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="personal-vpn-a-tale-of-tailscale-and-headscale">
-<h1>Personal VPN: a tale of Tailscale and Headscale<a class="headerlink" href="#personal-vpn-a-tale-of-tailscale-and-headscale" title="Link to this heading">¶</a></h1>
+<h1>Personal VPN: a tale of Tailscale and Headscale<a class="headerlink" href="#personal-vpn-a-tale-of-tailscale-and-headscale" title="Link to this heading">#</a></h1>
 <section id="background">
-<h2>Background<a class="headerlink" href="#background" title="Link to this heading">¶</a></h2>
+<h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
 <p>I’ve been using different types of VPNs for many years for several reasons:</p>
 <ol class="arabic simple">
 <li><p>Public WiFi security.</p></li>
@@ -121,14 +121,14 @@ to the proprietary Tailscale control center for personal self-hosted use.
 Which made me curious enough to finally try <a class="reference external" href="https://tailscale.com/">Tailscale</a> itself.</p>
 </section>
 <section id="installing-tailscale">
-<h2>Installing Tailscale<a class="headerlink" href="#installing-tailscale" title="Link to this heading">¶</a></h2>
+<h2>Installing Tailscale<a class="headerlink" href="#installing-tailscale" title="Link to this heading">#</a></h2>
 <p>I quickly registered using my Google account and added two devices - all in about five minutes - impressive!</p>
 <p>Tailscale tracks Google account and IP addresses to provide network connectivity,
 which is extremely user-friendly, but leaves a weird feeling of half-way private solution.
 So, naturally, the next step is to replace the third-party proprietary control center with a self-hosted open-source alternative.</p>
 </section>
 <section id="installing-headscale">
-<h2>Installing Headscale<a class="headerlink" href="#installing-headscale" title="Link to this heading">¶</a></h2>
+<h2>Installing Headscale<a class="headerlink" href="#installing-headscale" title="Link to this heading">#</a></h2>
 <p>Headscale provides binary releases (current version is <a class="reference external" href="https://github.com/juanfont/headscale/releases/tag/v0.17.1">0.17.1</a>)
 but I’m not too fond of the experience of downloading and upgrading from GitHub releases, so I thought I better build it from sources.</p>
 <p>I cloned the repo:</p>
@@ -139,7 +139,7 @@ but I’m not too fond of the experience of downloading and upgrading from GitHu
 <p>And quickly realized that the build instructions assume I’m an experienced <a class="reference external" href="https://nixos.org/">Nix</a> user.</p>
 </section>
 <section id="installing-nix">
-<h2>Installing Nix<a class="headerlink" href="#installing-nix" title="Link to this heading">¶</a></h2>
+<h2>Installing Nix<a class="headerlink" href="#installing-nix" title="Link to this heading">#</a></h2>
 <p>I’ve heard good things about Nix (mostly from <a class="reference external" href="https://xeiaso.net/blog">Xe’s blog</a>), so I thought it’s a good opportunity to poke it.</p>
 <p>I fruitlessly searched for a way to install the Nix build system as an Ubuntu package, but it seems that running shell scripts from the internet with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> is the only supported way to install it right now.
 I hesitated a bit, but not for too long, and gave it a try:</p>
@@ -177,7 +177,7 @@ I noticed a new <code class="docutils literal notranslate"><span class="pre">res
 <p>SHA sum doesn’t match the one from the official release (<code class="docutils literal notranslate"><span class="pre">e8d3d74b040bd2e3e9f049d95e4f4b759160518a1cf682ec0bb76f2fed7d77cf</span></code>), but whatever.</p>
 </section>
 <section id="back-to-installing-headscale">
-<h2>Back to installing Headscale<a class="headerlink" href="#back-to-installing-headscale" title="Link to this heading">¶</a></h2>
+<h2>Back to installing Headscale<a class="headerlink" href="#back-to-installing-headscale" title="Link to this heading">#</a></h2>
 <p>Let’s see what it does:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">$ result/bin/headscale --help
 </span><span data-line="2">
@@ -206,16 +206,16 @@ I noticed a new <code class="docutils literal notranslate"><span class="pre">res
 </span><span data-line="25">  -c, --config string   config file (default is /etc/headscale/config.yaml)
 </span><span data-line="26">      --force           Disable prompts and forces the execution
 </span><span data-line="27">  -h, --help            help for headscale
-</span><span data-line="28">  -o, --output string   Output format. Empty for human-readable, &#39;json&#39;, &#39;json-line&#39; or &#39;yaml&#39;
+</span><span data-line="28">  -o, --output string   Output format. Empty for human-readable, 'json', 'json-line' or 'yaml'
 </span><span data-line="29">
-</span><span data-line="30">Use &quot;headscale [command] --help&quot; for more information about a command.
+</span><span data-line="30">Use "headscale [command] --help" for more information about a command.
 </span><span data-line="31">
 </span><span data-line="32">$ result/bin/headscale version
 </span><span data-line="33">v422d124
 </span><span data-line="34">
 </span><span data-line="35">$ result/bin/headscale help
-</span><span data-line="36">2023-01-06T20:23:04-05:00 WRN Failed to read configuration from disk error=&quot;Config File \&quot;config\&quot; Not Found in \&quot;[/etc/headscale ~/.headscale ~/headscale]\&quot;&quot;
-</span><span data-line="37">2023-01-06T20:23:04-05:00 FTL github.com/juanfont/headscale/cmd/headscale/cli/root.go:43 &gt; Error loading config error=&quot;fatal error reading config file: Config File \&quot;config\&quot; Not Found in \&quot;[/etc/headscale ~/.headscale ~/headscale]\&quot;&quot;
+</span><span data-line="36">2023-01-06T20:23:04-05:00 WRN Failed to read configuration from disk error="Config File \"config\" Not Found in \"[/etc/headscale ~/.headscale ~/headscale]\""
+</span><span data-line="37">2023-01-06T20:23:04-05:00 FTL github.com/juanfont/headscale/cmd/headscale/cli/root.go:43 &gt; Error loading config error="fatal error reading config file: Config File \"config\" Not Found in \"[/etc/headscale ~/.headscale ~/headscale]\""
 </span></pre></div>
 </div>
 <p>Seems functional. I uploaded the binary to a cloud VM to set it as an external login server.
@@ -272,7 +272,7 @@ I tried <code class="docutils literal notranslate"><span class="pre">curl</span>
 <p>At this point, I realized that headscale is not at the stage where I want to entrust it with my private VPN.</p>
 </section>
 <section id="back-to-installing-tailscale">
-<h2>Back to installing Tailscale<a class="headerlink" href="#back-to-installing-tailscale" title="Link to this heading">¶</a></h2>
+<h2>Back to installing Tailscale<a class="headerlink" href="#back-to-installing-tailscale" title="Link to this heading">#</a></h2>
 <p>The free Tailscale account experience is an absolute delight.
 I added my cloud VM to the same account using <code class="docutils literal notranslate"><span class="pre">tailscale</span> <span class="pre">up</span></code> in a minute (after adding Tailscale’s repo following <a class="reference external" href="https://tailscale.com/kb/1039/install-ubuntu-2004/">these instructions</a>):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">tailscale</span>
@@ -283,7 +283,7 @@ I added my cloud VM to the same account using <code class="docutils literal notr
 I switched to this solution instead of a combination of Google Cloud Firewall Updater (<a class="reference external" href="https://github.com/peterdemin/gcpfwup">gcpfwup</a>) and ssh tunnel.</p>
 </section>
 <section id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">¶</a></h2>
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
 <p>Tailscale revolutionized the virtual private network setup.
 At least for a personal self-hosted home server setup.</p>
 <p>On the other hand, headscale’s user experience could be better at the moment (as of January 2023, version 0.17.1).</p>

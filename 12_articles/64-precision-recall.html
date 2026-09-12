@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -105,16 +105,16 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="precision-recall">
-<h1>Precision-Recall<a class="headerlink" href="#precision-recall" title="Link to this heading">¶</a></h1>
+<h1>Precision-Recall<a class="headerlink" href="#precision-recall" title="Link to this heading">#</a></h1>
 <section id="background">
-<h2>Background<a class="headerlink" href="#background" title="Link to this heading">¶</a></h2>
+<h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
 <p>I’m familiarizing myself with basic ML concept of Precision-Recall curve
 to build intuition around it.</p>
 <p>My source:
 <a class="reference external" href="https://scikit-learn.org/dev/auto_examples/model_selection/plot_precision_recall.html">https://scikit-learn.org/dev/auto_examples/model_selection/plot_precision_recall.html</a></p>
 </section>
 <section id="first-well-load-a-small-toy-dataset">
-<h2>First, we’ll load a small toy dataset<a class="headerlink" href="#first-well-load-a-small-toy-dataset" title="Link to this heading">¶</a></h2>
+<h2>First, we’ll load a small toy dataset<a class="headerlink" href="#first-well-load-a-small-toy-dataset" title="Link to this heading">#</a></h2>
 <p>Following the SciKit doc, we’ll use Iris (flower, not part of an eye, or
 godess).</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -134,7 +134,7 @@ godess).</p>
 </div>
 </section>
 <section id="mess-it-up">
-<h2>Mess it up<a class="headerlink" href="#mess-it-up" title="Link to this heading">¶</a></h2>
+<h2>Mess it up<a class="headerlink" href="#mess-it-up" title="Link to this heading">#</a></h2>
 <p>The dataset has 150 records, 4 floating-point flower properties (like
 length) for X, and specific flower species label for Y (0, 1, 2). There
 are 310 Iris species, but this small dataset has only 3. So, it’s kinda
@@ -580,7 +580,7 @@ more noise than signal. That will make model to sweat.</p>
 <p>100 rows × 404 columns</p>
 </div></section>
 <section id="split-to-train-and-test-data">
-<h2>Split to train and test data<a class="headerlink" href="#split-to-train-and-test-data" title="Link to this heading">¶</a></h2>
+<h2>Split to train and test data<a class="headerlink" href="#split-to-train-and-test-data" title="Link to this heading">#</a></h2>
 <p>Because we’re such great data scientists, we can’t even think about
 testing the model on training data even for educational purposes.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
@@ -592,15 +592,15 @@ testing the model on training data even for educational purposes.</p>
 </div>
 </section>
 <section id="boom-weve-got-a-binary-classifier-model">
-<h2>Boom, we’ve got a binary classifier model<a class="headerlink" href="#boom-weve-got-a-binary-classifier-model" title="Link to this heading">¶</a></h2>
+<h2>Boom, we’ve got a binary classifier model<a class="headerlink" href="#boom-weve-got-a-binary-classifier-model" title="Link to this heading">#</a></h2>
 <p>We trained it to predict the likelyhood of smoking pile of garbage being
 Iris flower of species number 1. For whatever <code class="docutils literal notranslate"><span class="pre">4</span> <span class="pre">+</span> <span class="pre">40800</span></code> floats we
 throw in, the model returns a <em>score</em> of how likely the label is 1.
 Let’s take a look at the test output.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">y_score</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">decision_function</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 </span><span data-line="2"><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({</span>
-</span><span data-line="3">    <span class="s1">&#39;$Y_</span><span class="si">{score}</span><span class="s1">$&#39;</span><span class="p">:</span> <span class="n">y_score</span><span class="p">,</span>
-</span><span data-line="4">    <span class="s1">&#39;$Y_</span><span class="si">{true}</span><span class="s1">$&#39;</span><span class="p">:</span> <span class="n">y_test</span><span class="p">,</span>
+</span><span data-line="3">    <span class="s1">'$Y_</span><span class="si">{score}</span><span class="s1">$'</span><span class="p">:</span> <span class="n">y_score</span><span class="p">,</span>
+</span><span data-line="4">    <span class="s1">'$Y_</span><span class="si">{true}</span><span class="s1">$'</span><span class="p">:</span> <span class="n">y_test</span><span class="p">,</span>
 </span><span data-line="5"><span class="p">})</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
 </span></pre></div>
 </div>
@@ -613,14 +613,14 @@ there is a correlation. Ok, that might be not the best way to present
 this data. How about we plot only scores, and paint it red for label 1
 and blue for label 0.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({</span>
-</span><span data-line="2">    <span class="s1">&#39;$Y_</span><span class="si">{score}</span><span class="s1">$&#39;</span><span class="p">:</span> <span class="n">y_score</span><span class="p">,</span>
-</span><span data-line="3">    <span class="s1">&#39;$Y_</span><span class="si">{true}</span><span class="s1">$&#39;</span><span class="p">:</span> <span class="n">y_test</span><span class="p">,</span>
+</span><span data-line="2">    <span class="s1">'$Y_</span><span class="si">{score}</span><span class="s1">$'</span><span class="p">:</span> <span class="n">y_score</span><span class="p">,</span>
+</span><span data-line="3">    <span class="s1">'$Y_</span><span class="si">{true}</span><span class="s1">$'</span><span class="p">:</span> <span class="n">y_test</span><span class="p">,</span>
 </span><span data-line="4"><span class="p">})</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-</span><span data-line="5">    <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span>
-</span><span data-line="6">    <span class="n">x</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">,</span>
-</span><span data-line="7">    <span class="n">y</span><span class="o">=</span><span class="s1">&#39;$Y_</span><span class="si">{score}</span><span class="s1">$&#39;</span><span class="p">,</span>
-</span><span data-line="8">    <span class="n">c</span><span class="o">=</span><span class="s1">&#39;$Y_</span><span class="si">{true}</span><span class="s1">$&#39;</span><span class="p">,</span>
-</span><span data-line="9">    <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;bwr&#39;</span><span class="p">,</span>
+</span><span data-line="5">    <span class="n">kind</span><span class="o">=</span><span class="s1">'scatter'</span><span class="p">,</span>
+</span><span data-line="6">    <span class="n">x</span><span class="o">=</span><span class="s1">'index'</span><span class="p">,</span>
+</span><span data-line="7">    <span class="n">y</span><span class="o">=</span><span class="s1">'$Y_</span><span class="si">{score}</span><span class="s1">$'</span><span class="p">,</span>
+</span><span data-line="8">    <span class="n">c</span><span class="o">=</span><span class="s1">'$Y_</span><span class="si">{true}</span><span class="s1">$'</span><span class="p">,</span>
+</span><span data-line="9">    <span class="n">colormap</span><span class="o">=</span><span class="s1">'bwr'</span><span class="p">,</span>
 </span><span data-line="10"><span class="p">);</span>
 </span></pre></div>
 </div>
@@ -632,12 +632,12 @@ With the threshold, we’ll be able to say, okay, everything above this
 magical number has label 1.</p>
 </section>
 <section id="lets-build-some-curves">
-<h2>Let’s build some curves<a class="headerlink" href="#lets-build-some-curves" title="Link to this heading">¶</a></h2>
+<h2>Let’s build some curves<a class="headerlink" href="#lets-build-some-curves" title="Link to this heading">#</a></h2>
 <p>Scikit learn provides handy implementation for drawing the P/R curve,
 let’s take a look, so we know what good looks like.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">display</span> <span class="o">=</span> <span class="n">PrecisionRecallDisplay</span><span class="o">.</span><span class="n">from_predictions</span><span class="p">(</span>
-</span><span data-line="2">    <span class="n">y_test</span><span class="p">,</span> <span class="n">y_score</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;LinearSVC&quot;</span><span class="p">,</span> <span class="n">plot_chance_level</span><span class="o">=</span><span class="kc">True</span>
-</span><span data-line="3"><span class="p">)</span><span class="o">.</span><span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;2-class Precision-Recall curve&quot;</span><span class="p">)</span>
+</span><span data-line="2">    <span class="n">y_test</span><span class="p">,</span> <span class="n">y_score</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"LinearSVC"</span><span class="p">,</span> <span class="n">plot_chance_level</span><span class="o">=</span><span class="kc">True</span>
+</span><span data-line="3"><span class="p">)</span><span class="o">.</span><span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"2-class Precision-Recall curve"</span><span class="p">)</span>
 </span></pre></div>
 </div>
 <img alt="../_images/12.64_15_0.png" src="../_images/12.64_15_0.png" />
@@ -646,13 +646,13 @@ the time it goes up. Definitely tells me a lot about the quality of this
 model (it doesn’t).</p>
 </section>
 <section id="lets-get-under-the-hood">
-<h2>Let’s get under the hood<a class="headerlink" href="#lets-get-under-the-hood" title="Link to this heading">¶</a></h2>
+<h2>Let’s get under the hood<a class="headerlink" href="#lets-get-under-the-hood" title="Link to this heading">#</a></h2>
 <p>First, we’ll sort the “true” labels (y_test) and the predicted scores
 (y_score) together by score.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">score_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">y_score</span><span class="p">)</span>
 </span><span data-line="2"><span class="n">sy_score</span> <span class="o">=</span> <span class="n">y_score</span><span class="p">[</span><span class="n">score_indices</span><span class="p">]</span>
 </span><span data-line="3"><span class="n">sy_test</span> <span class="o">=</span> <span class="n">y_test</span><span class="p">[</span><span class="n">score_indices</span><span class="p">]</span>
-</span><span data-line="4"><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({</span><span class="s1">&#39;$Y_</span><span class="si">{true}</span><span class="s1">$&#39;</span><span class="p">:</span> <span class="n">sy_test</span><span class="p">,</span> <span class="s1">&#39;$Y_</span><span class="si">{score}</span><span class="s1">$&#39;</span><span class="p">:</span> <span class="n">sy_score</span><span class="p">})</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+</span><span data-line="4"><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({</span><span class="s1">'$Y_</span><span class="si">{true}</span><span class="s1">$'</span><span class="p">:</span> <span class="n">sy_test</span><span class="p">,</span> <span class="s1">'$Y_</span><span class="si">{score}</span><span class="s1">$'</span><span class="p">:</span> <span class="n">sy_score</span><span class="p">})</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
 </span></pre></div>
 </div>
 <img alt="../_images/12.64_17_0.png" src="../_images/12.64_17_0.png" />
@@ -660,9 +660,9 @@ model (it doesn’t).</p>
 range, while y_true jumps up and down like crazy. But if we squeeze hard
 enough, we’ll see that we have more 1’s on the right side. Actually,
 let’s do that color trick again.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="p">(</span><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({</span><span class="s1">&#39;$Y_</span><span class="si">{score}</span><span class="s1">$&#39;</span><span class="p">:</span> <span class="n">sy_score</span><span class="p">,</span> <span class="s1">&#39;$Y_</span><span class="si">{true}</span><span class="s1">$&#39;</span><span class="p">:</span> <span class="n">sy_test</span><span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="p">(</span><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({</span><span class="s1">'$Y_</span><span class="si">{score}</span><span class="s1">$'</span><span class="p">:</span> <span class="n">sy_score</span><span class="p">,</span> <span class="s1">'$Y_</span><span class="si">{true}</span><span class="s1">$'</span><span class="p">:</span> <span class="n">sy_test</span><span class="p">})</span>
 </span><span data-line="2">       <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-</span><span data-line="3">       <span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;$Y_</span><span class="si">{score}</span><span class="s1">$&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;$Y_</span><span class="si">{true}</span><span class="s1">$&#39;</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;bwr&#39;</span><span class="p">));</span>
+</span><span data-line="3">       <span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">'scatter'</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'index'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'$Y_</span><span class="si">{score}</span><span class="s1">$'</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'$Y_</span><span class="si">{true}</span><span class="s1">$'</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">'bwr'</span><span class="p">));</span>
 </span></pre></div>
 </div>
 <img alt="../_images/12.64_19_0.png" src="../_images/12.64_19_0.png" />
@@ -671,7 +671,7 @@ around 0, maybe 0.1. The P/R curve will help us pick the right number
 for we are the professionals and never eye-ball shit.</p>
 </section>
 <section id="precision-recall-and-threshold">
-<h2>Precision, recall, and threshold<a class="headerlink" href="#precision-recall-and-threshold" title="Link to this heading">¶</a></h2>
+<h2>Precision, recall, and threshold<a class="headerlink" href="#precision-recall-and-threshold" title="Link to this heading">#</a></h2>
 <p>Let’s use this handy function from scikit to compute precision, recall,
 and threshold. It takes <code class="docutils literal notranslate"><span class="pre">y_test</span></code> as <code class="docutils literal notranslate"><span class="pre">y_true</span></code> - the true test labels
 from the dataset, and <code class="docutils literal notranslate"><span class="pre">y_score</span></code> - the predicted score. It returns
@@ -700,7 +700,7 @@ of true positives divided by total number of true labels.</p></li>
 </ul>
 </section>
 <section id="english-please">
-<h2>English, please<a class="headerlink" href="#english-please" title="Link to this heading">¶</a></h2>
+<h2>English, please<a class="headerlink" href="#english-please" title="Link to this heading">#</a></h2>
 <p>We want to find a <em>threshold</em> such that any <code class="docutils literal notranslate"><span class="pre">y_score</span></code> above it means
 the label is 1. We saw that the prediction is not always accurate and
 the data is noisy, so we need to have a number. The number will tell us
@@ -726,7 +726,7 @@ nothing, never make mistakes. The recall is zero, though, as nothing is
 ever found.</p>
 </section>
 <section id="computation-details">
-<h2>Computation details<a class="headerlink" href="#computation-details" title="Link to this heading">¶</a></h2>
+<h2>Computation details<a class="headerlink" href="#computation-details" title="Link to this heading">#</a></h2>
 <p>We want is to calculate precision and recall for every possible score.
 But we can’t cover all possible numbers. Luckily, we don’t need to.
 Because our evaluation dataset is finite, and between the adjacent
@@ -762,7 +762,7 @@ positives, the recall is zero. At the end, when score threshold is at
 the lowest score, the recall is the number of <em>true positives</em> divided
 by the total number of points with label 1.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">precisions</span><span class="p">,</span> <span class="n">recalls</span><span class="p">,</span> <span class="n">thresholds</span> <span class="o">=</span> <span class="n">precision_recall_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_score</span><span class="p">)</span>
-</span><span data-line="2"><span class="n">thresholds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">thresholds</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;nan&#39;</span><span class="p">))</span>
+</span><span data-line="2"><span class="n">thresholds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">thresholds</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="s1">'nan'</span><span class="p">))</span>
 </span><span data-line="3"><span class="n">precisions</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">recalls</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">thresholds</span><span class="o">.</span><span class="n">shape</span>
 </span></pre></div>
 </div>
@@ -771,12 +771,12 @@ by the total number of points with label 1.</p>
 </div>
 </section>
 <section id="lets-take-a-look">
-<h2>Let’s take a look<a class="headerlink" href="#lets-take-a-look" title="Link to this heading">¶</a></h2>
+<h2>Let’s take a look<a class="headerlink" href="#lets-take-a-look" title="Link to this heading">#</a></h2>
 <p>Okay, that was all good knowledge, thank you very much, but can you show
 me some examples? How about we plot these 3 sequences against each
 other?</p>
 <p>First, all three lines on the same chart.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({</span><span class="s1">&#39;$Precision$&#39;</span><span class="p">:</span> <span class="n">precisions</span><span class="p">,</span> <span class="s1">&#39;$Recall$&#39;</span><span class="p">:</span> <span class="n">recalls</span><span class="p">,</span> <span class="s1">&#39;$Threshold$&#39;</span><span class="p">:</span> <span class="n">thresholds</span><span class="p">})</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({</span><span class="s1">'$Precision$'</span><span class="p">:</span> <span class="n">precisions</span><span class="p">,</span> <span class="s1">'$Recall$'</span><span class="p">:</span> <span class="n">recalls</span><span class="p">,</span> <span class="s1">'$Threshold$'</span><span class="p">:</span> <span class="n">thresholds</span><span class="p">})</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
 </span></pre></div>
 </div>
 <img alt="../_images/12.64_23_0.png" src="../_images/12.64_23_0.png" />
@@ -786,7 +786,7 @@ the precision starts somewhere around 0.5 and goes up (and sometimes
 down) to 1.0.</p>
 <p>How about we put recall as the X axis, and plot precision and thresholds
 as Y.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({</span><span class="s1">&#39;$Precision$&#39;</span><span class="p">:</span> <span class="n">precisions</span><span class="p">,</span> <span class="s1">&#39;$Recall$&#39;</span><span class="p">:</span> <span class="n">recalls</span><span class="p">,</span> <span class="s1">&#39;$Threshold$&#39;</span><span class="p">:</span> <span class="n">thresholds</span><span class="p">})</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;$Recall$&#39;</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({</span><span class="s1">'$Precision$'</span><span class="p">:</span> <span class="n">precisions</span><span class="p">,</span> <span class="s1">'$Recall$'</span><span class="p">:</span> <span class="n">recalls</span><span class="p">,</span> <span class="s1">'$Threshold$'</span><span class="p">:</span> <span class="n">thresholds</span><span class="p">})</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">'$Recall$'</span><span class="p">);</span>
 </span></pre></div>
 </div>
 <img alt="../_images/12.64_25_0.png" src="../_images/12.64_25_0.png" />
@@ -794,7 +794,7 @@ as Y.</p>
 are not as pronounced, but that’s fine.</p>
 <p>How about we go crazy and plot both precision and recall against the
 threshold?</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({</span><span class="s1">&#39;$Precision$&#39;</span><span class="p">:</span> <span class="n">precisions</span><span class="p">,</span> <span class="s1">&#39;$Recall$&#39;</span><span class="p">:</span> <span class="n">recalls</span><span class="p">,</span> <span class="s1">&#39;$Threshold$&#39;</span><span class="p">:</span> <span class="n">thresholds</span><span class="p">})</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;$Threshold$&#39;</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({</span><span class="s1">'$Precision$'</span><span class="p">:</span> <span class="n">precisions</span><span class="p">,</span> <span class="s1">'$Recall$'</span><span class="p">:</span> <span class="n">recalls</span><span class="p">,</span> <span class="s1">'$Threshold$'</span><span class="p">:</span> <span class="n">thresholds</span><span class="p">})</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">'$Threshold$'</span><span class="p">);</span>
 </span></pre></div>
 </div>
 <img alt="../_images/12.64_27_0.png" src="../_images/12.64_27_0.png" />

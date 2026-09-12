@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -98,9 +98,9 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="mutable-types-in-pydantic-default-values">
-<h1>Mutable types in Pydantic default values<a class="headerlink" href="#mutable-types-in-pydantic-default-values" title="Link to this heading">¶</a></h1>
+<h1>Mutable types in Pydantic default values<a class="headerlink" href="#mutable-types-in-pydantic-default-values" title="Link to this heading">#</a></h1>
 <section id="observation">
-<h2>Observation<a class="headerlink" href="#observation" title="Link to this heading">¶</a></h2>
+<h2>Observation<a class="headerlink" href="#observation" title="Link to this heading">#</a></h2>
 <p>When going through FastAPI documentation, one thing caught my eye and raised a wave of butthurt from the past.</p>
 <p><a class="reference external" href="https://fastapi.tiangolo.com/tutorial/path-operation-configuration/#summary-and-description">Path Operation Configuration</a> chapter references Pydantic model.
 In the model, it defines a <code class="docutils literal notranslate"><span class="pre">tags</span></code> field with a default set to an empty <code class="docutils literal notranslate"><span class="pre">set()</span></code>.</p>
@@ -123,7 +123,7 @@ Which means, that the same <code class="docutils literal notranslate"><span clas
 </span><span data-line="8">
 </span><span data-line="9"><span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">item2</span> <span class="o">=</span> <span class="n">Item</span><span class="p">()</span>
 </span><span data-line="10">
-</span><span data-line="11"><span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">item</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+</span><span data-line="11"><span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">item</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
 </span><span data-line="12">
 </span><span data-line="13"><span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">item2</span><span class="o">.</span><span class="n">tags</span>
 </span><span data-line="14"><span class="n">Out</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="nb">set</span><span class="p">()</span>
@@ -132,7 +132,7 @@ Which means, that the same <code class="docutils literal notranslate"><span clas
 <p>How’s that possible? The answer is, of course, inside of Pydantic internals.</p>
 </section>
 <section id="investigation">
-<h2>Investigation<a class="headerlink" href="#investigation" title="Link to this heading">¶</a></h2>
+<h2>Investigation<a class="headerlink" href="#investigation" title="Link to this heading">#</a></h2>
 <p>Here’s the implementation of <a class="reference external" href="https://github.com/pydantic/pydantic/blob/v2.4.2/pydantic/fields.py#L493-L511">FieldInfo.get_default</a> method:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_factory</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 </span><span data-line="2">    <span class="k">return</span> <span class="n">_utils</span><span class="o">.</span><span class="n">smart_deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default</span><span class="p">)</span>
@@ -145,17 +145,17 @@ Which means, that the same <code class="docutils literal notranslate"><span clas
 <p>We can see, that unless explicitely overriden, a field uses <code class="docutils literal notranslate"><span class="pre">smart_deepcopy</span></code> to provide a default value for the new instance.</p>
 <p>And here’s what <a class="reference external" href="https://github.com/pydantic/pydantic/blob/v2.4.2/pydantic/_internal/_utils.py#L301-L317">smart_deepcopy</a> does:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="k">def</span><span class="w"> </span><span class="nf">smart_deepcopy</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Obj</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Obj</span><span class="p">:</span>
-</span><span data-line="2"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return type as is for immutable built-in types</span>
+</span><span data-line="2"><span class="w">    </span><span class="sd">"""Return type as is for immutable built-in types</span>
 </span><span data-line="3"><span class="sd">    Use obj.copy() for built-in empty collections</span>
 </span><span data-line="4"><span class="sd">    Use copy.deepcopy() for non-empty collections and unknown objects.</span>
-</span><span data-line="5"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span data-line="5"><span class="sd">    """</span>
 </span><span data-line="6">    <span class="n">obj_type</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__class__</span>
 </span><span data-line="7">    <span class="k">if</span> <span class="n">obj_type</span> <span class="ow">in</span> <span class="n">IMMUTABLE_NON_COLLECTIONS_TYPES</span><span class="p">:</span>
 </span><span data-line="8">        <span class="k">return</span> <span class="n">obj</span>  <span class="c1"># fastest case: obj is immutable and not collection therefore will not be copied anyway</span>
 </span><span data-line="9">    <span class="k">try</span><span class="p">:</span>
 </span><span data-line="10">        <span class="k">if</span> <span class="ow">not</span> <span class="n">obj</span> <span class="ow">and</span> <span class="n">obj_type</span> <span class="ow">in</span> <span class="n">BUILTIN_COLLECTIONS</span><span class="p">:</span>
 </span><span data-line="11">            <span class="c1"># faster way for empty collections, no need to copy its members</span>
-</span><span data-line="12">            <span class="k">return</span> <span class="n">obj</span> <span class="k">if</span> <span class="n">obj_type</span> <span class="ow">is</span> <span class="nb">tuple</span> <span class="k">else</span> <span class="n">obj</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># tuple doesn&#39;t have copy method</span>
+</span><span data-line="12">            <span class="k">return</span> <span class="n">obj</span> <span class="k">if</span> <span class="n">obj_type</span> <span class="ow">is</span> <span class="nb">tuple</span> <span class="k">else</span> <span class="n">obj</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># tuple doesn't have copy method</span>
 </span><span data-line="13">    <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">):</span>
 </span><span data-line="14">        <span class="c1"># do we really dare to catch ALL errors? Seems a bit risky</span>
 </span><span data-line="15">        <span class="k">pass</span>
@@ -168,7 +168,7 @@ And it has a set of builtin collections that can be copied fast when empty.
 And for all the rest it’s using <code class="docutils literal notranslate"><span class="pre">deepcopy</span></code>.</p>
 </section>
 <section id="reflection">
-<h2>Reflection<a class="headerlink" href="#reflection" title="Link to this heading">¶</a></h2>
+<h2>Reflection<a class="headerlink" href="#reflection" title="Link to this heading">#</a></h2>
 <p>Pydantic models have a different implicit way of handling default values.
 Unlike Python, Pydantic favors correctness over performance.
 Arguably, Pydantic’s behavior is more forgiving for beginners.
@@ -180,7 +180,7 @@ everywhere outside of Pydantic fields definition.</p>
 <p>And for the experienced Python developers, this means increased <a class="reference internal" href="../17_notes/11-cognitive_load_is_what_matters.html"><span class="std std-doc">intrinsic cognitive load</span></a> to distinguish implicit behavior inside and outside of Pydantic.</p>
 </section>
 <section id="recommendation">
-<h2>Recommendation<a class="headerlink" href="#recommendation" title="Link to this heading">¶</a></h2>
+<h2>Recommendation<a class="headerlink" href="#recommendation" title="Link to this heading">#</a></h2>
 <p>When using mutable objects as Pydantic fields’ default value, use <code class="docutils literal notranslate"><span class="pre">default_factory</span></code> to highlight the dynamic nature of the object, and make the handling explicit.
 Example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>

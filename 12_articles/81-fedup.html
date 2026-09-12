@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -105,9 +105,9 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="fedup-minimal-federated-cdn">
-<h1>FedUp - Minimal Federated CDN<a class="headerlink" href="#fedup-minimal-federated-cdn" title="Link to this heading">¶</a></h1>
+<h1>FedUp - Minimal Federated CDN<a class="headerlink" href="#fedup-minimal-federated-cdn" title="Link to this heading">#</a></h1>
 <section id="foreword">
-<h2>Foreword<a class="headerlink" href="#foreword" title="Link to this heading">¶</a></h2>
+<h2>Foreword<a class="headerlink" href="#foreword" title="Link to this heading">#</a></h2>
 <p>This article is more of a thought experiment in the world of federation and decentralization.
 While many projects pursue social networks and instant messaging, I wanted to explore a simpler domain.
 Instead of a few dozens of RPC endpoints needed to implement Authenticated Transfer Protocol, I’ll have just two actions: upload the content, and serve it publicly.</p>
@@ -118,7 +118,7 @@ Instead of a few dozens of RPC endpoints needed to implement Authenticated Trans
 </ol>
 </section>
 <section id="high-level">
-<h2>High-level<a class="headerlink" href="#high-level" title="Link to this heading">¶</a></h2>
+<h2>High-level<a class="headerlink" href="#high-level" title="Link to this heading">#</a></h2>
 <p>FedUp is a federated CDN that operates within clusters of peers.
 Each peer serves content for every peer in the cluster.
 Cluster membership is defined by peers of the cluster.</p>
@@ -126,7 +126,7 @@ Cluster membership is defined by peers of the cluster.</p>
 <em>Hub</em> distributes the content to all other peers, that we’ll call <em>spokes</em>.</p>
 </section>
 <section id="less-high-level">
-<h2>Less-high level<a class="headerlink" href="#less-high-level" title="Link to this heading">¶</a></h2>
+<h2>Less-high level<a class="headerlink" href="#less-high-level" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p>Users install <code class="docutils literal notranslate"><span class="pre">fedup</span></code> binary on their machine.</p></li>
 <li><p>Configure <code class="docutils literal notranslate"><span class="pre">fedup</span></code> with cluster ID, machine’s IP address, and domain name.</p></li>
@@ -142,9 +142,9 @@ Cluster membership is defined by peers of the cluster.</p>
 </ol>
 </section>
 <section id="low-level">
-<h2>Low-level<a class="headerlink" href="#low-level" title="Link to this heading">¶</a></h2>
+<h2>Low-level<a class="headerlink" href="#low-level" title="Link to this heading">#</a></h2>
 <section id="node-initialization">
-<h3>Node initialization<a class="headerlink" href="#node-initialization" title="Link to this heading">¶</a></h3>
+<h3>Node initialization<a class="headerlink" href="#node-initialization" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">fedup</span></code> initialization has following steps:</p>
 <ol class="arabic simple">
 <li><p>Create hub user account and generate a hub’s private key.</p></li>
@@ -153,7 +153,7 @@ Cluster membership is defined by peers of the cluster.</p>
 </ol>
 </section>
 <section id="cluster-membership">
-<h3>Cluster membership<a class="headerlink" href="#cluster-membership" title="Link to this heading">¶</a></h3>
+<h3>Cluster membership<a class="headerlink" href="#cluster-membership" title="Link to this heading">#</a></h3>
 <p>Cluster ID is defined as a concatenation of peer domains using “<code class="docutils literal notranslate"><span class="pre">:</span></code>” as a separator,
 for example: <code class="docutils literal notranslate"><span class="pre">alice.com:bob.me:peter.demin.dev</span></code>.
 The order of peers doesn’t matter, neither is completeness of the list.
@@ -177,14 +177,14 @@ Announcement includes:</p>
 Domain’s owner can add a new spoke to his DNS records.</p>
 </section>
 <section id="https-certificates">
-<h3>HTTPS certificates<a class="headerlink" href="#https-certificates" title="Link to this heading">¶</a></h3>
+<h3>HTTPS certificates<a class="headerlink" href="#https-certificates" title="Link to this heading">#</a></h3>
 <p>Hub issues the certificates using DNS-01 challenge, and copies them to spokes.
 If using Let’s Encrypt this is either manual, or requires a Domain provider with API access.</p>
 <p>Or we figure out how to perform HTTP-01 with a short pause to distribute <code class="docutils literal notranslate"><span class="pre">.well-known/acme-challenge</span></code>.</p>
 <p>Copying certificates to spokes poses some security risk, but not more than trusting spokes to serve hub’s content.</p>
 </section>
 <section id="wiggle-room">
-<h3>Wiggle room<a class="headerlink" href="#wiggle-room" title="Link to this heading">¶</a></h3>
+<h3>Wiggle room<a class="headerlink" href="#wiggle-room" title="Link to this heading">#</a></h3>
 <p>I used specific products such as nginx, git, and Let’s Encrypt as examples, each part can be replaced.</p>
 <p>It doesn’t matter if content is served through Caddy, and files copied through <code class="docutils literal notranslate"><span class="pre">rsync</span></code>.</p>
 <p>Public IP addresses for SSH connections can be substituted with a VPN network.</p>
@@ -193,7 +193,7 @@ If the trust is broken, a bad node can be unfederated by deleting a directory an
 </section>
 </section>
 <section id="trust-and-security">
-<h2>Trust and Security<a class="headerlink" href="#trust-and-security" title="Link to this heading">¶</a></h2>
+<h2>Trust and Security<a class="headerlink" href="#trust-and-security" title="Link to this heading">#</a></h2>
 <p>If a node is compromised, the blast radius is three-fold:</p>
 <ol class="arabic simple">
 <li><p>Peer websites served through the IP address of the compromised node contain malicious content.</p></li>

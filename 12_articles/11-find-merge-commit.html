@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -95,7 +95,7 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="how-to-find-merge-commit-which-includes-a-specific-commit">
-<h1>How to find merge commit which includes a specific commit<a class="headerlink" href="#how-to-find-merge-commit-which-includes-a-specific-commit" title="Link to this heading">¶</a></h1>
+<h1>How to find merge commit which includes a specific commit<a class="headerlink" href="#how-to-find-merge-commit-which-includes-a-specific-commit" title="Link to this heading">#</a></h1>
 <blockquote>
 <div><p>TL;DR in the end you can find git alias config, that will just do the thing.</p>
 </div></blockquote>
@@ -208,11 +208,11 @@ After numeric sort:</p>
 </span></pre></div>
 </div>
 <section id="scripting-the-solution">
-<h2>Scripting the solution<a class="headerlink" href="#scripting-the-solution" title="Link to this heading">¶</a></h2>
+<h2>Scripting the solution<a class="headerlink" href="#scripting-the-solution" title="Link to this heading">#</a></h2>
 <p>Add these lines to your git config file (user specific <code class="docutils literal notranslate"><span class="pre">~/.gitconfig</span></code> or repo specific <code class="docutils literal notranslate"><span class="pre">.git/config</span></code>):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="p">[</span><span class="n">alias</span><span class="p">]</span>
-</span><span data-line="2">    <span class="n">find</span><span class="o">-</span><span class="n">merge</span> <span class="o">=</span> <span class="s2">&quot;!sh -c &#39;commit=$0 &amp;&amp; branch=${1:-HEAD} &amp;&amp; (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2&#39;&quot;</span>
-</span><span data-line="3">    <span class="n">show</span><span class="o">-</span><span class="n">merge</span> <span class="o">=</span> <span class="s2">&quot;!sh -c &#39;merge=$(git find-merge $0 $1) &amp;&amp; [ -n </span><span class="se">\&quot;</span><span class="s2">$merge</span><span class="se">\&quot;</span><span class="s2"> ] &amp;&amp; git show $merge&#39;&quot;</span>
+</span><span data-line="2">    <span class="n">find</span><span class="o">-</span><span class="n">merge</span> <span class="o">=</span> <span class="s2">"!sh -c 'commit=$0 &amp;&amp; branch=${1:-HEAD} &amp;&amp; (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"</span>
+</span><span data-line="3">    <span class="n">show</span><span class="o">-</span><span class="n">merge</span> <span class="o">=</span> <span class="s2">"!sh -c 'merge=$(git find-merge $0 $1) &amp;&amp; [ -n </span><span class="se">\"</span><span class="s2">$merge</span><span class="se">\"</span><span class="s2"> ] &amp;&amp; git show $merge'"</span>
 </span></pre></div>
 </div>
 <p>Credits to <a class="reference external" href="https://stackoverflow.com/users/305973/robinst">Robin Stocker</a> who came up with the solution in <a class="reference external" href="https://stackoverflow.com/a/30998048/135079">this StackOverflow question</a></p>

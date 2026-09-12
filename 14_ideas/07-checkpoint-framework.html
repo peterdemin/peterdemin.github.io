@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
@@ -107,11 +107,11 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="checkpoint-framework">
-<h1>Checkpoint framework<a class="headerlink" href="#checkpoint-framework" title="Link to this heading">¶</a></h1>
+<h1>Checkpoint framework<a class="headerlink" href="#checkpoint-framework" title="Link to this heading">#</a></h1>
 <section id="idea">
-<h2>Idea<a class="headerlink" href="#idea" title="Link to this heading">¶</a></h2>
+<h2>Idea<a class="headerlink" href="#idea" title="Link to this heading">#</a></h2>
 <section id="context">
-<h3>Context<a class="headerlink" href="#context" title="Link to this heading">¶</a></h3>
+<h3>Context<a class="headerlink" href="#context" title="Link to this heading">#</a></h3>
 <p>In service-oriented architecture one user action (or scenario)
 involves services calling other services, creating a tree of calls.
 It’s hard to tell what are the exact inputs and output for each call
@@ -127,13 +127,13 @@ not what they need to know.
 This knowledge lives in documentation and heads of people who built the system.</p>
 </section>
 <section id="problem">
-<h3>Problem<a class="headerlink" href="#problem" title="Link to this heading">¶</a></h3>
+<h3>Problem<a class="headerlink" href="#problem" title="Link to this heading">#</a></h3>
 <p>When looking at underdocumented untested component,
 it’s sometimes hard to tell what are the example inputs and expected outputs.
 Component here means an API, a class, or a function.</p>
 </section>
 <section id="solution">
-<h3>Solution<a class="headerlink" href="#solution" title="Link to this heading">¶</a></h3>
+<h3>Solution<a class="headerlink" href="#solution" title="Link to this heading">#</a></h3>
 <p>Have checkpoint annotations throughout the code, that record inputs and outputs of the components.
 The checkpoint system runs more or less fixed set of scenarios, and records data as it passes through each checkpoint.
 The recorded data is made available to the code as static test assets.</p>
@@ -142,7 +142,7 @@ Developers add new scenarios to cover new features.
 When the inputs or outputs of the existing checkpoint change, the test assets are automatically updated, and the developers are alerted about the change (along with the result of the test run).</p>
 </section>
 <section id="design">
-<h3>Design<a class="headerlink" href="#design" title="Link to this heading">¶</a></h3>
+<h3>Design<a class="headerlink" href="#design" title="Link to this heading">#</a></h3>
 <p>The checkpoint service has two parts:</p>
 <ol class="arabic simple">
 <li><p>Ingestion API, that receives checkpoint data from product components, and stores them to a database.</p></li>
@@ -160,7 +160,7 @@ The library has a few parts:</p>
 </ol>
 </section>
 <section id="similarity-with-open-telemetry">
-<h3>Similarity with Open Telemetry<a class="headerlink" href="#similarity-with-open-telemetry" title="Link to this heading">¶</a></h3>
+<h3>Similarity with Open Telemetry<a class="headerlink" href="#similarity-with-open-telemetry" title="Link to this heading">#</a></h3>
 <p><a class="reference external" href="https://opentelemetry.io/docs/what-is-opentelemetry/">Open Telemetry</a> provides similar functionality but with a different focus.
 It captures performance metrics while having limited payload.
 The purpose is to provide visibilty into the production runtime.</p>
@@ -169,7 +169,7 @@ only recording complete data flow in a more focused setting.
 The performance is not critical during the recording sessions.</p>
 </section>
 <section id="similarity-with-vcr-like-test-libraries">
-<h3>Similarity with VCR-like test libraries<a class="headerlink" href="#similarity-with-vcr-like-test-libraries" title="Link to this heading">¶</a></h3>
+<h3>Similarity with VCR-like test libraries<a class="headerlink" href="#similarity-with-vcr-like-test-libraries" title="Link to this heading">#</a></h3>
 <p><a class="reference external" href="https://vcrpy.readthedocs.io/en/latest/">VCR.py</a> partially implements the checkpoint system,
 but lacks cross-service interactions.
 Focusing on the outbound calls, it helps with canning integration tests, improving reliability.
@@ -177,13 +177,13 @@ It also helps with catching a drift in external API output.
 The test assets also serve as a documentation for the parts of code that a paricularly opaque in what passes through them.</p>
 </section>
 <section id="contract-testing-aspect">
-<h3>Contract testing aspect<a class="headerlink" href="#contract-testing-aspect" title="Link to this heading">¶</a></h3>
+<h3>Contract testing aspect<a class="headerlink" href="#contract-testing-aspect" title="Link to this heading">#</a></h3>
 <p>Contract testing is a related concept, that uses the recorded API calls, and allows isolated testing of cross-service interactions.
 It doesn’t define the process of acquiring the test assets, and catching the drift, though.</p>
 </section>
 </section>
 <section id="limitations">
-<h2>Limitations<a class="headerlink" href="#limitations" title="Link to this heading">¶</a></h2>
+<h2>Limitations<a class="headerlink" href="#limitations" title="Link to this heading">#</a></h2>
 <p>After trying to apply checkpoint framework prototype to a big and messy project, I discovered a few setbacks.
 The common issue for all of them was non-determinism.
 The same HTTP request produces different result when repeated, or executed on the next day.
@@ -201,7 +201,7 @@ It seems that for the persistence layer, database fixtures is a better approach.
 However, generating such fixtures for each recording is a separate challenge.</p>
 </section>
 <section id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">¶</a></h2>
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
 <p>The checkpoint framework is currently on pause until I find a project where it’s useful.</p>
 <p>In high-quality codebases, using checkpoint framework might not bring much value, because you can test everything without adding another layer of abstraction.
 In messed up projects, adding checkpoints is a lot of work.
@@ -209,7 +209,7 @@ Probably more than ever was put into code quality.
 So, might not be a good fit either.</p>
 </section>
 <section id="links">
-<h2>Links<a class="headerlink" href="#links" title="Link to this heading">¶</a></h2>
+<h2>Links<a class="headerlink" href="#links" title="Link to this heading">#</a></h2>
 <p>Few projects I found while researching ideas for the checkpoint framework:</p>
 <ol class="arabic simple">
 <li><p>https://docs.pact.io - Contract testing for HTTP and message integrations.</p></li>
