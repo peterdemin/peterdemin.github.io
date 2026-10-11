@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Pull a soft flag, feel its stretch limit, and release it in lunar gravity. A cloth-mechanics companion to The Physics of a Fixed Sail.">
+  <title>A stretchy flag on the Moon</title>
+  <script>
+    if (new URLSearchParams(location.search).get('embedded') === '1') document.documentElement.classList.add('embedded');
+  </script>
+  <style>
+    :root{color-scheme:dark;font-family:system-ui,-apple-system,sans-serif;background:#10151d;color:#edf1f4}*{box-sizing:border-box}body{margin:0}main{max-width:1120px;margin:auto;padding:28px 28px 20px}.eyebrow{color:#a8b9c5;text-transform:uppercase;letter-spacing:.16em;font-size:11px}h1{font-weight:550;font-size:clamp(26px,4vw,40px);letter-spacing:-.045em;margin:10px 0}header p{color:#bdc8ce;line-height:1.6;margin:10px 0 18px;max-width:740px}.stage{position:relative;background:#080d15;border:1px solid #34414c;border-radius:14px;overflow:hidden;height:min(65vh,620px);min-height:400px}canvas{width:100%;height:100%;display:block;touch-action:none}#handle{position:absolute;width:46px;height:46px;padding:0;border:2px solid #fff0b2;border-radius:50%;background:#f7c97126;transform:translate(-50%,-50%);cursor:grab;touch-action:none;box-shadow:0 0 0 5px #ffd27012,0 0 24px #edc76a35}#handle:before{content:'';position:absolute;inset:14px;border-radius:50%;background:#ffe6a0;box-shadow:0 0 12px #ffd373}#handle:focus-visible{outline:3px solid #a0e4ff;outline-offset:6px}#handle.dragging{cursor:grabbing;background:#f7c97144}#handle-label{position:absolute;pointer-events:none;color:#fff0c9;font-size:12px;white-space:nowrap;transform:translate(0,-50%);text-shadow:0 2px 4px #080d15}.scene-note{position:absolute;left:18px;bottom:16px;color:#97a8b8;font-size:12px;pointer-events:none}.scene-note strong{display:block;font-weight:500;color:#ccd8df;margin-bottom:4px}.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:16px 0}button.control{font:inherit;color:#e4edf2;background:#1c2835;border:1px solid #4c5f6d;padding:10px 16px;border-radius:7px;cursor:pointer}button.control:hover{background:#2b3d4e}button:focus-visible,a:focus-visible{outline:3px solid #a0e4ff;outline-offset:3px}#status{color:#e9d59e;font-size:14px;margin-left:8px;min-width:160px}#stretch{margin-left:auto;font-size:13px;color:#a8c8cf;font-variant-numeric:tabular-nums}.guidance{font-size:13px;color:#bcc9d0;line-height:1.65;margin:6px 0 20px}details{border-top:1px solid #34414c;padding-top:15px;font-size:13px;color:#b3c3ce;line-height:1.65}summary{cursor:pointer;color:#deebf1}details p{max-width:850px}a{color:#a5def0}#error{position:absolute;inset:0;background:#10151dee;display:none;align-items:center;justify-content:center;padding:32px;color:#f1c5a5}footer{font-size:12px;color:#7f96a6;margin-top:20px}@media(max-width:600px){main{padding:20px 14px}.stage{height:58vh;min-height:360px}.scene-note{left:12px;bottom:12px;font-size:11px}#stretch{width:100%;margin:0}#status{font-size:12px;margin-left:0}#handle-label{font-size:11px}}
+  </style>
+  <style>
+    html.embedded{background:var(--book-background,#fdf6e3);color:var(--book-text,#657b83);font-family:var(--book-font,system-ui,sans-serif);color-scheme:light dark}
+    .embedded main{max-width:none;margin:0;padding:0}
+    .embedded header,.embedded .guidance,.embedded details,.embedded footer{display:none}
+    .embedded .stage{height:440px;min-height:0;border-radius:6px;border-color:var(--book-border,#93a1a1)}
+    .embedded .toolbar{margin:12px 0 0;gap:10px}
+    .embedded button.control{color:var(--book-text,#657b83);background:transparent;border-color:var(--book-border,#93a1a1)}
+    .embedded button.control:hover{background:var(--book-button-hover,#eee8d5)}
+    .embedded #status,.embedded #stretch{color:var(--book-text,#657b83)}
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="eyebrow">Cloth mechanics · an interactive experiment</div>
+      <h1>A stretchy flag on the Moon</h1>
+      <p>Grab the glowing top-right corner. Pull it away from the pole to stretch the cloth, then let go. Nothing blows it around: only your hand, the cloth, and lunar gravity.</p>
+    </header>
+    <section class="stage" aria-label="Fixed frontal view of an elastic flag on a vertical pole">
+      <canvas id="scene" aria-label="Lit three-dimensional cloth with a fixed left edge">JavaScript and WebGL are needed for the cloth experiment.</canvas>
+      <button id="handle" aria-label="Grab the flag's top-right corner. Drag to stretch; release to let it fall. With keyboard, press Space to grab or release, then use arrow keys." aria-pressed="true"></button>
+      <span id="handle-label">drag this corner</span>
+      <div class="scene-note"><strong>Left edge fixed · front camera fixed</strong>Moon gravity: 1.62 m/s² · no wind or air drag</div>
+      <div id="error" role="alert"></div>
+    </section>
+    <div class="toolbar">
+      <button class="control" id="release">Let go</button>
+      <button class="control" id="reset">Reset flag</button>
+      <span id="status" role="status" aria-live="polite">Corner held, ready to pull</span>
+      <output id="stretch" aria-label="Largest local link extension">Local stretch: 0%</output>
+    </div>
+    <p class="guidance">The cloth is deliberately soft. At its teaching limit it stops extending rather than tearing. Try pulling outward, then down or up. Touch works too. Keyboard: focus the corner, Space to grab or release, arrows to pull. Escape lets go.</p>
+    <details>
+      <summary>What is being modeled?</summary>
+      <p>A 2.4 × 1.4 m elastic sheet is attached only along its left edge. A temporary hand holds the top-right corner on reset. A mesh of moving mass points resists length changes, diagonal shear, and changes of tangent direction between neighboring patches. Its positions are computed from forces and compliant constraints, not prescribed falling or waving paths. Lighting follows the changing surface normals. A small initial out-of-plane nudge allows bending to develop without an artificial perfectly planar symmetry.</p>
+      <p>Extension links use 35 N/m and diagonal shear links 0.35 N/m: intentionally soft teaching choices, not chapter one's continuum stiffnesses or measured sailcloth. A separate inequality caps each link at 1.55 times its original length (55% local extension). The hand is bounded to a feasible region and moves gradually; a step that fails the limit is rejected. This nonlinear limiting rule is an addition to the article's linear membrane energy, which has <em>no inherent maximum extension</em>. Real fabric can tear; this model's unbreakable cap is not a claim about it.</p>
+      <p>Bending uses a quadratic penalty on changes of neighboring tangent vectors, solved with the same compliant method. Its coefficient is 2 N/m, reduced from 80 N/m so it no longer props up the sheet like a plate. This smooths curvature but also resists nonuniform stretching; it is a discrete regularizer, not a calibrated shell law. The chosen grid has 375 nodes and 672 triangles. Reduced numerical/material-like damping (0.35 per second) removes energy for usable settling; it is not air resistance in a vacuum. Self-contact, tearing, contact with the pole or ground, and measured material behavior are not modeled. Overlaps are possible, and settling time is illustrative.</p>
+      <p>Gravity is based on <a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html">NASA's Moon Fact Sheet</a>. The compliant solver follows <a href="https://matthias-research.github.io/pages/publications/XPBD.pdf">extended position-based dynamics</a>. All other material parameters are deliberate demonstration choices.</p>
+    </details>
+    <footer>Read <a href="../../12_articles/87-sail-physics/02-moon-flag.html">Chapter 2: Pull and release a flag on the Moon</a>.</footer>
+  </main>
+  <script src="bundle.js"></script>
+  <noscript><p>This experiment needs JavaScript. Its model and limitations are described above.</p></noscript>
+</body>
+</html>
