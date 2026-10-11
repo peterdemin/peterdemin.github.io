@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Loads change shape, and supports close the load path - Peter Demin</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Turning the coupled problem into a numerical calculation" href="05-coupled-numerics.html" /><link rel="prev" title="Airflow model" href="03-airflow.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=51f15f49" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Loads change shape, and supports close the load path"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#from-air-motion-to-surface-force">From air motion to surface force</a></li>
+<li><a class="reference internal" href="#summing-loads-over-the-cloth">Summing loads over the cloth</a></li>
+<li><a class="reference internal" href="#what-accelerates-a-cloth-patch">What accelerates a cloth patch?</a></li>
+<li><a class="reference internal" href="#where-does-the-internal-elastic-force-come-from">Where does the internal elastic force come from?</a></li>
+<li><a class="reference internal" href="#why-the-supports-matter">Why the supports matter</a></li>
+<li><a class="reference internal" href="#lift-and-drag-are-a-way-of-describing-the-same-force">Lift and drag are a way of describing the same force</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
+    
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../87-sail-physics.html"><span itemprop="name">Sail Simulation</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Loads change shape, and supports close the load path</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="loads-change-shape-and-supports-close-the-load-path">
+<h1>Loads change shape, and supports close the load path<a class="headerlink" href="#loads-change-shape-and-supports-close-the-load-path" title="Link to this heading">#</a></h1>
+<p>Imagine pressure on one face exceeding the other by 10 Pa. On a small
+0.10 m² patch, a uniform difference would push with 1 N perpendicular to
+the cloth. This is an illustrative load, not measured sail pressure.
+Air friction can also exert force along the patch.</p>
+<section id="from-air-motion-to-surface-force">
+<h2>From air motion to surface force<a class="headerlink" href="#from-air-motion-to-surface-force" title="Link to this heading">#</a></h2>
+<p>A <strong>normal</strong> points perpendicular to a surface; a <strong>tangent</strong> runs along it.
+Let <span class="math notranslate nohighlight">\(\mathbf{n}\)</span> be a unit normal, a dimensionless vector of length
+one. Label the face it points toward “plus” and the other “minus.”
+These labels are not automatically high- and low-pressure faces.</p>
+<p>Use <span class="math notranslate nohighlight">\(p\)</span> for air pressure (Pa), <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> for air velocity
+(m/s), and <span class="math notranslate nohighlight">\(\eta\)</span> for dynamic viscosity (Pa s), as in Chapter 3.
+Choose <span class="math notranslate nohighlight">\(\eta=1.8\times10^{-5}\)</span> Pa s only for illustrative calculations.</p>
+<p>A <strong>stress tensor</strong>, written <span class="math notranslate nohighlight">\(\boldsymbol{\sigma}\)</span>, is a table of
+nine numbers organizing force per area in different directions on differently
+oriented surfaces. It has units Pa. The table times a unit
+normal gives a force-per-area vector.</p>
+<p>Before its equation, <span class="math notranslate nohighlight">\(\mathbf{I}\)</span> is the identity table, which leaves
+a vector unchanged when multiplied by it. <span class="math notranslate nohighlight">\(\nabla\mathbf{u}\)</span> is the
+table of spatial rates of velocity change (1/s).
+A superscript <span class="math notranslate nohighlight">\(T\)</span> means transpose, swapping rows and columns.
+Adding the table to its transpose selects deformation, rather than a simple
+turning of the whole air parcel. For incompressible Newtonian air,</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\boldsymbol{\sigma}
+=-p\mathbf{I}+\eta\left[\nabla\mathbf{u}
++(\nabla\mathbf{u})^T\right].\]</div>
+</div>
+<p>The first term is compressive pressure; the second is viscous stress.
+Their derivation and the force-per-area rule are in
+<a class="reference external" href="https://ocw.mit.edu/courses/18-354j-nonlinear-dynamics-ii-continuum-systems-spring-2015/6f1477ffaa90b8c93556120294eecd64_MIT18_354JS15_Ch13.pdf#page=1">MIT’s stress and viscosity notes</a>,
+equations (338)–(345). Our formula includes pressure as well as viscosity.</p>
+<p>Write <span class="math notranslate nohighlight">\(\boldsymbol{\sigma}^{+},\boldsymbol{\sigma}^{-}\)</span> for stress
+on the two faces and <span class="math notranslate nohighlight">\(p^{+},p^{-}\)</span> for their pressures. Superscripts
+here label faces, not powers. Let <span class="math notranslate nohighlight">\(\mathbf{q}\)</span> be the net air force
+per current cloth area (N/m²).
+The air on the plus face acts through the direction <span class="math notranslate nohighlight">\(\mathbf{n}\)</span>;
+the minus-face direction is its negative. Summing these forces gives</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\mathbf{q}=(\boldsymbol{\sigma}^{+}
+-\boldsymbol{\sigma}^{-})\mathbf{n}.\]</div>
+</div>
+<p>Without viscous stress, this reduces to pressure alone:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\mathbf{q}=(p^{-}-p^{+})\mathbf{n}.\]</div>
+</div>
+<p>Higher minus-face pressure pushes toward the plus face, as in our example.
+Reversing the labels reverses the normal too, leaving the physical force
+unchanged. This sign follows from the two face forces; it is not an extra
+empirical law.</p>
+</section>
+<section id="summing-loads-over-the-cloth">
+<h2>Summing loads over the cloth<a class="headerlink" href="#summing-loads-over-the-cloth" title="Link to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(S\)</span> be the current cloth surface and <span class="math notranslate nohighlight">\(dA\)</span> an arbitrarily
+small patch of its current area (m²). Unlike Chapter 1’s original area
+<span class="math notranslate nohighlight">\(dA_0\)</span>, this area can change when cloth stretches.
+Let <span class="math notranslate nohighlight">\(\mathbf{F}\)</span> be the whole sail’s air force (N). An integral adds patch forces:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\mathbf{F}=\int_S\mathbf{q}\,dA.\]</div>
+</div>
+<p>For a uniform flat patch this is just force per area times area. For a curved
+sail the force direction varies, so the vector contributions must be added,
+not just their positive magnitudes.</p>
+</section>
+<section id="what-accelerates-a-cloth-patch">
+<h2>What accelerates a cloth patch?<a class="headerlink" href="#what-accelerates-a-cloth-patch" title="Link to this heading">#</a></h2>
+<p><strong>Inertia</strong> is the resistance of mass to acceleration. Newton’s law is force
+equals mass times acceleration, not force equals velocity.
+To account for cloth mass, use original area as in Chapter 1.</p>
+<p>Before the next equation, define:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mu_0\)</span>: mass per original area, 0.22 kg/m² in our example.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{r}\)</span>: a cloth point’s current position (m).
+<span class="math notranslate nohighlight">\(d^2\mathbf{r}/dt^2\)</span> is its acceleration (m/s²), following the
+same point; it means take its time derivative twice.</p></li>
+<li><p><span class="math notranslate nohighlight">\(J=dA/dA_0\)</span>: dimensionless local area ratio. A patch changing from
+0.10 to 0.11 m² has <span class="math notranslate nohighlight">\(J=1.10\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{f}\)</span>: internal elastic force per original area (N/m²),
+transmitted by neighboring cloth.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{f}_d\)</span>: force per original area associated with physical
+energy loss (N/m²); the subscript names dissipation, conversion of
+mechanical energy to heat or other untracked forms.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{g}\)</span>: gravity, choose (0, −9.81, 0) m/s².</p></li>
+</ul>
+<p>Then the patch balance is</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\mu_0\frac{d^2\mathbf{r}}{dt^2}
+=\mathbf{f}+J\mathbf{q}+\mu_0\mathbf{g}+\mathbf{f}_d.\]</div>
+</div>
+<p>Every term is force per original area, in N/m².
+The factor <span class="math notranslate nohighlight">\(J\)</span> converts air force per current area to original-area
+accounting; it does not create a new force. Dissipation requires measured
+material behavior, not a convenient arbitrary damping value.</p>
+<p>The relation is Newton’s law applied to a material patch; see
+<a class="reference external" href="https://openstax.org/books/university-physics-volume-1/pages/5-3-newtons-second-law">OpenStax’s discussion of Newton’s second law</a>.
+The area conversion follows from equality of the force on the same patch.</p>
+</section>
+<section id="where-does-the-internal-elastic-force-come-from">
+<h2>Where does the internal elastic force come from?<a class="headerlink" href="#where-does-the-internal-elastic-force-come-from" title="Link to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(E=E_m+E_b\)</span> be the sum of stretching/shearing and bending energy
+from Chapter 1 (J). An elastic force acts in the direction of decreasing
+energy. In a one-direction example, let <span class="math notranslate nohighlight">\(s\)</span> be displacement (m) and
+<span class="math notranslate nohighlight">\(f\)</span> the corresponding elastic force (N). Then</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[f=-\frac{dE}{ds}.\]</div>
+</div>
+<p>The minus sign means that extending a spring pulls back toward smaller
+extension. For a whole sheet this same principle uses a small displacement
+<span class="math notranslate nohighlight">\(\delta\mathbf{r}\)</span> at each point and the resulting energy change
+<span class="math notranslate nohighlight">\(\delta E\)</span>, measured in joules; the trial displacement is in metres.
+Here <span class="math notranslate nohighlight">\(\delta\)</span> means an infinitesimal trial change, not a new time step.
+As in Chapter 1, <span class="math notranslate nohighlight">\(S_0\)</span> is the original sheet and <span class="math notranslate nohighlight">\(dA_0\)</span> is
+a tiny original-area patch (m²). With attachments fixed,</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\delta E=-\int_{S_0}\mathbf{f}\cdot\delta\mathbf{r}\,dA_0.\]</div>
+</div>
+<p>The dot selects force along the trial displacement. Force per area times
+displacement times area has units J. This is the continuous counterpart of
+the spring rule, expressing work and stored energy; it is the principle used
+in <a class="reference external" href="https://ocw.mit.edu/courses/2-081j-plates-and-shells-spring-2007/1bd32d641a2b41ca518591d981405393_lecturenote.pdf#page=22">MIT’s variational plate derivation</a>,
+Section 3.1.2. Here “variational” means testing arbitrarily small shape changes.
+One still needs the chosen material energy and attachment conditions.</p>
+</section>
+<section id="why-the-supports-matter">
+<h2>Why the supports matter<a class="headerlink" href="#why-the-supports-matter" title="Link to this heading">#</a></h2>
+<p><strong>Static equilibrium</strong> means a time-independent shape with no acceleration.
+Let <span class="math notranslate nohighlight">\(M\)</span> be total cloth mass (kg), and <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> the total
+mast/boom support reaction on it (N). Internal forces transmit load to the
+supports but do not hold up the whole sheet without an external reaction.
+At equilibrium,</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\mathbf{F}+M\mathbf{g}+\mathbf{R}=\mathbf{0}.\]</div>
+</div>
+<p>For example, an illustrative 100 N sideways air load requires an opposite
+sideways support reaction as well as support for weight. Loads travel through
+cloth into mast and boom, then into the ground.</p>
+<p>A <strong>moment</strong>, or torque, is a force’s turning effect about a point (N m).
+Moments must also balance; force balance alone cannot fix where a force acts.
+See <a class="reference external" href="https://openstax.org/books/university-physics-volume-1/pages/12-1-conditions-for-static-equilibrium">OpenStax on equilibrium conditions</a>.
+Fixed supports transmit force without doing work because they do not move.
+During cloth motion, external forces change total momentum rather than
+necessarily adding to zero. Slow motion under artificial damping is not
+proof of physical equilibrium.</p>
+</section>
+<section id="lift-and-drag-are-a-way-of-describing-the-same-force">
+<h2>Lift and drag are a way of describing the same force<a class="headerlink" href="#lift-and-drag-are-a-way-of-describing-the-same-force" title="Link to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf{W}\)</span> be incoming velocity (m/s) and <span class="math notranslate nohighlight">\(U\)</span> its
+nonzero speed. Define the unit wind direction <span class="math notranslate nohighlight">\(\mathbf{e}\)</span>,
+drag <span class="math notranslate nohighlight">\(D\)</span> (N), and remaining transverse air force <span class="math notranslate nohighlight">\(\mathbf{L}\)</span>
+(N). “Transverse” means perpendicular to incoming wind, not necessarily
+horizontal. The dot product projects onto a direction:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\mathbf{e}=\frac{\mathbf{W}}{U},\qquad
+D=\mathbf{F}\cdot\mathbf{e},\qquad
+\mathbf{L}=\mathbf{F}-D\mathbf{e}.\]</div>
+</div>
+<p>This is geometric decomposition, not two additional force mechanisms.
+With wind along the boom and an illustrative air force (10, 3, 40) N,
+drag is 10 N and transverse force is (0, 3, 40) N.
+The norm <span class="math notranslate nohighlight">\(\|\mathbf{L}\|\)</span> means its magnitude:
+approximately 40.11 N, without a sign. A signed horizontal component is
+different. Weight and reactions are not included in aerodynamic force
+<span class="math notranslate nohighlight">\(\mathbf{F}\)</span>. At zero wind there is no unique wind direction for this
+decomposition.</p>
+</section>
+</section>
+
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="03-airflow.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Airflow model</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="05-coupled-numerics.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Turning the coupled problem into a numerical calculation</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2016-2026, Peter Demin</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script></body>
+</html>

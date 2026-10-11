@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>What would make the prediction accurate? - Peter Demin</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Deriving the browser approximation" href="07-browser-approximation.html" /><link rel="prev" title="Turning the coupled problem into a numerical calculation" href="05-coupled-numerics.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=51f15f49" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="What would make the prediction accurate?"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#choose-comparable-physical-conditions">Choose comparable physical conditions</a></li>
+<li><a class="reference internal" href="#measure-rather-than-invent-the-material">Measure rather than invent the material</a></li>
+<li><a class="reference internal" href="#make-the-numerical-calculation-more-precise">Make the numerical calculation more precise</a></li>
+<li><a class="reference internal" href="#compare-with-an-experiment-and-its-uncertainty">Compare with an experiment and its uncertainty</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
+    
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../87-sail-physics.html"><span itemprop="name">Sail Simulation</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">What would make the prediction accurate?</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="what-would-make-the-prediction-accurate">
+<h1>What would make the prediction accurate?<a class="headerlink" href="#what-would-make-the-prediction-accurate" title="Link to this heading">#</a></h1>
+<p>Suppose a calculation predicts a sideways force of 100 N. Do we need to know
+it within 20 N, 2 N, or 0.2 N? There is no useful claim of “accurate” without
+saying what quantity matters and what error is acceptable.</p>
+<p>An <strong>observable</strong> is a quantity we can compare, such as cloth shape, total
+force, local pressure, or frequency, the number of oscillations per second
+(Hz = 1/s). Different observables can have different errors in the same run.</p>
+<p><strong>Verification</strong> asks whether the program solves its chosen mathematical
+model correctly. <strong>Validation</strong> asks whether that model and calculation
+predict measurements of the physical system. NASA distinguishes these in its
+<a class="reference external" href="https://www.grc.nasa.gov/www/wind/valid/tutorial/overview.html">verification and validation overview</a>.
+Solving the wrong physical approximation more precisely is not validation.</p>
+<section id="choose-comparable-physical-conditions">
+<h2>Choose comparable physical conditions<a class="headerlink" href="#choose-comparable-physical-conditions" title="Link to this heading">#</a></h2>
+<p>Airflow depends on size, speed, density, and viscosity. Before a useful
+comparison, define:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\rho\)</span>: air density (kg/m³); choose 1.225 for the example.</p></li>
+<li><p><span class="math notranslate nohighlight">\(U\)</span>: incoming speed (m/s); take 6 for the example.</p></li>
+<li><p><span class="math notranslate nohighlight">\(c\)</span>: representative chord, the width along the flow (m); choose
+1 m as a comparison length, not the whole changing outline’s width.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\eta\)</span>: dynamic viscosity (Pa s); use the illustrative
+<span class="math notranslate nohighlight">\(1.8\times10^{-5}\)</span> from Chapter 3.</p></li>
+</ul>
+<p>The <strong>Reynolds number</strong>, written <span class="math notranslate nohighlight">\(\mathrm{Re}\)</span>, compares acceleration
+effects with viscous effects on this speed and length scale:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\mathrm{Re}=\frac{\rho U c}{\eta}.\]</div>
+</div>
+<p>The units cancel. Our example gives</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\mathrm{Re}=
+\frac{(1.225\,\text{kg/m}^3)(6\,\text{m/s})(1\,\text{m})}
+{1.8\times10^{-5}\,\text{Pa s}}
+\approx4.08\times10^5.\]</div>
+</div>
+<p><a class="reference external" href="https://www.grc.nasa.gov/www/k-12/airplane/reynolds.html">NASA’s Reynolds-number explanation</a>
+derives this ratio. It helps compare experiments, but the same Reynolds number
+does not guarantee the same cloth shape or tell us precisely where separation
+begins. <strong>Separation</strong> is air peeling away from cloth; <strong>turbulence</strong> is
+irregular motion over many sizes of swirling region. Predicting them requires
+suitable equations, resolution, and possibly additional turbulence models.</p>
+</section>
+<section id="measure-rather-than-invent-the-material">
+<h2>Measure rather than invent the material<a class="headerlink" href="#measure-rather-than-invent-the-material" title="Link to this heading">#</a></h2>
+<p>Record the manufactured cut and seams, where the cloth is attached, its mass
+per area, and force versus stretching, shear, and bending. <strong>Pretension</strong> is
+tension applied before wind loading. <strong>Permeability</strong> is ease of air passage
+through cloth. Measure these if relevant. Warp and weft are the two crossing
+thread families; testing both matters even if a teaching example chooses equal
+stiffness.</p>
+<p><strong>Calibration</strong> chooses parameters to fit measured behavior. To test predictive
+value, calibrate on some conditions and validate on different ones. Fitting
+every experiment is not an independent prediction. Record air speed,
+direction, fluctuations, and properties too. Chapter 1’s illustrative
+stiffnesses are not measurements of this sail.</p>
+</section>
+<section id="make-the-numerical-calculation-more-precise">
+<h2>Make the numerical calculation more precise<a class="headerlink" href="#make-the-numerical-calculation-more-precise" title="Link to this heading">#</a></h2>
+<p><strong>Spatial resolution</strong> is how finely space is divided.
+A <strong>refinement study</strong> repeats the same physical problem with smaller mesh
+cells or patches. Refine cloth and air separately as well as together.
+Resolve the <strong>boundary layer</strong>, the thin air region with rapid velocity change
+near cloth, free edges, and the disturbed downstream <strong>wake</strong>.
+Move the artificial outer boundaries farther away to check their influence.</p>
+<p><strong>Temporal resolution</strong> is the size of the time step.
+Reduce it while keeping other errors small. More image frames do not
+necessarily mean smaller simulation steps.</p>
+<p><strong>Iterative resolution</strong> concerns repeated attempts to satisfy equations
+within a step. Tighten permitted equation mismatch and increase air/cloth
+subiterations. <strong>Convergence</strong> means predictions approach a limiting value
+under these changes, rather than merely remaining finite.</p>
+<p>For a simple comparison, let <span class="math notranslate nohighlight">\(Q_f\)</span> and <span class="math notranslate nohighlight">\(Q_c\)</span> be the same scalar
+observable on a finer and coarser calculation. Subscripts name “fine” and
+“coarse,” not different physics. Both have the same units, for example N for
+force. Let <span class="math notranslate nohighlight">\(e\)</span> be their relative difference, with no units. Vertical
+bars mean absolute value, ignoring sign. If <span class="math notranslate nohighlight">\(Q_f\)</span> is nonzero,</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[e=\frac{|Q_f-Q_c|}{|Q_f|}.\]</div>
+</div>
+<p>A finer value of 100 N versus a coarser 95 N gives <span class="math notranslate nohighlight">\(e=0.05\)</span>, or 5%.
+This formula is just a normalized difference, not an error estimate against
+nature. Near zero, compare the absolute difference against a documented
+scale instead.</p>
+<p>NASA’s <a class="reference external" href="https://www.grc.nasa.gov/www/wind/valid/tutorial/spatconv.html">spatial-convergence tutorial</a>
+explains more rigorous refinement assessments, and its
+<a class="reference external" href="https://www.grc.nasa.gov/www/wind/valid/tutorial/tempconv.html">temporal-convergence tutorial</a>
+treats time steps. Two grids alone do not establish a reliable convergence
+rate. Refinement cannot recover viscosity, wake history, or cloth behavior
+that the chosen model leaves out.</p>
+</section>
+<section id="compare-with-an-experiment-and-its-uncertainty">
+<h2>Compare with an experiment and its uncertainty<a class="headerlink" href="#compare-with-an-experiment-and-its-uncertainty" title="Link to this heading">#</a></h2>
+<p>Use a fixed mast and boom in controlled airflow. Measure three-dimensional
+shape, total forces, support reactions, local pressures where feasible, and
+air velocities or flow visualization. A <strong>support reaction</strong> is the force
+needed to hold an attachment still. Repeat conditions and estimate
+<strong>measurement uncertainty</strong>, how much the measured value could differ from
+the unknown true value.</p>
+<p>For illustration, a prediction of 100 N and a measurement of 99 N with
+uncertainty ±3 N are compatible with that measurement, but do not establish
+1% prediction accuracy. Agreement could also result from compensating errors.
+NASA’s <a class="reference external" href="https://www.grc.nasa.gov/www/wind/valid/tutorial/valassess.html">validation assessment</a>
+discusses comparison with experimental evidence.</p>
+<p>Keep errors distinct: wrong material properties, missing physics, finite mesh
+and time-step errors, coupling lag, and measurement uncertainty.
+A <strong>residual</strong> is the amount by which the current numbers fail to satisfy
+their chosen equations. A tiny linear-system residual shows that one algebraic
+solve was accurate; it does not show the model predicts reality. This is why
+accuracy must be assessed before interpreting an attractive browser scene.</p>
+</section>
+</section>
+
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="05-coupled-numerics.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Turning the coupled problem into a numerical calculation</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="07-browser-approximation.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Deriving the browser approximation</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2016-2026, Peter Demin</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script></body>
+</html>
