@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>4. A rigid ball that drops, bounces and rests - Peter Demin</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="5. Elastic cloth model" href="02a-cloth.html" /><link rel="prev" title="3. Keeping a rigid ball above the floor" href="01c-contact-constraints.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=51f15f49" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="4. A rigid ball that drops, bounces and rests"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#lift-and-release">4.1. Lift and release</a></li>
+<li><a class="reference internal" href="#the-chosen-physical-model">4.2. The chosen physical model</a></li>
+<li><a class="reference internal" href="#exactly-what-advances-each-tick">4.3. Exactly what advances each tick</a></li>
+<li><a class="reference internal" href="#frames-and-checks">4.4. Frames and checks</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
+    
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../87-sail-physics.html"><span itemprop="name">Sail Simulation</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name"><span class="section-number">4. </span>A rigid ball that drops, bounces and rests</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="a-rigid-ball-that-drops-bounces-and-rests">
+<h1><span class="section-number">4. </span>A rigid ball that drops, bounces and rests<a class="headerlink" href="#a-rigid-ball-that-drops-bounces-and-rests" title="Link to this heading">#</a></h1>
+<section id="lift-and-release">
+<h2><span class="section-number">4.1. </span>Lift and release<a class="headerlink" href="#lift-and-release" title="Link to this heading">#</a></h2>
+<p>Drag the outlined orange ball upward or sideways, then release it.
+Mouse and touch work. The ball starts falling with zero velocity: dragging
+is lifting, not throwing. Each bounce is lower until the ball rests on the
+fixed floor. The circle stays perfectly round with a constant radius; its
+dash-marked grab guide is not deformation. The view never rotates or zooms.</p>
+<p>For keyboard input, focus the scene. Space grabs or releases, the arrow keys
+move the held ball, and Escape releases it. There is no reset button: lifting
+the ball again begins another drop.</p>
+<iframe
+  src="../../_static/bouncing-ball/index.html?embedded=1"
+  title="Drag and release a rigid ball above a fixed floor"
+  width="100%" height="740"
+  style="display:block;width:100%;height:740px;border:0;"
+  loading="lazy">
+</iframe>
+<script>
+  (() => {
+    const frame = document.currentScript.previousElementSibling;
+    const sendTheme = () => {
+      const root = document.documentElement;
+      const theme = getComputedStyle(root);
+      frame.contentWindow.postMessage({
+        type: 'bouncing-ball-theme',
+        background: theme.getPropertyValue('--sy-c-background').trim(),
+        text: theme.getPropertyValue('--sy-c-text').trim(),
+        border: theme.getPropertyValue('--sy-c-heading').trim(),
+        font: getComputedStyle(document.body).fontFamily,
+        dark: root.classList.contains('dark')
+      }, '*');
+    };
+    frame.addEventListener('load', sendTheme);
+    window.addEventListener('message', event => {
+      if (event.source !== frame.contentWindow) return;
+      if (event.data?.type === 'bouncing-ball-ready') sendTheme();
+      if (event.data?.type === 'bouncing-ball-size' && Number.isFinite(event.data.height)) {
+        frame.style.height = Math.max(200, Math.min(1600, event.data.height)) + 'px';
+      }
+    });
+    const observer = new MutationObserver(sendTheme);
+    observer.observe(document.documentElement, {attributes: true, attributeFilter: ['class', 'style']});
+    window.addEventListener('pagehide', () => observer.disconnect(), {once: true});
+  })();
+</script><p>If the embed cannot start, <a class="reference external" href="../../_static/bouncing-ball/index.html">open the ball on its own</a>. JavaScript and Canvas 2D are
+required, not WebGL. The classic script bundle has no network dependencies.</p>
+</section>
+<section id="the-chosen-physical-model">
+<h2><span class="section-number">4.2. </span>The chosen physical model<a class="headerlink" href="#the-chosen-physical-model" title="Link to this heading">#</a></h2>
+<p>This is the one-circle, one-floor calculation from <a class="reference internal" href="01c-contact-constraints.html"><span class="doc">Keeping a rigid ball above the floor</span></a>.
+The center coordinates <span class="math notranslate nohighlight">\(x,y\)</span> are in metres, with upward-positive
+<span class="math notranslate nohighlight">\(y\)</span> and floor height zero. The circular cross-section has constant
+radius <span class="math notranslate nohighlight">\(R=0.20\)</span> m and mass <span class="math notranslate nohighlight">\(m=1\)</span> kg. The visible distance scale
+matches those numbers, with metre marks along the floor; it is not a tiny
+physical ball enlarged for drawing.</p>
+<p>Downward gravity magnitude is <span class="math notranslate nohighlight">\(g=9.81\)</span> m/s², an illustrative
+constant near Earth’s surface, rather than the satellite’s distance-varying
+field. <a class="reference external" href="https://cdaweb.gsfc.nasa.gov/pub/documents/archived_websites/pwg.gsfc.nasa.gov/stargaze/Lgravity.htm">NASA’s near-surface gravity explanation</a> discusses this approximate
+value. No air resistance or other airborne damping is applied. The rigid
+floor does not move. The collision restitution is <span class="math notranslate nohighlight">\(e=0.65\)</span>, so an
+ordinary bounce retains <span class="math notranslate nohighlight">\(e^2=0.4225\)</span> of vertical kinetic energy.
+This is chosen behavior, not a measurement of a particular ball material.</p>
+<p>While grabbed, center position is prescribed by mouse, touch or keyboard,
+clamped to <span class="math notranslate nohighlight">\(0.20\leq x\leq3.80\)</span> m and
+<span class="math notranslate nohighlight">\(0.20\leq y\leq2.80\)</span> m in a 4 by 3 m view. The hand can supply
+energy by lifting. The code stores zero velocity while held and on release;
+horizontal position therefore stays fixed during the drop. There is no
+inferred fling, side-wall collision, rolling or spin. The sphere/circle is
+rigid, but its collisions are deliberately not perfectly elastic.</p>
+</section>
+<section id="exactly-what-advances-each-tick">
+<h2><span class="section-number">4.3. </span>Exactly what advances each tick<a class="headerlink" href="#exactly-what-advances-each-tick" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">bouncing-ball/physics.mjs</span></code> stores center position, velocity, physical
+time and a flag identifying held, flying or resting state. A fixed tick is
+<strong>1/120 s</strong>. Free flight uses the exact constant-acceleration update from
+the constraint chapter, which agrees with RK4 for this constant force.
+The floor constraint is checked by computing the continuous time of impact,
+not by allowing the ball to pass through and bouncing it later.</p>
+<p>When contact falls inside a tick, the code advances to that event, sets
+center height to <span class="math notranslate nohighlight">\(R\)</span>, and changes vertical velocity using restitution.
+It then integrates the tick’s remaining physical time, handling another
+contact if necessary. The position projection enforces nonpenetration;
+the velocity impulse supplies the rebound. They are different operations.
+No extra time is added for either correction, and no deformation is drawn.</p>
+<p>For incoming impact speed at or below <strong>0.20 m/s</strong>, the ball instead accepts
+zero velocity and enters resting contact. At most 0.02 J of incoming kinetic
+energy is discarded by this cutoff. The floor’s upward reaction then balances
+weight, 9.81 N, so subsequent ticks leave the resting ball fixed. No perpetual
+microbounces and no repeated gravity/penetration repair are needed.</p>
+<p>The readout uses vertical velocity <span class="math notranslate nohighlight">\(v_y\)</span> in m/s and energy
+<span class="math notranslate nohighlight">\(E\)</span> in joules relative to resting contact. For this zero-horizontal-
+velocity drop, kinetic energy is one-half mass times vertical speed squared.
+Gravitational potential energy is mass times gravity magnitude times height
+above contact. Their sum is the measured mechanical energy:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[E=\frac{1}{2}m v_y^2+m g(y-R).\]</div>
+</div>
+<p>These two energy terms are defined in
+<a class="reference external" href="https://openstax.org/books/university-physics-volume-1/pages/8-3-conservation-of-energy">OpenStax’s mechanical-energy discussion</a>. It stays constant during free
+flight up to rounding error and decreases at impacts, not gradually in the
+air. The contact readout shows actual incoming/outgoing velocities, upward
+impulse in N s and cumulative collision energy loss since the latest grab.
+That last total excludes energy supplied or removed by the hand.</p>
+</section>
+<section id="frames-and-checks">
+<h2><span class="section-number">4.4. </span>Frames and checks<a class="headerlink" href="#frames-and-checks" title="Link to this heading">#</a></h2>
+<p>The playback budget is wall-clock time with no acceleration multiplier.
+Several 1/120 s physical ticks may precede one rendered frame. At most
+0.1 elapsed seconds and 16 ticks are processed per frame; excess whole-tick
+budget is discarded. Hidden tabs clear the budget and previous-frame time.
+Slow frames can slow playback but do not cause giant integration steps.</p>
+<p>The tests in <code class="docutils literal notranslate"><span class="pre">bouncing-ball/checks.mjs</span></code> compare free fall with its exact
+position and velocity, test projection and impact timing, and check the
+restitution impulse and energy fraction. They follow drops from several
+heights through actual settlement, with no penetration or energy increase,
+including ticks much larger than the displayed fixed step. Frame-rate tests
+separate ticking from drawing. Grab/release tests check valid prescribed
+positions, zero release velocity and floor releases that start resting.</p>
+<p>This is one ideal circle and a frictionless horizontal floor, not a general
+stack of rigid bodies or a material deformation model. The small-speed stop
+rule is explicit. The demonstration combines gravity, contact geometry and
+collision loss without hiding additional forces behind the illustration.</p>
+</section>
+</section>
+
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="01c-contact-constraints.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title"><span class="section-number">3. </span>Keeping a rigid ball above the floor</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="02a-cloth.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title"><span class="section-number">5. </span>Elastic cloth model</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2016-2026, Peter Demin</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script></body>
+</html>

@@ -1,79 +1,116 @@
 # Stretchy lunar flag
 
-A dependency-free, fixed-front WebGL experiment embedded in chapter two of *The Physics of a Fixed Sail*, following chapter one's cloth mechanics. Sphinx copies this directory through its existing `html_static_path`; no build configuration changes are needed. The RST chapter embeds `_static/moon-flag/index.html?embedded=1` and offers the standalone page as a fallback.
+The standalone page and RST book embed share the same model. The browser uses
+`bundle.js`, generated from `physics.mjs` and `main.mjs`; this also works with
+local-file previews without module-import restrictions.
 
-## Local preview
-
-From the repository root:
+## Build and preview
 
 ```sh
+python3 scripts/build_moon_flag.py
+python3 scripts/build_moon_flag.py --check
 python3 -m http.server 8766 --bind 127.0.0.1
 ```
 
-Open `http://127.0.0.1:8766/source/_static/moon-flag/index.html`. The return-to-chapter link assumes the generated Sphinx HTML; source-only preview does not generate the book.
+Open `http://127.0.0.1:8766/source/_static/moon-flag/index.html`. `make html`
+regenerates the bundle before Sphinx copies the static assets. The book's
+`02-moon-flag.rst` embeds `index.html?embedded=1`; its parent sends only theme
+colors and font via source-checked messages. Embedded mode hides redundant
+standalone prose, retains the dark lit scene, and matches light/dark controls.
 
-The browser loads a classic-script `bundle.js`, so the standalone page and
-generated chapter also work when opened directly through `file://`. Browsers
-block module imports from local files. The bundle is generated, not a second
-physics implementation: edit `physics.mjs` and `main.mjs`, then run
-`python3 scripts/build_moon_flag.py`. `make html` regenerates it automatically.
-Use `python3 scripts/build_moon_flag.py --check` to check for stale output.
-The chapter also sends its theme through source-checked `postMessage` events,
-so local-file origin restrictions do not leave the controls in the wrong theme.
+## Exactly which equations are implemented?
 
-Embedded mode suppresses the standalone heading, prose and model notes because
-the RST chapter supplies those using the book theme. The scene remains dark
-for readable shape lighting; surrounding buttons and labels inherit the
-parent chapter's font and Solarized theme colors, including theme changes.
-The same module and physical state update both modes: there is no second copy
-of the simulation. The RST iframe has a descriptive accessible title and a
-standalone fallback link. The camera is fixed in both modes.
+The first **Elastic cloth model** chapter now defines both its introductory
+small-strain law and the finite-strain/discrete-bending laws used by this flag.
+The following symbols and formulas are developed there before use.
 
-## Interaction
+- Each reference triangle has area A; its three vertices receive mass 0.22 A/3 kg.
+  Total mass is 0.7392 kg for a 2.4 × 1.4 m sheet, independent of deformation.
+- Constant per-triangle material derivatives u and v are computed from linear
+  triangle interpolation and the inverse reference-coordinate map, not world
+  axis displacements. Dimensionless Green strains are p=(u·u−1)/2,
+  q=(v·v−1)/2 and s=u·v. They ignore rigid rotation and translation.
+- Reference-area energy is A[K(p²+q²)+2C pq+Ks s²]/2. K=35, C=3.5 and Ks=0.35
+  N/m have continuum sheet meanings, not edge-spring meanings. These illustrative
+  values make extension much softer than the chapter's introductory material.
+- `membraneConstraint` splits that identical energy into p+q, p−q and s, with
+  stiffnesses A(K+C)/2, A(K−C)/2 and A Ks. `membraneCorrection` uses their analytic
+  position gradients and XPBD compliance 1/(stiffness × timestep²).
+- For each interior edge, `hingeGeometry` computes the signed turn between the
+  two face normals and its analytic gradients. The discrete bending law is
+  E=B Σ[L²/(Aleft+Aright)](theta−theta0)²/2, with fixed reference lengths/areas,
+  theta0=0 and chosen B=0.2 N m. `bendingCorrection` uses exactly this energy's
+  stiffness and gradient. Planar nonuniform stretching has zero bending energy.
 
-- The left edge is fixed exactly. There is no top rod.
-- Reset supplies a temporary hand at the top-right corner so the flag is ready to grab.
-- Drag that corner with mouse or touch. Pointer capture keeps the grab active outside the handle. Releasing, cancellation, lost capture, blur, or hiding the document releases an active drag.
-- Focus the corner for keyboard control: Space/Enter toggles the hand, arrows move its target, Escape releases. The separate button also toggles the hand.
-- The camera has a fixed frontal position and orientation, with responsive framing. There are no orbit controls. Updated, area-weighted normals feed a directional key light, fill light, ambient term, and broad specular highlight on both faces.
+The bending law is a specified discrete material law in the geometric-hinge
+family, not a claim of complete isotropic shell theory. Its weights retain
+energy under regular refinement, unlike the old unscaled second-difference
+proxy. The fixed triangle grid still has directional bias: the refinement
+test's 45-degree cylinder approaches about three times the aligned-cylinder
+energy. The chapter explicitly distinguishes this from its scalar introductory
+curvature example; no hidden mesh-by-mesh fitting is performed.
 
-## Mechanical model
+The finite-strain energy is a deliberately simple Saint-Venant–Kirchhoff-like
+extension. It reduces to the chapter's small-strain membrane expression but
+is not measured fabric behavior at 55% extension or severe compression.
+Objectivity under rotation is not evidence of material validity at large strain.
 
-The 2.4 × 1.4 m reference sheet has 24 × 14 cells, 375 mass points, 672 triangles, and total mass 0.7392 kg at a chosen 0.22 kg/m². Each cell assigns a quarter of its reference mass to each corner. All 15 left-edge nodes are fixed, retaining their mass in the accounting.
+## Limits, dynamics and interaction
 
-Compliant distance constraints supply extension resistance (35 N/m) along horizontal and vertical links and shear resistance through one diagonal per cell (0.35 N/m). These mesh-link values are deliberately soft and are **not** the continuum membrane coefficients of chapter one. Neighboring triple-point constraints penalize the three-dimensional second difference of positions with coefficient 2 N/m. This is an actual quadratic energy minimized by compliant corrections, preserving rigid-rotation invariance for a flat reference. It favors smoothly varying tangents but also resists nonuniform extension, so it is a bending regularizer rather than a pure calibrated shell energy. Both shear and bending affect the computed motion.
+The additional teaching inequality is |u|≤1.55 and |v|≤1.55 in every triangle.
+It bounds the two thread directions, **not every diagonal or principal stretch**.
+Zero-compliance unilateral projections enforce the cap; accepted states tolerate
+0.0001 excess ratio. This is separate from elastic energy, not real tearing or
+measured strain stiffening. The display reports maximum positive thread strain.
 
-The solver follows [XPBD](https://matthias-research.github.io/pages/publications/XPBD.pdf), using 120 steps per simulated second and 16 elastic/bending sweeps per step. Multipliers reset between steps. Gravity is 1.62 m/s², from [NASA's Moon Fact Sheet](https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html). An exponential velocity reduction at 0.35/s is explicitly numerical/material-like damping, **not air drag**. The Moon's tenuous atmosphere is not simulated. A 7 cm smooth initial geometric perturbation seeds out-of-plane motion; it is not a time-varying shape prescription. There is no wind or prescribed falling path.
+Only the left edge is pinned exactly. Reset temporarily holds the top-right
+corner and gives the free sheet a 7 cm smooth geometric perturbation; this is
+initial deformation, not extra manufactured fullness or a prescribed animation.
+Mouse/touch drag releases on up, cancel, lost capture, blur or hidden document.
+Space/Enter toggle holding, arrows pull, Escape releases; buttons release/reset.
+The camera remains frontal. Area-weighted vertex normals supply shape lighting.
 
-### Intentionally nonlinear limit
+Gravity is 1.62 m/s²; there is no wind or air drag. At 1/120 s steps, velocities
+receive gravity, then numerical exponential damping at 0.35/s. Positions are
+predicted, then corrected with 12 material/hinge/cap sweeps plus up to 60 extra
+cap sweeps. Multipliers reset each step. Velocities are reconstructed from
+accepted position changes. Nonfinite or over-limit states roll back and halve
+velocity; hand speed slows adaptively from 2.4 m/s. These are solver safeguards.
+The hand target is bounded by reference thread-path lengths to pinned points
+(the sum of coordinate distances, not their straight-line distance), each
+multiplied by 1.55. These necessary reach bounds do not replace the local cap.
+They are not material laws or exact energy conservation. Frame catch-up is capped, so
+simulation time may lag wall time on slow devices. Collapsed triangles have
+undefined hinge normals and are skipped by the hinge solver; this is not a
+validated compression or inversion treatment.
 
-Chapter one's linear elastic energy has no finite maximum extension. This experiment adds a separate unilateral constraint: no extension or shear link may exceed **1.55 times its reference length**. Below the cap, it follows the soft compliant rules; at the cap, extension is constrained. This is a deliberately nonlinear teaching addition, not an assertion that real fabric becomes unbreakable.
+No self-contact, ground/pole contact, tearing, plasticity, calibrated settling
+time or real material validation is provided. Folds can overlap.
 
-The hand target is projected into the intersection of bounding spheres about the fixed edge. These are necessary reach bounds, not proof that every mesh constraint is feasible. The hand then advances by at most 2.4 m/s in simulated time, slowing adaptively if a limit solve needs a smaller movement. A rejected hand movement no longer discards the requested target: it retries more gradually, retaining useful stretch with the softer material. Extra hard-limit sweeps check feasibility, and any nonfinite or insufficiently converged step rolls back to the previous accepted state. Accepted maximum link ratios are at most 1.5501, including a 0.0001 relative solver tolerance. The display rounds this to a 55% limit. At the bound, further pull can change direction but cannot keep stretching the mesh.
-
-No tearing, plasticity, self-contact, pole/ground collision, measured constitutive behavior, or calibrated physical settling time is provided. Overlaps are possible. Frame pacing caps catch-up work on slow devices; simulated time may lag wall time. Numerical stability, smooth appearance, and the internal checks do not validate real fabric behavior.
-
-## Checks
+## Correspondence tests
 
 ```sh
 node source/_static/moon-flag/checks.mjs
-node --check source/_static/moon-flag/main.mjs
+python3 scripts/build_moon_flag.py --check
 ```
 
-Checks cover reference mass and geometry, exact left pins, 33% visible corner reach, extreme target bounding and every sampled local extension limit, release, positive versus zero lunar gravity, substantial release from both default and stretched states (more than 1.5 m free-corner drop and 0.5 m mass-center drop within three simulated seconds), nonplanar smooth bending, repeated grabs and releases, finite positions, reset, and invalid-target rejection. Browser QA additionally exercises mouse drag/release, keyboard stretch to the cap, button release, reset, rendering and lighting. These are implementation checks, not experimental validation.
+`material-checks.mjs` verifies analytic homogeneous extension/shear/coupling
+energies, transverse coupling response, shear-sign symmetry, membrane and
+hinge finite-difference gradients, the energy derivative force formula, XPBD
+correction, rigid-motion invariance, zero bending for planar uneven stretch,
+and bending refinement with fixed physical geometry and rigidity. Both aligned
+and oblique cylinders are tested; directional bias is reported, not concealed.
 
-## Why the release tuning changed
+`checks.mjs` also exercises total mass, exact pins, gravity on/off, useful
+stretch, repeated/extreme pulls and accepted caps, finite states, reset, and
+substantial release from default and stretched states within three simulated
+seconds. These numerical checks establish equation correspondence and behavior,
+not experimental validation.
 
-The original 8 N/m shear links and 80 N/m tangent-change regularizer
-provided enough in-plane resistance to keep the flag extended like a soft
-cantilevered plate. Damping at 1.4/s also suppressed the falling motion.
-The release correctly freed the corner, and gravity was already lunar;
-neither was the reason it appeared suspended.
+## Sources
 
-The revised values keep extension stiffness at 35 N/m, reduce shear to
-0.35 N/m and the regularizer to 2 N/m, and reduce artificial damping to
-0.35/s. The cloth can drape and swing instead of staying spread out.
-The 55% link limit and exact left pins are unchanged. Hot-loop allocation
-reductions help the real solver keep up without speeding up simulated
-time or adding a prescribed falling path. Constants are named exports at
-the top of `physics.mjs` for straightforward future tuning.
+- [Abaqus: orthotropic Green-strain energy](https://docs.software.vt.edu/abaqusv2025/English/SIMACAESUBRefMap/simasub-c-uanisohyper_strain.htm)
+- [Grinspun et al.: Discrete Shells](https://multires-1.cms.caltech.edu/pubs/ds.pdf), geometric hinge-energy family; our dual-width convention is defined in the chapter.
+- [Tamstorf and Grinspun: hinge-angle derivatives](https://la.disneyresearch.com/wp-content/uploads/Discrete-Bending-Forces-and-Their-Jacobians-Paper.pdf)
+- [Macklin et al.: XPBD](https://matthias-research.github.io/pages/publications/XPBD.pdf)
+- [NASA: lunar gravity](https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html)

@@ -2,7 +2,7 @@
 <html lang="en" data-accent-color="violet" data-content_root="../../">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Deriving the browser approximation - Peter Demin</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Stability is necessary, but different from accuracy" href="08-stability.html" /><link rel="prev" title="What would make the prediction accurate?" href="06-accuracy.html" /><script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>12. Deriving the browser approximation - Peter Demin</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="13. Stability is necessary, but different from accuracy" href="08-stability.html" /><link rel="prev" title="11. What would make the prediction accurate?" href="06-accuracy.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
@@ -21,7 +21,7 @@
 }
 </style>
     
-  <meta property="og:type" content="website"/><meta property="og:title" content="Deriving the browser approximation"/>
+  <meta property="og:type" content="website"/><meta property="og:title" content="12. Deriving the browser approximation"/>
     <meta name="twitter:card" content="summary"/>
   </head>
 <body><div class="sy-head">
@@ -60,11 +60,11 @@ data-aria-dark="Switch to auto color mode">
       <i class="i-lucide close"></i>
     </button>
     <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
-<li><a class="reference internal" href="#step-1-replace-the-sheet-with-points-and-links">Step 1: Replace the sheet with points and links</a></li>
-<li><a class="reference internal" href="#step-2-replace-viscous-air-with-a-lifting-surface-model">Step 2: Replace viscous air with a lifting-surface model</a></li>
-<li><a class="reference internal" href="#step-3-turn-circulation-into-approximate-forces">Step 3: Turn circulation into approximate forces</a></li>
-<li><a class="reference internal" href="#step-4-alternate-air-solves-and-cloth-updates">Step 4: Alternate air solves and cloth updates</a></li>
-<li><a class="reference internal" href="#calculation-flaws-and-the-useful-range">Calculation flaws and the useful range</a></li>
+<li><a class="reference internal" href="#step-1-replace-the-sheet-with-points-and-links">12.1. Step 1: Replace the sheet with points and links</a></li>
+<li><a class="reference internal" href="#step-2-replace-viscous-air-with-a-lifting-surface-model">12.2. Step 2: Replace viscous air with a lifting-surface model</a></li>
+<li><a class="reference internal" href="#step-3-turn-circulation-into-approximate-forces">12.3. Step 3: Turn circulation into approximate forces</a></li>
+<li><a class="reference internal" href="#step-4-alternate-air-solves-and-cloth-updates">12.4. Step 4: Alternate air solves and cloth updates</a></li>
+<li><a class="reference internal" href="#calculation-flaws-and-the-useful-range">12.5. Calculation flaws and the useful range</a></li>
 </ul>
 </div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
     </div>
@@ -88,7 +88,7 @@ data-aria-dark="Switch to auto color mode">
         <span>/</span>
         <meta itemprop="position" content="2" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <strong itemprop="name">Deriving the browser approximation</strong>
+        <strong itemprop="name"><span class="section-number">12. </span>Deriving the browser approximation</strong>
         <meta itemprop="position" content="3" />
       </li></ol>
     <div class="xl:hidden ml-1">
@@ -103,9 +103,10 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="deriving-the-browser-approximation">
-<h1>Deriving the browser approximation<a class="headerlink" href="#deriving-the-browser-approximation" title="Link to this heading">#</a></h1>
-<p>The physical calculation in Chapter 1 and Chapters 3–5 follows viscous air
-and moving cloth together. That is too expensive for this small browser
+<h1><span class="section-number">12. </span>Deriving the browser approximation<a class="headerlink" href="#deriving-the-browser-approximation" title="Link to this heading">#</a></h1>
+<p>The physical calculation developed in the cloth, airflow and coupling
+chapters follows viscous air and moving cloth together. That is too expensive
+for this small browser
 demonstration.
 Here we replace parts of it one at a time, explaining what each replacement
 can and cannot show. The only controls remain incoming horizontal wind speed
@@ -114,7 +115,7 @@ and direction; the mast and boom do not move.</p>
 <code class="docutils literal notranslate"><span class="pre">sail-wind-tunnel/main.mjs</span></code> in this repository. Its constants below are
 demonstration choices, not experimentally calibrated sail properties.</p>
 <section id="step-1-replace-the-sheet-with-points-and-links">
-<h2>Step 1: Replace the sheet with points and links<a class="headerlink" href="#step-1-replace-the-sheet-with-points-and-links" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">12.1. </span>Step 1: Replace the sheet with points and links<a class="headerlink" href="#step-1-replace-the-sheet-with-points-and-links" title="Link to this heading">#</a></h2>
 <p>A <strong>node</strong> is a point whose position the computer stores. A <strong>link</strong> joins two
 nodes and resists a change of their separation. A <strong>panel</strong> is a small
 four-sided piece of sail used for the air calculation. The mesh has 6 cells
@@ -152,7 +153,8 @@ sheet has no prescribed bulge or link extension.</p>
 that can turn relative to one another along their shared diagonal, like a
 hinge. Adding both diagonals can artificially lock the bending of a warped
 four-sided cell. Weak links spanning two neighboring edges approximate
-bending resistance. They are not the curvature-energy law of Chapter 1,
+bending resistance. They are not the curvature-energy law in
+<a class="reference internal" href="02a-cloth.html"><span class="doc">Elastic cloth model</span></a>,
 and the network does not independently match measured warp, weft, shear,
 or wrinkling behavior.</p>
 <p>Assigning mass is a separate calculation. Use original mass per area
@@ -178,11 +180,12 @@ the very stiff links support weight with tiny extension. This checks gravity
 accounting, not realistic draping or spontaneous folding under gravity.</p>
 </section>
 <section id="step-2-replace-viscous-air-with-a-lifting-surface-model">
-<h2>Step 2: Replace viscous air with a lifting-surface model<a class="headerlink" href="#step-2-replace-viscous-air-with-a-lifting-surface-model" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">12.2. </span>Step 2: Replace viscous air with a lifting-surface model<a class="headerlink" href="#step-2-replace-viscous-air-with-a-lifting-surface-model" title="Link to this heading">#</a></h2>
 <p>Now freeze the current cloth shape during each air solve. Assume the sail is
 infinitely thin, the air keeps constant density, viscosity is neglected,
 and flow stays attached rather than peeling away from the surface.
-Unlike Chapter 3, air may slide along the cloth. We keep only the condition
+Unlike the viscous flow in <a class="reference internal" href="03a-airflow.html"><span class="doc">Airflow model</span></a>, air may slide
+along the cloth. We keep only the condition
 that its velocity through the surface is zero, and impose it at selected
 points rather than everywhere.</p>
 <p>A <strong>vortex</strong> describes circulation of air around a line or region.
@@ -245,7 +248,7 @@ does allow three-dimensional induced velocity above the head, but that alone
 does not establish real separated flow spilling over the top.</p>
 </section>
 <section id="step-3-turn-circulation-into-approximate-forces">
-<h2>Step 3: Turn circulation into approximate forces<a class="headerlink" href="#step-3-turn-circulation-into-approximate-forces" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">12.3. </span>Step 3: Turn circulation into approximate forces<a class="headerlink" href="#step-3-turn-circulation-into-approximate-forces" title="Link to this heading">#</a></h2>
 <p>For one panel, let <span class="math notranslate nohighlight">\(\mathbf F_v\)</span> be vortex-derived force (N),
 <span class="math notranslate nohighlight">\(\rho=1.225\)</span> kg/m³ the chosen air density, and <span class="math notranslate nohighlight">\(\Gamma\)</span> that
 panel’s circulation (m²/s). Let <span class="math notranslate nohighlight">\(\mathbf v_w\)</span> be velocity from all
@@ -275,7 +278,8 @@ Its units give a useful check:</p>
 <p>For a teaching example, circulation 1 m²/s, perpendicular speed 6 m/s,
 and segment length 0.20 m give force magnitude 1.47 N at this density.
 This is an integrated load approximation, not the two viscous face
-tractions from Chapter 4.</p>
+tractions from
+<a class="reference internal" href="04-forces-and-shape.html"><span class="doc">Loads change shape, and supports close the load path</span></a>.</p>
 <p>The demo adds a second, empirical force along the incoming wind.
 Let <span class="math notranslate nohighlight">\(\mathbf F_f\)</span> be that force (N), <span class="math notranslate nohighlight">\(U\)</span> wind speed (m/s),
 <span class="math notranslate nohighlight">\(A\)</span> current panel area (m²), and <span class="math notranslate nohighlight">\(\mathbf e=\mathbf W/U\)</span>
@@ -306,13 +310,14 @@ the wind happens to blow:</p>
 both faces. Changing a coloring convention must never change the actual force.</p>
 </section>
 <section id="step-4-alternate-air-solves-and-cloth-updates">
-<h2>Step 4: Alternate air solves and cloth updates<a class="headerlink" href="#step-4-alternate-air-solves-and-cloth-updates" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">12.4. </span>Step 4: Alternate air solves and cloth updates<a class="headerlink" href="#step-4-alternate-air-solves-and-cloth-updates" title="Link to this heading">#</a></h2>
 <p>The cloth takes four steps of 1/240 s between air solves, giving a nominal
 60 Hz refresh in simulated time. Hz means refreshes per second.
 The new shape changes the next vortex lattice and hence the next load.
 However, each air solve still treats the surface as stationary.
 It omits acceleration of surrounding air by moving cloth, called added mass
-in Chapter 5, and changes in the wake’s history.
+in <a class="reference internal" href="05-coupled-numerics.html"><span class="doc">Turning the coupled problem into a numerical calculation</span></a>,
+and changes in the wake’s history.
 This is <strong>quasi-steady feedback</strong>: a succession of frozen-shape flow solves,
 not the converged moving-surface calculation.</p>
 <p>Smoke dots are <strong>passive tracers</strong>, points moved by the computed velocity
@@ -339,7 +344,7 @@ isolated control points does not guarantee the same between them: a tracer
 crossing the coarse sail is not evidence of physical fabric permeability.</p>
 </section>
 <section id="calculation-flaws-and-the-useful-range">
-<h2>Calculation flaws and the useful range<a class="headerlink" href="#calculation-flaws-and-the-useful-range" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">12.5. </span>Calculation flaws and the useful range<a class="headerlink" href="#calculation-flaws-and-the-useful-range" title="Link to this heading">#</a></h2>
 <p><strong>Incidence</strong> is the angle between incoming wind and the sail’s nominal
 surface direction. Modest forward incidence, roughly within ±20 degrees,
 is the intended qualitative range, not an experimentally established limit
@@ -373,13 +378,13 @@ do not validate these missing mechanisms.</p>
     <a href="06-accuracy.html">
       <i class="i-lucide chevron-left"></i>
       <div class="page-info">
-        <span>Previous</span><div class="title">What would make the prediction accurate?</div></div>
+        <span>Previous</span><div class="title"><span class="section-number">11. </span>What would make the prediction accurate?</div></div>
     </a>
   </div><div class="navigation-next">
     <a href="08-stability.html">
       <div class="page-info">
         <span>Next</span>
-        <div class="title">Stability is necessary, but different from accuracy</div>
+        <div class="title"><span class="section-number">13. </span>Stability is necessary, but different from accuracy</div>
       </div>
       <i class="i-lucide chevron-right"></i>
     </a>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>3. Keeping a rigid ball above the floor - Peter Demin</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="4. A rigid ball that drops, bounces and rests" href="01d-bouncing-ball.html" /><link rel="prev" title="2. A satellite orbit calculated with RK4" href="01b-satellite-orbit.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=51f15f49" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="3. Keeping a rigid ball above the floor"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#a-rule-for-valid-positions">3.1. A rule for valid positions</a></li>
+<li><a class="reference internal" href="#what-happens-to-velocity-at-impact">3.2. What happens to velocity at impact?</a></li>
+<li><a class="reference internal" href="#find-contact-before-finishing-the-tick">3.3. Find contact before finishing the tick</a></li>
+<li><a class="reference internal" href="#rest-is-a-supported-state">3.4. Rest is a supported state</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
+    
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../87-sail-physics.html"><span itemprop="name">Sail Simulation</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name"><span class="section-number">3. </span>Keeping a rigid ball above the floor</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="keeping-a-rigid-ball-above-the-floor">
+<h1><span class="section-number">3. </span>Keeping a rigid ball above the floor<a class="headerlink" href="#keeping-a-rigid-ball-above-the-floor" title="Link to this heading">#</a></h1>
+<section id="a-rule-for-valid-positions">
+<h2><span class="section-number">3.1. </span>A rule for valid positions<a class="headerlink" href="#a-rule-for-valid-positions" title="Link to this heading">#</a></h2>
+<p>Gravity alone can move a body through a floor. Add a <strong>constraint</strong>: a
+rule that the stored state must satisfy. A <strong>constraint solver</strong> finds
+values satisfying that rule, instead of accepting an impossible overlap.</p>
+<p>Consider one rigid circle in a vertical plane above a fixed horizontal
+floor. <strong>Rigid</strong> means its shape and radius do not change. It does not
+mean every collision preserves energy. Let <span class="math notranslate nohighlight">\(x,y\)</span> be the circle’s
+center coordinates in metres, with upward-positive <span class="math notranslate nohighlight">\(y\)</span> and the
+floor at <span class="math notranslate nohighlight">\(y=0\)</span>. Its radius <span class="math notranslate nohighlight">\(R=0.20\)</span> m is constant.</p>
+<p>The circle’s bottom is <span class="math notranslate nohighlight">\(y-R\)</span>. Call that signed gap <span class="math notranslate nohighlight">\(d\)</span>, in
+metres. Positive means separated, zero means touching, and negative means
+penetrating. The sign <span class="math notranslate nohighlight">\(\geq\)</span> means greater than or equal to.
+The <strong>nonpenetration constraint</strong> is</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[d=y-R\geq0.\]</div>
+</div>
+<p>This is the simplest flat-floor version of the contact inequality in
+<a class="reference external" href="https://box2d.org/files/ErinCatto_ModelingAndSolvingConstraints_GDC2009.pdf#page=33">Erin Catto’s constraint notes</a>, sections on inequality and contact
+constraints. The floor is fixed: only the ball is moved to satisfy it.
+There is no need to distribute a correction between two movable bodies.</p>
+<p>Suppose <span class="math notranslate nohighlight">\(y_p\)</span> is a predicted center height. The subscript <code class="docutils literal notranslate"><span class="pre">p</span></code>
+means prediction, not an accepted state. <code class="docutils literal notranslate"><span class="pre">max</span></code> selects the larger of its
+two arguments. Its position correction is</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[y_{\mathrm{valid}}=\max(R,y_p).\]</div>
+</div>
+<p>A prediction at 0.18 m with radius
+0.20 m is corrected upward by 0.02 m. A prediction at 0.50 m stays there.
+This operation is called <strong>projection</strong> onto valid positions. One correction
+solves this single constraint exactly. With several interacting constraints,
+correcting one can invalidate another; then repeated passes can be needed.
+Those passes improve the same state and do not each advance time.</p>
+</section>
+<section id="what-happens-to-velocity-at-impact">
+<h2><span class="section-number">3.2. </span>What happens to velocity at impact?<a class="headerlink" href="#what-happens-to-velocity-at-impact" title="Link to this heading">#</a></h2>
+<p>Changing position alone does not explain a bounce. Let <span class="math notranslate nohighlight">\(u\)</span> be the
+vertical velocity immediately before impact, in m/s. An approaching ball
+has <span class="math notranslate nohighlight">\(u&lt;0\)</span>. The floor’s <strong>normal</strong> is its perpendicular direction,
+upward here. Let <span class="math notranslate nohighlight">\(v\)</span> be vertical velocity immediately after impact.</p>
+<p>The <strong>coefficient of restitution</strong> <span class="math notranslate nohighlight">\(e\)</span> is the ratio of outgoing to
+incoming normal speed. Choose <span class="math notranslate nohighlight">\(e=0.65\)</span>, between zero and one:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[v=-e u.\]</div>
+</div>
+<p>The minus sign reverses direction; multiplication by <span class="math notranslate nohighlight">\(e\)</span> reduces
+speed. For <span class="math notranslate nohighlight">\(u=-4\)</span> m/s, <span class="math notranslate nohighlight">\(v=2.6\)</span> m/s. A ball already moving away
+is not bounced again. The horizontal component is unchanged by this
+frictionless floor. The contact and restitution rule is described in
+<a class="reference external" href="https://box2d.org/files/ErinCatto_ModelingAndSolvingConstraints_GDC2009.pdf#page=39">Catto’s restitution notes</a>; this example uses only its vertical case.</p>
+<p>Let mass <span class="math notranslate nohighlight">\(m=1\)</span> kg. <strong>Momentum</strong> is mass times velocity, in kg m/s.
+<strong>Impulse</strong> <span class="math notranslate nohighlight">\(J\)</span> is the collision’s change of momentum, in N s,
+equivalent to kg m/s. It is not a sustained force added every frame:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[J=m(v-u)=-m(1+e)u.\]</div>
+</div>
+<p>The example gives an upward impulse of 6.6 N s. The idealized instantaneous
+velocity change represents a short contact event without modeling the
+force’s detailed time history. <a class="reference external" href="https://openstax.org/books/university-physics-volume-1/pages/9-2-impulse-and-collisions">OpenStax’s impulse explanation</a> distinguishes
+this accumulated effect from a force in N.</p>
+<p>For this vertical impact, incoming kinetic energy <span class="math notranslate nohighlight">\(K_{\mathrm{in}}\)</span>
+and outgoing kinetic energy <span class="math notranslate nohighlight">\(K_{\mathrm{out}}\)</span>, both in joules (J),
+are one-half mass times speed squared:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[K_{\mathrm{in}}=\frac{1}{2}m u^2,
+\qquad K_{\mathrm{out}}=\frac{1}{2}m v^2=e^2K_{\mathrm{in}}.\]</div>
+</div>
+<p>Here <span class="math notranslate nohighlight">\(e^2=0.4225\)</span>: 42.25% of vertical kinetic energy remains and
+57.75% is lost. The 8 J incoming example leaves 3.38 J. The ideal rigid
+picture never squashes, while its restitution law represents unresolved
+energy loss during real contact. Perfect rigidity and perfect elasticity
+are different assumptions.</p>
+</section>
+<section id="find-contact-before-finishing-the-tick">
+<h2><span class="section-number">3.3. </span>Find contact before finishing the tick<a class="headerlink" href="#find-contact-before-finishing-the-tick" title="Link to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(g=9.81\)</span> m/s² be a chosen constant near-surface downward gravity
+magnitude. It is positive; vertical acceleration is <span class="math notranslate nohighlight">\(-g\)</span>. Let
+<span class="math notranslate nohighlight">\(h\)</span> be the tick’s duration in physical seconds and <span class="math notranslate nohighlight">\(u\)</span> now the
+starting vertical velocity. With starting height <span class="math notranslate nohighlight">\(y\)</span>, free flight is</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[y_p=y+u h-\frac{1}{2}g h^2,
+\qquad v_p=u-g h.\]</div>
+</div>
+<p>These are the exact constant-acceleration relations from
+<a class="reference external" href="https://openstax.org/books/university-physics-volume-1/pages/3-4-motion-with-constant-acceleration">OpenStax’s free-flight derivation</a>, not a large Euler approximation.
+Horizontal position advances by horizontal velocity times <span class="math notranslate nohighlight">\(h\)</span>.
+They also agree with RK4 for constant gravity, but require no trial slopes.</p>
+<p>Clamping an end-of-tick prediction and reversing its end velocity can make
+the bounce too energetic: the velocity may include gravity from time spent
+below the floor. Instead calculate the <strong>time of impact</strong> <span class="math notranslate nohighlight">\(\tau\)</span>,
+the time from the start until the bottom first reaches the floor.
+Using starting gap <span class="math notranslate nohighlight">\(d=y-R\)</span>, solve</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[d+u\tau-\frac{1}{2}g\tau^2=0,
+\qquad \tau=\frac{u+\sqrt{u^2+2gd}}{g}.\]</div>
+</div>
+<p>For a separated ball this is the positive root. A touching ball with
+downward or zero velocity has immediate contact; a touching ball moving
+upward returns after <span class="math notranslate nohighlight">\(2u/g\)</span>. The code uses an algebraically equivalent
+root when downward motion and a tiny gap would make subtraction inaccurate.</p>
+<p>If <span class="math notranslate nohighlight">\(\tau&gt;h\)</span>, accept ordinary free flight. Otherwise advance exactly
+to <span class="math notranslate nohighlight">\(\tau\)</span>, set height to <span class="math notranslate nohighlight">\(R\)</span>, apply restitution to the impact
+velocity <span class="math notranslate nohighlight">\(u-g\tau\)</span>, then integrate the remaining <span class="math notranslate nohighlight">\(h-\tau\)</span>
+seconds. Apply the same rule again if another impact occurs in that remainder.
+This is one tick containing contact events, not extra elapsed time per
+correction. The final height is checked against the constraint.</p>
+<p>For example, start at 2.20 m with zero velocity and radius 0.20 m. The gap
+is 2 m. Contact occurs after <span class="math notranslate nohighlight">\(\sqrt{4/9.81}=0.63855\)</span> s, at
+approximately -6.2642 m/s. Restitution gives +4.0717 m/s. The next rise
+above contact is <span class="math notranslate nohighlight">\(v^2/(2g)=0.845\)</span> m: 0.4225 times the original
+2 m drop. Detecting contact at the right time avoids increasing that height.</p>
+</section>
+<section id="rest-is-a-supported-state">
+<h2><span class="section-number">3.4. </span>Rest is a supported state<a class="headerlink" href="#rest-is-a-supported-state" title="Link to this heading">#</a></h2>
+<p>Constant restitution would produce smaller and smaller bounces. To stop
+the tiny ones explicitly, choose a cutoff <span class="math notranslate nohighlight">\(c=0.20\)</span> m/s for incoming
+impact speed. The bars in <span class="math notranslate nohighlight">\(|u|\)</span> mean absolute value, or speed without
+its sign. If <span class="math notranslate nohighlight">\(|u|\leq c\)</span> at impact, accept <span class="math notranslate nohighlight">\(y=R,v=0\)</span>
+and mark the ball <strong>resting</strong>. At 1 kg the discarded incoming kinetic energy is at
+most <span class="math notranslate nohighlight">\(m c^2/2=0.02\)</span> J. This is a documented numerical resolution
+choice, not an airborne damping force. Low-speed inelastic contact is
+also used to avoid jitter in <a class="reference external" href="https://box2d.org/documentation/md_simulation.html#restitution">Box2D’s contact implementation</a>.</p>
+<p>While resting, the fixed floor’s upward <strong>reaction</strong> balances weight:
+<span class="math notranslate nohighlight">\(m g=9.81\)</span> N. Position and velocity remain unchanged; gravity is not
+allowed to push the ball down and then be corrected endlessly. A grabbed
+ball instead has a prescribed position supplied by the hand, within the
+valid domain. That input can add gravitational potential energy. Releasing
+sets both velocity components to zero deliberately: no inferred throwing
+speed, no extra impulse. A release at the floor starts resting immediately.</p>
+</section>
+</section>
+
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="01b-satellite-orbit.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title"><span class="section-number">2. </span>A satellite orbit calculated with RK4</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="01d-bouncing-ball.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title"><span class="section-number">4. </span>A rigid ball that drops, bounces and rests</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2016-2026, Peter Demin</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script></body>
+</html>

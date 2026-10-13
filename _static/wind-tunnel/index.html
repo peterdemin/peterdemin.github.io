@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A wing in a viscous wind tunnel</title>
+  <script>if(new URLSearchParams(location.search).get('embedded')==='1')document.documentElement.classList.add('embedded');</script>
+  <style>
+    :root{color-scheme:light dark;font-family:system-ui,sans-serif;background:light-dark(#fdf6e3,#002b36);color:light-dark(#657b83,#93a1a1)}*{box-sizing:border-box}body{margin:0}main{max-width:1100px;margin:auto;padding:24px}header p{line-height:1.6;max-width:760px}.embedded main{padding:0;max-width:none}.embedded header,.embedded footer{display:none}.embedded{background:var(--book-background,#fdf6e3);color:var(--book-text,#657b83);font-family:var(--book-font,system-ui,sans-serif)}.stage{position:relative;aspect-ratio:2/1;background:#080d15;border:1px solid var(--book-border,#93a1a1);border-radius:6px;overflow:hidden}canvas{display:block;width:100%;height:100%;outline-offset:-4px}.note{margin-bottom:8px;font:12px/1.6 system-ui,sans-serif}.note span{display:block;opacity:0.85}.controls{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:12px}label{display:flex;align-items:center;gap:9px}input[type=range]{width:170px;accent-color:#7b989f;min-height:38px}output{font-variant-numeric:tabular-nums;min-width:36px}button{font:inherit;color:inherit;background:transparent;border:1px solid var(--book-border,#93a1a1);border-radius:7px;min-height:42px;padding:8px 14px;cursor:pointer}button:hover{background:var(--book-button-hover,light-dark(#eee8d5,#073642))}button:focus-visible,input:focus-visible,canvas:focus-visible{outline:3px solid #49a9c6}.status{font-size:12px;margin:10px 0 0;line-height:1.5;font-variant-numeric:tabular-nums}#error{display:none;position:absolute;inset:0;padding:32px;background:#10151df2;color:#ffd4b0;align-items:center;justify-content:center}a{color:inherit}footer{margin-top:24px;font-size:13px;line-height:1.6}@media(max-width:500px){main{padding:16px}label{width:100%;justify-content:space-between}input[type=range]{flex:1;max-width:220px}.controls{gap:8px}button{padding:8px 11px}.note{font-size:11px}}
+  </style>
+  <style>
+    .overlays{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:12px}.overlays label{width:auto;font-size:13px;justify-content:flex-start;min-height:32px}.legend{font-size:12px;line-height:1.6;margin:8px 0}.legend p{margin:4px 0;overflow-wrap:anywhere}.color-bar{height:8px;border-radius:4px;background:linear-gradient(to right,#3396f0,#21303d,#f0642e);max-width:320px}.force-key{display:flex;flex-wrap:wrap;gap:8px 16px}.force-key span{border-bottom:3px solid;padding-bottom:2px}.resultant-key{border-color:#fff073!important}.drag-key{border-color:#ff7abf!important}.lift-key{border-color:#7aff94!important}
+  </style>
+</head>
+<body>
+<main>
+  <header><h1>A wing in a viscous wind tunnel</h1><p>Change the wing angle, then watch passive tracer trails move through the calculated flow. This fixed side view shows a single two-dimensional wing section, not a finite-span aerodynamic prediction.</p></header>
+    <div class="note">Inlet: 1 m/s · viscous model fluid<span>Flow → left to right · fixed 2D side view</span></div>
+  <div class="stage">
+    <canvas id="scene" role="img" aria-label="Fixed side view of a two-dimensional wing section and calculated passive tracer trails. Flow travels from left to right."></canvas>
+    <div id="error" role="alert"></div>
+  </div>
+  <div class="controls">
+    <label for="angle">Wing angle <input id="angle" type="range" min="-45" max="45" step="1" value="8"><output id="angle-value" for="angle">8°</output></label>
+    <button id="pause" type="button" aria-pressed="false">Pause</button>
+    <button id="reset" type="button">Reset flow</button>
+  </div>
+  <div class="overlays" aria-label="Pressure visualization controls">
+    <label><input id="show-pressure" type="checkbox" checked>Pressure colors</label>
+    <label><input id="show-forces" type="checkbox" checked>Pressure force and components</label>
+    <label><input id="show-surface" type="checkbox">Surface pressure arrows</label>
+  </div>
+  <div class="legend">
+    <div class="color-bar" aria-hidden="true"></div>
+    <p id="pressure-legend"></p>
+    <p class="force-key"><span class="resultant-key">Yellow: one pressure resultant</span><span class="drag-key">Pink: pressure drag →</span><span class="lift-key">Green: pressure lift ↑</span></p>
+    <p id="force-values"></p>
+    <p>Pressure-only force per unit span, not full lift/drag. Viscous shear is omitted from arrows. Negative relative pressure is not negative absolute pressure. Surface arrows use the stair-step numerical boundary, not the smooth drawing. Reset can produce a start-up pressure spike, not steady-wing performance.</p>
+    <p id="scale-values"></p>
+  </div>
+  <p class="status" id="status" role="status">Starting the pressure solve…</p>
+  <footer>The flow obeys a coarse-grid, two-dimensional incompressible viscous projection model. Its viscosity is deliberately much higher than air's. The blocked cells approximate a symmetric wing section; there is no spanwise flow, tip vortex, calibrated lift, or credible real-wing stall prediction. Trails are pathlines, not prescribed curves or buoyant smoke. <a href="../../12_articles/87-sail-physics/03b-wind-tunnel.html">Read the experiment and equations.</a></footer>
+</main>
+<script src="bundle.js"></script>
+</body>
+</html>

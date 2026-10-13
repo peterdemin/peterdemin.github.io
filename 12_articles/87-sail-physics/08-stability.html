@@ -2,7 +2,7 @@
 <html lang="en" data-accent-color="violet" data-content_root="../../">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Stability is necessary, but different from accuracy - Peter Demin</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Decentralizing the Practice of Architecture at Xapo Bank" href="../../17_notes/01_xapo.html" /><link rel="prev" title="Deriving the browser approximation" href="07-browser-approximation.html" /><script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>13. Stability is necessary, but different from accuracy - Peter Demin</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Decentralizing the Practice of Architecture at Xapo Bank" href="../../17_notes/01_xapo.html" /><link rel="prev" title="12. Deriving the browser approximation" href="07-browser-approximation.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
@@ -21,7 +21,7 @@
 }
 </style>
     
-  <meta property="og:type" content="website"/><meta property="og:title" content="Stability is necessary, but different from accuracy"/>
+  <meta property="og:type" content="website"/><meta property="og:title" content="13. Stability is necessary, but different from accuracy"/>
     <meta name="twitter:card" content="summary"/>
   </head>
 <body><div class="sy-head">
@@ -60,11 +60,11 @@ data-aria-dark="Switch to auto color mode">
       <i class="i-lucide close"></i>
     </button>
     <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
-<li><a class="reference internal" href="#one-link-with-all-symbols-defined">One link, with all symbols defined</a></li>
-<li><a class="reference internal" href="#a-small-numerical-example">A small numerical example</a></li>
-<li><a class="reference internal" href="#predicting-motion-and-deliberately-damping-it">Predicting motion and deliberately damping it</a></li>
-<li><a class="reference internal" href="#failure-checks-are-not-material-laws">Failure checks are not material laws</a></li>
-<li><a class="reference internal" href="#what-the-internal-checks-establish">What the internal checks establish</a></li>
+<li><a class="reference internal" href="#one-link-with-all-symbols-defined">13.1. One link, with all symbols defined</a></li>
+<li><a class="reference internal" href="#a-small-numerical-example">13.2. A small numerical example</a></li>
+<li><a class="reference internal" href="#predicting-motion-and-deliberately-damping-it">13.3. Predicting motion and deliberately damping it</a></li>
+<li><a class="reference internal" href="#failure-checks-are-not-material-laws">13.4. Failure checks are not material laws</a></li>
+<li><a class="reference internal" href="#what-the-internal-checks-establish">13.5. What the internal checks establish</a></li>
 </ul>
 </div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
     </div>
@@ -88,7 +88,7 @@ data-aria-dark="Switch to auto color mode">
         <span>/</span>
         <meta itemprop="position" content="2" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <strong itemprop="name">Stability is necessary, but different from accuracy</strong>
+        <strong itemprop="name"><span class="section-number">13. </span>Stability is necessary, but different from accuracy</strong>
         <meta itemprop="position" content="3" />
       </li></ol>
     <div class="xl:hidden ml-1">
@@ -103,18 +103,20 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="stability-is-necessary-but-different-from-accuracy">
-<h1>Stability is necessary, but different from accuracy<a class="headerlink" href="#stability-is-necessary-but-different-from-accuracy" title="Link to this heading">#</a></h1>
+<h1><span class="section-number">13. </span>Stability is necessary, but different from accuracy<a class="headerlink" href="#stability-is-necessary-but-different-from-accuracy" title="Link to this heading">#</a></h1>
 <p>A calculation is <strong>numerically stable</strong> when small errors do not grow into
 uncontrolled motion or unusable numbers. This is different from predicting
 the physical sail accurately. A heavily damped, overly stiff sheet can be
 stable and still give the wrong shape or settling time.</p>
-<p>The browser cloth update uses <strong>extended position-based dynamics</strong>, or XPBD:
-it first predicts node positions, then adjusts them to satisfy elastic link
-rules approximately. A <strong>constraint</strong> is such a rule, for example keeping two
-points near their original separation. A <strong>compliant</strong> constraint allows some
-extension under force instead of demanding exactly zero extension.</p>
+<p>The flag’s prediction/correction workflow is described in
+<a class="reference internal" href="02b-moon-flag.html"><span class="doc">Interactive example: Stretchy flag on the Moon</span></a>.
+Here the detailed example is the stiff-link sail approximation from
+<a class="reference internal" href="07-browser-approximation.html"><span class="doc">Deriving the browser approximation</span></a>, not the
+lunar flag’s triangle-strain and hinge constraints. Its <strong>extended
+position-based dynamics</strong>, XPBD, uses compliant distance links: rules allowing
+some length change under force instead of demanding perfectly rigid links.</p>
 <section id="one-link-with-all-symbols-defined">
-<h2>One link, with all symbols defined<a class="headerlink" href="#one-link-with-all-symbols-defined" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">13.1. </span>One link, with all symbols defined<a class="headerlink" href="#one-link-with-all-symbols-defined" title="Link to this heading">#</a></h2>
 <p>Consider endpoints with current position vectors <span class="math notranslate nohighlight">\(\mathbf r_1\)</span> and
 <span class="math notranslate nohighlight">\(\mathbf r_2\)</span>, both in metres. The subscripts merely identify the two
 points. Let <span class="math notranslate nohighlight">\(d\)</span> be their current separation (m),
@@ -128,7 +130,7 @@ length error (m). Double bars mean vector length, so</p>
 <p>Positive error means a stretched link; negative error means a shortened one.
 For example, an original 0.20 m link stretched to 0.201 m has error 0.001 m.
 This is a length error, not dimensionless strain: its strain is 0.001/0.20,
-or 0.5%, using Chapter 1’s definition.</p>
+or 0.5%, using the definition in <a class="reference internal" href="02a-cloth.html"><span class="doc">Elastic cloth model</span></a>.</p>
 <p>Let <span class="math notranslate nohighlight">\(k\)</span> be link stiffness (N/m), <span class="math notranslate nohighlight">\(\alpha\)</span> its compliance (m/N),
 and <span class="math notranslate nohighlight">\(h\)</span> the time-step duration (s).
 Compliance means extension per applied force, the reciprocal of stiffness.
@@ -184,7 +186,7 @@ endpoint 2 along it: they move closer together. A lighter free endpoint moves
 farther because its inverse mass is larger; a pin does not move.</p>
 </section>
 <section id="a-small-numerical-example">
-<h2>A small numerical example<a class="headerlink" href="#a-small-numerical-example" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">13.2. </span>A small numerical example<a class="headerlink" href="#a-small-numerical-example" title="Link to this heading">#</a></h2>
 <p>Take two free endpoints of 0.02 kg each, initial error 0.001 m, and the
 stiffness and time step above. With initial multiplier zero, one correction is</p>
 <div class="math-wrapper docutils container">
@@ -208,7 +210,7 @@ extension. Neither the method’s name nor a fixed sweep count proves that
 the actual solve has converged.</p>
 </section>
 <section id="predicting-motion-and-deliberately-damping-it">
-<h2>Predicting motion and deliberately damping it<a class="headerlink" href="#predicting-motion-and-deliberately-damping-it" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">13.3. </span>Predicting motion and deliberately damping it<a class="headerlink" href="#predicting-motion-and-deliberately-damping-it" title="Link to this heading">#</a></h2>
 <p>Before link corrections, the demo predicts each free node’s motion from
 incoming load and gravity. For one node, let <span class="math notranslate nohighlight">\(\mathbf v\)</span> be its current
 velocity (m/s), <span class="math notranslate nohighlight">\(m\)</span> its mass (kg), <span class="math notranslate nohighlight">\(\mathbf F\)</span> its applied
@@ -256,7 +258,7 @@ or <strong>flutter</strong>, an oscillation sustained by feedback between moving
 and air forces. Heavy artificial damping can hide such motion.</p>
 </section>
 <section id="failure-checks-are-not-material-laws">
-<h2>Failure checks are not material laws<a class="headerlink" href="#failure-checks-are-not-material-laws" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">13.4. </span>Failure checks are not material laws<a class="headerlink" href="#failure-checks-are-not-material-laws" title="Link to this heading">#</a></h2>
 <p>A <strong>singular</strong> linear system does not uniquely determine the required
 unknowns. <strong>Nonfinite</strong> values, such as infinity or an undefined division,
 cannot represent the intended calculation. These conditions, excessive
@@ -272,7 +274,7 @@ trusted there, even if its equations could be solved. The interface must
 report that limitation, not silently present withheld loads as physical zero.</p>
 </section>
 <section id="what-the-internal-checks-establish">
-<h2>What the internal checks establish<a class="headerlink" href="#what-the-internal-checks-establish" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">13.5. </span>What the internal checks establish<a class="headerlink" href="#what-the-internal-checks-establish" title="Link to this heading">#</a></h2>
 <p>Checks exercise summed-force conservation, fixed anchors, mirror symmetry,
 speed-squared force scaling, and residuals at control points.
 A <strong>residual</strong> is the mismatch left in an equation after inserting a computed
@@ -307,7 +309,8 @@ the equation is the right physical model.</p>
 <p>Induced drag is the along-wind part of the vortex-derived force, excluding
 the added empirical friction term. Relative to 112 panels, the 60-panel
 lift differs by about 0.47% and induced drag by about 1.85%.
-These use Chapter 6’s relative-difference formula. Three meshes do not by
+These use the relative-difference formula in
+<a class="reference internal" href="06-accuracy.html"><span class="doc">What would make the prediction accurate?</span></a>. Three meshes do not by
 themselves bound the remaining error.</p>
 <p>This check uses the nominal flat outline, not a converged coupled shape of
 the manufactured cut. It tests consistency under that particular lattice
@@ -333,7 +336,7 @@ measurements of the quantities we actually want to know.</p>
     <a href="07-browser-approximation.html">
       <i class="i-lucide chevron-left"></i>
       <div class="page-info">
-        <span>Previous</span><div class="title">Deriving the browser approximation</div></div>
+        <span>Previous</span><div class="title"><span class="section-number">12. </span>Deriving the browser approximation</div></div>
     </a>
   </div><div class="navigation-next">
     <a href="../../17_notes/01_xapo.html">

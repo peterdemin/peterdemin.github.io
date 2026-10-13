@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>7. Airflow model - Peter Demin</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="8. A wing in a viscous wind tunnel" href="03b-wind-tunnel.html" /><link rel="prev" title="6. Interactive example: Stretchy flag on the Moon" href="02b-moon-flag.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=51f15f49" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="7. Airflow model"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#what-are-we-calculating">7.1. What are we calculating?</a></li>
+<li><a class="reference internal" href="#how-slow-is-low-speed-air">7.2. How slow is low-speed air?</a></li>
+<li><a class="reference internal" href="#the-physical-rules-in-order">7.3. The physical rules, in order</a></li>
+<li><a class="reference internal" href="#unknowns-inputs-and-units">7.4. Unknowns, inputs, and units</a></li>
+<li><a class="reference internal" href="#two-kinds-of-acceleration">7.5. Two kinds of acceleration</a></li>
+<li><a class="reference internal" href="#writing-the-two-physical-balances">7.6. Writing the two physical balances</a></li>
+<li><a class="reference internal" href="#what-the-boundaries-supply">7.7. What the boundaries supply</a></li>
+<li><a class="reference internal" href="#how-one-numerical-solution-works">7.8. How one numerical solution works</a></li>
+<li><a class="reference internal" href="#a-small-calculation-from-imbalance-to-result">7.9. A small calculation from imbalance to result</a></li>
+<li><a class="reference internal" href="#seeing-flow-with-passive-tracers">7.10. Seeing flow with passive tracers</a></li>
+<li><a class="reference internal" href="#which-version-the-wing-experiment-implements">7.11. Which version the wing experiment implements</a></li>
+<li><a class="reference internal" href="#repeat-the-airflow-step">7.12. Repeat the airflow step</a></li>
+<li><a class="reference internal" href="#separation-and-turbulence-law-versus-resolution">7.13. Separation and turbulence: law versus resolution</a></li>
+<li><a class="reference internal" href="#from-pressure-to-one-force-then-lift-and-drag">7.14. From pressure to one force, then lift and drag</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
+    
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../87-sail-physics.html"><span itemprop="name">Sail Simulation</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name"><span class="section-number">7. </span>Airflow model</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="airflow-model">
+<h1><span class="section-number">7. </span>Airflow model<a class="headerlink" href="#airflow-model" title="Link to this heading">#</a></h1>
+<section id="what-are-we-calculating">
+<h2><span class="section-number">7.1. </span>What are we calculating?<a class="headerlink" href="#what-are-we-calculating" title="Link to this heading">#</a></h2>
+<p>Given the incoming wind and a fixed rigid wing, we want the air’s velocity
+and pressure around its section. The velocity beside the wing is not simply
+the incoming wind everywhere: the surface redirects the flow.</p>
+<p>This chapter develops <strong>incompressible viscous Navier–Stokes flow</strong>:
+air keeps approximately constant density, while friction between neighboring
+layers affects its motion. We then show one numerical way to solve it.
+The next experiment, <a class="reference internal" href="03b-wind-tunnel.html"><span class="doc">A wing in a viscous wind tunnel</span></a>,
+runs a two-dimensional version of this grid projection method, with a fixed
+side view, deliberately increased viscosity and an approximate wing boundary.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Is this different from hydrodynamics? <strong>Fluid dynamics</strong> covers both
+gases and liquids. <strong>Hydrodynamics</strong> often names liquid-flow problems,
+though it is also used more broadly; <strong>aerodynamics</strong> names gas-flow
+applications. These are not competing equations. Navier–Stokes can
+describe either, with the appropriate material properties and boundaries.
+<strong>Viscous</strong> means internal friction is included, not that the fluid must
+be liquid or thick syrup; see <a class="reference external" href="https://www.grc.nasa.gov/www/k-12/airplane/nseqs.html">NASA’s Navier–Stokes explanation</a>.
+<strong>Incompressible</strong> means we treat density as constant, here uniformly
+constant. Air is generally compressible, but slow airflows can often
+use this approximation, as <a class="reference external" href="https://www.grc.nasa.gov/www/k-12/airplane/airsim.html">NASA explains for low-speed air</a>.</p>
+</div>
+</section>
+<section id="how-slow-is-low-speed-air">
+<h2><span class="section-number">7.2. </span>How slow is low-speed air?<a class="headerlink" href="#how-slow-is-low-speed-air" title="Link to this heading">#</a></h2>
+<p>Here <strong>low speed</strong> means slow compared with sound, not slow compared with
+a person. Let <span class="math notranslate nohighlight">\(V\)</span> be the local flow speed and <span class="math notranslate nohighlight">\(a\)</span> the speed
+of sound, both in m/s. Their ratio is the <strong>Mach number</strong>, a number without
+units:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[M=\frac{V}{a}.\]</div>
+</div>
+<p>This is <a class="reference external" href="https://www.grc.nasa.gov/www/k-12/airplane/mach.html">NASA’s Mach-number definition</a>. Near 20°C, sound travels at about
+343 m/s in air; see <a class="reference external" href="https://openstax.org/books/college-physics-2e/pages/17-2-speed-of-sound-frequency-and-wavelength">OpenStax’s sound-speed example</a>. Therefore:</p>
+<ul class="simple">
+<li><p><strong>15 m/s</strong>, or 54 km/h, gives <span class="math notranslate nohighlight">\(M=15/343\approx0.044\)</span>.</p></li>
+<li><p><strong>30 m/s</strong>, or 108 km/h, gives <span class="math notranslate nohighlight">\(M=30/343\approx0.087\)</span>.</p></li>
+</ul>
+<p>Both are well below the common <strong>Mach 0.3</strong> guideline for neglecting
+compressibility, used for example in <a class="reference external" href="https://ntrs.nasa.gov/api/citations/20200002389/downloads/20200002389.pdf">NASA’s low-speed wind-tunnel work</a>.
+At this temperature, Mach 0.3 corresponds to about
+<span class="math notranslate nohighlight">\(0.3\times343=103\)</span> m/s. It is a guideline, not a sharp cutoff.
+Constant-density flow is typically appropriate at 15 or 30 m/s when local
+speeds also stay low: air accelerates around a wing, and temperature changes
+the sound speed. Those checks concern density changes, not whether the wind
+feels strong.</p>
+<p>Low Mach does <strong>not</strong> mean laminar flow or absence of separation. Those
+depend on viscosity, geometry and Reynolds number as well. Nor does it
+validate this book’s deliberately high-viscosity, Reynolds-100 experiment
+as a full-scale real-air wing simulation. The applicability of the
+incompressible equations and the accuracy of our coarse implementation
+are different questions.</p>
+</section>
+<section id="the-physical-rules-in-order">
+<h2><span class="section-number">7.3. </span>The physical rules, in order<a class="headerlink" href="#the-physical-rules-in-order" title="Link to this heading">#</a></h2>
+<p>Imagine dividing the space around a rigid wing into small boxes. We treat air as
+smoothly distributed material, rather than following each molecule: this is
+a <strong>continuum</strong> approximation. Each location has an air velocity and pressure;
+assigning a quantity throughout space is called a <strong>field</strong>.</p>
+<p>Three rules connect the boxes:</p>
+<ol class="arabic simple">
+<li><p><strong>Account for mass.</strong> Density is mass per volume. With constant density,
+air cannot accumulate in a fixed box: whatever volume enters must leave.
+Incompressible means this approximation, not that real air can never compress.</p></li>
+<li><p><strong>Account for acceleration.</strong> Momentum is mass times velocity. A moving
+parcel changes momentum because pressure, friction, or an external force
+acts on it. Newton’s law relates those forces to acceleration.</p></li>
+<li><p><strong>Respect the wing and the outside wind.</strong> Air cannot pass through the
+solid wing. Viscous air touching its fixed surface has zero velocity.
+Far away, we supply the
+incoming wind. These boundary rules are part of the calculation, not
+decorations added after solving the equations.</p></li>
+</ol>
+<p>Pressure and viscosity have different jobs. <strong>Pressure</strong> pushes equally in
+all directions locally; a pressure difference accelerates air toward lower
+pressure. <strong>Viscosity</strong> resists neighboring layers sliding at different
+speeds. <strong>Stress</strong> is force per area. In our <strong>Newtonian</strong> approximation,
+viscous stress is proportional to the rate at which those layers deform.
+Pressure must adjust throughout the domain so that acceleration does not
+violate the first rule.</p>
+</section>
+<section id="unknowns-inputs-and-units">
+<h2><span class="section-number">7.4. </span>Unknowns, inputs, and units<a class="headerlink" href="#unknowns-inputs-and-units" title="Link to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(x,y,z\)</span> locate a point in metres and <span class="math notranslate nohighlight">\(t\)</span> be time in seconds.
+Bold symbols are vectors, quantities with size and direction. The unknown
+<span class="math notranslate nohighlight">\(\mathbf u(x,y,z,t)\)</span> is air velocity in m/s, and the unknown <span class="math notranslate nohighlight">\(p\)</span>
+is pressure in pascals, Pa = N/m². Their values generally vary across space.</p>
+<p>Choose constant density <span class="math notranslate nohighlight">\(\rho=1.225\)</span> kg/m³ and dynamic viscosity
+<span class="math notranslate nohighlight">\(\eta=1.8\times10^{-5}\)</span> Pa s for the examples. These are illustrative
+air properties, not measurements for every weather condition. The wing
+experiment uses this density but a much larger viscosity, specified below.
+Let <span class="math notranslate nohighlight">\(\mathbf g=(0,-9.81,0)\)</span> m/s² be near-Earth gravitational acceleration.
+The incoming wind <span class="math notranslate nohighlight">\(\mathbf W\)</span> is a prescribed velocity vector in m/s.
+The rigid wing’s geometry and angle are prescribed and held fixed during
+an airflow run.</p>
+</section>
+<section id="two-kinds-of-acceleration">
+<h2><span class="section-number">7.5. </span>Two kinds of acceleration<a class="headerlink" href="#two-kinds-of-acceleration" title="Link to this heading">#</a></h2>
+<p>A derivative measures a rate of change. The symbol <span class="math notranslate nohighlight">\(\partial\)</span> means
+other variables are held fixed. Thus <span class="math notranslate nohighlight">\(\partial\mathbf u/\partial t\)</span>
+measures velocity change with time at one location. It has units m/s².</p>
+<p>But a moving parcel can also enter a region where velocity is different.
+For example, suppose steady air speeds up from 5 to 6 m/s over 1 m along
+its motion. A parcel moving at 5 m/s encounters an acceleration of
+approximately <span class="math notranslate nohighlight">\(5\times(6-5)/1=5\)</span> m/s² even though velocity at each
+fixed location is not changing with time.</p>
+<p>The spatial derivative symbol <span class="math notranslate nohighlight">\(\nabla\)</span> organizes rates of change in
+the three directions. The expression <span class="math notranslate nohighlight">\((\mathbf u\cdot\nabla)\mathbf u\)</span>
+adds the velocity change encountered by moving through those directions.
+Here the dot combines matching directional components. This <strong>transport</strong>,
+also called advection, carries momentum from one box to its neighbors.
+The two contributions give the parcel’s total acceleration:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\frac{\partial\mathbf u}{\partial t}
++(\mathbf u\cdot\nabla)\mathbf u.\]</div>
+</div>
+</section>
+<section id="writing-the-two-physical-balances">
+<h2><span class="section-number">7.6. </span>Writing the two physical balances<a class="headerlink" href="#writing-the-two-physical-balances" title="Link to this heading">#</a></h2>
+<p>The <strong>divergence</strong> <span class="math notranslate nohighlight">\(\nabla\cdot\mathbf u\)</span> measures net outward
+volume flow per unit volume, in 1/s. Outward contributions are positive,
+inward contributions negative. Constant-density mass conservation requires</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\nabla\cdot\mathbf u=0.\]</div>
+</div>
+<p>This does not require zero velocity, or equal flow through every face.
+It requires their signed total to be zero in every small box.</p>
+<p>The <strong>gradient</strong> <span class="math notranslate nohighlight">\(\nabla p\)</span> measures pressure increase with position,
+in Pa/m. Its negative points toward lower pressure. The <strong>Laplacian</strong>
+<span class="math notranslate nohighlight">\(\nabla^2\mathbf u\)</span> adds second spatial derivatives of velocity:
+it compares each velocity with its neighbors, in 1/(m s). For constant
+viscosity and incompressible flow, multiplying it by <span class="math notranslate nohighlight">\(\eta\)</span> gives
+the viscous force per volume. Multiplying acceleration by density gives
+the same units, N/m³. Newton’s momentum balance is therefore</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\rho\left[\frac{\partial\mathbf u}{\partial t}
++(\mathbf u\cdot\nabla)\mathbf u\right]
+=-\nabla p+\eta\nabla^2\mathbf u+\rho\mathbf g.\]</div>
+</div>
+<p>Read it as <strong>density times acceleration = pressure force + viscous force
++ weight</strong>, all per unit volume. These are the incompressible Navier–Stokes
+equations, not a separate unexplained law. <a class="reference external" href="https://ocw.mit.edu/courses/18-354j-nonlinear-dynamics-ii-continuum-systems-spring-2015/6f1477ffaa90b8c93556120294eecd64_MIT18_354JS15_Ch13.pdf">MIT’s Navier–Stokes notes</a>,
+equations (346)–(347), derive the momentum terms from pressure and Newtonian
+stress. We write dynamic viscosity explicitly and include gravity.</p>
+<p>Still air has a vertical pressure variation that supports its weight,
+called <strong>hydrostatic pressure</strong>. Subtracting that known background from
+pressure removes the matching fluid gravity term consistently. For the
+algorithm below, <span class="math notranslate nohighlight">\(p\)</span> denotes the remaining pressure and that background
+has been subtracted; only the remaining pressure drives the flow update.</p>
+</section>
+<section id="what-the-boundaries-supply">
+<h2><span class="section-number">7.7. </span>What the boundaries supply<a class="headerlink" href="#what-the-boundaries-supply" title="Link to this heading">#</a></h2>
+<p>A <strong>boundary condition</strong> specifies behavior at the edge or a surface of
+the calculation. Let <span class="math notranslate nohighlight">\(\mathbf r\)</span> be a point on the rigid wing’s surface
+in metres, and <span class="math notranslate nohighlight">\(\mathbf v\)</span> its velocity in m/s. The derivative
+<span class="math notranslate nohighlight">\(d/dt\)</span> follows that same material point, unlike a derivative at a
+fixed location. At the wing surface, viscous no-slip flow requires</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\mathbf u=\mathbf v=\frac{d\mathbf r}{dt}.\]</div>
+</div>
+<p>For this fixed wing, <span class="math notranslate nohighlight">\(\mathbf v\)</span> is zero: air directly touching its
+surface must be stationary too. The <strong>normal</strong> component, perpendicular
+to the surface, prevents penetration. The <strong>tangential</strong> component, along
+it, prevents slipping. Air moving tangentially at 0.10 m/s directly at a
+stationary no-slip wall would violate that condition. MIT’s notes state
+the no-slip condition in Section 13.2.</p>
+<p>Far away, specify incoming <span class="math notranslate nohighlight">\(\mathbf W\)</span>; allow disturbed air to leave
+through an appropriate downstream boundary. Also specify initial velocities
+and hold the wing geometry fixed. A closed domain needs a pressure reference;
+an open domain may prescribe pressure at an outlet. Boundary choices affect
+the result. Tunnel walls need their own boundary rules; the experiment’s
+slip outer walls differ from its approximately no-slip wing.</p>
+</section>
+<section id="how-one-numerical-solution-works">
+<h2><span class="section-number">7.8. </span>How one numerical solution works<a class="headerlink" href="#how-one-numerical-solution-works" title="Link to this heading">#</a></h2>
+<p>Spatial discretization replaces continuous fields with finitely many
+stored samples. Here is the fluid-specific <strong>pressure-projection</strong> method,
+following the approach developed by <a class="reference external" href="https://math.berkeley.edu/~chorin/chorin68.pdf">Chorin</a> and the grid construction in
+<a class="reference external" href="https://www.cs.ubc.ca/~rbridson/fluidsimulation/fluids_notes.pdf">Bridson and Müller-Fischer’s fluid notes</a>, Chapters 2–4. Projection means
+correcting a provisional velocity so it satisfies the volume balance.
+This is the algorithm family used in the next wing experiment.
+The experiment’s specific two-dimensional grid,
+boundaries, viscosity and stopping tolerance are stated on its page.</p>
+<p>Use a regular grid of boxes with spacing <span class="math notranslate nohighlight">\(h\)</span> in metres. Store pressure
+at their centers and the perpendicular velocity component at each face.
+This arrangement is called a <strong>staggered grid</strong>: pressure and velocity are
+stored at different locations. The face velocity directly measures flow
+between neighboring boxes.</p>
+<p>Let <span class="math notranslate nohighlight">\(\Delta t\)</span> be a time step in seconds; <span class="math notranslate nohighlight">\(\Delta\)</span> means a
+change. Let <span class="math notranslate nohighlight">\(\mathbf u^n\)</span> be the stored velocity before a step;
+<span class="math notranslate nohighlight">\(n\)</span> counts time steps. A star labels a provisional value, not a
+multiplication. Let <span class="math notranslate nohighlight">\(\nu=\eta/\rho\)</span> be kinematic viscosity in m²/s;
+our choices give approximately <span class="math notranslate nohighlight">\(1.47\times10^{-5}\)</span> m²/s.</p>
+<p><strong>First predict motion without the unknown pressure.</strong> For a simple
+first-order time update, transport momentum and apply viscosity:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\mathbf u^*=\mathbf u^n+\Delta t
+\left[-(\mathbf u^n\cdot\nabla)\mathbf u^n
++\nu\nabla^2\mathbf u^n\right].\]</div>
+</div>
+<p>The minus transport term moves the stored velocity pattern with the air;
+viscosity smooths differences between neighboring velocities. For a concrete
+spatial approximation, estimate transport derivatives using values on the
+upstream side of the flow, called <strong>upwind differences</strong>, with interpolation
+to the needed faces. For each velocity component <span class="math notranslate nohighlight">\(f\)</span> in m/s, let
+<span class="math notranslate nohighlight">\(f_L,f_0,f_R\)</span> be its values at three equally spaced locations along
+one coordinate. Let <span class="math notranslate nohighlight">\(w\)</span> be the transporting velocity in that coordinate,
+also in m/s. Its upwind transport term is</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\begin{split}w\frac{\partial f}{\partial x}\approx
+\begin{cases}
+  w(f_0-f_L)/h,&amp;w\geq0,\\
+  w(f_R-f_0)/h,&amp;w&lt;0.
+\end{cases}\end{split}\]</div>
+</div>
+<p>Use the analogous difference along each active coordinate and add the
+terms. In the wing experiment, transporting horizontal velocity by vertical
+velocity requires the latter at the horizontal face; it is obtained by
+averaging the four surrounding vertical-velocity samples, and conversely
+for vertical momentum. First-order upwinding introduces numerical diffusion
+in addition to the selected physical viscosity.
+The second derivative in that direction is approximated by</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\frac{\partial^2 f}{\partial x^2}
+\approx\frac{f_L-2f_0+f_R}{h^2}.\]</div>
+</div>
+<p>Add corresponding contributions from the other two coordinates for the
+Laplacian. Explicit transport and viscosity need sufficiently small time
+steps; this deliberately simple scheme is not a claim of accuracy at any
+chosen grid size. More accurate transport and implicit viscosity are possible.</p>
+<p><strong>Next find the pressure correction.</strong> We want a new velocity
+<span class="math notranslate nohighlight">\(\mathbf u^{n+1}\)</span> that has zero divergence. Pressure changes the
+provisional velocity by</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\mathbf u^{n+1}=\mathbf u^*
+-\frac{\Delta t}{\rho}\nabla p.\]</div>
+</div>
+<p>Take the divergence of this equation, require the result to vanish, and
+rearrange. The unknown pressure must satisfy</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\nabla^2 p=\frac{\rho}{\Delta t}\nabla\cdot\mathbf u^*.\]</div>
+</div>
+<p>This is a <strong>Poisson equation</strong>, which links each pressure to neighboring
+pressures and the known local volume imbalance. It is how the computer
+finds pressure, rather than choosing it independently at each location.
+Use face-flow differences for divergence and center-pressure differences
+for the gradient. These must be consistent: applying divergence to the
+discrete pressure gradient produces the discrete pressure equation.</p>
+<p>There is one equation per fluid cell. They form a <strong>linear system</strong>: many
+simultaneous equations whose unknowns are the cell pressures. Solve them
+together, then update the face velocities using their pressure differences.
+Solid-wall normal velocities enter both the imbalance and the pressure
+boundary equations; they must not be changed incompatibly afterward.
+Tangential no-slip belongs to the viscous boundary treatment. A curved wing
+needs additional boundary geometry handling, not just this regular-grid
+recipe; the experiment approximates that surface with blocked cells.</p>
+</section>
+<section id="a-small-calculation-from-imbalance-to-result">
+<h2><span class="section-number">7.9. </span>A small calculation from imbalance to result<a class="headerlink" href="#a-small-calculation-from-imbalance-to-result" title="Link to this heading">#</a></h2>
+<p>To isolate the pressure step, take two neighboring cubic cells, each
+<span class="math notranslate nohighlight">\(h=0.10\)</span> m wide, inside stationary closed walls. Their only shared
+face has provisional rightward velocity <span class="math notranslate nohighlight">\(U^*=0.10\)</span> m/s. All exterior
+face velocities are zero. This is an illustrative predictor output, not
+a complete wing-flow simulation or a steady incompressible starting state.
+Use <span class="math notranslate nohighlight">\(\rho=1.225\)</span> kg/m³ and <span class="math notranslate nohighlight">\(\Delta t=0.01\)</span> s.</p>
+<p>Each cell has volume <span class="math notranslate nohighlight">\(h^3=0.001\)</span> m³, and the shared face has area
+<span class="math notranslate nohighlight">\(h^2=0.01\)</span> m². Its volume flow is
+<span class="math notranslate nohighlight">\(U^*h^2=0.001\)</span> m³/s from the left cell to the right.
+The left cell loses volume; the right gains it. Dividing signed outward
+flow by cell volume gives divergences</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[d_L=\frac{0.001}{0.001}=1\ \mathrm{s}^{-1},
+\qquad d_R=-1\ \mathrm{s}^{-1}.\]</div>
+</div>
+<p>Here <span class="math notranslate nohighlight">\(d_L,d_R\)</span> label the two known divergences, and
+<span class="math notranslate nohighlight">\(p_L,p_R\)</span> the two unknown pressures in Pa. The walls keep their
+normal velocity zero, so their pressure-gradient contributions are zero
+in this example. Each cell’s pressure equation has just one neighbor:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\frac{p_R-p_L}{h^2}=\frac{\rho}{\Delta t}d_L=122.5\ \mathrm{Pa/m}^2,
+\qquad
+\frac{p_L-p_R}{h^2}=-122.5\ \mathrm{Pa/m}^2.\]</div>
+</div>
+<p>Both equations give <span class="math notranslate nohighlight">\(p_R-p_L=1.225\)</span> Pa. Only the difference is
+determined: adding the same constant to both pressures changes no force.
+Choose zero mean as the pressure reference. Then
+<span class="math notranslate nohighlight">\(p_L=-0.6125\)</span> Pa and <span class="math notranslate nohighlight">\(p_R=0.6125\)</span> Pa, measured relative to
+that reference, not negative absolute atmospheric pressure.</p>
+<p>Pressure rises to the right by <span class="math notranslate nohighlight">\(1.225/0.10=12.25\)</span> Pa/m.
+It causes leftward acceleration <span class="math notranslate nohighlight">\(-12.25/1.225=-10\)</span> m/s².
+Over the chosen time step, the shared face becomes</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[U^{n+1}=0.10-\frac{0.01}{1.225}
+\frac{1.225}{0.10}=0\ \mathrm{m/s}.\]</div>
+</div>
+<p>The wall faces remain zero. Both cell divergences are now zero too.
+We supplied an imbalanced provisional velocity, solved two coupled pressure
+equations, and obtained a compatible velocity. In flow around a wing,
+projection removes the imbalance but need not remove all
+motion: air can continue circulating through many cell faces.</p>
+</section>
+<section id="seeing-flow-with-passive-tracers">
+<h2><span class="section-number">7.10. </span>Seeing flow with passive tracers<a class="headerlink" href="#seeing-flow-with-passive-tracers" title="Link to this heading">#</a></h2>
+<p>Once the velocity field is calculated, we can follow marked parcels without
+letting those markers change the flow. These are <strong>passive tracers</strong>. They
+have no mass or force in our model and no independent random drift. Their
+color is a label, not a measured pressure or speed.</p>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf X(t)\)</span> be one tracer’s position in metres. The already
+calculated velocity <span class="math notranslate nohighlight">\(\mathbf u\)</span> is evaluated at that position. The
+tracer follows</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\frac{d\mathbf X}{dt}=\mathbf u(\mathbf X(t),t).\]</div>
+</div>
+<p>The <span class="math notranslate nohighlight">\(d/dt\)</span> here follows the marker, rather than holding its location
+fixed. If the local velocity stays <span class="math notranslate nohighlight">\((2,-0.5,0)\)</span> m/s for 0.20 s, a
+marker moves <span class="math notranslate nohighlight">\((0.40,-0.10,0)\)</span> m. The plotted history of one moving
+marker is a <strong>pathline</strong>. A <strong>streamline</strong> instead follows the directions
+of the velocity field at one frozen instant; the two coincide only when
+the flow is steady. The experiment draws pathline histories.</p>
+<p>We need velocities between grid faces. <strong>Bilinear interpolation</strong> weights
+the four closest stored values according to distance, once for each velocity
+component. For example, halfway between four samples, their weights are
+all one quarter. This interpolation does not make the velocity exactly
+divergence-free between samples or guarantee impermeability at the mask.</p>
+<p>For a numerical step, let <span class="math notranslate nohighlight">\(\mathbf X^n\)</span> be the marker’s current
+position and <span class="math notranslate nohighlight">\(\mathbf X_m\)</span> a provisional position halfway through
+the same flow time step <span class="math notranslate nohighlight">\(\Delta t\)</span>. First estimate</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\mathbf X_m=\mathbf X^n+
+\frac{\Delta t}{2}\mathbf u^n(\mathbf X^n).\]</div>
+</div>
+<p>Use the average of old and new velocities at this middle position for the
+full displacement:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\mathbf X^{n+1}=\mathbf X^n+
+\frac{\Delta t}{2}\left[
+  \mathbf u^n(\mathbf X_m)+\mathbf u^{n+1}(\mathbf X_m)
+\right].\]</div>
+</div>
+<p>This is an explicit midpoint-style tracer update, using linear time
+interpolation of the two calculated fields. It is second order for a smooth,
+accurately supplied velocity, but the experiment’s first-order flow solver
+and coarse boundaries still limit the overall accuracy. Its code retires a
+tracer that enters a blocked grid cell rather than drawing it through the
+wing or bending its path by hand. New markers enter at the inlet; finite
+trails remember recent positions, not a permanent steady streamline.</p>
+<p>Real visible smoke also spreads, can settle, and can rise when heated.
+For a dilute passive concentration, let <span class="math notranslate nohighlight">\(c\)</span> be smoke mass per volume
+in kg/m³, <span class="math notranslate nohighlight">\(\kappa\)</span> a diffusivity in m²/s, and <span class="math notranslate nohighlight">\(S\)</span> a source in
+kg/(m³ s). A possible additional model is</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\frac{\partial c}{\partial t}+\mathbf u\cdot\nabla c
+=\kappa\nabla^2 c+S.\]</div>
+</div>
+<p>The first two terms transport concentration; diffusion spreads it and
+the source adds it. Neither this concentration equation nor heat, buoyancy,
+settling or scattering is implemented by the wing experiment. Calling its
+markers “smoke trails” describes a visual resemblance, not a smoke model.
+The fluid/tracer distinction follows <a class="reference external" href="https://www.cs.ubc.ca/~rbridson/fluidsimulation/fluids_notes.pdf">Bridson and Müller-Fischer’s fluid
+notes</a>, which treat passive marker advection separately from buoyancy.</p>
+</section>
+<section id="which-version-the-wing-experiment-implements">
+<h2><span class="section-number">7.11. </span>Which version the wing experiment implements<a class="headerlink" href="#which-version-the-wing-experiment-implements" title="Link to this heading">#</a></h2>
+<p>The next experiment calculates a <strong>two-dimensional</strong> field: velocity is
+<span class="math notranslate nohighlight">\(\mathbf u=(u,v,0)\)</span>, where <span class="math notranslate nohighlight">\(u,v\)</span> are its horizontal and vertical
+components in m/s, and nothing varies along span coordinate <span class="math notranslate nohighlight">\(z\)</span>.
+Delete the span derivatives from the equations above. The two active
+components still obey viscous Navier–Stokes and the same volume balance;
+this is not a potential-flow or vortex substitute. The experiment shows this
+field in a fixed two-dimensional side view;
+it does not calculate span flow or tip vortices.</p>
+<p>For feasibility on a coarse browser grid, the wing experiment uses
+<span class="math notranslate nohighlight">\(\nu=0.015\)</span> m²/s, about a thousand times the illustrative air value,
+with speed 1 m/s and chord 1.5 m. This is a deliberately viscous model fluid,
+not realistic airplane air. Its pressure is relative to the outlet reference,
+and hydrostatic pressure has been removed. No gravity acts on markers.</p>
+<p>The wing is a <strong>solid-cell mask</strong>: grid cells with centers inside its rotated
+section are blocked. The drawing uses a smooth rendering of that underlying
+section; the fluid boundary is still a stair-step approximation on the grid.
+Every velocity face between fluid and solid has normal speed zero.
+For viscosity near a wing wall, reflect the tangential velocity into a
+<strong>ghost sample</strong>, a numerical value beyond the wall, rather than an extra
+fluid parcel. If <span class="math notranslate nohighlight">\(f_0\)</span> is the neighboring tangential fluid speed, choose</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[f_{\mathrm{ghost}}=-f_0,
+\qquad \frac{f_0+f_{\mathrm{ghost}}}{2}=0.\]</div>
+</div>
+<p>The zero midpoint approximates no-slip at the mask wall. This reflected
+sample goes into the centered viscous difference, while transport uses the
+blocked face’s zero value. Normal-component wall samples are zero. This is
+an approximate stair-step boundary treatment, not a resolved smooth-wing
+boundary layer. Bilinear tracer sampling can still leak into a blocked cell;
+retiring such a marker is a drawing safeguard, not a change to this flow law.</p>
+<p>At the top and bottom of the tunnel, normal speed is zero, but tangential
+ghost samples equal the adjacent fluid value. This gives zero tangential
+derivative: <strong>slip walls</strong>, a different condition from the no-slip wing.
+The inlet supplies horizontal speed 1 m/s and vertical speed zero.
+At the outlet, the predictor copies the adjacent velocity (zero normal
+derivative); pressure is set to zero at the outlet face. Projection adjusts
+outgoing normal speed. The condition is too simple for substantial flow
+entering backward from outside the domain.</p>
+<p>Here is the actual discrete pressure system behind the experiment. Let
+<span class="math notranslate nohighlight">\(i,j\)</span> count column and row; <span class="math notranslate nohighlight">\(p_{i,j}\)</span> is a cell-center pressure
+and <span class="math notranslate nohighlight">\(d_{i,j}\)</span> its provisional outward volume imbalance per cell volume,
+in 1/s. Face differences give</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[d_{i,j}=\frac{u_{i+1,j}-u_{i,j}+v_{i,j+1}-v_{i,j}}{h}.\]</div>
+</div>
+<p>Let <span class="math notranslate nohighlight">\(\mathcal N\)</span> be the set of neighboring fluid cells, and
+<span class="math notranslate nohighlight">\(q\)</span> label one member’s pressure <span class="math notranslate nohighlight">\(p_q\)</span>. Multiplying the discrete
+Poisson equation by <span class="math notranslate nohighlight">\(-h^2\)</span> gives the interior row</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\sum_{q\in\mathcal N}(p_{i,j}-p_q)
+=-\frac{\rho h^2}{\Delta t}d_{i,j}.\]</div>
+</div>
+<p>Fixed-normal-speed faces add no unknown pressure difference. A zero-pressure
+outlet is half a cell from the last center, so its contribution on the left
+is <span class="math notranslate nohighlight">\(2p_{i,j}\)</span>. The matching outlet velocity correction uses
+<span class="math notranslate nohighlight">\((0-p_{i,j})/(h/2)\)</span> as its pressure gradient. Using the same half-cell
+distance in both operations preserves the discrete volume balance.</p>
+<p>These rows form a sparse symmetric positive linear system: diagonal entries
+count fluid neighbors, with two added at the outlet, and neighboring
+off-diagonal entries are -1. The experiment uses <strong>conjugate gradients</strong>, an
+iterative method for such systems, with the diagonal as a preconditioner
+(a scaling that helps the iterations). The pressure <strong>residual</strong> is the
+right-hand side minus the matrix applied to the current pressure estimate.
+Multiplying its magnitude by <span class="math notranslate nohighlight">\(\Delta t/(\rho h^2)\)</span> gives the
+remaining divergence magnitude. This is what the stopping test measures.
+The structure follows <a class="reference external" href="https://www.cs.ubc.ca/~rbridson/fluidsimulation/fluids_notes.pdf">Bridson and Müller-Fischer’s fluid notes</a>, Chapters
+4 and 5; it does not justify an arbitrary chosen pressure field.</p>
+<p>The code targets maximum residual-equivalent divergence of <span class="math notranslate nohighlight">\(10^{-5}\)</span>
+1/s and permits at most 800 iterations. It checks the actual corrected
+maximum cell divergence against <span class="math notranslate nohighlight">\(2\times10^{-5}\)</span> 1/s and stops with
+an error if the bound is missed. Prescribed/blocked normal speeds are never
+overwritten after projection. The interface displays this actual residual.</p>
+<p>Let <span class="math notranslate nohighlight">\(M_u,M_v\)</span> be the largest absolute component speeds in m/s.
+The explicit time step is at most 0.012 s and is shortened to obey</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\Delta t\left[\frac{M_u+M_v}{h}+\frac{4\nu}{h^2}\right]\leq0.65.\]</div>
+</div>
+<p>The expression combines transport and viscous rates; the conservative factor
+helps accommodate the reflected boundary stencils. It is a stability guard,
+not an accuracy certificate. The display’s 96 by 48 cells are too coarse
+for real-air boundary layers. Three-grid comparisons expose sensitivity
+rather than establish convergence. Changing the wing angle resets the mask
+and projected initial flow, not a moving-boundary wing calculation.
+See <a class="reference internal" href="03b-wind-tunnel.html"><span class="doc">A wing in a viscous wind tunnel</span></a> for the
+controls, geometry, numerical checks and precisely what not to infer.</p>
+</section>
+<section id="repeat-the-airflow-step">
+<h2><span class="section-number">7.12. </span>Repeat the airflow step<a class="headerlink" href="#repeat-the-airflow-step" title="Link to this heading">#</a></h2>
+<p>Repeat prediction and projection as time advances, keeping the rigid wing
+and tunnel boundaries fixed. Changing the angle starts a new run with a
+new fixed geometry; it is not a moving-wing calculation.</p>
+<p>Near a viscous surface, velocity changes through a thin <strong>boundary layer</strong>.
+The disturbed air downstream is the <strong>wake</strong>. <strong>Separation</strong> means flow
+peels away from the surface. These are consequences a sufficiently resolved
+viscous calculation may represent, not extra forces specified by naming
+them. A coarse calculation is not automatically accurate; high-speed or
+high-Reynolds-number flow may need finer resolution and additional modeling.</p>
+</section>
+<section id="separation-and-turbulence-law-versus-resolution">
+<h2><span class="section-number">7.13. </span>Separation and turbulence: law versus resolution<a class="headerlink" href="#separation-and-turbulence-law-versus-resolution" title="Link to this heading">#</a></h2>
+<p>Does this model include flow detaching from the back of a wing? The viscous
+Navier–Stokes equations permit <strong>separation</strong> without a separate detachment
+switch. At a stationary wall, no-slip and viscosity create a low-speed
+boundary layer. If pressure rises along the flow direction, called an
+<strong>adverse pressure gradient</strong>, the pressure force opposes motion. Near-wall
+flow can slow, reverse and leave the surface, forming a separated shear layer
+and sometimes recirculation. <a class="reference external" href="https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/boundary-layer/">NASA’s boundary-layer explanation</a>
+connects the slow near-wall layer, pressure changes and separation.</p>
+<p>The full three-dimensional unsteady equations can also describe <strong>turbulence</strong>,
+irregular interacting flow fluctuations across many sizes. Calculating it
+directly requires resolving those sizes and sufficiently short time steps;
+otherwise an additional turbulence model is needed. Merely writing
+Navier–Stokes, drawing curling traces or obtaining a small pressure residual
+does not establish that turbulent behavior is resolved.</p>
+<p>The wing experiment has no turbulence model, no span motion and no resolved
+real-air boundary layer. Its high model viscosity, first-order numerical
+diffusion and coarse stair-step wall strongly alter the result. Local reverse
+flow, if measured, would demonstrate recirculation in that numerical model,
+not a validated real-wing separation point or stall angle. Its experiment
+page distinguishes tested behavior from effects the continuum law permits.</p>
+</section>
+<section id="from-pressure-to-one-force-then-lift-and-drag">
+<h2><span class="section-number">7.14. </span>From pressure to one force, then lift and drag<a class="headerlink" href="#from-pressure-to-one-force-then-lift-and-drag" title="Link to this heading">#</a></h2>
+<p>Is air pushing part of this calculation? Yes: the pressure gradient already
+accelerates air in the momentum update. The computed pressure also lets us
+estimate the force air applies to the fixed wing. The wing does not move
+under that load in this experiment.</p>
+<p>Pressure acts perpendicular to each surface piece. In this two-dimensional
+model, report force <strong>per unit span</strong>, in N/m, not a force on a whole finite
+wing. Let <span class="math notranslate nohighlight">\(p\)</span> be relative pressure in Pa, <span class="math notranslate nohighlight">\(\Delta s\)</span> a small
+surface length in metres, and <span class="math notranslate nohighlight">\(\mathbf n\)</span> its outward unit normal,
+pointing from the solid into the fluid. The normal has no units. Let
+<span class="math notranslate nohighlight">\(\Delta\mathbf f_p\)</span> be that piece’s pressure-force contribution per
+unit span. Pressure pushes opposite the outward normal:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\Delta\mathbf f_p=-p\mathbf n\Delta s,
+\qquad \mathbf f_p=\sum\Delta\mathbf f_p.\]</div>
+</div>
+<p>The sum adds vectors around the entire closed section, including leading
+and trailing edges. Its units are Pa times m = N/m. This <strong>one resultant</strong>
+is not two independent forces. Let <span class="math notranslate nohighlight">\(\mathbf e_D\)</span> be the unit direction
+of incoming flow, and <span class="math notranslate nohighlight">\(\mathbf e_L\)</span> the perpendicular unit direction
+chosen upward. The dot product takes a vector’s component along a direction.
+Define signed <strong>pressure drag</strong> <span class="math notranslate nohighlight">\(d_p\)</span> and <strong>pressure lift</strong>
+<span class="math notranslate nohighlight">\(l_p\)</span>, both in N/m, by</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[d_p=\mathbf f_p\cdot\mathbf e_D,
+\qquad l_p=\mathbf f_p\cdot\mathbf e_L.\]</div>
+</div>
+<p>Here incoming air moves rightward, so these are simply the rightward and
+upward components. A resultant (0.20, 0.60) N/m has pressure drag 0.20 N/m,
+pressure lift 0.60 N/m and magnitude about 0.632 N/m. On a horizontal
+0.10 m piece with upward normal, relative pressure -3 Pa contributes
+0.30 N/m upward. These are illustrative calculations, not measured wing
+performance. <a class="reference external" href="https://www.grc.nasa.gov/www/k-12/airplane/right1.html">NASA’s pressure-to-force explanation</a> describes summing
+surface contributions and resolving the single force along and across flow.</p>
+<p>Negative relative pressure means below the reference, <strong>not negative absolute
+pressure</strong>. Its outward arrow is a signed contribution relative to that
+reference, not an absolute pulling force. A constant pressure shift changes
+local arrows and colors but cancels from the resultant on a closed surface:
+the sum of outward normals weighted by surface length is zero.
+The experiment uses pressure relative to its zero-pressure outlet, with the
+hydrostatic background removed, not a buoyancy calculation.</p>
+<p>These arrows are <strong>pressure-only</strong>. Full viscous loading also includes
+surface viscous stress, including shear, which these readouts omit even
+though viscosity affects the calculated flow. The experiment sums pressure
+on its stair-step numerical boundary using adjacent fluid-cell values;
+its smooth drawing is not the integration surface. Arrows are scaled display
+guides, not wing displacement. Neither this estimate nor a small pressure
+residual certifies real-wing lift, drag or stall accuracy.</p>
+</section>
+</section>
+
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="02b-moon-flag.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title"><span class="section-number">6. </span>Interactive example: Stretchy flag on the Moon</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="03b-wind-tunnel.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title"><span class="section-number">8. </span>A wing in a viscous wind tunnel</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2016-2026, Peter Demin</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script></body>
+</html>

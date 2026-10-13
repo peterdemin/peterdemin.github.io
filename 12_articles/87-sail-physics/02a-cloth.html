@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>5. Elastic cloth model - Peter Demin</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="6. Interactive example: Stretchy flag on the Moon" href="02b-moon-flag.html" /><link rel="prev" title="4. A rigid ball that drops, bounces and rests" href="01d-bouncing-ball.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=51f15f49" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="5. Elastic cloth model"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#material-weight">5.1. Material weight</a></li>
+<li><a class="reference internal" href="#threads-extension-and-shear">5.2. Threads, extension, and shear</a></li>
+<li><a class="reference internal" href="#an-illustrative-material-with-units-attached">5.3. An illustrative material, with units attached</a></li>
+<li><a class="reference internal" href="#bending-resistance">5.4. Bending resistance</a></li>
+<li><a class="reference internal" href="#triangles-and-finite-strain-on-the-moon">5.5. Triangles and finite strain on the Moon</a></li>
+<li><a class="reference internal" href="#from-triangle-energy-to-forces">5.6. From triangle energy to forces</a></li>
+<li><a class="reference internal" href="#a-directional-extension-limit">5.7. A directional extension limit</a></li>
+<li><a class="reference internal" href="#bending-across-triangle-hinges">5.8. Bending across triangle hinges</a></li>
+<li><a class="reference internal" href="#lunar-loads-and-mass">5.9. Lunar loads and mass</a></li>
+<li><a class="reference internal" href="#attachments-and-fullness">5.10. Attachments and fullness</a></li>
+<li><a class="reference internal" href="#sources-and-our-choices">5.11. Sources and our choices</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
+    
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../87-sail-physics.html"><span itemprop="name">Sail Simulation</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name"><span class="section-number">5. </span>Elastic cloth model</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="elastic-cloth-model">
+<h1><span class="section-number">5. </span>Elastic cloth model<a class="headerlink" href="#elastic-cloth-model" title="Link to this heading">#</a></h1>
+<section id="material-weight">
+<h2><span class="section-number">5.1. </span>Material weight<a class="headerlink" href="#material-weight" title="Link to this heading">#</a></h2>
+<p>Let’s start with a piece of cloth laid flat without stretching it.
+Let <span class="math notranslate nohighlight">\(A\)</span> be its area in square metres and <span class="math notranslate nohighlight">\(\mu\)</span> its density (kg/m²).
+For uniform cloth, meaning the same mass per area throughout, its total mass <span class="math notranslate nohighlight">\(M\)</span> is:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[M=\mu A.\]</div>
+</div>
+<p>Folding or bending this piece, making its surface turn rather than stay flat, does not change its mass.
+Nor does its mass change if it stretches: the same material is still present.</p>
+<p>Gravity gives this mass a downward force:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\vec{F}_g = M\vec{g}.\]</div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\vec{F}_g\)</span> is the gravitational force in Newtons (N).</p></li>
+<li><p><span class="math notranslate nohighlight">\(\vec{g}\)</span> is gravitational acceleration near sea level (9.81 m/s²), the change of velocity per second caused by gravity.</p></li>
+</ul>
+</section>
+<section id="threads-extension-and-shear">
+<h2><span class="section-number">5.2. </span>Threads, extension, and shear<a class="headerlink" href="#threads-extension-and-shear" title="Link to this heading">#</a></h2>
+<p>A <em>membrane</em> is an ideal thin sheet that resists changes of length and changes
+of angle within its surface, but has no bending resistance.
+These two changes are called stretching and shearing; we explain each below.
+Real cloth has some bending resistance, which we model separately.
+This distinction explains how a sheet can be difficult to stretch but easy to fold.</p>
+<p><em>Stiffness</em> describes how much load, or applied force, is needed for a given
+deformation, meaning a change of shape or size.
+More stiffness means more load for the same deformation.
+In this chapter, <em>elastic energy</em> means energy stored in an ideal reversible deformation:
+it can be returned as the load is removed and the cloth returns toward its original shape.</p>
+<p>Woven cloth is made by crossing two sets of threads over and under each other.
+These crossing thread families are called <em>warp</em> and <em>weft</em>.
+Call the warp direction 1 and the weft direction 2.
+They initially cross at right angles in undeformed patch.</p>
+<p>For modelling sail cloth, we can assume equal extension stiffness along both thread directions.
+These directions belong to the cloth and rotate with it;
+they are not necessarily the world’s horizontal and vertical axes.
+To understand extension, mark a short line along either thread direction.
+Let its original, unstretched length be <span class="math notranslate nohighlight">\(\ell_0\)</span> and its current length
+be <span class="math notranslate nohighlight">\(\ell\)</span>, both in metres.</p>
+<p><em>Engineering strain</em>, written <span class="math notranslate nohighlight">\(\epsilon\)</span>, is the fractional change in length, with no units,
+(see <a class="reference external" href="https://ocw.mit.edu/courses/2-080j-structural-mechanics-fall-2013/71034688fba0ff26d25653a4bd236a4a_MIT2_080JF13_Lecture2.pdf#page=1">MIT: The Concept of Strain</a> Section 2.1, equation 2.2a):</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\epsilon=\frac{\ell-\ell_0}{\ell_0}.\]</div>
+</div>
+<p>A 0.50 m warp line becoming 0.505 m long has <span class="math notranslate nohighlight">\(\epsilon=0.01\)</span>, or 1% extension.
+Negative strain means shortening.</p>
+<p>Equal stiffness does not mean equal extension.
+Pull a patch along one thread direction while holding its length fixed in the other:
+the pulled direction can lengthen while the held direction does not.
+Different loads or constraints can therefore produce different strains
+even when the threads have equal extension stiffness.</p>
+<p><em>Shear</em> is an angle change.
+Imagine a rectangular patch becoming a slanted parallelogram, with opposite sides still parallel,
+while its sides barely change length.</p>
+<p>Let <span class="math notranslate nohighlight">\(\phi\)</span> be the current angle between its thread directions, in radians.
+A right angle is <span class="math notranslate nohighlight">\(\pi/2\)</span> radians, or 90 degrees.</p>
+<p>Let <span class="math notranslate nohighlight">\(\gamma\)</span> name dimensionless engineering shear,
+choosing its positive sign to mean that the initially right angle closes.
+For small angle changes,</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\gamma\approx\frac{\pi}{2}-\phi.\]</div>
+</div>
+<p>Closing the angle by 0.10 rad, approximately 5.73 degrees, corresponds to <span class="math notranslate nohighlight">\(\gamma\approx0.10\)</span>.
+This angle interpretation is suitable for small changes, not an exact law for large deformations.</p>
+<p>The angle-change interpretation is developed in <a class="reference external" href="https://ocw.mit.edu/courses/2-080j-structural-mechanics-fall-2013/71034688fba0ff26d25653a4bd236a4a_MIT2_080JF13_Lecture2.pdf#page=9">MIT: Shear as an Angle Change</a>, Section 2.3.
+Those notes use a shear quantity equal to half the small angle change;
+our engineering shear <span class="math notranslate nohighlight">\(\gamma\)</span> uses the whole change,
+so the convention must be accounted for when comparing formulas.</p>
+<p>Different parts of a sail can stretch or shear by different amounts.
+To find the whole sheet’s energy, we therefore need to add the local energy of all its small patches.
+This is where an area integral becomes useful.</p>
+<p>Let <span class="math notranslate nohighlight">\(S_0\)</span> be the original, unstretched sheet over which we add those contributions.
+Let <span class="math notranslate nohighlight">\(dA_0\)</span> be an infinitesimal area: an arbitrarily tiny patch of that original sheet, in m².
+The symbol <span class="math notranslate nohighlight">\(\int_{S_0}\)</span> means to sum across it.
+For the earlier example patch,
+its whole original area is <span class="math notranslate nohighlight">\(A_0=0.10\)</span> m², the area previously called
+<span class="math notranslate nohighlight">\(A\)</span>; <span class="math notranslate nohighlight">\(dA_0\)</span> is a tiny part of it.</p>
+<p>The energy must account for both thread directions.
+Write <span class="math notranslate nohighlight">\(\epsilon_1\)</span> for the value of the same strain definition measured along warp, and
+<span class="math notranslate nohighlight">\(\epsilon_2\)</span> for its value along weft.</p>
+<p>Before writing the energy, let’s define three kinds of material-dependent stiffnesses each using N/m unit:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(K\)</span>: <em>extension stiffness</em>, resistance to length change in thread direction.</p></li>
+<li><p><span class="math notranslate nohighlight">\(C\)</span>: <em>coupling stiffness</em>. Coupling means extension in one thread
+direction affects the force needed in the other.</p></li>
+<li><p><span class="math notranslate nohighlight">\(K_s\)</span>: <em>Membrane shear stiffness</em>, resistance to changing
+the angle between threads per width of sheet.</p></li>
+</ul>
+<p>Let <span class="math notranslate nohighlight">\(E_m\)</span> be elastic energy stored by stretching and shearing the cloth, measured in joules (J):</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[E_m = \frac12\int_{S_0}
+\left[K(\epsilon_1^2+\epsilon_2^2)
++2C\epsilon_1\epsilon_2+K_s\gamma^2\right]dA_0.\]</div>
+</div>
+<p>This is a specialization of the thin-sheet extension law in <a class="reference external" href="https://ocw.mit.edu/courses/3-11-mechanics-of-materials-fall-1999/f193c908ec10d95c0bc67c904b65397a_MIT3_11F99_laminates.pdf#page=8">Roylance:
+Laminated Composite Plates</a>, equations (4) and (20)–(21), combined with the
+linear elastic work-to-energy principle in <a class="reference external" href="https://engcourses-uofa.ca/books/introduction-to-solid-mechanics/energy/expressions-for-the-strain-energy-in-linear-elastic-materials/">Alberta: Linear Elastic Strain
+Energy</a>, equation (2).
+We choose equal directional extension stiffness and
+no direct extension-to-shear coupling; bending is treated separately.</p>
+<p>Why one half? If a pulling force increases in direct proportion to extension,
+the force rises from zero to its final value.
+Its average over that extension is half its final value, and work is average force times extension.
+The same principle gives the quadratic energy above, with the coupling term accounting
+for the interaction of the two extensions.</p>
+</section>
+<section id="an-illustrative-material-with-units-attached">
+<h2><span class="section-number">5.3. </span>An illustrative material, with units attached<a class="headerlink" href="#an-illustrative-material-with-units-attached" title="Link to this heading">#</a></h2>
+<p>The table collects our illustrative stiffnesses alongside the chosen density,
+gravity, and bending parameters. The extension stiffness is equal in the two
+thread directions.</p>
+<p>Two additional quantities describe bending.
+<em>Curvature</em> is how much a surface turns per unit distance along it, measured in 1/m;
+flat cloth has zero curvature.
+We use <span class="math notranslate nohighlight">\(\kappa\)</span> for its current curvature and <span class="math notranslate nohighlight">\(\kappa_0\)</span> for its original curvature.
+<em>Bending rigidity</em> <span class="math notranslate nohighlight">\(B\)</span> is the stiffness resisting a change of curvature.
+Its energy calculation comes later, separately from the stretching and shearing energy.</p>
+<div class="table-wrapper colwidths-given docutils container" id="id1">
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Chosen constants and reference condition</span><a class="headerlink" href="#id1" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 35.0%" />
+<col style="width: 45.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Quantity</p></th>
+<th class="head"><p>Example value in SI units</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\mu_0\)</span></p></td>
+<td><p>0.22 kg/m²</p></td>
+<td><p>Mass per manufactured area; matches the demo</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\mathbf{g}\)</span></p></td>
+<td><p>(0, −9.81, 0) m/s²</p></td>
+<td><p>Chosen near-Earth gravity for the sail example</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(K\)</span></p></td>
+<td><p>20,000 N/m</p></td>
+<td><p>Extension stiffness in both thread directions</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(C\)</span></p></td>
+<td><p>2,000 N/m</p></td>
+<td><p>Coupling between warp and weft extension</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(K_s\)</span></p></td>
+<td><p>500 N/m</p></td>
+<td><p>Engineering-shear coefficient</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(B\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(2\times10^{-4}\)</span> N m</p></td>
+<td><p>Illustrative bending rigidity, introduced below</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Before writing the results, let <span class="math notranslate nohighlight">\(N_1,N_2,N_{12}\)</span> name these forces per width, in N/m:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(N_1\)</span>: the pulling force along warp,</p></li>
+<li><p><span class="math notranslate nohighlight">\(N_2\)</span>: the pulling force along weft,</p></li>
+<li><p><span class="math notranslate nohighlight">\(N{12}\)</span>: the sliding force associated with shear between the two thread directions.</p></li>
+</ul>
+<p>They are often called membrane force resultants because the forces
+through the sheet’s thickness have been combined into a force per width.
+For our energy expression, the results are</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[N_1=K\epsilon_1+C\epsilon_2,
+\qquad N_2=C\epsilon_1+K\epsilon_2,
+\qquad N_{12}=K_s\gamma.\]</div>
+</div>
+<p>These are derived from our displayed energy, not independently assumed formulas.
+For example, the rate of change of
+<span class="math notranslate nohighlight">\(K\epsilon_1^2/2+C\epsilon_1\epsilon_2\)</span> with respect to
+<span class="math notranslate nohighlight">\(\epsilon_1\)</span> is <span class="math notranslate nohighlight">\(K\epsilon_1+C\epsilon_2\)</span>.
+<a class="reference external" href="https://engcourses-uofa.ca/books/introduction-to-solid-mechanics/energy/expressions-for-the-strain-energy-in-linear-elastic-materials/">Alberta: Linear Elastic Strain Energy</a> explains the underlying energy
+derivative principle; here the energy is per sheet area rather than per volume.</p>
+<p>With positive <span class="math notranslate nohighlight">\(C\)</span>, stretching warp while holding weft at its original
+length requires <em>tension</em>, or pulling force, along weft too.
+If there is instead no pulling force along weft (<span class="math notranslate nohighlight">\(N_2=0\)</span>),</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\epsilon_2=-\frac{C}{K}\epsilon_1=-0.10\epsilon_1.\]</div>
+</div>
+<p>Thus 1% warp extension would accompany 0.1% weft contraction under that particular loading condition.
+Which edges are held or pulled, not the material stiffnesses alone, determines the two strains.</p>
+</section>
+<section id="bending-resistance">
+<h2><span class="section-number">5.4. </span>Bending resistance<a class="headerlink" href="#bending-resistance" title="Link to this heading">#</a></h2>
+<p>Bending changes curvature without necessarily changing in-plane lengths.
+An ideal membrane has none of this resistance, but a cloth model can add a
+similarly simplified bending energy <span class="math notranslate nohighlight">\(E_b\)</span>, measured in joules:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[E_b = \frac12\int_{S_0}B(\kappa-\kappa_0)^2\,dA_0.\]</div>
+</div>
+<p><a class="reference external" href="https://ocw.mit.edu/courses/2-081j-plates-and-shells-spring-2007/1bd32d641a2b41ca518591d981405393_lecturenote.pdf#page=13">MIT: Bending Energy</a>, Section 2.2.2, equations (45)–(46), derives the
+single-direction energy per area <span class="math notranslate nohighlight">\(B\kappa^2/2\)</span> for a flat reference.
+We rename its bending rigidity and express curvature relative to the chosen
+stress-free value <span class="math notranslate nohighlight">\(\kappa_0\)</span>. This scalar, single-curvature example is
+not the full two-direction plate or shell energy; the source derives that
+more general energy separately in equations (47)–(53).</p>
+<p>Here <span class="math notranslate nohighlight">\(B\)</span> is bending rigidity (N m), <span class="math notranslate nohighlight">\(\kappa\)</span> is curvature (1/m),
+and <span class="math notranslate nohighlight">\(\kappa_0\)</span> is reference curvature. Use the illustrative
+<span class="math notranslate nohighlight">\(B=2\times10^{-4}\)</span> N m and flat reference <span class="math notranslate nohighlight">\(\kappa_0=0\)</span> 1/m from
+the table. A current cylindrical bend of radius 0.50 m has curvature magnitude
+<span class="math notranslate nohighlight">\(\kappa=2\)</span> 1/m. For our uniform patch, this example state stores</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[E_b=\frac12(2\times10^{-4}\,\text{N m})
+(2\,\text{m}^{-1})^2(0.10\,\text{m}^2)
+=4\times10^{-5}\,\text{J}.\]</div>
+</div>
+<p>Bending rigidity times curvature squared times area has units
+N m × 1/m² × m² = N m = J.
+This small example bending energy explains why the chosen sheet can bend more easily than it stretches.
+A more complete thin-sheet model accounts for bending in
+different directions and twisting rather than using just one curvature value.
+Both energies have units of joules, but they penalize different deformations.</p>
+<p>The constants in the table characterize our chosen material and environment;
+<span class="math notranslate nohighlight">\(\kappa_0\)</span> specifies its reference condition. Position (m), time (s), local strains
+<span class="math notranslate nohighlight">\(\epsilon_1,\epsilon_2,\gamma\)</span> (dimensionless), and current curvature
+<span class="math notranslate nohighlight">\(\kappa\)</span> (1/m) are evolving variables, not fixed constants.
+The original sheet and patch lengths specify its chosen size and shape.
+In particular, the example strains and bend above are not imposed everywhere on a sail.</p>
+</section>
+<section id="triangles-and-finite-strain-on-the-moon">
+<h2><span class="section-number">5.5. </span>Triangles and finite strain on the Moon<a class="headerlink" href="#triangles-and-finite-strain-on-the-moon" title="Link to this heading">#</a></h2>
+<p>The earlier small-strain examples remain useful near the original shape.
+The lunar flag needs an explicit rule for larger changes.
+Its <em>mesh</em> divides the sheet into triangles, each with fixed reference area <span class="math notranslate nohighlight">\(A\)</span> in m².
+Give the flat reference sheet coordinates <span class="math notranslate nohighlight">\(a,b\)</span> in metres along its
+initially perpendicular thread directions.
+These are distances in the material, not fractions of the flag’s width or height.
+Let <span class="math notranslate nohighlight">\(\mathbf r(a,b)\)</span> be the current three-dimensional position of that material point, in metres.</p>
+<p>The symbol <span class="math notranslate nohighlight">\(\partial\)</span> describes a rate of change while the other
+coordinate is held fixed.
+Define two <em>deformation directions</em> <span class="math notranslate nohighlight">\(\mathbf u,\mathbf v\)</span>: the changes in current position per meter of
+reference distance along each thread direction.
+Thus</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\mathbf u=\frac{\partial\mathbf r}{\partial a},
+\qquad \mathbf v=\frac{\partial\mathbf r}{\partial b}.\]</div>
+</div>
+<p>Both are dimensionless vectors: metres divided by metres.
+Their lengths are the current-to-reference length ratios along the two thread directions.
+The dot product <span class="math notranslate nohighlight">\(\mathbf u\cdot\mathbf v\)</span> multiplies their lengths
+by the cosine of their angle; <span class="math notranslate nohighlight">\(\mathbf u\cdot\mathbf u\)</span> is the
+squared length of <span class="math notranslate nohighlight">\(\mathbf u\)</span>. Define dimensionless strains
+<span class="math notranslate nohighlight">\(p,q,s\)</span> before using them in the energy:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[p=\frac{\mathbf u\cdot\mathbf u-1}{2},
+\qquad q=\frac{\mathbf v\cdot\mathbf v-1}{2},
+\qquad s=\mathbf u\cdot\mathbf v.\]</div>
+</div>
+<p>These are <strong>Green strains</strong>, based on changes of squared lengths and their
+angle. In the usual notation for the Green strain array, <span class="math notranslate nohighlight">\(E_{12}\)</span> is
+its off-diagonal shear entry, and <span class="math notranslate nohighlight">\(s=2E_{12}\)</span>. Turning or moving the
+whole triangle without deforming it leaves all its dot products unchanged.
+This property is called <strong>objectivity</strong>: rigid motion stores no extra elastic
+energy. It holds even for a large rotation.</p>
+<p>For small changes, <span class="math notranslate nohighlight">\(p\approx\epsilon_1\)</span>,
+<span class="math notranslate nohighlight">\(q\approx\epsilon_2\)</span>, and <span class="math notranslate nohighlight">\(s\approx\gamma\)</span>, with the
+engineering strains defined earlier. At larger changes they differ. A length
+ratio of 1.55 means 55% engineering extension, but gives
+<span class="math notranslate nohighlight">\(p=(1.55^2-1)/2=0.70125\)</span> along that direction.</p>
+<p>For the lunar sheet choose <span class="math notranslate nohighlight">\(K=35\)</span> N/m, <span class="math notranslate nohighlight">\(C=3.5\)</span> N/m, and
+<span class="math notranslate nohighlight">\(K_s=0.35\)</span> N/m. They are sheet stiffnesses, not edge spring constants.
+Let <span class="math notranslate nohighlight">\(w\)</span> be stored membrane energy per reference area (J/m²), and
+<span class="math notranslate nohighlight">\(E_\triangle\)</span> the membrane energy of one triangle (J). The chosen
+finite-strain material law is</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[w=\frac12\left[K(p^2+q^2)+2Cpq+K_s s^2\right],
+\qquad E_\triangle=A w.\]</div>
+</div>
+<p>N/m equals J/m², so multiplying by reference area gives joules. This is a
+<strong>Saint-Venant–Kirchhoff-like sheet law</strong>: energy is quadratic in Green
+strain, although it is not quadratic in extension or vertex positions.
+<a class="reference external" href="https://docs.software.vt.edu/abaqusv2025/English/SIMACAESUBRefMap/simasub-c-uanisohyper_strain.htm">Abaqus: Orthotropic Saint-Venant Kirchhoff Model</a> gives the corresponding
+quadratic-in-Green-strain construction for a three-dimensional material.
+Our two-direction sheet law and numerical values are choices here, not
+values supplied by that example.</p>
+<p>The lunar extension coefficient 35 N/m makes it much more compliant than the
+earlier 20,000 N/m example. These are illustrative choices with no actual
+material calibration. Objectivity and an explicit finite-strain rule do not
+establish physical accuracy at 55% extension. In particular, we are not
+extending the validity of the linear engineering-strain law to that range.</p>
+</section>
+<section id="from-triangle-energy-to-forces">
+<h2><span class="section-number">5.6. </span>From triangle energy to forces<a class="headerlink" href="#from-triangle-energy-to-forces" title="Link to this heading">#</a></h2>
+<p>To find a force, ask how energy changes when a vertex moves. First let
+<span class="math notranslate nohighlight">\(\mathbf P_u,\mathbf P_v\)</span> be the vector derivatives of <span class="math notranslate nohighlight">\(w\)</span>
+with respect to <span class="math notranslate nohighlight">\(\mathbf u,\mathbf v\)</span>. Each has units N/m. Applying
+the energy derivative principle to the displayed Green-strain law gives</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\mathbf P_u=(Kp+Cq)\mathbf u+K_s s\mathbf v,
+\qquad
+\mathbf P_v=(Cp+Kq)\mathbf v+K_s s\mathbf u.\]</div>
+</div>
+<p>The scalar derivatives with respect to <span class="math notranslate nohighlight">\(p,q,s\)</span> are
+<span class="math notranslate nohighlight">\(Kp+Cq\)</span>, <span class="math notranslate nohighlight">\(Cp+Kq\)</span>, and <span class="math notranslate nohighlight">\(K_s s\)</span>. These are material or
+reference force resultants, tied to reference area and reference directions.
+They are not automatically forces per current width of stretched cloth.
+The direction vectors in <span class="math notranslate nohighlight">\(\mathbf P_u,\mathbf P_v\)</span> account for the
+additional change from Green strain to position. Thus the earlier
+small-strain force formulas cannot simply be used unchanged for large pulls.</p>
+<p>Each triangle has three <strong>vertices</strong>, the simulated corner points, with
+positions <span class="math notranslate nohighlight">\(\mathbf r_i\)</span> in metres. The index <span class="math notranslate nohighlight">\(i\)</span> labels a
+vertex. Its <strong>interpolation weight</strong> <span class="math notranslate nohighlight">\(N_i(a,b)\)</span> is dimensionless,
+equals one at that vertex and zero at the other two, and changes linearly
+across the triangle. The weights add to one. The summation symbol
+<span class="math notranslate nohighlight">\(\sum_i\)</span> means add the three contributions. Linear triangle
+interpolation means</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\mathbf r(a,b)=\sum_i N_i(a,b)\mathbf r_i.\]</div>
+</div>
+<p>Define <span class="math notranslate nohighlight">\(b_i=\partial N_i/\partial a\)</span> and
+<span class="math notranslate nohighlight">\(c_i=\partial N_i/\partial b\)</span>, both in 1/m. They are constant within
+a triangle and determined by its reference geometry. Let <span class="math notranslate nohighlight">\(\mathbf f_i\)</span>
+be that triangle’s elastic force on vertex <span class="math notranslate nohighlight">\(i\)</span>, in newtons. The negative
+energy derivative points toward decreasing energy:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\mathbf f_i=-\frac{\partial E_\triangle}{\partial\mathbf r_i}
+=-A\left[b_i\mathbf P_u+c_i\mathbf P_v\right].\]</div>
+</div>
+<p>The units are m² × 1/m × N/m = N. A shared vertex receives contributions
+from every incident triangle, meaning every triangle meeting there.</p>
+<p>The lunar solver’s elastic corrections use scalar strain modes derived from
+this energy. Define three dimensionless
+<strong>modes</strong>, or combinations of strain:
+<span class="math notranslate nohighlight">\(\chi_+=p+q\)</span> for extension together,
+<span class="math notranslate nohighlight">\(\chi_-=p-q\)</span> for extension in opposition, and
+<span class="math notranslate nohighlight">\(\chi_s=s\)</span> for shear. Let <span class="math notranslate nohighlight">\(k_+,k_-,k_s\)</span> be their energy
+coefficients in joules. Expanding the squares gives exactly the same
+triangle energy:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[E_\triangle=\frac12 k_+\chi_+^2
++\frac12 k_-\chi_-^2+\frac12 k_s\chi_s^2,
+\qquad
+k_+=\frac{A(K+C)}{2},\quad
+k_-=\frac{A(K-C)}{2},\quad k_s=A K_s.\]</div>
+</div>
+<p>These coefficients multiply dimensionless squared strains, so they have
+units J, not the N/m of a spring acting on extension in metres.
+The symbol <span class="math notranslate nohighlight">\(\nabla_{\mathbf r_i}\)</span> means a vector of rates of change
+with respect to the vertex’s three position components. The exact gradients
+of these modes, in 1/m, are</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\nabla_{\mathbf r_i}\chi_+=b_i\mathbf u+c_i\mathbf v,
+\qquad
+\nabla_{\mathbf r_i}\chi_-=b_i\mathbf u-c_i\mathbf v,
+\qquad
+\nabla_{\mathbf r_i}\chi_s=b_i\mathbf v+c_i\mathbf u.\]</div>
+</div>
+<p>This decomposition is algebra applied to our stated law, not a new measured
+material law. <a class="reference internal" href="02b-moon-flag.html"><span class="doc">Interactive example: Stretchy flag on the Moon</span></a>
+explains how the solver turns these energy-derived rules into iterative
+position corrections while advancing time.</p>
+</section>
+<section id="a-directional-extension-limit">
+<h2><span class="section-number">5.7. </span>A directional extension limit<a class="headerlink" href="#a-directional-extension-limit" title="Link to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(u_\mathrm{len},v_\mathrm{len}\)</span> name the lengths of
+<span class="math notranslate nohighlight">\(\mathbf u,\mathbf v\)</span>, respectively. In every triangle, the lunar
+model imposes the inequalities</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[u_\mathrm{len}\leq1.55,\qquad v_\mathrm{len}\leq1.55.\]</div>
+</div>
+<p>The symbol <span class="math notranslate nohighlight">\(\leq\)</span> means less than or equal to. This is an upper limit
+along each of the two material directions, not a limit on every diagonal or
+every possible direction. Shear can change diagonal lengths even when both
+listed ratios obey their limits. There is no lower length bound in these
+inequalities.</p>
+<p>As an ideal energy rule, the limit adds zero energy inside the permitted
+region and infinite energy outside it: a forbidden state cannot be accepted.
+Numerical corrections enforce this hard constraint only to the solver’s
+finite accuracy. The Green-strain energy still acts inside the region.
+The cap is a teaching constraint, not evidence that the cloth is physically
+validated up to 55% extension or that real fabric cannot tear.</p>
+</section>
+<section id="bending-across-triangle-hinges">
+<h2><span class="section-number">5.8. </span>Bending across triangle hinges<a class="headerlink" href="#bending-across-triangle-hinges" title="Link to this heading">#</a></h2>
+<p>Two triangles sharing an interior edge form a <strong>hinge</strong>. Their signed
+<strong>dihedral angle</strong> <span class="math notranslate nohighlight">\(\theta\)</span> measures their relative turn about that
+edge; the sign distinguishes the two bending directions using a consistent
+edge orientation. Let <span class="math notranslate nohighlight">\(\theta_0\)</span> be its reference angle, zero for
+this flat sheet. Both angles are in radians and dimensionless. The current
+angle comes from the actual triangle geometry, not the distance between a
+pair of vertices used as a substitute for bending.</p>
+<p>Let <span class="math notranslate nohighlight">\(L\)</span> be the shared edge’s reference length in metres, and
+<span class="math notranslate nohighlight">\(A_\mathrm{left},A_\mathrm{right}\)</span> the two reference triangle areas in m².
+They stay fixed as the cloth moves. We use <span class="math notranslate nohighlight">\(D\)</span> for the <strong>discrete hinge
+rigidity</strong>, in N m, to distinguish it from the earlier scalar bending rigidity
+<span class="math notranslate nohighlight">\(B\)</span>. The current illustrative choice is <span class="math notranslate nohighlight">\(D=0.2\)</span> N m, tuned
+to keep bending visible and spread over neighboring triangles. Its numerical
+magnitude is 1,000 times the example
+<span class="math notranslate nohighlight">\(B=2\times10^{-4}\)</span> N m; this comparison does not establish identical
+continuum bending behavior.</p>
+<p>Let <span class="math notranslate nohighlight">\(E_\mathrm{hinge}\)</span> be the total hinge bending energy in joules.
+Here <span class="math notranslate nohighlight">\(\sum_\mathrm{hinges}\)</span> adds contributions from all interior edges.
+Our chosen discrete bending material law is</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[E_\mathrm{hinge}=\frac12\sum_\mathrm{hinges}
+D\frac{L^2}{A_\mathrm{left}+A_\mathrm{right}}
+(\theta-\theta_0)^2.\]</div>
+</div>
+<p>The area ratio is dimensionless, so each term has units N m = J.
+<a class="reference external" href="https://multires-1.cms.caltech.edu/pubs/ds.pdf">Grinspun et al.: Discrete Shells</a>, equation (2), motivates this family of
+geometry-weighted hinge energies. Our weights and coefficient are chosen
+explicitly here; they are not the paper’s literal normalization constants.
+<a class="reference external" href="https://la.disneyresearch.com/wp-content/uploads/Discrete-Bending-Forces-and-Their-Jacobians-Paper.pdf">Tamstorf and Grinspun: Discrete Bending Forces and Their Jacobians</a>,
+Section 2, explains forces obtained by differentiating geometric hinge-angle
+energies. The full angle derivatives are beyond what we need here.</p>
+<p>To interpret the geometric scale, define the <strong>dual width</strong> <span class="math notranslate nohighlight">\(h\)</span> in
+metres as the combined reference area divided by edge length:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[h=\frac{A_\mathrm{left}+A_\mathrm{right}}{L}.\]</div>
+</div>
+<p>A triangle’s area is half its base times its altitude, the perpendicular
+distance from the opposite vertex to the base. Thus <span class="math notranslate nohighlight">\(h\)</span> is the average
+of the two opposite-vertex altitudes. For one hinge, let <span class="math notranslate nohighlight">\(E_e\)</span> be its
+energy in joules. The same term can be rewritten as</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[E_e=\frac12 D(Lh)
+\left(\frac{\theta-\theta_0}{h}\right)^2.\]</div>
+</div>
+<p>Here <span class="math notranslate nohighlight">\(Lh\)</span> is a reference area and angle change divided by <span class="math notranslate nohighlight">\(h\)</span>
+has units 1/m, resembling the scalar curvature calculation above. This
+interpretation explains the geometry scaling; it does not prove a complete
+isotropic shell continuum law for arbitrary curvatures.</p>
+<p>Cylinder energy tests make the limitation concrete. For grid orientations
+of 0° and 90°, refinement approaches the scalar cylindrical bending target
+with its coefficient set to <span class="math notranslate nohighlight">\(D\)</span>. At 45°, the measured energies instead
+approach approximately three times that target. Refinement at a fixed
+orientation approaches stable energies rather than making them collapse
+toward zero, but the orientation dependence remains. This specific reference
+hinge sum therefore has a fixed grid directional bias. We assert agreement
+with scalar cylindrical bending only for the grid-aligned cylinder tests,
+not a common isotropic continuum rigidity for every orientation.</p>
+</section>
+<section id="lunar-loads-and-mass">
+<h2><span class="section-number">5.9. </span>Lunar loads and mass<a class="headerlink" href="#lunar-loads-and-mass" title="Link to this heading">#</a></h2>
+<p>The current lunar choices are collected here separately from the original
+small-strain sail example. The stiffnesses are illustrative, not measured;
+the hinge coefficient is a chosen numerical material, not a measured property.</p>
+<div class="table-wrapper colwidths-given docutils container" id="id2">
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">Current lunar model choices</span><a class="headerlink" href="#id2" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 25.0%" />
+<col style="width: 55.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Quantity</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(K\)</span></p></td>
+<td><p>35 N/m</p></td>
+<td><p>Green-strain extension coefficient in both material directions</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(C\)</span></p></td>
+<td><p>3.5 N/m</p></td>
+<td><p>Coupling between the two Green extension strains</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(K_s\)</span></p></td>
+<td><p>0.35 N/m</p></td>
+<td><p>Green shear coefficient</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(D\)</span></p></td>
+<td><p>0.2 N m</p></td>
+<td><p>Discrete hinge rigidity; chosen for smoothness, with grid directional bias</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\mu_0\)</span></p></td>
+<td><p>0.22 kg/m²</p></td>
+<td><p>Mass per reference area</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\mathbf g\)</span></p></td>
+<td><p>(0, −1.62, 0) m/s²</p></td>
+<td><p>Lunar gravitational acceleration</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The lunar flag keeps the reference mass density <span class="math notranslate nohighlight">\(\mu_0=0.22\)</span> kg/m².
+Let <span class="math notranslate nohighlight">\(m_{i,\triangle}\)</span> be one triangle’s mass contribution to one of
+its three vertices, in kilograms. Each receives an equal share:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[m_{i,\triangle}=\frac{\mu_0 A}{3}.\]</div>
+</div>
+<p>Add these contributions over incident triangles to get a vertex’s mass.
+This uses manufactured area, so stretching does not create mass.
+The lunar acceleration is <span class="math notranslate nohighlight">\(\mathbf g=(0,-1.62,0)\)</span> m/s². The earlier
+0.022 kg patch therefore weighs 0.03564 N on the Moon, compared with
+0.21582 N in our near-Earth example.</p>
+<p>Only the flag’s left edge is pinned. While dragging, the hand also prescribes
+the selected point’s position; releasing it removes that temporary support.
+These conditions differ from the sail’s luff-and-foot attachments below.
+There is no self-collision treatment: separate parts of the flag can pass
+through one another.</p>
+<p>Time steps, solver sweeps and artificial velocity damping are software
+choices, not membrane or bending material constants. The flag’s actual
+values and prediction/correction procedure are collected in
+<a class="reference internal" href="02b-moon-flag.html"><span class="doc">Interactive example: Stretchy flag on the Moon</span></a>.
+They affect motion and numerical accuracy; none supplies physical calibration.</p>
+</section>
+<section id="attachments-and-fullness">
+<h2><span class="section-number">5.10. </span>Attachments and fullness<a class="headerlink" href="#attachments-and-fullness" title="Link to this heading">#</a></h2>
+<p>To describe which points are attached, label a material point by two
+coordinates <span class="math notranslate nohighlight">\(\mathbf{a}\)</span>, two numbers locating it on the original
+sheet. Its current position at time <span class="math notranslate nohighlight">\(t\)</span> is
+<span class="math notranslate nohighlight">\(\mathbf{r}(\mathbf{a},t)\)</span>, in metres. The labels identify the same
+piece of material as it moves; they do not prescribe its current position.
+The <strong>luff</strong> is the edge beside the mast; the <strong>foot</strong> is the bottom edge along
+the boom. In this model both are fixed in position. The other two edges, the
+<strong>leech</strong> away from the mast and the <strong>head</strong> at the top, are free.
+Let <span class="math notranslate nohighlight">\(\mathbf{r}_{\text{rig}}\)</span> be the specified position of an attachment
+on the fixed mast or boom, in metres. At the attachments, position is prescribed for all
+time:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\mathbf{r}(\mathbf{a},t)=\mathbf{r}_{\text{rig}}(\mathbf{a})
+\quad\text{on the luff and foot}.\]</div>
+</div>
+<p>An ideal fixed attachment supplies a <strong>support reaction</strong>, the force needed to
+hold the attached cloth in place. These prescribed positions are <strong>boundary
+conditions</strong>: instructions for what happens at the sheet’s edges. A free edge
+has no attachment force or attachment bending moment, the turning effect of
+a support force, although air can still load the cloth there. A real attachment
+may also fix the direction the cloth leaves the support. Fixing position alone
+does not impose that extra restriction on rotation.</p>
+<p><strong>Fullness</strong> means extra manufactured cloth that can form a curved bag without
+requiring the threads to stretch. It comes from the cut shape and seams, the
+joins between pieces of cloth, or more generally from the original lengths and
+angles built into the material. It must not be confused with elastic stretch
+under wind. Specifying a curved shape every frame would
+remove the very question we want to solve: which shape follows from the loads?</p>
+</section>
+<section id="sources-and-our-choices">
+<h2><span class="section-number">5.11. </span>Sources and our choices<a class="headerlink" href="#sources-and-our-choices" title="Link to this heading">#</a></h2>
+<p>Try <a class="reference internal" href="02b-moon-flag.html"><span class="doc">Interactive example: Stretchy flag on the Moon</span></a>: pull its top-right corner, then release it under lunar gravity.
+It uses the Green-strain triangle law, directional extension limits, and
+geometric hinge bending described above. Its extension is much more compliant
+than the small-strain sail example; its chosen hinge rigidity has a larger
+numerical magnitude than the example bending rigidity. These teaching choices
+are not measurements of this sailcloth or claims that real fabric cannot tear.</p>
+<p>The linked university notes establish the mechanics principles, not measured
+properties of this sail. The three membrane stiffnesses and bending rigidity
+are illustrative choices. The mass per area is shared with the lunar demo;
+the near-Earth gravity in the original examples is not. Matching a chosen
+input does not experimentally validate it. Our examples, positivity
+check, force formulas, and strip-stiffness conversion are calculated here from
+the stated definitions and energy law.</p>
+<p>The source texts use more advanced notation than this chapter. The section and
+equation pointers above identify the relevant definitions or derivations;
+their letter names need not match ours.</p>
+</section>
+</section>
+
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="01d-bouncing-ball.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title"><span class="section-number">4. </span>A rigid ball that drops, bounces and rests</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="02b-moon-flag.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title"><span class="section-number">6. </span>Interactive example: Stretchy flag on the Moon</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2016-2026, Peter Demin</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script></body>
+</html>

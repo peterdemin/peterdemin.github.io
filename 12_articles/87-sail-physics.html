@@ -2,7 +2,7 @@
 <html lang="en" data-accent-color="violet" data-content_root="../">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Sail Simulation - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Elastic cloth model" href="87-sail-physics/01-cloth.html" /><link rel="prev" title="Boom and Sail Physics" href="85-sail.html" /><script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Sail Simulation - Peter Demin</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="1. Basics of simulation software" href="87-sail-physics/01a-simulation-basics.html" /><link rel="prev" title="Boom and Sail Physics" href="85-sail.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
@@ -122,14 +122,19 @@ So it’s not an unhinged AI slop, I actually like it, learned a lot, and had fu
 <h2>Chapters<a class="headerlink" href="#chapters" title="Link to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="87-sail-physics/01-cloth.html">Elastic cloth model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="87-sail-physics/02-moon-flag.html">Interactive example: Stretchy flag on the Moon</a></li>
-<li class="toctree-l1"><a class="reference internal" href="87-sail-physics/03-airflow.html">Airflow model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="87-sail-physics/04-forces-and-shape.html">Loads change shape, and supports close the load path</a></li>
-<li class="toctree-l1"><a class="reference internal" href="87-sail-physics/05-coupled-numerics.html">Turning the coupled problem into a numerical calculation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="87-sail-physics/06-accuracy.html">What would make the prediction accurate?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="87-sail-physics/07-browser-approximation.html">Deriving the browser approximation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="87-sail-physics/08-stability.html">Stability is necessary, but different from accuracy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="87-sail-physics/01a-simulation-basics.html">1. Basics of simulation software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="87-sail-physics/01b-satellite-orbit.html">2. A satellite orbit calculated with RK4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="87-sail-physics/01c-contact-constraints.html">3. Keeping a rigid ball above the floor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="87-sail-physics/01d-bouncing-ball.html">4. A rigid ball that drops, bounces and rests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="87-sail-physics/02a-cloth.html">5. Elastic cloth model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="87-sail-physics/02b-moon-flag.html">6. Interactive example: Stretchy flag on the Moon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="87-sail-physics/03a-airflow.html">7. Airflow model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="87-sail-physics/03b-wind-tunnel.html">8. A wing in a viscous wind tunnel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="87-sail-physics/04-forces-and-shape.html">9. Loads change shape, and supports close the load path</a></li>
+<li class="toctree-l1"><a class="reference internal" href="87-sail-physics/05-coupled-numerics.html">10. Turning the coupled problem into a numerical calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="87-sail-physics/06-accuracy.html">11. What would make the prediction accurate?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="87-sail-physics/07-browser-approximation.html">12. Deriving the browser approximation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="87-sail-physics/08-stability.html">13. Stability is necessary, but different from accuracy</a></li>
 </ul>
 </div>
 </section>
@@ -149,10 +154,10 @@ So it’s not an unhinged AI slop, I actually like it, learned a lot, and had fu
         <span>Previous</span><div class="title">Boom and Sail Physics</div></div>
     </a>
   </div><div class="navigation-next">
-    <a href="87-sail-physics/01-cloth.html">
+    <a href="87-sail-physics/01a-simulation-basics.html">
       <div class="page-info">
         <span>Next</span>
-        <div class="title">Elastic cloth model</div>
+        <div class="title"><span class="section-number">1. </span>Basics of simulation software</div>
       </div>
       <i class="i-lucide chevron-right"></i>
     </a>
