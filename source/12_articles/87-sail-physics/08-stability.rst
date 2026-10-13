@@ -6,11 +6,13 @@ uncontrolled motion or unusable numbers. This is different from predicting
 the physical sail accurately. A heavily damped, overly stiff sheet can be
 stable and still give the wrong shape or settling time.
 
-The browser cloth update uses **extended position-based dynamics**, or XPBD:
-it first predicts node positions, then adjusts them to satisfy elastic link
-rules approximately. A **constraint** is such a rule, for example keeping two
-points near their original separation. A **compliant** constraint allows some
-extension under force instead of demanding exactly zero extension.
+The flag's prediction/correction workflow is described in
+:doc:`the lunar flag experiment <02-moon-flag>`.
+Here the detailed example is the stiff-link sail approximation from
+:doc:`Deriving the browser approximation <07-browser-approximation>`, not the
+lunar flag's triangle-strain and hinge constraints. Its **extended
+position-based dynamics**, XPBD, uses compliant distance links: rules allowing
+some length change under force instead of demanding perfectly rigid links.
 
 One link, with all symbols defined
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -29,7 +31,7 @@ length error (m). Double bars mean vector length, so
 Positive error means a stretched link; negative error means a shortened one.
 For example, an original 0.20 m link stretched to 0.201 m has error 0.001 m.
 This is a length error, not dimensionless strain: its strain is 0.001/0.20,
-or 0.5%, using Chapter 1's definition.
+or 0.5%, using the definition in :doc:`Elastic cloth model <01-cloth>`.
 
 Let :math:`k` be link stiffness (N/m), :math:`\alpha` its compliance (m/N),
 and :math:`h` the time-step duration (s).
@@ -223,7 +225,8 @@ For a flat nominal outline at 6 m/s and 10 degrees, lattice refinement gives:
 Induced drag is the along-wind part of the vortex-derived force, excluding
 the added empirical friction term. Relative to 112 panels, the 60-panel
 lift differs by about 0.47% and induced drag by about 1.85%.
-These use Chapter 6's relative-difference formula. Three meshes do not by
+These use the relative-difference formula in
+:doc:`What would make the prediction accurate? <06-accuracy>`. Three meshes do not by
 themselves bound the remaining error.
 
 This check uses the nominal flat outline, not a converged coupled shape of

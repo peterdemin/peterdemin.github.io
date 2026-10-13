@@ -31,5 +31,6 @@ Chapters
 .. toctree::
    :maxdepth: 1
    :glob:
+   :numbered:
 
    87-sail-physics/*

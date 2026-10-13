@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A rigid ball that drops, bounces and rests</title>
+  <script>if(new URLSearchParams(location.search).get('embedded')==='1')document.documentElement.classList.add('embedded');</script>
+  <style>
+    :root{color-scheme:light dark;font-family:system-ui,sans-serif;background:light-dark(#fdf6e3,#002b36);color:light-dark(#657b83,#93a1a1)}*{box-sizing:border-box}body{margin:0}main{max-width:1000px;margin:auto;padding:24px}header p,footer{line-height:1.6}.embedded main{padding:0;max-width:none}.embedded header,.embedded footer{display:none}.embedded{background:var(--book-background,#fdf6e3);color:var(--book-text,#657b83);font-family:var(--book-font,system-ui,sans-serif)}.stage{position:relative;aspect-ratio:4/3;border:1px solid var(--book-border,#93a1a1);border-radius:8px;overflow:hidden;background:#0c1725}canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}canvas:focus-visible{outline:3px solid #49a9c6;outline-offset:-4px}.note,.readout{font-size:13px;line-height:1.65;margin:8px 0;font-variant-numeric:tabular-nums}.readout p{margin:4px 0}.note strong{font-size:15px}a{color:inherit}#error{display:none;position:absolute;inset:0;background:#0c1725ed;color:#ffd4b0;padding:24px;align-items:center;justify-content:center}footer{font-size:13px;margin-top:24px}@media(max-width:500px){main{padding:16px}.stage{aspect-ratio:1/1}.note,.readout{font-size:12px}}
+  </style>
+</head>
+<body>
+<main>
+  <header><h1>A rigid ball that drops, bounces and rests</h1><p>Lift the ball, release it, and watch successive bounces lose energy. The circle never squashes or stretches.</p></header>
+  <p class="note"><strong>Drag the ball upward, then release.</strong> Mouse or touch. Release starts from rest, not a throw. Keyboard: focus the scene, Space grabs/releases, arrows move the held ball, Escape releases.</p>
+  <div class="stage">
+    <canvas id="scene" tabindex="0" role="application" aria-label="Rigid ball above a fixed floor. Drag the outlined ball to lift it and release to drop. Space grabs or releases; arrow keys move it while held; Escape releases."></canvas>
+    <div id="error" role="alert"></div>
+  </div>
+  <div class="readout">
+    <p id="status">Resting — drag the ball up.</p>
+    <p id="values"></p>
+    <p id="contact"></p>
+    <p>1 kg · radius 0.20 m · gravity 9.81 m/s² · restitution 0.65 · rest cutoff 0.20 m/s. No airborne damping, floor motion or camera motion.</p>
+  </div>
+  <footer>Exact constant-gravity free flight, continuous time-of-impact contact, 1/120 s fixed ticks. Below the impact-speed cutoff, the floor supports the ball at rest. Hand position is prescribed within the domain; release deliberately sets both velocities to zero. <a href="../../12_articles/87-sail-physics/bouncing-ball.html">Read the calculation.</a></footer>
+</main>
+<script src="bundle.js"></script>
+</body>
+</html>

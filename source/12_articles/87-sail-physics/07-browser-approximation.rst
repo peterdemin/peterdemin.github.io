@@ -1,8 +1,9 @@
 Deriving the browser approximation
 ----------------------------------
 
-The physical calculation in Chapter 1 and Chapters 3–5 follows viscous air
-and moving cloth together. That is too expensive for this small browser
+The physical calculation developed in the cloth, airflow and coupling
+chapters follows viscous air and moving cloth together. That is too expensive
+for this small browser
 demonstration.
 Here we replace parts of it one at a time, explaining what each replacement
 can and cannot show. The only controls remain incoming horizontal wind speed
@@ -56,7 +57,8 @@ Each cell has its boundary links and one diagonal. These make two triangles
 that can turn relative to one another along their shared diagonal, like a
 hinge. Adding both diagonals can artificially lock the bending of a warped
 four-sided cell. Weak links spanning two neighboring edges approximate
-bending resistance. They are not the curvature-energy law of Chapter 1,
+bending resistance. They are not the curvature-energy law in
+:doc:`Elastic cloth model <01-cloth>`,
 and the network does not independently match measured warp, weft, shear,
 or wrinkling behavior.
 
@@ -91,7 +93,8 @@ Step 2: Replace viscous air with a lifting-surface model
 Now freeze the current cloth shape during each air solve. Assume the sail is
 infinitely thin, the air keeps constant density, viscosity is neglected,
 and flow stays attached rather than peeling away from the surface.
-Unlike Chapter 3, air may slide along the cloth. We keep only the condition
+Unlike the viscous flow in :doc:`Airflow model <03-airflow>`, air may slide
+along the cloth. We keep only the condition
 that its velocity through the surface is zero, and impose it at selected
 points rather than everywhere.
 
@@ -196,7 +199,8 @@ Its units give a useful check:
 For a teaching example, circulation 1 m²/s, perpendicular speed 6 m/s,
 and segment length 0.20 m give force magnitude 1.47 N at this density.
 This is an integrated load approximation, not the two viscous face
-tractions from Chapter 4.
+tractions from
+:doc:`Loads change shape, and supports close the load path <04-forces-and-shape>`.
 
 The demo adds a second, empirical force along the incoming wind.
 Let :math:`\mathbf F_f` be that force (N), :math:`U` wind speed (m/s),
@@ -239,7 +243,8 @@ The cloth takes four steps of 1/240 s between air solves, giving a nominal
 The new shape changes the next vortex lattice and hence the next load.
 However, each air solve still treats the surface as stationary.
 It omits acceleration of surrounding air by moving cloth, called added mass
-in Chapter 5, and changes in the wake's history.
+in :doc:`Turning the coupled problem into a numerical calculation <05-coupled-numerics>`,
+and changes in the wake's history.
 This is **quasi-steady feedback**: a succession of frozen-shape flow solves,
 not the converged moving-surface calculation.
 

@@ -10,6 +10,16 @@ APIHOST = demin-dev.tail13c89.ts.net
 
 .DEFAULT_GOAL := help
 
+.PHONY: simulator_bundles html
+simulator_bundles:
+	python3 scripts/build_moon_flag.py
+	python3 scripts/build_wind_tunnel.py
+	python3 scripts/build_orbit.py
+	python3 scripts/build_bouncing_ball.py
+
+html: simulator_bundles
+	$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+
 .PHONY: help
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)

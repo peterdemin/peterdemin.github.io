@@ -5,22 +5,36 @@ const GRAVITY = 1.62;
 const MAX_STRETCH = 1.55;
 const STEP = 1 / 120;
 const EXTENSION_STIFFNESS = 35;
+const COUPLING_STIFFNESS = 3.5;
 const SHEAR_STIFFNESS = 0.35;
-const BENDING_STIFFNESS = 2;
+const BENDING_STIFFNESS = 0.2;
 const DAMPING_RATE = 0.35;
+const MODAL_STIFFNESSES = [(EXTENSION_STIFFNESS + COUPLING_STIFFNESS) / 2, (EXTENSION_STIFFNESS - COUPLING_STIFFNESS) / 2, SHEAR_STIFFNESS];
+const MATERIAL_DIRECTIONS = ['warp', 'weft'];
+
+function dot(first, second) {
+  return first[0] * second[0] + first[1] * second[1] + first[2] * second[2];
+}
+
+function subtract(first, second, output = [0, 0, 0]) {
+  for (let axis = 0; axis < 3; axis++) output[axis] = first[axis] - second[axis];
+  return output;
+}
+
+function cross(first, second, output = [0, 0, 0]) {
+  output[0] = first[1] * second[2] - first[2] * second[1];
+  output[1] = first[2] * second[0] - first[0] * second[2];
+  output[2] = first[0] * second[1] - first[1] * second[0];
+  return output;
+}
 
 class MoonFlag {
   constructor({columns = 24, rows = 14, gravity = GRAVITY} = {}) {
-    this.columns = columns;
-    this.rows = rows;
-    this.gravity = gravity;
-    this.width = 2.4;
-    this.height = 1.4;
-    this.top = 4;
-    this.links = [];
-    this.bends = [];
+    Object.assign(this, {columns, rows, gravity, width: 2.4, height: 1.4, top: 4});
     this.rest = [];
     this.triangles = [];
+    this.elements = [];
+    this.bends = [];
     this.pins = [];
     const node = (column, row) => row * (columns + 1) + column;
     for (let row = 0; row <= rows; row++) {
@@ -29,27 +43,37 @@ class MoonFlag {
         if (column === 0) this.pins.push(node(column, row));
       }
     }
-    this.mass = new Float64Array(this.rest.length);
-    const cellMass = 0.22 * this.width * this.height / (columns * rows);
-    const link = (first, second, stiffness, kind) => {
-      const rest = Math.hypot(...this.rest[first].map((value, axis) => value - this.rest[second][axis]));
-      this.links.push({first, second, rest, stiffness, kind, multiplier: 0});
-    };
-    for (let row = 0; row <= rows; row++) {
-      for (let column = 0; column <= columns; column++) {
+    for (let row = 0; row < rows; row++) {
+      for (let column = 0; column < columns; column++) {
         const center = node(column, row);
-        if (column < columns) link(center, node(column + 1, row), EXTENSION_STIFFNESS, 'extension');
-        if (row < rows) link(center, node(column, row + 1), EXTENSION_STIFFNESS, 'extension');
-        if (column < columns && row < rows) {
-          const right = node(column + 1, row);
-          const below = node(column, row + 1);
-          const opposite = node(column + 1, row + 1);
-          link(right, below, SHEAR_STIFFNESS, 'shear');
-          this.triangles.push([center, right, below], [right, opposite, below]);
-          for (const corner of [center, right, below, opposite]) this.mass[corner] += cellMass / 4;
-        }
-        if (column > 0 && column < columns) this.bends.push({nodes: [node(column - 1, row), center, node(column + 1, row)], multipliers: [0, 0, 0]});
-        if (row > 0 && row < rows) this.bends.push({nodes: [node(column, row - 1), center, node(column, row + 1)], multipliers: [0, 0, 0]});
+        const right = node(column + 1, row);
+        const below = node(column, row + 1);
+        const opposite = node(column + 1, row + 1);
+        this.triangles.push([center, right, below], [right, opposite, below]);
+      }
+    }
+    this.mass = new Float64Array(this.rest.length);
+    const edges = new Map();
+    for (const nodes of this.triangles) {
+      const first = this.rest[nodes[0]];
+      const along = subtract(this.rest[nodes[1]], first);
+      const across = subtract(this.rest[nodes[2]], first);
+      const determinant = along[0] * across[1] - along[1] * across[0];
+      const area = Math.abs(determinant) / 2;
+      const warp = [-(across[1] - along[1]) / determinant, across[1] / determinant, -along[1] / determinant];
+      const weft = [(across[0] - along[0]) / determinant, -across[0] / determinant, along[0] / determinant];
+      this.elements.push({nodes, area, warp, weft, multipliers: [0, 0, 0], gradients: nodes.map(() => [0, 0, 0]), frame: {warp: [0, 0, 0], weft: [0, 0, 0]}});
+      for (const index of nodes) this.mass[index] += 0.22 * area / 3;
+      for (let side = 0; side < 3; side++) {
+        const start = nodes[side];
+        const end = nodes[(side + 1) % 3];
+        const opposite = nodes[(side + 2) % 3];
+        const key = [Math.min(start, end), Math.max(start, end)].join(':');
+        const adjacent = edges.get(key);
+        if (adjacent) {
+          const length = Math.hypot(...subtract(this.rest[adjacent.end], this.rest[adjacent.start]));
+          this.bends.push({nodes: [adjacent.start, adjacent.end, adjacent.opposite, opposite], weight: length * length / (area + adjacent.area), reference: 0, multiplier: 0, geometry: {vectors: Array.from({length: 6}, () => [0, 0, 0]), gradients: Array.from({length: 4}, () => [0, 0, 0])}});
+        } else edges.set(key, {start, end, opposite, area});
       }
     }
     this.corner = node(columns, 0);
@@ -96,8 +120,8 @@ class MoonFlag {
     for (let pass = 0; pass < 12; pass++) {
       for (const pin of this.pins) {
         const anchor = this.rest[pin];
-        const radius = MAX_STRETCH * Math.hypot(...this.rest[this.corner].map((value, axis) => value - anchor[axis]));
-        const offset = candidate.map((value, axis) => value - anchor[axis]);
+        const radius = MAX_STRETCH * (Math.abs(this.rest[this.corner][0] - anchor[0]) + Math.abs(this.rest[this.corner][1] - anchor[1]));
+        const offset = subtract(candidate, anchor);
         const distance = Math.hypot(...offset);
         if (distance > radius) {
           for (let axis = 0; axis < 3; axis++) candidate[axis] = anchor[axis] + offset[axis] * radius / distance;
@@ -114,57 +138,123 @@ class MoonFlag {
     this.limited = false;
   }
 
-  distanceCorrection(link, timestep, hard = false) {
-    const first = this.positions[link.first];
-    const second = this.positions[link.second];
-    const firstWeight = this.weights[link.first];
-    const secondWeight = this.weights[link.second];
-    const totalWeight = firstWeight + secondWeight;
-    if (totalWeight === 0) return;
-    const offsetX = first[0] - second[0];
-    const offsetY = first[1] - second[1];
-    const offsetZ = first[2] - second[2];
-    const distance = Math.hypot(offsetX, offsetY, offsetZ);
-    if (distance < 1e-10) return;
-    const error = distance - link.rest * (hard ? MAX_STRETCH : 1);
-    if (hard && error <= 0) return;
-    const compliance = hard ? 0 : 1 / (link.stiffness * timestep * timestep);
-    const correction = (-error - compliance * link.multiplier) / (totalWeight + compliance);
-    if (!hard) link.multiplier += correction;
-    const scale = correction / distance;
-    first[0] += firstWeight * offsetX * scale;
-    first[1] += firstWeight * offsetY * scale;
-    first[2] += firstWeight * offsetZ * scale;
-    second[0] -= secondWeight * offsetX * scale;
-    second[1] -= secondWeight * offsetY * scale;
-    second[2] -= secondWeight * offsetZ * scale;
+  materialFrame(element) {
+    const frame = element.frame;
+    const first = this.positions[element.nodes[0]];
+    const second = this.positions[element.nodes[1]];
+    const third = this.positions[element.nodes[2]];
+    for (let axis = 0; axis < 3; axis++) {
+      frame.warp[axis] = element.warp[0] * first[axis] + element.warp[1] * second[axis] + element.warp[2] * third[axis];
+      frame.weft[axis] = element.weft[0] * first[axis] + element.weft[1] * second[axis] + element.weft[2] * third[axis];
+    }
+    frame.along = (dot(frame.warp, frame.warp) - 1) / 2;
+    frame.across = (dot(frame.weft, frame.weft) - 1) / 2;
+    frame.shear = dot(frame.warp, frame.weft);
+    return frame;
+  }
+
+  membraneConstraint(element, mode) {
+    const frame = this.materialFrame(element);
+    const sign = mode === 1 ? -1 : 1;
+    for (let local = 0; local < 3; local++) {
+      for (let axis = 0; axis < 3; axis++) {
+        element.gradients[local][axis] = mode === 2
+          ? element.warp[local] * frame.weft[axis] + element.weft[local] * frame.warp[axis]
+          : element.warp[local] * frame.warp[axis] + sign * element.weft[local] * frame.weft[axis];
+      }
+    }
+    return mode === 2 ? frame.shear : frame.along + sign * frame.across;
+  }
+
+  projectConstraint(nodes, gradients, value, compliance, multiplier) {
+    let denominator = compliance;
+    for (let local = 0; local < nodes.length; local++) denominator += this.weights[nodes[local]] * dot(gradients[local], gradients[local]);
+    if (denominator < 1e-15) return 0;
+    const correction = (-value - compliance * multiplier) / denominator;
+    for (let local = 0; local < nodes.length; local++) {
+      const position = this.positions[nodes[local]];
+      for (let axis = 0; axis < 3; axis++) position[axis] += this.weights[nodes[local]] * correction * gradients[local][axis];
+    }
+    return correction;
+  }
+
+  membraneCorrection(element, timestep) {
+    for (let mode = 0; mode < 3; mode++) {
+      const value = this.membraneConstraint(element, mode);
+      const compliance = 1 / (element.area * MODAL_STIFFNESSES[mode] * timestep * timestep);
+      element.multipliers[mode] += this.projectConstraint(element.nodes, element.gradients, value, compliance, element.multipliers[mode]);
+    }
+  }
+
+  limitCorrection(element) {
+    for (const direction of MATERIAL_DIRECTIONS) {
+      const frame = this.materialFrame(element);
+      const length = Math.hypot(...frame[direction]);
+      if (length <= MAX_STRETCH) continue;
+      for (let local = 0; local < 3; local++) for (let axis = 0; axis < 3; axis++) element.gradients[local][axis] = element[direction][local] * frame[direction][axis] / length;
+      this.projectConstraint(element.nodes, element.gradients, length - MAX_STRETCH, 0, 0);
+    }
+  }
+
+  hingeGeometry(bend) {
+    const first = this.positions[bend.nodes[0]];
+    const geometry = bend.geometry;
+    const [edge, across, other, firstNormal, secondNormal, normalCross] = geometry.vectors;
+    subtract(this.positions[bend.nodes[1]], first, edge);
+    subtract(this.positions[bend.nodes[2]], first, across);
+    subtract(this.positions[bend.nodes[3]], first, other);
+    cross(edge, across, firstNormal);
+    cross(other, edge, secondNormal);
+    const squaredLength = dot(edge, edge);
+    const firstArea = dot(firstNormal, firstNormal);
+    const secondArea = dot(secondNormal, secondNormal);
+    if (Math.min(squaredLength, firstArea, secondArea) < 1e-20) return null;
+    const length = Math.sqrt(squaredLength);
+    const sine = dot(edge, cross(firstNormal, secondNormal, normalCross)) / length;
+    geometry.angle = Math.atan2(sine, dot(firstNormal, secondNormal));
+    const thirdFraction = dot(across, edge) / squaredLength;
+    const fourthFraction = dot(other, edge) / squaredLength;
+    for (let axis = 0; axis < 3; axis++) {
+      const third = -length * firstNormal[axis] / firstArea;
+      const fourth = -length * secondNormal[axis] / secondArea;
+      geometry.gradients[2][axis] = third;
+      geometry.gradients[3][axis] = fourth;
+      geometry.gradients[0][axis] = (thirdFraction - 1) * third + (fourthFraction - 1) * fourth;
+      geometry.gradients[1][axis] = -thirdFraction * third - fourthFraction * fourth;
+    }
+    return geometry;
   }
 
   bendingCorrection(bend, timestep) {
-    const compliance = 1 / (BENDING_STIFFNESS * timestep * timestep);
-    const first = this.positions[bend.nodes[0]];
-    const middle = this.positions[bend.nodes[1]];
-    const last = this.positions[bend.nodes[2]];
-    const firstWeight = this.weights[bend.nodes[0]];
-    const middleWeight = this.weights[bend.nodes[1]];
-    const lastWeight = this.weights[bend.nodes[2]];
-    const denominator = compliance + firstWeight + 4 * middleWeight + lastWeight;
-    for (let axis = 0; axis < 3; axis++) {
-      const error = first[axis] - 2 * middle[axis] + last[axis];
-      const correction = (-error - compliance * bend.multipliers[axis]) / denominator;
-      bend.multipliers[axis] += correction;
-      first[axis] += firstWeight * correction;
-      middle[axis] -= 2 * middleWeight * correction;
-      last[axis] += lastWeight * correction;
+    const geometry = this.hingeGeometry(bend);
+    if (!geometry) return;
+    const compliance = 1 / (BENDING_STIFFNESS * bend.weight * timestep * timestep);
+    bend.multiplier += this.projectConstraint(bend.nodes, geometry.gradients, geometry.angle - bend.reference, compliance, bend.multiplier);
+  }
+
+  membraneEnergy() {
+    let energy = 0;
+    for (const element of this.elements) {
+      const {along, across, shear} = this.materialFrame(element);
+      energy += element.area * (EXTENSION_STIFFNESS * (along * along + across * across) + 2 * COUPLING_STIFFNESS * along * across + SHEAR_STIFFNESS * shear * shear) / 2;
     }
+    return energy;
+  }
+
+  bendingEnergy() {
+    let energy = 0;
+    for (const bend of this.bends) {
+      const geometry = this.hingeGeometry(bend);
+      if (geometry) energy += BENDING_STIFFNESS * bend.weight * (geometry.angle - bend.reference) ** 2 / 2;
+    }
+    return energy;
   }
 
   maximumStretch() {
     let maximum = 1;
-    for (const link of this.links) {
-      const first = this.positions[link.first];
-      const second = this.positions[link.second];
-      maximum = Math.max(maximum, Math.hypot(first[0] - second[0], first[1] - second[1], first[2] - second[2]) / link.rest);
+    for (const element of this.elements) {
+      const frame = this.materialFrame(element);
+      maximum = Math.max(maximum, Math.hypot(...frame.warp), Math.hypot(...frame.weft));
     }
     return maximum;
   }
@@ -174,17 +264,6 @@ class MoonFlag {
     const total = this.mass.reduce((sum, value) => sum + value, 0);
     for (let index = 0; index < this.positions.length; index++) for (let axis = 0; axis < 3; axis++) result[axis] += this.positions[index][axis] * this.mass[index] / total;
     return result;
-  }
-
-  bendingMeasure() {
-    let measure = 0;
-    for (const bend of this.bends) {
-      for (let axis = 0; axis < 3; axis++) {
-        const difference = this.positions[bend.nodes[0]][axis] - 2 * this.positions[bend.nodes[1]][axis] + this.positions[bend.nodes[2]][axis];
-        measure += difference * difference;
-      }
-    }
-    return measure;
   }
 
   step(timestep = STEP) {
@@ -201,21 +280,21 @@ class MoonFlag {
     }
     if (this.held) {
       const corner = this.positions[this.corner];
-      const offset = this.target.map((value, axis) => value - corner[axis]);
+      const offset = subtract(this.target, corner);
       const distance = Math.hypot(...offset);
       const fraction = distance > 0 ? Math.min(1, this.handSpeed * timestep / distance) : 0;
       for (let axis = 0; axis < 3; axis++) corner[axis] += offset[axis] * fraction;
     }
-    for (const link of this.links) link.multiplier = 0;
-    for (const bend of this.bends) bend.multipliers.fill(0);
-    for (let sweep = 0; sweep < 16; sweep++) {
-      for (const link of this.links) this.distanceCorrection(link, timestep);
+    for (const element of this.elements) element.multipliers.fill(0);
+    for (const bend of this.bends) bend.multiplier = 0;
+    for (let sweep = 0; sweep < 12; sweep++) {
+      for (const element of this.elements) this.membraneCorrection(element, timestep);
       for (const bend of this.bends) this.bendingCorrection(bend, timestep);
-      for (const link of this.links) this.distanceCorrection(link, timestep, true);
+      for (const element of this.elements) this.limitCorrection(element);
     }
     let stretch = this.maximumStretch();
     for (let sweep = 0; stretch > MAX_STRETCH + 0.0001 && sweep < 60; sweep++) {
-      for (const link of this.links) this.distanceCorrection(link, timestep, true);
+      for (const element of this.elements) this.limitCorrection(element);
       stretch = this.maximumStretch();
     }
     const finite = this.positions.every(point => point.every(Number.isFinite));
@@ -423,7 +502,7 @@ function render() {
   }
   handle.setAttribute('aria-pressed', String(simulation.held));
   releaseButton.textContent = simulation.held ? 'Let go' : 'Hold corner';
-  stretchOutput.textContent = 'Local stretch: ' + Math.round((simulation.maximumStretch() - 1) * 100) + '% / 55% limit';
+  stretchOutput.textContent = 'Thread stretch: ' + Math.round((simulation.maximumStretch() - 1) * 100) + '% / 55% limit';
 }
 
 function finishDrag(pointerId = dragging) {

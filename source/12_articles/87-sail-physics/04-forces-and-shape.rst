@@ -15,7 +15,8 @@ one. Label the face it points toward “plus” and the other “minus.”
 These labels are not automatically high- and low-pressure faces.
 
 Use :math:`p` for air pressure (Pa), :math:`\mathbf{u}` for air velocity
-(m/s), and :math:`\eta` for dynamic viscosity (Pa s), as in Chapter 3.
+(m/s), and :math:`\eta` for dynamic viscosity (Pa s), as in
+:doc:`Airflow model <03-airflow>`.
 Choose :math:`\eta=1.8\times10^{-5}` Pa s only for illustrative calculations.
 
 A **stress tensor**, written :math:`\boldsymbol{\sigma}`, is a table of
@@ -68,8 +69,9 @@ Summing loads over the cloth
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Let :math:`S` be the current cloth surface and :math:`dA` an arbitrarily
-small patch of its current area (m²). Unlike Chapter 1's original area
-:math:`dA_0`, this area can change when cloth stretches.
+small patch of its current area (m²). Unlike the original area element
+:math:`dA_0` in :doc:`Elastic cloth model <01-cloth>`, this area can change
+when cloth stretches.
 Let :math:`\mathbf{F}` be the whole sail's air force (N). An integral adds patch forces:
 
 .. math::
@@ -85,7 +87,8 @@ What accelerates a cloth patch?
 
 **Inertia** is the resistance of mass to acceleration. Newton's law is force
 equals mass times acceleration, not force equals velocity.
-To account for cloth mass, use original area as in Chapter 1.
+To account for cloth mass, use original area as in
+:doc:`Elastic cloth model <01-cloth>`.
 
 Before the next equation, define:
 
@@ -122,7 +125,8 @@ Where does the internal elastic force come from?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Let :math:`E=E_m+E_b` be the sum of stretching/shearing and bending energy
-from Chapter 1 (J). An elastic force acts in the direction of decreasing
+from :doc:`Elastic cloth model <01-cloth>` (J). An elastic force acts in the
+direction of decreasing
 energy. In a one-direction example, let :math:`s` be displacement (m) and
 :math:`f` the corresponding elastic force (N). Then
 
@@ -135,7 +139,8 @@ extension. For a whole sheet this same principle uses a small displacement
 :math:`\delta\mathbf{r}` at each point and the resulting energy change
 :math:`\delta E`, measured in joules; the trial displacement is in metres.
 Here :math:`\delta` means an infinitesimal trial change, not a new time step.
-As in Chapter 1, :math:`S_0` is the original sheet and :math:`dA_0` is
+As in :doc:`Elastic cloth model <01-cloth>`, :math:`S_0` is the original
+sheet and :math:`dA_0` is
 a tiny original-area patch (m²). With attachments fixed,
 
 .. math::

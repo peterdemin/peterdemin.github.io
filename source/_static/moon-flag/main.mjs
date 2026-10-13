@@ -189,7 +189,7 @@ function render() {
   }
   handle.setAttribute('aria-pressed', String(simulation.held));
   releaseButton.textContent = simulation.held ? 'Let go' : 'Hold corner';
-  stretchOutput.textContent = 'Local stretch: ' + Math.round((simulation.maximumStretch() - 1) * 100) + '% / 55% limit';
+  stretchOutput.textContent = 'Thread stretch: ' + Math.round((simulation.maximumStretch() - 1) * 100) + '% / 55% limit';
 }
 
 function finishDrag(pointerId = dragging) {

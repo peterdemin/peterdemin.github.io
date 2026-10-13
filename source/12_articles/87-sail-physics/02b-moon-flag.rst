@@ -1,7 +1,7 @@
 Interactive example: Stretchy flag on the Moon
 ----------------------------------------------
 
-Before adding air, let us try the cloth mechanics from Chapter 1.
+Before adding air, let us try the mechanics in :doc:`02a-cloth`.
 This experiment has a soft, stretchy flag, a fixed vertical support, and
 gravity. There is no wind, no air drag, and no horizontal rod supporting
 the top edge.
@@ -75,7 +75,7 @@ most: near your hand, near the support, or across the middle?
 
 **Shear.** Pull the corner upward or downward. Squares can become slanted
 four-sided shapes: their thread directions change angle. That is the shear
-introduced in Chapter 1, not just a change in their edge lengths.
+introduced in the cloth chapter, not just a change in their edge lengths.
 
 **Bending.** Watch the smooth changes of surface direction and the highlights
 across them. Bending can change the shape without requiring the same amount
@@ -91,24 +91,34 @@ The final flag is not in free fall: the support continues to carry its weight.
 A soft material and an intentional limit
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The moving points are connected by elastic links. The choices here are
-35 N/m for length-change links, 0.35 N/m for diagonal links that resist shear,
-and 2 N/m for the neighboring-bend smoothing rule. These are numerical-link
-parameters, not the continuum sheet coefficients from Chapter 1 and not
-measured properties of a real flag. Low shear and bending resistance let
-the cloth drape instead of holding it out like a stiff plate.
+The cloth chapter now includes the finite-strain energy used here. Each
+triangle measures the lengths and angle of its material directions, rather
+than substituting a diagonal spring for shear. Its energy includes both
+directional extension, their coupling, and shear, multiplied by the
+triangle's original area. The choices are extension stiffness 35 N/m,
+coupling stiffness 3.5 N/m, and shear stiffness 0.35 N/m. These have the same
+material meanings as the chapter's coefficients, with much softer extension.
+They are illustrative, not measured flag properties.
+
+Bending uses the chapter's discrete hinge energy: adjacent triangle normals
+turn through an angle, weighted using original edge lengths and triangle
+areas. Its chosen discrete rigidity is 0.2 N m. Flat uneven stretching no
+longer creates false bending energy. The hinge law still has a directional
+bias from the triangle grid; it is not a complete isotropic shell model.
 
 The displayed **local stretch** is the largest fractional length increase
-among these links. A separate limiting rule stops any link at approximately
-1.55 times its original length, or 55% extension. Once the limit is reached,
+along either material direction in any triangle. A separate limiting rule
+stops these lengths at approximately 1.55 times their original values, or
+55% extension. It does not bound every possible diagonal direction.
+Once the limit is reached,
 pulling farther cannot keep extending it, although the cloth can still
 change direction and shape.
 
-This limit is an intentionally **nonlinear** addition: resistance does not
-continue with the same linear rule at every extension. Chapter 1's linear
-energy alone has no maximum extension. The cap makes the teaching experiment
-usable; it does not mean that real fabric becomes unbreakable instead of
-tearing.
+Both the finite-strain material law and this inequality are now defined in
+the cloth chapter. The inequality is an intentional teaching addition, not
+an inherent maximum of the energy law. Neither the finite-strain extension
+nor the cap is a measured prediction for real fabric at 55% stretch. Real
+cloth may stiffen, lose energy, or tear instead.
 
 What this experiment leaves out
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -118,15 +128,65 @@ of 0.35 per second, to remove energy and make settling usable. This is not
 air resistance in a lunar vacuum, and the settling time is not a measured
 prediction for real cloth.
 
-The bend-smoothing rule also resists some uneven stretching; it is not a
-complete fabric bending law. Tearing and contact with the ground or support
+Tearing and contact with the ground or support
 are not calculated. Cloth touching itself is not calculated either, so folds
 may overlap or pass through each other. We deliberately leave that contact
 problem out of this experiment.
 
-The computer updates positions using the compliant constraints described in
-`the XPBD paper <https://matthias-research.github.io/pages/publications/XPBD.pdf>`_.
+The numerical update
+~~~~~~~~~~~~~~~~~~~~
+
+The computer retains each vertex's position and velocity, its mass from
+reference triangle area, and the triangle/hinge connections. Its ordinary
+physical tick is 1/120 s. Unlike the free satellite's RK4 integration, this
+update uses **extended position-based dynamics**, XPBD: it predicts positions,
+then adjusts them with compliant constraints derived from the cloth energies.
+Compliant means allowing deformation according to energy cost instead of
+demanding perfectly rigid geometry. Algorithm 1 in
+`the XPBD paper <https://matthias-research.github.io/pages/publications/XPBD.pdf>`_
+describes this prediction/correction pattern.
+
+For one free vertex's vertical component, let :math:`y` be starting height
+in metres, :math:`v` starting velocity in m/s, :math:`a=-1.62` m/s²,
+and :math:`h=1/120` s the tick duration. Let :math:`\beta=0.35` per second
+be the artificial damping rate. Subscript ``pred`` labels a temporary
+prediction. The exponential :math:`\exp` supplies a positive reduction
+factor from the dimensionless product :math:`-\beta h`:
+
+.. math::
+
+    v_{\mathrm{pred}}=\exp(-\beta h)(v+a h),
+    \qquad y_{\mathrm{pred}}=y+h v_{\mathrm{pred}}.
+
+Gravity first changes velocity, then damping reduces all velocity components
+by the same factor, about 0.99709 per tick. This is neither lunar air
+resistance nor calibrated material loss.
+
+One **sweep** visits all of the tick's constraints without advancing time
+again. The solver makes 12 sweeps of membrane-energy and hinge-energy
+corrections plus directional extension limits. It can add up to 60
+limit-only sweeps when needed. These are the triangle-strain and geometric
+hinge laws in the cloth chapter, not independent diagonal springs. Pins and
+the held corner have prescribed positions. Correction bookkeeping starts
+at zero for each tick and accumulates only while solving that tick.
+
+Let :math:`y_{\mathrm{new}}` be accepted corrected height and
+:math:`v_{\mathrm{new}}` its reconstructed velocity. The code uses
+
+.. math::
+
+    v_{\mathrm{new}}=\frac{y_{\mathrm{new}}-y}{h}.
+
+The same rule applies to all three components. Elastic effects already
+included in the position correction are not added again as explicit forces.
+If finite-value or extension checks fail, the code restores old positions,
+halves old velocities, and does not advance physical time. The display
+still consumes that attempted tick's budget. Rendering is separate from
+physics; capped work can make slow devices lag wall-clock time.
 Its paths are calculated from the current cloth state, gravity, and your
 hand, not drawn from a preselected falling animation. This isolates the
-cloth questions; Chapter 3 introduces the air that the sail must interact
-with.
+cloth questions; :doc:`Airflow model <03a-airflow>`
+introduces the air that the sail must interact with. The solver makes a finite
+number of energy-derived corrections each step, not an exact minimization
+or an energy-conserving calculation. Slow devices may advance simulated
+time more slowly than wall-clock time.

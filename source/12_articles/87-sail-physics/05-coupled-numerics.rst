@@ -1,16 +1,11 @@
 Turning the coupled problem into a numerical calculation
 --------------------------------------------------------
 
-Imagine splitting the air into small boxes and the cloth into small patches.
-A computer can store a finite list of velocities, pressures, positions, and
-forces, not values at infinitely many points. **Discretization** replaces
-continuous equations by equations for that finite list. It introduces
-approximation error even if the physical equations are appropriate.
-
-A **mesh** is the collection of boxes or patches and their connections.
-A **node** is a mesh point. A **time step** advances the calculation by a
-chosen interval, such as an illustrative 0.001 s. Smaller steps give more
-updates but do not automatically correct missing physics.
+Here we examine
+the additional numerical work needed when moving cloth and fluid interact:
+conservation across cell faces, moving interfaces and mutually consistent
+air/cloth solves. The standalone flag and rigid-wing tunnel do not perform
+this combined calculation.
 
 From conservation to finite-volume equations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -52,7 +47,13 @@ Moving surfaces require special care
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The **interface** is the shared air/cloth surface. As cloth moves, the fluid
-method must still obey the no-penetration and no-slip conditions from Chapter 3.
+method must still obey the no-penetration and no-slip conditions from
+:doc:`Airflow model <03-airflow>`, now using the moving surface's velocity
+rather than the rigid wing's zero velocity. Cloth moving at 0.10 m/s requires
+air directly touching it to share that velocity. Pressure and viscous stress
+on both faces supply the loads described in
+:doc:`Loads change shape, and supports close the load path <04-forces-and-shape>`.
+Those loads change the cloth geometry seen by the next airflow solve.
 
 One option is a **moving mesh**, in which fluid cells change with the cloth.
 Flux then depends on air velocity relative to moving cell faces; even a still
@@ -115,5 +116,7 @@ Their analysis is not a measured flutter prediction for our sail.
 Smaller steps, more interface subiterations, or a stronger coupling method
 address numerical coupling error. **Damping**, reduction of motion, may also
 suppress instability, but arbitrary extra damping can hide or alter physical
-oscillations. Chapters 7 and 8 explain why the browser's frozen-flow,
-strongly damped relaxation is not this full moving-interface calculation.
+oscillations. :doc:`Deriving the browser approximation <07-browser-approximation>`
+and :doc:`Stability is necessary, but different from accuracy <08-stability>`
+explain why the sail browser's frozen-flow, strongly damped relaxation is not
+this full moving-interface calculation.

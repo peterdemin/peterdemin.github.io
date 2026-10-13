@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A satellite orbit calculated with RK4</title>
+  <script>if(new URLSearchParams(location.search).get('embedded')==='1')document.documentElement.classList.add('embedded');</script>
+  <style>
+    :root{color-scheme:light dark;font-family:system-ui,sans-serif;background:light-dark(#fdf6e3,#002b36);color:light-dark(#657b83,#93a1a1)}*{box-sizing:border-box}body{margin:0}main{max-width:1100px;margin:auto;padding:24px}header p,footer{line-height:1.6;max-width:850px}.embedded main{padding:0;max-width:none}.embedded header,.embedded footer{display:none}.embedded{background:var(--book-background,#fdf6e3);color:var(--book-text,#657b83);font-family:var(--book-font,system-ui,sans-serif)}.stage{position:relative;aspect-ratio:3/2;border:1px solid var(--book-border,#93a1a1);border-radius:8px;overflow:hidden;background:#0c1725}canvas{display:block;width:100%;height:100%}.legend{display:flex;flex-wrap:wrap;gap:8px 24px;margin:12px 0;font-size:14px}.legend span{padding-bottom:3px;border-bottom:3px solid}.force{border-color:#ffa366!important}.velocity{border-color:#72e7c9!important}.trace{border-color:#7f94b7!important}.readout{font-size:13px;line-height:1.65;font-variant-numeric:tabular-nums;margin:6px 0;overflow-wrap:anywhere}.readout p{margin:4px 0}a{color:inherit}#error{display:none;position:absolute;inset:0;background:#0c1725ed;color:#ffd4b0;padding:24px;align-items:center;justify-content:center}footer{font-size:13px;margin-top:24px}@media(max-width:500px){main{padding:16px}.stage{aspect-ratio:1/1}.legend{font-size:12px;gap:8px 16px}.readout{font-size:12px}}
+  </style>
+</head>
+<body>
+<main>
+  <header><h1>A satellite orbit calculated with RK4</h1><p>A fixed view of the orbital plane. Gravity turns the velocity continuously: fast near Earth, slow far away. Nothing steers the satellite along a prescribed ellipse.</p></header>
+  <div class="stage">
+    <canvas id="scene" role="img" aria-label="A satellite orbiting a pale blue Earth at one focus of a highly elliptical trajectory. Orange gravitational force points inward; mint velocity points along the motion. A trace records computed positions."></canvas>
+    <div id="error" role="alert"></div>
+  </div>
+  <div class="legend"><span class="force">Orange: gravitational force</span><span class="velocity">Mint: velocity</span><span class="trace">Slate: calculated trace</span></div>
+  <div class="readout">
+    <p id="values">Starting the RK4 calculation…</p>
+    <p id="scales"></p>
+    <p id="clock"></p>
+    <p id="checks"></p>
+    <p>Arrows auto-scale independently to show direction; compare numbers, not arrow lengths. Earth and orbital distances share one scale. Satellite symbol enlarged. Trace retains the latest modeled orbit; no state reset.</p>
+  </div>
+  <footer>Fixed spherical Earth, 1,000 kg test satellite; no atmosphere, oblateness or external bodies. Physical RK4 step: 2 s. One 12.04-hour modeled orbit takes about 10 visible playback seconds. Hidden tabs do not accumulate time; slow frames can slow playback. <a href="../../12_articles/87-sail-physics/satellite-orbit.html">Read the physical model and numerical checks.</a></footer>
+</main>
+<script src="bundle.js"></script>
+</body>
+</html>
