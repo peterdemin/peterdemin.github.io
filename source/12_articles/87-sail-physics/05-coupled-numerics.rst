@@ -48,7 +48,7 @@ Moving surfaces require special care
 
 The **interface** is the shared air/cloth surface. As cloth moves, the fluid
 method must still obey the no-penetration and no-slip conditions from
-:doc:`Airflow model <03-airflow>`, now using the moving surface's velocity
+:doc:`03a-airflow`, now using the moving surface's velocity
 rather than the rigid wing's zero velocity. Cloth moving at 0.10 m/s requires
 air directly touching it to share that velocity. Pressure and viscous stress
 on both faces supply the loads described in

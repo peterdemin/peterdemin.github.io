@@ -7,9 +7,9 @@ the physical sail accurately. A heavily damped, overly stiff sheet can be
 stable and still give the wrong shape or settling time.
 
 The flag's prediction/correction workflow is described in
-:doc:`the lunar flag experiment <02-moon-flag>`.
+:doc:`02b-moon-flag`.
 Here the detailed example is the stiff-link sail approximation from
-:doc:`Deriving the browser approximation <07-browser-approximation>`, not the
+:doc:`07-browser-approximation`, not the
 lunar flag's triangle-strain and hinge constraints. Its **extended
 position-based dynamics**, XPBD, uses compliant distance links: rules allowing
 some length change under force instead of demanding perfectly rigid links.
@@ -31,7 +31,7 @@ length error (m). Double bars mean vector length, so
 Positive error means a stretched link; negative error means a shortened one.
 For example, an original 0.20 m link stretched to 0.201 m has error 0.001 m.
 This is a length error, not dimensionless strain: its strain is 0.001/0.20,
-or 0.5%, using the definition in :doc:`Elastic cloth model <01-cloth>`.
+or 0.5%, using the definition in :doc:`02a-cloth`.
 
 Let :math:`k` be link stiffness (N/m), :math:`\alpha` its compliance (m/N),
 and :math:`h` the time-step duration (s).

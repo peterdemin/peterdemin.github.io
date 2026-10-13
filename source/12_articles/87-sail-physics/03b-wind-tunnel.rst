@@ -73,7 +73,7 @@ What is really calculated?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This is **two-dimensional incompressible viscous flow**, solved by the
-pressure-projection method from :doc:`Airflow model <03-airflow>`.
+pressure-projection method from :doc:`03a-airflow`.
 It is not a vortex-lattice solver, not a particle-force solver, and not a
 prescribed animation. Each face velocity changes through transported
 momentum, viscous diffusion and a pressure solve.
@@ -229,7 +229,7 @@ from minus to plus the largest absolute fluid-cell pressure, with a tiny
 floor of :math:`10^{-9}` Pa for an all-zero field. Its auto range is shown
 in Pa. Negative relative values are not negative absolute air pressure.
 
-The force sum follows the final section of :doc:`Airflow model <03-airflow>`.
+The force sum follows the final section of :doc:`03-airflow`.
 Enumerate every face separating a solid wing cell from a fluid cell, once.
 There are no contributions from solid/solid faces or the outer tunnel walls.
 Each face has length :math:`h` and an outward solid-to-fluid normal equal

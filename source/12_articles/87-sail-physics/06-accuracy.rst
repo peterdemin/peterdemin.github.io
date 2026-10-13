@@ -26,7 +26,7 @@ comparison, define:
 - :math:`c`: representative chord, the width along the flow (m); choose
   1 m as a comparison length, not the whole changing outline's width.
 - :math:`\eta`: dynamic viscosity (Pa s); use the illustrative
-  :math:`1.8\times10^{-5}` from :doc:`Airflow model <03-airflow>`.
+  :math:`1.8\times10^{-5}` from :doc:`03a-airflow`.
 
 The **Reynolds number**, written :math:`\mathrm{Re}`, compares acceleration
 effects with viscous effects on this speed and length scale:
@@ -65,7 +65,7 @@ stiffness.
 value, calibrate on some conditions and validate on different ones. Fitting
 every experiment is not an independent prediction. Record air speed,
 direction, fluctuations, and properties too. The illustrative stiffnesses in
-:doc:`Elastic cloth model <01-cloth>` are not measurements of this sail.
+:doc:`02a-cloth` are not measurements of this sail.
 
 Make the numerical calculation more precise
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -58,7 +58,7 @@ that can turn relative to one another along their shared diagonal, like a
 hinge. Adding both diagonals can artificially lock the bending of a warped
 four-sided cell. Weak links spanning two neighboring edges approximate
 bending resistance. They are not the curvature-energy law in
-:doc:`Elastic cloth model <01-cloth>`,
+:doc:`02a-cloth`,
 and the network does not independently match measured warp, weft, shear,
 or wrinkling behavior.
 
@@ -93,7 +93,7 @@ Step 2: Replace viscous air with a lifting-surface model
 Now freeze the current cloth shape during each air solve. Assume the sail is
 infinitely thin, the air keeps constant density, viscosity is neglected,
 and flow stays attached rather than peeling away from the surface.
-Unlike the viscous flow in :doc:`Airflow model <03-airflow>`, air may slide
+Unlike the viscous flow in :doc:`03a-airflow`, air may slide
 along the cloth. We keep only the condition
 that its velocity through the surface is zero, and impose it at selected
 points rather than everywhere.
