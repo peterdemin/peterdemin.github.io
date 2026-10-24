@@ -1,0 +1,51 @@
+<div id="sail-fixed-explainer">
+ <h3>Sail shape · fixed mast and boom</h3>
+ <div class="viz-controls"><label class="form-label">Wind load · <output id="fixed-load-value">50%</output><input id="fixed-load" class="form-range" type="range" min="0" max="100" value="50"></label></div>
+ <svg id="fixed-mesh" role="img" aria-label="Oblique view of a sail mesh bulging under wind load while the mast and boom remain fixed"></svg>
+ <div class="viz-row text-small"><span><span class="wind-key"></span>Wind force</span><span><span class="fabric-key"></span>Fabric links + points</span><span>Thick lines: fixed mast / boom</span></div>
+ <p class="text-small text-muted" id="fixed-state" aria-live="polite">Schematic deformation · not a calculated equilibrium</p>
+</div>
+<style>
+ #sail-fixed-explainer svg{display:block;width:100%}
+ #sail-fixed-explainer svg text{fill:var(--foreground);font-size:12px}
+ #sail-fixed-explainer .wind-key,#sail-fixed-explainer .fabric-key{display:inline-block;width:16px;height:3px;margin-right:6px;vertical-align:middle}
+ #sail-fixed-explainer .wind-key{background:var(--viz-series-1)}
+ #sail-fixed-explainer .fabric-key{background:var(--viz-series-2)}
+</style>
+<script>
+(()=>{
+ const root=document.getElementById('sail-fixed-explainer'),slider=root.querySelector('#fixed-load'),svg=root.querySelector('#fixed-mesh');
+ const NS='http://www.w3.org/2000/svg';
+ function el(name,attrs,text){const n=document.createElementNS(NS,name);Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,v));if(text)n.textContent=text;svg.appendChild(n);return n}
+ function line(a,b,color,width=1){el('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:color,'stroke-width':width})}
+ function draw(){
+  const f=+slider.value/100,w=Math.max(280,root.clientWidth),h=Math.min(390,w*.65+80),ox=58,oy=h-48,len=w-105,ht=h-95;
+  svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.replaceChildren();
+  root.querySelector('#fixed-load-value').textContent=Math.round(f*100)+'%';
+  function p(u,v){const bulge=v>=1?0:Math.min(70,len*.18)*f*Math.sin(Math.PI*u/(2*(1-v)))*Math.sin(Math.PI*v);return [ox+len*u-bulge*.45,oy-ht*v-len*u*.08-bulge*.7]}
+  const N=9,fabric='var(--viz-series-2)',wind='var(--viz-series-1)';
+  for(let row=0;row<N;row++)for(let col=0;col<N-row;col++){
+   const u=col/N,v=row/N,a=p(u,v),b=p(u+1/N,v),c=p(u,v+1/N);
+   el('polygon',{points:[a,b,c].map(q=>q.join(',')).join(' '),fill:fabric,opacity:.1});
+   if(col<N-row-1){const d=p(u+1/N,v+1/N);el('polygon',{points:[b,d,c].map(q=>q.join(',')).join(' '),fill:fabric,opacity:.1})}
+  }
+  for(let row=0;row<=N;row++)for(let col=0;col<=N-row;col++){
+   const u=col/N,v=row/N,a=p(u,v);
+   if(col<N-row)line(a,p(u+1/N,v),fabric);
+   if(row<N&&col<N-row)line(a,p(u,v+1/N),fabric);
+   el('circle',{cx:a[0],cy:a[1],r:2.4,fill:fabric});
+   if(f>0&&col>0&&row>0&&col+row<N&&col%3===1&&row%3===1){
+    const b=[a[0]+14+f*20,a[1]+10+f*16];line(b,a,wind,2);
+    const angle=Math.atan2(a[1]-b[1],a[0]-b[0]);for(const d of [-.45,.45])line(a,[a[0]-7*Math.cos(angle+d),a[1]-7*Math.sin(angle+d)],wind,2);
+   }
+  }
+  line(p(0,0),p(0,1),'var(--foreground)',4);line(p(0,0),p(1,0),'var(--foreground)',4);
+  el('text',{x:8,y:28},'Fixed mast');el('text',{x:Math.max(90,w-145),y:h-15},'Fixed boom');
+  root.querySelector('#fixed-state').textContent='Schematic deformation · fixed mast and boom; free trailing edge; not a calculated equilibrium';
+ }
+ function restore(s){if(Number.isFinite(s?.modelContent?.load))slider.value=s.modelContent.load;draw()}
+ slider.addEventListener('input',()=>{draw();if(window.openai?.setWidgetState)window.openai.setWidgetState({modelContent:{load:+slider.value,mastFixed:true,boomFixed:true},privateContent:null}).catch(()=>{})});
+ window.addEventListener('openai:set_globals',e=>{if(e.detail?.globals?.widgetState)restore(e.detail.globals.widgetState)});
+ new ResizeObserver(draw).observe(root);restore(window.openai?.widgetState);
+})();
+</script>

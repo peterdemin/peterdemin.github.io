@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sail / physical wind tunnel</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#09131e;color:#e4eef7;font:14px system-ui,sans-serif}main{display:grid;grid-template-columns:310px 1fr;min-height:100vh}aside{padding:25px 22px;background:#101e2b;border-right:1px solid #304353;overflow:auto}h1{font-size:26px;letter-spacing:-1px;margin:8px 0}h2{font-size:14px;color:#90afc5;margin:24px 0 12px}.eyebrow{font-size:11px;letter-spacing:2px;color:#61cfc3}p{line-height:1.55;color:#9eb6c9}label{display:block;margin:20px 0 8px}label output{float:right;color:#70e3d3;font-variant-numeric:tabular-nums}input[type=range]{width:100%;accent-color:#69ddcd}button{background:#203748;color:#e4eef7;border:1px solid #496174;padding:9px 13px;border-radius:5px;cursor:pointer}.buttons{display:flex;gap:8px;margin:18px 0}.metric{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0;border-top:1px solid #2c4050}.metric strong{font-size:24px;font-variant-numeric:tabular-nums}.lift{color:#6ddacb}.drag{color:#ffbd70}section{position:relative;min-width:0;height:100vh}canvas{display:block;width:100%;height:100%;touch-action:none}.overlay{position:absolute;left:24px;top:22px;pointer-events:none;color:#a5bed1}.overlay b{display:block;font-size:16px;color:#ecf5fc;margin-bottom:7px}.legend{position:absolute;left:24px;bottom:22px;background:#101e2be8;border:1px solid #304353;padding:12px 16px;pointer-events:none;font-size:12px;line-height:1.8}.legend span{margin-right:16px}.smoke{color:#cce4f5}.head{color:#c7a2ff}details{margin-top:20px;color:#a6bdd0;font-size:12px;line-height:1.6}summary{cursor:pointer;color:#ddebf5}a{color:#74d5f4}.notice{color:#f8c084;font-size:12px;min-height:36px}#diagnostics{font:11px ui-monospace,monospace;color:#91adc1;line-height:1.7}#error{position:absolute;inset:0;display:none;place-content:center;background:#101e2b;padding:30px;color:#ffbba8}.check{font-size:12px;display:flex;gap:8px;align-items:center;margin:12px 0}.check input{accent-color:#69ddcd}@media(max-width:760px){main{grid-template-columns:1fr}aside{padding:16px 20px}section{height:65vh;min-height:420px}h1{font-size:22px}.metric{display:inline-flex;gap:18px;width:49%}details{margin-bottom:15px}.overlay{font-size:11px}.legend{font-size:10px;left:12px;bottom:12px}}
+    @media(min-width:761px){aside{height:100vh}}
+  </style>
+</head>
+<body>
+<main>
+  <aside>
+    <div class="eyebrow">COMPUTATIONAL SAIL LAB</div>
+    <h1>Wind, cloth &amp; lift</h1>
+    <p>A fixed rig, a flexible sail, and a calculated three-dimensional airflow.</p>
+    <label for="speed">Incoming wind <output id="speed-value">6.0 m/s</output></label>
+    <input id="speed" type="range" min="0" max="12" step="0.1" value="6">
+    <label for="direction">Horizontal direction <output id="direction-value">15°</output></label>
+    <input id="direction" type="range" min="-180" max="180" step="1" value="15">
+    <p style="font-size:12px">0° flows along the boom; positive angles have a +z wind component. Incoming wind is horizontal. Flow and cloth updates are supported only within forward ±20° (or zero wind).</p>
+    <div class="buttons"><button id="pause">Pause</button><button id="reset">Reset sail</button><button id="view">Reset view</button></div>
+    <label class="check"><input id="mesh" type="checkbox" checked> Show cloth mesh</label>
+    <label class="check"><input id="loads" type="checkbox"> Show local aerodynamic loads</label>
+    <h2>Forces on the sail</h2>
+    <div class="metric lift"><span>Lift · transverse</span><strong id="lift">—</strong></div>
+    <div class="metric drag"><span>Drag · model estimate</span><strong id="drag">—</strong></div>
+    <p style="font-size:12px">Drag is along incoming airflow. Lift is the remaining transverse force, including its vertical component. Arrows use the same scale, 0.018 m/N.</p>
+    <div class="notice" id="notice" role="status"></div>
+    <div id="diagnostics"></div>
+    <p><a href="model.html">Mathematical model &amp; validation →</a></p>
+    <details><summary>Physics &amp; limits</summary>
+      <p>60 horseshoe vortices enforce no normal flow at panel control points on each frozen shape. Downstream wake legs impose an implicit Kutta condition. A finite 70 m straight wake and 3.5 cm vortex core define the velocity field. Smoke trails are passive particle histories integrated through this field with midpoint integration.</p>
+      <p>Panel forces use Kutta–Joukowski with wake-induced velocity; drag combines calculated induced drag with an empirical skin-friction estimate (C<sub>f</sub> = 0.008). It is not a measured total drag. These forces drive a 77-node XPBD fabric of 0.22 kg/m², with gravity and strong resistance to in-plane stretch. Mast/luff and boom/foot nodes are pinned.</p>
+      <p>The sail has built-in bagginess: its flat fabric cut has 3.39% extra width at mid-height relative to the nominal rig chord, tapering to zero excess at the foot and head. Wind fills this excess cloth on either side. Each quadrilateral has one shear diagonal, making two hinged triangles rather than a locked tetrahedron. In-plane links use nearly inextensible 10 MN/m numerical stiffness; weak bending links allow folding. Small strain remains from compliance and incomplete constraint convergence; it is shown below the forces.</p>
+      <p>This is a coarse, quasi-steady attached-flow model. Outside forward ±20°, force numbers and vectors, pressure colors, smoke, and cloth updates are withheld. The gray sail shows the last simulated shape; returning to the supported range resumes without reset. Unsupported angle is distinct from a numerical failure. Stall, separation, turbulence, reversed-flow cloth behavior, wake roll-up, rig interference, ground effect, and cloth contact are not solved.</p>
+      <p>Each node’s mass is its tributary rest area times the cloth density. Gravity produces sag at zero/light wind; inertia and numerical damping govern how it relaxes. Fluid loads update at 60 Hz; cloth uses 80 constraint sweeps at 240 Hz and strong numerical damping (100/s). The flow assumes a stationary sail at each update, omitting cloth-motion boundary velocity and fluid added mass. Transient flutter and relaxation times are not physical predictions. Bending uses weak two-hop distance links, not a calibrated fabric shell.</p>
+      <p>The displayed residual tests only the control points; low residual does not establish real-world accuracy or impermeability between them. Runs exceeding 8% fabric strain stop visibly instead of clipping forces. Simulation may fall behind wall time on slow devices.</p>
+      <p><a href="https://ntrs.nasa.gov/citations/19730046944">NASA: vortex-lattice methods</a> · <a href="https://matthias-research.github.io/pages/publications/XPBD.pdf">XPBD paper</a> · <a href="README.md">Implementation and checks</a></p>
+    </details>
+  </aside>
+  <section aria-label="Interactive three-dimensional wind tunnel">
+    <canvas id="scene" aria-label="Orbitable WebGL sail and smoke view" tabindex="0"></canvas>
+    <div class="overlay"><b>Fixed mast / fixed boom</b>Drag to orbit · wheel to zoom · arrow keys to orbit<br>Smoke at 7 heights, including 4.8, 5.2 and 5.6 m</div>
+    <div class="legend"><span class="lift">━ Lift</span><span class="drag">━ Drag</span><span class="smoke">━ Smoke</span><span class="head">━ Head / above-head smoke</span><br>Blue: + normal fluid load · orange: − load · same color on both faces<br>Sign uses material ordering; normal is +z for a flat sail.<br>Gray: no supported fluid result · grid: 1 m</div>
+    <div id="error" role="alert" style="display:grid">Starting the physical sail simulation…<noscript><p>JavaScript is disabled. Enable it to run the simulation, or read the <a href="model.html">mathematical model</a>.</p></noscript></div>
+  </section>
+</main>
+<script>
+  (() => {
+    const error = document.querySelector('#error');
+    let ready = false;
+    let failed = false;
+    window.sailStartupFailed = message => {
+      failed = true;
+      error.style.display = 'grid';
+      error.replaceChildren();
+      const description = document.createElement('p');
+      description.textContent = `The sail simulation could not start: ${message}`;
+      const preview = document.createElement('a');
+      preview.href = 'http://127.0.0.1:8765/sail-wind-tunnel/';
+      preview.textContent = 'Open the local HTTP preview';
+      const instruction = document.createElement('p');
+      instruction.textContent = 'If the preview is unavailable, run python3 -m http.server 8765 --bind 127.0.0.1 from the repository root. For a missing bundle, run node sail-wind-tunnel/build.mjs, then reload.';
+      error.append(description, preview, instruction);
+    };
+    window.addEventListener('error', event => window.sailStartupFailed(event.message || 'A script or WebGL resource failed to load'));
+    window.addEventListener('unhandledrejection', event => window.sailStartupFailed(String(event.reason?.message || event.reason)));
+    window.addEventListener('sail-ready', () => { ready = true; error.style.display = 'none'; });
+    setTimeout(() => { if (!ready && !failed) window.sailStartupFailed('No rendered frame after 10 seconds. JavaScript may be blocked or WebGL unavailable.'); }, 10000);
+  })();
+</script>
+<script defer src="bundle.js" onerror="window.sailStartupFailed('bundle.js did not load')"></script>
+</body>
+</html>
