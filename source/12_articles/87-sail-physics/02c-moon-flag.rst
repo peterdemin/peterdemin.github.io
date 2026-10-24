@@ -1,7 +1,7 @@
 Interactive example: Stretchy flag on the Moon
 ----------------------------------------------
 
-Before adding air, let us try the mechanics in :doc:`02a-cloth`.
+Before adding air, let us try the mechanics in :doc:`02b-cloth`.
 This experiment has a soft, stretchy flag, a fixed vertical support, and
 gravity. There is no wind, no air drag, and no horizontal rod supporting
 the top edge.

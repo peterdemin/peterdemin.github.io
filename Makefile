@@ -16,6 +16,9 @@ simulator_bundles:
 	python3 scripts/build_wind_tunnel.py
 	python3 scripts/build_orbit.py
 	python3 scripts/build_bouncing_ball.py
+	python3 scripts/build_two_balls.py
+	python3 scripts/build_rotating_boxes.py
+	python3 scripts/build_elastic_string.py
 
 html: simulator_bundles
 	$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)

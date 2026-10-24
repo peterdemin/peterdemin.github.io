@@ -407,7 +407,7 @@ of these modes, in 1/m, are
     \nabla_{\mathbf r_i}\chi_s=b_i\mathbf v+c_i\mathbf u.
 
 This decomposition is algebra applied to our stated law, not a new measured
-material law. :doc:`02b-moon-flag`
+material law. :doc:`02c-moon-flag`
 explains how the solver turns these energy-derived rules into iterative
 position corrections while advancing time.
 
@@ -562,7 +562,7 @@ through one another.
 Time steps, solver sweeps and artificial velocity damping are software
 choices, not membrane or bending material constants. The flag's actual
 values and prediction/correction procedure are collected in
-:doc:`02b-moon-flag`.
+:doc:`02c-moon-flag`.
 They affect motion and numerical accuracy; none supplies physical calibration.
 
 Attachments and fullness
@@ -603,7 +603,7 @@ remove the very question we want to solve: which shape follows from the loads?
 Sources and our choices
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Try :doc:`02b-moon-flag`: pull its top-right corner, then release it under lunar gravity.
+Try :doc:`02c-moon-flag`: pull its top-right corner, then release it under lunar gravity.
 It uses the Green-strain triangle law, directional extension limits, and
 geometric hinge bending described above. Its extension is much more compliant
 than the small-strain sail example; its chosen hinge rigidity has a larger

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Two rigid balls share an impact</title>
+  <script>if(new URLSearchParams(location.search).get('embedded')==='1')document.documentElement.classList.add('embedded');</script>
+  <style>
+    :root{color-scheme:light dark;font-family:system-ui,sans-serif;background:light-dark(#fdf6e3,#002b36);color:light-dark(#657b83,#93a1a1)}*{box-sizing:border-box}body{margin:0}main{max-width:1000px;margin:auto;padding:24px}header p,footer{line-height:1.6}.embedded main{padding:0;max-width:none}.embedded header,.embedded footer{display:none}.embedded{background:var(--book-background,#fdf6e3);color:var(--book-text,#657b83);font-family:var(--book-font,system-ui,sans-serif)}.stage{position:relative;aspect-ratio:4/3;border:1px solid var(--book-border,#93a1a1);border-radius:8px;overflow:hidden;background:#0c1725}canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}canvas:focus-visible{outline:3px solid #49a9c6;outline-offset:-4px}.note,.readout{font-size:13px;line-height:1.65;margin:8px 0;font-variant-numeric:tabular-nums}.readout p{margin:4px 0}.controls{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}button{font:inherit;color:inherit;background:transparent;border:1px solid var(--book-border,#93a1a1);border-radius:6px;min-height:42px;padding:8px 12px;cursor:pointer}button:disabled{opacity:0.5;cursor:default}a{color:inherit}#error{display:none;position:absolute;inset:0;background:#0c1725ed;color:#ffd4b0;padding:24px;align-items:center;justify-content:center}footer{font-size:13px;margin-top:24px}@media(max-width:500px){main{padding:16px}.stage{aspect-ratio:1/1}.note,.readout{font-size:12px}}
+  </style>
+</head>
+<body>
+<main>
+  <header><h1>Two rigid balls share an impact</h1><p>Release the slightly offset orange ball onto the blue one. Their sideways motion comes from a shared collision impulse, not a scripted split.</p></header>
+  <p class="note"><strong>Pick up orange A directly: click or touch its dashed grab guide, drag, then release.</strong> This works while falling or after it stops; no button or reset is needed. Release starts with zero velocity. Only orange is draggable. Keyboard: Space grabs/releases, arrows move it while held, Escape releases.</p>
+  <div class="stage">
+    <canvas id="scene" tabindex="0" role="application" aria-label="Two rigid balls inside left and right walls above a fixed floor. Drag the orange ball or use Space and arrow keys; blue moves freely when hit."></canvas>
+    <div id="error" role="alert"></div>
+  </div>
+  <div class="controls"><button id="release">Release orange ball</button><button id="reset">Reset both balls</button></div>
+  <div class="readout">
+    <p id="status"></p><p id="velocities"></p><p id="impact"></p>
+    <p>Each: 1 kg, radius 0.20 m · gravity 9.81 m/s² · contact restitution 0.65. Low-speed contacts have no rebound below 0.20 m/s. Floor sliding resistance: 0.8 m/s²; no airborne damping or spin.</p>
+  </div>
+  <footer>Floor and wall support forces are solved alongside pair contacts. Blue is supported, not pinned or assigned infinite mass. Contacts are frictionless except the explicitly modeled floor sliding resistance. <a href="../../12_articles/87-sail-physics/01e-two-balls.html">Read the extension and its numerical approximation.</a></footer>
+</main>
+<script src="bundle.js"></script>
+</body>
+</html>

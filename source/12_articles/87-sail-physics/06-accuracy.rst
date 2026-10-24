@@ -65,7 +65,7 @@ stiffness.
 value, calibrate on some conditions and validate on different ones. Fitting
 every experiment is not an independent prediction. Record air speed,
 direction, fluctuations, and properties too. The illustrative stiffnesses in
-:doc:`02a-cloth` are not measurements of this sail.
+:doc:`02b-cloth` are not measurements of this sail.
 
 Make the numerical calculation more precise
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
