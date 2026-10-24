@@ -70,7 +70,7 @@ Summing loads over the cloth
 
 Let :math:`S` be the current cloth surface and :math:`dA` an arbitrarily
 small patch of its current area (m²). Unlike the original area element
-:math:`dA_0` in :doc:`02a-cloth`, this area can change
+:math:`dA_0` in :doc:`02b-cloth`, this area can change
 when cloth stretches.
 Let :math:`\mathbf{F}` be the whole sail's air force (N). An integral adds patch forces:
 
@@ -88,7 +88,7 @@ What accelerates a cloth patch?
 **Inertia** is the resistance of mass to acceleration. Newton's law is force
 equals mass times acceleration, not force equals velocity.
 To account for cloth mass, use original area as in
-:doc:`02a-cloth`.
+:doc:`02b-cloth`.
 
 Before the next equation, define:
 
@@ -125,7 +125,7 @@ Where does the internal elastic force come from?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Let :math:`E=E_m+E_b` be the sum of stretching/shearing and bending energy
-from :doc:`02a-cloth` (J). An elastic force acts in the
+from :doc:`02b-cloth` (J). An elastic force acts in the
 direction of decreasing
 energy. In a one-direction example, let :math:`s` be displacement (m) and
 :math:`f` the corresponding elastic force (N). Then
@@ -139,7 +139,7 @@ extension. For a whole sheet this same principle uses a small displacement
 :math:`\delta\mathbf{r}` at each point and the resulting energy change
 :math:`\delta E`, measured in joules; the trial displacement is in metres.
 Here :math:`\delta` means an infinitesimal trial change, not a new time step.
-As in :doc:`02a-cloth`, :math:`S_0` is the original
+As in :doc:`02b-cloth`, :math:`S_0` is the original
 sheet and :math:`dA_0` is
 a tiny original-area patch (m²). With attachments fixed,
 

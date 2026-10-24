@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>6. Boxes can rotate - Peter Demin</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="7. Elastic string model" href="02a-elastic-string.html" /><link rel="prev" title="5. Two rigid balls share an impact" href="01e-two-balls.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=f20cc846" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="6. Boxes can rotate"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#another-degree-of-freedom">6.1. Another degree of freedom</a></li>
+<li><a class="reference internal" href="#position-angle-and-inertia">6.2. Position, angle and inertia</a></li>
+<li><a class="reference internal" href="#contact-velocity-is-not-center-velocity">6.3. Contact velocity is not center velocity</a></li>
+<li><a class="reference internal" href="#a-worked-off-center-impact">6.4. A worked off-center impact</a></li>
+<li><a class="reference internal" href="#friction-a-pile-and-the-actual-solver">6.5. Friction, a pile, and the actual solver</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
+    
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../87-sail-physics.html"><span itemprop="name">Sail Simulation</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name"><span class="section-number">6. </span>Boxes can rotate</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="boxes-can-rotate">
+<h1><span class="section-number">6. </span>Boxes can rotate<a class="headerlink" href="#boxes-can-rotate" title="Link to this heading">#</a></h1>
+<section id="another-degree-of-freedom">
+<h2><span class="section-number">6.1. </span>Another degree of freedom<a class="headerlink" href="#another-degree-of-freedom" title="Link to this heading">#</a></h2>
+<p>The circles in <a class="reference internal" href="01e-two-balls.html"><span class="doc">Two rigid balls share an impact</span></a> only translate: their centers move.
+Now replace them with <strong>rigid square cross-sections</strong>. A square also has an
+orientation, and an impact away from its center can change its rotation.
+This is a two-dimensional side view, not a simulation of three-dimensional
+cubes. Nothing deforms, and there are no scripted spins or sideways kicks.</p>
+<p>Click or tap inside the scene to create one square above that horizontal
+position. Its starting angle is random, but its linear and angular velocities
+are <strong>zero</strong>. The square falls under gravity, then contacts can make it turn.
+A dot near one corner makes rotation easier to see. New squares start at least
+2.3 m above the floor, or higher if needed to avoid an occupied spawn space.
+Near a wall, their horizontal centers move inward just enough to fit.
+If no clear position exists above that spot, the request is visibly refused.
+There is no box-count cap and no silent deletion; available space and device
+performance are the practical limits. <strong>Clear all boxes</strong> starts over.
+Focus the scene and press Space or Enter, or use <strong>Drop in the
+middle</strong>, for keyboard access.</p>
+<iframe
+  src="../../_static/rotating-boxes/index.html?embedded=1&v=uncapped-1"
+  title="Rigid square cross-sections fall, collide, rotate and form a pile"
+  width="100%" height="850"
+  style="display:block;width:100%;height:850px;border:0;"
+  loading="lazy">
+</iframe>
+<script>
+  (() => {
+    const frame = document.currentScript.previousElementSibling;
+    const sendTheme = () => {
+      const root = document.documentElement;
+      const theme = getComputedStyle(root);
+      frame.contentWindow.postMessage({
+        type: 'rotating-boxes-theme',
+        background: theme.getPropertyValue('--sy-c-background').trim(),
+        text: theme.getPropertyValue('--sy-c-text').trim(),
+        border: theme.getPropertyValue('--sy-c-heading').trim(),
+        font: getComputedStyle(document.body).fontFamily,
+        dark: root.classList.contains('dark')
+      }, '*');
+    };
+    frame.addEventListener('load', sendTheme);
+    window.addEventListener('message', event => {
+      if (event.source !== frame.contentWindow) return;
+      if (event.data?.type === 'rotating-boxes-ready') sendTheme();
+      if (event.data?.type === 'rotating-boxes-size' && Number.isFinite(event.data.height)) {
+        frame.style.height = Math.max(200, Math.min(1600, event.data.height)) + 'px';
+      }
+    });
+    const observer = new MutationObserver(sendTheme);
+    observer.observe(document.documentElement, {attributes: true, attributeFilter: ['class', 'style']});
+    window.addEventListener('pagehide', () => observer.disconnect(), {once: true});
+  })();
+</script><p>If the embed cannot start, <a class="reference external" href="../../_static/rotating-boxes/index.html">open the boxes on their own</a>. JavaScript and Canvas 2D are
+required, not WebGL. Both classic scripts are local; opening the standalone
+HTML from a file does not require fetching a module or a remote library.</p>
+</section>
+<section id="position-angle-and-inertia">
+<h2><span class="section-number">6.2. </span>Position, angle and inertia<a class="headerlink" href="#position-angle-and-inertia" title="Link to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf p=(p_x,p_y)\)</span> be a square’s center in metres, with positive
+<span class="math notranslate nohighlight">\(y\)</span> upward. Let <span class="math notranslate nohighlight">\(\mathbf v=(v_x,v_y)\)</span> be its velocity in m/s.
+The orientation <span class="math notranslate nohighlight">\(\theta\)</span> is an angle in radians, positive
+counterclockwise; angular velocity <span class="math notranslate nohighlight">\(\omega\)</span> measures its change in rad/s.
+The mass <span class="math notranslate nohighlight">\(m\)</span> is 1 kg. The width <span class="math notranslate nohighlight">\(a\)</span> and height <span class="math notranslate nohighlight">\(b\)</span> are both
+0.35 m. The <strong>moment of inertia</strong> <span class="math notranslate nohighlight">\(I\)</span> measures resistance to angular
+acceleration about the center, perpendicular to this plane. For a uniform
+rectangle, applying the mass-integration method in
+<a class="reference external" href="https://openstax.org/books/university-physics-volume-1/pages/10-5-calculating-moments-of-inertia">OpenStax’s moment-of-inertia examples</a> separately to the two coordinate
+directions gives</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[I=\frac{m(a^2+b^2)}{12}
+ =0.0204167\ \mathrm{kg\,m^2}.\]</div>
+</div>
+<p>The rectangle’s four local corners are <span class="math notranslate nohighlight">\((\pm a/2,\pm b/2)\)</span>.
+For a local corner <span class="math notranslate nohighlight">\((u_x,u_y)\)</span>, rotate and then translate to find its
+world position <span class="math notranslate nohighlight">\((q_x,q_y)\)</span>:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[q_x=p_x+u_x\cos\theta-u_y\sin\theta,
+\qquad q_y=p_y+u_x\sin\theta+u_y\cos\theta.\]</div>
+</div>
+<p>The renderer and collision geometry use the same orientation. There is no
+circle proxy or axis-aligned bounding box pretending to be the square.
+Axis-aligned bounds only help search for candidate pairs; contact uses the
+oriented polygon faces.</p>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf F\)</span> be total force in newtons and <span class="math notranslate nohighlight">\(\tau\)</span> total torque
+about the center in N m. A force acting at a displacement
+<span class="math notranslate nohighlight">\(\mathbf r=(r_x,r_y)\)</span> from the center has torque
+<span class="math notranslate nohighlight">\(\tau=r_xF_y-r_yF_x\)</span>. This signed scalar is the two-dimensional
+version of a cross product. Our continuous equations are</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\dot{\mathbf p}=\mathbf v,\qquad
+\dot{\mathbf v}=\mathbf F/m,\qquad
+\dot\theta=\omega,\qquad \dot\omega=\tau/I.\]</div>
+</div>
+<p>A dot means time derivative, not multiplication. Gravity acts through the
+center: <span class="math notranslate nohighlight">\(\mathbf F=(0,-m g)\)</span> with <span class="math notranslate nohighlight">\(g=9.81\ \mathrm{m/s^2}\)</span>.
+It therefore causes no torque here. Between contacts a newly spawned square
+falls without turning, even though its initial orientation may be tilted.</p>
+</section>
+<section id="contact-velocity-is-not-center-velocity">
+<h2><span class="section-number">6.3. </span>Contact velocity is not center velocity<a class="headerlink" href="#contact-velocity-is-not-center-velocity" title="Link to this heading">#</a></h2>
+<p>Consider a touching point <span class="math notranslate nohighlight">\(\mathbf q\)</span> on bodies A and B. Define the
+lever arms <span class="math notranslate nohighlight">\(\mathbf r_A=\mathbf q-\mathbf p_A\)</span> and
+<span class="math notranslate nohighlight">\(\mathbf r_B=\mathbf q-\mathbf p_B\)</span>, in metres. The velocity of a
+point combines translation and rotation. For either body,</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\mathbf v_{\mathrm{point}}=
+  (v_x-\omega r_y,\ v_y+\omega r_x).\]</div>
+</div>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf n\)</span> be the unit normal from A toward B. Define their
+relative normal contact velocity <span class="math notranslate nohighlight">\(u_n\)</span> by taking the dot product of
+the point-velocity difference with that normal:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[u_n=(\mathbf v_{B,\mathrm{point}}-
+     \mathbf v_{A,\mathrm{point}})\cdot\mathbf n.\]</div>
+</div>
+<p>Negative means approaching. A dot product multiplies matching components
+and adds them. Define <span class="math notranslate nohighlight">\(c_A=r_{Ax}n_y-r_{Ay}n_x\)</span> and similarly
+<span class="math notranslate nohighlight">\(c_B\)</span>; these are signed lever arms in metres. An impulse of magnitude
+<span class="math notranslate nohighlight">\(J_n\)</span> in N s acts along the normal on B and oppositely on A.
+For one isolated approaching contact, the effective inverse mass
+<span class="math notranslate nohighlight">\(k_n\)</span> (in 1/kg) and restitution rule are</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[k_n=\frac1{m_A}+\frac1{m_B}+\frac{c_A^2}{I_A}+\frac{c_B^2}{I_B},
+\qquad J_n=-\frac{(1+e)u_n}{k_n}.\]</div>
+</div>
+<p>The dimensionless coefficient <span class="math notranslate nohighlight">\(e\)</span> is 0.25 here; impacts below 1 m/s
+use zero restitution to avoid tiny repeated rebounds. A fixed wall or floor
+has zero inverse mass and inverse inertia. The impulse changes the states by</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\Delta\mathbf v_A=-J_n\mathbf n/m_A,\quad
+\Delta\mathbf v_B= J_n\mathbf n/m_B,\quad
+\Delta\omega_A=-J_n c_A/I_A,\quad
+\Delta\omega_B= J_n c_B/I_B.\]</div>
+</div>
+<p>This is how a collision creates rotation. If the normal passes through the
+center, its signed lever arm is zero and its normal impulse causes no spin.
+See <a class="reference external" href="https://www.cs.cmu.edu/~baraff/sigcourse/notesd2.pdf">Baraff’s rigid-body notes</a> for the underlying impulse derivation.</p>
+</section>
+<section id="a-worked-off-center-impact">
+<h2><span class="section-number">6.4. </span>A worked off-center impact<a class="headerlink" href="#a-worked-off-center-impact" title="Link to this heading">#</a></h2>
+<p>Take a 1 kg square with the inertia above, downward center velocity 2 m/s,
+and no spin, hitting a fixed floor at a point 0.10 m to the right of its
+center. For this calculation only, omit tangential friction. Choose A as
+the floor and B as the square, so <span class="math notranslate nohighlight">\(\mathbf n=(0,1)\)</span> and
+<span class="math notranslate nohighlight">\(c_B=0.10\ \mathrm m\)</span>. Then <span class="math notranslate nohighlight">\(u_n=-2\ \mathrm{m/s}\)</span> and</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[k_n=1+\frac{0.10^2}{0.0204167}
+   \simeq1.48980\ \mathrm{kg^{-1}},\qquad
+J_n=\frac{2.5}{1.48980}\simeq1.67808\ \mathrm{N\,s}.\]</div>
+</div>
+<p>The outgoing center velocity is about -0.32192 m/s vertically, still
+downward, while the angular velocity becomes +8.21918 rad/s. The contact
+point’s vertical velocity is <span class="math notranslate nohighlight">\(-0.32192+0.10(8.21918)=0.50\)</span> m/s
+upward, exactly the expected restitution speed <span class="math notranslate nohighlight">\(e(2)\)</span>.
+Do not apply the restitution rule to the center alone. Translational plus
+rotational kinetic energy falls from 2 J to about 0.74144 J. The floor
+supplies an external impulse, so this square’s momentum alone is not
+conserved. This isolated example is not a promise about a multi-contact pile.</p>
+</section>
+<section id="friction-a-pile-and-the-actual-solver">
+<h2><span class="section-number">6.5. </span>Friction, a pile, and the actual solver<a class="headerlink" href="#friction-a-pile-and-the-actual-solver" title="Link to this heading">#</a></h2>
+<p>The demo uses <a class="reference external" href="https://www.npmjs.com/package/planck/v/1.5.1">Planck 1.5.1</a>, a locally vendored MIT-licensed Box2D-derived
+engine. Contact generation uses separating face axes and clipped polygon
+edges to create a <strong>manifold</strong>: up to two touching points for each pair.
+The velocity constraints include the rotational terms above. Two face
+contacts can balance torque rather than pretending all load acts at a
+single corner. Several contacting squares must be solved together through
+repeated sweeps, not independent one-shot collisions.</p>
+<p>Let <span class="math notranslate nohighlight">\(\mu=0.6\)</span> be the dimensionless friction coefficient and
+<span class="math notranslate nohighlight">\(J_t\)</span> the tangential impulse in N s. Coulomb friction bounds its
+magnitude by <span class="math notranslate nohighlight">\(|J_t|\leq\mu J_n\)</span>. Within this bound, the solver tries
+to stop sliding contact; otherwise sliding remains. Tangential impulses can
+also cause torque. This is contact friction, not airborne damping, and
+the same material is used on boxes and container faces.</p>
+<p>The model wrapper uses fixed <strong>1/240 s</strong> steps with <strong>12 velocity iterations</strong>
+and <strong>8 position iterations</strong> per step. Gravity updates velocity before
+position, a semi-implicit Euler scheme, not Runge–Kutta. Planck warm-starts
+persistent contacts with previously computed impulses and uses its two-point
+normal block solver where appropriate. Position correction reduces remaining
+penetration separately; it is not an extra restitution impulse. All boxes
+enable bullet continuous collision detection, including fast box-box pairs.
+See <a class="reference external" href="https://piqnt.com/planck.js/docs/world/simulation.html">Planck’s simulation documentation</a> and <a class="reference external" href="https://github.com/piqnt/planck.js/tree/54d2bdaef50fb72ea3421e6267014b3e51be0c23/src">the pinned solver source</a>.</p>
+<p>Numerical contact is not exact geometry. The library uses a 0.005 m linear
+slop and 0.010 m polygon skin. Drawn faces can therefore show small gaps;
+the engine tolerates small contact errors rather than chasing roundoff.
+Tests allow up to 0.015 m negative manifold separation, not arbitrary overlap.
+The outer container has a floor, two walls and a ceiling, all fixed.
+Spawn checks use oriented polygon overlap with an extra 0.025 m local margin.
+Each added body starts with new zero velocities, and existing bodies are
+never relocated to make room.</p>
+<p>A supported island can <strong>sleep</strong> after motion remains below the library’s
+thresholds (0.01 m/s and 2 degrees/s) for 0.5 s. Sleeping bodies retain mass
+and inertia. An awake body hitting a supported pile wakes the contacting
+island; sleep is a numerical rest approximation, not gluing boxes in place.
+Gravity, friction, impact loss and contact impulses supply the behavior,
+with no artificial global velocity damping or energy rescaling. Spawning
+adds potential energy externally; energy need not decrease when you add a box.</p>
+<p>At most 0.1 wall seconds and 24 physics steps are processed per animation
+frame. Hidden tabs discard time budgets. A slow device can slow playback
+instead of taking one large unstable step. Clear rebuilds the world.
+The energy readout sums center kinetic energy, spin energy and gravitational
+potential <span class="math notranslate nohighlight">\(m g p_y\)</span> relative to the floor. Numerical integration and
+position correction can introduce small energy errors; this is a stable
+teaching approximation, not exact energy conservation or a full 3D model.</p>
+<p>Focused tests exercise rectangular inertia, rotated vertices, actual polygon
+contacts, centered versus off-center rotation, free-pair momentum and energy,
+restitution, fast confinement, sleeping stacks and waking, overlap-free
+spawning beyond 20 boxes, occupied-space refusal and bounded frame work.
+The preceding one-ball and two-ball simulations remain separate examples.</p>
+</section>
+</section>
+
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="01e-two-balls.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title"><span class="section-number">5. </span>Two rigid balls share an impact</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="02a-elastic-string.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title"><span class="section-number">7. </span>Elastic string model</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2016-2026, Peter Demin</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script></body>
+</html>

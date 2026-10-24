@@ -58,7 +58,7 @@ that can turn relative to one another along their shared diagonal, like a
 hinge. Adding both diagonals can artificially lock the bending of a warped
 four-sided cell. Weak links spanning two neighboring edges approximate
 bending resistance. They are not the curvature-energy law in
-:doc:`02a-cloth`,
+:doc:`02b-cloth`,
 and the network does not independently match measured warp, weft, shear,
 or wrinkling behavior.
 

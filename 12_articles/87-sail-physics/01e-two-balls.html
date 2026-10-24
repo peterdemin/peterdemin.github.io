@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>5. Two rigid balls share an impact - Peter Demin</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="6. Boxes can rotate" href="01f-rotating-boxes.html" /><link rel="prev" title="4. A rigid ball that drops, bounces and rests" href="01d-bouncing-ball.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=f20cc846" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="5. Two rigid balls share an impact"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#an-offset-drop-not-a-scripted-split">5.1. An offset drop, not a scripted split</a></li>
+<li><a class="reference internal" href="#a-constraint-between-two-circles">5.2. A constraint between two circles</a></li>
+<li><a class="reference internal" href="#relative-velocity-and-a-shared-impulse">5.3. Relative velocity and a shared impulse</a></li>
+<li><a class="reference internal" href="#floor-walls-and-simultaneous-contacts">5.4. Floor, walls and simultaneous contacts</a></li>
+<li><a class="reference internal" href="#why-the-horizontal-motion-eventually-stops">5.5. Why the horizontal motion eventually stops</a></li>
+<li><a class="reference internal" href="#what-the-numerical-update-actually-does">5.6. What the numerical update actually does</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
+    
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../87-sail-physics.html"><span itemprop="name">Sail Simulation</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name"><span class="section-number">5. </span>Two rigid balls share an impact</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="two-rigid-balls-share-an-impact">
+<h1><span class="section-number">5. </span>Two rigid balls share an impact<a class="headerlink" href="#two-rigid-balls-share-an-impact" title="Link to this heading">#</a></h1>
+<section id="an-offset-drop-not-a-scripted-split">
+<h2><span class="section-number">5.1. </span>An offset drop, not a scripted split<a class="headerlink" href="#an-offset-drop-not-a-scripted-split" title="Link to this heading">#</a></h2>
+<p>Keep the floor from <a class="reference internal" href="01d-bouncing-ball.html"><span class="doc">A rigid ball that drops, bounces and rests</span></a>, but add a second ball and
+two vertical walls. Both circles have mass <strong>1 kg</strong> and radius <strong>0.20 m</strong>.
+They are absolutely rigid: their drawn shapes do not squash or stretch.
+Gravity has downward magnitude <strong>9.81 m/s²</strong>. The view is fixed in the
+two-dimensional plane, with one uniform distance scale and metre marks.</p>
+<p>Blue B initially rests on the floor. Orange A starts held at center position
+(1.82, 2.20) m, a little to the left of B at (2.00, 0.20) m. Release A,
+or drag it to choose a different offset. <strong>Pick up orange directly</strong> by
+clicking or touching its dashed grab guide, then dragging. It can be picked
+while falling or after either trial settles; no release button or reset is
+required first. Mouse and touch drag only orange;
+releasing deliberately starts it with zero velocity, not an inferred throw.
+<strong>Reset both balls</strong> restores these initial positions. Keyboard: focus the
+scene, Space grabs/releases orange, arrows move it while held, Escape releases.
+Each grab starts fresh impact counts without resetting blue’s position or
+velocity. The release button is an optional shortcut for the initially held ball.
+The hand refuses positions that would overlap blue, and stays inside the view.
+The hand can supply energy by lifting; its motion is prescribed, not calculated
+as another free body. While held, orange acts as an immovable contact object.</p>
+<p>A perfectly centered vertical drop cannot create sideways motion in this
+symmetric model. Its contact normal is vertical. An <strong>oblique</strong> impact,
+one whose normal is slanted, can give opposite horizontal velocities because
+the same impulse acts in opposite directions on the two finite masses.
+There is no artificial sideways kick. They need not travel with equal speeds
+afterward: gravity, floor support, floor resistance and wall impacts also act.
+This is not a full billiards model with rolling and spin.</p>
+<iframe
+  src="../../_static/two-balls/index.html?embedded=1"
+  title="An offset falling rigid ball hits a second ball inside vertical walls"
+  width="100%" height="850"
+  style="display:block;width:100%;height:850px;border:0;"
+  loading="lazy">
+</iframe>
+<script>
+  (() => {
+    const frame = document.currentScript.previousElementSibling;
+    const sendTheme = () => {
+      const root = document.documentElement;
+      const theme = getComputedStyle(root);
+      frame.contentWindow.postMessage({
+        type: 'two-balls-theme',
+        background: theme.getPropertyValue('--sy-c-background').trim(),
+        text: theme.getPropertyValue('--sy-c-text').trim(),
+        border: theme.getPropertyValue('--sy-c-heading').trim(),
+        font: getComputedStyle(document.body).fontFamily,
+        dark: root.classList.contains('dark')
+      }, '*');
+    };
+    frame.addEventListener('load', sendTheme);
+    window.addEventListener('message', event => {
+      if (event.source !== frame.contentWindow) return;
+      if (event.data?.type === 'two-balls-ready') sendTheme();
+      if (event.data?.type === 'two-balls-size' && Number.isFinite(event.data.height)) {
+        frame.style.height = Math.max(200, Math.min(1600, event.data.height)) + 'px';
+      }
+    });
+    const observer = new MutationObserver(sendTheme);
+    observer.observe(document.documentElement, {attributes: true, attributeFilter: ['class', 'style']});
+    window.addEventListener('pagehide', () => observer.disconnect(), {once: true});
+  })();
+</script><p>If the embed cannot start, <a class="reference external" href="../../_static/two-balls/index.html">open the two balls on their own</a>. JavaScript and Canvas 2D are required,
+not WebGL. The classic bundle has no network dependencies.</p>
+</section>
+<section id="a-constraint-between-two-circles">
+<h2><span class="section-number">5.2. </span>A constraint between two circles<a class="headerlink" href="#a-constraint-between-two-circles" title="Link to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf p_A,\mathbf p_B\)</span> be the two center positions, each a
+pair of coordinates in metres. Bold symbols denote pairs. Let
+<span class="math notranslate nohighlight">\(R_A,R_B\)</span> be their radii in metres; the letters identify the balls,
+not different units. Subtract matching coordinate entries to get the vector
+from A to B, <span class="math notranslate nohighlight">\(\mathbf d=\mathbf p_B-\mathbf p_A\)</span>.
+Its length <span class="math notranslate nohighlight">\(L=\sqrt{d_x^2+d_y^2}\)</span> is found by squaring its horizontal
+and vertical components, adding them and taking the positive square root.
+The signed <strong>gap</strong> <span class="math notranslate nohighlight">\(C\)</span> is the center distance minus the sum of radii.
+The sign <span class="math notranslate nohighlight">\(\geq\)</span> means greater than or equal to:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[C=L-(R_A+R_B)\geq0.\]</div>
+</div>
+<p>Positive gap means separated; zero means touching; negative means overlapping.
+The <strong>contact normal</strong> <span class="math notranslate nohighlight">\(\mathbf n=\mathbf d/L\)</span> is a unit-length
+direction from A to B. Divide both vector entries by <span class="math notranslate nohighlight">\(L\)</span>.
+Coincident centers would have no defined normal; the input rules prevent that
+case and the solver reports it as an error rather than inventing a direction.</p>
+<p>Let <span class="math notranslate nohighlight">\(m_A,m_B\)</span> be positive masses in kg and define <strong>inverse masses</strong>
+<span class="math notranslate nohighlight">\(w_A=1/m_A,w_B=1/m_B\)</span>, in 1/kg. Larger mass means smaller inverse
+mass and a smaller response to the same impulse. Both demo values are 1/kg.
+For an overlap, define the positive penetration depth <span class="math notranslate nohighlight">\(\delta=-C\)</span>
+in metres. A superscript <code class="docutils literal notranslate"><span class="pre">new</span></code> labels corrected position. The shared
+geometric correction is</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\mathbf p_A^{\mathrm{new}}=\mathbf p_A-
+  \frac{w_A}{w_A+w_B}\delta\mathbf n,
+\qquad
+\mathbf p_B^{\mathrm{new}}=\mathbf p_B+
+  \frac{w_B}{w_A+w_B}\delta\mathbf n.\]</div>
+</div>
+<p>Equal masses each move half the depth. A 0.02 m overlap moves each 0.01 m
+along opposite normal directions. This restores valid geometry, not a bounce.
+Fixed floor and wall objects have zero inverse mass in the equations; a
+floor-supported ball does <strong>not</strong>. Its real mass remains 1 kg.
+The fixed-body inverse-mass convention and collision response are described
+in <a class="reference external" href="https://www.cs.cmu.edu/~baraff/sigcourse/notesd2.pdf">Baraff’s rigid-body course notes</a>.</p>
+</section>
+<section id="relative-velocity-and-a-shared-impulse">
+<h2><span class="section-number">5.3. </span>Relative velocity and a shared impulse<a class="headerlink" href="#relative-velocity-and-a-shared-impulse" title="Link to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf v_A,\mathbf v_B\)</span> be the pre-impact velocities, in m/s.
+The relative velocity is <span class="math notranslate nohighlight">\(\mathbf v_B-\mathbf v_A\)</span>. A dot product
+multiplies matching coordinate entries and adds them. Its signed normal
+component <span class="math notranslate nohighlight">\(u\)</span> is</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[u=(\mathbf v_B-\mathbf v_A)\cdot\mathbf n.\]</div>
+</div>
+<p>Negative <span class="math notranslate nohighlight">\(u\)</span> means approaching. Nonnegative means stationary relative
+to the normal or separating, so no isolated collision impulse is needed.
+For an approaching isolated pair choose restitution <span class="math notranslate nohighlight">\(e=0.65\)</span>, the
+ratio of outgoing to incoming relative normal speed. The scalar impulse
+magnitude <span class="math notranslate nohighlight">\(J\)</span> is in N s and acts positively on B, negatively on A.
+It follows from demanding outgoing normal speed <span class="math notranslate nohighlight">\(-e u\)</span>:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[J=-\frac{(1+e)u}{w_A+w_B},
+\qquad
+\mathbf v_A^{\mathrm{new}}=\mathbf v_A-w_AJ\mathbf n,
+\qquad
+\mathbf v_B^{\mathrm{new}}=\mathbf v_B+w_BJ\mathbf n.\]</div>
+</div>
+<p>These are the translational, frictionless circle-contact case of
+<a class="reference external" href="https://box2d.org/files/ErinCatto_ModelingAndSolvingConstraints_GDC2009.pdf#page=39">Catto’s contact and restitution notes</a>. The impulse is along the line
+of centers and supplies no turning moment. We do not model spin.
+Multiplying inverse mass by impulse gives a velocity change in m/s.
+The equal and opposite impulses preserve the free pair’s total momentum,
+mass times velocity, in kg m/s. Motion perpendicular to the normal is not
+changed by this frictionless collision.</p>
+<p>As a controlled example <strong>away from the floor</strong>, take both masses 1 kg,
+<span class="math notranslate nohighlight">\(\mathbf n=(0.6,-0.8)\)</span>, <span class="math notranslate nohighlight">\(\mathbf v_A=(0,-4)\)</span> m/s and
+<span class="math notranslate nohighlight">\(\mathbf v_B=(0,0)\)</span> m/s. Then <span class="math notranslate nohighlight">\(u=-3.2\)</span> m/s and
+<span class="math notranslate nohighlight">\(J=2.64\)</span> N s. The resulting velocities are</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\mathbf v_A^{\mathrm{new}}=(-1.584,-1.888)\ \mathrm{m/s},
+\qquad
+\mathbf v_B^{\mathrm{new}}=(1.584,-2.112)\ \mathrm{m/s}.\]</div>
+</div>
+<p>Their horizontal components have opposite signs; both vertical components
+still point down. Total vertical momentum remains -4 kg m/s. Kinetic energy,
+one-half mass times speed squared, falls from 8 J to 6.5216 J. The
+relative <strong>normal</strong> motion loses energy; the entire pair’s kinetic energy
+is not simply multiplied by <span class="math notranslate nohighlight">\(e^2\)</span>, because shared center motion and
+motion perpendicular to the normal remain. A centered free collision instead
+has <span class="math notranslate nohighlight">\(\mathbf n=(0,-1)\)</span> and produces no horizontal velocity at all.</p>
+</section>
+<section id="floor-walls-and-simultaneous-contacts">
+<h2><span class="section-number">5.4. </span>Floor, walls and simultaneous contacts<a class="headerlink" href="#floor-walls-and-simultaneous-contacts" title="Link to this heading">#</a></h2>
+<p>For a circle with center <span class="math notranslate nohighlight">\((x,y)\)</span> and radius <span class="math notranslate nohighlight">\(R=0.20\)</span> m,
+the floor at zero and walls at <span class="math notranslate nohighlight">\(x=0\)</span> and <span class="math notranslate nohighlight">\(x=W=4\)</span> m require</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[y-R\geq0,\qquad x-R\geq0,\qquad W-R-x\geq0.\]</div>
+</div>
+<p>Their inward normals are (0,1), (1,0) and (-1,0), respectively. The same
+impulse rule with a fixed object’s inverse mass zero reverses/reduces only
+normal velocity. The demo uses restitution 0.65 for walls as well as ball
+and floor impacts. There is no ceiling; permitted initial heights and the
+passive energy losses keep these trials inside the displayed height.</p>
+<p>When orange hits blue while blue touches the floor, two constraints share
+one body’s velocity. Correcting the pair can make blue move into the floor;
+correcting the floor changes the pair’s relative velocity. Repeated contact
+passes resolve them together. Blue can move sideways or lift off when the
+resulting impulse allows it. It is supported, not pinned or given infinite
+mass. The fixed floor can exchange vertical momentum with the pair, so the
+free-pair arithmetic above is <strong>not</strong> the complete answer for this shared
+contact. Nor should we force the outgoing speeds to look symmetric.</p>
+<p>The actual implementation first finds a non-approaching velocity by
+accumulating nonnegative normal impulses. It then restores 0.65 of the
+velocity change removed in that compression pass, and performs an inelastic
+cleanup if this makes another touching contact approach. For an isolated
+collision this is exactly the displayed restitution formula. For simultaneous
+contacts it is a coupled, dissipative approximation: a local rebound ratio
+need not equal 0.65 after the other contacts are resolved. There are at most
+160 passes, with an explicit residual check; these passes do not advance time.
+Changing the order is tested for agreement within numerical tolerance.</p>
+<p>Supported contact has force as well as geometry. At zero normal velocity,
+the code solves normal acceleration constraints to oppose gravity. One
+stationary ball on the floor needs an upward 9.81 N reaction. A perfectly
+centered resting stack needs the floor to carry both weights, 19.62 N.
+Neither support rule prevents a subsequent collision from changing velocity.
+For touching circles sliding past each other, the acceleration check also
+includes the changing normal: normal relative acceleration plus tangential
+relative speed squared divided by center distance must not close the gap.</p>
+</section>
+<section id="why-the-horizontal-motion-eventually-stops">
+<h2><span class="section-number">5.5. </span>Why the horizontal motion eventually stops<a class="headerlink" href="#why-the-horizontal-motion-eventually-stops" title="Link to this heading">#</a></h2>
+<p>A frictionless floor would not stop a ball’s sideways motion. Therefore this
+extension adds an explicit, illustrative <strong>floor sliding resistance</strong>.
+For a supported ball let <span class="math notranslate nohighlight">\(v_x\)</span> be horizontal velocity in m/s and
+<span class="math notranslate nohighlight">\(a_f=0.8\)</span> m/s² the chosen deceleration magnitude. <code class="docutils literal notranslate"><span class="pre">sign</span></code> returns
+1 for a positive value, -1 for a negative one and 0 at zero. Time
+<span class="math notranslate nohighlight">\(t\)</span> is in physical seconds; <span class="math notranslate nohighlight">\(d/dt\)</span> measures change per second.
+While sliding,
+horizontal acceleration is</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\frac{dv_x}{dt}=-a_f\,\mathrm{sign}(v_x).\]</div>
+</div>
+<p>The corresponding resisting force is mass times that acceleration, up to
+0.8 N for a 1 kg ball. The code stops precisely when horizontal velocity
+reaches zero; it does not reverse it through an oversized friction step.
+At rest, resistance can oppose lateral pushes up to that same force limit.
+This is a constant force-limit model, not a calibrated rolling law or a
+full load-dependent Coulomb law. Airborne balls have no such resistance;
+walls and pair contacts have no tangential friction.</p>
+<p>Normal impacts at most 0.20 m/s use no restitution, preventing endless
+microbounces. Shared contact uses the largest approaching normal speed in
+that contact set for this cutoff. Normal support then balances gravity;
+floor resistance removes remaining horizontal energy. See
+<a class="reference external" href="https://box2d.org/documentation/md_simulation.html#restitution">Box2D’s low-speed restitution and friction discussion</a> for the rationale
+of separating bounce, friction and supported contact. The values here are
+our teaching choices. No invisible airborne damping or velocity reset is
+used after a free release.</p>
+</section>
+<section id="what-the-numerical-update-actually-does">
+<h2><span class="section-number">5.6. </span>What the numerical update actually does<a class="headerlink" href="#what-the-numerical-update-actually-does" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">two-balls/physics.mjs</span></code> stores both positions, velocities, masses and held
+state. A 1/120 s physical tick is divided into intervals no larger than
+1/480 s. Free-flight position/velocity use constant-acceleration integration.
+For each interval, the code finds the earliest pair/floor/wall contact time
+or floor-friction stopping time, advances to it, resolves contacts and then
+uses the remaining physical time. Pair contact is found from the distance
+of the two computed trajectories, not from a prescribed split or a visual
+overlap after a large step. A held or supported ball can have different
+acceleration from the other one, which is included in that calculation.</p>
+<p>Support accelerations are held constant over each small interval, so curved
+sliding contact is approximate. Small position corrections share penetration
+according to inverse masses; the solver stops below <span class="math notranslate nohighlight">\(10^{-11}\)</span> m
+penetration and treats gaps within <span class="math notranslate nohighlight">\(10^{-9}\)</span> m as contact. A proposed
+interval that increases mechanical energy beyond rounding tolerance is
+retried with half its duration, not repaired by rescaling energy or adding a
+kick. Persistent failure stops visibly. The tolerance is
+<span class="math notranslate nohighlight">\(10^{-10}\)</span> J times the larger of 1 and the previous energy’s numeric
+value in J. Energy here is kinetic energy plus gravitational potential
+energy above each disk’s floor-contact height. Hand repositioning is external
+work and is not included in a claim of energy conservation.</p>
+<p>Rendering is separate: wall-clock budget advances fixed ticks, with at most
+0.1 wall seconds and 16 ticks processed per frame. Hidden tabs clear the
+budget. Slow machines can slow playback without using giant physical steps.
+The readout displays actual velocities, first pair-impact horizontal
+velocities, wall/pair counts and current energy, not intended outcomes.</p>
+<p>Tests cover free pair momentum, restitution and energy; an oblique example
+and a centered example; wall confinement and reflection; supported-state
+waking; centered stacks; contact-order agreement; continuous high-speed
+crossings; and offset drops through actual settlement. The original one-ball
+calculation is a separate unchanged example. This is a two-disk translational
+model, not a general rigid-body engine or a claim about real billiard balls.</p>
+</section>
+</section>
+
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="01d-bouncing-ball.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title"><span class="section-number">4. </span>A rigid ball that drops, bounces and rests</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="01f-rotating-boxes.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title"><span class="section-number">6. </span>Boxes can rotate</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2016-2026, Peter Demin</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script></body>
+</html>

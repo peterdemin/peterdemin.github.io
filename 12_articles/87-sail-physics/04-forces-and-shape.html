@@ -2,7 +2,7 @@
 <html lang="en" data-accent-color="violet" data-content_root="../../">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>9. Loads change shape, and supports close the load path - Peter Demin</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="10. Turning the coupled problem into a numerical calculation" href="05-coupled-numerics.html" /><link rel="prev" title="8. A wing in a viscous wind tunnel" href="03b-wind-tunnel.html" /><script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>12. Loads change shape, and supports close the load path - Peter Demin</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="13. Turning the coupled problem into a numerical calculation" href="05-coupled-numerics.html" /><link rel="prev" title="11. A wing in a viscous wind tunnel" href="03b-wind-tunnel.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=51f15f49" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=f20cc846" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -21,7 +21,7 @@
 }
 </style>
     
-  <meta property="og:type" content="website"/><meta property="og:title" content="9. Loads change shape, and supports close the load path"/>
+  <meta property="og:type" content="website"/><meta property="og:title" content="12. Loads change shape, and supports close the load path"/>
     <meta name="twitter:card" content="summary"/>
   </head>
 <body><div class="sy-head">
@@ -60,12 +60,12 @@ data-aria-dark="Switch to auto color mode">
       <i class="i-lucide close"></i>
     </button>
     <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
-<li><a class="reference internal" href="#from-air-motion-to-surface-force">9.1. From air motion to surface force</a></li>
-<li><a class="reference internal" href="#summing-loads-over-the-cloth">9.2. Summing loads over the cloth</a></li>
-<li><a class="reference internal" href="#what-accelerates-a-cloth-patch">9.3. What accelerates a cloth patch?</a></li>
-<li><a class="reference internal" href="#where-does-the-internal-elastic-force-come-from">9.4. Where does the internal elastic force come from?</a></li>
-<li><a class="reference internal" href="#why-the-supports-matter">9.5. Why the supports matter</a></li>
-<li><a class="reference internal" href="#lift-and-drag-are-a-way-of-describing-the-same-force">9.6. Lift and drag are a way of describing the same force</a></li>
+<li><a class="reference internal" href="#from-air-motion-to-surface-force">12.1. From air motion to surface force</a></li>
+<li><a class="reference internal" href="#summing-loads-over-the-cloth">12.2. Summing loads over the cloth</a></li>
+<li><a class="reference internal" href="#what-accelerates-a-cloth-patch">12.3. What accelerates a cloth patch?</a></li>
+<li><a class="reference internal" href="#where-does-the-internal-elastic-force-come-from">12.4. Where does the internal elastic force come from?</a></li>
+<li><a class="reference internal" href="#why-the-supports-matter">12.5. Why the supports matter</a></li>
+<li><a class="reference internal" href="#lift-and-drag-are-a-way-of-describing-the-same-force">12.6. Lift and drag are a way of describing the same force</a></li>
 </ul>
 </div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
     </div>
@@ -89,7 +89,7 @@ data-aria-dark="Switch to auto color mode">
         <span>/</span>
         <meta itemprop="position" content="2" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <strong itemprop="name"><span class="section-number">9. </span>Loads change shape, and supports close the load path</strong>
+        <strong itemprop="name"><span class="section-number">12. </span>Loads change shape, and supports close the load path</strong>
         <meta itemprop="position" content="3" />
       </li></ol>
     <div class="xl:hidden ml-1">
@@ -104,13 +104,13 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="loads-change-shape-and-supports-close-the-load-path">
-<h1><span class="section-number">9. </span>Loads change shape, and supports close the load path<a class="headerlink" href="#loads-change-shape-and-supports-close-the-load-path" title="Link to this heading">#</a></h1>
+<h1><span class="section-number">12. </span>Loads change shape, and supports close the load path<a class="headerlink" href="#loads-change-shape-and-supports-close-the-load-path" title="Link to this heading">#</a></h1>
 <p>Imagine pressure on one face exceeding the other by 10 Pa. On a small
 0.10 m² patch, a uniform difference would push with 1 N perpendicular to
 the cloth. This is an illustrative load, not measured sail pressure.
 Air friction can also exert force along the patch.</p>
 <section id="from-air-motion-to-surface-force">
-<h2><span class="section-number">9.1. </span>From air motion to surface force<a class="headerlink" href="#from-air-motion-to-surface-force" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">12.1. </span>From air motion to surface force<a class="headerlink" href="#from-air-motion-to-surface-force" title="Link to this heading">#</a></h2>
 <p>A <strong>normal</strong> points perpendicular to a surface; a <strong>tangent</strong> runs along it.
 Let <span class="math notranslate nohighlight">\(\mathbf{n}\)</span> be a unit normal, a dimensionless vector of length
 one. Label the face it points toward “plus” and the other “minus.”
@@ -161,10 +161,10 @@ unchanged. This sign follows from the two face forces; it is not an extra
 empirical law.</p>
 </section>
 <section id="summing-loads-over-the-cloth">
-<h2><span class="section-number">9.2. </span>Summing loads over the cloth<a class="headerlink" href="#summing-loads-over-the-cloth" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">12.2. </span>Summing loads over the cloth<a class="headerlink" href="#summing-loads-over-the-cloth" title="Link to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(S\)</span> be the current cloth surface and <span class="math notranslate nohighlight">\(dA\)</span> an arbitrarily
 small patch of its current area (m²). Unlike the original area element
-<span class="math notranslate nohighlight">\(dA_0\)</span> in <a class="reference internal" href="02a-cloth.html"><span class="doc">Elastic cloth model</span></a>, this area can change
+<span class="math notranslate nohighlight">\(dA_0\)</span> in <a class="reference internal" href="02b-cloth.html"><span class="doc">Elastic cloth model</span></a>, this area can change
 when cloth stretches.
 Let <span class="math notranslate nohighlight">\(\mathbf{F}\)</span> be the whole sail’s air force (N). An integral adds patch forces:</p>
 <div class="math-wrapper docutils container">
@@ -176,11 +176,11 @@ sail the force direction varies, so the vector contributions must be added,
 not just their positive magnitudes.</p>
 </section>
 <section id="what-accelerates-a-cloth-patch">
-<h2><span class="section-number">9.3. </span>What accelerates a cloth patch?<a class="headerlink" href="#what-accelerates-a-cloth-patch" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">12.3. </span>What accelerates a cloth patch?<a class="headerlink" href="#what-accelerates-a-cloth-patch" title="Link to this heading">#</a></h2>
 <p><strong>Inertia</strong> is the resistance of mass to acceleration. Newton’s law is force
 equals mass times acceleration, not force equals velocity.
 To account for cloth mass, use original area as in
-<a class="reference internal" href="02a-cloth.html"><span class="doc">Elastic cloth model</span></a>.</p>
+<a class="reference internal" href="02b-cloth.html"><span class="doc">Elastic cloth model</span></a>.</p>
 <p>Before the next equation, define:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\mu_0\)</span>: mass per original area, 0.22 kg/m² in our example.</p></li>
@@ -211,9 +211,9 @@ material behavior, not a convenient arbitrary damping value.</p>
 The area conversion follows from equality of the force on the same patch.</p>
 </section>
 <section id="where-does-the-internal-elastic-force-come-from">
-<h2><span class="section-number">9.4. </span>Where does the internal elastic force come from?<a class="headerlink" href="#where-does-the-internal-elastic-force-come-from" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">12.4. </span>Where does the internal elastic force come from?<a class="headerlink" href="#where-does-the-internal-elastic-force-come-from" title="Link to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(E=E_m+E_b\)</span> be the sum of stretching/shearing and bending energy
-from <a class="reference internal" href="02a-cloth.html"><span class="doc">Elastic cloth model</span></a> (J). An elastic force acts in the
+from <a class="reference internal" href="02b-cloth.html"><span class="doc">Elastic cloth model</span></a> (J). An elastic force acts in the
 direction of decreasing
 energy. In a one-direction example, let <span class="math notranslate nohighlight">\(s\)</span> be displacement (m) and
 <span class="math notranslate nohighlight">\(f\)</span> the corresponding elastic force (N). Then</p>
@@ -226,7 +226,7 @@ extension. For a whole sheet this same principle uses a small displacement
 <span class="math notranslate nohighlight">\(\delta\mathbf{r}\)</span> at each point and the resulting energy change
 <span class="math notranslate nohighlight">\(\delta E\)</span>, measured in joules; the trial displacement is in metres.
 Here <span class="math notranslate nohighlight">\(\delta\)</span> means an infinitesimal trial change, not a new time step.
-As in <a class="reference internal" href="02a-cloth.html"><span class="doc">Elastic cloth model</span></a>, <span class="math notranslate nohighlight">\(S_0\)</span> is the original
+As in <a class="reference internal" href="02b-cloth.html"><span class="doc">Elastic cloth model</span></a>, <span class="math notranslate nohighlight">\(S_0\)</span> is the original
 sheet and <span class="math notranslate nohighlight">\(dA_0\)</span> is
 a tiny original-area patch (m²). With attachments fixed,</p>
 <div class="math-wrapper docutils container">
@@ -241,7 +241,7 @@ Section 3.1.2. Here “variational” means testing arbitrarily small shape chan
 One still needs the chosen material energy and attachment conditions.</p>
 </section>
 <section id="why-the-supports-matter">
-<h2><span class="section-number">9.5. </span>Why the supports matter<a class="headerlink" href="#why-the-supports-matter" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">12.5. </span>Why the supports matter<a class="headerlink" href="#why-the-supports-matter" title="Link to this heading">#</a></h2>
 <p><strong>Static equilibrium</strong> means a time-independent shape with no acceleration.
 Let <span class="math notranslate nohighlight">\(M\)</span> be total cloth mass (kg), and <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> the total
 mast/boom support reaction on it (N). Internal forces transmit load to the
@@ -263,7 +263,7 @@ necessarily adding to zero. Slow motion under artificial damping is not
 proof of physical equilibrium.</p>
 </section>
 <section id="lift-and-drag-are-a-way-of-describing-the-same-force">
-<h2><span class="section-number">9.6. </span>Lift and drag are a way of describing the same force<a class="headerlink" href="#lift-and-drag-are-a-way-of-describing-the-same-force" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">12.6. </span>Lift and drag are a way of describing the same force<a class="headerlink" href="#lift-and-drag-are-a-way-of-describing-the-same-force" title="Link to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(\mathbf{W}\)</span> be incoming velocity (m/s) and <span class="math notranslate nohighlight">\(U\)</span> its
 nonzero speed. Define the unit wind direction <span class="math notranslate nohighlight">\(\mathbf{e}\)</span>,
 drag <span class="math notranslate nohighlight">\(D\)</span> (N), and remaining transverse air force <span class="math notranslate nohighlight">\(\mathbf{L}\)</span>
@@ -297,13 +297,13 @@ decomposition.</p>
     <a href="03b-wind-tunnel.html">
       <i class="i-lucide chevron-left"></i>
       <div class="page-info">
-        <span>Previous</span><div class="title"><span class="section-number">8. </span>A wing in a viscous wind tunnel</div></div>
+        <span>Previous</span><div class="title"><span class="section-number">11. </span>A wing in a viscous wind tunnel</div></div>
     </a>
   </div><div class="navigation-next">
     <a href="05-coupled-numerics.html">
       <div class="page-info">
         <span>Next</span>
-        <div class="title"><span class="section-number">10. </span>Turning the coupled problem into a numerical calculation</div>
+        <div class="title"><span class="section-number">13. </span>Turning the coupled problem into a numerical calculation</div>
       </div>
       <i class="i-lucide chevron-right"></i>
     </a>

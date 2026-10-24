@@ -2,7 +2,7 @@
 <html lang="en" data-accent-color="violet" data-content_root="../../">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>11. What would make the prediction accurate? - Peter Demin</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="12. Deriving the browser approximation" href="07-browser-approximation.html" /><link rel="prev" title="10. Turning the coupled problem into a numerical calculation" href="05-coupled-numerics.html" /><script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>14. What would make the prediction accurate? - Peter Demin</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="15. Deriving the browser approximation" href="07-browser-approximation.html" /><link rel="prev" title="13. Turning the coupled problem into a numerical calculation" href="05-coupled-numerics.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=51f15f49" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=f20cc846" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -21,7 +21,7 @@
 }
 </style>
     
-  <meta property="og:type" content="website"/><meta property="og:title" content="11. What would make the prediction accurate?"/>
+  <meta property="og:type" content="website"/><meta property="og:title" content="14. What would make the prediction accurate?"/>
     <meta name="twitter:card" content="summary"/>
   </head>
 <body><div class="sy-head">
@@ -60,10 +60,10 @@ data-aria-dark="Switch to auto color mode">
       <i class="i-lucide close"></i>
     </button>
     <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
-<li><a class="reference internal" href="#choose-comparable-physical-conditions">11.1. Choose comparable physical conditions</a></li>
-<li><a class="reference internal" href="#measure-rather-than-invent-the-material">11.2. Measure rather than invent the material</a></li>
-<li><a class="reference internal" href="#make-the-numerical-calculation-more-precise">11.3. Make the numerical calculation more precise</a></li>
-<li><a class="reference internal" href="#compare-with-an-experiment-and-its-uncertainty">11.4. Compare with an experiment and its uncertainty</a></li>
+<li><a class="reference internal" href="#choose-comparable-physical-conditions">14.1. Choose comparable physical conditions</a></li>
+<li><a class="reference internal" href="#measure-rather-than-invent-the-material">14.2. Measure rather than invent the material</a></li>
+<li><a class="reference internal" href="#make-the-numerical-calculation-more-precise">14.3. Make the numerical calculation more precise</a></li>
+<li><a class="reference internal" href="#compare-with-an-experiment-and-its-uncertainty">14.4. Compare with an experiment and its uncertainty</a></li>
 </ul>
 </div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
     </div>
@@ -87,7 +87,7 @@ data-aria-dark="Switch to auto color mode">
         <span>/</span>
         <meta itemprop="position" content="2" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <strong itemprop="name"><span class="section-number">11. </span>What would make the prediction accurate?</strong>
+        <strong itemprop="name"><span class="section-number">14. </span>What would make the prediction accurate?</strong>
         <meta itemprop="position" content="3" />
       </li></ol>
     <div class="xl:hidden ml-1">
@@ -102,7 +102,7 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="what-would-make-the-prediction-accurate">
-<h1><span class="section-number">11. </span>What would make the prediction accurate?<a class="headerlink" href="#what-would-make-the-prediction-accurate" title="Link to this heading">#</a></h1>
+<h1><span class="section-number">14. </span>What would make the prediction accurate?<a class="headerlink" href="#what-would-make-the-prediction-accurate" title="Link to this heading">#</a></h1>
 <p>Suppose a calculation predicts a sideways force of 100 N. Do we need to know
 it within 20 N, 2 N, or 0.2 N? There is no useful claim of “accurate” without
 saying what quantity matters and what error is acceptable.</p>
@@ -115,7 +115,7 @@ predict measurements of the physical system. NASA distinguishes these in its
 <a class="reference external" href="https://www.grc.nasa.gov/www/wind/valid/tutorial/overview.html">verification and validation overview</a>.
 Solving the wrong physical approximation more precisely is not validation.</p>
 <section id="choose-comparable-physical-conditions">
-<h2><span class="section-number">11.1. </span>Choose comparable physical conditions<a class="headerlink" href="#choose-comparable-physical-conditions" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">14.1. </span>Choose comparable physical conditions<a class="headerlink" href="#choose-comparable-physical-conditions" title="Link to this heading">#</a></h2>
 <p>Airflow depends on size, speed, density, and viscosity. Before a useful
 comparison, define:</p>
 <ul class="simple">
@@ -148,7 +148,7 @@ irregular motion over many sizes of swirling region. Predicting them requires
 suitable equations, resolution, and possibly additional turbulence models.</p>
 </section>
 <section id="measure-rather-than-invent-the-material">
-<h2><span class="section-number">11.2. </span>Measure rather than invent the material<a class="headerlink" href="#measure-rather-than-invent-the-material" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">14.2. </span>Measure rather than invent the material<a class="headerlink" href="#measure-rather-than-invent-the-material" title="Link to this heading">#</a></h2>
 <p>Record the manufactured cut and seams, where the cloth is attached, its mass
 per area, and force versus stretching, shear, and bending. <strong>Pretension</strong> is
 tension applied before wind loading. <strong>Permeability</strong> is ease of air passage
@@ -159,10 +159,10 @@ stiffness.</p>
 value, calibrate on some conditions and validate on different ones. Fitting
 every experiment is not an independent prediction. Record air speed,
 direction, fluctuations, and properties too. The illustrative stiffnesses in
-<a class="reference internal" href="02a-cloth.html"><span class="doc">Elastic cloth model</span></a> are not measurements of this sail.</p>
+<a class="reference internal" href="02b-cloth.html"><span class="doc">Elastic cloth model</span></a> are not measurements of this sail.</p>
 </section>
 <section id="make-the-numerical-calculation-more-precise">
-<h2><span class="section-number">11.3. </span>Make the numerical calculation more precise<a class="headerlink" href="#make-the-numerical-calculation-more-precise" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">14.3. </span>Make the numerical calculation more precise<a class="headerlink" href="#make-the-numerical-calculation-more-precise" title="Link to this heading">#</a></h2>
 <p><strong>Spatial resolution</strong> is how finely space is divided.
 A <strong>refinement study</strong> repeats the same physical problem with smaller mesh
 cells or patches. Refine cloth and air separately as well as together.
@@ -197,7 +197,7 @@ rate. Refinement cannot recover viscosity, wake history, or cloth behavior
 that the chosen model leaves out.</p>
 </section>
 <section id="compare-with-an-experiment-and-its-uncertainty">
-<h2><span class="section-number">11.4. </span>Compare with an experiment and its uncertainty<a class="headerlink" href="#compare-with-an-experiment-and-its-uncertainty" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">14.4. </span>Compare with an experiment and its uncertainty<a class="headerlink" href="#compare-with-an-experiment-and-its-uncertainty" title="Link to this heading">#</a></h2>
 <p>Use a fixed mast and boom in controlled airflow. Measure three-dimensional
 shape, total forces, support reactions, local pressures where feasible, and
 air velocities or flow visualization. A <strong>support reaction</strong> is the force
@@ -229,13 +229,13 @@ accuracy must be assessed before interpreting an attractive browser scene.</p>
     <a href="05-coupled-numerics.html">
       <i class="i-lucide chevron-left"></i>
       <div class="page-info">
-        <span>Previous</span><div class="title"><span class="section-number">10. </span>Turning the coupled problem into a numerical calculation</div></div>
+        <span>Previous</span><div class="title"><span class="section-number">13. </span>Turning the coupled problem into a numerical calculation</div></div>
     </a>
   </div><div class="navigation-next">
     <a href="07-browser-approximation.html">
       <div class="page-info">
         <span>Next</span>
-        <div class="title"><span class="section-number">12. </span>Deriving the browser approximation</div>
+        <div class="title"><span class="section-number">15. </span>Deriving the browser approximation</div>
       </div>
       <i class="i-lucide chevron-right"></i>
     </a>

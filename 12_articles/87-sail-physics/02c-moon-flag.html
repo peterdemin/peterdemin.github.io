@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>9. Interactive example: Stretchy flag on the Moon - Peter Demin</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="10. Airflow model" href="03a-airflow.html" /><link rel="prev" title="8. Elastic cloth model" href="02b-cloth.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=f20cc846" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="9. Interactive example: Stretchy flag on the Moon"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      
+      
+      <strong>Peter Demin</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#try-the-flag">9.1. Try the flag</a></li>
+<li><a class="reference internal" href="#what-to-look-for">9.2. What to look for</a></li>
+<li><a class="reference internal" href="#a-soft-material-and-an-intentional-limit">9.3. A soft material and an intentional limit</a></li>
+<li><a class="reference internal" href="#what-this-experiment-leaves-out">9.4. What this experiment leaves out</a></li>
+<li><a class="reference internal" href="#the-numerical-update">9.5. The numerical update</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="w-full max-sm:max-w-full print:pt-6">
+    
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">Peter Demin</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../87-sail-physics.html"><span itemprop="name">Sail Simulation</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name"><span class="section-number">9. </span>Interactive example: Stretchy flag on the Moon</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="interactive-example-stretchy-flag-on-the-moon">
+<h1><span class="section-number">9. </span>Interactive example: Stretchy flag on the Moon<a class="headerlink" href="#interactive-example-stretchy-flag-on-the-moon" title="Link to this heading">#</a></h1>
+<p>Before adding air, let us try the mechanics in <a class="reference internal" href="02b-cloth.html"><span class="doc">Elastic cloth model</span></a>.
+This experiment has a soft, stretchy flag, a fixed vertical support, and
+gravity. There is no wind, no air drag, and no horizontal rod supporting
+the top edge.</p>
+<p>The <strong>fixed</strong> left edge cannot move. The rest of the cloth is <strong>free</strong> to
+move unless our temporary hand holds its top-right corner. Reset puts that
+hand back so the flag is ready to grab. Releasing it removes the hand’s
+support; it does not turn off gravity or detach the left edge.</p>
+<p>We use lunar gravitational acceleration of 1.62 m/s², from
+<a class="reference external" href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html">NASA’s Moon Fact Sheet</a>.
+This means gravity changes downward velocity by 1.62 m/s each second when
+no other force opposes it. It is weaker than Earth’s gravity, not zero.</p>
+<section id="try-the-flag">
+<h2><span class="section-number">9.1. </span>Try the flag<a class="headerlink" href="#try-the-flag" title="Link to this heading">#</a></h2>
+<p>Grab the glowing corner, pull it away from the support, and let go.
+Pull up or down as well as sideways. The camera stays in front; the lighting
+changes across the surface as the cloth bends, not because the camera moves.
+Use <strong>Reset flag</strong> to begin again, or <strong>Let go</strong> to release the held corner.
+Touch works too. For keyboard control, focus the corner: Space grabs or
+releases it, arrow keys pull, and Escape lets go.</p>
+<iframe
+  src="../../_static/moon-flag/index.html?embedded=1"
+  title="Interactive stretchy lunar flag: grab the top-right corner, pull, and release"
+  width="100%" height="580"
+  style="display:block;width:100%;height:580px;border:0;"
+  loading="lazy">
+</iframe>
+<script>
+  (() => {
+    const frame = document.currentScript.previousElementSibling;
+    const sendTheme = () => {
+      const root = document.documentElement;
+      const theme = getComputedStyle(root);
+      frame.contentWindow.postMessage({
+        type: 'moon-flag-theme',
+        background: theme.getPropertyValue('--sy-c-background').trim(),
+        text: theme.getPropertyValue('--sy-c-text').trim(),
+        border: theme.getPropertyValue('--sy-c-heading').trim(),
+        'button-hover': theme.getPropertyValue('--sy-c-foot-background').trim(),
+        font: getComputedStyle(document.body).fontFamily,
+        dark: root.classList.contains('dark')
+      }, '*');
+    };
+    frame.addEventListener('load', sendTheme);
+    window.addEventListener('message', event => {
+      if (event.source === frame.contentWindow && event.data?.type === 'moon-flag-ready') sendTheme();
+    });
+    const observer = new MutationObserver(sendTheme);
+    observer.observe(document.documentElement, {attributes: true, attributeFilter: ['class', 'style']});
+    window.addEventListener('pagehide', () => observer.disconnect(), {once: true});
+  })();
+</script><p>If the embedded view does not load, <a class="reference external" href="../../_static/moon-flag/index.html">open the flag experiment on its own</a>. JavaScript and WebGL, the browser’s
+three-dimensional graphics system, are required.</p>
+</section>
+<section id="what-to-look-for">
+<h2><span class="section-number">9.2. </span>What to look for<a class="headerlink" href="#what-to-look-for" title="Link to this heading">#</a></h2>
+<p><strong>Stretch.</strong> Pull outward and watch the small grid squares lengthen.
+The cloth is deliberately much more compliant, meaning easier to deform,
+than the sail demonstration’s nearly unstretchable links. Which part stretches
+most: near your hand, near the support, or across the middle?</p>
+<p><strong>Shear.</strong> Pull the corner upward or downward. Squares can become slanted
+four-sided shapes: their thread directions change angle. That is the shear
+introduced in the cloth chapter, not just a change in their edge lengths.</p>
+<p><strong>Bending.</strong> Watch the smooth changes of surface direction and the highlights
+across them. Bending can change the shape without requiring the same amount
+of extension everywhere. Here neighboring patches resist abruptly different
+turns, so the flag drapes rather than forming a prescribed sharp crease.</p>
+<p><strong>Gravity and support.</strong> Release the corner after a substantial pull.
+The free cloth falls, swings, and drapes downward while the left edge stays
+fixed. Immediately after release, stored elastic energy can first pull it
+back or even briefly upward. Gravity still acts throughout that recoil.
+The final flag is not in free fall: the support continues to carry its weight.</p>
+</section>
+<section id="a-soft-material-and-an-intentional-limit">
+<h2><span class="section-number">9.3. </span>A soft material and an intentional limit<a class="headerlink" href="#a-soft-material-and-an-intentional-limit" title="Link to this heading">#</a></h2>
+<p>The cloth chapter now includes the finite-strain energy used here. Each
+triangle measures the lengths and angle of its material directions, rather
+than substituting a diagonal spring for shear. Its energy includes both
+directional extension, their coupling, and shear, multiplied by the
+triangle’s original area. The choices are extension stiffness 35 N/m,
+coupling stiffness 3.5 N/m, and shear stiffness 0.35 N/m. These have the same
+material meanings as the chapter’s coefficients, with much softer extension.
+They are illustrative, not measured flag properties.</p>
+<p>Bending uses the chapter’s discrete hinge energy: adjacent triangle normals
+turn through an angle, weighted using original edge lengths and triangle
+areas. Its chosen discrete rigidity is 0.2 N m. Flat uneven stretching no
+longer creates false bending energy. The hinge law still has a directional
+bias from the triangle grid; it is not a complete isotropic shell model.</p>
+<p>The displayed <strong>local stretch</strong> is the largest fractional length increase
+along either material direction in any triangle. A separate limiting rule
+stops these lengths at approximately 1.55 times their original values, or
+55% extension. It does not bound every possible diagonal direction.
+Once the limit is reached,
+pulling farther cannot keep extending it, although the cloth can still
+change direction and shape.</p>
+<p>Both the finite-strain material law and this inequality are now defined in
+the cloth chapter. The inequality is an intentional teaching addition, not
+an inherent maximum of the energy law. Neither the finite-strain extension
+nor the cap is a measured prediction for real fabric at 55% stretch. Real
+cloth may stiffen, lose energy, or tear instead.</p>
+</section>
+<section id="what-this-experiment-leaves-out">
+<h2><span class="section-number">9.4. </span>What this experiment leaves out<a class="headerlink" href="#what-this-experiment-leaves-out" title="Link to this heading">#</a></h2>
+<p>The model uses small artificial damping, reducing velocity at a chosen rate
+of 0.35 per second, to remove energy and make settling usable. This is not
+air resistance in a lunar vacuum, and the settling time is not a measured
+prediction for real cloth.</p>
+<p>Tearing and contact with the ground or support
+are not calculated. Cloth touching itself is not calculated either, so folds
+may overlap or pass through each other. We deliberately leave that contact
+problem out of this experiment.</p>
+</section>
+<section id="the-numerical-update">
+<h2><span class="section-number">9.5. </span>The numerical update<a class="headerlink" href="#the-numerical-update" title="Link to this heading">#</a></h2>
+<p>The computer retains each vertex’s position and velocity, its mass from
+reference triangle area, and the triangle/hinge connections. Its ordinary
+physical tick is 1/120 s. Unlike the free satellite’s RK4 integration, this
+update uses <strong>extended position-based dynamics</strong>, XPBD: it predicts positions,
+then adjusts them with compliant constraints derived from the cloth energies.
+Compliant means allowing deformation according to energy cost instead of
+demanding perfectly rigid geometry. Algorithm 1 in
+<a class="reference external" href="https://matthias-research.github.io/pages/publications/XPBD.pdf">the XPBD paper</a>
+describes this prediction/correction pattern.</p>
+<p>For one free vertex’s vertical component, let <span class="math notranslate nohighlight">\(y\)</span> be starting height
+in metres, <span class="math notranslate nohighlight">\(v\)</span> starting velocity in m/s, <span class="math notranslate nohighlight">\(a=-1.62\)</span> m/s²,
+and <span class="math notranslate nohighlight">\(h=1/120\)</span> s the tick duration. Let <span class="math notranslate nohighlight">\(\beta=0.35\)</span> per second
+be the artificial damping rate. Subscript <code class="docutils literal notranslate"><span class="pre">pred</span></code> labels a temporary
+prediction. The exponential <span class="math notranslate nohighlight">\(\exp\)</span> supplies a positive reduction
+factor from the dimensionless product <span class="math notranslate nohighlight">\(-\beta h\)</span>:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[v_{\mathrm{pred}}=\exp(-\beta h)(v+a h),
+\qquad y_{\mathrm{pred}}=y+h v_{\mathrm{pred}}.\]</div>
+</div>
+<p>Gravity first changes velocity, then damping reduces all velocity components
+by the same factor, about 0.99709 per tick. This is neither lunar air
+resistance nor calibrated material loss.</p>
+<p>One <strong>sweep</strong> visits all of the tick’s constraints without advancing time
+again. The solver makes 12 sweeps of membrane-energy and hinge-energy
+corrections plus directional extension limits. It can add up to 60
+limit-only sweeps when needed. These are the triangle-strain and geometric
+hinge laws in the cloth chapter, not independent diagonal springs. Pins and
+the held corner have prescribed positions. Correction bookkeeping starts
+at zero for each tick and accumulates only while solving that tick.</p>
+<p>Let <span class="math notranslate nohighlight">\(y_{\mathrm{new}}\)</span> be accepted corrected height and
+<span class="math notranslate nohighlight">\(v_{\mathrm{new}}\)</span> its reconstructed velocity. The code uses</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[v_{\mathrm{new}}=\frac{y_{\mathrm{new}}-y}{h}.\]</div>
+</div>
+<p>The same rule applies to all three components. Elastic effects already
+included in the position correction are not added again as explicit forces.
+If finite-value or extension checks fail, the code restores old positions,
+halves old velocities, and does not advance physical time. The display
+still consumes that attempted tick’s budget. Rendering is separate from
+physics; capped work can make slow devices lag wall-clock time.
+Its paths are calculated from the current cloth state, gravity, and your
+hand, not drawn from a preselected falling animation. This isolates the
+cloth questions; <a class="reference internal" href="03a-airflow.html"><span class="doc">Airflow model</span></a>
+introduces the air that the sail must interact with. The solver makes a finite
+number of energy-derived corrections each step, not an exact minimization
+or an energy-conserving calculation. Slow devices may advance simulated
+time more slowly than wall-clock time.</p>
+</section>
+</section>
+
+        </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
+        <div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="02b-cloth.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title"><span class="section-number">8. </span>Elastic cloth model</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="03a-airflow.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title"><span class="section-number">10. </span>Airflow model</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2016-2026, Peter Demin</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script></body>
+</html>

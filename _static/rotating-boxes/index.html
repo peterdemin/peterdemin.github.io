@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Boxes can rotate</title>
+  <script>if(new URLSearchParams(location.search).get('embedded')==='1')document.documentElement.classList.add('embedded');</script>
+  <style>
+    :root{color-scheme:light dark;font-family:system-ui,sans-serif;background:light-dark(#fdf6e3,#002b36);color:light-dark(#657b83,#93a1a1)}*{box-sizing:border-box}body{margin:0}main{max-width:1000px;margin:auto;padding:24px}header p,footer{line-height:1.6}.embedded main{padding:0;max-width:none}.embedded header,.embedded footer{display:none}.embedded{background:var(--book-background,#fdf6e3);color:var(--book-text,#657b83);font-family:var(--book-font,system-ui,sans-serif)}.stage{position:relative;aspect-ratio:4/3;border:1px solid var(--book-border,#93a1a1);border-radius:8px;overflow:hidden}canvas{display:block;width:100%;height:100%;touch-action:none;cursor:crosshair}canvas:focus-visible{outline:3px solid #49a9c6;outline-offset:-4px}.note,.readout{font-size:13px;line-height:1.65;margin:8px 0;font-variant-numeric:tabular-nums}.controls{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}button{font:inherit;color:inherit;background:transparent;border:1px solid var(--book-border,#93a1a1);border-radius:6px;min-height:42px;padding:8px 12px;cursor:pointer}a{color:inherit}#error{display:none;position:absolute;inset:0;background:#0c1725ed;color:#ffd4b0;padding:24px;align-items:center;justify-content:center}footer{font-size:13px;margin-top:24px}@media(max-width:500px){main{padding:16px}.stage{aspect-ratio:1/1}.note,.readout{font-size:12px}}
+  </style>
+</head>
+<body>
+<main>
+  <header><h1>Boxes can rotate</h1><p>A fixed side view of rigid square cross-sections, not full three-dimensional cubes.</p></header>
+  <p class="note"><strong>Click or tap inside the scene to drop one box above that spot.</strong> Its orientation is random, but its starting velocity and spin are zero. The dot marks a corner. Space or Enter drops a box in the middle.</p>
+  <div class="stage"><canvas id="scene" tabindex="0" role="application" aria-label="Rotating square boxes falling inside a container. Click or tap to spawn; Space or Enter spawns in the middle."></canvas><div id="error" role="alert"></div></div>
+  <div class="controls"><button id="add">Drop in the middle</button><button id="clear">Clear all boxes</button></div>
+  <p id="status" class="readout" role="status" aria-live="polite"></p>
+  <p id="readout" class="readout"></p>
+  <p class="note">Each square: 1 kg, side 0.35 m · gravity 9.81 m/s² · friction 0.6 · restitution 0.25 (no rebound below 1 m/s). No box-count cap; occupied spawn space is refused, never cleared silently.</p>
+  <footer>Polygon contacts, rotational inertia and contact impulses are solved by locally bundled Planck 1.5.1. Small contact gaps/overlaps and sleeping thresholds are numerical approximations. <a href="../../12_articles/87-sail-physics/01f-rotating-boxes.html">Read the equations and approximation.</a></footer>
+</main>
+<script src="vendor/planck-1.5.1.min.js"></script>
+<script src="bundle.js?v=uncapped-1"></script>
+</body>
+</html>

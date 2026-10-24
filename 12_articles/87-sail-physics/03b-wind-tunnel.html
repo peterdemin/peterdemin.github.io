@@ -2,7 +2,7 @@
 <html lang="en" data-accent-color="violet" data-content_root="../../">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>8. A wing in a viscous wind tunnel - Peter Demin</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="9. Loads change shape, and supports close the load path" href="04-forces-and-shape.html" /><link rel="prev" title="7. Airflow model" href="03a-airflow.html" /><script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>11. A wing in a viscous wind tunnel - Peter Demin</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="12. Loads change shape, and supports close the load path" href="04-forces-and-shape.html" /><link rel="prev" title="10. Airflow model" href="03a-airflow.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=51f15f49" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=f20cc846" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -21,7 +21,7 @@
 }
 </style>
     
-  <meta property="og:type" content="website"/><meta property="og:title" content="8. A wing in a viscous wind tunnel"/>
+  <meta property="og:type" content="website"/><meta property="og:title" content="11. A wing in a viscous wind tunnel"/>
     <meta name="twitter:card" content="summary"/>
   </head>
 <body><div class="sy-head">
@@ -60,13 +60,13 @@ data-aria-dark="Switch to auto color mode">
       <i class="i-lucide close"></i>
     </button>
     <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
-<li><a class="reference internal" href="#try-the-tunnel">8.1. Try the tunnel</a></li>
-<li><a class="reference internal" href="#what-is-really-calculated">8.2. What is really calculated?</a></li>
-<li><a class="reference internal" href="#from-the-laws-to-stored-numbers">8.3. From the laws to stored numbers</a></li>
-<li><a class="reference internal" href="#boundary-conditions-and-pressure">8.4. Boundary conditions and pressure</a></li>
-<li><a class="reference internal" href="#pressure-colors-and-pressure-only-forces">8.5. Pressure colors and pressure-only forces</a></li>
-<li><a class="reference internal" href="#markers-not-a-second-airflow-model">8.6. Markers, not a second airflow model</a></li>
-<li><a class="reference internal" href="#what-to-trust-and-what-not-to-infer">8.7. What to trust, and what not to infer</a></li>
+<li><a class="reference internal" href="#try-the-tunnel">11.1. Try the tunnel</a></li>
+<li><a class="reference internal" href="#what-is-really-calculated">11.2. What is really calculated?</a></li>
+<li><a class="reference internal" href="#from-the-laws-to-stored-numbers">11.3. From the laws to stored numbers</a></li>
+<li><a class="reference internal" href="#boundary-conditions-and-pressure">11.4. Boundary conditions and pressure</a></li>
+<li><a class="reference internal" href="#pressure-colors-and-pressure-only-forces">11.5. Pressure colors and pressure-only forces</a></li>
+<li><a class="reference internal" href="#markers-not-a-second-airflow-model">11.6. Markers, not a second airflow model</a></li>
+<li><a class="reference internal" href="#what-to-trust-and-what-not-to-infer">11.7. What to trust, and what not to infer</a></li>
 </ul>
 </div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
     </div>
@@ -90,7 +90,7 @@ data-aria-dark="Switch to auto color mode">
         <span>/</span>
         <meta itemprop="position" content="2" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <strong itemprop="name"><span class="section-number">8. </span>A wing in a viscous wind tunnel</strong>
+        <strong itemprop="name"><span class="section-number">11. </span>A wing in a viscous wind tunnel</strong>
         <meta itemprop="position" content="3" />
       </li></ol>
     <div class="xl:hidden ml-1">
@@ -105,9 +105,9 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="a-wing-in-a-viscous-wind-tunnel">
-<h1><span class="section-number">8. </span>A wing in a viscous wind tunnel<a class="headerlink" href="#a-wing-in-a-viscous-wind-tunnel" title="Link to this heading">#</a></h1>
+<h1><span class="section-number">11. </span>A wing in a viscous wind tunnel<a class="headerlink" href="#a-wing-in-a-viscous-wind-tunnel" title="Link to this heading">#</a></h1>
 <section id="try-the-tunnel">
-<h2><span class="section-number">8.1. </span>Try the tunnel<a class="headerlink" href="#try-the-tunnel" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">11.1. </span>Try the tunnel<a class="headerlink" href="#try-the-tunnel" title="Link to this heading">#</a></h2>
 <p>Change the <strong>wing angle</strong>, then watch markers carried around its section.
 Positive angle raises the leading edge, facing the fixed left-to-right inlet.
 Changing the angle restarts the flow; it does not simulate a moving wing
@@ -166,7 +166,7 @@ The classic script bundle also avoids module-import restrictions in local
 <code class="docutils literal notranslate"><span class="pre">file://</span></code> previews; it does not weaken browser security.</p>
 </section>
 <section id="what-is-really-calculated">
-<h2><span class="section-number">8.2. </span>What is really calculated?<a class="headerlink" href="#what-is-really-calculated" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">11.2. </span>What is really calculated?<a class="headerlink" href="#what-is-really-calculated" title="Link to this heading">#</a></h2>
 <p>This is <strong>two-dimensional incompressible viscous flow</strong>, solved by the
 pressure-projection method from <a class="reference internal" href="03a-airflow.html"><span class="doc">Airflow model</span></a>.
 It is not a vortex-lattice solver, not a particle-force solver, and not a
@@ -199,7 +199,7 @@ recirculation or stall calculation. Pressure lift and drag describe only
 this numerical model, not full viscous loading or real-wing performance.</p>
 </section>
 <section id="from-the-laws-to-stored-numbers">
-<h2><span class="section-number">8.3. </span>From the laws to stored numbers<a class="headerlink" href="#from-the-laws-to-stored-numbers" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">11.3. </span>From the laws to stored numbers<a class="headerlink" href="#from-the-laws-to-stored-numbers" title="Link to this heading">#</a></h2>
 <p>Write <span class="math notranslate nohighlight">\(\mathbf u=(u,v,0)\)</span> for the velocity: <span class="math notranslate nohighlight">\(u\)</span> is the
 horizontal component and <span class="math notranslate nohighlight">\(v\)</span> the vertical component, both in m/s.
 Nothing depends on span coordinate <span class="math notranslate nohighlight">\(z\)</span>. With the pressure and
@@ -244,7 +244,7 @@ vorticity force, noise or particle attraction. First-order upwinding also
 introduces numerical diffusion, beyond the chosen physical viscosity.</p>
 </section>
 <section id="boundary-conditions-and-pressure">
-<h2><span class="section-number">8.4. </span>Boundary conditions and pressure<a class="headerlink" href="#boundary-conditions-and-pressure" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">11.4. </span>Boundary conditions and pressure<a class="headerlink" href="#boundary-conditions-and-pressure" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>At the left inlet, horizontal speed is prescribed as 1 m/s and vertical
 speed as zero. The inlet is not an accelerating fan model.</p></li>
@@ -300,7 +300,7 @@ before time advances. Slow devices may advance simulated time more slowly
 than wall time, which is why the display labels <strong>simulated seconds</strong>.</p>
 </section>
 <section id="pressure-colors-and-pressure-only-forces">
-<h2><span class="section-number">8.5. </span>Pressure colors and pressure-only forces<a class="headerlink" href="#pressure-colors-and-pressure-only-forces" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">11.5. </span>Pressure colors and pressure-only forces<a class="headerlink" href="#pressure-colors-and-pressure-only-forces" title="Link to this heading">#</a></h2>
 <p>The pressure overlay reads the same cell-center pressures used by projection,
 not a Bernoulli estimate from marker speeds. Each fluid cell receives its
 own color; solid cells are not colored. The symmetric color range extends
@@ -340,7 +340,7 @@ a steady force measurement. Smooth wing shading is only a geometric guide;
 the pressure colors and local arrows refer to the coarse numerical grid.</p>
 </section>
 <section id="markers-not-a-second-airflow-model">
-<h2><span class="section-number">8.6. </span>Markers, not a second airflow model<a class="headerlink" href="#markers-not-a-second-airflow-model" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">11.6. </span>Markers, not a second airflow model<a class="headerlink" href="#markers-not-a-second-airflow-model" title="Link to this heading">#</a></h2>
 <p>Markers use the previous chapter’s bilinear velocity interpolation and
 midpoint tracer update. Their old/new velocity samples come from the actual
 pre-step and post-projection fields. They are displayed in a single plane in the fixed side view.</p>
@@ -354,7 +354,7 @@ Exiting markers also restart; markers initially seeded across the tunnel
 have no artificial history. They never alter velocity or pressure.</p>
 </section>
 <section id="what-to-trust-and-what-not-to-infer">
-<h2><span class="section-number">8.7. </span>What to trust, and what not to infer<a class="headerlink" href="#what-to-trust-and-what-not-to-infer" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">11.7. </span>What to trust, and what not to infer<a class="headerlink" href="#what-to-trust-and-what-not-to-infer" title="Link to this heading">#</a></h2>
 <p>Try opposite angles. The symmetric section and equations give reflected
 flow: corresponding horizontal velocities agree and vertical velocities
 reverse sign. This is tested numerically, not imposed on the pictures.
@@ -401,13 +401,13 @@ not promises made by those sources.</p>
     <a href="03a-airflow.html">
       <i class="i-lucide chevron-left"></i>
       <div class="page-info">
-        <span>Previous</span><div class="title"><span class="section-number">7. </span>Airflow model</div></div>
+        <span>Previous</span><div class="title"><span class="section-number">10. </span>Airflow model</div></div>
     </a>
   </div><div class="navigation-next">
     <a href="04-forces-and-shape.html">
       <div class="page-info">
         <span>Next</span>
-        <div class="title"><span class="section-number">9. </span>Loads change shape, and supports close the load path</div>
+        <div class="title"><span class="section-number">12. </span>Loads change shape, and supports close the load path</div>
       </div>
       <i class="i-lucide chevron-right"></i>
     </a>

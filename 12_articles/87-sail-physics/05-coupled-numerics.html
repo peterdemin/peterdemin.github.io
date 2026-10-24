@@ -2,7 +2,7 @@
 <html lang="en" data-accent-color="violet" data-content_root="../../">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>10. Turning the coupled problem into a numerical calculation - Peter Demin</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="11. What would make the prediction accurate?" href="06-accuracy.html" /><link rel="prev" title="9. Loads change shape, and supports close the load path" href="04-forces-and-shape.html" /><script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>13. Turning the coupled problem into a numerical calculation - Peter Demin</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="14. What would make the prediction accurate?" href="06-accuracy.html" /><link rel="prev" title="12. Loads change shape, and supports close the load path" href="04-forces-and-shape.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=51f15f49" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=f20cc846" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -21,7 +21,7 @@
 }
 </style>
     
-  <meta property="og:type" content="website"/><meta property="og:title" content="10. Turning the coupled problem into a numerical calculation"/>
+  <meta property="og:type" content="website"/><meta property="og:title" content="13. Turning the coupled problem into a numerical calculation"/>
     <meta name="twitter:card" content="summary"/>
   </head>
 <body><div class="sy-head">
@@ -60,10 +60,10 @@ data-aria-dark="Switch to auto color mode">
       <i class="i-lucide close"></i>
     </button>
     <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
-<li><a class="reference internal" href="#from-conservation-to-finite-volume-equations">10.1. From conservation to finite-volume equations</a></li>
-<li><a class="reference internal" href="#moving-surfaces-require-special-care">10.2. Moving surfaces require special care</a></li>
-<li><a class="reference internal" href="#a-physical-fluid-cloth-step">10.3. A physical fluid/cloth step</a></li>
-<li><a class="reference internal" href="#why-added-mass-can-make-this-hard">10.4. Why added mass can make this hard</a></li>
+<li><a class="reference internal" href="#from-conservation-to-finite-volume-equations">13.1. From conservation to finite-volume equations</a></li>
+<li><a class="reference internal" href="#moving-surfaces-require-special-care">13.2. Moving surfaces require special care</a></li>
+<li><a class="reference internal" href="#a-physical-fluid-cloth-step">13.3. A physical fluid/cloth step</a></li>
+<li><a class="reference internal" href="#why-added-mass-can-make-this-hard">13.4. Why added mass can make this hard</a></li>
 </ul>
 </div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
     </div>
@@ -87,7 +87,7 @@ data-aria-dark="Switch to auto color mode">
         <span>/</span>
         <meta itemprop="position" content="2" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <strong itemprop="name"><span class="section-number">10. </span>Turning the coupled problem into a numerical calculation</strong>
+        <strong itemprop="name"><span class="section-number">13. </span>Turning the coupled problem into a numerical calculation</strong>
         <meta itemprop="position" content="3" />
       </li></ol>
     <div class="xl:hidden ml-1">
@@ -102,14 +102,14 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="turning-the-coupled-problem-into-a-numerical-calculation">
-<h1><span class="section-number">10. </span>Turning the coupled problem into a numerical calculation<a class="headerlink" href="#turning-the-coupled-problem-into-a-numerical-calculation" title="Link to this heading">#</a></h1>
+<h1><span class="section-number">13. </span>Turning the coupled problem into a numerical calculation<a class="headerlink" href="#turning-the-coupled-problem-into-a-numerical-calculation" title="Link to this heading">#</a></h1>
 <p>Here we examine
 the additional numerical work needed when moving cloth and fluid interact:
 conservation across cell faces, moving interfaces and mutually consistent
 air/cloth solves. The standalone flag and rigid-wing tunnel do not perform
 this combined calculation.</p>
 <section id="from-conservation-to-finite-volume-equations">
-<h2><span class="section-number">10.1. </span>From conservation to finite-volume equations<a class="headerlink" href="#from-conservation-to-finite-volume-equations" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">13.1. </span>From conservation to finite-volume equations<a class="headerlink" href="#from-conservation-to-finite-volume-equations" title="Link to this heading">#</a></h2>
 <p>A <strong>finite-volume method</strong> integrates a conservation law over each air cell.
 A <strong>flux</strong> is an amount crossing a surface per time. For mass, a whole-face
 flux is in kg/s. A positive outward flux loses mass from the cell; a negative
@@ -140,7 +140,7 @@ strain. It can also be used for fluids. The physics does not choose one of
 these numerical methods automatically.</p>
 </section>
 <section id="moving-surfaces-require-special-care">
-<h2><span class="section-number">10.2. </span>Moving surfaces require special care<a class="headerlink" href="#moving-surfaces-require-special-care" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">13.2. </span>Moving surfaces require special care<a class="headerlink" href="#moving-surfaces-require-special-care" title="Link to this heading">#</a></h2>
 <p>The <strong>interface</strong> is the shared air/cloth surface. As cloth moves, the fluid
 method must still obey the no-penetration and no-slip conditions from
 <a class="reference internal" href="03a-airflow.html"><span class="doc">Airflow model</span></a>, now using the moving surface’s velocity
@@ -160,7 +160,7 @@ treatment imposes the cloth condition inside those cells.</p>
 Both representations and their interaction need resolution tests.</p>
 </section>
 <section id="a-physical-fluid-cloth-step">
-<h2><span class="section-number">10.3. </span>A physical fluid/cloth step<a class="headerlink" href="#a-physical-fluid-cloth-step" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">13.3. </span>A physical fluid/cloth step<a class="headerlink" href="#a-physical-fluid-cloth-step" title="Link to this heading">#</a></h2>
 <p>A <strong>partitioned</strong> solver calculates air and cloth in separate solves.
 A <strong>solve</strong> determines the values satisfying the current discrete equations.
 A <strong>subiteration</strong> repeats those solves within the same time step, rather
@@ -189,7 +189,7 @@ force to the wrong point can change its turning effect and the energy
 exchanged.</p>
 </section>
 <section id="why-added-mass-can-make-this-hard">
-<h2><span class="section-number">10.4. </span>Why added mass can make this hard<a class="headerlink" href="#why-added-mass-can-make-this-hard" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">13.4. </span>Why added mass can make this hard<a class="headerlink" href="#why-added-mass-can-make-this-hard" title="Link to this heading">#</a></h2>
 <p>To accelerate cloth, some surrounding air must accelerate too. This extra
 fluid contribution to the needed force is called <strong>added mass</strong>; it is not
 extra cloth sewn onto the sail. A very light sheet can consequently be
@@ -220,13 +220,13 @@ this full moving-interface calculation.</p>
     <a href="04-forces-and-shape.html">
       <i class="i-lucide chevron-left"></i>
       <div class="page-info">
-        <span>Previous</span><div class="title"><span class="section-number">9. </span>Loads change shape, and supports close the load path</div></div>
+        <span>Previous</span><div class="title"><span class="section-number">12. </span>Loads change shape, and supports close the load path</div></div>
     </a>
   </div><div class="navigation-next">
     <a href="06-accuracy.html">
       <div class="page-info">
         <span>Next</span>
-        <div class="title"><span class="section-number">11. </span>What would make the prediction accurate?</div>
+        <div class="title"><span class="section-number">14. </span>What would make the prediction accurate?</div>
       </div>
       <i class="i-lucide chevron-right"></i>
     </a>

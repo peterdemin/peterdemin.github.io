@@ -8,12 +8,13 @@ Given the incoming wind and a fixed rigid wing, we want the air's velocity
 and pressure around its section. The velocity beside the wing is not simply
 the incoming wind everywhere: the surface redirects the flow.
 
-This chapter develops **incompressible viscous Navier--Stokes flow**:
+This chapter develops **two-dimensional incompressible viscous
+Navier--Stokes flow**:
 air keeps approximately constant density, while friction between neighboring
 layers affects its motion. We then show one numerical way to solve it.
 The next experiment, :doc:`03b-wind-tunnel`,
-runs a two-dimensional version of this grid projection method, with a fixed
-side view, deliberately increased viscosity and an approximate wing boundary.
+uses this grid projection method in a fixed side view, with deliberately
+increased viscosity and an approximate wing boundary.
 
 .. note::
 
@@ -65,19 +66,22 @@ are different questions.
 The physical rules, in order
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Imagine dividing the space around a rigid wing into small boxes. We treat air as
+Imagine dividing a side view of the air around a rigid wing into small
+square cells. Each square represents air extending uniformly along the
+wing span; we calculate no motion in that third direction. We treat air as
 smoothly distributed material, rather than following each molecule: this is
 a **continuum** approximation. Each location has an air velocity and pressure;
 assigning a quantity throughout space is called a **field**.
 
-Three rules connect the boxes:
+Three rules connect the cells:
 
 1. **Account for mass.** Density is mass per volume. With constant density,
-   air cannot accumulate in a fixed box: whatever volume enters must leave.
+   air cannot accumulate in a fixed cell: total inflow must equal total outflow.
    Incompressible means this approximation, not that real air can never compress.
-2. **Account for acceleration.** Momentum is mass times velocity. A moving
-   parcel changes momentum because pressure, friction, or an external force
-   acts on it. Newton's law relates those forces to acceleration.
+2. **Account for acceleration.** Acceleration is a change in velocity:
+   speed, direction, or both. Pressure differences, viscous friction, and
+   external forces can cause that change. Newton's second law says that
+   the net force on a parcel equals its mass times its acceleration.
 3. **Respect the wing and the outside wind.** Air cannot pass through the
    solid wing. Viscous air touching its fixed surface has zero velocity.
    Far away, we supply the
@@ -95,72 +99,169 @@ violate the first rule.
 Unknowns, inputs, and units
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Let :math:`x,y,z` locate a point in metres and :math:`t` be time in seconds.
-Bold symbols are vectors, quantities with size and direction. The unknown
-:math:`\mathbf u(x,y,z,t)` is air velocity in m/s, and the unknown :math:`p`
-is pressure in pascals, Pa = N/m². Their values generally vary across space.
+Let :math:`x,y` locate a point in metres: rightward and upward, respectively.
+Let :math:`t` be time in seconds.
+Symbols with an arrow above them are vectors, quantities with size and
+direction. The unknown :math:`\vec{u}(x,y,t)=(u_x,u_y)` is air velocity
+in m/s, with horizontal and vertical components. The unknown :math:`p`
+is pressure in pascals, Pa = N/m². Their values generally vary across the plane.
 
 Choose constant density :math:`\rho=1.225` kg/m³ and dynamic viscosity
 :math:`\eta=1.8\times10^{-5}` Pa s for the examples. These are illustrative
 air properties, not measurements for every weather condition. The wing
 experiment uses this density but a much larger viscosity, specified below.
-Let :math:`\mathbf g=(0,-9.81,0)` m/s² be near-Earth gravitational acceleration.
-The incoming wind :math:`\mathbf W` is a prescribed velocity vector in m/s.
+Let :math:`\vec{g}=(0,-9.81)` m/s² be near-Earth gravitational acceleration.
+The incoming wind :math:`\vec{W}` is a prescribed velocity vector in m/s.
 The rigid wing's geometry and angle are prescribed and held fixed during
 an airflow run.
 
-Two kinds of acceleration
-~~~~~~~~~~~~~~~~~~~~~~~~~
+Follow one moving parcel
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-A derivative measures a rate of change. The symbol :math:`\partial` means
-other variables are held fixed. Thus :math:`\partial\mathbf u/\partial t`
-measures velocity change with time at one location. It has units m/s².
+A small **parcel** is a portion of air that we follow as it moves, not a
+fixed grid cell that air passes through. Let its position, velocity, and
+acceleration be vectors :math:`\vec{r}_p(t)`, :math:`\vec{v}_p(t)`, and
+:math:`\vec{a}_p(t)`. A derivative measures a rate of change:
 
-But a moving parcel can also enter a region where velocity is different.
+.. math::
+
+    \vec{v}_p=\frac{d\vec{r}_p}{dt},
+    \qquad
+    \vec{a}_p=\frac{d\vec{v}_p}{dt}.
+
+Velocity measures how position changes, in m/s. Acceleration measures how
+velocity changes, in m/s². With fixed parcel mass :math:`m` in kg,
+Newton's second law is
+
+.. math::
+
+    m\vec{a}_p
+    =\vec{F}_{\mathrm{pressure}}
+    +\vec{F}_{\mathrm{viscous}}+m\vec{g}.
+
+The pressure-force vector sums the pressure pushes on all sides of the
+parcel. The viscous-force vector sums friction forces from neighboring air.
+Each force is measured in newtons. Dividing the net force by mass gives
+acceleration; acting for a short time :math:`\Delta t`, it changes velocity
+by approximately :math:`\vec{a}_p\Delta t`.
+
+Momentum is :math:`m\vec{v}_p`; force is its rate of change. For fixed
+mass, this is the same law as mass times acceleration, not an additional
+step that converts incoming velocity into force. Air can keep moving at
+constant velocity with zero net force.
+
+This vector description needs no spatial-derivative shorthand. But the
+forces depend on the surrounding air, so we cannot solve each parcel
+independently. Pressure and velocity must also respect mass conservation
+and the wing boundary.
+
+From a moving parcel to a fixed grid
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The parcel above explains the physical law; the airflow solver does not
+store or track individual parcels. It stores samples of a **velocity
+field**: a rule giving the air's velocity at a chosen position and time.
+Write this field as :math:`\vec{u}(\vec{r},t)`, where :math:`\vec{r}` is
+the position we ask about and :math:`t` is the time. The grid stores
+horizontal velocity at left and right cell edges, vertical velocity at
+top and bottom edges, and pressure at cell centers.
+
+In contrast, :math:`\vec{v}_p(t)` means the velocity of the particular
+parcel we are following. Its position is :math:`\vec{r}_p(t)`. To find
+that parcel's velocity, evaluate the field at its current position:
+
+.. math::
+
+    \vec{v}_p(t)=\vec{u}(\vec{r}_p(t),t).
+
+Read this as: **the parcel moves with the air velocity at its current
+position and time**. The parentheses on the right mean evaluating a
+function, not multiplication. The field describes air velocity throughout
+space; the parcel samples it along one path.
+
+That velocity can change for two reasons. The field can change with time
+at a fixed location, or the parcel can move into a location with a different
+velocity. The symbol :math:`\partial` means a derivative with the other
+coordinates held fixed. Thus :math:`\partial\vec{u}/\partial t` measures
+only the first contribution.
+
 For example, suppose steady air speeds up from 5 to 6 m/s over 1 m along
 its motion. A parcel moving at 5 m/s encounters an acceleration of
 approximately :math:`5\times(6-5)/1=5` m/s² even though velocity at each
 fixed location is not changing with time.
 
-The spatial derivative symbol :math:`\nabla` organizes rates of change in
-the three directions. The expression :math:`(\mathbf u\cdot\nabla)\mathbf u`
-adds the velocity change encountered by moving through those directions.
-Here the dot combines matching directional components. This **transport**,
-also called advection, carries momentum from one box to its neighbors.
-The two contributions give the parcel's total acceleration:
+Write the field's velocity components as :math:`u_x,u_y`. Following the
+parcel gives the vector acceleration
 
 .. math::
 
-    \frac{\partial\mathbf u}{\partial t}
-    +(\mathbf u\cdot\nabla)\mathbf u.
+    \vec{a}_p=
+    \frac{\partial\vec{u}}{\partial t}
+    +u_x\frac{\partial\vec{u}}{\partial x}
+    +u_y\frac{\partial\vec{u}}{\partial y},
+
+evaluated at the parcel's position and time. Each spatial derivative is a
+velocity change per metre; multiplying by the corresponding travel speed
+gives a velocity change per second. For example,
+:math:`u_y\partial\vec{u}/\partial y` accounts for the velocity change
+encountered while moving vertically.
+
+The last two terms describe **transport**, also called advection.
+They express, at fixed grid locations, the changes already included in
+the moving parcel's derivative :math:`d\vec{v}_p/dt`.
 
 Writing the two physical balances
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The **divergence** :math:`\nabla\cdot\mathbf u` measures net outward
+The **divergence** of velocity measures net outward
 volume flow per unit volume, in 1/s. Outward contributions are positive,
 inward contributions negative. Constant-density mass conservation requires
 
 .. math::
 
-    \nabla\cdot\mathbf u=0.
+    \frac{\partial u_x}{\partial x}
+    +\frac{\partial u_y}{\partial y}=0.
 
-This does not require zero velocity, or equal flow through every face.
-It requires their signed total to be zero in every small box.
+This does not require zero velocity, or equal flow through every edge.
+It requires their signed total to be zero in every cell.
 
-The **gradient** :math:`\nabla p` measures pressure increase with position,
-in Pa/m. Its negative points toward lower pressure. The **Laplacian**
-:math:`\nabla^2\mathbf u` adds second spatial derivatives of velocity:
-it compares each velocity with its neighbors, in 1/(m s). For constant
-viscosity and incompressible flow, multiplying it by :math:`\eta` gives
-the viscous force per volume. Multiplying acceleration by density gives
-the same units, N/m³. Newton's momentum balance is therefore
+Pressure differences give a force per volume with two components:
 
 .. math::
 
-    \rho\left[\frac{\partial\mathbf u}{\partial t}
-    +(\mathbf u\cdot\nabla)\mathbf u\right]
-    =-\nabla p+\eta\nabla^2\mathbf u+\rho\mathbf g.
+    \vec{f}_{\mathrm{pressure}}=-\left(
+    \frac{\partial p}{\partial x},
+    \frac{\partial p}{\partial y}\right).
+
+The vector in parentheses is the pressure **gradient**, measuring pressure
+increase in each direction, in Pa/m. The minus sign makes the force point
+toward lower pressure.
+
+For constant viscosity and incompressible flow, let :math:`\eta`
+(Greek **eta**) be the **dynamic viscosity**, measuring internal friction,
+in Pa s. Our illustrative air value is :math:`\eta=1.8\times10^{-5}` Pa s.
+The viscous force per volume is
+
+.. math::
+
+    \vec{f}_{\mathrm{viscous}}=\eta\left(
+    \frac{\partial^2\vec{u}}{\partial x^2}
+    +\frac{\partial^2\vec{u}}{\partial y^2}\right).
+
+The sum of second derivatives is called the **Laplacian**. It compares
+velocity with neighboring velocities and has units 1/(m s). Both
+:math:`\vec{f}_{\mathrm{pressure}}` and
+:math:`\vec{f}_{\mathrm{viscous}}` have units N/m³: they are forces per
+volume, unlike the total parcel forces :math:`\vec{F}` above. Multiplying
+acceleration by density gives the same units. Newton's balance becomes
+
+.. math::
+
+    \rho\left[\frac{\partial\vec{u}}{\partial t}
+    +u_x\frac{\partial\vec{u}}{\partial x}
+    +u_y\frac{\partial\vec{u}}{\partial y}\right]
+    =\vec{f}_{\mathrm{pressure}}
+    +\vec{f}_{\mathrm{viscous}}+\rho\vec{g}.
 
 Read it as **density times acceleration = pressure force + viscous force
 + weight**, all per unit volume. These are the incompressible Navier--Stokes
@@ -178,23 +279,23 @@ What the boundaries supply
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A **boundary condition** specifies behavior at the edge or a surface of
-the calculation. Let :math:`\mathbf r` be a point on the rigid wing's surface
-in metres, and :math:`\mathbf v` its velocity in m/s. The derivative
+the calculation. Let :math:`\vec{r}` be a point on the rigid wing's surface
+in metres, and :math:`\vec{v}` its velocity in m/s. The derivative
 :math:`d/dt` follows that same material point, unlike a derivative at a
 fixed location. At the wing surface, viscous no-slip flow requires
 
 .. math::
 
-    \mathbf u=\mathbf v=\frac{d\mathbf r}{dt}.
+    \vec{u}=\vec{v}=\frac{d\vec{r}}{dt}.
 
-For this fixed wing, :math:`\mathbf v` is zero: air directly touching its
+For this fixed wing, :math:`\vec{v}` is zero: air directly touching its
 surface must be stationary too. The **normal** component, perpendicular
 to the surface, prevents penetration. The **tangential** component, along
 it, prevents slipping. Air moving tangentially at 0.10 m/s directly at a
 stationary no-slip wall would violate that condition. MIT's notes state
 the no-slip condition in Section 13.2.
 
-Far away, specify incoming :math:`\mathbf W`; allow disturbed air to leave
+Far away, specify incoming :math:`\vec{W}`; allow disturbed air to leave
 through an appropriate downstream boundary. Also specify initial velocities
 and hold the wing geometry fixed. A closed domain needs a pressure reference;
 an open domain may prescribe pressure at an outlet. Boundary choices affect
@@ -213,14 +314,15 @@ This is the algorithm family used in the next wing experiment.
 The experiment's specific two-dimensional grid,
 boundaries, viscosity and stopping tolerance are stated on its page.
 
-Use a regular grid of boxes with spacing :math:`h` in metres. Store pressure
-at their centers and the perpendicular velocity component at each face.
+Use a regular grid of square cells with spacing :math:`h` in metres.
+Store pressure at their centers and the perpendicular velocity component
+at each edge.
 This arrangement is called a **staggered grid**: pressure and velocity are
-stored at different locations. The face velocity directly measures flow
-between neighboring boxes.
+stored at different locations. The edge velocity directly measures flow
+between neighboring cells.
 
 Let :math:`\Delta t` be a time step in seconds; :math:`\Delta` means a
-change. Let :math:`\mathbf u^n` be the stored velocity before a step;
+change. Let :math:`\vec{u}^n` be the stored velocity before a step;
 :math:`n` counts time steps. A star labels a provisional value, not a
 multiplication. Let :math:`\nu=\eta/\rho` be kinematic viscosity in m²/s;
 our choices give approximately :math:`1.47\times10^{-5}` m²/s.
@@ -230,15 +332,20 @@ first-order time update, transport momentum and apply viscosity:
 
 .. math::
 
-    \mathbf u^*=\mathbf u^n+\Delta t
-    \left[-(\mathbf u^n\cdot\nabla)\mathbf u^n
-    +\nu\nabla^2\mathbf u^n\right].
+    \vec{u}^*=\vec{u}^n+\Delta t
+    \left[\begin{aligned}
+    &-u_x^n\frac{\partial\vec{u}^n}{\partial x}
+     -u_y^n\frac{\partial\vec{u}^n}{\partial y}\\
+    &+\nu\left(
+    \frac{\partial^2\vec{u}^n}{\partial x^2}
+    +\frac{\partial^2\vec{u}^n}{\partial y^2}\right)
+    \end{aligned}\right].
 
 The minus transport term moves the stored velocity pattern with the air;
 viscosity smooths differences between neighboring velocities. For a concrete
 spatial approximation, estimate transport derivatives using values on the
 upstream side of the flow, called **upwind differences**, with interpolation
-to the needed faces. For each velocity component :math:`f` in m/s, let
+to the needed edges. For each velocity component :math:`f` in m/s, let
 :math:`f_L,f_0,f_R` be its values at three equally spaced locations along
 one coordinate. Let :math:`w` be the transporting velocity in that coordinate,
 also in m/s. Its upwind transport term is
@@ -253,7 +360,8 @@ also in m/s. Its upwind transport term is
 
 Use the analogous difference along each active coordinate and add the
 terms. In the wing experiment, transporting horizontal velocity by vertical
-velocity requires the latter at the horizontal face; it is obtained by
+velocity requires the latter at the edge storing horizontal velocity;
+it is obtained by
 averaging the four surrounding vertical-velocity samples, and conversely
 for vertical momentum. First-order upwinding introduces numerical diffusion
 in addition to the selected physical viscosity.
@@ -264,37 +372,43 @@ The second derivative in that direction is approximated by
     \frac{\partial^2 f}{\partial x^2}
     \approx\frac{f_L-2f_0+f_R}{h^2}.
 
-Add corresponding contributions from the other two coordinates for the
+Add the corresponding contribution from the other coordinate for the
 Laplacian. Explicit transport and viscosity need sufficiently small time
 steps; this deliberately simple scheme is not a claim of accuracy at any
 chosen grid size. More accurate transport and implicit viscosity are possible.
 
 **Next find the pressure correction.** We want a new velocity
-:math:`\mathbf u^{n+1}` that has zero divergence. Pressure changes the
+:math:`\vec{u}^{n+1}` that has zero divergence. Pressure changes the
 provisional velocity by
 
 .. math::
 
-    \mathbf u^{n+1}=\mathbf u^*
-    -\frac{\Delta t}{\rho}\nabla p.
+    \vec{u}^{n+1}=\vec{u}^*
+    -\frac{\Delta t}{\rho}\left(
+    \frac{\partial p}{\partial x},
+    \frac{\partial p}{\partial y}\right).
 
 Take the divergence of this equation, require the result to vanish, and
 rearrange. The unknown pressure must satisfy
 
 .. math::
 
-    \nabla^2 p=\frac{\rho}{\Delta t}\nabla\cdot\mathbf u^*.
+    \frac{\partial^2 p}{\partial x^2}
+    +\frac{\partial^2 p}{\partial y^2}
+    =\frac{\rho}{\Delta t}\left(
+    \frac{\partial u_x^*}{\partial x}
+    +\frac{\partial u_y^*}{\partial y}\right).
 
 This is a **Poisson equation**, which links each pressure to neighboring
 pressures and the known local volume imbalance. It is how the computer
 finds pressure, rather than choosing it independently at each location.
-Use face-flow differences for divergence and center-pressure differences
+Use edge-flow differences for divergence and center-pressure differences
 for the gradient. These must be consistent: applying divergence to the
 discrete pressure gradient produces the discrete pressure equation.
 
 There is one equation per fluid cell. They form a **linear system**: many
 simultaneous equations whose unknowns are the cell pressures. Solve them
-together, then update the face velocities using their pressure differences.
+together, then update the edge velocities using their pressure differences.
 Solid-wall normal velocities enter both the imbalance and the pressure
 boundary equations; they must not be changed incompatibly afterward.
 Tangential no-slip belongs to the viscous boundary treatment. A curved wing
@@ -304,22 +418,23 @@ recipe; the experiment approximates that surface with blocked cells.
 A small calculation from imbalance to result
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To isolate the pressure step, take two neighboring cubic cells, each
+To isolate the pressure step, take two neighboring square cells, each
 :math:`h=0.10` m wide, inside stationary closed walls. Their only shared
-face has provisional rightward velocity :math:`U^*=0.10` m/s. All exterior
-face velocities are zero. This is an illustrative predictor output, not
+edge has provisional rightward velocity :math:`U^*=0.10` m/s. All exterior
+edge velocities are zero. This is an illustrative predictor output, not
 a complete wing-flow simulation or a steady incompressible starting state.
 Use :math:`\rho=1.225` kg/m³ and :math:`\Delta t=0.01` s.
 
-Each cell has volume :math:`h^3=0.001` m³, and the shared face has area
-:math:`h^2=0.01` m². Its volume flow is
-:math:`U^*h^2=0.001` m³/s from the left cell to the right.
-The left cell loses volume; the right gains it. Dividing signed outward
-flow by cell volume gives divergences
+Each cell has area :math:`h^2=0.01` m², and the shared edge has length
+:math:`h=0.10` m. Flow across that edge per unit wing span is
+:math:`U^*h=0.01` m²/s from the left cell to the right. Equivalently,
+a 1 m span would have 0.01 m³/s passing between cells of volume 0.01 m³.
+The left cell loses air; the right gains it. Dividing signed outward flow
+per unit span by cell area gives divergences
 
 .. math::
 
-    d_L=\frac{0.001}{0.001}=1\ \mathrm{s}^{-1},
+    d_L=\frac{0.01}{0.01}=1\ \mathrm{s}^{-1},
     \qquad d_R=-1\ \mathrm{s}^{-1}.
 
 Here :math:`d_L,d_R` label the two known divergences, and
@@ -341,18 +456,18 @@ that reference, not negative absolute atmospheric pressure.
 
 Pressure rises to the right by :math:`1.225/0.10=12.25` Pa/m.
 It causes leftward acceleration :math:`-12.25/1.225=-10` m/s².
-Over the chosen time step, the shared face becomes
+Over the chosen time step, the shared edge becomes
 
 .. math::
 
     U^{n+1}=0.10-\frac{0.01}{1.225}
     \frac{1.225}{0.10}=0\ \mathrm{m/s}.
 
-The wall faces remain zero. Both cell divergences are now zero too.
+The wall edges remain zero. Both cell divergences are now zero too.
 We supplied an imbalanced provisional velocity, solved two coupled pressure
 equations, and obtained a compatible velocity. In flow around a wing,
 projection removes the imbalance but need not remove all
-motion: air can continue circulating through many cell faces.
+motion: air can continue circulating through many cell edges.
 
 Seeing flow with passive tracers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -362,44 +477,44 @@ letting those markers change the flow. These are **passive tracers**. They
 have no mass or force in our model and no independent random drift. Their
 color is a label, not a measured pressure or speed.
 
-Let :math:`\mathbf X(t)` be one tracer's position in metres. The already
-calculated velocity :math:`\mathbf u` is evaluated at that position. The
+Let :math:`\vec{X}(t)` be one tracer's position in metres. The already
+calculated velocity :math:`\vec{u}` is evaluated at that position. The
 tracer follows
 
 .. math::
 
-    \frac{d\mathbf X}{dt}=\mathbf u(\mathbf X(t),t).
+    \frac{d\vec{X}}{dt}=\vec{u}(\vec{X}(t),t).
 
 The :math:`d/dt` here follows the marker, rather than holding its location
-fixed. If the local velocity stays :math:`(2,-0.5,0)` m/s for 0.20 s, a
-marker moves :math:`(0.40,-0.10,0)` m. The plotted history of one moving
+fixed. If the local velocity stays :math:`(2,-0.5)` m/s for 0.20 s, a
+marker moves :math:`(0.40,-0.10)` m. The plotted history of one moving
 marker is a **pathline**. A **streamline** instead follows the directions
 of the velocity field at one frozen instant; the two coincide only when
 the flow is steady. The experiment draws pathline histories.
 
-We need velocities between grid faces. **Bilinear interpolation** weights
+We need velocities between grid edges. **Bilinear interpolation** weights
 the four closest stored values according to distance, once for each velocity
 component. For example, halfway between four samples, their weights are
 all one quarter. This interpolation does not make the velocity exactly
 divergence-free between samples or guarantee impermeability at the mask.
 
-For a numerical step, let :math:`\mathbf X^n` be the marker's current
-position and :math:`\mathbf X_m` a provisional position halfway through
+For a numerical step, let :math:`\vec{X}^n` be the marker's current
+position and :math:`\vec{X}_m` a provisional position halfway through
 the same flow time step :math:`\Delta t`. First estimate
 
 .. math::
 
-    \mathbf X_m=\mathbf X^n+
-    \frac{\Delta t}{2}\mathbf u^n(\mathbf X^n).
+    \vec{X}_m=\vec{X}^n+
+    \frac{\Delta t}{2}\vec{u}^n(\vec{X}^n).
 
 Use the average of old and new velocities at this middle position for the
 full displacement:
 
 .. math::
 
-    \mathbf X^{n+1}=\mathbf X^n+
+    \vec{X}^{n+1}=\vec{X}^n+
     \frac{\Delta t}{2}\left[
-      \mathbf u^n(\mathbf X_m)+\mathbf u^{n+1}(\mathbf X_m)
+      \vec{u}^n(\vec{X}_m)+\vec{u}^{n+1}(\vec{X}_m)
     \right].
 
 This is an explicit midpoint-style tracer update, using linear time
@@ -417,10 +532,17 @@ kg/(m³ s). A possible additional model is
 
 .. math::
 
-    \frac{\partial c}{\partial t}+\mathbf u\cdot\nabla c
-    =\kappa\nabla^2 c+S.
+    \begin{aligned}
+    \frac{\partial c}{\partial t}
+    +u_x\frac{\partial c}{\partial x}
+    +u_y\frac{\partial c}{\partial y}
+    ={}&\kappa\left(
+    \frac{\partial^2 c}{\partial x^2}
+    +\frac{\partial^2 c}{\partial y^2}\right)+S.
+    \end{aligned}
 
-The first two terms transport concentration; diffusion spreads it and
+The time derivative and velocity-weighted spatial derivatives describe
+transport of concentration; diffusion spreads it and
 the source adds it. Neither this concentration equation nor heat, buoyancy,
 settling or scattering is implemented by the wing experiment. Calling its
 markers "smoke trails" describes a visual resemblance, not a smoke model.
@@ -430,14 +552,14 @@ notes`_, which treat passive marker advection separately from buoyancy.
 Which version the wing experiment implements
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The next experiment calculates a **two-dimensional** field: velocity is
-:math:`\mathbf u=(u,v,0)`, where :math:`u,v` are its horizontal and vertical
-components in m/s, and nothing varies along span coordinate :math:`z`.
-Delete the span derivatives from the equations above. The two active
-components still obey viscous Navier--Stokes and the same volume balance;
-this is not a potential-flow or vortex substitute. The experiment shows this
-field in a fixed two-dimensional side view;
-it does not calculate span flow or tip vortices.
+The next experiment implements the two-dimensional equations above.
+Its code names the horizontal and vertical velocity components :math:`u,v`,
+corresponding to :math:`u_x,u_y` here, so :math:`\vec{u}=(u,v)`.
+It calculates no span flow or tip vortices.
+
+In three dimensions, the same balances gain a third position coordinate,
+a third velocity component, and derivatives in that direction. The
+two-dimensional model assumes those span variations and span motion are absent.
 
 For feasibility on a coarse browser grid, the wing experiment uses
 :math:`\nu=0.015` m²/s, about a thousand times the illustrative air value,
@@ -448,7 +570,7 @@ and hydrostatic pressure has been removed. No gravity acts on markers.
 The wing is a **solid-cell mask**: grid cells with centers inside its rotated
 section are blocked. The drawing uses a smooth rendering of that underlying
 section; the fluid boundary is still a stair-step approximation on the grid.
-Every velocity face between fluid and solid has normal speed zero.
+Every velocity edge between fluid and solid has normal speed zero.
 For viscosity near a wing wall, reflect the tangential velocity into a
 **ghost sample**, a numerical value beyond the wall, rather than an extra
 fluid parcel. If :math:`f_0` is the neighboring tangential fluid speed, choose
@@ -460,7 +582,7 @@ fluid parcel. If :math:`f_0` is the neighboring tangential fluid speed, choose
 
 The zero midpoint approximates no-slip at the mask wall. This reflected
 sample goes into the centered viscous difference, while transport uses the
-blocked face's zero value. Normal-component wall samples are zero. This is
+blocked edge's zero value. Normal-component wall samples are zero. This is
 an approximate stair-step boundary treatment, not a resolved smooth-wing
 boundary layer. Bilinear tracer sampling can still leak into a blocked cell;
 retiring such a marker is a drawing safeguard, not a change to this flow law.
@@ -470,7 +592,7 @@ ghost samples equal the adjacent fluid value. This gives zero tangential
 derivative: **slip walls**, a different condition from the no-slip wing.
 The inlet supplies horizontal speed 1 m/s and vertical speed zero.
 At the outlet, the predictor copies the adjacent velocity (zero normal
-derivative); pressure is set to zero at the outlet face. Projection adjusts
+derivative); pressure is set to zero at the outlet edge. Projection adjusts
 outgoing normal speed. The condition is too simple for substantial flow
 entering backward from outside the domain.
 
@@ -492,7 +614,7 @@ Poisson equation by :math:`-h^2` gives the interior row
     \sum_{q\in\mathcal N}(p_{i,j}-p_q)
     =-\frac{\rho h^2}{\Delta t}d_{i,j}.
 
-Fixed-normal-speed faces add no unknown pressure difference. A zero-pressure
+Fixed-normal-speed edges add no unknown pressure difference. A zero-pressure
 outlet is half a cell from the last center, so its contribution on the left
 is :math:`2p_{i,j}`. The matching outlet velocity correction uses
 :math:`(0-p_{i,j})/(h/2)` as its pressure gradient. Using the same half-cell
@@ -582,28 +704,28 @@ under that load in this experiment.
 Pressure acts perpendicular to each surface piece. In this two-dimensional
 model, report force **per unit span**, in N/m, not a force on a whole finite
 wing. Let :math:`p` be relative pressure in Pa, :math:`\Delta s` a small
-surface length in metres, and :math:`\mathbf n` its outward unit normal,
+surface length in metres, and :math:`\vec{n}` its outward unit normal,
 pointing from the solid into the fluid. The normal has no units. Let
-:math:`\Delta\mathbf f_p` be that piece's pressure-force contribution per
+:math:`\Delta\vec{f}_p` be that piece's pressure-force contribution per
 unit span. Pressure pushes opposite the outward normal:
 
 .. math::
 
-    \Delta\mathbf f_p=-p\mathbf n\Delta s,
-    \qquad \mathbf f_p=\sum\Delta\mathbf f_p.
+    \Delta\vec{f}_p=-p\vec{n}\Delta s,
+    \qquad \vec{f}_p=\sum\Delta\vec{f}_p.
 
 The sum adds vectors around the entire closed section, including leading
 and trailing edges. Its units are Pa times m = N/m. This **one resultant**
-is not two independent forces. Let :math:`\mathbf e_D` be the unit direction
-of incoming flow, and :math:`\mathbf e_L` the perpendicular unit direction
+is not two independent forces. Let :math:`\vec{e}_D` be the unit direction
+of incoming flow, and :math:`\vec{e}_L` the perpendicular unit direction
 chosen upward. The dot product takes a vector's component along a direction.
 Define signed **pressure drag** :math:`d_p` and **pressure lift**
 :math:`l_p`, both in N/m, by
 
 .. math::
 
-    d_p=\mathbf f_p\cdot\mathbf e_D,
-    \qquad l_p=\mathbf f_p\cdot\mathbf e_L.
+    d_p=\vec{f}_p\cdot\vec{e}_D,
+    \qquad l_p=\vec{f}_p\cdot\vec{e}_L.
 
 Here incoming air moves rightward, so these are simply the rightward and
 upward components. A resultant (0.20, 0.60) N/m has pressure drag 0.20 N/m,

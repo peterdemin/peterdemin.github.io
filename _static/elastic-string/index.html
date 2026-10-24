@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Elastic string: pull and release</title>
+  <script>if(new URLSearchParams(location.search).get('embedded')==='1')document.documentElement.classList.add('embedded');</script>
+  <style>
+    :root{color-scheme:light dark;font-family:system-ui,sans-serif;background:light-dark(#fdf6e3,#002b36);color:light-dark(#657b83,#93a1a1)}
+    *{box-sizing:border-box}body{margin:0}main{max-width:1000px;margin:auto;padding:24px}header p,footer{line-height:1.6}
+    .embedded main{padding:0;max-width:none}.embedded header,.embedded footer{display:none}.embedded{background:var(--book-background,light-dark(#fdf6e3,#002b36));color:var(--book-text,light-dark(#657b83,#93a1a1));font-family:var(--book-font,system-ui,sans-serif)}
+    .stage{position:relative;height:520px;border:1px solid var(--book-border,#93a1a1);border-radius:8px;overflow:hidden;background:#0c1725}
+    canvas{display:block;width:100%;height:100%;touch-action:none}canvas:focus-visible{outline:3px solid #49a9c6;outline-offset:-4px}
+    .toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:12px 0}.toolbar p{margin:0;flex:1;min-width:200px;font-size:13px}.toolbar label{display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer}
+    button{font:inherit;font-size:13px;color:inherit;border:1px solid var(--book-border,#93a1a1);border-radius:5px;padding:7px 12px;background:transparent;cursor:pointer}button:enabled:hover{background:var(--book-button-hover,#85990022)}button:disabled{opacity:0.5;cursor:default}button:focus-visible{outline:2px solid #2aa198;outline-offset:2px}
+    .note,.readout{font-size:13px;line-height:1.6;margin:8px 0}.readout{font-variant-numeric:tabular-nums}.note strong{font-size:15px}a{color:inherit}
+    #error{display:none;position:absolute;inset:0;background:#0c1725ed;color:#ffd4b0;padding:24px;align-items:center;justify-content:center}footer{font-size:13px;margin-top:24px}
+    @media(max-width:500px){main{padding:16px}.stage{height:420px}.note,.readout{font-size:12px}}
+  </style>
+</head>
+<body>
+<main>
+  <header><h1>Elastic string: pull and release</h1><p>One end stays fixed. Your hand holds the other until you let go.</p></header>
+  <p class="note"><strong>Move the orange end up and down to send a wave.</strong> Release it to let the 4 m string fall, bend and swing.</p>
+  <div class="stage">
+    <canvas id="scene" tabindex="0" role="application" aria-label="Elastic string with a fixed end and an orange draggable end. Drag with a mouse or touch and release to let it fall. Keyboard: Space grabs or releases, arrow keys move the held end, Escape releases, R resets." aria-describedby="keyboard"></canvas>
+    <div id="error" role="alert"></div>
+  </div>
+  <div class="toolbar">
+    <button id="reset" type="button">Reset string</button>
+    <button id="release" type="button">Let go</button>
+    <label><input id="slow-motion" type="checkbox" checked> Slow motion (¼ speed)</label>
+    <p id="status" role="status">Held — drag the orange end or press Let go.</p>
+  </div>
+  <p id="values" class="readout"></p>
+  <p id="keyboard" class="note">Mouse or touch. Keyboard: focus the scene, Space grabs/releases, arrows move the held end, Escape releases, R resets.</p>
+  <footer>Gravity, elastic tension, bending rigidity, extension damping and bending damping, plus gentle artificial settling damping at 0.8/s. No air resistance, ground or self-contact. The hand moves at up to 6 m/s of physical time and reaches at most 4.6 m from the fixed end. Release starts the endpoint from rest; the rest of the string keeps moving. <a href="../../12_articles/87-sail-physics/02a-elastic-string.html">Read the model.</a></footer>
+</main>
+<script src="bundle.388c584a2d385ff5.js"></script>
+</body>
+</html>
