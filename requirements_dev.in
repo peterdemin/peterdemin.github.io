@@ -18,3 +18,7 @@ isort
 flake8
 pyright
 gdocsync
+pygame-ce
+PyOpenGL
+PyOpenGL-accelerate
+pytest
