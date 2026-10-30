@@ -74,8 +74,7 @@ function draw() {
   }
   context.beginPath(); context.moveTo(anchor[0], anchor[1]-15); context.lineTo(...anchor); context.stroke();
   context.fillStyle = ink; context.beginPath(); context.arc(...anchor, 5, 0, 2*Math.PI); context.fill();
-  context.fillStyle = '#e9944e'; context.beginPath(); context.arc(...end, 9, 0, 2*Math.PI); context.fill();
-  context.strokeStyle = dark ? '#ffdfaa' : '#a55d27'; context.lineWidth = 1.5; context.stroke();
+  context.strokeStyle = dark ? '#ffdfaa' : '#a55d27'; context.lineWidth = 1.5;
   context.setLineDash([4, 4]); context.beginPath(); context.arc(...end, 19, 0, 2*Math.PI); context.stroke(); context.setLineDash([]);
   context.fillStyle = ink; context.font = '12px system-ui, sans-serif'; context.textAlign = 'center';
   context.fillText('Fixed', anchor[0], anchor[1]-31);
@@ -90,7 +89,7 @@ function draw() {
   canvas.style.cursor = pointer !== null ? 'grabbing' : 'grab';
   status.textContent = simulation.held ? 'Held — drag the orange end or press Let go.' : 'Released — gravity pulls the string down; the fixed end stays attached.';
   releaseButton.disabled = !simulation.held;
-  values.textContent = `${LENGTH.toFixed(1)} m unstretched length · largest segment extension ${(100*simulation.maxStrain()).toFixed(1)}% · settling damping ${p.settlingDamping.toFixed(1)}/s · simulated time ${simulation.time.toFixed(2)} s`;
+  values.textContent = `${LENGTH.toFixed(1)} m unstretched length · largest segment extension ${(100*simulation.maxStrain()).toFixed(1)}% · simulated time ${simulation.time.toFixed(2)} s`;
   canvas.dataset.endpoint = JSON.stringify(end);
   canvas.dataset.anchor = JSON.stringify(anchor);
   canvas.dataset.state = JSON.stringify(Array.from(state));

@@ -170,13 +170,13 @@ Mouse and touch both work. With the scene focused, Space grabs or releases,
 arrow keys move the held end, and Escape releases it.
 The demonstration string is 4 m long. Keep holding the orange end and move it up and down
 to send a disturbance toward the fixed end.
-**Slow motion** starts enabled at quarter speed so the motion along the string is easier to follow.
+**Slow motion** runs at quarter speed so the motion along the string is easier to follow. Normal speed is the default.
 Switch it off for normal-speed playback; this changes playback speed, not the physical forces.
 
 .. raw:: html
 
     <iframe
-      src="../../_static/elastic-string/index.html?embedded=1&v=cc70c35053e6ff9e"
+      src="../../_static/elastic-string/index.html?embedded=1&v=3347b7409efa6847"
       title="Interactive elastic string: drag the free end and release it under gravity"
       width="100%" height="650"
       style="display:block;width:100%;height:650px;border:0;"
@@ -212,16 +212,16 @@ Switch it off for normal-speed playback; this changes playback speed, not the ph
       })();
     </script>
 
-You can also `open the string experiment on its own <../../_static/elastic-string/index.html?v=cc70c35053e6ff9e>`_.
+You can also `open the string experiment on its own <../../_static/elastic-string/index.html?v=3347b7409efa6847>`_.
 
 The demo and Python example below use the same 80-link, 4 m model and the same update:
-an Euler prediction followed by contour-length corrections, with a step of 0.000005 s.
+a semi-implicit Euler update followed by contour-length corrections, with a step of 0.0001 s.
 The left end is fixed; the other is prescribed only while held.
 Release sets that endpoint's velocity to zero; the rest of the string keeps its current motion.
-The hand approaches the pointer at up to 6 m/s of physical time and reaches at most 4.6 m from the fixed end.
+The hand approaches the pointer smoothly at up to 6 m/s of physical time and reaches at most 4.6 m from the fixed end.
 Rendering is separate from physical ticks; slow devices may run behind real time.
 
-The forces, constraint reactions, and artificial settling damping are specified below and included in both implementations.
+The forces and constraint reactions are specified below and included in both implementations.
 There is no air resistance, ground contact, or self-contact.
 
 A continuous mathematical model
@@ -278,14 +278,11 @@ Dividing by :math:`\Delta s` and taking the limit gives
 
     \mu\frac{\partial^2\vec{r}}{\partial t^2}
     =\frac{\partial}{\partial s}((T-R)\vec{\tau})
-    +\vec{f}_b+\mu\vec{g}-\mu\beta\frac{\partial\vec{r}}{\partial t}.
+    +\vec{f}_b+\mu\vec{g}.
 
 Here :math:`\vec{g}` is gravitational acceleration in m/s².
 The vector :math:`\vec{f}_b` is force per original length from bending rigidity and bending damping, in N/m.
 We compute its discrete counterpart from changes of angle below.
-The last term is an artificial settling force, with :math:`\beta=0.8` 1/s.
-Internal friction cannot dissipate rigid motion of the whole string, so we choose this extra damping
-to make the overall swing decay gradually. It is not material viscosity or a calculation of air resistance.
 Every term has units N/m.
 The second time derivative is acceleration.
 The spatial derivative is the difference of neighboring tension vectors per original length.
@@ -364,7 +361,7 @@ The force evaluated before constraint reactions is, for an interior node,
 
     \vec{F}_i
     =\vec{q}_i-\vec{q}_{i-1}
-    +\vec{F}_{b,i}+m_i\vec{g}-m_i\beta\vec{v}_i.
+    +\vec{F}_{b,i}+m_i\vec{g}.
 
 Here :math:`\vec{F}_{b,i}` is the total bending force on that node, calculated next.
 The length-constraint reactions are applied separately as impulses after the Euler prediction,
@@ -389,30 +386,32 @@ For a string whose original shape is straight, choose the bending energy
     U_b=\frac12\sum_{i=1}^{N-1}\frac{B}{\ell_0}\theta_i^2.
 
 Each term represents one bend; :math:`B/\ell_0` has units N m, so the energy is in joules.
-The matching elastic and damping moment at that bend is
+To calculate forces, we need to know how moving a node changes that energy.
+The intermediate step is how moving the node changes the angle.
+
+For bend :math:`i`, define
 
 .. math::
 
-    m_{b,i}=\frac{B\theta_i+D\dot\theta_i}{\ell_0}.
+    \vec{G}_{i,j}=\nabla_{\vec{r}_j}\theta_i,
+    \qquad j=i-1,i,i+1.
 
-To turn this moment into forces, determine how the angle changes when each of its three nodes moves.
-Write :math:`\vec{G}_{i,j}=\nabla_{\vec{r}_j}\theta_i` for that angle gradient, in 1/m.
-The index :math:`j` runs over :math:`i-1,i,i+1`.
-Then the bend's contribution to node :math:`j` is
+This *angle gradient* is a two-component vector: its components say how much
+:math:`\theta_i` changes per metre of horizontal or vertical movement of node :math:`j`.
+For a small displacement :math:`\delta\vec{r}_j`, with the other nodes held still,
 
 .. math::
 
-    \vec{F}_{i,j}=-m_{b,i}\vec{G}_{i,j},\qquad
-    \dot\theta_i=\sum_{j=i-1}^{i+1}\vec{G}_{i,j}\cdot\vec{v}_j.
+    \delta\theta_i\approx\vec{G}_{i,j}\cdot\delta\vec{r}_j.
 
-The elastic force points toward decreasing bending energy.
-The damping contribution removes mechanical energy at rate :math:`D\dot\theta_i^2/\ell_0`.
-Add contributions from every bend touching a node to obtain :math:`\vec{F}_{b,j}`.
-
-The gradients have a short formula.
+We can calculate these vectors directly from the two segment vectors.
 For a planar vector :math:`\vec{d}=(d_x,d_y)`, define
-:math:`\vec{p}(\vec{d})=(-d_y,d_x)/|\vec{d}|^2`.
-This is the gradient of its direction angle with respect to its components.
+
+.. math::
+
+    \vec{p}(\vec{d})=\frac{(-d_y,d_x)}{|\vec{d}|^2}.
+
+This is the gradient of the segment's direction angle with respect to its components.
 Since the turning angle is the outgoing direction minus the incoming direction,
 
 .. math::
@@ -421,7 +420,46 @@ Since the turning angle is the outgoing direction minus the incoming direction,
     \vec{G}_{i,i}&=-\vec{p}(\vec{d}_{i-1})-\vec{p}(\vec{d}_i),\\
     \vec{G}_{i,i+1}&=\vec{p}(\vec{d}_i).
 
-These three gradients add to zero, so each bend's forces sum to zero.
+The same angle-change rule gives the turning rate when all three nodes move:
+
+.. math::
+
+    \dot\theta_i=\sum_{j=i-1}^{i+1}\vec{G}_{i,j}\cdot\vec{v}_j.
+
+Now use the gradient to differentiate the bend's energy with respect to a node's position:
+
+.. math::
+
+    -\nabla_{\vec{r}_j}\left(\frac{B}{2\ell_0}\theta_i^2\right)
+    =-\frac{B\theta_i}{\ell_0}\vec{G}_{i,j}.
+
+This is the elastic force on that node from this bend.
+Adding bending damping gives the moment and its corresponding nodal force:
+
+.. math::
+
+    m_{b,i}=\frac{B\theta_i+D\dot\theta_i}{\ell_0},
+    \qquad
+    \vec{F}_{i,j}=-m_{b,i}\vec{G}_{i,j}.
+
+Thus each bend supplies three force vectors, one for each of its nodes.
+A node can belong to several bends; add their contributions to obtain the force
+used in the rate function:
+
+.. math::
+
+    \vec{F}_{b,j}
+    =\sum_{i=\max(1,j-1)}^{\min(N-1,j+1)}\vec{F}_{i,j}.
+
+In the Python implementation below, ``gradients`` contains these three
+:math:`\vec{G}_{i,j}` vectors, ``theta_rate`` is their velocity dot-product sum,
+and ``moment`` is :math:`m_{b,i}`.
+The line ``force[i - 1:i + 2] -= moment * gradients`` adds the bend's three
+contributions to the force array. Dividing that accumulated array by node masses
+then gives the bending contribution to acceleration.
+The damping contribution removes mechanical energy at rate :math:`D\dot\theta_i^2/\ell_0`.
+
+The three angle gradients add to zero, so each bend's forces sum to zero.
 Rigid translation or rotation changes neither the turning angles nor their rates.
 Bending therefore acts on shape changes, including in slack material.
 When refining the chain, keep :math:`B` and :math:`D` fixed and recompute the coefficients :math:`B/\ell_0` and :math:`D/\ell_0`.
@@ -464,31 +502,90 @@ It only answers: how fast would this state change?
 Advancing the simulation
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Use the first-order Euler integration introduced in the basics chapter to predict a state.
-For a time step :math:`h`, evaluate the rate function once at the current state:
+We still use a first-order Euler method, but evaluate internal friction at the new velocity.
+Strong internal friction makes a fully explicit step require impractically short time steps.
+Solving the friction implicitly avoids that restriction without adding a new damping force.
+This changes how we advance the state, not the rate function or its physical forces.
+
+Separate the state into all positions :math:`\vec{r}` and all velocities :math:`\vec{v}`,
+and write :math:`\vec{a}(\vec{r},\vec{v})` for the acceleration part of :math:`f`.
+At each tick solve
 
 .. math::
 
-    \widetilde{\vec{s}}=\vec{s}_0+h f(\vec{s}_0).
+    \vec{v}_*=\vec{v}_0+h\vec{a}(\vec{r}_0,\vec{v}_*),
+    \qquad
+    \vec{r}_*=\vec{r}_0+h\vec{v}_*.
 
-For each free node, this means
-
-.. math::
-
-    \widetilde{\vec{r}}_i=\vec{r}_{i,0}+h\vec{v}_{i,0},\qquad
-    \widetilde{\vec{v}}_i=\vec{v}_{i,0}+h\frac{\vec{F}_i(\vec{s}_0)}{m_i}.
-
-Both updates use the starting state.
-Compute all lengths, angles, deformation rates, and forces before changing any positions or velocities.
-The tilde marks a prediction: it is not yet the accepted state.
-Write :math:`\mathcal P_h` for the position and velocity corrections defined next.
-The complete tick is
+The segment directions and angle gradients come from the old positions.
+The viscous forces use the solved velocities, and the positions advance with those velocities.
+This is a semi-implicit, first-order Euler update rather than the fully explicit version in the basics chapter.
+The prescribed support velocities are boundary conditions on the solve.
+The complete tick then applies the contour correction described next:
 
 .. math::
 
-    \vec{s}_1=\mathcal P_h\!\left(\vec{s}_0+h f(\vec{s}_0)\right).
+    \vec{s}_1=\mathcal P_h(\vec{r}_*,\vec{v}_*).
 
-It is an Euler prediction followed by constraint corrections, rather than unconstrained Euler alone.
+Solving for velocity
+~~~~~~~~~~~~~~~~~~~~
+
+Every material contribution has the form
+
+.. math::
+
+    \vec{F}_a=-\left(e_a+c_a\vec{G}_a\cdot\vec{v}\right)\vec{G}_a.
+
+Here :math:`\vec{G}_a` contains a deformation gradient at the affected nodes and zeros elsewhere.
+For extension it contains :math:`(-\vec{n}_i,\vec{n}_i)`,
+with :math:`e_a=EA_0(\ell_i-\ell_0)/\ell_0` and :math:`c_a=\eta A_0/\ell_0`.
+For bending it contains the three angle gradients already derived,
+with :math:`e_a=B\theta_i/\ell_0` and :math:`c_a=D/\ell_0`.
+The extension contribution is included only for a stretched link whose total tension is positive.
+
+Let :math:`\mathsf M` be the diagonal mass matrix, with each node's mass repeated for its two coordinates.
+For a fixed choice of taut links, the velocity equation becomes a linear system:
+
+.. math::
+
+    \left(\mathsf M+h\sum_a c_a\vec{G}_a\vec{G}_a^{\,T}\right)\vec{v}_*
+    =\mathsf M\vec{v}_0+h\vec{F}_{\mathrm{gravity}}-h\sum_a e_a\vec{G}_a.
+
+Solve this system, then check the tensions with the new velocities.
+If a total tension would be negative, omit that link's contribution and solve again;
+if a previously omitted stretched link now has positive tension, include it again.
+The implementation uses Newton iterations with backtracking when the taut/slack choice changes.
+Bending contributions remain active in either direction.
+
+The matrix is symmetric and positive definite on the free coordinates.
+Each term couples at most three neighboring nodes, so only five diagonals below the main diagonal need storage.
+``solve_band`` uses this structure for a Cholesky solve without building a dense matrix.
+The Python ``solve_material_velocity`` function and JavaScript solver perform the same update.
+The JavaScript version reuses its working arrays and specializes the Cholesky
+calculation for this fixed bandwidth. Bending contributions are assembled once
+per substep and reused while the solver adjusts which tensile terms are active.
+Implicit integration for stiff internal forces is also discussed in
+`Baraff and Witkin: Large Steps in Cloth Simulation`_.
+
+The nominal tick is at most 0.0001 s. Fast motion subdivides it further.
+For maximum node speed :math:`v_{\max}`, propose a step no larger than
+:math:`0.9\,(0.01\ell_0)/v_{\max}`; at zero speed use the remaining tick duration.
+The 10% margin leaves room for acceleration and contour corrections, avoiding
+repeated solves of steps that would predictably exceed the movement allowance.
+Retry with half that step if any node, including its contour correction,
+moves more than :math:`0.01\ell_0`.
+This limits geometric changes during rapid drags and tight folds.
+It is temporal refinement, not a force or velocity damping term.
+
+The interactive demo gives physics about 8 ms per animation frame, checking the
+budget after each accepted substep. An ongoing solve finishes before yielding.
+If rapid motion requires more work, the demo discards overdue wall time and runs
+more slowly while keeping the same integration steps and material coefficients.
+This prevents extra substeps from blocking drawing and pointer input.
+
+The integration and contour corrections can introduce energy error.
+Halving the step and disabling material friction are useful separate checks:
+a fast decay should come from the chosen friction coefficients, rather than disappear when the numerical step is refined.
 
 Correcting shortened links
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -515,24 +612,53 @@ These corrections increase the pair's distance by :math:`c_i`.
 Equal masses move equally; a lighter node moves farther; a prescribed node does not move.
 For two free nodes, the mass-weighted corrections sum to zero.
 
-Apply the same corrections to velocities, divided by the time step:
+Repair the positions separately from the velocities. Turning a position repair into
+:math:`\Delta\vec{r}/h` can add kinetic energy and make compressed links rebound.
+Instead, for a link at its minimum length, measure its relative closing velocity:
 
 .. math::
 
-    \Delta\vec{v}_j=\frac{\Delta\vec{r}_j}{h},
-    \qquad \vec{J}_j=m_j\Delta\vec{v}_j
-    \quad(j=i,i+1).
+    u_i=(\vec{v}_{i+1}-\vec{v}_i)\cdot\vec{n}_i,
+    \qquad
+    J_i=\frac{\max(-u_i,0)}{\omega_i+\omega_{i+1}}.
 
-Here :math:`\vec{J}_j` is the constraint impulse in N s.
-This is the separating reaction missing from a force-only Euler update.
-It can push nodes apart, but stores no elastic compression energy.
+Here :math:`J_i` is a separating impulse in N s. Apply
+
+.. math::
+
+    \Delta\vec{v}_i=-\omega_i J_i\vec{n}_i,
+    \qquad
+    \Delta\vec{v}_{i+1}=\omega_{i+1}J_i\vec{n}_i.
+
+This cancels closing motion without creating a separating rebound.
+For two free nodes the impulse conserves momentum and cannot increase kinetic energy.
+A moving prescribed endpoint can still do work on the string.
+This inelastic constraint rule is a numerical modelling choice, separate from material viscosity.
+It stores no elastic compression energy.
 
 A correction can shorten a neighboring link, so visit all links twice:
 first from the hand toward the fixed end, then in the opposite direction.
 Recompute lengths and directions after each correction.
-The code ignores shortages smaller than :math:`10^{-6}\ell_0`.
+The code treats links within :math:`10^{-6}\ell_0` above their minimum as touching,
+repairs any shortage, and cancels closing velocity for those pairs.
 Two sweeps leave a finite residual; this is an approximate constraint solve, not an exact projection of the whole chain.
-The correction can also introduce numerical energy error, which must be checked by reducing the time step.
+Position repair can still change potential energy, so check convergence by reducing the time step.
+
+For the demonstration, :math:`B=10^{-4}` N m² and :math:`D=10^{-5}` N m² s.
+Here bending friction is an independent effective coefficient, rather than
+assuming a single uniform Kelvin--Voigt material. Its relaxation time
+:math:`D/B=0.1` s and the axial value :math:`\eta A_0/(EA_0)=0.3` s are chosen independently.
+This damps small bending ripples while leaving the resistance to a static bend unchanged.
+The smaller bending stiffness lets a lifted hanging end form a local fold;
+a much stiffer strand resists this and transmits a stronger push upward.
+The 80 links (81 nodes) give a rest spacing of 5 cm. This reduces solver work
+and the number of adaptive substeps needed during fast motion. Tight folds
+have less geometric detail than with 160 links: in a narrow sag, neighboring
+segments can turn by about 34 degrees rather than 17 degrees. The material
+coefficients stay the same; masses and discrete forces scale with the rest spacing.
+An exactly straight planar chain also has no preferred buckling direction;
+small existing bends select the side on which it folds.
+Finite bending stiffness and changes in tension can still disturb the upper string.
 
 Moving and releasing the hand
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -540,40 +666,69 @@ Moving and releasing the hand
 While the right end is held, limit the target to 4.6 m from the fixed support.
 Let :math:`\vec{b}_{\mathrm{target}}` be that bounded target, and
 :math:`\vec{d}_H=\vec{b}_{\mathrm{target}}-\vec{r}_N` its displacement from the held endpoint.
-Before evaluating :math:`f`, prescribe
+Pointer events arrive as separate position samples. Reaching each sample immediately
+would repeatedly start and stop the hand, sending short pulses into the string.
+Instead, use a critically damped controller to approach the target smoothly.
+Before evaluating :math:`f`, calculate
 
 .. math::
 
-    \vec{v}_N=\vec{d}_H\min\left(\frac1h,\frac{v_{\max}}{|\vec{d}_H|}\right),
+    \vec{a}_H=\omega_H^2\vec{d}_H-2\omega_H\vec{v}_N,
+    \qquad \omega_H=\frac{1}{0.015\ \text{s}}.
+
+Limit the acceleration magnitude to :math:`a_{\max}=100` m/s²,
+then update the prescribed velocity with Euler and limit its speed:
+
+.. math::
+
+    \vec{a}_H\leftarrow\vec{a}_H\min\left(1,\frac{a_{\max}}{|\vec{a}_H|}\right),
+
+    \vec{v}_H=\vec{v}_N+h\vec{a}_H,
+    \qquad
+    \vec{v}_N\leftarrow\vec{v}_H\min\left(1,\frac{v_{\max}}{|\vec{v}_H|}\right),
     \qquad v_{\max}=6\ \text{m/s}.
 
-For a zero displacement, set this velocity to zero.
-This reaches a nearby target in one tick and approaches a distant one at a bounded speed.
-The Euler prediction moves the held point at that prescribed velocity; constraint corrections leave it alone.
+Leave a zero vector at zero when applying either magnitude limit.
+This controller describes the imposed hand motion, not a force or damping term in the string.
+The Euler prediction moves the held point at the resulting prescribed velocity;
+constraint corrections leave it alone.
 
 On release, set only :math:`\vec{v}_N` to zero and remove its prescribed status.
 It then has its ordinary endpoint mass and responds to gravity, internal forces, damping, and constraint impulses.
 The permanent support remains fixed.
 
+Starting with a held string
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Reset starts with a straight, unstretched string and zero velocities.
+Both supports are initially at the same height, a distance :math:`L_0` apart.
+Gravity pulls the interior nodes down, producing extension, tension, and a sagging shape.
+Internal extension and bending friction dissipate the resulting oscillations.
+No equilibrium shape is precomputed or imposed.
+
+The demonstration uses illustrative coefficients :math:`\eta A_0=30` N s and
+:math:`D=10^{-5}` N m² s so the straight-start motion damps visibly within a few simulated seconds.
+These are effective material parameters, not an external drag term or measured properties of a particular cord.
+They also damp small, rapid ripples more strongly than broad waves.
+
 Python implementation
 ~~~~~~~~~~~~~~~~~~~~~
 
 This is the same 4 m, 80-link model used by the demo: tension, extension damping,
-angle-based bending and bending damping, artificial settling damping, and the contour-length constraint.
-The coefficients are illustrative. The chosen :math:`D/B=\eta A_0/(EA_0)` gives
-extension and bending the same material viscosity-to-elasticity ratio.
+angle-based bending and bending damping, and the contour-length constraint.
+The coefficients are illustrative; extension and bending use independent effective damping coefficients.
 
 .. literalinclude:: ../../_static/elastic-string/example.py
     :language: python
 
 Here ``state[0]`` holds all positions and ``state[1]`` all velocities.
 The rate function returns an array of the same shape containing velocities and accelerations.
-``tick`` copies its input, prescribes hand velocity if held, predicts with Euler, and corrects the contour.
+``tick`` copies its input, prescribes hand velocity if held, solves the Euler velocity equation, advances positions, and corrects the contour.
 ``release`` changes only the endpoint velocity; pass ``held=False`` on subsequent ticks.
-The runnable example releases the initially horizontal string immediately.
+The runnable example releases the initially straight string immediately.
 
 To hold or move the endpoint, call ``tick(state, h, held=True, target=point)``;
-``point`` is a two-component position in metres. Omitting the target holds its current position.
+``point`` is a two-component position in metres. For a fixed hold, pass the same target on every tick; omitting it uses the current endpoint as the next target.
 The accepted ``r`` values are the points to draw as a connected line.
 Rendering and quarter-speed playback do not change the physical tick,
 as discussed in :doc:`01a-simulation-basics`.
@@ -590,19 +745,23 @@ For the uniform, taut chain with small extension, its longitudinal wave speed in
 
 The travel time across one segment, :math:`\ell_0/c_{\mathrm{axial}}`,
 gives a useful scale for choosing the time step.
-Forward Euler can add numerical energy to vibrations, so resolving their period is not enough to guarantee stability.
-An undamped linear vibration gains energy at every nonzero Euler step.
-Internal friction can counter this growth, but the permitted step depends on the damping as well as the stiffness.
+A fully explicit Euler step can add numerical energy to vibrations, so resolving their period alone is not a stability guarantee.
+The demo instead solves the velocity-dependent friction implicitly and advances positions with the new velocities.
+Its geometry is still evaluated at the old positions, so elastic motion and changes of constraint still require temporal resolution.
 For our numbers, :math:`c_{\mathrm{axial}}\approx70.7` m/s and
-:math:`\ell_0/c_{\mathrm{axial}}\approx0.000707` s.
-The example uses :math:`h=0.000005` s and runs for 0.1 s.
+:math:`\ell_0/c_{\mathrm{axial}}\approx0.000354` s.
+The example uses :math:`h=0.0001` s and runs for 0.1 s.
 Check convergence over the intended duration by reducing the time step;
 this short example does not establish stability for arbitrarily long playback.
 Refining the chain also requires checking the time step again.
 
 Bending introduces another time scale, roughly :math:`\ell_0^2\sqrt{\mu/B}`.
 Shorter bends can vibrate faster, so halving segment lengths reduces this scale by a factor of four.
-Strong bending damping also restricts an explicit time step;
+Extension damping adds a time scale of order :math:`\mu\ell_0^2/(\eta A_0)`,
+which is about 0.42 microseconds for these coefficients. Increasing viscosity can therefore
+require a smaller fully explicit step, even though it dissipates physical energy. The implicit friction solve avoids this particular restriction.
+
+Strong bending damping would also restrict a fully explicit time step;
 its short-wavelength scale is roughly :math:`\mu\ell_0^4/D`.
 These are scales rather than universal stability bounds.
 
@@ -646,3 +805,5 @@ compute forces from deformation, apply supports, and advance time.
 .. _`Kelvin--Voigt model`: https://sites.miamioh.edu/polymodmw/kelvin-voigt-model/
 .. _`Trubat and Molins: Rheological Damping of Slender Rods`: https://upcommons.upc.edu/bitstream/handle/2117/166616/RHEOLOGICAL%20DAMPING%20OF%20SLENDER%20RODS_BWvPostPrint.pdf
 .. _`OpenStax: Wave Speed on a Stretched String`: https://openstax.org/books/university-physics-volume-1/pages/16-3-wave-speed-on-a-stretched-string
+
+.. _`Baraff and Witkin: Large Steps in Cloth Simulation`: https://publications.ri.cmu.edu/large-steps-in-cloth-simulation

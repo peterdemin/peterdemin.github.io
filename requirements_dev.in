@@ -22,3 +22,6 @@ pygame-ce
 PyOpenGL
 PyOpenGL-accelerate
 pytest
+wgpu
+rendercanvas
+glfw

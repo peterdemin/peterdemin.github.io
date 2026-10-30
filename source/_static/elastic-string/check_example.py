@@ -13,14 +13,17 @@ physics_uri = Path(__file__).with_name('physics.mjs').resolve().as_uri()
 javascript = r"""
 const {ElasticString,rateFunction,ANCHOR,LENGTH,STEP}=await import(process.argv[1]);
 const held=new ElasticString();
-for(let i=0;i<400;i++)held.step();
+for(let i=0;i<40;i++)held.step();
 const dropped=new ElasticString();dropped.release();
-for(let i=0;i<600;i++)dropped.step();
+for(let i=0;i<60;i++)dropped.step();
 const moving=new ElasticString();
 const target=[ANCHOR[0]+LENGTH-.03,ANCHOR[1]-.01];moving.move(target);
-for(let i=0;i<400;i++)moving.step();
+for(let i=0;i<40;i++)moving.step();
 moving.release();
-for(let i=0;i<200;i++)moving.step();
+for(let i=0;i<20;i++)moving.step();
+const adaptive=new ElasticString();adaptive.release();
+for(let i=0;i<=adaptive.p.segments;i++)adaptive.state[adaptive.p.size+2*i+1]=-.5*(adaptive.state[2*i]-ANCHOR[0]);
+adaptive.step(.001);
 const curve=new ElasticString();
 for(let i=0;i<=curve.p.segments;i++){
   curve.state[2*i]=ANCHOR[0]+1.01*LENGTH*i/curve.p.segments;
@@ -29,7 +32,7 @@ for(let i=0;i<=curve.p.segments;i++){
   curve.state[curve.p.size+2*i+1]=.02*Math.cos(i);
 }
 console.log(JSON.stringify({held:Array.from(held.state),dropped:Array.from(dropped.state),
-  moving:Array.from(moving.state),target,input:Array.from(curve.state),
+  moving:Array.from(moving.state),adaptive:Array.from(adaptive.state),target,input:Array.from(curve.state),
   rates:Array.from(rateFunction(curve.state,curve.p,false))}));
 """
 reference = json.loads(subprocess.check_output(
@@ -52,33 +55,40 @@ np.testing.assert_allclose(model.f(sample, held=False), unpack(reference['rates'
 np.testing.assert_array_equal(sample, original)
 
 held = model.initial_state()
-for _ in range(400):
+for _ in range(40):
     held = model.tick(held, model.h)
 compare('held', held)
 
 dropped = model.release(model.initial_state())
-for _ in range(600):
+for _ in range(60):
     dropped = model.tick(dropped, model.h, held=False)
 compare('dropped', dropped)
 
 moving = model.initial_state()
-for _ in range(400):
+for _ in range(40):
     moving = model.tick(moving, model.h, target=reference['target'])
 moving = model.release(moving)
-for _ in range(200):
+for _ in range(20):
     moving = model.tick(moving, model.h, held=False)
 compare('moving', moving)
-print('PASS Python/JavaScript parity: rate function, held endpoint, release, dragging and contour corrections')
+adaptive = model.release(model.initial_state())
+adaptive[1, :, 1] = -0.5 * (adaptive[0, :, 0] - model.anchor[0])
+adaptive = model.tick(adaptive, 0.001, held=False)
+compare('adaptive', adaptive)
+print('PASS Python/JavaScript parity: rate function, held endpoint, release, dragging, adaptive substeps and contour corrections')
 
 # Isolate one shortened pair, with all other links safely extended.
-# Check the inverse-mass formula and its velocity/impulse update analytically.
+# Check position repair and independent closing-velocity impulse analytically.
 for i, held_flag in [(model.N // 2, False), (0, False), (model.N - 1, False), (model.N - 1, True)]:
     state = model.initial_state()
+    state[0, :, 1] = model.anchor[1]
     state[0, :, 0] = model.anchor[0] + 1.05 * model.L0 * np.arange(model.N + 1) / model.N
     if held_flag:
         state[0, i, 0] = state[0, i + 1, 0] - 0.99 * model.ell0
     else:
         state[0, i + 1, 0] = state[0, i, 0] + 0.99 * model.ell0
+    state[1, i, 0] = 0.2 if i != 0 else 0
+    state[1, i + 1, 0] = -0.2 if not held_flag else 0
     start = state.copy()
     inverse = 1 / model.mass
     inverse[0] = 0
@@ -86,7 +96,10 @@ for i, held_flag in [(model.N // 2, False), (0, False), (model.N - 1, False), (m
         inverse[-1] = 0
     deficit = model.ell0 - np.linalg.norm(state[0, i + 1] - state[0, i])
     expected = np.array([-inverse[i], inverse[i + 1]]) * deficit / (inverse[i] + inverse[i + 1])
-    model.project_contour(state, model.h, held_flag)
+    closing = start[1, i + 1, 0] - start[1, i, 0]
+    impulse = max(0.0, -closing) / (inverse[i] + inverse[i + 1])
+    expected_velocity = start[1, i:i+2, 0] + np.array([-inverse[i], inverse[i+1]]) * impulse
+    model.project_contour(state, held_flag)
     np.testing.assert_allclose(state[0, i:i+2, 0] - start[0, i:i+2, 0], expected, atol=1e-12)
-    np.testing.assert_allclose(state[1, i:i+2, 0], expected / model.h, atol=1e-9)
+    np.testing.assert_allclose(state[1, i:i+2, 0], expected_velocity, atol=1e-9)
 print('PASS mathematical correction and impulse formulas for equal masses, half-mass endpoint and prescribed nodes')
