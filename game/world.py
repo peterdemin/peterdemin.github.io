@@ -15,8 +15,8 @@ class GameControls:
 class World:
     def __init__(self, controls: GameControls) -> None:
         self.ball = Ball()
-        self.ball2 = Ball(1, 0, color="green")
-        self.string = String.from_anchors(Node(3, 3), Node(-3, 0))
+        self.ball2 = Ball(1, 0, color="green", radius=0.12)
+        self.string = String([])
         self.obstacles = [
             StaticBox(Point(-12, -8), Point(12, -9)),
             StaticBox(Point(-12, 9), Point(12, 8)),
@@ -39,8 +39,10 @@ class World:
         self.obstacles[5].move(-w * 3 / 10, 0, -h * 8 / 10, -h)
         self.ball.y = h / 2
         self.ball2.x = w * 9 / 10
-        self.string = String.from_anchors(
-            Node(-w * 3 / 4, h * 3 / 4),
+        self.string.segment = w / 100
+        self.string.fix_last = False
+        self.string.set_ends(
+            Node(0, h * 3 / 4),
             Node(w * 3 / 4, h / 2),
         )
 

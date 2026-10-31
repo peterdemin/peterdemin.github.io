@@ -29,7 +29,7 @@ import pygame
 import pygame.gfxdraw
 
 from .world import GameControls, World
-from .primitives import Circle, Line, Path
+from .primitives import Circle, Line, Path, Rect
 
 MODES = ("raw", "native", "ssaa2", "ssaa4")
 LABELS = {
@@ -153,6 +153,16 @@ class Renderer:
                         radius * (0.88 - 0.45 * fraction),
                         color.lerp("white", 0.22 * fraction),
                     )
+        elif isinstance(primitive, Rect):
+            ax, ay = self.point(primitive.a.x, primitive.a.y)
+            bx, by = self.point(primitive.b.x, primitive.b.y)
+            left, right = sorted((round(ax), round(bx)))
+            top, bottom = sorted((round(ay), round(by)))
+            # Keep collision-box corners square. Supersampling filters their
+            # edges along with the rest of the scene at the final downsample.
+            pygame.draw.rect(
+                self.canvas, color, (left, top, right - left, bottom - top)
+            )
         elif isinstance(primitive, Line):
             self.stroke(
                 [

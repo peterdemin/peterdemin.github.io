@@ -74,15 +74,12 @@ class String(GameObject):
     cancel_speed: float = 0.00001
     mass: float = 1
 
-    @classmethod
-    def from_anchors(cls, a: Node, b: Node) -> Self:
+    def set_ends(self, a: Node, b: Node) -> None:
         dx, dy = b.x - a.x, b.y - a.y
         dist = math.hypot(dx, dy)
-        steps = int(dist / cls.segment) + 1
+        steps = int(dist / self.segment) + 1
         dx0, dy0 = dx / steps, dy / steps
-        return cls(
-            nodes=[Node(a.x + step * dx0, a.y + step * dy0) for step in range(steps)]
-        )
+        self.nodes = [Node(a.x + step * dx0, a.y + step * dy0) for step in range(steps)]
 
     def primitive(self) -> Path:
         return Path([Point(n.x, n.y) for n in self.nodes], self.color, self.width)
