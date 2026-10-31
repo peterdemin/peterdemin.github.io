@@ -65,7 +65,7 @@ class String(GameObject):
     color: str = "white"
     segment: float = 0.05
     G = 9.81
-    spring: float = 10 / segment
+    spring: float = 100 / segment
     viscosity: float = 0.1 / segment
     damping: float = 0.2
     fix_first: bool = True

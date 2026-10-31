@@ -28,7 +28,7 @@ from pathlib import Path as FilePath
 import pygame
 import pygame.gfxdraw
 
-from .main import GameControls, World
+from .world import GameControls, World
 from .primitives import Circle, Line, Path
 
 MODES = ("raw", "native", "ssaa2", "ssaa4")

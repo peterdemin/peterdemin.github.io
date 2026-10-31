@@ -19,6 +19,15 @@ class GameObject(ABC):
         """Returns drawing primitive"""
 
 
+@dataclass(slots=True)
+class Point:
+    x: float
+    y: float
+
+    def project(self, w: int, h: int, scale: float) -> "Point":
+        return Point(int(w // 2 + self.x * scale), int(h // 2 - self.y * scale))
+
+
 @dataclass
 class Circle(Primitive):
     color: str
@@ -34,6 +43,23 @@ class Circle(Primitive):
             (int(cx + self.x * scale), int(cy - self.y * scale)),
             int(self.radius * scale),
         )
+
+
+@dataclass
+class Rect(Primitive):
+    color: str
+    a: Point
+    b: Point
+
+    def draw(self, screen, scale: float) -> None:
+        screen.fill(
+            self.color, self._rect(screen.get_width(), screen.get_height(), scale)
+        )
+
+    def _rect(self, w: int, h: int, s: float) -> pygame.Rect:
+        a = self.a.project(w, h, s)
+        b = self.b.project(w, h, s)
+        return pygame.Rect(a.x, a.y, b.x - a.x, b.y - a.y)
 
 
 @dataclass
@@ -54,12 +80,6 @@ class Line(Primitive):
             (cx + int(self.bx * scale), cy - int(self.by * scale)),
             int(self.width * scale),
         )
-
-
-@dataclass
-class Point:
-    x: float
-    y: float
 
 
 @dataclass

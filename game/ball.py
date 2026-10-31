@@ -23,10 +23,10 @@ class Ball(GameObject):
     vy: float = 0
 
     color: str = "red"
-    radius = 0.1
+    radius: float = 0.1
     G = 9.81
     control_impulse = 0.5
-    restitution: float = 0.65
+    restitution: float = 0.85
     penetration: float = 0.95
 
     def primitive(self) -> Circle:
@@ -76,7 +76,7 @@ class Ball(GameObject):
         return impulse * normal[0], impulse * normal[1]
 
     def correction(self, ball: "Ball") -> tuple[float, float]:
-        dr = (ball.x - self.x, ball.y - self.y)
+        dr = (self.x - ball.x, self.y - ball.y)
         dist = math.hypot(*dr)
         penetration = dist - (self.radius + ball.radius)
         if penetration >= 0:
