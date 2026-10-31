@@ -72,11 +72,13 @@ data-aria-dark="Switch to auto color mode">
 <li><a class="reference internal" href="#bending-between-segments">7.10. Bending between segments</a></li>
 <li><a class="reference internal" href="#state-and-rate-function">7.11. State and rate function</a></li>
 <li><a class="reference internal" href="#advancing-the-simulation">7.12. Advancing the simulation</a></li>
-<li><a class="reference internal" href="#correcting-shortened-links">7.13. Correcting shortened links</a></li>
-<li><a class="reference internal" href="#moving-and-releasing-the-hand">7.14. Moving and releasing the hand</a></li>
-<li><a class="reference internal" href="#python-implementation">7.15. Python implementation</a></li>
-<li><a class="reference internal" href="#choosing-a-time-step-and-checking-the-result">7.16. Choosing a time step and checking the result</a></li>
-<li><a class="reference internal" href="#from-one-string-to-cloth">7.17. From one string to cloth</a></li>
+<li><a class="reference internal" href="#solving-for-velocity">7.13. Solving for velocity</a></li>
+<li><a class="reference internal" href="#correcting-shortened-links">7.14. Correcting shortened links</a></li>
+<li><a class="reference internal" href="#moving-and-releasing-the-hand">7.15. Moving and releasing the hand</a></li>
+<li><a class="reference internal" href="#starting-with-a-held-string">7.16. Starting with a held string</a></li>
+<li><a class="reference internal" href="#python-implementation">7.17. Python implementation</a></li>
+<li><a class="reference internal" href="#choosing-a-time-step-and-checking-the-result">7.18. Choosing a time step and checking the result</a></li>
+<li><a class="reference internal" href="#from-one-string-to-cloth">7.19. From one string to cloth</a></li>
 </ul>
 </div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
     </div>
@@ -263,10 +265,10 @@ Mouse and touch both work. With the scene focused, Space grabs or releases,
 arrow keys move the held end, and Escape releases it.
 The demonstration string is 4 m long. Keep holding the orange end and move it up and down
 to send a disturbance toward the fixed end.
-<strong>Slow motion</strong> starts enabled at quarter speed so the motion along the string is easier to follow.
+<strong>Slow motion</strong> runs at quarter speed so the motion along the string is easier to follow. Normal speed is the default.
 Switch it off for normal-speed playback; this changes playback speed, not the physical forces.</p>
 <iframe
-  src="../../_static/elastic-string/index.html?embedded=1&v=cc70c35053e6ff9e"
+  src="../../_static/elastic-string/index.html?embedded=1&v=3347b7409efa6847"
   title="Interactive elastic string: drag the free end and release it under gravity"
   width="100%" height="650"
   style="display:block;width:100%;height:650px;border:0;"
@@ -300,14 +302,14 @@ Switch it off for normal-speed playback; this changes playback speed, not the ph
     observer.observe(document.documentElement, {attributes: true, attributeFilter: ['class', 'style']});
     window.addEventListener('pagehide', () => observer.disconnect(), {once: true});
   })();
-</script><p>You can also <a class="reference external" href="../../_static/elastic-string/index.html?v=cc70c35053e6ff9e">open the string experiment on its own</a>.</p>
+</script><p>You can also <a class="reference external" href="../../_static/elastic-string/index.html?v=3347b7409efa6847">open the string experiment on its own</a>.</p>
 <p>The demo and Python example below use the same 80-link, 4 m model and the same update:
-an Euler prediction followed by contour-length corrections, with a step of 0.000005 s.
+a semi-implicit Euler update followed by contour-length corrections, with a step of 0.0001 s.
 The left end is fixed; the other is prescribed only while held.
 Release sets that endpoint’s velocity to zero; the rest of the string keeps its current motion.
-The hand approaches the pointer at up to 6 m/s of physical time and reaches at most 4.6 m from the fixed end.
+The hand approaches the pointer smoothly at up to 6 m/s of physical time and reaches at most 4.6 m from the fixed end.
 Rendering is separate from physical ticks; slow devices may run behind real time.</p>
-<p>The forces, constraint reactions, and artificial settling damping are specified below and included in both implementations.
+<p>The forces and constraint reactions are specified below and included in both implementations.
 There is no air resistance, ground contact, or self-contact.</p>
 </section>
 <section id="a-continuous-mathematical-model">
@@ -357,14 +359,11 @@ Dividing by <span class="math notranslate nohighlight">\(\Delta s\)</span> and t
 <div class="math notranslate nohighlight">
 \[\mu\frac{\partial^2\vec{r}}{\partial t^2}
 =\frac{\partial}{\partial s}((T-R)\vec{\tau})
-+\vec{f}_b+\mu\vec{g}-\mu\beta\frac{\partial\vec{r}}{\partial t}.\]</div>
++\vec{f}_b+\mu\vec{g}.\]</div>
 </div>
 <p>Here <span class="math notranslate nohighlight">\(\vec{g}\)</span> is gravitational acceleration in m/s².
 The vector <span class="math notranslate nohighlight">\(\vec{f}_b\)</span> is force per original length from bending rigidity and bending damping, in N/m.
 We compute its discrete counterpart from changes of angle below.
-The last term is an artificial settling force, with <span class="math notranslate nohighlight">\(\beta=0.8\)</span> 1/s.
-Internal friction cannot dissipate rigid motion of the whole string, so we choose this extra damping
-to make the overall swing decay gradually. It is not material viscosity or a calculation of air resistance.
 Every term has units N/m.
 The second time derivative is acceleration.
 The spatial derivative is the difference of neighboring tension vectors per original length.
@@ -433,7 +432,7 @@ Slack segments exert zero force. At exactly zero length, set their force to zero
 <div class="math notranslate nohighlight">
 \[\vec{F}_i
 =\vec{q}_i-\vec{q}_{i-1}
-+\vec{F}_{b,i}+m_i\vec{g}-m_i\beta\vec{v}_i.\]</div>
++\vec{F}_{b,i}+m_i\vec{g}.\]</div>
 </div>
 <p>Here <span class="math notranslate nohighlight">\(\vec{F}_{b,i}\)</span> is the total bending force on that node, calculated next.
 The length-constraint reactions are applied separately as impulses after the Euler prediction,
@@ -455,27 +454,28 @@ For a string whose original shape is straight, choose the bending energy</p>
 \[U_b=\frac12\sum_{i=1}^{N-1}\frac{B}{\ell_0}\theta_i^2.\]</div>
 </div>
 <p>Each term represents one bend; <span class="math notranslate nohighlight">\(B/\ell_0\)</span> has units N m, so the energy is in joules.
-The matching elastic and damping moment at that bend is</p>
+To calculate forces, we need to know how moving a node changes that energy.
+The intermediate step is how moving the node changes the angle.</p>
+<p>For bend <span class="math notranslate nohighlight">\(i\)</span>, define</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
-\[m_{b,i}=\frac{B\theta_i+D\dot\theta_i}{\ell_0}.\]</div>
+\[\vec{G}_{i,j}=\nabla_{\vec{r}_j}\theta_i,
+\qquad j=i-1,i,i+1.\]</div>
 </div>
-<p>To turn this moment into forces, determine how the angle changes when each of its three nodes moves.
-Write <span class="math notranslate nohighlight">\(\vec{G}_{i,j}=\nabla_{\vec{r}_j}\theta_i\)</span> for that angle gradient, in 1/m.
-The index <span class="math notranslate nohighlight">\(j\)</span> runs over <span class="math notranslate nohighlight">\(i-1,i,i+1\)</span>.
-Then the bend’s contribution to node <span class="math notranslate nohighlight">\(j\)</span> is</p>
+<p>This <em>angle gradient</em> is a two-component vector: its components say how much
+<span class="math notranslate nohighlight">\(\theta_i\)</span> changes per metre of horizontal or vertical movement of node <span class="math notranslate nohighlight">\(j\)</span>.
+For a small displacement <span class="math notranslate nohighlight">\(\delta\vec{r}_j\)</span>, with the other nodes held still,</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
-\[\vec{F}_{i,j}=-m_{b,i}\vec{G}_{i,j},\qquad
-\dot\theta_i=\sum_{j=i-1}^{i+1}\vec{G}_{i,j}\cdot\vec{v}_j.\]</div>
+\[\delta\theta_i\approx\vec{G}_{i,j}\cdot\delta\vec{r}_j.\]</div>
 </div>
-<p>The elastic force points toward decreasing bending energy.
-The damping contribution removes mechanical energy at rate <span class="math notranslate nohighlight">\(D\dot\theta_i^2/\ell_0\)</span>.
-Add contributions from every bend touching a node to obtain <span class="math notranslate nohighlight">\(\vec{F}_{b,j}\)</span>.</p>
-<p>The gradients have a short formula.
-For a planar vector <span class="math notranslate nohighlight">\(\vec{d}=(d_x,d_y)\)</span>, define
-<span class="math notranslate nohighlight">\(\vec{p}(\vec{d})=(-d_y,d_x)/|\vec{d}|^2\)</span>.
-This is the gradient of its direction angle with respect to its components.
+<p>We can calculate these vectors directly from the two segment vectors.
+For a planar vector <span class="math notranslate nohighlight">\(\vec{d}=(d_x,d_y)\)</span>, define</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\vec{p}(\vec{d})=\frac{(-d_y,d_x)}{|\vec{d}|^2}.\]</div>
+</div>
+<p>This is the gradient of the segment’s direction angle with respect to its components.
 Since the turning angle is the outgoing direction minus the incoming direction,</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
@@ -483,7 +483,41 @@ Since the turning angle is the outgoing direction minus the incoming direction,<
 \vec{G}_{i,i}&amp;=-\vec{p}(\vec{d}_{i-1})-\vec{p}(\vec{d}_i),\\
 \vec{G}_{i,i+1}&amp;=\vec{p}(\vec{d}_i).\end{split}\]</div>
 </div>
-<p>These three gradients add to zero, so each bend’s forces sum to zero.
+<p>The same angle-change rule gives the turning rate when all three nodes move:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\dot\theta_i=\sum_{j=i-1}^{i+1}\vec{G}_{i,j}\cdot\vec{v}_j.\]</div>
+</div>
+<p>Now use the gradient to differentiate the bend’s energy with respect to a node’s position:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[-\nabla_{\vec{r}_j}\left(\frac{B}{2\ell_0}\theta_i^2\right)
+=-\frac{B\theta_i}{\ell_0}\vec{G}_{i,j}.\]</div>
+</div>
+<p>This is the elastic force on that node from this bend.
+Adding bending damping gives the moment and its corresponding nodal force:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[m_{b,i}=\frac{B\theta_i+D\dot\theta_i}{\ell_0},
+\qquad
+\vec{F}_{i,j}=-m_{b,i}\vec{G}_{i,j}.\]</div>
+</div>
+<p>Thus each bend supplies three force vectors, one for each of its nodes.
+A node can belong to several bends; add their contributions to obtain the force
+used in the rate function:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\vec{F}_{b,j}
+=\sum_{i=\max(1,j-1)}^{\min(N-1,j+1)}\vec{F}_{i,j}.\]</div>
+</div>
+<p>In the Python implementation below, <code class="docutils literal notranslate"><span class="pre">gradients</span></code> contains these three
+<span class="math notranslate nohighlight">\(\vec{G}_{i,j}\)</span> vectors, <code class="docutils literal notranslate"><span class="pre">theta_rate</span></code> is their velocity dot-product sum,
+and <code class="docutils literal notranslate"><span class="pre">moment</span></code> is <span class="math notranslate nohighlight">\(m_{b,i}\)</span>.
+The line <code class="docutils literal notranslate"><span class="pre">force[i</span> <span class="pre">-</span> <span class="pre">1:i</span> <span class="pre">+</span> <span class="pre">2]</span> <span class="pre">-=</span> <span class="pre">moment</span> <span class="pre">*</span> <span class="pre">gradients</span></code> adds the bend’s three
+contributions to the force array. Dividing that accumulated array by node masses
+then gives the bending contribution to acceleration.
+The damping contribution removes mechanical energy at rate <span class="math notranslate nohighlight">\(D\dot\theta_i^2/\ell_0\)</span>.</p>
+<p>The three angle gradients add to zero, so each bend’s forces sum to zero.
 Rigid translation or rotation changes neither the turning angles nor their rates.
 Bending therefore acts on shape changes, including in slack material.
 When refining the chain, keep <span class="math notranslate nohighlight">\(B\)</span> and <span class="math notranslate nohighlight">\(D\)</span> fixed and recompute the coefficients <span class="math notranslate nohighlight">\(B/\ell_0\)</span> and <span class="math notranslate nohighlight">\(D/\ell_0\)</span>.
@@ -520,31 +554,83 @@ It only answers: how fast would this state change?</p>
 </section>
 <section id="advancing-the-simulation">
 <h2><span class="section-number">7.12. </span>Advancing the simulation<a class="headerlink" href="#advancing-the-simulation" title="Link to this heading">#</a></h2>
-<p>Use the first-order Euler integration introduced in the basics chapter to predict a state.
-For a time step <span class="math notranslate nohighlight">\(h\)</span>, evaluate the rate function once at the current state:</p>
+<p>We still use a first-order Euler method, but evaluate internal friction at the new velocity.
+Strong internal friction makes a fully explicit step require impractically short time steps.
+Solving the friction implicitly avoids that restriction without adding a new damping force.
+This changes how we advance the state, not the rate function or its physical forces.</p>
+<p>Separate the state into all positions <span class="math notranslate nohighlight">\(\vec{r}\)</span> and all velocities <span class="math notranslate nohighlight">\(\vec{v}\)</span>,
+and write <span class="math notranslate nohighlight">\(\vec{a}(\vec{r},\vec{v})\)</span> for the acceleration part of <span class="math notranslate nohighlight">\(f\)</span>.
+At each tick solve</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
-\[\widetilde{\vec{s}}=\vec{s}_0+h f(\vec{s}_0).\]</div>
+\[\vec{v}_*=\vec{v}_0+h\vec{a}(\vec{r}_0,\vec{v}_*),
+\qquad
+\vec{r}_*=\vec{r}_0+h\vec{v}_*.\]</div>
 </div>
-<p>For each free node, this means</p>
+<p>The segment directions and angle gradients come from the old positions.
+The viscous forces use the solved velocities, and the positions advance with those velocities.
+This is a semi-implicit, first-order Euler update rather than the fully explicit version in the basics chapter.
+The prescribed support velocities are boundary conditions on the solve.
+The complete tick then applies the contour correction described next:</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
-\[\widetilde{\vec{r}}_i=\vec{r}_{i,0}+h\vec{v}_{i,0},\qquad
-\widetilde{\vec{v}}_i=\vec{v}_{i,0}+h\frac{\vec{F}_i(\vec{s}_0)}{m_i}.\]</div>
+\[\vec{s}_1=\mathcal P_h(\vec{r}_*,\vec{v}_*).\]</div>
 </div>
-<p>Both updates use the starting state.
-Compute all lengths, angles, deformation rates, and forces before changing any positions or velocities.
-The tilde marks a prediction: it is not yet the accepted state.
-Write <span class="math notranslate nohighlight">\(\mathcal P_h\)</span> for the position and velocity corrections defined next.
-The complete tick is</p>
+</section>
+<section id="solving-for-velocity">
+<h2><span class="section-number">7.13. </span>Solving for velocity<a class="headerlink" href="#solving-for-velocity" title="Link to this heading">#</a></h2>
+<p>Every material contribution has the form</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
-\[\vec{s}_1=\mathcal P_h\!\left(\vec{s}_0+h f(\vec{s}_0)\right).\]</div>
+\[\vec{F}_a=-\left(e_a+c_a\vec{G}_a\cdot\vec{v}\right)\vec{G}_a.\]</div>
 </div>
-<p>It is an Euler prediction followed by constraint corrections, rather than unconstrained Euler alone.</p>
+<p>Here <span class="math notranslate nohighlight">\(\vec{G}_a\)</span> contains a deformation gradient at the affected nodes and zeros elsewhere.
+For extension it contains <span class="math notranslate nohighlight">\((-\vec{n}_i,\vec{n}_i)\)</span>,
+with <span class="math notranslate nohighlight">\(e_a=EA_0(\ell_i-\ell_0)/\ell_0\)</span> and <span class="math notranslate nohighlight">\(c_a=\eta A_0/\ell_0\)</span>.
+For bending it contains the three angle gradients already derived,
+with <span class="math notranslate nohighlight">\(e_a=B\theta_i/\ell_0\)</span> and <span class="math notranslate nohighlight">\(c_a=D/\ell_0\)</span>.
+The extension contribution is included only for a stretched link whose total tension is positive.</p>
+<p>Let <span class="math notranslate nohighlight">\(\mathsf M\)</span> be the diagonal mass matrix, with each node’s mass repeated for its two coordinates.
+For a fixed choice of taut links, the velocity equation becomes a linear system:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\left(\mathsf M+h\sum_a c_a\vec{G}_a\vec{G}_a^{\,T}\right)\vec{v}_*
+=\mathsf M\vec{v}_0+h\vec{F}_{\mathrm{gravity}}-h\sum_a e_a\vec{G}_a.\]</div>
+</div>
+<p>Solve this system, then check the tensions with the new velocities.
+If a total tension would be negative, omit that link’s contribution and solve again;
+if a previously omitted stretched link now has positive tension, include it again.
+The implementation uses Newton iterations with backtracking when the taut/slack choice changes.
+Bending contributions remain active in either direction.</p>
+<p>The matrix is symmetric and positive definite on the free coordinates.
+Each term couples at most three neighboring nodes, so only five diagonals below the main diagonal need storage.
+<code class="docutils literal notranslate"><span class="pre">solve_band</span></code> uses this structure for a Cholesky solve without building a dense matrix.
+The Python <code class="docutils literal notranslate"><span class="pre">solve_material_velocity</span></code> function and JavaScript solver perform the same update.
+The JavaScript version reuses its working arrays and specializes the Cholesky
+calculation for this fixed bandwidth. Bending contributions are assembled once
+per substep and reused while the solver adjusts which tensile terms are active.
+Implicit integration for stiff internal forces is also discussed in
+<a class="reference external" href="https://publications.ri.cmu.edu/large-steps-in-cloth-simulation">Baraff and Witkin: Large Steps in Cloth Simulation</a>.</p>
+<p>The nominal tick is at most 0.0001 s. Fast motion subdivides it further.
+For maximum node speed <span class="math notranslate nohighlight">\(v_{\max}\)</span>, propose a step no larger than
+<span class="math notranslate nohighlight">\(0.9\,(0.01\ell_0)/v_{\max}\)</span>; at zero speed use the remaining tick duration.
+The 10% margin leaves room for acceleration and contour corrections, avoiding
+repeated solves of steps that would predictably exceed the movement allowance.
+Retry with half that step if any node, including its contour correction,
+moves more than <span class="math notranslate nohighlight">\(0.01\ell_0\)</span>.
+This limits geometric changes during rapid drags and tight folds.
+It is temporal refinement, not a force or velocity damping term.</p>
+<p>The interactive demo gives physics about 8 ms per animation frame, checking the
+budget after each accepted substep. An ongoing solve finishes before yielding.
+If rapid motion requires more work, the demo discards overdue wall time and runs
+more slowly while keeping the same integration steps and material coefficients.
+This prevents extra substeps from blocking drawing and pointer input.</p>
+<p>The integration and contour corrections can introduce energy error.
+Halving the step and disabling material friction are useful separate checks:
+a fast decay should come from the chosen friction coefficients, rather than disappear when the numerical step is refined.</p>
 </section>
 <section id="correcting-shortened-links">
-<h2><span class="section-number">7.13. </span>Correcting shortened links<a class="headerlink" href="#correcting-shortened-links" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">7.14. </span>Correcting shortened links<a class="headerlink" href="#correcting-shortened-links" title="Link to this heading">#</a></h2>
 <p>For a predicted link, compute its current length <span class="math notranslate nohighlight">\(\ell_i\)</span> and direction
 <span class="math notranslate nohighlight">\(\vec{n}_i=(\vec{r}_{i+1}-\vec{r}_i)/\ell_i\)</span>.
 The required separation increase is</p>
@@ -564,61 +650,112 @@ If <span class="math notranslate nohighlight">\(c_i&gt;0\)</span> and the two in
 <p>These corrections increase the pair’s distance by <span class="math notranslate nohighlight">\(c_i\)</span>.
 Equal masses move equally; a lighter node moves farther; a prescribed node does not move.
 For two free nodes, the mass-weighted corrections sum to zero.</p>
-<p>Apply the same corrections to velocities, divided by the time step:</p>
+<p>Repair the positions separately from the velocities. Turning a position repair into
+<span class="math notranslate nohighlight">\(\Delta\vec{r}/h\)</span> can add kinetic energy and make compressed links rebound.
+Instead, for a link at its minimum length, measure its relative closing velocity:</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
-\[\Delta\vec{v}_j=\frac{\Delta\vec{r}_j}{h},
-\qquad \vec{J}_j=m_j\Delta\vec{v}_j
-\quad(j=i,i+1).\]</div>
+\[u_i=(\vec{v}_{i+1}-\vec{v}_i)\cdot\vec{n}_i,
+\qquad
+J_i=\frac{\max(-u_i,0)}{\omega_i+\omega_{i+1}}.\]</div>
 </div>
-<p>Here <span class="math notranslate nohighlight">\(\vec{J}_j\)</span> is the constraint impulse in N s.
-This is the separating reaction missing from a force-only Euler update.
-It can push nodes apart, but stores no elastic compression energy.</p>
+<p>Here <span class="math notranslate nohighlight">\(J_i\)</span> is a separating impulse in N s. Apply</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\Delta\vec{v}_i=-\omega_i J_i\vec{n}_i,
+\qquad
+\Delta\vec{v}_{i+1}=\omega_{i+1}J_i\vec{n}_i.\]</div>
+</div>
+<p>This cancels closing motion without creating a separating rebound.
+For two free nodes the impulse conserves momentum and cannot increase kinetic energy.
+A moving prescribed endpoint can still do work on the string.
+This inelastic constraint rule is a numerical modelling choice, separate from material viscosity.
+It stores no elastic compression energy.</p>
 <p>A correction can shorten a neighboring link, so visit all links twice:
 first from the hand toward the fixed end, then in the opposite direction.
 Recompute lengths and directions after each correction.
-The code ignores shortages smaller than <span class="math notranslate nohighlight">\(10^{-6}\ell_0\)</span>.
+The code treats links within <span class="math notranslate nohighlight">\(10^{-6}\ell_0\)</span> above their minimum as touching,
+repairs any shortage, and cancels closing velocity for those pairs.
 Two sweeps leave a finite residual; this is an approximate constraint solve, not an exact projection of the whole chain.
-The correction can also introduce numerical energy error, which must be checked by reducing the time step.</p>
+Position repair can still change potential energy, so check convergence by reducing the time step.</p>
+<p>For the demonstration, <span class="math notranslate nohighlight">\(B=10^{-4}\)</span> N m² and <span class="math notranslate nohighlight">\(D=10^{-5}\)</span> N m² s.
+Here bending friction is an independent effective coefficient, rather than
+assuming a single uniform Kelvin–Voigt material. Its relaxation time
+<span class="math notranslate nohighlight">\(D/B=0.1\)</span> s and the axial value <span class="math notranslate nohighlight">\(\eta A_0/(EA_0)=0.3\)</span> s are chosen independently.
+This damps small bending ripples while leaving the resistance to a static bend unchanged.
+The smaller bending stiffness lets a lifted hanging end form a local fold;
+a much stiffer strand resists this and transmits a stronger push upward.
+The 80 links (81 nodes) give a rest spacing of 5 cm. This reduces solver work
+and the number of adaptive substeps needed during fast motion. Tight folds
+have less geometric detail than with 160 links: in a narrow sag, neighboring
+segments can turn by about 34 degrees rather than 17 degrees. The material
+coefficients stay the same; masses and discrete forces scale with the rest spacing.
+An exactly straight planar chain also has no preferred buckling direction;
+small existing bends select the side on which it folds.
+Finite bending stiffness and changes in tension can still disturb the upper string.</p>
 </section>
 <section id="moving-and-releasing-the-hand">
-<h2><span class="section-number">7.14. </span>Moving and releasing the hand<a class="headerlink" href="#moving-and-releasing-the-hand" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">7.15. </span>Moving and releasing the hand<a class="headerlink" href="#moving-and-releasing-the-hand" title="Link to this heading">#</a></h2>
 <p>While the right end is held, limit the target to 4.6 m from the fixed support.
 Let <span class="math notranslate nohighlight">\(\vec{b}_{\mathrm{target}}\)</span> be that bounded target, and
 <span class="math notranslate nohighlight">\(\vec{d}_H=\vec{b}_{\mathrm{target}}-\vec{r}_N\)</span> its displacement from the held endpoint.
-Before evaluating <span class="math notranslate nohighlight">\(f\)</span>, prescribe</p>
+Pointer events arrive as separate position samples. Reaching each sample immediately
+would repeatedly start and stop the hand, sending short pulses into the string.
+Instead, use a critically damped controller to approach the target smoothly.
+Before evaluating <span class="math notranslate nohighlight">\(f\)</span>, calculate</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
-\[\vec{v}_N=\vec{d}_H\min\left(\frac1h,\frac{v_{\max}}{|\vec{d}_H|}\right),
-\qquad v_{\max}=6\ \text{m/s}.\]</div>
+\[\vec{a}_H=\omega_H^2\vec{d}_H-2\omega_H\vec{v}_N,
+\qquad \omega_H=\frac{1}{0.015\ \text{s}}.\]</div>
 </div>
-<p>For a zero displacement, set this velocity to zero.
-This reaches a nearby target in one tick and approaches a distant one at a bounded speed.
-The Euler prediction moves the held point at that prescribed velocity; constraint corrections leave it alone.</p>
+<p>Limit the acceleration magnitude to <span class="math notranslate nohighlight">\(a_{\max}=100\)</span> m/s²,
+then update the prescribed velocity with Euler and limit its speed:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\vec{a}_H\leftarrow\vec{a}_H\min\left(1,\frac{a_{\max}}{|\vec{a}_H|}\right),\\\vec{v}_H=\vec{v}_N+h\vec{a}_H,
+\qquad
+\vec{v}_N\leftarrow\vec{v}_H\min\left(1,\frac{v_{\max}}{|\vec{v}_H|}\right),
+\qquad v_{\max}=6\ \text{m/s}.\end{aligned}\end{align} \]</div>
+</div>
+<p>Leave a zero vector at zero when applying either magnitude limit.
+This controller describes the imposed hand motion, not a force or damping term in the string.
+The Euler prediction moves the held point at the resulting prescribed velocity;
+constraint corrections leave it alone.</p>
 <p>On release, set only <span class="math notranslate nohighlight">\(\vec{v}_N\)</span> to zero and remove its prescribed status.
 It then has its ordinary endpoint mass and responds to gravity, internal forces, damping, and constraint impulses.
 The permanent support remains fixed.</p>
 </section>
+<section id="starting-with-a-held-string">
+<h2><span class="section-number">7.16. </span>Starting with a held string<a class="headerlink" href="#starting-with-a-held-string" title="Link to this heading">#</a></h2>
+<p>Reset starts with a straight, unstretched string and zero velocities.
+Both supports are initially at the same height, a distance <span class="math notranslate nohighlight">\(L_0\)</span> apart.
+Gravity pulls the interior nodes down, producing extension, tension, and a sagging shape.
+Internal extension and bending friction dissipate the resulting oscillations.
+No equilibrium shape is precomputed or imposed.</p>
+<p>The demonstration uses illustrative coefficients <span class="math notranslate nohighlight">\(\eta A_0=30\)</span> N s and
+<span class="math notranslate nohighlight">\(D=10^{-5}\)</span> N m² s so the straight-start motion damps visibly within a few simulated seconds.
+These are effective material parameters, not an external drag term or measured properties of a particular cord.
+They also damp small, rapid ripples more strongly than broad waves.</p>
+</section>
 <section id="python-implementation">
-<h2><span class="section-number">7.15. </span>Python implementation<a class="headerlink" href="#python-implementation" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">7.17. </span>Python implementation<a class="headerlink" href="#python-implementation" title="Link to this heading">#</a></h2>
 <p>This is the same 4 m, 80-link model used by the demo: tension, extension damping,
-angle-based bending and bending damping, artificial settling damping, and the contour-length constraint.
-The coefficients are illustrative. The chosen <span class="math notranslate nohighlight">\(D/B=\eta A_0/(EA_0)\)</span> gives
-extension and bending the same material viscosity-to-elasticity ratio.</p>
+angle-based bending and bending damping, and the contour-length constraint.
+The coefficients are illustrative; extension and bending use independent effective damping coefficients.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="sd">"""The article's Python version of the interactive string's physical tick."""</span>
 </span><span data-line="2">
 </span><span data-line="3"><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 </span><span data-line="4">
 </span><span data-line="5"><span class="n">N</span> <span class="o">=</span> <span class="mi">80</span>
 </span><span data-line="6"><span class="n">L0</span><span class="p">,</span> <span class="n">mu0</span><span class="p">,</span> <span class="n">EA</span> <span class="o">=</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">100.0</span>  <span class="c1"># m, kg/m, N</span>
-</span><span data-line="7"><span class="n">etaA</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.000005</span>         <span class="c1"># N s, s</span>
-</span><span data-line="8"><span class="n">B</span> <span class="o">=</span> <span class="mf">0.01</span>                       <span class="c1"># N m^2</span>
-</span><span data-line="9"><span class="n">D</span> <span class="o">=</span> <span class="n">B</span> <span class="o">*</span> <span class="n">etaA</span> <span class="o">/</span> <span class="n">EA</span>               <span class="c1"># N m^2 s</span>
-</span><span data-line="10"><span class="n">beta</span> <span class="o">=</span> <span class="mf">0.8</span>                      <span class="c1"># 1/s: artificial settling damping</span>
-</span><span data-line="11"><span class="n">ell0</span> <span class="o">=</span> <span class="n">L0</span> <span class="o">/</span> <span class="n">N</span>
-</span><span data-line="12"><span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.81</span><span class="p">])</span>
-</span><span data-line="13"><span class="n">anchor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">0.4</span> <span class="o">*</span> <span class="n">L0</span><span class="p">,</span> <span class="mf">0.65</span> <span class="o">*</span> <span class="n">L0</span><span class="p">])</span>
-</span><span data-line="14"><span class="n">hand_reach</span><span class="p">,</span> <span class="n">hand_speed</span> <span class="o">=</span> <span class="mf">1.15</span> <span class="o">*</span> <span class="n">L0</span><span class="p">,</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">L0</span>
+</span><span data-line="7"><span class="n">etaA</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mf">30.0</span><span class="p">,</span> <span class="mf">0.0001</span>         <span class="c1"># N s, s</span>
+</span><span data-line="8"><span class="n">B</span> <span class="o">=</span> <span class="mf">0.0001</span>                     <span class="c1"># N m^2</span>
+</span><span data-line="9"><span class="n">D</span> <span class="o">=</span> <span class="mf">0.00001</span>                    <span class="c1"># N m^2 s: effective bending friction</span>
+</span><span data-line="10"><span class="n">ell0</span> <span class="o">=</span> <span class="n">L0</span> <span class="o">/</span> <span class="n">N</span>
+</span><span data-line="11"><span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.81</span><span class="p">])</span>
+</span><span data-line="12"><span class="n">anchor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">0.4</span> <span class="o">*</span> <span class="n">L0</span><span class="p">,</span> <span class="mf">0.65</span> <span class="o">*</span> <span class="n">L0</span><span class="p">])</span>
+</span><span data-line="13"><span class="n">hand_reach</span><span class="p">,</span> <span class="n">hand_speed</span> <span class="o">=</span> <span class="mf">1.15</span> <span class="o">*</span> <span class="n">L0</span><span class="p">,</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">L0</span>
+</span><span data-line="14"><span class="n">hand_response</span><span class="p">,</span> <span class="n">hand_acceleration</span> <span class="o">=</span> <span class="mf">0.015</span><span class="p">,</span> <span class="mf">100.0</span>  <span class="c1"># s, m/s^2</span>
 </span><span data-line="15"><span class="n">mass</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">mu0</span> <span class="o">*</span> <span class="n">ell0</span><span class="p">)</span>
 </span><span data-line="16"><span class="n">mass</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">*=</span> <span class="mf">0.5</span>
 </span><span data-line="17">
@@ -658,78 +795,225 @@ extension and bending the same material viscosity-to-elasticity ratio.</p>
 </span><span data-line="51">        <span class="n">force</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span> <span class="o">-=</span> <span class="n">moment</span> <span class="o">*</span> <span class="n">gradients</span>
 </span><span data-line="52">
 </span><span data-line="53">    <span class="n">dr</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-</span><span data-line="54">    <span class="n">dv</span> <span class="o">=</span> <span class="n">force</span> <span class="o">/</span> <span class="n">mass</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">-</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">v</span>
+</span><span data-line="54">    <span class="n">dv</span> <span class="o">=</span> <span class="n">force</span> <span class="o">/</span> <span class="n">mass</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span>
 </span><span data-line="55">    <span class="n">dr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">dv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
 </span><span data-line="56">    <span class="k">if</span> <span class="n">held</span><span class="p">:</span>
 </span><span data-line="57">        <span class="n">dv</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>  <span class="c1"># dr[-1] remains the prescribed hand velocity.</span>
 </span><span data-line="58">    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dr</span><span class="p">,</span> <span class="n">dv</span><span class="p">])</span>
 </span><span data-line="59">
 </span><span data-line="60">
-</span><span data-line="61"><span class="k">def</span><span class="w"> </span><span class="nf">project_contour</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">held</span><span class="p">):</span>
-</span><span data-line="62">    <span class="n">r</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">state</span>
-</span><span data-line="63">    <span class="n">inverse_mass</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">mass</span>
-</span><span data-line="64">    <span class="n">inverse_mass</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
-</span><span data-line="65">    <span class="k">if</span> <span class="n">held</span><span class="p">:</span>
-</span><span data-line="66">        <span class="n">inverse_mass</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
-</span><span data-line="67">    <span class="k">for</span> <span class="n">indices</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)):</span>
-</span><span data-line="68">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
-</span><span data-line="69">            <span class="n">d</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-</span><span data-line="70">            <span class="n">length</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-</span><span data-line="71">            <span class="k">if</span> <span class="n">length</span> <span class="o">&gt;=</span> <span class="n">ell0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">1e-6</span><span class="p">):</span>
-</span><span data-line="72">                <span class="k">continue</span>
-</span><span data-line="73">            <span class="n">wi</span><span class="p">,</span> <span class="n">wj</span> <span class="o">=</span> <span class="n">inverse_mass</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span>
-</span><span data-line="74">            <span class="k">if</span> <span class="n">wi</span> <span class="o">+</span> <span class="n">wj</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-</span><span data-line="75">                <span class="k">continue</span>
-</span><span data-line="76">            <span class="n">direction</span> <span class="o">=</span> <span class="n">d</span> <span class="o">/</span> <span class="n">length</span> <span class="k">if</span> <span class="n">length</span> <span class="o">&gt;</span> <span class="mf">1e-12</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
-</span><span data-line="77">            <span class="n">correction</span> <span class="o">=</span> <span class="p">(</span><span class="n">ell0</span> <span class="o">-</span> <span class="n">length</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">wi</span> <span class="o">+</span> <span class="n">wj</span><span class="p">)</span>
-</span><span data-line="78">            <span class="n">left</span> <span class="o">=</span> <span class="o">-</span><span class="n">wi</span> <span class="o">*</span> <span class="n">correction</span> <span class="o">*</span> <span class="n">direction</span>
-</span><span data-line="79">            <span class="n">right</span> <span class="o">=</span> <span class="n">wj</span> <span class="o">*</span> <span class="n">correction</span> <span class="o">*</span> <span class="n">direction</span>
-</span><span data-line="80">            <span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">left</span>
-</span><span data-line="81">            <span class="n">r</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">right</span>
-</span><span data-line="82">            <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">left</span> <span class="o">/</span> <span class="n">h</span>
-</span><span data-line="83">            <span class="n">v</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">right</span> <span class="o">/</span> <span class="n">h</span>
-</span><span data-line="84">
-</span><span data-line="85">
-</span><span data-line="86"><span class="k">def</span><span class="w"> </span><span class="nf">tick</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">held</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-</span><span data-line="87">    <span class="n">start</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-</span><span data-line="88">    <span class="k">if</span> <span class="n">held</span><span class="p">:</span>
-</span><span data-line="89">        <span class="n">point</span> <span class="o">=</span> <span class="n">start</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="n">target</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
-</span><span data-line="90">        <span class="n">offset</span> <span class="o">=</span> <span class="n">point</span> <span class="o">-</span> <span class="n">anchor</span>
-</span><span data-line="91">        <span class="n">point</span> <span class="o">=</span> <span class="n">anchor</span> <span class="o">+</span> <span class="n">offset</span> <span class="o">*</span> <span class="nb">min</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">hand_reach</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">offset</span><span class="p">),</span> <span class="mf">1e-12</span><span class="p">))</span>
-</span><span data-line="92">        <span class="n">delta</span> <span class="o">=</span> <span class="n">point</span> <span class="o">-</span> <span class="n">start</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-</span><span data-line="93">        <span class="n">start</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">delta</span> <span class="o">*</span> <span class="nb">min</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">h</span><span class="p">,</span> <span class="n">hand_speed</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">delta</span><span class="p">),</span> <span class="mf">1e-12</span><span class="p">))</span>
-</span><span data-line="94">    <span class="n">prediction</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">h</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">held</span><span class="p">)</span>
-</span><span data-line="95">    <span class="n">project_contour</span><span class="p">(</span><span class="n">prediction</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">held</span><span class="p">)</span>
-</span><span data-line="96">    <span class="k">return</span> <span class="n">prediction</span>
-</span><span data-line="97">
-</span><span data-line="98">
-</span><span data-line="99"><span class="k">def</span><span class="w"> </span><span class="nf">release</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
-</span><span data-line="100">    <span class="n">released</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-</span><span data-line="101">    <span class="n">released</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
-</span><span data-line="102">    <span class="k">return</span> <span class="n">released</span>
-</span><span data-line="103">
-</span><span data-line="104">
-</span><span data-line="105"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
-</span><span data-line="106">    <span class="n">state</span> <span class="o">=</span> <span class="n">release</span><span class="p">(</span><span class="n">initial_state</span><span class="p">())</span>
-</span><span data-line="107">    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20000</span><span class="p">):</span>  <span class="c1"># 0.1 physical seconds after letting go.</span>
-</span><span data-line="108">        <span class="n">state</span> <span class="o">=</span> <span class="n">tick</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">held</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span data-line="109">    <span class="n">r</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">state</span>
-</span><span data-line="110">    <span class="nb">print</span><span class="p">(</span><span class="s2">"Free endpoint after 0.1 s:"</span><span class="p">,</span> <span class="n">r</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</span><span data-line="61"><span class="k">def</span><span class="w"> </span><span class="nf">material_terms</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+</span><span data-line="62"><span class="w">    </span><span class="sd">"""Frozen geometric gradients, elastic forces, and viscous coefficients."""</span>
+</span><span data-line="63">    <span class="n">terms</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span data-line="64">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+</span><span data-line="65">        <span class="n">d</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</span><span data-line="66">        <span class="n">length</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</span><span data-line="67">        <span class="k">if</span> <span class="n">length</span> <span class="o">&gt;</span> <span class="n">ell0</span><span class="p">:</span>
+</span><span data-line="68">            <span class="n">direction</span> <span class="o">=</span> <span class="n">d</span> <span class="o">/</span> <span class="n">length</span>
+</span><span data-line="69">            <span class="n">terms</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="o">-</span><span class="n">direction</span><span class="p">,</span> <span class="n">direction</span><span class="p">)),</span>
+</span><span data-line="70">                          <span class="n">EA</span><span class="o">*</span><span class="p">(</span><span class="n">length</span> <span class="o">-</span> <span class="n">ell0</span><span class="p">)</span><span class="o">/</span><span class="n">ell0</span><span class="p">,</span> <span class="n">etaA</span><span class="o">/</span><span class="n">ell0</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
+</span><span data-line="71">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+</span><span data-line="72">        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">r</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</span><span data-line="73">        <span class="n">aa</span><span class="p">,</span> <span class="n">bb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+</span><span data-line="74">        <span class="k">if</span> <span class="nb">min</span><span class="p">(</span><span class="n">aa</span><span class="p">,</span> <span class="n">bb</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-24</span><span class="p">:</span>
+</span><span data-line="75">            <span class="k">continue</span>
+</span><span data-line="76">        <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+</span><span data-line="77">        <span class="n">pa</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span> <span class="o">/</span> <span class="n">aa</span>
+</span><span data-line="78">        <span class="n">pb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span> <span class="o">/</span> <span class="n">bb</span>
+</span><span data-line="79">        <span class="n">gradients</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">pa</span><span class="p">,</span> <span class="o">-</span><span class="n">pa</span> <span class="o">-</span> <span class="n">pb</span><span class="p">,</span> <span class="n">pb</span><span class="p">))</span>
+</span><span data-line="80">        <span class="n">terms</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">gradients</span><span class="p">,</span> <span class="n">B</span><span class="o">*</span><span class="n">theta</span><span class="o">/</span><span class="n">ell0</span><span class="p">,</span> <span class="n">D</span><span class="o">/</span><span class="n">ell0</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+</span><span data-line="81">    <span class="k">return</span> <span class="n">terms</span>
+</span><span data-line="82">
+</span><span data-line="83">
+</span><span data-line="84"><span class="k">def</span><span class="w"> </span><span class="nf">solve_band</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">rhs</span><span class="p">):</span>
+</span><span data-line="85"><span class="w">    </span><span class="sd">"""Cholesky solve; matrix[i, k] stores the entry (i, i-k)."""</span>
+</span><span data-line="86">    <span class="n">size</span><span class="p">,</span> <span class="n">stride</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span>
+</span><span data-line="87">    <span class="n">width</span> <span class="o">=</span> <span class="n">stride</span> <span class="o">-</span> <span class="mi">1</span>
+</span><span data-line="88">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+</span><span data-line="89">        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">width</span><span class="p">),</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+</span><span data-line="90">            <span class="n">value</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">j</span><span class="p">]</span>
+</span><span data-line="91">            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">width</span><span class="p">),</span> <span class="n">j</span><span class="p">):</span>
+</span><span data-line="92">                <span class="n">value</span> <span class="o">-=</span> <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">matrix</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="n">k</span><span class="p">]</span>
+</span><span data-line="93">            <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span>
+</span><span data-line="94">                                <span class="k">else</span> <span class="n">value</span> <span class="o">/</span> <span class="n">matrix</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+</span><span data-line="95">    <span class="n">result</span> <span class="o">=</span> <span class="n">rhs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span data-line="96">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+</span><span data-line="97">        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">width</span><span class="p">),</span> <span class="n">i</span><span class="p">):</span>
+</span><span data-line="98">            <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">result</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+</span><span data-line="99">        <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/=</span> <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+</span><span data-line="100">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+</span><span data-line="101">        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">width</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)):</span>
+</span><span data-line="102">            <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="n">matrix</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">result</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+</span><span data-line="103">        <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/=</span> <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+</span><span data-line="104">    <span class="k">return</span> <span class="n">result</span>
+</span><span data-line="105">
+</span><span data-line="106">
+</span><span data-line="107"><span class="k">def</span><span class="w"> </span><span class="nf">solve_material_velocity</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">held</span><span class="p">):</span>
+</span><span data-line="108"><span class="w">    </span><span class="sd">"""Solve v1 = v0 + h*a(r0, v1), with the supports prescribed."""</span>
+</span><span data-line="109">    <span class="n">terms</span> <span class="o">=</span> <span class="n">material_terms</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span data-line="110">    <span class="n">old</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span data-line="111">    <span class="n">old</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span data-line="112">    <span class="n">size</span> <span class="o">=</span> <span class="n">old</span><span class="o">.</span><span class="n">size</span>
+</span><span data-line="113">    <span class="n">masses</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">mass</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span><span data-line="114">    <span class="n">known</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+</span><span data-line="115">    <span class="n">known</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span data-line="116">    <span class="k">if</span> <span class="n">held</span><span class="p">:</span>
+</span><span data-line="117">        <span class="n">known</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span data-line="118">
+</span><span data-line="119">    <span class="k">def</span><span class="w"> </span><span class="nf">rate</span><span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+</span><span data-line="120">        <span class="n">start</span><span class="p">,</span> <span class="n">gradient</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">term</span>
+</span><span data-line="121">        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">gradient</span><span class="p">,</span> <span class="n">v</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">start</span> <span class="o">+</span> <span class="n">gradient</span><span class="o">.</span><span class="n">size</span><span class="p">])</span>
+</span><span data-line="122">
+</span><span data-line="123">    <span class="k">def</span><span class="w"> </span><span class="nf">active</span><span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+</span><span data-line="124">        <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">elastic</span><span class="p">,</span> <span class="n">damping</span><span class="p">,</span> <span class="n">unilateral</span> <span class="o">=</span> <span class="n">term</span>
+</span><span data-line="125">        <span class="k">return</span> <span class="ow">not</span> <span class="n">unilateral</span> <span class="ow">or</span> <span class="n">damping</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">elastic</span> <span class="o">+</span> <span class="n">damping</span><span class="o">*</span><span class="n">rate</span><span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+</span><span data-line="126">
+</span><span data-line="127">    <span class="k">def</span><span class="w"> </span><span class="nf">objective</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+</span><span data-line="128">        <span class="n">value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">masses</span><span class="o">*</span><span class="p">(</span><span class="n">v</span> <span class="o">-</span> <span class="n">old</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">h</span><span class="o">*</span><span class="n">masses</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">v</span><span class="p">)</span>
+</span><span data-line="129">        <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">terms</span><span class="p">:</span>
+</span><span data-line="130">            <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">elastic</span><span class="p">,</span> <span class="n">damping</span><span class="p">,</span> <span class="n">unilateral</span> <span class="o">=</span> <span class="n">term</span>
+</span><span data-line="131">            <span class="n">speed</span> <span class="o">=</span> <span class="n">rate</span><span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+</span><span data-line="132">            <span class="n">value</span> <span class="o">+=</span> <span class="n">h</span> <span class="o">*</span> <span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">elastic</span> <span class="o">+</span> <span class="n">damping</span><span class="o">*</span><span class="n">speed</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">damping</span><span class="p">)</span>
+</span><span data-line="133">                          <span class="k">if</span> <span class="n">unilateral</span> <span class="ow">and</span> <span class="n">damping</span> <span class="o">&gt;</span> <span class="mi">0</span>
+</span><span data-line="134">                          <span class="k">else</span> <span class="n">elastic</span><span class="o">*</span><span class="n">speed</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">damping</span><span class="o">*</span><span class="n">speed</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="135">        <span class="k">return</span> <span class="n">value</span>
+</span><span data-line="136">
+</span><span data-line="137">    <span class="n">current</span> <span class="o">=</span> <span class="n">old</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span data-line="138">    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">):</span>
+</span><span data-line="139">        <span class="n">matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">size</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+</span><span data-line="140">        <span class="n">matrix</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">masses</span>
+</span><span data-line="141">        <span class="n">rhs</span> <span class="o">=</span> <span class="n">masses</span> <span class="o">*</span> <span class="p">(</span><span class="n">old</span> <span class="o">+</span> <span class="n">h</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+</span><span data-line="142">        <span class="n">flags</span> <span class="o">=</span> <span class="p">[</span><span class="n">active</span><span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="n">current</span><span class="p">)</span> <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">terms</span><span class="p">]</span>
+</span><span data-line="143">        <span class="k">for</span> <span class="n">enabled</span><span class="p">,</span> <span class="n">term</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">flags</span><span class="p">,</span> <span class="n">terms</span><span class="p">):</span>
+</span><span data-line="144">            <span class="k">if</span> <span class="ow">not</span> <span class="n">enabled</span><span class="p">:</span>
+</span><span data-line="145">                <span class="k">continue</span>
+</span><span data-line="146">            <span class="n">start</span><span class="p">,</span> <span class="n">gradient</span><span class="p">,</span> <span class="n">elastic</span><span class="p">,</span> <span class="n">damping</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">term</span>
+</span><span data-line="147">            <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">ga</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">gradient</span><span class="p">):</span>
+</span><span data-line="148">                <span class="n">i</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">a</span>
+</span><span data-line="149">                <span class="n">rhs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="n">h</span><span class="o">*</span><span class="n">elastic</span><span class="o">*</span><span class="n">ga</span>
+</span><span data-line="150">                <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+</span><span data-line="151">                    <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">]</span> <span class="o">+=</span> <span class="n">h</span><span class="o">*</span><span class="n">damping</span><span class="o">*</span><span class="n">ga</span><span class="o">*</span><span class="n">gradient</span><span class="p">[</span><span class="n">b</span><span class="p">]</span>
+</span><span data-line="152">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+</span><span data-line="153">            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">5</span><span class="p">),</span> <span class="n">i</span><span class="p">):</span>
+</span><span data-line="154">                <span class="k">if</span> <span class="n">known</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+</span><span data-line="155">                    <span class="n">rhs</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-=</span> <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">old</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</span><span data-line="156">                    <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span data-line="157">                <span class="k">elif</span> <span class="n">known</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+</span><span data-line="158">                    <span class="n">rhs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">old</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+</span><span data-line="159">                    <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span data-line="160">        <span class="n">matrix</span><span class="p">[</span><span class="n">known</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span data-line="161">        <span class="n">rhs</span><span class="p">[</span><span class="n">known</span><span class="p">]</span> <span class="o">=</span> <span class="n">old</span><span class="p">[</span><span class="n">known</span><span class="p">]</span>
+</span><span data-line="162">        <span class="n">candidate</span> <span class="o">=</span> <span class="n">solve_band</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">rhs</span><span class="p">)</span>
+</span><span data-line="163">        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">flag</span> <span class="o">==</span> <span class="n">active</span><span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="n">candidate</span><span class="p">)</span> <span class="k">for</span> <span class="n">flag</span><span class="p">,</span> <span class="n">term</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">flags</span><span class="p">,</span> <span class="n">terms</span><span class="p">)):</span>
+</span><span data-line="164">            <span class="k">return</span> <span class="n">candidate</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span><span data-line="165">        <span class="n">cost</span><span class="p">,</span> <span class="n">fraction</span> <span class="o">=</span> <span class="n">objective</span><span class="p">(</span><span class="n">current</span><span class="p">),</span> <span class="mf">1.0</span>
+</span><span data-line="166">        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">24</span><span class="p">):</span>
+</span><span data-line="167">            <span class="n">trial</span> <span class="o">=</span> <span class="n">current</span> <span class="o">+</span> <span class="n">fraction</span><span class="o">*</span><span class="p">(</span><span class="n">candidate</span> <span class="o">-</span> <span class="n">current</span><span class="p">)</span>
+</span><span data-line="168">            <span class="k">if</span> <span class="n">objective</span><span class="p">(</span><span class="n">trial</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">cost</span> <span class="o">+</span> <span class="mf">1e-15</span><span class="p">:</span>
+</span><span data-line="169">                <span class="k">break</span>
+</span><span data-line="170">            <span class="n">fraction</span> <span class="o">*=</span> <span class="mf">0.5</span>
+</span><span data-line="171">        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">trial</span> <span class="o">-</span> <span class="n">current</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mf">1e-10</span><span class="p">:</span>
+</span><span data-line="172">            <span class="k">return</span> <span class="n">trial</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span><span data-line="173">        <span class="n">current</span> <span class="o">=</span> <span class="n">trial</span>
+</span><span data-line="174">    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"Internal friction solve did not converge"</span><span class="p">)</span>
+</span><span data-line="175">
+</span><span data-line="176">
+</span><span data-line="177"><span class="k">def</span><span class="w"> </span><span class="nf">project_contour</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">held</span><span class="p">):</span>
+</span><span data-line="178">    <span class="n">r</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">state</span>
+</span><span data-line="179">    <span class="n">inverse_mass</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">mass</span>
+</span><span data-line="180">    <span class="n">inverse_mass</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span><span data-line="181">    <span class="k">if</span> <span class="n">held</span><span class="p">:</span>
+</span><span data-line="182">        <span class="n">inverse_mass</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span><span data-line="183">    <span class="k">for</span> <span class="n">indices</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)):</span>
+</span><span data-line="184">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
+</span><span data-line="185">            <span class="n">d</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</span><span data-line="186">            <span class="n">length</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</span><span data-line="187">            <span class="k">if</span> <span class="n">length</span> <span class="o">&gt;</span> <span class="n">ell0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">1e-6</span><span class="p">):</span>
+</span><span data-line="188">                <span class="k">continue</span>
+</span><span data-line="189">            <span class="n">wi</span><span class="p">,</span> <span class="n">wj</span> <span class="o">=</span> <span class="n">inverse_mass</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span>
+</span><span data-line="190">            <span class="k">if</span> <span class="n">wi</span> <span class="o">+</span> <span class="n">wj</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span data-line="191">                <span class="k">continue</span>
+</span><span data-line="192">            <span class="n">direction</span> <span class="o">=</span> <span class="n">d</span> <span class="o">/</span> <span class="n">length</span> <span class="k">if</span> <span class="n">length</span> <span class="o">&gt;</span> <span class="mf">1e-12</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+</span><span data-line="193">            <span class="n">correction</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">ell0</span> <span class="o">-</span> <span class="n">length</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">wi</span> <span class="o">+</span> <span class="n">wj</span><span class="p">)</span>
+</span><span data-line="194">            <span class="n">left</span> <span class="o">=</span> <span class="o">-</span><span class="n">wi</span> <span class="o">*</span> <span class="n">correction</span> <span class="o">*</span> <span class="n">direction</span>
+</span><span data-line="195">            <span class="n">right</span> <span class="o">=</span> <span class="n">wj</span> <span class="o">*</span> <span class="n">correction</span> <span class="o">*</span> <span class="n">direction</span>
+</span><span data-line="196">            <span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">left</span>
+</span><span data-line="197">            <span class="n">r</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">right</span>
+</span><span data-line="198">            <span class="c1"># Cancel closing motion; position repair does not supply a rebound.</span>
+</span><span data-line="199">            <span class="n">closing</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">direction</span><span class="p">)</span>
+</span><span data-line="200">            <span class="n">impulse</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="n">closing</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">wi</span> <span class="o">+</span> <span class="n">wj</span><span class="p">)</span>
+</span><span data-line="201">            <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="n">wi</span> <span class="o">*</span> <span class="n">impulse</span> <span class="o">*</span> <span class="n">direction</span>
+</span><span data-line="202">            <span class="n">v</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">wj</span> <span class="o">*</span> <span class="n">impulse</span> <span class="o">*</span> <span class="n">direction</span>
+</span><span data-line="203">
+</span><span data-line="204">
+</span><span data-line="205"><span class="k">def</span><span class="w"> </span><span class="nf">substep</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">held</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span data-line="206">    <span class="n">start</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span data-line="207">    <span class="k">if</span> <span class="n">held</span><span class="p">:</span>
+</span><span data-line="208">        <span class="n">point</span> <span class="o">=</span> <span class="n">start</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="n">target</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+</span><span data-line="209">        <span class="n">offset</span> <span class="o">=</span> <span class="n">point</span> <span class="o">-</span> <span class="n">anchor</span>
+</span><span data-line="210">        <span class="n">point</span> <span class="o">=</span> <span class="n">anchor</span> <span class="o">+</span> <span class="n">offset</span> <span class="o">*</span> <span class="nb">min</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">hand_reach</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">offset</span><span class="p">),</span> <span class="mf">1e-12</span><span class="p">))</span>
+</span><span data-line="211">        <span class="n">delta</span> <span class="o">=</span> <span class="n">point</span> <span class="o">-</span> <span class="n">start</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span><span data-line="212">        <span class="n">omega</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">hand_response</span>
+</span><span data-line="213">        <span class="n">acceleration</span> <span class="o">=</span> <span class="n">omega</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">delta</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">omega</span> <span class="o">*</span> <span class="n">start</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span><span data-line="214">        <span class="n">acceleration</span> <span class="o">*=</span> <span class="nb">min</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">hand_acceleration</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">acceleration</span><span class="p">),</span> <span class="mf">1e-12</span><span class="p">))</span>
+</span><span data-line="215">        <span class="n">velocity</span> <span class="o">=</span> <span class="n">start</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">h</span> <span class="o">*</span> <span class="n">acceleration</span>
+</span><span data-line="216">        <span class="n">start</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">velocity</span> <span class="o">*</span> <span class="nb">min</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">hand_speed</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">velocity</span><span class="p">),</span> <span class="mf">1e-12</span><span class="p">))</span>
+</span><span data-line="217">    <span class="n">prediction</span> <span class="o">=</span> <span class="n">start</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span data-line="218">    <span class="n">prediction</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">solve_material_velocity</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">held</span><span class="p">)</span>
+</span><span data-line="219">    <span class="n">prediction</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">h</span> <span class="o">*</span> <span class="n">prediction</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span><span data-line="220">    <span class="n">project_contour</span><span class="p">(</span><span class="n">prediction</span><span class="p">,</span> <span class="n">held</span><span class="p">)</span>
+</span><span data-line="221">    <span class="k">return</span> <span class="n">prediction</span>
+</span><span data-line="222">
+</span><span data-line="223">
+</span><span data-line="224"><span class="k">def</span><span class="w"> </span><span class="nf">tick</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">held</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span data-line="225">    <span class="n">result</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span data-line="226">    <span class="k">if</span> <span class="n">held</span> <span class="ow">and</span> <span class="n">target</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="227">        <span class="n">target</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span data-line="228">    <span class="n">limit</span><span class="p">,</span> <span class="n">remaining</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="o">*</span> <span class="n">ell0</span><span class="p">,</span> <span class="n">h</span>
+</span><span data-line="229">    <span class="k">while</span> <span class="n">remaining</span> <span class="o">&gt;</span> <span class="n">h</span> <span class="o">*</span> <span class="mf">1e-12</span><span class="p">:</span>
+</span><span data-line="230">        <span class="n">speed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+</span><span data-line="231">        <span class="c1"># Leave room for acceleration and contour corrections before retrying.</span>
+</span><span data-line="232">        <span class="n">part</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">remaining</span><span class="p">,</span> <span class="mf">0.9</span> <span class="o">*</span> <span class="n">limit</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">speed</span><span class="p">,</span> <span class="mf">1e-12</span><span class="p">))</span>
+</span><span data-line="233">        <span class="k">for</span> <span class="n">attempt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">21</span><span class="p">):</span>
+</span><span data-line="234">            <span class="n">prediction</span> <span class="o">=</span> <span class="n">substep</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">part</span><span class="p">,</span> <span class="n">held</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+</span><span data-line="235">            <span class="n">movement</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">prediction</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+</span><span data-line="236">            <span class="k">if</span> <span class="n">movement</span> <span class="o">&lt;=</span> <span class="n">limit</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">1e-6</span><span class="p">):</span>
+</span><span data-line="237">                <span class="k">break</span>
+</span><span data-line="238">            <span class="n">part</span> <span class="o">*=</span> <span class="mf">0.5</span>
+</span><span data-line="239">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="240">            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"Could not resolve the string motion"</span><span class="p">)</span>
+</span><span data-line="241">        <span class="n">result</span> <span class="o">=</span> <span class="n">prediction</span>
+</span><span data-line="242">        <span class="n">remaining</span> <span class="o">-=</span> <span class="n">part</span>
+</span><span data-line="243">    <span class="k">return</span> <span class="n">result</span>
+</span><span data-line="244">
+</span><span data-line="245">
+</span><span data-line="246"><span class="k">def</span><span class="w"> </span><span class="nf">release</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+</span><span data-line="247">    <span class="n">released</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span data-line="248">    <span class="n">released</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span><span data-line="249">    <span class="k">return</span> <span class="n">released</span>
+</span><span data-line="250">
+</span><span data-line="251">
+</span><span data-line="252"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+</span><span data-line="253">    <span class="n">state</span> <span class="o">=</span> <span class="n">release</span><span class="p">(</span><span class="n">initial_state</span><span class="p">())</span>
+</span><span data-line="254">    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="mf">0.1</span> <span class="o">/</span> <span class="n">h</span><span class="p">)):</span>  <span class="c1"># 0.1 physical seconds after letting go.</span>
+</span><span data-line="255">        <span class="n">state</span> <span class="o">=</span> <span class="n">tick</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">held</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span data-line="256">    <span class="n">r</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">state</span>
+</span><span data-line="257">    <span class="nb">print</span><span class="p">(</span><span class="s2">"Free endpoint after 0.1 s:"</span><span class="p">,</span> <span class="n">r</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 </span></pre></div>
 </div>
 <p>Here <code class="docutils literal notranslate"><span class="pre">state[0]</span></code> holds all positions and <code class="docutils literal notranslate"><span class="pre">state[1]</span></code> all velocities.
 The rate function returns an array of the same shape containing velocities and accelerations.
-<code class="docutils literal notranslate"><span class="pre">tick</span></code> copies its input, prescribes hand velocity if held, predicts with Euler, and corrects the contour.
+<code class="docutils literal notranslate"><span class="pre">tick</span></code> copies its input, prescribes hand velocity if held, solves the Euler velocity equation, advances positions, and corrects the contour.
 <code class="docutils literal notranslate"><span class="pre">release</span></code> changes only the endpoint velocity; pass <code class="docutils literal notranslate"><span class="pre">held=False</span></code> on subsequent ticks.
-The runnable example releases the initially horizontal string immediately.</p>
+The runnable example releases the initially straight string immediately.</p>
 <p>To hold or move the endpoint, call <code class="docutils literal notranslate"><span class="pre">tick(state,</span> <span class="pre">h,</span> <span class="pre">held=True,</span> <span class="pre">target=point)</span></code>;
-<code class="docutils literal notranslate"><span class="pre">point</span></code> is a two-component position in metres. Omitting the target holds its current position.
+<code class="docutils literal notranslate"><span class="pre">point</span></code> is a two-component position in metres. For a fixed hold, pass the same target on every tick; omitting it uses the current endpoint as the next target.
 The accepted <code class="docutils literal notranslate"><span class="pre">r</span></code> values are the points to draw as a connected line.
 Rendering and quarter-speed playback do not change the physical tick,
 as discussed in <a class="reference internal" href="01a-simulation-basics.html"><span class="doc">Basics of simulation software</span></a>.</p>
 </section>
 <section id="choosing-a-time-step-and-checking-the-result">
-<h2><span class="section-number">7.16. </span>Choosing a time step and checking the result<a class="headerlink" href="#choosing-a-time-step-and-checking-the-result" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">7.18. </span>Choosing a time step and checking the result<a class="headerlink" href="#choosing-a-time-step-and-checking-the-result" title="Link to this heading">#</a></h2>
 <p>A stiff string has fast vibrations, including lengthwise motion that may be almost invisible.
 For the uniform, taut chain with small extension, its longitudinal wave speed in original-length coordinates is approximately</p>
 <div class="math-wrapper docutils container">
@@ -738,18 +1022,21 @@ For the uniform, taut chain with small extension, its longitudinal wave speed in
 </div>
 <p>The travel time across one segment, <span class="math notranslate nohighlight">\(\ell_0/c_{\mathrm{axial}}\)</span>,
 gives a useful scale for choosing the time step.
-Forward Euler can add numerical energy to vibrations, so resolving their period is not enough to guarantee stability.
-An undamped linear vibration gains energy at every nonzero Euler step.
-Internal friction can counter this growth, but the permitted step depends on the damping as well as the stiffness.
+A fully explicit Euler step can add numerical energy to vibrations, so resolving their period alone is not a stability guarantee.
+The demo instead solves the velocity-dependent friction implicitly and advances positions with the new velocities.
+Its geometry is still evaluated at the old positions, so elastic motion and changes of constraint still require temporal resolution.
 For our numbers, <span class="math notranslate nohighlight">\(c_{\mathrm{axial}}\approx70.7\)</span> m/s and
-<span class="math notranslate nohighlight">\(\ell_0/c_{\mathrm{axial}}\approx0.000707\)</span> s.
-The example uses <span class="math notranslate nohighlight">\(h=0.000005\)</span> s and runs for 0.1 s.
+<span class="math notranslate nohighlight">\(\ell_0/c_{\mathrm{axial}}\approx0.000354\)</span> s.
+The example uses <span class="math notranslate nohighlight">\(h=0.0001\)</span> s and runs for 0.1 s.
 Check convergence over the intended duration by reducing the time step;
 this short example does not establish stability for arbitrarily long playback.
 Refining the chain also requires checking the time step again.</p>
 <p>Bending introduces another time scale, roughly <span class="math notranslate nohighlight">\(\ell_0^2\sqrt{\mu/B}\)</span>.
 Shorter bends can vibrate faster, so halving segment lengths reduces this scale by a factor of four.
-Strong bending damping also restricts an explicit time step;
+Extension damping adds a time scale of order <span class="math notranslate nohighlight">\(\mu\ell_0^2/(\eta A_0)\)</span>,
+which is about 0.42 microseconds for these coefficients. Increasing viscosity can therefore
+require a smaller fully explicit step, even though it dissipates physical energy. The implicit friction solve avoids this particular restriction.</p>
+<p>Strong bending damping would also restrict a fully explicit time step;
 its short-wavelength scale is roughly <span class="math notranslate nohighlight">\(\mu\ell_0^4/D\)</span>.
 These are scales rather than universal stability bounds.</p>
 <p>This speed differs from the small transverse-wave speed
@@ -776,7 +1063,7 @@ Compare sag and oscillation timing at matching physical times.</p></li>
 </ul>
 </section>
 <section id="from-one-string-to-cloth">
-<h2><span class="section-number">7.17. </span>From one string to cloth<a class="headerlink" href="#from-one-string-to-cloth" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">7.19. </span>From one string to cloth<a class="headerlink" href="#from-one-string-to-cloth" title="Link to this heading">#</a></h2>
 <p>A string stores energy when it stretches; a flexible sheet also resists changes
 of angle between material directions.
 Crossing many strings suggests warp and weft, but their intersections need a rule
