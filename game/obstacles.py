@@ -2,8 +2,34 @@
 import math
 from dataclasses import dataclass
 
-from .primitives import GameObject, Point, Rect
 from .ball import Ball
+from .primitives import GameObject, Point, Rect
+
+
+@dataclass(slots=True)
+class Disk:
+    center: Point
+    radius: float
+
+    def intersection(self, p: Point) -> tuple[Point, Point] | None:
+        d = p - self.center
+        if d.length() <= self.radius:
+            return self.center + d.normal() * self.radius, d.normal()
+        return None
+
+
+@dataclass(slots=True)
+class Side:
+    a: Point
+    b: Point
+    n: Point
+
+    def intersection(self, d: Disk) -> tuple[Point, Point] | None:
+        bounding_box = Rect.orient(self.a + self.n * d.radius, self.b)
+        if bounding_box.within(d.center):
+            distance = (d.center - self.a) * self.n
+            return (d.center - self.n * distance, self.n)
+        return None
 
 
 @dataclass
@@ -14,7 +40,7 @@ class StaticBox(GameObject):
     friction: float = 0.9
 
     def primitive(self) -> Rect:
-        return Rect("green", self.a, self.b)
+        return Rect(self.a, self.b, "green")
 
     def move(self, ax: float, bx: float, ay: float, by: float) -> None:
         self.a.x = ax
@@ -56,15 +82,13 @@ class StaticBox(GameObject):
 
     def correction(self, ball: Ball, penetration: bool = True) -> tuple[float, float]:
         # pylint: disable=too-many-locals
-        p = (
-            min(self.b.x - self.a.x, self.a.y - self.b.y, ball.radius) * self.penetration
-            if penetration
-            else 0
-        )
+        p = self.penetration if penetration else 0
         r = ball.radius - p
         ao = Point(self.a.x - r, self.a.y + r)
         bo = Point(self.b.x + r, self.b.y - r)
-        c = Point(self.a.x + (self.b.x - self.a.x) / 2, self.b.y + (self.a.y - self.b.y) / 2)
+        c = Point(
+            self.a.x + (self.b.x - self.a.x) / 2, self.b.y + (self.a.y - self.b.y) / 2
+        )
         cx, cy = 0, 0
         # edges:
         if self.a.x < ball.x < self.b.x:
@@ -77,13 +101,7 @@ class StaticBox(GameObject):
                 return ao.x - ball.x, 0
             if c.x < ball.x < bo.x:
                 return bo.x - ball.x, 0
-        corners = (
-            Point(self.a.x + p, self.a.y - p),
-            Point(self.b.x - p, self.a.y - p),
-            Point(self.b.x - p, self.b.y + p),
-            Point(self.a.x + p, self.b.y + p),
-        )
-        for corner in corners:
+        for corner in self.corners(p):
             d = (corner.x - ball.x, corner.y - ball.y)
             dist = math.hypot(*d)
             if dist < ball.radius:
@@ -91,6 +109,42 @@ class StaticBox(GameObject):
                 nx, ny = normal(*d)
                 return nx * p, ny * p
         return cx, cy
+
+    def contact_correction(self, disk: Disk, penetration: bool = True) -> tuple[float, float]:
+        contact = self.contact(disk, penetration)
+        if contact is None:
+            return 0, 0
+        c = contact[0]
+        return disk.center.x - c.x, disk.center.y - c.y
+
+    def contact(
+        self, disk: Disk, penetration: bool = True
+    ) -> tuple[Point, Point] | None:
+        p = self.penetration if penetration else 0
+        for s in self.sides(p):
+            if i := s.intersection(disk):
+                return i
+        for c in self.corners(p):
+            if i := disk.intersection(c):
+                return (i[0], i[1] * -1)
+        return None
+
+    def corners(self, p: float) -> tuple[Point, ...]:
+        return (
+            Point(self.a.x + p, self.a.y - p),
+            Point(self.b.x - p, self.a.y - p),
+            Point(self.b.x - p, self.b.y + p),
+            Point(self.a.x + p, self.b.y + p),
+        )
+
+    def sides(self, penetration: float) -> tuple[Side, ...]:
+        cs = self.corners(penetration)
+        return (
+            Side(cs[0], cs[1], Point(0, 1)),
+            Side(cs[1], cs[2], Point(1, 0)),
+            Side(cs[3], cs[2], Point(0, -1)),
+            Side(cs[0], cs[3], Point(-1, 0)),
+        )
 
 
 def normal(x: float, y: float) -> tuple[float, float]:

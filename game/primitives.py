@@ -1,7 +1,8 @@
 #!/usr/bin/env python
+import math
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Iterable
+from typing import Iterable, overload, Self
 
 import pygame
 
@@ -24,16 +25,42 @@ class Point:
     x: float
     y: float
 
+    def __add__(self, p: 'Point') -> 'Point':
+        return Point(self.x + p.x, self.y + p.y)
+
+    def __sub__(self, p: 'Point') -> 'Point':
+        return Point(self.x - p.x, self.y - p.y)
+
+    @overload
+    def __mul__(self, p: Self) -> float:
+        """Dot product"""
+
+    @overload
+    def __mul__(self, p: float) -> "Point":
+        """Scalar product"""
+
+    def __mul__(self, p: Self | float) -> "Point | float":
+        if isinstance(p, Point):
+            return self.x * p.x + self.y * p.y
+        return Point(self.x * p, self.y * p)
+
+    def normal(self) -> 'Point':
+        length = self.length()
+        return Point(self.x / length, self.y / length)
+
+    def length(self) -> float:
+        return math.hypot(self.x, self.y)
+
     def project(self, w: int, h: int, scale: float) -> "Point":
         return Point(int(w // 2 + self.x * scale), int(h // 2 - self.y * scale))
 
 
-@dataclass
+@dataclass(slots=True)
 class Circle(Primitive):
-    color: str
     x: float
     y: float
     radius: float
+    color: str = "black"
 
     def draw(self, screen, scale: float) -> None:
         cx, cy = screen.get_width() // 2, screen.get_height() // 2
@@ -45,16 +72,26 @@ class Circle(Primitive):
         )
 
 
-@dataclass
+@dataclass(slots=True)
 class Rect(Primitive):
-    color: str
     a: Point
     b: Point
+    color: str = "black"
 
     def draw(self, screen, scale: float) -> None:
         screen.fill(
             self.color, self._rect(screen.get_width(), screen.get_height(), scale)
         )
+
+    @classmethod
+    def orient(cls, a: Point, b: Point) -> 'Rect':
+        return Rect(
+            a=Point(min(a.x, b.x), max(a.y, b.y)),
+            b=Point(max(a.x, b.x), min(a.y, b.y)),
+        )
+
+    def within(self, p: Point) -> bool:
+        return self.a.x <= p.x <= self.b.x and self.b.y <= p.y <= self.a.y
 
     def _rect(self, w: int, h: int, s: float) -> pygame.Rect:
         a = self.a.project(w, h, s)

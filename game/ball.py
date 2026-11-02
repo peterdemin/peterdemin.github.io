@@ -30,7 +30,7 @@ class Ball(GameObject):
     penetration: float = 0.95
 
     def primitive(self) -> Circle:
-        return Circle(self.color, self.x, self.y, self.radius)
+        return Circle(self.x, self.y, self.radius, self.color)
 
     def control(self, controls: BallControls) -> None:
         self.vx += self.control_impulse * controls.right
