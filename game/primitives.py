@@ -2,7 +2,7 @@
 import math
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Iterable, overload, Self
+from typing import Iterable, Self, overload
 
 import pygame
 
@@ -25,10 +25,10 @@ class Point:
     x: float
     y: float
 
-    def __add__(self, p: 'Point') -> 'Point':
+    def __add__(self, p: "Point") -> "Point":
         return Point(self.x + p.x, self.y + p.y)
 
-    def __sub__(self, p: 'Point') -> 'Point':
+    def __sub__(self, p: "Point") -> "Point":
         return Point(self.x - p.x, self.y - p.y)
 
     @overload
@@ -44,7 +44,7 @@ class Point:
             return self.x * p.x + self.y * p.y
         return Point(self.x * p, self.y * p)
 
-    def normal(self) -> 'Point':
+    def normal(self) -> "Point":
         length = self.length()
         return Point(self.x / length, self.y / length)
 
@@ -53,6 +53,9 @@ class Point:
 
     def project(self, w: int, h: int, scale: float) -> "Point":
         return Point(int(w // 2 + self.x * scale), int(h // 2 - self.y * scale))
+
+    def tangent(self) -> "Point":
+        return Point(-self.y, self.x)
 
 
 @dataclass(slots=True)
@@ -84,7 +87,7 @@ class Rect(Primitive):
         )
 
     @classmethod
-    def orient(cls, a: Point, b: Point) -> 'Rect':
+    def orient(cls, a: Point, b: Point) -> "Rect":
         return Rect(
             a=Point(min(a.x, b.x), max(a.y, b.y)),
             b=Point(max(a.x, b.x), min(a.y, b.y)),

@@ -45,6 +45,7 @@ class World:
             Node(0, h * 3 / 4),
             Node(w * 3 / 4, h / 2),
         )
+        self.repair([self.ball, self.ball2], penetration=False)
 
     def reset(self) -> None:
         self.ball = Ball()
